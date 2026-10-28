@@ -183,6 +183,7 @@ svg {
   overflow-y: auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(44vw, 200px), 1fr));
+  grid-auto-rows: max-content;
   gap: clamp(12px, 2.5vmin, 24px);
   padding: 12px 4px 24px;
   align-content: start;
@@ -201,8 +202,11 @@ svg {
 }
 .place .pic {
   width: 100%;
-  aspect-ratio: 200 / 160;
-  max-height: 22vh;
+  height: clamp(90px, 20vh, 180px);
+  flex: none;
+}
+.place .label {
+  flex: none;
 }
 
 /* ---------- game frame ---------- */
@@ -318,6 +322,7 @@ svg {
   overflow-y: auto;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-auto-rows: max-content;
   gap: 16px;
   padding: 16px 4px;
   align-content: start;
