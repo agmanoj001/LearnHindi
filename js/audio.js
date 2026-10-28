@@ -103,7 +103,7 @@ function playUrl(url) {
 
 function pickVoice(lang) {
   const voices = speechSynthesis.getVoices();
-  const full = TTS_LANG[lang].toLowerCase();
+  const full = (TTS_LANG[lang] || 'en-US').toLowerCase();
   const norm = (v) => v.lang.replace('_', '-').toLowerCase();
   return (
     voices.find((v) => norm(v) === full && v.localService) ||

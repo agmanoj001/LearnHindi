@@ -647,3 +647,61 @@ svg {
   border-top: 12px solid #a1887f;
   padding-top: 8px;
 }
+
+/* ---------- railway ---------- */
+.train-set .set-preview {
+  font-size: calc(var(--tap) * 0.3);
+  font-weight: 800;
+}
+.rail {
+  width: 100%;
+  overflow: hidden;
+  border-bottom: 10px solid #5d4037;
+  padding-bottom: 4px;
+}
+.train {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 2px;
+}
+.engine,
+.carriage {
+  position: relative;
+  flex: none;
+}
+.engine {
+  width: clamp(76px, 18vw, 190px);
+  aspect-ratio: 200 / 140;
+}
+.carriage {
+  width: clamp(66px, 18vw, 150px);
+  aspect-ratio: 200 / 140;
+}
+.engine .pic,
+.carriage .pic {
+  position: absolute;
+  inset: 0;
+}
+.cargo,
+.engine-letter {
+  position: absolute;
+  inset: 8% 6% 28%;
+  display: grid;
+  place-items: center;
+  font-size: clamp(24px, 8vw, 72px);
+  line-height: 1;
+  font-weight: 800;
+  color: #fff;
+  text-shadow: 0 2px 0 var(--ink);
+}
+.engine-letter {
+  inset: 20% 66% 40% 10%;
+  font-size: clamp(14px, 3.4vw, 30px);
+}
+.carriage.next .cargo {
+  animation: pulse 1.2s ease-in-out infinite;
+}
+.carriage:not(.full) .cargo {
+  opacity: 0.6;
+}

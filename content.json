@@ -129,7 +129,8 @@
     { "id": "fire", "word": "place-fire", "game": "rescue", "color": "#e53935", "options": { "vehicle": "firetruck" } },
     { "id": "police", "word": "place-police", "game": "rescue", "color": "#1e88e5", "options": { "vehicle": "policecar" } },
     { "id": "hospital", "word": "place-hospital", "game": "rescue", "color": "#26a69a", "options": { "vehicle": "ambulance" } },
-    { "id": "farm", "word": "place-farm", "game": "farm", "color": "#7cb342" }
+    { "id": "farm", "word": "place-farm", "game": "farm", "color": "#7cb342" },
+    { "id": "railway", "word": "place-railway", "game": "railway", "color": "#8d6e63" }
   ],
   "sentences": [
     { "id": "bus-here", "about": "bus", "hi": "बस आई!", "translit": "bas aai", "en": "The bus is here!" },
@@ -264,7 +265,7 @@
     },
     "rescue": { "rounds": 6, "words": ["cow", "dog", "cat", "duck", "rabbit", "parrot", "monkey", "goat"] },
     "farm": { "rounds": 6, "animals": ["cow", "dog", "cat", "duck", "rooster", "goat", "sheep", "horse"] },
-    "railway": { "carriages": 5 },
+    "railway": { "carriages": 4 },
     "recycling": { "rounds": 8, "bins": 3, "colors": ["red", "blue", "yellow", "green"], "shapes": ["circle", "square", "triangle", "star"] },
     "opposites": {
       "rounds": 6,
