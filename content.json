@@ -125,7 +125,10 @@
   ],
   "places": [
     { "id": "construction", "word": "place-construction", "game": "construction", "color": "#ffb300" },
-    { "id": "busdepot", "word": "place-busdepot", "game": "busdepot", "color": "#fdd835" }
+    { "id": "busdepot", "word": "place-busdepot", "game": "busdepot", "color": "#fdd835" },
+    { "id": "fire", "word": "place-fire", "game": "rescue", "color": "#e53935", "options": { "vehicle": "firetruck" } },
+    { "id": "police", "word": "place-police", "game": "rescue", "color": "#1e88e5", "options": { "vehicle": "policecar" } },
+    { "id": "hospital", "word": "place-hospital", "game": "rescue", "color": "#26a69a", "options": { "vehicle": "ambulance" } }
   ],
   "sentences": [
     { "id": "bus-here", "about": "bus", "hi": "बस आई!", "translit": "bas aai", "en": "The bus is here!" },

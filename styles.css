@@ -590,3 +590,44 @@ svg {
   font-weight: 700;
   opacity: 0.7;
 }
+
+/* ---------- rescue ---------- */
+.building {
+  width: min(94vw, 620px);
+  background: var(--place);
+  border: 6px solid var(--ink);
+  border-radius: 14px 14px 0 0;
+  padding: 16px 12px 22px;
+  position: relative;
+}
+.building .roof {
+  position: absolute;
+  left: -6px;
+  right: -6px;
+  top: -34px;
+  height: 34px;
+  background: var(--ink);
+  clip-path: polygon(6% 100%, 50% 0, 94% 100%);
+}
+.windows {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+.card.window {
+  background: #e1f5fe;
+  border-radius: 14px;
+}
+.card.window.done {
+  background: #c8e6c9;
+}
+.street {
+  border-top: 12px solid #546e7a;
+  padding-top: 8px;
+}
+.rescuer {
+  cursor: pointer;
+  position: relative;
+  z-index: 3;
+}
