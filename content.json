@@ -131,7 +131,8 @@
     { "id": "hospital", "word": "place-hospital", "game": "rescue", "color": "#26a69a", "options": { "vehicle": "ambulance" } },
     { "id": "farm", "word": "place-farm", "game": "farm", "color": "#7cb342" },
     { "id": "railway", "word": "place-railway", "game": "railway", "color": "#8d6e63" },
-    { "id": "recycling", "word": "place-recycling", "game": "recycling", "color": "#43a047" }
+    { "id": "recycling", "word": "place-recycling", "game": "recycling", "color": "#43a047" },
+    { "id": "airport", "word": "place-airport", "game": "opposites", "color": "#29b6f6" }
   ],
   "sentences": [
     { "id": "bus-here", "about": "bus", "hi": "बस आई!", "translit": "bas aai", "en": "The bus is here!" },

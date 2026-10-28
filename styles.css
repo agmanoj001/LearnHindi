@@ -718,3 +718,62 @@ svg {
 .bin:active {
   transform: translateY(4px);
 }
+
+/* ---------- airport and harbour: opposites ---------- */
+.opposites {
+  width: 100%;
+}
+.opp-panel {
+  width: min(44vw, 340px);
+  height: min(56vh, 380px);
+  border: 6px solid var(--ink);
+  border-radius: var(--radius);
+  background: linear-gradient(#81d4fa 0 78%, #4fc3f7 78%);
+  box-shadow: 0 8px 0 rgba(38, 50, 56, 0.35);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.opp-panel.height {
+  background: linear-gradient(#81d4fa 0 82%, #8bc34a 82%);
+}
+.opp-vehicle {
+  width: 90%;
+  aspect-ratio: 200 / 140;
+}
+.size.side-b .opp-vehicle {
+  width: 36%;
+}
+.height .opp-vehicle {
+  width: 70%;
+  position: absolute;
+}
+.height.side-a .opp-vehicle {
+  top: 6%;
+}
+.height.side-b .opp-vehicle {
+  bottom: 14%;
+}
+.speed .opp-vehicle {
+  width: 70%;
+  animation: cross 1s linear infinite;
+}
+.speed.side-b .opp-vehicle {
+  animation-duration: 7s;
+}
+.speed.side-a::before {
+  content: '';
+  position: absolute;
+  inset: 40% 0 40% 0;
+  background: repeating-linear-gradient(transparent 0 10px, rgba(255, 255, 255, 0.9) 10px 14px);
+}
+@keyframes cross {
+  from {
+    transform: translateX(-120%);
+  }
+  to {
+    transform: translateX(120%);
+  }
+}
