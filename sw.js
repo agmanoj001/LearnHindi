@@ -1,5 +1,5 @@
 // Offline support: cache the app shell, then serve from cache and refresh in the background.
-const VERSION = 'vt-v5';
+const VERSION = 'vt-v6';
 const SHELL = [
   './',
   'index.html',
@@ -23,6 +23,7 @@ const SHELL = [
   'js/games/rescue.js',
   'js/games/farm.js',
   'js/games/railway.js',
+  'js/games/recycling.js',
 ];
 
 self.addEventListener('install', (event) => {

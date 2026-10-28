@@ -705,3 +705,16 @@ svg {
 .carriage:not(.full) .cargo {
   opacity: 0.6;
 }
+
+/* ---------- recycling ---------- */
+.sort-item {
+  width: clamp(110px, 26vmin, 220px);
+  aspect-ratio: 200 / 140;
+}
+.bin {
+  width: clamp(96px, 24vmin, 180px);
+  aspect-ratio: 120 / 140;
+}
+.bin:active {
+  transform: translateY(4px);
+}
