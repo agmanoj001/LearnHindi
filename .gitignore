@@ -1,0 +1,6 @@
+# Family voice recordings never go into this public repo.
+audio/
+# Personal photos, just in case someone drops them here.
+photos/
+node_modules/
+.DS_Store
