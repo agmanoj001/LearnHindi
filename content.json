@@ -124,7 +124,8 @@
     { "id": "submarine" }
   ],
   "places": [
-    { "id": "construction", "word": "place-construction", "game": "construction", "color": "#ffb300" }
+    { "id": "construction", "word": "place-construction", "game": "construction", "color": "#ffb300" },
+    { "id": "busdepot", "word": "place-busdepot", "game": "busdepot", "color": "#fdd835" }
   ],
   "sentences": [
     { "id": "bus-here", "about": "bus", "hi": "बस आई!", "translit": "bas aai", "en": "The bus is here!" },

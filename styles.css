@@ -542,3 +542,51 @@ svg {
   z-index: 5;
   position: relative;
 }
+
+/* ---------- bus depot ---------- */
+.riders,
+.inside {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  min-height: 64px;
+}
+.inside {
+  width: min(94vw, 640px);
+  min-height: calc(var(--tap) * 0.9);
+  padding: 10px;
+  background: #fff59d;
+  border: 6px solid #ffc107;
+  border-radius: 22px;
+  align-content: center;
+}
+.mini {
+  width: 64px;
+  height: 46px;
+  display: inline-grid;
+  place-items: center;
+}
+.mini.glyph {
+  font-size: 36px;
+  font-weight: 800;
+}
+.inside .mini {
+  width: clamp(60px, 13vmin, 100px);
+  height: clamp(44px, 9vmin, 72px);
+}
+.bus-stop {
+  border-top: 10px solid #78909c;
+  padding-top: 14px;
+  width: 100%;
+}
+.card.number .glyph {
+  font-size: calc(var(--tap) * 0.5);
+  font-weight: 800;
+  line-height: 1;
+}
+.card.number .sub {
+  font-size: calc(var(--tap) * 0.2);
+  font-weight: 700;
+  opacity: 0.7;
+}
