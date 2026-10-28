@@ -1,0 +1,11 @@
+{
+  "name": "vehicle-town",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Offline PWA for learning Hindi and English with vehicles",
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "serve": "python3 -m http.server 8080"
+  }
+}
