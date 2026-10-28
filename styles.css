@@ -631,3 +631,19 @@ svg {
   position: relative;
   z-index: 3;
 }
+
+/* ---------- farm ---------- */
+.field {
+  width: min(96vw, 680px);
+  padding: 18px 8px;
+  background: repeating-linear-gradient(90deg, #c5e1a5 0 30px, #aed581 30px 60px);
+  border: 8px solid #8d6e63;
+  border-radius: 18px;
+}
+.card.animal {
+  background: #fffde7;
+}
+.farm-road {
+  border-top: 12px solid #a1887f;
+  padding-top: 8px;
+}
