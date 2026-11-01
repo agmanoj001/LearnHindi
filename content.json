@@ -1,6 +1,7 @@
 {
   "version": 1,
   "phrases": {
+    "title": { "hi": "गाड़ी नगर", "en": "Vehicle Town" },
     "welcome": { "hi": "चलो खेलें!", "en": "Let's play!" },
     "find": { "hi": "{w} ढूँढो", "en": "Find {w}" },
     "thisIs": { "hi": "यह {w} है", "en": "This is {w}" },
@@ -22,7 +23,16 @@
     "trace": { "hi": "सड़क पर उँगली चलाओ", "en": "Drive along the road with your finger" },
     "pickVehicle": { "hi": "गाड़ी चुनो", "en": "Pick a vehicle" },
     "newVehicle": { "hi": "नई गाड़ी मिली: {w}!", "en": "You got a new vehicle: {w}!" },
-    "special": { "hi": "मेरी खास गाड़ी", "en": "My special vehicle" }
+    "special": { "hi": "मेरी खास गाड़ी", "en": "My special vehicle" },
+    "readFind": { "hi": "{w} वाला घर ढूँढो", "en": "Find the house that says {w}" },
+    "readWord": { "hi": "शब्द पढ़ो और उसकी तस्वीर ढूँढो", "en": "Read the word and find its picture" },
+    "fixMatra": { "hi": "सही मात्रा लगाओ", "en": "Add the right matra" },
+    "makeSentence": { "hi": "वाक्य बनाओ", "en": "Make the sentence" },
+    "rhymesWith": { "hi": "किसकी तुक {w} से मिलती है?", "en": "Which word rhymes with {w}?" },
+    "oppositeOf": { "hi": "{w} का उल्टा क्या है?", "en": "What is the opposite of {w}?" },
+    "pluralOf": { "hi": "एक {w}, और बहुत सारे?", "en": "One {w}. And many?" },
+    "femaleOf": { "hi": "{w} का स्त्रीलिंग क्या है?", "en": "What is the female of {w}?" },
+    "listenStory": { "hi": "चलो कहानी पढ़ें", "en": "Let's read a story" }
   },
   "words": {
     "digger": { "hi": "खुदाई मशीन", "translit": "khudaai mashin", "en": "digger", "picture": "digger" },
@@ -30,8 +40,8 @@
     "crane": { "hi": "क्रेन", "translit": "kren", "en": "crane", "picture": "crane" },
     "mixer": { "hi": "सीमेंट मिक्सर", "translit": "seement miksar", "en": "cement mixer", "picture": "mixer" },
     "bulldozer": { "hi": "बुलडोज़र", "translit": "buldozar", "en": "bulldozer", "picture": "bulldozer" },
-    "bus": { "hi": "बस", "translit": "bas", "en": "bus", "picture": "bus", "syllables": ["ब", "स"] },
-    "car": { "hi": "कार", "translit": "kaar", "en": "car", "picture": "car", "syllables": ["का", "र"] },
+    "bus": { "hi": "बस", "translit": "bas", "en": "bus", "picture": "bus", "level": "kg", "syllables": ["ब", "स"] },
+    "car": { "hi": "कार", "translit": "kaar", "en": "car", "picture": "car", "level": "grade1", "syllables": ["का", "र"] },
     "firetruck": { "hi": "दमकल", "translit": "damkal", "en": "fire engine", "picture": "firetruck" },
     "policecar": { "hi": "पुलिस की गाड़ी", "translit": "pulis ki gaadi", "en": "police car", "picture": "policecar" },
     "ambulance": { "hi": "एम्बुलेंस", "translit": "embulens", "en": "ambulance", "picture": "ambulance" },
@@ -40,51 +50,54 @@
     "garbagetruck": { "hi": "कूड़ा गाड़ी", "translit": "kooda gaadi", "en": "garbage truck", "picture": "garbagetruck" },
     "plane": { "hi": "हवाई जहाज़", "translit": "havaai jahaaz", "en": "plane", "picture": "plane" },
     "helicopter": { "hi": "हेलीकॉप्टर", "translit": "helicopter", "en": "helicopter", "picture": "helicopter" },
-    "boat": { "hi": "नाव", "translit": "naav", "en": "boat", "picture": "boat", "syllables": ["ना", "व"] },
+    "boat": { "hi": "नाव", "translit": "naav", "en": "boat", "picture": "boat", "level": "grade1", "syllables": ["ना", "व"] },
     "auto": { "hi": "ऑटो रिक्शा", "translit": "auto riksha", "en": "auto rickshaw", "picture": "auto" },
     "scooter": { "hi": "स्कूटर", "translit": "scooter", "en": "scooter", "picture": "scooter" },
     "bicycle": { "hi": "साइकिल", "translit": "saaikil", "en": "bicycle", "picture": "bicycle" },
     "motorbike": { "hi": "मोटरसाइकिल", "translit": "motarsaaikil", "en": "motorbike", "picture": "motorbike" },
-    "truck": { "hi": "ट्रक", "translit": "trak", "en": "truck", "picture": "truck" },
+    "truck": { "hi": "ट्रक", "translit": "trak", "en": "truck", "picture": "truck", "level": "grade2", "syllables": ["ट्र", "क"] },
     "ship": { "hi": "जहाज़", "translit": "jahaaz", "en": "ship", "picture": "ship" },
     "rocket": { "hi": "रॉकेट", "translit": "rocket", "en": "rocket", "picture": "rocket" },
     "submarine": { "hi": "पनडुब्बी", "translit": "pandubbi", "en": "submarine", "picture": "submarine" },
-
-    "cow": { "hi": "गाय", "translit": "gaay", "en": "cow", "picture": "cow", "syllables": ["गा", "य"], "sound": { "hi": "मूँ", "en": "moo" } },
-    "dog": { "hi": "कुत्ता", "translit": "kutta", "en": "dog", "picture": "dog", "sound": { "hi": "भौं भौं", "en": "woof woof" } },
-    "cat": { "hi": "बिल्ली", "translit": "billi", "en": "cat", "picture": "cat", "sound": { "hi": "म्याऊँ", "en": "meow" } },
+    "cow": { "hi": "गाय", "translit": "gaay", "en": "cow", "picture": "cow", "level": "grade1", "syllables": ["गा", "य"], "sound": { "hi": "मूँ", "en": "moo" } },
+    "dog": { "hi": "कुत्ता", "translit": "kutta", "en": "dog", "picture": "dog", "level": "grade2", "syllables": ["कु", "त्ता"], "sound": { "hi": "भौं भौं", "en": "woof woof" } },
+    "cat": { "hi": "बिल्ली", "translit": "billi", "en": "cat", "picture": "cat", "level": "grade2", "syllables": ["बि", "ल्ली"], "sound": { "hi": "म्याऊँ", "en": "meow" } },
     "duck": { "hi": "बत्तख", "translit": "battakh", "en": "duck", "picture": "duck", "sound": { "hi": "क्वैक क्वैक", "en": "quack quack" } },
-    "rooster": { "hi": "मुर्गा", "translit": "murga", "en": "rooster", "picture": "rooster", "sound": { "hi": "कुकड़ूँ कूँ", "en": "cock a doodle doo" } },
-    "goat": { "hi": "बकरी", "translit": "bakri", "en": "goat", "picture": "goat", "sound": { "hi": "में में", "en": "maa maa" } },
-    "sheep": { "hi": "भेड़", "translit": "bhed", "en": "sheep", "picture": "sheep", "sound": { "hi": "बा बा", "en": "baa baa" } },
-    "horse": { "hi": "घोड़ा", "translit": "ghoda", "en": "horse", "picture": "horse", "sound": { "hi": "हिन हिन", "en": "neigh" } },
-    "elephant": { "hi": "हाथी", "translit": "haathi", "en": "elephant", "picture": "elephant" },
-    "lion": { "hi": "शेर", "translit": "sher", "en": "lion", "picture": "lion" },
-    "monkey": { "hi": "बंदर", "translit": "bandar", "en": "monkey", "picture": "monkey" },
-    "parrot": { "hi": "तोता", "translit": "tota", "en": "parrot", "picture": "parrot" },
-    "rabbit": { "hi": "खरगोश", "translit": "khargosh", "en": "rabbit", "picture": "rabbit" },
-    "fish": { "hi": "मछली", "translit": "machhli", "en": "fish", "picture": "fish" },
-
+    "rooster": {
+      "hi": "मुर्गा",
+      "translit": "murga",
+      "en": "rooster",
+      "picture": "rooster",
+      "level": "grade2",
+      "syllables": ["मु", "र्गा"],
+      "sound": { "hi": "कुकड़ूँ कूँ", "en": "cock a doodle doo" }
+    },
+    "goat": { "hi": "बकरी", "translit": "bakri", "en": "goat", "picture": "goat", "level": "grade1", "syllables": ["ब", "क", "री"], "sound": { "hi": "में में", "en": "maa maa" } },
+    "sheep": { "hi": "भेड़", "translit": "bhed", "en": "sheep", "picture": "sheep", "level": "grade1", "syllables": ["भे", "ड़"], "sound": { "hi": "बा बा", "en": "baa baa" } },
+    "horse": { "hi": "घोड़ा", "translit": "ghoda", "en": "horse", "picture": "horse", "level": "grade1", "syllables": ["घो", "ड़ा"], "sound": { "hi": "हिन हिन", "en": "neigh" } },
+    "elephant": { "hi": "हाथी", "translit": "haathi", "en": "elephant", "picture": "elephant", "level": "grade1", "syllables": ["हा", "थी"] },
+    "lion": { "hi": "शेर", "translit": "sher", "en": "lion", "picture": "lion", "level": "grade1", "syllables": ["शे", "र"] },
+    "monkey": { "hi": "बंदर", "translit": "bandar", "en": "monkey", "picture": "monkey", "level": "grade1", "syllables": ["बं", "द", "र"] },
+    "parrot": { "hi": "तोता", "translit": "tota", "en": "parrot", "picture": "parrot", "level": "grade1", "syllables": ["तो", "ता"] },
+    "rabbit": { "hi": "खरगोश", "translit": "khargosh", "en": "rabbit", "picture": "rabbit", "level": "grade1", "syllables": ["ख", "र", "गो", "श"] },
+    "fish": { "hi": "मछली", "translit": "machhli", "en": "fish", "picture": "fish", "level": "grade1", "syllables": ["म", "छ", "ली"] },
     "red": { "hi": "लाल", "translit": "laal", "en": "red", "picture": "color", "color": "#e53935" },
     "blue": { "hi": "नीला", "translit": "neela", "en": "blue", "picture": "color", "color": "#1e88e5" },
     "yellow": { "hi": "पीला", "translit": "peela", "en": "yellow", "picture": "color", "color": "#fdd835" },
     "green": { "hi": "हरा", "translit": "hara", "en": "green", "picture": "color", "color": "#43a047" },
     "orange": { "hi": "नारंगी", "translit": "naarangi", "en": "orange", "picture": "color", "color": "#fb8c00" },
     "purple": { "hi": "बैंगनी", "translit": "baingani", "en": "purple", "picture": "color", "color": "#8e24aa" },
-
     "circle": { "hi": "गोला", "translit": "gola", "en": "circle", "picture": "shape-circle" },
     "square": { "hi": "चौकोर", "translit": "chaukor", "en": "square", "picture": "shape-square" },
     "triangle": { "hi": "तिकोना", "translit": "tikona", "en": "triangle", "picture": "shape-triangle" },
-    "star": { "hi": "तारा", "translit": "taara", "en": "star", "picture": "shape-star" },
-    "heart": { "hi": "दिल", "translit": "dil", "en": "heart", "picture": "shape-heart" },
-
-    "big": { "hi": "बड़ा", "translit": "bada", "en": "big", "picture": "size-big" },
-    "small": { "hi": "छोटा", "translit": "chhota", "en": "small", "picture": "size-small" },
-    "up": { "hi": "ऊपर", "translit": "oopar", "en": "up", "picture": "dir-up" },
-    "down": { "hi": "नीचे", "translit": "neeche", "en": "down", "picture": "dir-down" },
-    "fast": { "hi": "तेज़", "translit": "tez", "en": "fast", "picture": "speed-fast" },
-    "slow": { "hi": "धीरे", "translit": "dheere", "en": "slow", "picture": "speed-slow" },
-
+    "star": { "hi": "तारा", "translit": "taara", "en": "star", "picture": "shape-star", "level": "grade1", "syllables": ["ता", "रा"] },
+    "heart": { "hi": "दिल", "translit": "dil", "en": "heart", "picture": "shape-heart", "level": "grade1", "syllables": ["दि", "ल"] },
+    "big": { "hi": "बड़ा", "translit": "bada", "en": "big", "picture": "size-big", "level": "grade3", "syllables": ["ब", "ड़ा"] },
+    "small": { "hi": "छोटा", "translit": "chhota", "en": "small", "picture": "size-small", "level": "grade3", "syllables": ["छो", "टा"] },
+    "up": { "hi": "ऊपर", "translit": "oopar", "en": "up", "picture": "dir-up", "level": "grade3", "syllables": ["ऊ", "प", "र"] },
+    "down": { "hi": "नीचे", "translit": "neeche", "en": "down", "picture": "dir-down", "level": "grade3", "syllables": ["नी", "चे"] },
+    "fast": { "hi": "तेज़", "translit": "tez", "en": "fast", "picture": "speed-fast", "level": "grade3", "syllables": ["ते", "ज़"] },
+    "slow": { "hi": "धीरे", "translit": "dheere", "en": "slow", "picture": "speed-slow", "level": "grade3", "syllables": ["धी", "रे"] },
     "place-construction": { "hi": "निर्माण स्थल", "translit": "nirmaan sthal", "en": "construction site", "picture": "place-construction" },
     "place-busdepot": { "hi": "बस अड्डा", "translit": "bas adda", "en": "bus depot", "picture": "place-busdepot" },
     "place-fire": { "hi": "दमकल केंद्र", "translit": "damkal kendra", "en": "fire station", "picture": "place-fire" },
@@ -95,7 +108,92 @@
     "place-recycling": { "hi": "कबाड़ घर", "translit": "kabaad ghar", "en": "recycling yard", "picture": "place-recycling" },
     "place-airport": { "hi": "हवाई अड्डा और बंदरगाह", "translit": "havaai adda aur bandargaah", "en": "airport and harbour", "picture": "place-airport" },
     "place-trace": { "hi": "सड़क पर चलाओ", "translit": "sadak par chalaao", "en": "drive the road", "picture": "place-trace" },
-    "place-garage": { "hi": "मेरा गैराज", "translit": "mera garaj", "en": "my garage", "picture": "place-garage" }
+    "place-garage": { "hi": "मेरा गैराज", "translit": "mera garaj", "en": "my garage", "picture": "place-garage" },
+    "house": { "hi": "घर", "translit": "ghar", "en": "house", "picture": "house", "level": "kg", "syllables": ["घ", "र"] },
+    "tap": { "hi": "नल", "translit": "nal", "en": "tap", "picture": "tap", "level": "kg", "syllables": ["न", "ल"] },
+    "fruit": { "hi": "फल", "translit": "phal", "en": "fruit", "picture": "fruit", "level": "kg", "syllables": ["फ", "ल"] },
+    "cup": { "hi": "कप", "translit": "kap", "en": "cup", "picture": "cup", "level": "kg", "syllables": ["क", "प"] },
+    "water": { "hi": "जल", "translit": "jal", "en": "water", "picture": "water", "level": "kg", "syllables": ["ज", "ल"] },
+    "lotus": { "hi": "कमल", "translit": "kamal", "en": "lotus", "picture": "lotus", "level": "kg", "syllables": ["क", "म", "ल"] },
+    "pen": { "hi": "कलम", "translit": "kalam", "en": "pen", "picture": "pen", "level": "kg", "syllables": ["क", "ल", "म"] },
+    "button": { "hi": "बटन", "translit": "batan", "en": "button", "picture": "button", "level": "kg", "syllables": ["ब", "ट", "न"] },
+    "peas": { "hi": "मटर", "translit": "matar", "en": "peas", "picture": "peas", "level": "kg", "syllables": ["म", "ट", "र"] },
+    "crocodile": { "hi": "मगर", "translit": "magar", "en": "crocodile", "picture": "crocodile", "level": "kg", "syllables": ["म", "ग", "र"] },
+    "envelope": { "hi": "खत", "translit": "khat", "en": "letter", "picture": "envelope", "level": "kg", "syllables": ["ख", "त"] },
+    "mango": { "hi": "आम", "translit": "aam", "en": "mango", "picture": "mango", "level": "grade1", "syllables": ["आ", "म"] },
+    "lock": { "hi": "ताला", "translit": "taala", "en": "lock", "picture": "lock", "level": "grade1", "syllables": ["ता", "ला"] },
+    "carrot": { "hi": "गाजर", "translit": "gaajar", "en": "carrot", "picture": "carrot", "level": "grade1", "syllables": ["गा", "ज", "र"] },
+    "tea": { "hi": "चाय", "translit": "chaay", "en": "tea", "picture": "tea", "level": "grade1", "syllables": ["चा", "य"] },
+    "garland": { "hi": "माला", "translit": "maala", "en": "garland", "picture": "garland", "level": "grade1", "syllables": ["मा", "ला"] },
+    "umbrella": { "hi": "छाता", "translit": "chhaata", "en": "umbrella", "picture": "umbrella", "level": "grade1", "syllables": ["छा", "ता"] },
+    "fort": { "hi": "किला", "translit": "kila", "en": "fort", "picture": "fort", "level": "grade1", "syllables": ["कि", "ला"] },
+    "butterfly": { "hi": "तितली", "translit": "titli", "en": "butterfly", "picture": "butterfly", "level": "grade1", "syllables": ["ति", "त", "ली"] },
+    "book": { "hi": "किताब", "translit": "kitaab", "en": "book", "picture": "book", "level": "grade1", "syllables": ["कि", "ता", "ब"] },
+    "arrow": { "hi": "तीर", "translit": "teer", "en": "arrow", "picture": "arrow", "level": "grade1", "syllables": ["ती", "र"] },
+    "lamp": { "hi": "दीया", "translit": "deeya", "en": "lamp", "picture": "lamp", "level": "grade1", "syllables": ["दी", "या"] },
+    "whistle": { "hi": "सीटी", "translit": "seeti", "en": "whistle", "picture": "whistle", "level": "grade1", "syllables": ["सी", "टी"] },
+    "cucumber": { "hi": "खीरा", "translit": "kheera", "en": "cucumber", "picture": "cucumber", "level": "grade1", "syllables": ["खी", "रा"] },
+    "bridge": { "hi": "पुल", "translit": "pul", "en": "bridge", "picture": "bridge", "level": "grade1", "syllables": ["पु", "ल"] },
+    "rose": { "hi": "गुलाब", "translit": "gulaab", "en": "rose", "picture": "rose", "level": "grade1", "syllables": ["गु", "ला", "ब"] },
+    "flower": { "hi": "फूल", "translit": "phool", "en": "flower", "picture": "flower", "level": "grade1", "syllables": ["फू", "ल"] },
+    "bear": { "hi": "भालू", "translit": "bhaalu", "en": "bear", "picture": "bear", "level": "grade1", "syllables": ["भा", "लू"] },
+    "sun": { "hi": "सूरज", "translit": "sooraj", "en": "sun", "picture": "sun", "level": "grade1", "syllables": ["सू", "र", "ज"] },
+    "shoe": { "hi": "जूता", "translit": "joota", "en": "shoe", "picture": "shoe", "level": "grade1", "syllables": ["जू", "ता"] },
+    "mouse": { "hi": "चूहा", "translit": "chooha", "en": "mouse", "picture": "mouse", "level": "grade1", "syllables": ["चू", "हा"] },
+    "swing": { "hi": "झूला", "translit": "jhoola", "en": "swing", "picture": "swing", "level": "grade1", "syllables": ["झू", "ला"] },
+    "potato": { "hi": "आलू", "translit": "aalu", "en": "potato", "picture": "potato", "level": "grade1", "syllables": ["आ", "लू"] },
+    "banana": { "hi": "केला", "translit": "kela", "en": "banana", "picture": "banana", "level": "grade1", "syllables": ["के", "ला"] },
+    "apple": { "hi": "सेब", "translit": "seb", "en": "apple", "picture": "apple", "level": "grade1", "syllables": ["से", "ब"] },
+    "tree": { "hi": "पेड़", "translit": "ped", "en": "tree", "picture": "tree", "level": "grade1", "syllables": ["पे", "ड़"] },
+    "table": { "hi": "मेज़", "translit": "mez", "en": "table", "picture": "table", "level": "grade1", "syllables": ["मे", "ज़"] },
+    "foot": { "hi": "पैर", "translit": "pair", "en": "foot", "picture": "foot", "level": "grade1", "syllables": ["पै", "र"] },
+    "ox": { "hi": "बैल", "translit": "bail", "en": "ox", "picture": "ox", "level": "grade1", "syllables": ["बै", "ल"] },
+    "bag": { "hi": "थैला", "translit": "thaila", "en": "bag", "picture": "bag", "level": "grade1", "syllables": ["थै", "ला"] },
+    "peacock": { "hi": "मोर", "translit": "mor", "en": "peacock", "picture": "peacock", "level": "grade1", "syllables": ["मो", "र"] },
+    "drum": { "hi": "ढोल", "translit": "dhol", "en": "drum", "picture": "drum", "level": "grade1", "syllables": ["ढो", "ल"] },
+    "cap": { "hi": "टोपी", "translit": "topi", "en": "cap", "picture": "cap", "level": "grade1", "syllables": ["टो", "पी"] },
+    "bottle": { "hi": "बोतल", "translit": "botal", "en": "bottle", "picture": "bottle", "level": "grade1", "syllables": ["बो", "त", "ल"] },
+    "crow": { "hi": "कौआ", "translit": "kauaa", "en": "crow", "picture": "crow", "level": "grade1", "syllables": ["कौ", "आ"] },
+    "plant": { "hi": "पौधा", "translit": "paudha", "en": "plant", "picture": "plant", "level": "grade1", "syllables": ["पौ", "धा"] },
+    "fan": { "hi": "पंखा", "translit": "pankha", "en": "fan", "picture": "fan", "level": "grade1", "syllables": ["पं", "खा"] },
+    "kite": { "hi": "पतंग", "translit": "patang", "en": "kite", "picture": "kite", "level": "grade1", "syllables": ["प", "तं", "ग"] },
+    "grapes": { "hi": "अंगूर", "translit": "angoor", "en": "grapes", "picture": "grapes", "level": "grade1", "syllables": ["अं", "गू", "र"] },
+    "moon": { "hi": "चाँद", "translit": "chaand", "en": "moon", "picture": "moon", "level": "grade1", "syllables": ["चाँ", "द"] },
+    "camel": { "hi": "ऊँट", "translit": "oont", "en": "camel", "picture": "camel", "level": "grade1", "syllables": ["ऊँ", "ट"] },
+    "snake": { "hi": "साँप", "translit": "saanp", "en": "snake", "picture": "snake", "level": "grade1", "syllables": ["साँ", "प"] },
+    "eye": { "hi": "आँख", "translit": "aankh", "en": "eye", "picture": "eye", "level": "grade1", "syllables": ["आँ", "ख"] },
+    "leaf": { "hi": "पत्ता", "translit": "patta", "en": "leaf", "picture": "leaf", "level": "grade2", "syllables": ["प", "त्ता"] },
+    "spoon": { "hi": "चम्मच", "translit": "chammach", "en": "spoon", "picture": "spoon", "level": "grade2", "syllables": ["च", "म्म", "च"] },
+    "fly": { "hi": "मक्खी", "translit": "makkhi", "en": "fly", "picture": "fly", "level": "grade2", "syllables": ["म", "क्खी"] },
+    "school": { "hi": "स्कूल", "translit": "school", "en": "school", "picture": "school", "level": "grade2", "syllables": ["स्कू", "ल"] },
+    "balloon": { "hi": "गुब्बारा", "translit": "gubbaara", "en": "balloon", "picture": "balloon", "level": "grade2", "syllables": ["गु", "ब्बा", "रा"] },
+    "glasses": { "hi": "चश्मा", "translit": "chashma", "en": "glasses", "picture": "glasses", "level": "grade2", "syllables": ["च", "श्मा"] },
+    "bucket": { "hi": "बाल्टी", "translit": "baalti", "en": "bucket", "picture": "bucket", "level": "grade2", "syllables": ["बा", "ल्टी"] },
+    "lioness": { "hi": "शेरनी", "translit": "sherni", "en": "lioness", "picture": "lioness", "level": "grade3", "syllables": ["शे", "र", "नी"] },
+    "hen": { "hi": "मुर्गी", "translit": "murgi", "en": "hen", "picture": "hen", "level": "grade3", "syllables": ["मु", "र्गी"] },
+    "peahen": { "hi": "मोरनी", "translit": "morni", "en": "peahen", "picture": "peahen", "level": "grade3", "syllables": ["मो", "र", "नी"] },
+    "river": { "hi": "नदी", "translit": "nadi", "en": "river", "picture": "river", "level": "grade3", "syllables": ["न", "दी"] },
+    "pot": { "hi": "घड़ा", "translit": "ghada", "en": "clay pot", "picture": "pot", "level": "grade3", "syllables": ["घ", "ड़ा"] },
+    "stones": { "hi": "कंकड़", "translit": "kankad", "en": "pebbles", "picture": "stones", "level": "grade3", "syllables": ["कं", "क", "ड़"] },
+    "day": { "hi": "दिन", "translit": "din", "en": "day", "picture": "sun", "level": "grade3", "syllables": ["दि", "न"] },
+    "night": { "hi": "रात", "translit": "raat", "en": "night", "picture": "moon", "level": "grade3", "syllables": ["रा", "त"] },
+    "bananas": { "hi": "केले", "translit": "kele", "en": "bananas", "picture": "many:banana", "level": "grade3", "syllables": ["के", "ले"] },
+    "leaves": { "hi": "पत्ते", "translit": "patte", "en": "leaves", "picture": "many:leaf", "level": "grade3", "syllables": ["प", "त्ते"] },
+    "balloons": { "hi": "गुब्बारे", "translit": "gubbaare", "en": "balloons", "picture": "many:balloon", "level": "grade3", "syllables": ["गु", "ब्बा", "रे"] },
+    "shoes": { "hi": "जूते", "translit": "joote", "en": "shoes", "picture": "many:shoe", "level": "grade3", "syllables": ["जू", "ते"] },
+    "books": { "hi": "किताबें", "translit": "kitaaben", "en": "books", "picture": "many:book", "level": "grade3", "syllables": ["कि", "ता", "बें"] },
+    "horses": { "hi": "घोड़े", "translit": "ghode", "en": "horses", "picture": "many:horse", "level": "grade3", "syllables": ["घो", "ड़े"] },
+    "kites": { "hi": "पतंगें", "translit": "patangen", "en": "kites", "picture": "many:kite", "level": "grade3", "syllables": ["प", "तं", "गें"] },
+    "postvan": { "hi": "डाक गाड़ी", "translit": "daak gaadi", "en": "mail van", "picture": "postvan" },
+    "metro": { "hi": "मेट्रो", "translit": "metro", "en": "metro", "picture": "metro" },
+    "icecreamvan": { "hi": "आइसक्रीम गाड़ी", "translit": "icecream gaadi", "en": "ice-cream van", "picture": "icecreamvan" },
+    "bookbus": { "hi": "पुस्तक बस", "translit": "pustak bas", "en": "library bus", "picture": "bookbus" },
+    "place-matra": { "hi": "मात्रा गैराज", "translit": "maatra garaj", "en": "matra garage", "picture": "place-matra" },
+    "place-postoffice": { "hi": "डाकघर", "translit": "daakghar", "en": "post office", "picture": "place-postoffice" },
+    "place-metro": { "hi": "मेट्रो स्टेशन", "translit": "metro station", "en": "metro station", "picture": "place-metro" },
+    "place-icecream": { "hi": "आइसक्रीम वाला", "translit": "icecream waala", "en": "ice-cream van", "picture": "place-icecream" },
+    "place-library": { "hi": "पुस्तकालय", "translit": "pustakaalay", "en": "library", "picture": "place-library" },
+    "place-parking": { "hi": "पार्किंग", "translit": "parking", "en": "parking", "picture": "place-parking" }
   },
   "vehicles": [
     { "id": "bus", "unlockedByDefault": true },
@@ -121,7 +219,11 @@
     { "id": "truck" },
     { "id": "ship" },
     { "id": "rocket" },
-    { "id": "submarine" }
+    { "id": "submarine" },
+    { "id": "postvan" },
+    { "id": "metro" },
+    { "id": "icecreamvan" },
+    { "id": "bookbus" }
   ],
   "places": [
     { "id": "construction", "word": "place-construction", "game": "construction", "color": "#ffb300" },
@@ -133,20 +235,161 @@
     { "id": "railway", "word": "place-railway", "game": "railway", "color": "#8d6e63" },
     { "id": "recycling", "word": "place-recycling", "game": "recycling", "color": "#43a047" },
     { "id": "airport", "word": "place-airport", "game": "opposites", "color": "#29b6f6" },
-    { "id": "trace", "word": "place-trace", "game": "trace", "color": "#ff7043" }
+    { "id": "trace", "word": "place-trace", "game": "trace", "color": "#ff7043" },
+    { "id": "matra", "word": "place-matra", "game": "matra", "color": "#6C63FF", "langs": ["hi"] },
+    { "id": "postoffice", "word": "place-postoffice", "game": "read", "color": "#FF5A5F" },
+    { "id": "metro", "word": "place-metro", "game": "sentence", "color": "#3D7BFF" },
+    { "id": "icecream", "word": "place-icecream", "game": "rhyme", "color": "#38BDF8" },
+    { "id": "library", "word": "place-library", "game": "story", "color": "#A66BFF" },
+    { "id": "parking", "word": "place-parking", "game": "pairs", "color": "#64748B" }
   ],
   "sentences": [
-    { "id": "bus-here", "about": "bus", "hi": "बस आई!", "translit": "bas aai", "en": "The bus is here!" },
-    { "id": "car-fast", "about": "car", "hi": "कार तेज़ चलती है", "translit": "kaar tez chalti hai", "en": "The car goes fast." },
-    { "id": "digger-digs", "about": "digger", "hi": "खुदाई मशीन मिट्टी खोदती है", "translit": "khudaai mashin mitti khodti hai", "en": "The digger digs the dirt." },
-    { "id": "crane-lifts", "about": "crane", "hi": "क्रेन ऊपर उठाती है", "translit": "kren oopar uthaati hai", "en": "The crane lifts things up." },
-    { "id": "fire-helps", "about": "firetruck", "hi": "दमकल आग बुझाती है", "translit": "damkal aag bujhaati hai", "en": "The fire engine puts out the fire." },
-    { "id": "ambulance-helps", "about": "ambulance", "hi": "एम्बुलेंस मदद करती है", "translit": "embulens madad karti hai", "en": "The ambulance helps people." },
-    { "id": "tractor-farm", "about": "tractor", "hi": "ट्रैक्टर खेत में चलता है", "translit": "traiktar khet mein chalta hai", "en": "The tractor works on the farm." },
-    { "id": "train-choo", "about": "train", "hi": "रेलगाड़ी छुक छुक करती है", "translit": "relgaadi chhuk chhuk karti hai", "en": "The train goes choo choo." },
-    { "id": "plane-flies", "about": "plane", "hi": "हवाई जहाज़ ऊपर उड़ता है", "translit": "havaai jahaaz oopar udta hai", "en": "The plane flies up high." },
-    { "id": "boat-water", "about": "boat", "hi": "नाव पानी में चलती है", "translit": "naav paani mein chalti hai", "en": "The boat sails on the water." },
-    { "id": "cow-moo", "about": "cow", "hi": "गाय मूँ बोलती है", "translit": "gaay moo bolti hai", "en": "The cow says moo." }
+    { "id": "bus-here", "about": "bus", "hi": "बस आई!", "translit": "bas aai", "en": "The bus is here!", "level": "grade2" },
+    { "id": "car-fast", "about": "car", "hi": "कार तेज़ चलती है", "translit": "kaar tez chalti hai", "en": "The car goes fast.", "level": "grade2" },
+    {
+      "id": "digger-digs",
+      "about": "digger",
+      "hi": "खुदाई मशीन मिट्टी खोदती है",
+      "translit": "khudaai mashin mitti khodti hai",
+      "en": "The digger digs the dirt.",
+      "level": "grade2"
+    },
+    {
+      "id": "crane-lifts",
+      "about": "crane",
+      "hi": "क्रेन ऊपर उठाती है",
+      "translit": "kren oopar uthaati hai",
+      "en": "The crane lifts things up.",
+      "level": "grade2"
+    },
+    {
+      "id": "fire-helps",
+      "about": "firetruck",
+      "hi": "दमकल आग बुझाती है",
+      "translit": "damkal aag bujhaati hai",
+      "en": "The fire engine puts out the fire.",
+      "level": "grade2"
+    },
+    {
+      "id": "ambulance-helps",
+      "about": "ambulance",
+      "hi": "एम्बुलेंस मदद करती है",
+      "translit": "embulens madad karti hai",
+      "en": "The ambulance helps people.",
+      "level": "grade2"
+    },
+    {
+      "id": "tractor-farm",
+      "about": "tractor",
+      "hi": "ट्रैक्टर खेत में चलता है",
+      "translit": "traiktar khet mein chalta hai",
+      "en": "The tractor works on the farm.",
+      "level": "grade2"
+    },
+    {
+      "id": "train-choo",
+      "about": "train",
+      "hi": "रेलगाड़ी छुक छुक करती है",
+      "translit": "relgaadi chhuk chhuk karti hai",
+      "en": "The train goes choo choo.",
+      "level": "grade2"
+    },
+    {
+      "id": "plane-flies",
+      "about": "plane",
+      "hi": "हवाई जहाज़ ऊपर उड़ता है",
+      "translit": "havaai jahaaz oopar udta hai",
+      "en": "The plane flies up high.",
+      "level": "grade2"
+    },
+    {
+      "id": "boat-water",
+      "about": "boat",
+      "hi": "नाव पानी में चलती है",
+      "translit": "naav paani mein chalti hai",
+      "en": "The boat sails on the water.",
+      "level": "grade2"
+    },
+    { "id": "cow-moo", "about": "cow", "hi": "गाय मूँ बोलती है", "translit": "gaay moo bolti hai", "en": "The cow says moo.", "level": "grade2" },
+    { "id": "this-bus", "level": "grade1", "about": "bus", "hi": "यह बस है।", "translit": "yah bas hai", "en": "This is a bus." },
+    { "id": "car-red", "level": "grade1", "about": "car", "hi": "कार लाल है।", "translit": "kaar laal hai", "en": "The car is red." },
+    { "id": "peacock-dance", "level": "grade1", "about": "peacock", "hi": "मोर नाचता है।", "translit": "mor naachta hai", "en": "The peacock dances." },
+    { "id": "sun-up", "level": "grade1", "about": "sun", "hi": "सूरज निकला।", "translit": "sooraj nikla", "en": "The sun came out." },
+    { "id": "boat-in-water", "level": "grade1", "about": "boat", "hi": "नाव पानी में है।", "translit": "naav paani mein hai", "en": "The boat is in the water." },
+    {
+      "id": "monkey-banana",
+      "level": "grade1",
+      "about": "monkey",
+      "hi": "बंदर केला खाता है।",
+      "translit": "bandar kela khaata hai",
+      "en": "The monkey eats a banana."
+    },
+    { "id": "kite-up", "level": "grade1", "about": "kite", "hi": "पतंग ऊपर उड़ी।", "translit": "patang oopar udi", "en": "The kite flew up." },
+    { "id": "bear-mango", "level": "grade1", "about": "bear", "hi": "भालू आम खाता है।", "translit": "bhaalu aam khaata hai", "en": "The bear eats a mango." },
+    {
+      "id": "bus-school",
+      "level": "grade2",
+      "about": "bus",
+      "hi": "लाल बस स्कूल जाती है।",
+      "translit": "laal bas school jaati hai",
+      "en": "The red bus goes to school."
+    },
+    {
+      "id": "parrot-tree",
+      "level": "grade2",
+      "about": "parrot",
+      "hi": "पेड़ पर तोता बैठा है।",
+      "translit": "ped par tota baitha hai",
+      "en": "A parrot sits on the tree."
+    },
+    {
+      "id": "bottle-table",
+      "level": "grade2",
+      "about": "bottle",
+      "hi": "मेज़ पर एक बोतल है।",
+      "translit": "mez par ek botal hai",
+      "en": "There is a bottle on the table."
+    },
+    {
+      "id": "moon-night",
+      "level": "grade2",
+      "about": "moon",
+      "hi": "चाँद रात में चमकता है।",
+      "translit": "chaand raat mein chamakta hai",
+      "en": "The moon shines at night."
+    },
+    {
+      "id": "camel-sand",
+      "level": "grade2",
+      "about": "camel",
+      "hi": "ऊँट रेत में चलता है।",
+      "translit": "oont ret mein chalta hai",
+      "en": "The camel walks in the sand."
+    },
+    {
+      "id": "plane-sky",
+      "level": "grade3",
+      "about": "plane",
+      "hi": "हवाई जहाज़ आसमान में ऊँचा उड़ता है।",
+      "translit": "havaai jahaaz aasmaan mein ooncha udta hai",
+      "en": "The plane flies high in the sky."
+    },
+    {
+      "id": "ant-leaf",
+      "level": "grade3",
+      "about": "leaf",
+      "hi": "चींटी पत्ते पर बैठकर पानी में तैर रही थी।",
+      "translit": "cheenti patte par baithkar paani mein tair rahi thi",
+      "en": "The ant was floating on a leaf in the water."
+    },
+    {
+      "id": "crow-pot",
+      "level": "grade3",
+      "about": "crow",
+      "hi": "प्यासे कौए ने घड़े में कंकड़ डाले।",
+      "translit": "pyaase kaue ne ghade mein kankad daale",
+      "en": "The thirsty crow dropped pebbles into the pot."
+    }
   ],
   "numbers": [
     { "value": 1, "hi": "एक", "translit": "ek", "en": "one", "digitHi": "१" },
@@ -259,14 +502,22 @@
     }
   ],
   "games": {
-    "construction": { "digLetters": 5, "deliverRounds": 5, "buildRounds": 2, "buildWords": ["bus", "car", "boat", "cow"] },
+    "construction": {
+      "digLetters": 5,
+      "deliverRounds": 5,
+      "buildRounds": 2,
+      "buildWords": ["bus", "car", "boat", "cow"],
+      "digWords": ["cow", "dog", "cat", "duck", "bus", "car", "boat", "fish", "train", "plane"],
+      "activities": ["dig", "deliver", "build"]
+    },
     "busdepot": {
       "pickupRounds": 5,
       "countRounds": 4,
       "maxPassengers": 10,
-      "passengers": ["cow", "dog", "cat", "duck", "elephant", "lion", "monkey", "parrot", "rabbit", "goat"]
+      "passengers": ["cow", "dog", "cat", "duck", "elephant", "lion", "monkey", "parrot", "rabbit", "goat"],
+      "letters": true
     },
-    "rescue": { "rounds": 6, "words": ["cow", "dog", "cat", "duck", "rabbit", "parrot", "monkey", "goat"] },
+    "rescue": { "rounds": 6, "words": ["cow", "dog", "cat", "duck", "rabbit", "parrot", "monkey", "goat"], "cards": "picture" },
     "farm": { "rounds": 6, "animals": ["cow", "dog", "cat", "duck", "rooster", "goat", "sheep", "horse"] },
     "railway": { "carriages": 4 },
     "recycling": { "rounds": 8, "bins": 3, "colors": ["red", "blue", "yellow", "green"], "shapes": ["circle", "square", "triangle", "star"] },
@@ -279,6 +530,208 @@
         { "a": "big", "b": "small", "kind": "size", "vehicle": "ship" }
       ]
     },
-    "trace": { "letters": 4, "threshold": 0.6 }
-  }
+    "trace": { "letters": 4, "threshold": 0.6 },
+    "matra": {
+      "rounds": 6,
+      "consonants": ["क", "ग", "ज", "त", "द", "न", "प", "ब", "म", "र", "ल", "स"],
+      "matras": ["aa", "i", "ii", "u", "uu", "e", "ai", "o", "au", "am"],
+      "words": ["@grade1"]
+    },
+    "read": { "rounds": 6, "words": ["@kg"] },
+    "sentence": { "rounds": 3 },
+    "rhyme": {
+      "rounds": 5,
+      "groups": [
+        { "lang": "hi", "words": ["tap", "water", "fruit", "lotus"] },
+        { "lang": "hi", "words": ["house", "crocodile", "peas"] },
+        { "lang": "hi", "words": ["bear", "potato"] },
+        { "lang": "hi", "words": ["cow", "tea"] },
+        { "lang": "hi", "words": ["lock", "garland"] },
+        { "lang": "hi", "words": ["tree", "sheep"] },
+        { "lang": "en", "words": ["car", "star"] },
+        { "lang": "en", "words": ["boat", "goat"] },
+        { "lang": "en", "words": ["house", "mouse"] },
+        { "lang": "en", "words": ["eye", "fly"] }
+      ]
+    },
+    "story": {},
+    "pairs": {
+      "rounds": 6,
+      "kinds": ["opposite", "plural", "female"],
+      "sets": {
+        "opposite": [["big", "small"], ["up", "down"], ["fast", "slow"], ["day", "night"]],
+        "plural": [["banana", "bananas"], ["leaf", "leaves"], ["balloon", "balloons"], ["shoe", "shoes"], ["book", "books"], ["horse", "horses"], ["kite", "kites"]],
+        "female": [["lion", "lioness"], ["peacock", "peahen"], ["rooster", "hen"]]
+      }
+    }
+  },
+  "matras": [
+    { "id": "aa", "sign": "ा", "vowel": "आ", "translit": "aa" },
+    { "id": "i", "sign": "ि", "vowel": "इ", "translit": "i" },
+    { "id": "ii", "sign": "ी", "vowel": "ई", "translit": "ee" },
+    { "id": "u", "sign": "ु", "vowel": "उ", "translit": "u" },
+    { "id": "uu", "sign": "ू", "vowel": "ऊ", "translit": "oo" },
+    { "id": "ri", "sign": "ृ", "vowel": "ऋ", "translit": "ri" },
+    { "id": "e", "sign": "े", "vowel": "ए", "translit": "e" },
+    { "id": "ai", "sign": "ै", "vowel": "ऐ", "translit": "ai" },
+    { "id": "o", "sign": "ो", "vowel": "ओ", "translit": "o" },
+    { "id": "au", "sign": "ौ", "vowel": "औ", "translit": "au" },
+    { "id": "am", "sign": "ं", "vowel": "अं", "translit": "am" },
+    { "id": "ah", "sign": "ः", "vowel": "अः", "translit": "ah" }
+  ],
+  "stories": [
+    {
+      "id": "red-bus",
+      "level": "grade1",
+      "title": { "hi": "लाल बस", "en": "The red bus" },
+      "cover": "bus",
+      "pages": [
+        { "word": "bus", "hi": "यह लाल बस है।", "en": "This is a red bus." },
+        { "word": "cow", "hi": "बस में गाय है।", "en": "A cow is on the bus." },
+        { "word": "monkey", "hi": "बस में बंदर है।", "en": "A monkey is on the bus." },
+        { "word": "banana", "hi": "बंदर केला खाता है।", "en": "The monkey eats a banana." },
+        { "word": "bus", "hi": "बस चली, पों पों!", "en": "The bus goes, beep beep!" }
+      ],
+      "questions": [
+        { "hi": "बंदर क्या खाता है?", "en": "What does the monkey eat?", "answer": "banana", "options": ["banana", "mango", "carrot"] },
+        { "hi": "बस किस रंग की है?", "en": "What colour is the bus?", "answer": "red", "options": ["red", "blue", "green"] }
+      ]
+    },
+    {
+      "id": "bear-bicycle",
+      "level": "grade2",
+      "title": { "hi": "भालू की साइकिल", "en": "Bear's bicycle" },
+      "cover": "bear",
+      "pages": [
+        { "word": "bicycle", "hi": "भालू के पास एक नीली साइकिल है।", "en": "Bear has a blue bicycle." },
+        { "word": "bear", "hi": "भालू साइकिल से बाज़ार जाता है।", "en": "Bear rides his bicycle to the market." },
+        { "word": "mango", "hi": "वह बाज़ार से आम और केले लाता है।", "en": "He brings mangoes and bananas from the market." },
+        { "word": "monkey", "hi": "रास्ते में उसे बंदर मिलता है।", "en": "On the way he meets Monkey." },
+        { "word": "banana", "hi": "भालू बंदर को एक केला देता है।", "en": "Bear gives Monkey a banana." },
+        { "word": "heart", "hi": "दोनों दोस्त खुश हैं।", "en": "The two friends are happy." }
+      ],
+      "questions": [
+        { "hi": "भालू के पास क्या है?", "en": "What does Bear have?", "answer": "bicycle", "options": ["bicycle", "car", "boat"] },
+        { "hi": "रास्ते में भालू को कौन मिला?", "en": "Who did Bear meet on the way?", "answer": "monkey", "options": ["monkey", "cow", "lion"] },
+        { "hi": "भालू ने बंदर को क्या दिया?", "en": "What did Bear give Monkey?", "answer": "banana", "options": ["banana", "apple", "grapes"] }
+      ]
+    },
+    {
+      "id": "little-boat",
+      "level": "grade3",
+      "title": { "hi": "छोटी नाव", "en": "The little boat" },
+      "cover": "boat",
+      "pages": [
+        { "word": "river", "hi": "नदी के किनारे एक छोटी नाव रहती थी।", "en": "A little boat lived by the river." },
+        { "word": "water", "hi": "एक दिन तेज़ बारिश हुई और नदी में पानी बढ़ गया।", "en": "One day it rained hard and the river rose." },
+        { "word": "leaf", "hi": "एक चींटी पत्ते पर बैठकर बह रही थी।", "en": "An ant was floating away on a leaf." },
+        { "word": "boat", "hi": "छोटी नाव धीरे-धीरे चींटी के पास गई।", "en": "The little boat slowly went to the ant." },
+        { "word": "boat", "hi": "चींटी कूदकर नाव में आ गई।", "en": "The ant jumped into the boat." },
+        { "word": "heart", "hi": "चींटी बोली, \"धन्यवाद, छोटी नाव!\"", "en": "The ant said, \"Thank you, little boat!\"" }
+      ],
+      "questions": [
+        { "hi": "नाव कहाँ रहती थी?", "en": "Where did the boat live?", "answer": "river", "options": ["river", "house", "tree"] },
+        { "hi": "चींटी किस पर बैठी थी?", "en": "What was the ant sitting on?", "answer": "leaf", "options": ["leaf", "flower", "book"] },
+        { "hi": "नाव कैसी थी?", "en": "What was the boat like?", "answer": "small", "options": ["small", "big"] }
+      ]
+    },
+    {
+      "id": "thirsty-crow",
+      "level": "grade3",
+      "title": { "hi": "प्यासा कौआ", "en": "The thirsty crow" },
+      "cover": "crow",
+      "pages": [
+        { "word": "sun", "hi": "गरमी का दिन था। एक कौआ बहुत प्यासा था।", "en": "It was a hot day. A crow was very thirsty." },
+        { "word": "pot", "hi": "उसने एक घड़ा देखा। घड़े में थोड़ा-सा पानी था।", "en": "He saw a clay pot. There was a little water in it." },
+        { "word": "crow", "hi": "कौए की चोंच पानी तक नहीं पहुँची।", "en": "The crow's beak could not reach the water." },
+        { "word": "stones", "hi": "उसने कंकड़ उठाए और घड़े में डाले।", "en": "He picked up pebbles and dropped them into the pot." },
+        { "word": "up", "hi": "पानी ऊपर आ गया।", "en": "The water came up." },
+        { "word": "crow", "hi": "कौए ने पानी पिया और खुशी से उड़ गया।", "en": "The crow drank the water and flew away happily." }
+      ],
+      "questions": [
+        { "hi": "कौए ने क्या देखा?", "en": "What did the crow see?", "answer": "pot", "options": ["pot", "cup", "bottle"] },
+        { "hi": "कौए ने घड़े में क्या डाला?", "en": "What did the crow drop into the pot?", "answer": "stones", "options": ["stones", "flower", "mango"] },
+        { "hi": "पानी कहाँ आया?", "en": "Where did the water go?", "answer": "up", "options": ["up", "down"] }
+      ]
+    }
+  ],
+  "levels": [
+    {
+      "id": "toddler",
+      "picture": "scooter",
+      "name": { "hi": "नन्हे", "en": "Toddler" },
+      "age": "2–3",
+      "about": "Listening and first words: vehicles, animals, colours, shapes, animal sounds, counting to 5. No letters yet.",
+      "places": ["busdepot", "farm", "recycling", "airport", "fire", "police", "hospital", "construction"],
+      "letterSets": [],
+      "games": {
+        "construction": { "activities": ["dig"], "digLetters": 4 },
+        "busdepot": { "maxPassengers": 5, "pickupRounds": 4, "countRounds": 3, "letters": false },
+        "rescue": { "rounds": 4 },
+        "farm": { "rounds": 4 },
+        "recycling": { "rounds": 6 },
+        "opposites": { "rounds": 4 }
+      }
+    },
+    {
+      "id": "kg",
+      "picture": "car",
+      "name": { "hi": "बालवाटिका", "en": "Kindergarten" },
+      "age": "3–6",
+      "about": "Letters and their sounds (स्वर, व्यंजन, A–Z), tracing, counting to 10, and first two- and three-letter words without matras (घर, नल, कमल).",
+      "places": ["construction", "busdepot", "fire", "police", "hospital", "farm", "railway", "recycling", "airport", "trace", "postoffice"],
+      "letterSets": ["hindiVowels", "hindiConsonants", "english"],
+      "games": { "construction": { "buildWords": ["@kg"] }, "read": { "words": ["@kg"], "modes": ["find"] }}
+    },
+    {
+      "id": "grade1",
+      "picture": "bus",
+      "name": { "hi": "कक्षा 1", "en": "Grade 1" },
+      "age": "6–7",
+      "about": "Matras (का कि की कु कू के कै को कौ कं काँ) and the barakhadi, reading two- and three-letter words with matras, matching words to pictures, and short sentences of 3–5 words.",
+      "places": ["matra", "postoffice", "construction", "metro", "library", "icecream", "railway", "trace", "fire", "police", "hospital", "busdepot"],
+      "letterSets": ["hindiVowels", "hindiConsonants", "english"],
+      "games": {
+        "construction": { "activities": ["build", "deliver"], "buildWords": ["@kg", "@grade1"], "buildRounds": 3 },
+        "read": { "words": ["@grade1"], "modes": ["find", "match"] },
+        "rescue": { "words": ["@grade1"], "cards": "text" },
+        "sentence": { "levels": ["grade1"] },
+        "story": { "levels": ["grade1"] },
+        "rhyme": { "rounds": 4 }
+      }
+    },
+    {
+      "id": "grade2",
+      "picture": "train",
+      "name": { "hi": "कक्षा 2", "en": "Grade 2" },
+      "age": "7–8",
+      "about": "Half letters and conjuncts (त्त, म्म, क्ख, स्क), longer words, rhyming words, building sentences of 4–6 words, reading short stories with meaning, opposites and plurals.",
+      "places": ["library", "metro", "postoffice", "matra", "icecream", "parking", "construction", "railway"],
+      "letterSets": ["hindiConsonants", "english"],
+      "games": {
+        "construction": { "activities": ["build"], "buildWords": ["@grade1", "@grade2"], "buildRounds": 3 },
+        "read": { "words": ["@grade1", "@grade2"], "modes": ["match"] },
+        "matra": { "words": ["@grade1", "@grade2"] },
+        "sentence": { "levels": ["grade1", "grade2"], "rounds": 4 },
+        "story": { "levels": ["grade1", "grade2"] },
+        "pairs": { "kinds": ["opposite", "plural"] }
+      }
+    },
+    {
+      "id": "grade3",
+      "picture": "rocket",
+      "name": { "hi": "कक्षा 3", "en": "Grade 3" },
+      "age": "8–9",
+      "about": "Reading stories and answering questions, longer sentences, opposites (विलोम), singular and plural (वचन), male and female (लिंग).",
+      "places": ["library", "metro", "parking", "postoffice", "icecream", "matra"],
+      "letterSets": ["hindiConsonants", "english"],
+      "games": {
+        "read": { "words": ["@grade2", "@grade3"], "modes": ["match"] },
+        "matra": { "words": ["@grade1", "@grade2"] },
+        "sentence": { "levels": ["grade2", "grade3"], "rounds": 4 },
+        "story": { "levels": ["grade2", "grade3"] },
+        "pairs": { "kinds": ["opposite", "plural", "female"] }
+      }
+    }
+  ]
 }

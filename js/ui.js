@@ -41,12 +41,21 @@ export function flyTo(node, target, { duration = 700, scale = 1, keep = true } =
   });
 }
 
+// Rounded line icons (24px grid, drawn with currentColor so CSS sets the colour).
+const icon = (body, fill = false) =>
+  `<svg viewBox="0 0 24 24" aria-hidden="true" fill="${fill ? 'currentColor' : 'none'}" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">${body}</svg>`;
+
 export const ICONS = {
-  home: '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M6 24 L24 8 L42 24 V42 H30 V30 H18 V42 H6 Z" fill="#fff" stroke="#263238" stroke-width="3" stroke-linejoin="round"/></svg>',
-  speaker:
-    '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 18 H16 L28 8 V40 L16 30 H8 Z" fill="#fff" stroke="#263238" stroke-width="3" stroke-linejoin="round"/><path d="M33 16 Q39 24 33 32 M37 11 Q47 24 37 37" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round"/></svg>',
-  gear: '<svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="7" fill="none" stroke="currentColor" stroke-width="4"/><path d="M24 4 V11 M24 37 V44 M4 24 H11 M37 24 H44 M10 10 L15 15 M33 33 L38 38 M10 38 L15 33 M33 15 L38 10" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg>',
-  play: '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M16 10 L38 24 L16 38 Z" fill="#fff" stroke="#263238" stroke-width="3" stroke-linejoin="round"/></svg>',
-  check: '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 25 L20 35 L38 13" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-  star: '<svg viewBox="0 0 48 48" aria-hidden="true"><polygon points="24,4 30,18 45,18 33,28 37,43 24,34 11,43 15,28 3,18 18,18" fill="currentColor" stroke="#263238" stroke-width="2.5" stroke-linejoin="round"/></svg>',
+  home: icon('<path d="M3.5 10.6 12 3.5l8.5 7.1"/><path d="M5.5 9.2V19a1.5 1.5 0 0 0 1.5 1.5h3V15h4v5.5h3a1.5 1.5 0 0 0 1.5-1.5V9.2"/>'),
+  speaker: icon('<path d="M11 5.5 6.5 9H4v6h2.5l4.5 3.5z" fill="currentColor"/><path d="M15.5 9a4.5 4.5 0 0 1 0 6"/><path d="M18.5 6a8.5 8.5 0 0 1 0 12"/>'),
+  gear: icon('<path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2.2"/><circle cx="9" cy="17" r="2.2"/>'),
+  play: icon('<path d="M8 5.2v13.6a1 1 0 0 0 1.5.86l11-6.8a1 1 0 0 0 0-1.72l-11-6.8A1 1 0 0 0 8 5.2z" fill="currentColor"/>'),
+  check: icon('<path d="M5 12.5l4.5 4.5L19 7.5"/>'),
+  star: icon('<path d="M12 3.2l2.6 5.3 5.8.85-4.2 4.1 1 5.8L12 16.5l-5.2 2.75 1-5.8-4.2-4.1 5.8-.85z" fill="currentColor"/>', true),
+  back: icon('<path d="M15 5l-7 7 7 7"/>'),
+  next: icon('<path d="M9 5l7 7-7 7"/>'),
+  lock: icon('<rect x="5" y="11" width="14" height="9.5" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>'),
+  book: icon('<path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H11v16H5.5A1.5 1.5 0 0 1 4 18.5z"/><path d="M20 5.5A1.5 1.5 0 0 0 18.5 4H13v16h5.5a1.5 1.5 0 0 0 1.5-1.5z"/>'),
+  flag: icon('<path d="M5 21V4"/><path d="M5 4h12l-2.5 4L17 12H5" fill="currentColor"/>'),
+  sparkle: icon('<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z" fill="currentColor"/><path d="M19 15.5l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z" fill="currentColor"/>'),
 };

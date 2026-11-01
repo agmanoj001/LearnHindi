@@ -1,6 +1,6 @@
 // Bus depot: first the bus picks up whoever is called (animals and letters),
 // then passengers get on and off and the child counts them (1-10, Hindi and English).
-import { pickChoices, roundSequence, makeCountTrip, numberChoices, langForRound } from '../logic.js';
+import { pickChoices, makeCountTrip, numberChoices, langForRound } from '../logic.js';
 import { el, sleep, choose, runRounds, cheer, vehicleEl, flyTo, animate, bounce, miniPic, numberCard } from './kit.js';
 
 export default {
@@ -15,8 +15,8 @@ function pickup(ctx, total) {
   const n = ctx.config.pickupRounds;
   const animals = ctx.words(ctx.config.passengers);
   const letters = ctx.letters();
-  const animalSeq = roundSequence(animals, n, ctx.rng);
-  const letterSeq = roundSequence(letters, n, ctx.rng);
+  const animalSeq = ctx.practice(animals, n);
+  const letterSeq = ctx.practice(letters, n);
   const bus = vehicleEl(ctx, 'bus');
   const riders = el('div', { class: 'riders' });
   const stop = el('div', { class: 'choices' });
@@ -26,7 +26,7 @@ function pickup(ctx, total) {
     ctx,
     n,
     async (i) => {
-      const useLetter = i % 2 === 1;
+      const useLetter = i % 2 === 1 && ctx.config.letters !== false && letters.length >= 3;
       const target = useLetter ? letterSeq[i] : animalSeq[i];
       const options = useLetter ? pickChoices(letters.filter((l) => l.lang === target.lang), target, 3, ctx.rng) : pickChoices(animals, target, 3, ctx.rng);
       const btns = options.map((o) => Object.assign(useLetter ? ctx.letterCard(o) : ctx.wordCard(o, { showLabel: false }), { item: o }));
@@ -36,7 +36,7 @@ function pickup(ctx, total) {
       const prompt = () => ctx.say('pickUp', target);
       ctx.setRepeat(prompt);
       prompt();
-      const right = await choose(btns, (b) => b.item.id === target.id, { onWrong: (b) => ctx.say('thisIs', b.item) });
+      const right = await choose(btns, (b) => b.item.id === target.id, { ctx, onWrong: (b) => ctx.say('thisIs', b.item) });
       await cheer(ctx, right);
       ctx.sayItem(target);
       await flyTo(right, bus, { scale: 0.3, duration: 700 });
@@ -94,7 +94,7 @@ function count(ctx, offset, total) {
       const prompt = () => ctx.say('howMany', null, [lang]);
       ctx.setRepeat(prompt);
       prompt();
-      const right = await choose(btns, (b) => b.num.value === answer, { onWrong: (b) => ctx.sayItem(b.num, [lang]) });
+      const right = await choose(btns, (b) => b.num.value === answer, { ctx, onWrong: (b) => ctx.sayItem(b.num, [lang]) });
       await cheer(ctx, right);
       // count everyone on board together
       for (let k = 0; k < onboard.length; k++) {

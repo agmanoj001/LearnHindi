@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { validateContent, GAME_TYPES } from '../js/validate.js';
-import { KNOWN_PICTURES, picture } from '../js/art.js';
+import { KNOWN_PICTURES, picture, pictureExists } from '../js/art.js';
 import { clipKeysFor } from '../js/logic.js';
 
 const root = new URL('../', import.meta.url);
@@ -10,12 +10,12 @@ const content = JSON.parse(readFileSync(new URL('content.json', root), 'utf8'));
 const clone = () => structuredClone(content);
 
 test('content.json is valid', () => {
-  const { errors } = validateContent(content, { knownPictures: KNOWN_PICTURES });
+  const { errors } = validateContent(content, { pictureExists });
   assert.deepEqual(errors, []);
 });
 
 test('every picture in content.json has a built-in drawing', () => {
-  const { warnings } = validateContent(content, { knownPictures: KNOWN_PICTURES });
+  const { warnings } = validateContent(content, { pictureExists });
   assert.deepEqual(warnings, []);
 });
 
@@ -125,7 +125,7 @@ test('validator: a parent can add a new vehicle with only content changes', () =
   const c = clone();
   c.words.tram = { hi: 'ट्राम', translit: 'traam', en: 'tram', picture: 'tram' };
   c.vehicles.push({ id: 'tram' });
-  const { errors, warnings } = validateContent(c, { knownPictures: KNOWN_PICTURES });
+  const { errors, warnings } = validateContent(c, { pictureExists });
   assert.deepEqual(errors, []);
   assert.equal(warnings.length, 1, 'only a warning that the picture falls back to a badge');
 });

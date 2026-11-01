@@ -207,7 +207,7 @@ const content = {
 
 test('settings defaults and normalisation ignore junk', () => {
   const d = L.defaultSettings(content);
-  assert.deepEqual(d, { lang: 'both', places: { a: true, b: false }, letterSets: { hv: true, en: true, hc: false } });
+  assert.deepEqual(d, { lang: 'both', level: null, onboarded: false, places: { a: true, b: false }, letterSets: { hv: true, en: true, hc: false } });
   const n = L.normalizeSettings({ lang: 'fr', places: { a: false, zzz: true }, letterSets: { hc: 'yes' } }, content);
   assert.equal(n.lang, 'both');
   assert.deepEqual(n.places, { a: false, b: false });
@@ -242,4 +242,51 @@ test('recording file names map to clip keys', () => {
   assert.equal(L.clipKeyFromFileName('Bus_HI.m4a', keys), 'bus_hi');
   assert.equal(L.clipKeyFromFileName('hc-ka.mp3', keys), 'hc-ka');
   assert.equal(L.clipKeyFromFileName('holiday.mp3', keys), null);
+});
+
+// ---- learning stats ----
+
+test('itemKey names words, letters, matras and numbers', () => {
+  assert.equal(L.itemKey({ id: 'bus', hi: 'बस', picture: 'bus' }), 'w:bus');
+  assert.equal(L.itemKey({ id: 'hc-ka', char: 'क' }), 'l:hc-ka');
+  assert.equal(L.itemKey({ id: 'aa', sign: 'ा' }), 'm:aa');
+  assert.equal(L.itemKey({ id: 'aa', text: 'का', matra: { id: 'aa' } }), 'm:aa');
+  assert.equal(L.itemKey({ value: 3, hi: 'तीन' }), 'n:3');
+  assert.equal(L.itemKey(null), null);
+});
+
+test('recordAnswer counts first-try answers', () => {
+  let s = {};
+  s = L.recordAnswer(s, 'w:bus', true);
+  s = L.recordAnswer(s, 'w:bus', false);
+  s = L.recordAnswer(s, 'w:bus', true);
+  assert.deepEqual(s['w:bus'], { seen: 3, first: 2 });
+  assert.equal(L.recordAnswer(s, null, true), s);
+});
+
+test('hard items weigh more than mastered ones', () => {
+  const hard = { seen: 5, first: 0 };
+  const easy = { seen: 5, first: 5 };
+  assert.ok(L.practiceWeight(hard) > L.practiceWeight(undefined));
+  assert.ok(L.practiceWeight(undefined) > L.practiceWeight(easy));
+  assert.ok(L.mastery(easy) > 0.8 && L.mastery(hard) < 0.2);
+});
+
+test('weightedSequence favours heavy items and never repeats back to back', () => {
+  const pool = ['a', 'b', 'c', 'd'].map((id) => ({ id }));
+  const counts = { a: 0, b: 0, c: 0, d: 0 };
+  const seq = L.weightedSequence(pool, 2000, L.makeRng(9), (x) => (x.id === 'a' ? 6 : 1));
+  for (let i = 0; i < seq.length; i++) {
+    counts[seq[i].id]++;
+    if (i) assert.notEqual(seq[i].id, seq[i - 1].id);
+  }
+  assert.ok(counts.a > counts.b * 2, JSON.stringify(counts));
+  assert.equal(L.weightedSequence([{ id: 'x' }], 3, L.makeRng(1)).length, 3);
+});
+
+test('practiceReport splits practise from mastered', () => {
+  const r = L.practiceReport({ 'w:a': { seen: 4, first: 0 }, 'w:b': { seen: 6, first: 6 }, 'w:c': { seen: 1, first: 0 } });
+  assert.deepEqual(r.practise.map((x) => x.key), ['w:a']);
+  assert.deepEqual(r.mastered.map((x) => x.key), ['w:b']);
+  assert.equal(r.answered, 11);
 });

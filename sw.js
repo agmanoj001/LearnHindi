@@ -1,5 +1,5 @@
 // Offline support: cache the app shell, then serve from cache and refresh in the background.
-const VERSION = 'vt-v8';
+const VERSION = 'vt-v11';
 const SHELL = [
   './',
   'index.html',
@@ -9,10 +9,14 @@ const SHELL = [
   'icons/icon.svg',
   'icons/icon-192.png',
   'icons/icon-512.png',
+  'fonts/baloo2-devanagari.woff2',
+  'fonts/baloo2-latin.woff2',
   'js/app.js',
   'js/logic.js',
   'js/validate.js',
   'js/art.js',
+  'js/art-kit.js',
+  'js/art-words.js',
   'js/audio.js',
   'js/storage.js',
   'js/sfx.js',
@@ -26,6 +30,12 @@ const SHELL = [
   'js/games/recycling.js',
   'js/games/opposites.js',
   'js/games/trace.js',
+  'js/games/matra.js',
+  'js/games/read.js',
+  'js/games/sentence.js',
+  'js/games/rhyme.js',
+  'js/games/story.js',
+  'js/games/pairs.js',
 ];
 
 self.addEventListener('install', (event) => {

@@ -7,11 +7,19 @@ import {
   activeLetters,
   activeLetterSets,
   visiblePlaces,
+  currentLevel,
+  gameConfig,
+  expandWords,
+  itemKey,
+  recordAnswer,
+  practiceWeight,
+  weightedSequence,
+  practiceReport,
   clipKeysFor,
   clipKeyFromFileName,
 } from './logic.js';
 import { validateContent } from './validate.js';
-import { KNOWN_PICTURES, picture, pictureForWord, specialVehicle } from './art.js';
+import { pictureExists, picture, pictureForWord, specialVehicle } from './art.js';
 import { initAudio, play, stop, refreshClipKeys, hasVoice, wordSegs, letterSegs, numberSegs, soundSegs, sentenceSegs, phraseSegs } from './audio.js';
 import { KEYS, load, save, clips, resizeImage } from './storage.js';
 import { sfx } from './sfx.js';
@@ -31,7 +39,7 @@ async function boot() {
   } catch (e) {
     return showError(['Could not load content.json: ' + e.message]);
   }
-  const { errors, warnings } = validateContent(content, { knownPictures: KNOWN_PICTURES });
+  const { errors, warnings } = validateContent(content, { pictureExists });
   if (errors.length) return showError(errors);
   for (const [id, w] of Object.entries(content.words)) w.id = id;
   state.content = content;
@@ -55,15 +63,95 @@ function showError(errors) {
   );
 }
 
+function appTitle() {
+  const t = state.content.phrases.title;
+  return el('div', { class: 'title' }, [el('span', { class: 'title-hi', lang: 'hi', text: t.hi }), el('span', { class: 'title-en', text: t.en })]);
+}
+
 function showSplash() {
   const btn = el('button', { class: 'splash-play', 'aria-label': 'Play', html: ICONS.play });
   btn.addEventListener('click', () => {
     sfx.unlock();
     sfx.toot();
+    if (!state.settings.onboarded) return showOnboarding();
     say('welcome');
     showMap();
   });
-  app.replaceChildren(el('div', { class: 'splash' }, [el('div', { class: 'splash-art', html: picture('bus') }), btn]));
+  app.replaceChildren(
+    el('div', { class: 'splash' }, [
+      el('div', { class: 'splash-hero' }, [el('div', { class: 'splash-art', html: picture('bus') })]),
+      appTitle(),
+      btn,
+    ]),
+  );
+}
+
+// First run: a grown-up picks the child's stage and language. Changeable later in parent settings.
+function showOnboarding() {
+  const s = state.settings;
+  const persist = () => save(KEYS.settings, s);
+  app.replaceChildren(
+    el('div', { class: 'screen onboard' }, [
+      appTitle(),
+      el('h1', { text: 'Who is learning?' }),
+      el('p', { class: 'note', text: 'Pick a stage. Grown-ups can change it later by holding the settings button for 3 seconds.' }),
+      langControl(s, persist),
+      el(
+        'div',
+        { class: 'level-list' },
+        state.content.levels.map((level) =>
+          levelCard(level, false, () => {
+            s.level = level.id;
+            s.onboarded = true;
+            persist();
+            say('welcome');
+            showMap();
+          }),
+        ),
+      ),
+    ]),
+  );
+}
+
+function levelCard(level, selected, onPick) {
+  return el(
+    'button',
+    { class: `level-card ${selected ? 'selected' : ''}`, 'aria-pressed': selected ? 'true' : 'false', onclick: onPick },
+    [
+      el('span', { class: 'level-pic', html: picture(level.picture || 'car') }),
+      el('span', { class: 'level-text' }, [
+        el('span', { class: 'level-name' }, [el('b', { text: level.name.en }), el('span', { lang: 'hi', text: ` · ${level.name.hi}` })]),
+        el('span', { class: 'level-age', text: `Age ${level.age}` }),
+        el('span', { class: 'level-about', text: level.about }),
+      ]),
+    ],
+  );
+}
+
+function langControl(s, persist) {
+  return el(
+    'div',
+    { class: 'seg' },
+    [
+      ['hi', 'हिन्दी Hindi'],
+      ['en', 'English'],
+      ['both', 'Both / दोनों'],
+    ].map(([value, text]) =>
+      el('label', {}, [
+        el('input', {
+          type: 'radio',
+          name: 'lang',
+          value,
+          checked: s.lang === value,
+          onchange: () => {
+            s.lang = value;
+            persist();
+          },
+        }),
+        el('span', { text }),
+      ]),
+    ),
+  );
 }
 
 // ---------- speech helpers ----------
@@ -140,6 +228,13 @@ function wordCard(w, { showLabel = true, cls = '' } = {}) {
   ]);
 }
 
+// A card with only the written word: the child has to read it.
+function textCard(w, lang, { cls = '' } = {}) {
+  return el('button', { class: `card text ${cls}`, 'aria-label': `${w.en} ${w.translit}`, lang }, [
+    el('span', { class: 'word-text', text: lang === 'en' ? w.en : w.hi }),
+  ]);
+}
+
 function letterCard(letter, { cls = '' } = {}) {
   return el('button', { class: `card letter ${cls}`, 'aria-label': letter.translit, lang: letter.lang }, [
     el('span', { class: 'glyph', text: letter.char }),
@@ -158,10 +253,13 @@ function showMap() {
   stop();
   const places = visiblePlaces(state.content, state.settings);
   const tiles = places.map((p) => placeTile(word(p.word), p.color, () => openPlace(p)));
-  tiles.push(placeTile(word('place-garage'), '#7986cb', () => navigate(showGarage)));
+  tiles.push(placeTile(word('place-garage'), '#8B85FF', () => navigate(showGarage)));
   app.replaceChildren(
     el('div', { class: 'screen map' }, [
-      el('header', { class: 'map-head' }, [el('div', { class: 'map-sun' }), parentGate()]),
+      el('header', { class: 'map-head' }, [
+        appTitle(),
+        el('div', { class: 'head-right' }, [el('span', { class: 'level-chip', text: currentLevel(state.content, state.settings)?.name.en || '' }), parentGate()]),
+      ]),
       el('div', { class: 'town' }, tiles),
     ]),
   );
@@ -201,7 +299,12 @@ async function openPlace(place) {
 function startGame(game, place) {
   const token = ++state.token;
   stop();
-  const stars = el('div', { class: 'stars' });
+  const fill = el('div', { class: 'progress-fill' });
+  const rider = el('div', { class: 'progress-rider', html: picture('car') });
+  const progressBar = el('div', { class: 'progress', role: 'progressbar', 'aria-valuemin': 0 }, [
+    el('div', { class: 'progress-track' }, [fill, rider]),
+    el('span', { class: 'progress-flag', html: ICONS.flag }),
+  ]);
   const stage = el('main', { class: 'stage' });
   let repeat = null;
   const homeBtn = el('button', { class: 'round-btn home', 'aria-label': 'Home', html: ICONS.home, onclick: goHome });
@@ -213,7 +316,7 @@ function startGame(game, place) {
   });
   app.replaceChildren(
     el('div', { class: `screen game game-${place.game}`, style: { '--place': place.color || '#4fc3f7' } }, [
-      el('header', { class: 'game-head' }, [homeBtn, stars, speakBtn]),
+      el('header', { class: 'game-head' }, [homeBtn, progressBar, speakBtn]),
       stage,
     ]),
   );
@@ -225,13 +328,14 @@ function startGame(game, place) {
     special: state.special,
     place,
     options: place.options || {},
-    config: state.content.games[place.game] || {},
+    config: gameConfig(state.content, state.settings, place.game),
+    level: currentLevel(state.content, state.settings),
     rng,
     stage,
     langs: langs(),
     alive: () => token === state.token,
     word,
-    words: (ids) => ids.map(word),
+    words: (ids) => expandWords(ids, state.content).map(word),
     letters: () => activeLetters(state.content, state.settings),
     letterSets: () => activeLetterSets(state.content, state.settings),
     numbers: state.content.numbers,
@@ -241,20 +345,35 @@ function startGame(game, place) {
     sayLetterWithWord,
     saySound,
     sayAbout,
+    saySentence: (sentence, ls = langs()) => play(joinLangs(ls, (l) => sentenceSegs(sentence, l))),
+    playSegs: (segs) => play(segs),
     stop,
     sfx,
     label,
     wordCard,
+    textCard,
     letterCard,
     vehicleArt,
     picture: pictureForWord,
     unlockedVehicles: () => state.progress.unlockedVehicles,
     setRepeat: (fn) => (repeat = fn),
     setProgress(done, total) {
-      stars.replaceChildren(
-        ...Array.from({ length: total }, (_, i) => el('span', { class: `star ${i < done ? 'on' : ''}`, html: ICONS.star })),
-      );
+      const p = total ? Math.min(1, done / total) : 0;
+      progressBar.style.setProperty('--p', p);
+      progressBar.setAttribute('aria-valuemax', total);
+      progressBar.setAttribute('aria-valuenow', done);
+      if (done > 0) bounce(rider.firstElementChild); // the svg, so the rider keeps its CSS position
     },
+    // Learning stats: one entry per word, letter or matra, kept on this device only.
+    record(item, firstTry) {
+      const key = itemKey(item);
+      if (!key) return;
+      state.progress = { ...state.progress, stats: recordAnswer(state.progress.stats, key, firstTry) };
+      ctx.progress = state.progress;
+      save(KEYS.progress, state.progress);
+    },
+    // Rounds that lean towards what the child finds hard.
+    practice: (pool, n) => weightedSequence(pool, n, rng, (x) => practiceWeight(state.progress.stats[itemKey(x)])),
     saveProgress(update) {
       state.progress = { ...state.progress, ...update };
       ctx.progress = state.progress;
@@ -276,7 +395,7 @@ async function celebrate(gameId) {
     'div',
     { class: 'confetti' },
     Array.from({ length: 30 }, (_, i) =>
-      el('i', { style: { left: `${(i * 37) % 100}%`, animationDelay: `${(i % 10) * 0.12}s`, background: ['#e53935', '#fdd835', '#43a047', '#1e88e5', '#ab47bc'][i % 5] } }),
+      el('i', { style: { left: `${(i * 37) % 100}%`, animationDelay: `${(i % 10) * 0.12}s`, background: ['#FF5A5F', '#FFC93C', '#2EC27E', '#3D7BFF', '#A66BFF'][i % 5] } }),
     ),
   );
   const w = newVehicle ? word(newVehicle) : null;
@@ -284,7 +403,9 @@ async function celebrate(gameId) {
   app.replaceChildren(
     el('div', { class: 'screen celebrate' }, [
       confetti,
+      el('div', { class: 'burst' }),
       el('div', { class: 'prize' }, [
+        el('div', { class: 'prize-badge', html: ICONS.sparkle }),
         w ? el('div', { class: 'pic prize-pic', html: pictureForWord(w) }) : el('div', { class: 'big-star', html: ICONS.star }),
         w ? label(w) : null,
       ]),
@@ -328,8 +449,8 @@ function showGarage() {
   }
   const homeBtn = el('button', { class: 'round-btn home', 'aria-label': 'Home', html: ICONS.home, onclick: goHome });
   app.replaceChildren(
-    el('div', { class: 'screen garage', style: { '--place': '#7986cb' } }, [
-      el('header', { class: 'game-head' }, [homeBtn, label(word('place-garage')), el('span')]),
+    el('div', { class: 'screen garage', style: { '--place': '#8B85FF' } }, [
+      el('header', { class: 'game-head' }, [homeBtn, el('div', { class: 'head-title' }, [label(word('place-garage'))]), el('span', { class: 'round-spacer' })]),
       el('main', { class: 'garage-grid' }, cards),
     ]),
   );
@@ -373,27 +494,18 @@ function showSettings() {
   const check = (text, checked, onchange) =>
     el('label', { class: 'check' }, [el('input', { type: 'checkbox', checked, onchange: (e) => onchange(e.target.checked) }), el('span', { text })]);
 
-  const langRow = el(
+  const langRow = langControl(s, persist);
+  const level = currentLevel(content, s);
+  const levels = el(
     'div',
-    { class: 'seg' },
-    [
-      ['hi', 'हिन्दी Hindi'],
-      ['en', 'English'],
-      ['both', 'Both / दोनों'],
-    ].map(([value, text]) =>
-      el('label', {}, [
-        el('input', {
-          type: 'radio',
-          name: 'lang',
-          value,
-          checked: s.lang === value,
-          onchange: () => {
-            s.lang = value;
-            persist();
-          },
-        }),
-        el('span', { text }),
-      ]),
+    { class: 'level-list compact' },
+    content.levels.map((l) =>
+      levelCard(l, l.id === level.id, () => {
+        s.level = l.id;
+        s.onboarded = true;
+        persist();
+        showSettings();
+      }),
     ),
   );
   const voiceNote = el('p', { class: 'note' });
@@ -401,13 +513,14 @@ function showSettings() {
   if (missing.length && 'speechSynthesis' in window)
     voiceNote.textContent = `This device has no ${missing.map((l) => (l === 'hi' ? 'Hindi' : 'English')).join(' or ')} text-to-speech voice. Add one in Android Settings › Text-to-speech, or load recordings below.`;
 
-  const places = content.places.map((p) =>
+  const placeById = new Map(content.places.map((p) => [p.id, p]));
+  const places = level.places.map((id) => placeById.get(id)).map((p) =>
     check(`${word(p.word).en} · ${word(p.word).hi}`, s.places[p.id], (v) => {
       s.places[p.id] = v;
       persist();
     }),
   );
-  const sets = content.letterSets.map((set) =>
+  const sets = content.letterSets.filter((set) => level.letterSets.includes(set.id)).map((set) =>
     check(`${set.name.en} · ${set.name.hi}`, s.letterSets[set.id], (v) => {
       s.letterSets[set.id] = v;
       persist();
@@ -484,6 +597,33 @@ function showSettings() {
     el('pre', { class: 'names', text: validKeys.join('\n') }),
   ]);
 
+  const report = practiceReport(state.progress.stats);
+  const describe = (key) => {
+    const [kind, id] = [key[0], key.slice(2)];
+    if (kind === 'w') return word(id) ? `${word(id).hi} · ${word(id).en}` : id;
+    if (kind === 'l') return content.letterSets.flatMap((x) => x.letters).find((l) => l.id === id)?.char ?? id;
+    if (kind === 'm') {
+      const m = content.matras.find((x) => x.id === id);
+      return m ? `क${m.sign} (${m.vowel} matra)` : id;
+    }
+    if (kind === 'n') return id;
+    return key;
+  };
+  const chips = (rows) => el('div', { class: 'chips-row' }, rows.slice(0, 16).map((r) => el('span', { class: 'chip', lang: 'hi', text: describe(r.key) })));
+  const games = Object.values(state.progress.completed).reduce((a, b) => a + b, 0);
+  const progressView = el('div', { class: 'progress-view' }, [
+    el('div', { class: 'stat-row' }, [
+      el('div', { class: 'stat' }, [el('b', { text: String(games) }), el('span', { text: 'games finished' })]),
+      el('div', { class: 'stat' }, [el('b', { text: String(report.answered) }), el('span', { text: 'answers' })]),
+      el('div', { class: 'stat' }, [el('b', { text: String(state.progress.unlockedVehicles.length) }), el('span', { text: 'vehicles won' })]),
+    ]),
+    el('h3', { text: 'Practise together' }),
+    report.practise.length ? chips(report.practise) : el('p', { class: 'note', text: 'Nothing yet: items show up here after a few tries.' }),
+    el('h3', { text: 'Doing great' }),
+    report.mastered.length ? chips(report.mastered) : el('p', { class: 'note', text: 'Items show up here once they are right on the first tap most of the time.' }),
+    el('p', { class: 'note', text: 'Games pick the "practise" items more often. Nothing here leaves this device.' }),
+  ]);
+
   const resetBtn = el('button', {
     class: 'btn danger',
     text: 'Reset garage and progress',
@@ -498,9 +638,14 @@ function showSettings() {
   app.replaceChildren(
     el('div', { class: 'screen settings' }, [
       el('h1', { text: 'Parent settings' }),
+      section('Learning stage', el('p', { class: 'note', text: 'Each stage has its own places, letters and words. See CURRICULUM.md for what each stage covers.' }), levels),
       section('Language', langRow, voiceNote),
-      section('Places on the map', ...places),
-      section('Letter sets', ...sets, el('p', { class: 'note', text: 'Only sets in the chosen language are used.' })),
+      section(`Places for ${level.name.en}`, ...places),
+      section(
+        'Letter sets',
+        ...sets,
+        el('p', { class: 'note', text: sets.length ? 'Only sets in the chosen language are used.' : 'No letters at this stage: it is all listening and talking.' }),
+      ),
       section(
         'My special vehicle',
         el('p', { class: 'note', text: 'Pick a photo from this device. It stays only in this browser and is never uploaded.' }),
@@ -514,7 +659,7 @@ function showSettings() {
         audioStatus,
         names,
       ),
-      section('Progress', resetBtn),
+      section('Progress', progressView, resetBtn),
       state.warnings.length ? section('Content warnings', el('ul', {}, state.warnings.map((w) => el('li', { text: w })))) : null,
       close,
     ]),

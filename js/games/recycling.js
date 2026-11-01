@@ -4,9 +4,9 @@ import { shapePicture } from '../art.js';
 import { el, sleep, choose, runRounds, cheer, vehicleEl, flyTo, animate } from './kit.js';
 
 const binSvg = (fill, icon = '') =>
-  `<svg viewBox="0 0 120 140" aria-hidden="true"><rect x="8" y="14" width="104" height="16" rx="6" fill="${fill}" stroke="#263238" stroke-width="4"/>` +
-  `<path d="M16 30 H104 L96 134 H24 Z" fill="${fill}" stroke="#263238" stroke-width="4" stroke-linejoin="round"/>` +
-  `<rect x="48" y="4" width="24" height="12" rx="4" fill="#263238"/>${icon}</svg>`;
+  `<svg viewBox="0 0 120 140" aria-hidden="true"><path d="M16 32 H104 L97 128 Q96 136 88 136 H32 Q24 136 23 128 Z" fill="${fill}"/>` +
+  `<path d="M16 32 H104 L102 52 H18 Z" fill="#000" opacity="0.1"/>` +
+  `<rect x="6" y="16" width="108" height="18" rx="9" fill="${fill}"/><rect x="46" y="6" width="28" height="12" rx="6" fill="#2B2D42" opacity="0.75"/>${icon}</svg>`;
 
 export default {
   async start(ctx) {
@@ -28,7 +28,7 @@ export default {
       animate(item, [{ transform: 'translateY(-60px)', opacity: 0 }, { transform: 'none', opacity: 1 }], { duration: 400 });
       const btns = round.bins.map((w) => {
         const icon = mode === 'shape' ? `<g transform="translate(20 42) scale(0.4)">${shapePicture(shapeName(w), '#fafafa').replace(/^<svg[^>]*>|<\/svg>$/g, '')}</g>` : '';
-        const b = el('button', { class: 'bin', 'aria-label': w.en, html: binSvg(mode === 'color' ? w.color : '#78909c', icon) });
+        const b = el('button', { class: 'bin', 'aria-label': w.en, html: binSvg(mode === 'color' ? w.color : '#8492A6', icon) });
         b.word = w;
         return b;
       });
@@ -36,7 +36,7 @@ export default {
       const prompt = () => ctx.say('whichBin');
       ctx.setRepeat(prompt);
       prompt();
-      const right = await choose(btns, (b) => checkSort(round, b.word), { onWrong: (b) => ctx.say('thisIs', b.word) });
+      const right = await choose(btns, (b) => checkSort(round, b.word), { ctx, onWrong: (b) => ctx.say('thisIs', b.word) });
       await flyTo(item, right, { duration: 600, scale: 0.3, keep: false });
       item.innerHTML = '';
       await cheer(ctx, right);
