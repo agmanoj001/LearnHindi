@@ -55,7 +55,7 @@ async function ride(ctx, set) {
     const prompt = () => ctx.say('nextLetter', null, [set.lang]);
     ctx.setRepeat(prompt);
     prompt();
-    const right = await choose(btns, (b) => b.item.id === want.id, { onWrong: (b) => ctx.say('thisIs', b.item) });
+    const right = await choose(btns, (b) => b.item.id === want.id, { ctx, onWrong: (b) => ctx.say('thisIs', b.item) });
     train = addCarriage(train, right.item).train;
     ctx.sayItem(want);
     await flyTo(right, cars[i], { duration: 600, scale: 0.6 });

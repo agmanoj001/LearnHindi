@@ -2,14 +2,14 @@
 // "find": a parcel shows a picture and says its word; deliver it to the house with that word written on it.
 // "match": a letter shows a written word; find its picture (tap the word to hear it if stuck).
 // Wrong choices look alike (same first letter or matras), so the child reads the whole word.
-import { roundSequence, similarWords, shuffle } from '../logic.js';
+import { similarWords, shuffle } from '../logic.js';
 import { el, sleep, choose, runRounds, cheer, vehicleEl, flyTo, animate } from './kit.js';
 
 export default {
   async start(ctx) {
     const pool = ctx.words(ctx.config.words);
     const modes = ctx.config.modes || ['find', 'match'];
-    const targets = roundSequence(pool, ctx.config.rounds, ctx.rng);
+    const targets = ctx.practice(pool, ctx.config.rounds);
     const lang = ctx.settings.lang === 'en' ? 'en' : 'hi';
     const van = vehicleEl(ctx, 'postvan', 'rescuer');
     van.addEventListener('click', () => ctx.sayItem(ctx.word('postvan')));
@@ -26,7 +26,7 @@ export default {
         parcel.onclick = prompt;
         ctx.setRepeat(prompt);
         prompt();
-        const right = await choose(houses, (b) => b.item.id === target.id, { onWrong: (b) => ctx.sayItem(b.item, [lang]) });
+        const right = await choose(houses, (b) => b.item.id === target.id, { ctx, onWrong: (b) => ctx.sayItem(b.item, [lang]) });
         await flyTo(parcel, right, { duration: 700, scale: 0.4 });
         parcel.style.visibility = 'hidden';
         await cheer(ctx, right);
@@ -41,7 +41,7 @@ export default {
         const prompt = () => ctx.say('readWord');
         ctx.setRepeat(prompt);
         prompt();
-        const right = await choose(pics, (b) => b.item.id === target.id, { onWrong: (b) => ctx.say('thisIs', b.item) });
+        const right = await choose(pics, (b) => b.item.id === target.id, { ctx, onWrong: (b) => ctx.say('thisIs', b.item) });
         await flyTo(letter, right, { duration: 600, scale: 0.5, keep: false });
         await cheer(ctx, right);
         await ctx.sayItem(target);

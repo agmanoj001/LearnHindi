@@ -23,7 +23,7 @@ export default {
       van.onclick = prompt;
       ctx.setRepeat(prompt);
       prompt();
-      const right = await choose(btns, (b) => b.item.id === round.answer, { onWrong: (b) => ctx.sayItem(b.item, [lang]) });
+      const right = await choose(btns, (b) => b.item.id === round.answer, { ctx, onWrong: (b) => ctx.sayItem(b.item, [lang]) });
       await cheer(ctx, right);
       // say the pair together so the rhyme is heard
       await ctx.sayItem(target, [lang]);

@@ -2,7 +2,7 @@
 // 1. Explore one consonant's barakhadi (क का कि की ...) by tapping the tiles.
 // 2. Rounds alternate: "Find की" among syllables of the same consonant, and
 //    "add the right matra" to a word with one matra missing (म_र -> मोर).
-import { barakhadi, maskMatra, pickChoices, roundSequence, shuffle } from '../logic.js';
+import { barakhadi, maskMatra, pickChoices, shuffle } from '../logic.js';
 import { el, sleep, choose, runRounds, cheer, flyTo, bounce } from './kit.js';
 
 const DOTTED = '◌'; // ◌ : shows a matra sign on its own
@@ -45,8 +45,8 @@ export default {
 
     // ---- quiz ----
     const quizRow = row.filter((r) => r.matra);
-    const sounds = roundSequence(quizRow, ctx.config.rounds, ctx.rng);
-    const wordSeq = roundSequence(words, ctx.config.rounds, ctx.rng);
+    const sounds = ctx.practice(quizRow, ctx.config.rounds);
+    const wordSeq = ctx.practice(words, ctx.config.rounds);
     const ok = await runRounds(
       ctx,
       ctx.config.rounds,
@@ -61,7 +61,7 @@ export default {
           const prompt = () => ctx.say('find', syllable(target.text), ['hi']);
           ctx.setRepeat(prompt);
           prompt();
-          const right = await choose(btns, (b) => b.item.id === target.id, { onWrong: (b) => ctx.sayText(b.item.text, 'hi') });
+          const right = await choose(btns, (b) => b.item.id === target.id, { ctx, onWrong: (b) => ctx.sayText(b.item.text, 'hi') });
           await flyTo(right, car.querySelector('.matra-sticker'), { duration: 500, scale: 0.6, keep: false });
           car.querySelector('.matra-sticker').textContent = target.text;
           await cheer(ctx, car);
@@ -84,7 +84,7 @@ export default {
           };
           ctx.setRepeat(prompt);
           prompt();
-          const right = await choose(btns, (b) => b.item.id === gap.matra.id, { onWrong: (b) => ctx.sayText(gap.base + b.item.sign, 'hi') });
+          const right = await choose(btns, (b) => b.item.id === gap.matra.id, { ctx, onWrong: (b) => ctx.sayText(gap.base + b.item.sign, 'hi') });
           await flyTo(right, slot, { duration: 500, scale: 0.6, keep: false });
           shown.replaceChildren(el('span', { text: w.hi }));
           shown.classList.add('done');

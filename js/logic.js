@@ -457,3 +457,61 @@ export function makePairRound(sets, kinds, rng = Math.random) {
     kind === 'opposite' ? sample(rest.flat(), 2, rng) : [from, ...sample(rest.map((p) => p[1]), 1, rng)];
   return { kind, from, to, options: shuffle([to, ...distractors], rng) };
 }
+
+// ---- Learning stats and adaptive practice ----
+
+// A stable key for anything a child answers: words, letters, matras (or barakhadi syllables), numbers.
+export function itemKey(item) {
+  if (!item || typeof item !== 'object') return null;
+  if (typeof item.char === 'string') return `l:${item.id}`;
+  if (item.matra && typeof item.text === 'string') return `m:${item.matra.id}`;
+  if (typeof item.sign === 'string') return `m:${item.id}`;
+  if (typeof item.value === 'number') return `n:${item.value}`;
+  if (typeof item.hi === 'string' && item.id) return `w:${item.id}`;
+  return null;
+}
+
+// stats[key] = { seen, first } where `first` counts answers right on the first tap.
+export function recordAnswer(stats, key, firstTry) {
+  if (!key) return stats;
+  const old = stats[key] || { seen: 0, first: 0 };
+  return { ...stats, [key]: { seen: old.seen + 1, first: old.first + (firstTry ? 1 : 0) } };
+}
+
+// 0..1, smoothed so one lucky or unlucky answer doesn't decide it.
+export function mastery(stat) {
+  if (!stat) return 0.5;
+  return (stat.first + 1) / (stat.seen + 2);
+}
+
+// Items the child finds hard come up more often; new items a little more than known ones.
+export function practiceWeight(stat) {
+  if (!stat) return 1.5;
+  return 0.4 + (1 - mastery(stat)) * 2.2;
+}
+
+// Like roundSequence, but picks by weight. Never the same item twice in a row.
+export function weightedSequence(pool, n, rng = Math.random, weightOf = () => 1, key = defaultKey) {
+  if (!pool.length) return [];
+  const out = [];
+  for (let i = 0; i < n; i++) {
+    const prev = out.length ? key(out[out.length - 1]) : undefined;
+    const options = pool.length > 1 ? pool.filter((x) => key(x) !== prev) : pool;
+    const weights = options.map((x) => Math.max(0.01, weightOf(x)));
+    let r = rng() * weights.reduce((a, b) => a + b, 0);
+    let idx = 0;
+    while (idx < options.length - 1 && r >= weights[idx]) r -= weights[idx++];
+    out.push(options[idx]);
+  }
+  return out;
+}
+
+// For the parent view: what to practise and what is mastered.
+export function practiceReport(stats, { minSeen = 3 } = {}) {
+  const rows = Object.entries(stats).map(([key, s]) => ({ key, ...s, mastery: mastery(s) }));
+  return {
+    practise: rows.filter((r) => r.seen >= 2 && r.mastery < 0.6).sort((a, b) => a.mastery - b.mastery),
+    mastered: rows.filter((r) => r.seen >= minSeen && r.mastery >= 0.75).sort((a, b) => b.mastery - a.mastery),
+    answered: rows.reduce((n, r) => n + r.seen, 0),
+  };
+}

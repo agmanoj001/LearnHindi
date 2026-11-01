@@ -28,7 +28,7 @@ export default {
       const prompt = () => ctx.say('whichIs', target);
       ctx.setRepeat(prompt);
       prompt();
-      const right = await choose(btns, (b) => b.side === round.target, { onWrong: (b) => ctx.say('thisIs', b.word) });
+      const right = await choose(btns, (b) => b.side === round.target, { ctx, onWrong: (b) => ctx.say('thisIs', b.word) });
       await cheer(ctx, right);
       await ctx.sayItem(target);
       // then the other one, so the pair is heard together

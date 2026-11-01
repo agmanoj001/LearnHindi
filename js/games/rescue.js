@@ -1,6 +1,6 @@
 // Rescue (fire station, police station, hospital): the siren calls out a letter or word;
 // tap the window that has it and the place's vehicle races over to help.
-import { pickChoices, roundSequence } from '../logic.js';
+import { pickChoices } from '../logic.js';
 import { el, sleep, choose, runRounds, cheer, vehicleEl, flyTo, animate } from './kit.js';
 
 export default {
@@ -8,8 +8,8 @@ export default {
     const rounds = ctx.config.rounds;
     const letters = ctx.letters();
     const words = ctx.words(ctx.config.words);
-    const letterSeq = roundSequence(letters, rounds, ctx.rng);
-    const wordSeq = roundSequence(words, rounds, ctx.rng);
+    const letterSeq = ctx.practice(letters, rounds);
+    const wordSeq = ctx.practice(words, rounds);
     const vehicleId = ctx.options.vehicle;
     const vehicle = vehicleEl(ctx, vehicleId, 'rescuer');
     const windows = el('div', { class: 'windows' });
@@ -38,7 +38,7 @@ export default {
       };
       ctx.setRepeat(prompt);
       prompt();
-      const right = await choose(btns, (b) => b.item.id === target.id, { onWrong: (b) => ctx.say('thisIs', b.item) });
+      const right = await choose(btns, (b) => b.item.id === target.id, { ctx, onWrong: (b) => ctx.say('thisIs', b.item) });
       ctx.sfx.siren();
       await flyTo(vehicle, right, { duration: 900, scale: 0.7, keep: false });
       right.classList.add('done');

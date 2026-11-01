@@ -36,7 +36,7 @@ export default {
       const prompt = () => ctx.say('whichBin');
       ctx.setRepeat(prompt);
       prompt();
-      const right = await choose(btns, (b) => checkSort(round, b.word), { onWrong: (b) => ctx.say('thisIs', b.word) });
+      const right = await choose(btns, (b) => checkSort(round, b.word), { ctx, onWrong: (b) => ctx.say('thisIs', b.word) });
       await flyTo(item, right, { duration: 600, scale: 0.3, keep: false });
       item.innerHTML = '';
       await cheer(ctx, right);

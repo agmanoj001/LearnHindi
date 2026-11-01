@@ -5,17 +5,22 @@ export { el, sleep, wobble, bounce };
 export { flyTo, animate, ICONS } from '../ui.js';
 
 // Resolves with the correct button once it is tapped. Other taps call onWrong (gentle feedback only).
-export function choose(buttons, isRight, { onRight, onWrong } = {}) {
+// With `ctx`, the answer is recorded for the parent's progress view (right on the first tap or not).
+export function choose(buttons, isRight, { ctx, onRight, onWrong } = {}) {
   return new Promise((resolve) => {
     let finished = false;
+    let misses = 0;
     for (const b of buttons) {
       b.addEventListener('click', () => {
         if (finished) return;
         if (isRight(b)) {
           finished = true;
+          b.firstTry = misses === 0;
+          ctx?.record(b.item ?? b.letter ?? b.num ?? b.word, b.firstTry);
           onRight?.(b);
           resolve(b);
         } else {
+          misses++;
           wobble(b);
           onWrong?.(b);
         }

@@ -1,6 +1,6 @@
 // Construction site: dig up letters (digger), deliver blocks to the matching sound (dump truck),
 // build words with the crane. The cement mixer and bulldozer just play when tapped.
-import { pickChoices, roundSequence, sample, splitTiles, createBuild, placeTile, tileChoices, langForRound } from '../logic.js';
+import { pickChoices, sample, splitTiles, createBuild, placeTile, tileChoices, langForRound } from '../logic.js';
 import { el, sleep, choose, runRounds, cheer, vehicleEl, activityMenu, flyTo, animate, bounce, wobble, ICONS } from './kit.js';
 
 const MOUND =
@@ -85,7 +85,7 @@ async function dig(ctx) {
 // Dump truck: hear a letter, tap the block that matches it, the truck carries it away.
 async function deliver(ctx) {
   const pool = ctx.letters();
-  const targets = roundSequence(pool, ctx.config.deliverRounds, ctx.rng);
+  const targets = ctx.practice(pool, ctx.config.deliverRounds);
   const truck = vehicleEl(ctx, 'dumptruck');
   const sign = el('button', { class: 'round-btn big sound-sign', 'aria-label': 'Listen', html: ICONS.speaker });
   const blocks = el('div', { class: 'choices' });
@@ -100,7 +100,7 @@ async function deliver(ctx) {
     ctx.setRepeat(prompt);
     sign.onclick = prompt;
     prompt();
-    const right = await choose(btns, (b) => b.letter.id === target.id, { onWrong: (b) => ctx.say('thisIs', b.letter) });
+    const right = await choose(btns, (b) => b.letter.id === target.id, { ctx, onWrong: (b) => ctx.say('thisIs', b.letter) });
     await cheer(ctx, right);
     ctx.sayLetterWithWord(target);
     await flyTo(right, truck, { scale: 0.4, duration: 600 });

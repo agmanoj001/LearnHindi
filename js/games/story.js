@@ -86,7 +86,7 @@ export default {
         const ask = () => ctx.playSegs(langs.flatMap((l, k) => [...(k ? [{ pause: 400 }] : []), { text: q[l], lang: l }]));
         ctx.setRepeat(ask);
         ask();
-        const right = await choose(btns, (b) => b.item.id === q.answer, { onWrong: (b) => ctx.say('thisIs', b.item) });
+        const right = await choose(btns, (b) => b.item.id === q.answer, { ctx, onWrong: (b) => ctx.say('thisIs', b.item) });
         await cheer(ctx, right);
         await ctx.sayItem(right.item);
         await sleep(300);

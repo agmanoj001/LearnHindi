@@ -10,6 +10,11 @@ import {
   currentLevel,
   gameConfig,
   expandWords,
+  itemKey,
+  recordAnswer,
+  practiceWeight,
+  weightedSequence,
+  practiceReport,
   clipKeysFor,
   clipKeyFromFileName,
 } from './logic.js';
@@ -359,6 +364,16 @@ function startGame(game, place) {
       progressBar.setAttribute('aria-valuenow', done);
       if (done > 0) bounce(rider);
     },
+    // Learning stats: one entry per word, letter or matra, kept on this device only.
+    record(item, firstTry) {
+      const key = itemKey(item);
+      if (!key) return;
+      state.progress = { ...state.progress, stats: recordAnswer(state.progress.stats, key, firstTry) };
+      ctx.progress = state.progress;
+      save(KEYS.progress, state.progress);
+    },
+    // Rounds that lean towards what the child finds hard.
+    practice: (pool, n) => weightedSequence(pool, n, rng, (x) => practiceWeight(state.progress.stats[itemKey(x)])),
     saveProgress(update) {
       state.progress = { ...state.progress, ...update };
       ctx.progress = state.progress;
@@ -582,6 +597,33 @@ function showSettings() {
     el('pre', { class: 'names', text: validKeys.join('\n') }),
   ]);
 
+  const report = practiceReport(state.progress.stats);
+  const describe = (key) => {
+    const [kind, id] = [key[0], key.slice(2)];
+    if (kind === 'w') return word(id) ? `${word(id).hi} · ${word(id).en}` : id;
+    if (kind === 'l') return content.letterSets.flatMap((x) => x.letters).find((l) => l.id === id)?.char ?? id;
+    if (kind === 'm') {
+      const m = content.matras.find((x) => x.id === id);
+      return m ? `क${m.sign} (${m.vowel} matra)` : id;
+    }
+    if (kind === 'n') return id;
+    return key;
+  };
+  const chips = (rows) => el('div', { class: 'chips-row' }, rows.slice(0, 16).map((r) => el('span', { class: 'chip', lang: 'hi', text: describe(r.key) })));
+  const games = Object.values(state.progress.completed).reduce((a, b) => a + b, 0);
+  const progressView = el('div', { class: 'progress-view' }, [
+    el('div', { class: 'stat-row' }, [
+      el('div', { class: 'stat' }, [el('b', { text: String(games) }), el('span', { text: 'games finished' })]),
+      el('div', { class: 'stat' }, [el('b', { text: String(report.answered) }), el('span', { text: 'answers' })]),
+      el('div', { class: 'stat' }, [el('b', { text: String(state.progress.unlockedVehicles.length) }), el('span', { text: 'vehicles won' })]),
+    ]),
+    el('h3', { text: 'Practise together' }),
+    report.practise.length ? chips(report.practise) : el('p', { class: 'note', text: 'Nothing yet: items show up here after a few tries.' }),
+    el('h3', { text: 'Doing great' }),
+    report.mastered.length ? chips(report.mastered) : el('p', { class: 'note', text: 'Items show up here once they are right on the first tap most of the time.' }),
+    el('p', { class: 'note', text: 'Games pick the "practise" items more often. Nothing here leaves this device.' }),
+  ]);
+
   const resetBtn = el('button', {
     class: 'btn danger',
     text: 'Reset garage and progress',
@@ -617,7 +659,7 @@ function showSettings() {
         audioStatus,
         names,
       ),
-      section('Progress', resetBtn),
+      section('Progress', progressView, resetBtn),
       state.warnings.length ? section('Content warnings', el('ul', {}, state.warnings.map((w) => el('li', { text: w })))) : null,
       close,
     ]),

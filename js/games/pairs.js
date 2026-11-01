@@ -20,7 +20,7 @@ export default {
       parked.onclick = () => ctx.sayItem(from);
       ctx.setRepeat(prompt);
       prompt();
-      const right = await choose(btns, (b) => b.item.id === round.to, { onWrong: (b) => ctx.say('thisIs', b.item) });
+      const right = await choose(btns, (b) => b.item.id === round.to, { ctx, onWrong: (b) => ctx.say('thisIs', b.item) });
       ctx.sfx.vroom();
       await flyTo(right, space, { duration: 650 });
       right.classList.add('used');
