@@ -1,29 +1,8 @@
 // Simple, bright vector art drawn in code. Every picture is an SVG string.
 // Pure module (no DOM access) so tests can check that every content picture exists.
 
-const INK = '#2B2D42';
-// Flat, outline-free style: shapes are separated by colour, not by black lines.
-const OUT = '';
-const GLASS = '#CFEFFF';
-
-const svg = (body, vb = '0 0 200 140') =>
-  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${vb}" aria-hidden="true" focusable="false">${body}</svg>`;
-const rect = (x, y, w, h, fill, rx = 0, extra = OUT) =>
-  `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${rx}" fill="${fill}" ${extra}/>`;
-const circ = (cx, cy, r, fill, extra = '') => `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${fill}" ${extra}/>`;
-const ell = (cx, cy, rx, ry, fill, extra = OUT) => `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="${fill}" ${extra}/>`;
-const path = (d, fill, extra = OUT) => `<path d="${d}" fill="${fill}" ${extra}/>`;
-const line = (x1, y1, x2, y2, color = INK, w = 4) =>
-  `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${color}" stroke-width="${w}" stroke-linecap="round"/>`;
-const win = (x, y, w, h) => rect(x, y, w, h, GLASS, 6, '');
-const wheel = (x, y, r = 15) => circ(x, y, r, INK) + circ(x, y, r * 0.45, '#D9DEE7');
-const eye = (x, y, r = 4) => circ(x, y, r, INK) + circ(x + r * 0.35, y - r * 0.35, r * 0.35, '#fff');
-const tracks = (x, y, w, h = 26) => {
-  let s = rect(x, y, w, h, '#3B4252', h / 2);
-  const n = Math.max(3, Math.round(w / 28));
-  for (let i = 0; i < n; i++) s += circ(x + h / 2 + (i * (w - h)) / (n - 1), y + h / 2, h / 2 - 5, '#94A3B8');
-  return s;
-};
+import { INK, OUT, GLASS, svg, rect, circ, ell, path, line, win, wheel, eye, tracks, starPoints } from './art-kit.js';
+import { WORD_ART, PLACE_ART, FLOATING, parkingCars } from './art-words.js';
 
 function car(color) {
   return (
@@ -401,16 +380,6 @@ const ANIMALS = {
 
 // ---- shapes, colours and concepts ----
 
-function starPoints(cx, cy, r1, r2, n = 5) {
-  const pts = [];
-  for (let i = 0; i < n * 2; i++) {
-    const r = i % 2 ? r2 : r1;
-    const a = (Math.PI / n) * i - Math.PI / 2;
-    pts.push(`${(cx + r * Math.cos(a)).toFixed(1)},${(cy + r * Math.sin(a)).toFixed(1)}`);
-  }
-  return pts.join(' ');
-}
-
 export const SHAPES = {
   circle: (c) => circ(100, 70, 52, c, OUT),
   square: (c) => rect(52, 22, 96, 96, c, 6),
@@ -539,8 +508,9 @@ const PLACES = {
     [84, 96, 108, 120].map((y) => line(46, y, 154, y, '#B4B0FF', 3)).join(''),
 };
 
-const ALL = { ...VEHICLES, ...ANIMALS, ...CONCEPTS, ...PLACES };
+const ALL = { ...VEHICLES, ...ANIMALS, ...CONCEPTS, ...PLACES, ...WORD_ART, ...PLACE_ART };
 for (const [name, fn] of Object.entries(SHAPES)) ALL[`shape-${name}`] = fn;
+ALL['place-parking'] = () => PLACE_ART['place-parking']() + parkingCars(car);
 
 export const KNOWN_PICTURES = Object.keys(ALL);
 
@@ -554,14 +524,33 @@ function badge(label = '?', color = '#7e57c2') {
   );
 }
 
-const SHADOWED = new Set([...Object.keys(VEHICLES), ...Object.keys(ANIMALS)]);
+const SHADOWED = new Set([...Object.keys(VEHICLES), ...Object.keys(ANIMALS), ...Object.keys(WORD_ART).filter((k) => !FLOATING.has(k))]);
 const groundShadow = '<ellipse cx="100" cy="128" rx="78" ry="7" fill="#1E1B4B" opacity="0.08"/>';
 
+// "many:banana" draws three bananas: used for plurals (केला / केले).
+const MANY = 'many:';
+export function pictureExists(id) {
+  return typeof id === 'string' && (id in ALL || (id.startsWith(MANY) && id.slice(MANY.length) in ALL));
+}
+
+function body(id, color) {
+  if (id.startsWith(MANY)) {
+    const one = ALL[id.slice(MANY.length)](color);
+    return [
+      [0, 46],
+      [90, 46],
+      [45, 6],
+    ]
+      .map(([x, y]) => `<g transform="translate(${x} ${y}) scale(0.55)">${one}</g>`)
+      .join('');
+  }
+  return (SHADOWED.has(id) ? groundShadow : '') + ALL[id](color);
+}
+
 export function picture(id, opts = {}) {
-  const fn = ALL[id];
-  if (!fn) return badge(opts.label, opts.color);
+  if (!pictureExists(id)) return badge(opts.label, opts.color);
   const vb = id.startsWith('place-') ? '0 0 200 160' : '0 0 200 140';
-  return svg((SHADOWED.has(id) ? groundShadow : '') + fn(opts.color), vb);
+  return svg(body(id, opts.color), vb);
 }
 
 export function pictureForWord(word) {
