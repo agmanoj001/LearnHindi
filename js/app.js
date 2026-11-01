@@ -362,7 +362,7 @@ function startGame(game, place) {
       progressBar.style.setProperty('--p', p);
       progressBar.setAttribute('aria-valuemax', total);
       progressBar.setAttribute('aria-valuenow', done);
-      if (done > 0) bounce(rider);
+      if (done > 0) bounce(rider.firstElementChild); // the svg, so the rider keeps its CSS position
     },
     // Learning stats: one entry per word, letter or matra, kept on this device only.
     record(item, firstTry) {
