@@ -9,10 +9,12 @@ const MOUND =
 export default {
   start(ctx) {
     const W = ctx.word;
+    const on = new Set(ctx.config.activities || ['dig', 'deliver', 'build']);
+    if (!ctx.letters().length) on.delete('deliver');
     activityMenu(ctx, [
-      { word: W('digger'), go: () => dig(ctx) },
-      { word: W('dumptruck'), go: () => deliver(ctx) },
-      { word: W('crane'), go: () => build(ctx) },
+      on.has('dig') && { word: W('digger'), go: () => dig(ctx) },
+      on.has('deliver') && { word: W('dumptruck'), go: () => deliver(ctx) },
+      on.has('build') && { word: W('crane'), go: () => build(ctx) },
       {
         word: W('mixer'),
         play: (b) =>
@@ -28,14 +30,15 @@ export default {
           animate(b.querySelector('.pic'), [{ transform: 'translateX(0)' }, { transform: 'translateX(25%)' }, { transform: 'translateX(0)' }], { duration: 1000 });
         },
       },
-    ]);
+    ].filter(Boolean));
   },
 };
 
-// Digger: tap each pile of dirt to dig up a letter. Every tap is a success.
+// Digger: tap each pile of dirt to dig up a letter (or, for toddlers, a picture). Every tap is a success.
 async function dig(ctx) {
   const n = ctx.config.digLetters;
-  const letters = sample(ctx.letters(), n, ctx.rng);
+  const letterPool = ctx.letters();
+  const letters = letterPool.length ? sample(letterPool, n, ctx.rng) : sample(ctx.words(ctx.config.digWords), n, ctx.rng);
   const digger = vehicleEl(ctx, 'digger');
   const mounds = letters.map(() => el('button', { class: 'mound', 'aria-label': 'dirt', html: MOUND }));
   ctx.stage.replaceChildren(el('div', { class: 'scene' }, [digger]), el('div', { class: 'choices mounds' }, mounds));
@@ -48,24 +51,28 @@ async function dig(ctx) {
     mounds.forEach((m, i) =>
       m.addEventListener('click', async () => {
         const letter = letters[i];
+        const isLetter = typeof letter.char === 'string';
+        const sayIt = () => (isLetter ? ctx.sayLetterWithWord(letter) : ctx.sayItem(letter));
         if (m.dataset.dug) {
           bounce(m);
-          ctx.sayLetterWithWord(letter);
+          sayIt();
           return;
         }
         m.dataset.dug = '1';
         ctx.sfx.thud();
         animate(digger, [{ transform: 'rotate(0)' }, { transform: 'rotate(-6deg)' }, { transform: 'rotate(0)' }], { duration: 350 });
         await animate(m, [{ transform: 'scale(1)' }, { transform: 'scaleY(0.2)', opacity: 0.2 }], { duration: 300 });
-        const ex = letter.word ? ctx.word(letter.word) : null;
-        m.replaceChildren(
-          el('span', { class: 'glyph', lang: letter.lang, text: letter.char }),
-          ex ? el('span', { class: 'mini-pic', html: ctx.picture(ex) }) : '',
-        );
+        if (isLetter) {
+          const ex = letter.word ? ctx.word(letter.word) : null;
+          m.replaceChildren(
+            el('span', { class: 'glyph', lang: letter.lang, text: letter.char }),
+            ex ? el('span', { class: 'mini-pic', html: ctx.picture(ex) }) : '',
+          );
+        } else m.replaceChildren(el('span', { class: 'mini-pic big', html: ctx.picture(letter) }));
         m.classList.add('dug');
         ctx.sfx.chime();
         bounce(m);
-        ctx.sayLetterWithWord(letter);
+        sayIt();
         ctx.setProgress(++dug, n);
         if (dug === n) resolve();
       }),
@@ -106,7 +113,15 @@ async function deliver(ctx) {
 
 // Crane: lift letter tiles into the slots to build a word (बस, कार, BUS, CAR ...).
 async function build(ctx) {
-  const words = sample(ctx.config.buildWords, ctx.config.buildRounds, ctx.rng).map(ctx.word);
+  const pool = ctx.words(ctx.config.buildWords);
+  // short words only: at most 4 tiles, and English words without spaces
+  const fits = (w, lang) => splitTiles(w, lang).length <= 4 && (lang === 'hi' || /^[a-z]+$/i.test(w.en));
+  const words = [];
+  for (let i = 0; i < ctx.config.buildRounds; i++) {
+    const lang = langForRound(ctx.settings.lang, i);
+    const options = pool.filter((w) => fits(w, lang) && !words.includes(w));
+    if (options.length) words.push(options[Math.floor(ctx.rng() * options.length)]);
+  }
   const charsOf = (lang) => ctx.content.letterSets.filter((s) => s.lang === lang).flatMap((s) => s.letters.map((l) => l.char.toUpperCase()));
 
   const ok = await runRounds(ctx, words.length, async (i) => {

@@ -7,11 +7,14 @@ import {
   activeLetters,
   activeLetterSets,
   visiblePlaces,
+  currentLevel,
+  gameConfig,
+  expandWords,
   clipKeysFor,
   clipKeyFromFileName,
 } from './logic.js';
 import { validateContent } from './validate.js';
-import { KNOWN_PICTURES, picture, pictureForWord, specialVehicle } from './art.js';
+import { pictureExists, picture, pictureForWord, specialVehicle } from './art.js';
 import { initAudio, play, stop, refreshClipKeys, hasVoice, wordSegs, letterSegs, numberSegs, soundSegs, sentenceSegs, phraseSegs } from './audio.js';
 import { KEYS, load, save, clips, resizeImage } from './storage.js';
 import { sfx } from './sfx.js';
@@ -31,7 +34,7 @@ async function boot() {
   } catch (e) {
     return showError(['Could not load content.json: ' + e.message]);
   }
-  const { errors, warnings } = validateContent(content, { knownPictures: KNOWN_PICTURES });
+  const { errors, warnings } = validateContent(content, { pictureExists });
   if (errors.length) return showError(errors);
   for (const [id, w] of Object.entries(content.words)) w.id = id;
   state.content = content;
@@ -65,6 +68,7 @@ function showSplash() {
   btn.addEventListener('click', () => {
     sfx.unlock();
     sfx.toot();
+    if (!state.settings.onboarded) return showOnboarding();
     say('welcome');
     showMap();
   });
@@ -74,6 +78,74 @@ function showSplash() {
       appTitle(),
       btn,
     ]),
+  );
+}
+
+// First run: a grown-up picks the child's stage and language. Changeable later in parent settings.
+function showOnboarding() {
+  const s = state.settings;
+  const persist = () => save(KEYS.settings, s);
+  app.replaceChildren(
+    el('div', { class: 'screen onboard' }, [
+      appTitle(),
+      el('h1', { text: 'Who is learning?' }),
+      el('p', { class: 'note', text: 'Pick a stage. Grown-ups can change it later by holding the settings button for 3 seconds.' }),
+      langControl(s, persist),
+      el(
+        'div',
+        { class: 'level-list' },
+        state.content.levels.map((level) =>
+          levelCard(level, false, () => {
+            s.level = level.id;
+            s.onboarded = true;
+            persist();
+            say('welcome');
+            showMap();
+          }),
+        ),
+      ),
+    ]),
+  );
+}
+
+function levelCard(level, selected, onPick) {
+  return el(
+    'button',
+    { class: `level-card ${selected ? 'selected' : ''}`, 'aria-pressed': selected ? 'true' : 'false', onclick: onPick },
+    [
+      el('span', { class: 'level-pic', html: picture(level.picture || 'car') }),
+      el('span', { class: 'level-text' }, [
+        el('span', { class: 'level-name' }, [el('b', { text: level.name.en }), el('span', { lang: 'hi', text: ` · ${level.name.hi}` })]),
+        el('span', { class: 'level-age', text: `Age ${level.age}` }),
+        el('span', { class: 'level-about', text: level.about }),
+      ]),
+    ],
+  );
+}
+
+function langControl(s, persist) {
+  return el(
+    'div',
+    { class: 'seg' },
+    [
+      ['hi', 'हिन्दी Hindi'],
+      ['en', 'English'],
+      ['both', 'Both / दोनों'],
+    ].map(([value, text]) =>
+      el('label', {}, [
+        el('input', {
+          type: 'radio',
+          name: 'lang',
+          value,
+          checked: s.lang === value,
+          onchange: () => {
+            s.lang = value;
+            persist();
+          },
+        }),
+        el('span', { text }),
+      ]),
+    ),
   );
 }
 
@@ -151,6 +223,13 @@ function wordCard(w, { showLabel = true, cls = '' } = {}) {
   ]);
 }
 
+// A card with only the written word: the child has to read it.
+function textCard(w, lang, { cls = '' } = {}) {
+  return el('button', { class: `card text ${cls}`, 'aria-label': `${w.en} ${w.translit}`, lang }, [
+    el('span', { class: 'word-text', text: lang === 'en' ? w.en : w.hi }),
+  ]);
+}
+
 function letterCard(letter, { cls = '' } = {}) {
   return el('button', { class: `card letter ${cls}`, 'aria-label': letter.translit, lang: letter.lang }, [
     el('span', { class: 'glyph', text: letter.char }),
@@ -172,7 +251,10 @@ function showMap() {
   tiles.push(placeTile(word('place-garage'), '#8B85FF', () => navigate(showGarage)));
   app.replaceChildren(
     el('div', { class: 'screen map' }, [
-      el('header', { class: 'map-head' }, [appTitle(), parentGate()]),
+      el('header', { class: 'map-head' }, [
+        appTitle(),
+        el('div', { class: 'head-right' }, [el('span', { class: 'level-chip', text: currentLevel(state.content, state.settings)?.name.en || '' }), parentGate()]),
+      ]),
       el('div', { class: 'town' }, tiles),
     ]),
   );
@@ -241,13 +323,14 @@ function startGame(game, place) {
     special: state.special,
     place,
     options: place.options || {},
-    config: state.content.games[place.game] || {},
+    config: gameConfig(state.content, state.settings, place.game),
+    level: currentLevel(state.content, state.settings),
     rng,
     stage,
     langs: langs(),
     alive: () => token === state.token,
     word,
-    words: (ids) => ids.map(word),
+    words: (ids) => expandWords(ids, state.content).map(word),
     letters: () => activeLetters(state.content, state.settings),
     letterSets: () => activeLetterSets(state.content, state.settings),
     numbers: state.content.numbers,
@@ -257,10 +340,13 @@ function startGame(game, place) {
     sayLetterWithWord,
     saySound,
     sayAbout,
+    saySentence: (sentence, ls = langs()) => play(joinLangs(ls, (l) => sentenceSegs(sentence, l))),
+    playSegs: (segs) => play(segs),
     stop,
     sfx,
     label,
     wordCard,
+    textCard,
     letterCard,
     vehicleArt,
     picture: pictureForWord,
@@ -393,27 +479,18 @@ function showSettings() {
   const check = (text, checked, onchange) =>
     el('label', { class: 'check' }, [el('input', { type: 'checkbox', checked, onchange: (e) => onchange(e.target.checked) }), el('span', { text })]);
 
-  const langRow = el(
+  const langRow = langControl(s, persist);
+  const level = currentLevel(content, s);
+  const levels = el(
     'div',
-    { class: 'seg' },
-    [
-      ['hi', 'हिन्दी Hindi'],
-      ['en', 'English'],
-      ['both', 'Both / दोनों'],
-    ].map(([value, text]) =>
-      el('label', {}, [
-        el('input', {
-          type: 'radio',
-          name: 'lang',
-          value,
-          checked: s.lang === value,
-          onchange: () => {
-            s.lang = value;
-            persist();
-          },
-        }),
-        el('span', { text }),
-      ]),
+    { class: 'level-list compact' },
+    content.levels.map((l) =>
+      levelCard(l, l.id === level.id, () => {
+        s.level = l.id;
+        s.onboarded = true;
+        persist();
+        showSettings();
+      }),
     ),
   );
   const voiceNote = el('p', { class: 'note' });
@@ -421,13 +498,14 @@ function showSettings() {
   if (missing.length && 'speechSynthesis' in window)
     voiceNote.textContent = `This device has no ${missing.map((l) => (l === 'hi' ? 'Hindi' : 'English')).join(' or ')} text-to-speech voice. Add one in Android Settings › Text-to-speech, or load recordings below.`;
 
-  const places = content.places.map((p) =>
+  const placeById = new Map(content.places.map((p) => [p.id, p]));
+  const places = level.places.map((id) => placeById.get(id)).map((p) =>
     check(`${word(p.word).en} · ${word(p.word).hi}`, s.places[p.id], (v) => {
       s.places[p.id] = v;
       persist();
     }),
   );
-  const sets = content.letterSets.map((set) =>
+  const sets = content.letterSets.filter((set) => level.letterSets.includes(set.id)).map((set) =>
     check(`${set.name.en} · ${set.name.hi}`, s.letterSets[set.id], (v) => {
       s.letterSets[set.id] = v;
       persist();
@@ -518,9 +596,14 @@ function showSettings() {
   app.replaceChildren(
     el('div', { class: 'screen settings' }, [
       el('h1', { text: 'Parent settings' }),
+      section('Learning stage', el('p', { class: 'note', text: 'Each stage has its own places, letters and words. See CURRICULUM.md for what each stage covers.' }), levels),
       section('Language', langRow, voiceNote),
-      section('Places on the map', ...places),
-      section('Letter sets', ...sets, el('p', { class: 'note', text: 'Only sets in the chosen language are used.' })),
+      section(`Places for ${level.name.en}`, ...places),
+      section(
+        'Letter sets',
+        ...sets,
+        el('p', { class: 'note', text: sets.length ? 'Only sets in the chosen language are used.' : 'No letters at this stage: it is all listening and talking.' }),
+      ),
       section(
         'My special vehicle',
         el('p', { class: 'note', text: 'Pick a photo from this device. It stays only in this browser and is never uploaded.' }),

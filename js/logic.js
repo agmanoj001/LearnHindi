@@ -249,6 +249,30 @@ export function applyCompletion(progress, gameId, vehicleIds) {
   return { progress: { ...progress, completed, unlockedVehicles: unlocked }, newVehicle };
 }
 
+// ---- Phases (levels) ----
+
+// The phase the child is in: Toddler, Kindergarten, Grade 1, 2 or 3.
+export function currentLevel(content, settings) {
+  const levels = content.levels || [];
+  return levels.find((l) => l.id === settings?.level) || levels.find((l) => l.id === 'kg') || levels[0] || null;
+}
+
+// A game's settings: content.games[game] with the current phase's overrides on top.
+export function gameConfig(content, settings, game) {
+  const level = currentLevel(content, settings);
+  return { ...(content.games?.[game] || {}), ...(level?.games?.[game] || {}) };
+}
+
+// ["@grade1", "bus"] -> every word whose level is grade1, then "bus". Duplicates removed.
+export function expandWords(list, content) {
+  const out = [];
+  for (const entry of list || []) {
+    const ids = entry.startsWith('@') ? Object.keys(content.words).filter((id) => content.words[id].level === entry.slice(1)) : [entry];
+    for (const id of ids) if (!out.includes(id)) out.push(id);
+  }
+  return out;
+}
+
 // ---- Settings ----
 
 export function defaultSettings(content) {
@@ -256,7 +280,7 @@ export function defaultSettings(content) {
   for (const p of content.places) places[p.id] = p.unlockedByDefault !== false;
   const letterSets = {};
   for (const s of content.letterSets) letterSets[s.id] = s.enabledByDefault !== false;
-  return { lang: 'both', places, letterSets };
+  return { lang: 'both', level: currentLevel(content, {})?.id ?? null, onboarded: false, places, letterSets };
 }
 
 export function normalizeSettings(saved, content) {
@@ -264,6 +288,8 @@ export function normalizeSettings(saved, content) {
   if (!saved || typeof saved !== 'object') return base;
   const out = { ...base, places: { ...base.places }, letterSets: { ...base.letterSets } };
   if (LANG_MODES.includes(saved.lang)) out.lang = saved.lang;
+  if ((content.levels || []).some((l) => l.id === saved.level)) out.level = saved.level;
+  if (typeof saved.onboarded === 'boolean') out.onboarded = saved.onboarded;
   for (const id of Object.keys(out.places)) if (typeof saved.places?.[id] === 'boolean') out.places[id] = saved.places[id];
   for (const id of Object.keys(out.letterSets)) if (typeof saved.letterSets?.[id] === 'boolean') out.letterSets[id] = saved.letterSets[id];
   return out;
@@ -274,6 +300,8 @@ export function defaultProgress(content) {
     unlockedVehicles: content.vehicles.filter((v) => v.unlockedByDefault).map((v) => v.id),
     completed: {},
     trainPos: {},
+    storyPos: {},
+    stats: {},
   };
 }
 
@@ -283,18 +311,23 @@ export function normalizeProgress(saved, content) {
   const known = new Set(content.vehicles.map((v) => v.id));
   const unlocked = new Set(base.unlockedVehicles);
   for (const id of saved.unlockedVehicles || []) if (known.has(id)) unlocked.add(id);
+  const obj = (v) => (v && typeof v === 'object' && !Array.isArray(v) ? { ...v } : {});
   return {
     unlockedVehicles: content.vehicles.map((v) => v.id).filter((id) => unlocked.has(id)),
-    completed: saved.completed && typeof saved.completed === 'object' ? { ...saved.completed } : {},
-    trainPos: saved.trainPos && typeof saved.trainPos === 'object' ? { ...saved.trainPos } : {},
+    completed: obj(saved.completed),
+    trainPos: obj(saved.trainPos),
+    storyPos: obj(saved.storyPos),
+    stats: obj(saved.stats),
   };
 }
 
-// Letter sets the child should see, given the language mix and the parent's choices.
-// Falls back to every set in the active language(s) if the parent turned them all off.
+// Letter sets the child should see: the phase's sets, in the chosen language(s), minus any the
+// parent turned off. Toddlers get none. If the parent turned every set off, all of the phase's sets come back.
 export function activeLetterSets(content, settings) {
   const langs = langsFor(settings.lang);
-  const inLang = content.letterSets.filter((s) => langs.includes(s.lang));
+  const level = currentLevel(content, settings);
+  const allowed = level ? content.letterSets.filter((s) => level.letterSets.includes(s.id)) : content.letterSets;
+  const inLang = allowed.filter((s) => langs.includes(s.lang));
   const chosen = inLang.filter((s) => settings.letterSets[s.id]);
   return chosen.length ? chosen : inLang;
 }
@@ -315,6 +348,7 @@ export function clipKeysFor(content) {
   for (const s of content.letterSets) for (const l of s.letters) keys.push(l.id);
   for (const n of content.numbers) keys.push(`num-${n.value}_hi`, `num-${n.value}_en`);
   for (const s of content.sentences || []) keys.push(`sentence-${s.id}_hi`, `sentence-${s.id}_en`);
+  for (const st of content.stories || []) st.pages.forEach((_, i) => keys.push(`story-${st.id}-${i + 1}_hi`, `story-${st.id}-${i + 1}_en`));
   for (const [k, p] of Object.entries(content.phrases)) {
     if (!p.hi.includes('{w}')) keys.push(`phrase-${k}_hi`);
     if (!p.en.includes('{w}')) keys.push(`phrase-${k}_en`);
@@ -328,6 +362,98 @@ export function clipKeyFromFileName(name, validKeys) {
   return validKeys.find((k) => k.toLowerCase() === base) ?? null;
 }
 
+// Places on the map: the phase's places, in the phase's order, minus any the parent hid.
 export function visiblePlaces(content, settings) {
-  return content.places.filter((p) => settings.places[p.id]);
+  const level = currentLevel(content, settings);
+  const byId = new Map(content.places.map((p) => [p.id, p]));
+  const ids = level ? level.places : content.places.map((p) => p.id);
+  return ids.map((id) => byId.get(id)).filter((p) => p && settings.places[p.id] !== false);
+}
+
+// ---- Matras and reading ----
+
+export const VIRAMA = '\u094D';
+
+// Vowel signs present in a word, in content order (e.g. "किताब" -> ["ि", "ा"]).
+export function matrasIn(text, matras) {
+  return matras.filter((m) => text.includes(m.sign));
+}
+
+export function hasConjunct(text) {
+  return text.includes(VIRAMA);
+}
+
+// The barakhadi row for one consonant: क का कि की कु कू के कै को कौ कं कः
+export function barakhadi(consonant, matras) {
+  return [{ id: 'a', text: consonant, matra: null }, ...matras.map((m) => ({ id: m.id, text: consonant + m.sign, matra: m }))];
+}
+
+// Hide one matra in a word: मोर -> { before: "", base: "म", sign: "ो", after: "र" }. Null if the word has none.
+export function maskMatra(word, matras, rng = Math.random) {
+  const parts = word.syllables || graphemes(word.hi);
+  const options = [];
+  parts.forEach((p, i) => {
+    for (const m of matras) if (p.length > m.sign.length && p.endsWith(m.sign)) options.push({ i, m });
+  });
+  if (!options.length) return null;
+  const { i, m } = options[Math.floor(rng() * options.length)];
+  return {
+    before: parts.slice(0, i).join(''),
+    base: parts[i].slice(0, -m.sign.length),
+    sign: m.sign,
+    matra: m,
+    after: parts.slice(i + 1).join(''),
+  };
+}
+
+// Distractor words that look like the target (same first letter, same matras, same length),
+// so reading has to look at the whole word. Never returns a word spelled like the target.
+export function similarWords(target, pool, count, rng = Math.random, matras = []) {
+  const first = (w) => graphemes(w.hi)[0]?.[0];
+  const signs = new Set(matras.filter((m) => target.hi.includes(m.sign)).map((m) => m.sign));
+  const len = graphemes(target.hi).length;
+  const scored = pool
+    .filter((w) => w.id !== target.id && w.hi !== target.hi)
+    .map((w) => {
+      let score = rng();
+      if (first(w) === first(target)) score += 2;
+      for (const sgn of signs) if (w.hi.includes(sgn)) score += 1;
+      if (graphemes(w.hi).length === len) score += 1;
+      return { w, score };
+    })
+    .sort((a, b) => b.score - a.score);
+  return scored.slice(0, count).map((x) => x.w);
+}
+
+export function sentenceTokens(text) {
+  return text.trim().split(/\s+/);
+}
+
+// ---- Rhymes and word pairs ----
+
+export function makeRhymeRound(groups, lang, rng = Math.random) {
+  const usable = groups.filter((g) => g.lang === lang && g.words.length >= 2);
+  if (!usable.length) return null;
+  const group = usable[Math.floor(rng() * usable.length)];
+  const [target, answer] = sample(group.words, 2, rng);
+  const others = shuffle(
+    usable.filter((g) => g !== group).flatMap((g) => g.words).filter((id) => !group.words.includes(id)),
+    rng,
+  );
+  const distractors = [...new Set(others)].slice(0, 2);
+  return { lang, target, answer, options: shuffle([answer, ...distractors], rng) };
+}
+
+// kind: opposite (बड़ा -> छोटा), plural (केला -> केले) or female (शेर -> शेरनी).
+export function makePairRound(sets, kinds, rng = Math.random) {
+  const usable = kinds.filter((k) => sets[k]?.length);
+  const kind = usable[Math.floor(rng() * usable.length)];
+  const pairs = sets[kind];
+  const pair = pairs[Math.floor(rng() * pairs.length)];
+  const flip = kind === 'opposite' && rng() < 0.5;
+  const [from, to] = flip ? [pair[1], pair[0]] : pair;
+  const rest = pairs.filter((p) => p !== pair);
+  const distractors =
+    kind === 'opposite' ? sample(rest.flat(), 2, rng) : [from, ...sample(rest.map((p) => p[1]), 1, rng)];
+  return { kind, from, to, options: shuffle([to, ...distractors], rng) };
 }

@@ -18,12 +18,18 @@ export default {
     vehicle.addEventListener('click', () => ctx.sayItem(ctx.word(vehicleId)));
 
     const ok = await runRounds(ctx, rounds, async (i) => {
-      const useLetter = i % 2 === 0;
+      const useLetter = i % 2 === 0 && letters.length >= 3;
       const target = useLetter ? letterSeq[i] : wordSeq[i];
       const options = useLetter ? pickChoices(letters.filter((l) => l.lang === target.lang), target, 3, ctx.rng) : pickChoices(words, target, 3, ctx.rng);
-      const btns = options.map((o) =>
-        Object.assign(useLetter ? ctx.letterCard(o, { cls: 'window' }) : ctx.wordCard(o, { showLabel: false, cls: 'window' }), { item: o }),
-      );
+      // From Grade 1 the windows show written words, so the child reads to find the one called.
+      const readLang = ctx.settings.lang === 'en' ? 'en' : 'hi';
+      const card = (o) =>
+        useLetter
+          ? ctx.letterCard(o, { cls: 'window' })
+          : ctx.config.cards === 'text'
+            ? ctx.textCard(o, readLang, { cls: 'window' })
+            : ctx.wordCard(o, { showLabel: false, cls: 'window' });
+      const btns = options.map((o) => Object.assign(card(o), { item: o }));
       windows.replaceChildren(...btns);
       const prompt = async () => {
         ctx.sfx.siren();

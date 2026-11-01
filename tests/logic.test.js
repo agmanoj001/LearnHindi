@@ -207,7 +207,7 @@ const content = {
 
 test('settings defaults and normalisation ignore junk', () => {
   const d = L.defaultSettings(content);
-  assert.deepEqual(d, { lang: 'both', places: { a: true, b: false }, letterSets: { hv: true, en: true, hc: false } });
+  assert.deepEqual(d, { lang: 'both', level: null, onboarded: false, places: { a: true, b: false }, letterSets: { hv: true, en: true, hc: false } });
   const n = L.normalizeSettings({ lang: 'fr', places: { a: false, zzz: true }, letterSets: { hc: 'yes' } }, content);
   assert.equal(n.lang, 'both');
   assert.deepEqual(n.places, { a: false, b: false });

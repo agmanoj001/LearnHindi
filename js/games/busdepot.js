@@ -26,7 +26,7 @@ function pickup(ctx, total) {
     ctx,
     n,
     async (i) => {
-      const useLetter = i % 2 === 1;
+      const useLetter = i % 2 === 1 && ctx.config.letters !== false && letters.length >= 3;
       const target = useLetter ? letterSeq[i] : animalSeq[i];
       const options = useLetter ? pickChoices(letters.filter((l) => l.lang === target.lang), target, 3, ctx.rng) : pickChoices(animals, target, 3, ctx.rng);
       const btns = options.map((o) => Object.assign(useLetter ? ctx.letterCard(o) : ctx.wordCard(o, { showLabel: false }), { item: o }));
