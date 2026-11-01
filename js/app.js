@@ -55,6 +55,11 @@ function showError(errors) {
   );
 }
 
+function appTitle() {
+  const t = state.content.phrases.title;
+  return el('div', { class: 'title' }, [el('span', { class: 'title-hi', lang: 'hi', text: t.hi }), el('span', { class: 'title-en', text: t.en })]);
+}
+
 function showSplash() {
   const btn = el('button', { class: 'splash-play', 'aria-label': 'Play', html: ICONS.play });
   btn.addEventListener('click', () => {
@@ -63,7 +68,13 @@ function showSplash() {
     say('welcome');
     showMap();
   });
-  app.replaceChildren(el('div', { class: 'splash' }, [el('div', { class: 'splash-art', html: picture('bus') }), btn]));
+  app.replaceChildren(
+    el('div', { class: 'splash' }, [
+      el('div', { class: 'splash-hero' }, [el('div', { class: 'splash-art', html: picture('bus') })]),
+      appTitle(),
+      btn,
+    ]),
+  );
 }
 
 // ---------- speech helpers ----------
@@ -158,10 +169,10 @@ function showMap() {
   stop();
   const places = visiblePlaces(state.content, state.settings);
   const tiles = places.map((p) => placeTile(word(p.word), p.color, () => openPlace(p)));
-  tiles.push(placeTile(word('place-garage'), '#7986cb', () => navigate(showGarage)));
+  tiles.push(placeTile(word('place-garage'), '#8B85FF', () => navigate(showGarage)));
   app.replaceChildren(
     el('div', { class: 'screen map' }, [
-      el('header', { class: 'map-head' }, [el('div', { class: 'map-sun' }), parentGate()]),
+      el('header', { class: 'map-head' }, [appTitle(), parentGate()]),
       el('div', { class: 'town' }, tiles),
     ]),
   );
@@ -201,7 +212,12 @@ async function openPlace(place) {
 function startGame(game, place) {
   const token = ++state.token;
   stop();
-  const stars = el('div', { class: 'stars' });
+  const fill = el('div', { class: 'progress-fill' });
+  const rider = el('div', { class: 'progress-rider', html: picture('car') });
+  const progressBar = el('div', { class: 'progress', role: 'progressbar', 'aria-valuemin': 0 }, [
+    el('div', { class: 'progress-track' }, [fill, rider]),
+    el('span', { class: 'progress-flag', html: ICONS.flag }),
+  ]);
   const stage = el('main', { class: 'stage' });
   let repeat = null;
   const homeBtn = el('button', { class: 'round-btn home', 'aria-label': 'Home', html: ICONS.home, onclick: goHome });
@@ -213,7 +229,7 @@ function startGame(game, place) {
   });
   app.replaceChildren(
     el('div', { class: `screen game game-${place.game}`, style: { '--place': place.color || '#4fc3f7' } }, [
-      el('header', { class: 'game-head' }, [homeBtn, stars, speakBtn]),
+      el('header', { class: 'game-head' }, [homeBtn, progressBar, speakBtn]),
       stage,
     ]),
   );
@@ -251,9 +267,11 @@ function startGame(game, place) {
     unlockedVehicles: () => state.progress.unlockedVehicles,
     setRepeat: (fn) => (repeat = fn),
     setProgress(done, total) {
-      stars.replaceChildren(
-        ...Array.from({ length: total }, (_, i) => el('span', { class: `star ${i < done ? 'on' : ''}`, html: ICONS.star })),
-      );
+      const p = total ? Math.min(1, done / total) : 0;
+      progressBar.style.setProperty('--p', p);
+      progressBar.setAttribute('aria-valuemax', total);
+      progressBar.setAttribute('aria-valuenow', done);
+      if (done > 0) bounce(rider);
     },
     saveProgress(update) {
       state.progress = { ...state.progress, ...update };
@@ -276,7 +294,7 @@ async function celebrate(gameId) {
     'div',
     { class: 'confetti' },
     Array.from({ length: 30 }, (_, i) =>
-      el('i', { style: { left: `${(i * 37) % 100}%`, animationDelay: `${(i % 10) * 0.12}s`, background: ['#e53935', '#fdd835', '#43a047', '#1e88e5', '#ab47bc'][i % 5] } }),
+      el('i', { style: { left: `${(i * 37) % 100}%`, animationDelay: `${(i % 10) * 0.12}s`, background: ['#FF5A5F', '#FFC93C', '#2EC27E', '#3D7BFF', '#A66BFF'][i % 5] } }),
     ),
   );
   const w = newVehicle ? word(newVehicle) : null;
@@ -284,7 +302,9 @@ async function celebrate(gameId) {
   app.replaceChildren(
     el('div', { class: 'screen celebrate' }, [
       confetti,
+      el('div', { class: 'burst' }),
       el('div', { class: 'prize' }, [
+        el('div', { class: 'prize-badge', html: ICONS.sparkle }),
         w ? el('div', { class: 'pic prize-pic', html: pictureForWord(w) }) : el('div', { class: 'big-star', html: ICONS.star }),
         w ? label(w) : null,
       ]),
@@ -328,8 +348,8 @@ function showGarage() {
   }
   const homeBtn = el('button', { class: 'round-btn home', 'aria-label': 'Home', html: ICONS.home, onclick: goHome });
   app.replaceChildren(
-    el('div', { class: 'screen garage', style: { '--place': '#7986cb' } }, [
-      el('header', { class: 'game-head' }, [homeBtn, label(word('place-garage')), el('span')]),
+    el('div', { class: 'screen garage', style: { '--place': '#8B85FF' } }, [
+      el('header', { class: 'game-head' }, [homeBtn, el('div', { class: 'head-title' }, [label(word('place-garage'))]), el('span', { class: 'round-spacer' })]),
       el('main', { class: 'garage-grid' }, cards),
     ]),
   );

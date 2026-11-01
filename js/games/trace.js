@@ -86,9 +86,9 @@ function traceLetter(ctx, letter, canvas, car) {
       g.textBaseline = 'middle';
       g.lineJoin = 'round';
       g.lineWidth = Math.max(10, size * 0.05);
-      g.strokeStyle = '#546e7a';
+      g.strokeStyle = '#4A5268';
       g.strokeText(letter.char, w / 2, h / 2);
-      g.fillStyle = '#78909c';
+      g.fillStyle = '#5B6478';
       g.fillText(letter.char, w / 2, h / 2);
       g.setLineDash([10, 12]);
       g.lineWidth = 3;
@@ -111,7 +111,7 @@ function traceLetter(ctx, letter, canvas, car) {
       return { x: e.clientX - r.left, y: e.clientY - r.top };
     };
     const paint = (a, b) => {
-      g.strokeStyle = 'rgba(255, 179, 0, 0.75)';
+      g.strokeStyle = 'rgba(255, 194, 51, 0.8)';
       g.lineWidth = brush * 1.6;
       g.lineCap = 'round';
       g.beginPath();
@@ -149,7 +149,7 @@ function traceLetter(ctx, letter, canvas, car) {
       // Replay: the vehicle drives the road the child made.
       drawRoad();
       const path = thinPoints(trail, 80);
-      g.fillStyle = '#ffb300';
+      g.fillStyle = '#FFC233';
       g.fillText(letter.char, w / 2, h / 2);
       ctx.sfx.vroom();
       await animate(

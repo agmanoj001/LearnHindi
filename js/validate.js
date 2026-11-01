@@ -5,6 +5,7 @@ export const GAME_TYPES = ['construction', 'busdepot', 'rescue', 'farm', 'railwa
 export const OPPOSITE_KINDS = ['size', 'height', 'speed'];
 
 export const REQUIRED_PHRASES = {
+  title: false,
   welcome: false,
   find: true,
   thisIs: true,

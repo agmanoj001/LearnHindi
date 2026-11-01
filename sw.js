@@ -1,5 +1,5 @@
 // Offline support: cache the app shell, then serve from cache and refresh in the background.
-const VERSION = 'vt-v8';
+const VERSION = 'vt-v9';
 const SHELL = [
   './',
   'index.html',
@@ -9,6 +9,8 @@ const SHELL = [
   'icons/icon.svg',
   'icons/icon-192.png',
   'icons/icon-512.png',
+  'fonts/baloo2-devanagari.woff2',
+  'fonts/baloo2-latin.woff2',
   'js/app.js',
   'js/logic.js',
   'js/validate.js',

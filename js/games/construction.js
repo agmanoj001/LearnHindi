@@ -4,7 +4,7 @@ import { pickChoices, roundSequence, sample, splitTiles, createBuild, placeTile,
 import { el, sleep, choose, runRounds, cheer, vehicleEl, activityMenu, flyTo, animate, bounce, wobble, ICONS } from './kit.js';
 
 const MOUND =
-  '<svg viewBox="0 0 120 80" aria-hidden="true"><path d="M4 78 Q60 -14 116 78 Z" fill="#8d6e63" stroke="#263238" stroke-width="4" stroke-linejoin="round"/><circle cx="40" cy="56" r="5" fill="#6d4c41"/><circle cx="72" cy="44" r="4" fill="#6d4c41"/><circle cx="84" cy="64" r="6" fill="#6d4c41"/></svg>';
+  '<svg viewBox="0 0 120 80" aria-hidden="true"><ellipse cx="60" cy="76" rx="54" ry="4" fill="#1E1B4B" opacity="0.08"/><path d="M6 76 Q60 -12 114 76 Z" fill="#B9876B"/><path d="M6 76 Q60 -12 114 76 Q70 40 6 76 Z" fill="#A47864"/><circle cx="44" cy="54" r="5" fill="#8A5A44"/><circle cx="74" cy="42" r="4" fill="#8A5A44"/><circle cx="86" cy="62" r="6" fill="#8A5A44"/></svg>';
 
 export default {
   start(ctx) {

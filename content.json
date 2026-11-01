@@ -1,6 +1,7 @@
 {
   "version": 1,
   "phrases": {
+    "title": { "hi": "गाड़ी नगर", "en": "Vehicle Town" },
     "welcome": { "hi": "चलो खेलें!", "en": "Let's play!" },
     "find": { "hi": "{w} ढूँढो", "en": "Find {w}" },
     "thisIs": { "hi": "यह {w} है", "en": "This is {w}" },
