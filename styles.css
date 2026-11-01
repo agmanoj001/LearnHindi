@@ -1241,7 +1241,7 @@ svg {
   box-shadow: var(--shadow);
 }
 .barakhadi {
-  max-width: 820px;
+  max-width: 1000px;
 }
 .card.syllable {
   min-width: calc(var(--tap) * 0.72);
