@@ -35,6 +35,12 @@ test('the map shows the phase places in the phase order, minus places the parent
   assert.ok(!L.visiblePlaces(content, s).some((p) => p.id === 'matra'));
 });
 
+test('the Hindi-only matra garage is hidden in English-only mode', () => {
+  assert.ok(L.visiblePlaces(content, settings('grade1', 'both')).some((p) => p.id === 'matra'));
+  assert.ok(L.visiblePlaces(content, settings('grade1', 'hi')).some((p) => p.id === 'matra'));
+  assert.ok(!L.visiblePlaces(content, settings('grade1', 'en')).some((p) => p.id === 'matra'));
+});
+
 test('toddlers get no letters; KG gets all three sets; the language mix filters them', () => {
   assert.equal(L.activeLetters(content, settings('toddler')).length, 0);
   const kg = L.activeLetterSets(content, settings('kg')).map((s) => s.id);
@@ -144,6 +150,12 @@ test('similar-looking distractors never repeat the target', () => {
   // पतंग should be shown next to other प/ं words, not random ones
   const kite = L.similarWords(word('kite'), pool, 2, L.makeRng(1), content.matras);
   assert.ok(kite.every((w) => w.hi.startsWith('प') || w.hi.includes('ं')), kite.map((w) => w.hi).join());
+});
+
+test('in English mode, distractors look alike in English', () => {
+  const pool = L.expandWords(['@grade1'], content).map(word);
+  const out = L.similarWords(word('bear'), pool, 2, L.makeRng(4), content.matras, 'en');
+  assert.ok(out.some((w) => w.en.startsWith('b')), out.map((w) => w.en).join());
 });
 
 // ---- rhymes and pairs ----

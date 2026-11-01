@@ -158,6 +158,8 @@ export function validateContent(c, { knownPictures = null, pictureExists = null 
       if (!GAME_TYPES.includes(p.game)) err(`${at} (${p.id}): unknown game "${p.game}"`);
       if (p.color !== undefined && !HEX.test(p.color)) err(`${at} (${p.id}): color must look like #ff0000`);
       if (p.game === 'rescue' && !hasWord(p.options?.vehicle)) err(`${at} (${p.id}): rescue places need options.vehicle (a word id)`);
+      if (p.langs !== undefined && (!Array.isArray(p.langs) || !p.langs.length || !p.langs.every((l) => l === 'hi' || l === 'en')))
+        err(`${at} (${p.id}).langs must list "hi" and/or "en"`);
     }
   }
 

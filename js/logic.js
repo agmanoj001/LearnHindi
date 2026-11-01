@@ -367,7 +367,10 @@ export function visiblePlaces(content, settings) {
   const level = currentLevel(content, settings);
   const byId = new Map(content.places.map((p) => [p.id, p]));
   const ids = level ? level.places : content.places.map((p) => p.id);
-  return ids.map((id) => byId.get(id)).filter((p) => p && settings.places[p.id] !== false);
+  const langs = langsFor(settings.lang);
+  // a place with "langs": ["hi"] (the matra garage) only makes sense when Hindi is on
+  const speaks = (p) => !p.langs || p.langs.some((l) => langs.includes(l));
+  return ids.map((id) => byId.get(id)).filter((p) => p && settings.places[p.id] !== false && speaks(p));
 }
 
 // ---- Matras and reading ----
@@ -408,17 +411,19 @@ export function maskMatra(word, matras, rng = Math.random) {
 
 // Distractor words that look like the target (same first letter, same matras, same length),
 // so reading has to look at the whole word. Never returns a word spelled like the target.
-export function similarWords(target, pool, count, rng = Math.random, matras = []) {
-  const first = (w) => graphemes(w.hi)[0]?.[0];
-  const signs = new Set(matras.filter((m) => target.hi.includes(m.sign)).map((m) => m.sign));
-  const len = graphemes(target.hi).length;
+export function similarWords(target, pool, count, rng = Math.random, matras = [], lang = 'hi') {
+  const en = lang === 'en';
+  const first = (w) => (en ? w.en[0]?.toLowerCase() : graphemes(w.hi)[0]?.[0]);
+  const size = (w) => (en ? w.en.length : graphemes(w.hi).length);
+  const signs = new Set(en ? [] : matras.filter((m) => target.hi.includes(m.sign)).map((m) => m.sign));
+  const len = size(target);
   const scored = pool
-    .filter((w) => w.id !== target.id && w.hi !== target.hi)
+    .filter((w) => w.id !== target.id && w.hi !== target.hi && w.en !== target.en)
     .map((w) => {
       let score = rng();
       if (first(w) === first(target)) score += 2;
       for (const sgn of signs) if (w.hi.includes(sgn)) score += 1;
-      if (graphemes(w.hi).length === len) score += 1;
+      if (Math.abs(size(w) - len) <= (en ? 1 : 0)) score += 1;
       return { w, score };
     })
     .sort((a, b) => b.score - a.score);

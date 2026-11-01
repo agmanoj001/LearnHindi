@@ -14,7 +14,7 @@ export default {
     const van = vehicleEl(ctx, 'postvan', 'rescuer');
     van.addEventListener('click', () => ctx.sayItem(ctx.word('postvan')));
 
-    const options = (target) => shuffle([target, ...similarWords(target, pool, 2, ctx.rng, ctx.content.matras)], ctx.rng);
+    const options = (target) => shuffle([target, ...similarWords(target, pool, 2, ctx.rng, ctx.content.matras, lang)], ctx.rng);
 
     const ok = await runRounds(ctx, targets.length, async (i) => {
       const target = targets[i];

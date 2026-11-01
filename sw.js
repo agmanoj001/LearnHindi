@@ -1,5 +1,5 @@
 // Offline support: cache the app shell, then serve from cache and refresh in the background.
-const VERSION = 'vt-v10';
+const VERSION = 'vt-v11';
 const SHELL = [
   './',
   'index.html',

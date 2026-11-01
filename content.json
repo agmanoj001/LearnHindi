@@ -236,7 +236,7 @@
     { "id": "recycling", "word": "place-recycling", "game": "recycling", "color": "#43a047" },
     { "id": "airport", "word": "place-airport", "game": "opposites", "color": "#29b6f6" },
     { "id": "trace", "word": "place-trace", "game": "trace", "color": "#ff7043" },
-    { "id": "matra", "word": "place-matra", "game": "matra", "color": "#6C63FF" },
+    { "id": "matra", "word": "place-matra", "game": "matra", "color": "#6C63FF", "langs": ["hi"] },
     { "id": "postoffice", "word": "place-postoffice", "game": "read", "color": "#FF5A5F" },
     { "id": "metro", "word": "place-metro", "game": "sentence", "color": "#3D7BFF" },
     { "id": "icecream", "word": "place-icecream", "game": "rhyme", "color": "#38BDF8" },
