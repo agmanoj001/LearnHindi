@@ -18,6 +18,12 @@ const pic = (id) => {
 // a picture placed inside another SVG
 const nest = (id, x, y, w, h) => pic(id).replace('<svg ', `<svg x="${x}" y="${y}" width="${w}" height="${h}" `);
 const S = (vb, body, cls = '') => `<svg class="mm-svg ${cls}" viewBox="${vb}" aria-hidden="true">${body}</svg>`;
+// Mix a #rrggbb colour toward white (k > 0) or black (k < 0); k in -1..1. Plain hex works everywhere.
+function tint(hex, k) {
+  const n = parseInt(hex.slice(1), 16);
+  const ch = [n >> 16, (n >> 8) & 255, n & 255].map((c) => Math.round(k >= 0 ? c + (255 - c) * k : c * (1 + k)));
+  return `#${ch.map((c) => c.toString(16).padStart(2, '0')).join('')}`;
+}
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 
 // ---------- objects to count ----------
@@ -158,7 +164,6 @@ const sequence = (m) => `<div class="mm-seq">${m.items.map((v) => (v === null ? 
 
 function shapeBody(shape, color, { stretch = 1, marks } = {}) {
   const id = `mmg${++uid}`;
-  const shade = (c, k) => `color-mix(in srgb, ${c} ${k}%, ${k > 100 ? 'white' : 'black'})`;
   let pts = null;
   let body = '';
   switch (shape) {
@@ -194,16 +199,16 @@ function shapeBody(shape, color, { stretch = 1, marks } = {}) {
       pts = Array.from({ length: 6 }, (_, i) => [60 + 48 * Math.cos((Math.PI / 3) * i), 60 + 48 * Math.sin((Math.PI / 3) * i)]);
       break;
     case 'cube':
-      body = `<path d="M24 40 L60 22 L96 40 L60 58 Z" fill="${shade(color, 70)}" style="fill:color-mix(in srgb, ${color} 65%, white)"/><path d="M24 40 L60 58 V102 L24 84 Z" fill="${color}"/><path d="M96 40 L60 58 V102 L96 84 Z" fill="${color}" style="fill:color-mix(in srgb, ${color} 75%, black)"/>`;
+      body = `<path d="M24 40 L60 22 L96 40 L60 58 Z" fill="${tint(color, 0.35)}"/><path d="M24 40 L60 58 V102 L24 84 Z" fill="${color}"/><path d="M96 40 L60 58 V102 L96 84 Z" fill="${tint(color, -0.25)}"/>`;
       break;
     case 'sphere':
       body = `<defs><radialGradient id="${id}" cx="0.36" cy="0.32" r="0.75"><stop offset="0" stop-color="#fff" stop-opacity="0.85"/><stop offset="0.25" stop-color="${color}"/><stop offset="1" stop-color="${color}" stop-opacity="0.75"/></radialGradient></defs><ellipse cx="60" cy="108" rx="34" ry="5" fill="#1E1B4B" opacity="0.12"/><circle cx="60" cy="60" r="44" fill="url(#${id})"/>`;
       break;
     case 'cone':
-      body = `<ellipse cx="60" cy="96" rx="38" ry="12" fill="${color}" style="fill:color-mix(in srgb, ${color} 70%, black)"/><path d="M60 12 L98 96 A38 12 0 0 1 22 96 Z" fill="${color}"/><path d="M60 12 L72 96 A38 12 0 0 1 48 96 Z" fill="#fff" opacity="0.18"/>`;
+      body = `<ellipse cx="60" cy="96" rx="38" ry="12" fill="${tint(color, -0.3)}"/><path d="M60 12 L98 96 A38 12 0 0 1 22 96 Z" fill="${color}"/><path d="M60 12 L72 96 A38 12 0 0 1 48 96 Z" fill="#fff" opacity="0.18"/>`;
       break;
     case 'cylinder':
-      body = `<path d="M28 28 V92 A32 11 0 0 0 92 92 V28 Z" fill="${color}"/><ellipse cx="60" cy="28" rx="32" ry="11" fill="${color}" style="fill:color-mix(in srgb, ${color} 60%, white)"/><rect x="36" y="32" width="10" height="64" fill="#fff" opacity="0.2"/>`;
+      body = `<path d="M28 28 V92 A32 11 0 0 0 92 92 V28 Z" fill="${color}"/><ellipse cx="60" cy="28" rx="32" ry="11" fill="${tint(color, 0.4)}"/><rect x="36" y="32" width="10" height="64" fill="#fff" opacity="0.2"/>`;
       break;
     default:
       body = `<circle cx="60" cy="60" r="46" fill="${color}"/>`;
@@ -256,7 +261,7 @@ function thingBar(thing, len, max, color) {
       const cars = Math.max(1, Math.round(w / 34));
       const cw = w / cars;
       let s = '';
-      for (let i = 0; i < cars; i++) s += `<rect x="${x + i * cw + 1}" y="${i === cars - 1 ? 6 : 12}" width="${cw - 3}" height="${i === cars - 1 ? 24 : 18}" rx="4" fill="${i === cars - 1 ? color : `color-mix(in srgb, ${color} 70%, white)`}"/><circle cx="${x + i * cw + cw * 0.3}" cy="33" r="4" fill="${INK}"/><circle cx="${x + i * cw + cw * 0.7}" cy="33" r="4" fill="${INK}"/>`;
+      for (let i = 0; i < cars; i++) s += `<rect x="${x + i * cw + 1}" y="${i === cars - 1 ? 6 : 12}" width="${cw - 3}" height="${i === cars - 1 ? 24 : 18}" rx="4" fill="${i === cars - 1 ? color : tint(color, 0.3)}"/><circle cx="${x + i * cw + cw * 0.3}" cy="33" r="4" fill="${INK}"/><circle cx="${x + i * cw + cw * 0.7}" cy="33" r="4" fill="${INK}"/>`;
       return s;
     }
     default:
@@ -266,7 +271,7 @@ function thingBar(thing, len, max, color) {
 
 const bar = (m) => S('0 0 300 40', thingBar(m.thing, m.len, m.max || 10, m.color || BLUE), 'mm-bar');
 
-const tower = (m) => S('0 0 60 220', Array.from({ length: m.h }, (_, i) => `<rect x="8" y="${196 - i * 20}" width="44" height="20" rx="3" fill="${i % 2 ? `color-mix(in srgb, ${m.color} 70%, white)` : m.color}" stroke="#fff" stroke-width="2"/>`).join('') + '<rect x="0" y="216" width="60" height="4" fill="#C9CED8"/>', 'mm-tower');
+const tower = (m) => S('0 0 60 220', Array.from({ length: m.h }, (_, i) => `<rect x="8" y="${196 - i * 20}" width="44" height="20" rx="3" fill="${i % 2 ? tint(m.color, 0.3) : m.color}" stroke="#fff" stroke-width="2"/>`).join('') + '<rect x="0" y="216" width="60" height="4" fill="#C9CED8"/>', 'mm-tower');
 
 function balance(m) {
   const deg = 14 * (Math.PI / 180) * (m.down === 'left' ? 1 : -1);
