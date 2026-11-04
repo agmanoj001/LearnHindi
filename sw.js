@@ -19,6 +19,7 @@ const SHELL = [
   'js/art-kit.js',
   'js/art-words.js',
   'js/art-creatures.js',
+  'js/art-people.js',
   'js/art-scenes.js',
   'js/curriculum.js',
   'js/screens.js',
@@ -43,6 +44,9 @@ const SHELL = [
   'js/games/rhyme.js',
   'js/games/story.js',
   'js/games/pairs.js',
+  'js/games/firstsound.js',
+  'js/games/quiz.js',
+  'js/games/sort.js',
 ];
 
 self.addEventListener('install', (event) => {

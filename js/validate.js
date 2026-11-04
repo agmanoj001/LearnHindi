@@ -16,6 +16,9 @@ export const GAME_TYPES = [
   'rhyme',
   'story',
   'pairs',
+  'firstsound',
+  'quiz',
+  'sort',
 ];
 export const OPPOSITE_KINDS = ['size', 'height', 'speed'];
 export const PAIR_KINDS = ['opposite', 'plural', 'female'];
@@ -58,6 +61,7 @@ export const REQUIRED_PHRASES = {
   listenStory: false,
   newItem: true,
   unitDone: false,
+  startsWith: true,
 }; // value: whether the phrase must contain the {w} placeholder
 
 const DEVANAGARI = /[ऀ-ॿ]/;
@@ -274,6 +278,41 @@ export function validateContent(c, { knownPictures = null, pictureExists = null,
     }
   }
 
+  // quiz banks: a question, options and the answer (options are word ids when "pictures" is true)
+  for (const [id, bank] of Object.entries(isObj(c.quizzes) ? c.quizzes : {})) {
+    const at = `quizzes.${id}`;
+    if (!hasText(bank?.title)) err(`${at}.title needs "hi" and "en"`);
+    if (!Array.isArray(bank?.questions) || !bank.questions.length) {
+      err(`${at} needs questions`);
+      continue;
+    }
+    bank.questions.forEach((q, i) => {
+      const qat = `${at}.questions[${i}]`;
+      if (!isStr(q?.hi) || !DEVANAGARI.test(q.hi)) err(`${qat}.hi must be Devanagari text`);
+      if (!Array.isArray(q?.options) || q.options.length < 2 || !q.options.every(isStr)) return err(`${qat}.options needs at least 2 answers`);
+      if (new Set(q.options).size !== q.options.length) err(`${qat}.options has duplicates`);
+      if (!q.options.includes(q.answer)) err(`${qat}.answer must be one of its options`);
+      if (q.pictures) for (const o of q.options) if (!hasWord(o)) err(`${qat}: picture option "${o}" not found in words`);
+      if (q.word !== undefined && !hasWord(q.word)) err(`${qat}.word "${q.word}" not found in words`);
+      if (q.show !== undefined && (!isStr(q.show) || !q.show.includes('___'))) err(`${qat}.show must contain ___ where the answer goes`);
+    });
+  }
+  // sorts: put each item in its bin
+  for (const [id, def] of Object.entries(isObj(c.sorts) ? c.sorts : {})) {
+    const at = `sorts.${id}`;
+    if (!hasText(def?.prompt)) err(`${at}.prompt needs "hi" and "en"`);
+    const bins = Array.isArray(def?.bins) ? def.bins : [];
+    if (bins.length < 2 || !bins.every((b) => isStr(b?.id) && hasText(b))) err(`${at}.bins needs at least 2 bins with id, hi and en`);
+    const binIds = new Set(bins.map((b) => b?.id));
+    if (!Array.isArray(def?.items) || def.items.length < 4) err(`${at} needs at least 4 items`);
+    else
+      def.items.forEach((it, i) => {
+        if (!isStr(it?.text)) err(`${at}.items[${i}].text is required`);
+        if (!binIds.has(it?.bin)) err(`${at}.items[${i}].bin "${it?.bin}" is not one of the bins`);
+        if (it?.word !== undefined && !hasWord(it.word)) err(`${at}.items[${i}].word "${it.word}" not found in words`);
+      });
+  }
+
   // per-game settings: each lesson's settings on top of the shared ones in "games"
   const g = isObj(c.games) ? c.games : {};
   if (!isObj(c.games)) err('games must be an object');
@@ -398,6 +437,19 @@ export function validateContent(c, { knownPictures = null, pictureExists = null,
       case 'story':
         levelsList('levels');
         if (x.story !== undefined && !(c.stories || []).some((st) => st.id === x.story)) err(`${at}.story "${x.story}" is not a story id`);
+        break;
+      case 'firstsound':
+        count('rounds');
+        lettersSpec(x.letters, `${at}.letters`);
+        wordList('words', 6);
+        break;
+      case 'quiz':
+        if (!isObj(c.quizzes?.[x.bank])) err(`${at}.bank "${x.bank}" is not in quizzes`);
+        if (x.rounds !== undefined) count('rounds');
+        break;
+      case 'sort':
+        if (!isObj(c.sorts?.[x.sort])) err(`${at}.sort "${x.sort}" is not in sorts`);
+        if (x.rounds !== undefined) count('rounds');
         break;
       case 'pairs':
         count('rounds');

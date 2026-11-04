@@ -79,7 +79,12 @@ test('finishing a lesson saves stars, gives a collectible, and counts the day', 
   assert.equal(r.item, col.items[2], 'the first two vehicles are free, so the third comes next');
   assert.deepEqual(r.progress.days, ['2026-11-04']);
   assert.equal(r.progress.lessons[lessons[0].id].tier, 1);
-  assert.ok(r.unitComplete, 'unit 1 has one lesson');
+  assert.equal(r.unitComplete, false, 'the first unit has more lessons');
+  // a unit with one lesson is complete as soon as that lesson is
+  const farm = world('farm');
+  const one = farm.units.find((u) => u.lessons.length === 1);
+  const r1 = C.applyLessonResult(p0, { world: farm, lesson: one.lessons[0], collection: { id: 'farm', ...content.collections.farm }, firstTry: 1, answered: 2 });
+  assert.ok(r1.unitComplete);
   // a 1-star replay keeps the best stars and gives nothing new
   const again = C.applyLessonResult(r.progress, { world: town, lesson: lessons[0], collection: col, firstTry: 0, answered: 4 });
   assert.equal(again.progress.lessons[lessons[0].id].stars, 3);
