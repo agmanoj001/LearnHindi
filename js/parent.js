@@ -1,12 +1,13 @@
 // The grown-ups' area (behind a 3-second press): grade, language, voices and recordings,
 // sound, unlocking, the special photo, and a progress report. Nothing here leaves the device.
 import { el, ICONS } from './ui.js';
-import { normalizeProgress, clipKeysFor, clipKeyFromFileName, practiceReport } from './logic.js';
+import { normalizeProgress, clipKeysFor, clipKeyFromFileName, practiceReport, DAILY_LIMITS } from './logic.js';
 import { skillName, SKILLS as MATH_SKILLS } from './mathgen.js';
 import { phonicsName } from './phonicsgen.js';
-import { worldStars, worldLessons, lessonRecord } from './curriculum.js';
+import { worldStars, worldLessons, lessonRecord, weekSummary, dueReviews } from './curriculum.js';
 import { refreshClipKeys, voicesFor, setVoicePrefs, hasVoice, play } from './audio.js';
-import { KEYS, save, clips, resizeImage } from './storage.js';
+import { KEYS, save, clips, resizeImage, addProfile, removeProfile, MAX_PROFILES } from './storage.js';
+import { MASCOTS, MASCOT_IDS, mascotSvg } from './mascot.js';
 import { specialVehicle } from './art.js';
 import { levelCard } from './screens.js';
 
@@ -183,6 +184,7 @@ export function showParent(api) {
   api.app.replaceChildren(
     el('div', { class: 'screen settings enter' }, [
       el('div', { class: 'settings-head' }, [el('button', { class: 'round-btn', 'aria-label': 'Done', html: ICONS.back, onclick: () => api.back() }), el('h1', { text: 'Grown-ups' })]),
+      childrenSection(api),
       section('Grade', levels),
       section(
         'Navigation',
@@ -191,6 +193,19 @@ export function showParent(api) {
         toggle('Math worlds', s.math, (v) => ((s.math = v), persist()), 'English math for Kindergarten and Grade 1, following the North Carolina Standard Course of Study.'),
       ),
       section('Language', langRow, el('p', { class: 'note', text: 'For Hindi worlds. Math worlds are always in English.' })),
+      section(
+        'Play time and reading support',
+        el('label', { class: 'rate' }, [
+          el('span', { text: 'Daily limit' }),
+          el(
+            'select',
+            { class: 'select', onchange: (e) => ((s.dailyLimit = Number(e.target.value)), persist()) },
+            DAILY_LIMITS.map((m) => el('option', { value: String(m), text: m ? `${m} minutes a day` : 'No limit', selected: s.dailyLimit === m })),
+          ),
+        ]),
+        el('p', { class: 'note', text: `Played today: ${api.minutesToday()} min. When the limit is reached, the next lesson shows a break screen with an idea for off-screen play (a lesson already started is never cut off). WHO and the AAP suggest about an hour a day of good-quality screen time for young children, ideally together with a grown-up.` }),
+        toggle('Captions', s.captions, (v) => ((s.captions = v), persist()), 'Shows everything the app says as text. Helps children who are hard of hearing, and helps early readers match sounds to words.'),
+      ),
       section(
         'Sound',
         toggle('Music', s.music, (v) => ((s.music = v), persist(), api.music.setEnabled(v))),
@@ -212,6 +227,7 @@ export function showParent(api) {
       ),
       section(
         'Progress',
+        weekView(api),
         el('div', { class: 'world-rows' }, worldRows),
         el('h3', { text: 'Practise together' }),
         report.practise.length ? chips(report.practise) : el('p', { class: 'note', text: 'Items show up here after a few tries.' }),
@@ -311,5 +327,70 @@ function recorderSection(api) {
     seg('rec-filter', [['words', 'Words'], ['letters', 'Letters'], ['stories', 'Stories'], ['phrases', 'Phrases']], () => filter, (v) => (filter = v)),
     seg('rec-lang', [['hi', 'हिन्दी'], ['en', 'English']], () => lang, (v) => (lang = v)),
     list,
+  ]);
+}
+
+// The last seven days: minutes played, lessons, and reviews waiting.
+function weekView(api) {
+  const week = weekSummary(api.state.progress, Date.now());
+  const max = Math.max(10, ...week.days.map((d) => d.minutes));
+  const names = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const due = dueReviews(api.state.progress, api.state.content.worlds, Date.now()).length;
+  return el('div', { class: 'week' }, [
+    el('div', { class: 'week-bars', role: 'img', 'aria-label': `Minutes played in the last 7 days: ${week.days.map((d) => d.minutes).join(', ')}` }, week.days.map((d) =>
+      el('div', { class: 'week-day' }, [
+        el('span', { class: 'week-min', text: d.minutes ? String(d.minutes) : '' }),
+        el('span', { class: 'week-bar', style: { height: `${Math.max(3, (d.minutes / max) * 70)}px` } }),
+        el('span', { class: 'week-name', text: names[d.weekday] }),
+      ]),
+    )),
+    el('p', { class: 'note', text: `This week: ${week.minutes} minutes, ${week.lessons} lessons played. ${due ? `${due} finished lessons are due for a review (they show up in Today's path).` : 'No reviews due.'}` }),
+  ]);
+}
+
+// Siblings each get their own grade, settings and progress. A nickname is optional and stays on this device.
+function childrenSection(api) {
+  const profiles = api.state.profiles;
+  const rows = profiles.list.map((p, i) => {
+    const current = p.id === profiles.current;
+    const face = el('span', { class: 'who-face small', html: mascotSvg(p.avatar) });
+    const pick = el(
+      'select',
+      {
+        class: 'select',
+        'aria-label': 'Guide',
+        onchange: (e) => {
+          api.saveProfiles({ ...api.state.profiles, list: api.state.profiles.list.map((x) => (x.id === p.id ? { ...x, avatar: e.target.value } : x)) });
+          face.innerHTML = mascotSvg(e.target.value);
+        },
+      },
+      MASCOT_IDS.map((m) => el('option', { value: m, text: MASCOTS[m].name.en, selected: m === p.avatar })),
+    );
+    const name = el('input', {
+      class: 'select',
+      type: 'text',
+      maxlength: '20',
+      placeholder: `Child ${i + 1} (nickname, optional)`,
+      value: p.name,
+      onchange: (e) => api.saveProfiles({ ...api.state.profiles, list: api.state.profiles.list.map((x) => (x.id === p.id ? { ...x, name: e.target.value.trim() } : x)) }),
+    });
+    return el('div', { class: `child-row${current ? ' current' : ''}` }, [
+      face,
+      el('div', { class: 'child-fields' }, [name, pick]),
+      current
+        ? el('span', { class: 'chip', text: 'Playing now' })
+        : el('button', { class: 'btn', text: 'Switch', onclick: () => (api.switchProfile(p.id), showParent(api)) }),
+      p.id !== 'p1' ? el('button', { class: 'btn danger', text: '✕', 'aria-label': 'Remove this child', onclick: () => confirm("Remove this child's profile? Their stars and settings on this device will be forgotten.") && (api.saveProfiles(removeProfile(api.state.profiles, p.id)), api.switchProfile(api.state.profiles.current), showParent(api)) }) : null,
+    ]);
+  });
+  const add =
+    profiles.list.length < MAX_PROFILES
+      ? el('button', { class: 'btn', text: '+ Add a child', onclick: () => (api.saveProfiles(addProfile(api.state.profiles, MASCOT_IDS[profiles.list.length % MASCOT_IDS.length])), showParent(api)) })
+      : null;
+  return el('section', {}, [
+    el('h2', { text: 'Children' }),
+    el('p', { class: 'note', text: 'Each child has their own grade, stars and settings. Family voice recordings are shared. With more than one child, the start screen asks who is playing.' }),
+    ...rows,
+    add,
   ]);
 }

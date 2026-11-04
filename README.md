@@ -42,32 +42,39 @@ The **home screen** shows the child's grade first, then every other world, so mo
 
 ### The story library
 
-Grades 1–4 have a library of **31 read-along stories and 6 poems**: Panchatantra and Jataka tales (*The lion and the mouse*, *The monkey and the crocodile*, *The blue jackal*, *The talkative tortoise*), Akbar–Birbal and Tenali Raman stories, fables and new stories starring the app's characters. Every word can be tapped to hear it, pages are read aloud in Hindi (and English in "both" mode), and each story ends with questions: pictures for the younger grades, short written answers for older ones. Folktales finish with their **सीख** (moral). The library shows the child's grade and the one before it.
+Grades 1–4 have a library of **41 read-along stories and 6 poems**: Panchatantra and Jataka tales (*The lion and the mouse*, *The monkey and the crocodile*, *The blue jackal*, *The talkative tortoise*), Akbar–Birbal and Tenali Raman stories, fables and new stories starring the app's characters. Every word can be tapped to hear it, pages are read aloud in Hindi (and English in "both" mode), and each story ends with questions: pictures for the younger grades, short written answers for older ones. Folktales finish with their **सीख** (moral). The library shows the child's grade and the one before it. Every story world also has a **story order** lesson: pictures from a story, shuffled, to tap in the order things happened.
 
 ### The characters
 
 Each world has a guide who waves, talks when the app speaks, reacts to answers, and does something silly when tapped (sneezes, spins, dances). They turn up in each other's worlds too: Pip and Tiko star in Grade 1 story problems, Chiku chases a banana and Zoomi flies to the Moon in the story library.
+
+### Today's path
+
+The top of the home screen shows **three steps for today**: *Keep going* (the next new lesson, in the grade's world with the least done, so subjects stay balanced), *Review* (a finished lesson that is due again) and *Story time* (a story not read yet). Each turns green once done today.
 
 ### How lessons adapt
 
 - **Inside a lesson**, two answers right first time in a row make the next round harder, and two misses in a row make it easier. A small "Level up!" marks each step up. Harder means 3 or 4 choices instead of 2, look-alike wrong answers, bigger numbers with fewer pictures in math, a decoy word in sentence building, or words without their picture when sorting.
 - **The next visit** to a lesson starts at the level the child reached.
 - **Practice weighting**: every answer is recorded per word, letter, matra and math skill, and the ones a child finds hard come up more often.
+- **Spaced review across days**: every finished lesson comes back for review after 1, 2, 4, 7 and then 14 days. A strong result moves it to a longer gap; a weak one brings it back tomorrow. Reviews show up in Today's path.
 - **Hints, never answers**: in math, a second wrong tap brings a strategy ("Count on from 6", "Fill the ten first"), and objects can be tapped to count them one by one.
 
 ## Parent area
 
 **Press and hold the settings button (top right of the home screen) for 3 seconds.** A ring fills while you hold.
 
+- **Children**: up to four children, each with their own grade, stars and settings, a guide character and an optional nickname. With more than one, the start screen asks "Who's playing?". Voice recordings are shared.
 - **Grade**: who is learning.
 - **Navigation**: *Stay in this grade* hides the other worlds. *Unlock every lesson* opens the whole path. *Math worlds* shows or hides the English math worlds.
 - **Language** (Hindi worlds): Hindi, English, or both. In "both", words are said in Hindi then English, and some rounds alternate languages. Math worlds are always in English.
+- **Play time and reading support**: a *daily limit* (15–60 minutes, or none). When it's reached, the next lesson shows a break screen with an idea for off-screen play; a lesson already started is never cut off, and a grown-up can hold *+10* for ten more minutes. *Captions* show everything the app says as text.
 - **Sound**: background music and sound effects, each on or off.
 - **Voices**: pick the Hindi and English text-to-speech voice (the best installed voice is chosen by default), set the speed, and test them.
 - **Record your voice**: record any word, letter, story page, moral or phrase right in the app. Your recording replaces the computer voice. See below.
 - **Recordings from files**: load recordings made elsewhere.
 - **Special vehicle photo**: a photo from the device becomes a vehicle in Vehicle Town's garage. It is shrunk and saved only in this browser.
-- **Progress**: stars per world, a "practise together" list (words, letters, matras and math skills the child often misses) and a "doing great" list, and a reset button.
+- **Progress**: this week's minutes per day, lessons played and reviews due; stars per world, a "practise together" list (words, letters, matras and math skills the child often misses) and a "doing great" list, and a reset button.
 
 Everything stays on the device. Nothing is uploaded.
 
@@ -180,6 +187,7 @@ Built-in drawings are in `js/art.js`, `js/art-words.js`, `js/art-creatures.js` a
 | `story` | Read-along story with questions | `levels`, or `story` for one story |
 | `math` | Math problems with pictures and models | `skills` (ids from `js/mathgen.js`), `rounds` |
 | `phonics` | English phonics: pictures to hear, words with a gap, letters to blend | `skills` (ids from `js/phonicsgen.js`), `rounds` |
+| `sequence` | Story order: tap a story's pictures in the order things happened | `levels` or `story`, `rounds` |
 
 Every game also takes `choices`: how many options to show at each of the three levels, e.g. `[2, 3, 4]` (the default). `letters` can name a range: `{ "sets": ["hindiConsonants"], "from": 0, "to": 10 }`.
 
@@ -277,15 +285,16 @@ The repo and the site are public, so keep them to general learning content. Pers
 
 ## What else could be done
 
-1. **Record family voices** for the words and stories the child uses most. Browser Hindi voices vary a lot between phones, and a familiar voice helps most.
-2. **A Hindi teacher's review** of the word lists, quizzes and stories for spelling, naturalness and age fit, and a US teacher's look at the math wording.
-3. **Child profiles** for siblings, each with their own grade and progress.
-4. **Stroke-order handwriting** for Devanagari (guided strokes instead of free tracing).
-5. **Openly licensed readers**: StoryWeaver (Pratham Books, CC BY 4.0) Hindi stories at levels 1–4, with attribution.
-6. **Read-aloud practice** with speech recognition, strictly opt-in (Chrome's recognition sends audio to a server).
-7. **Math beyond Grade 1** (NC Grade 2: place value to 1,000, adding within 100 with regrouping, money, arrays), and Hindi number names for families who want math in Hindi too.
-8. **Spaced review across days** and a weekly summary for parents.
-9. **A Play Store app** via a Trusted Web Activity, once tested on real phones.
+See [docs/LEARNING-REVIEW.md](docs/LEARNING-REVIEW.md) for a full review against learning research and standards (WCAG 2.2, COPPA, GDPR, the UK Children's Code, India's DPDP Act, WHO and AAP screen-time guidance), what has been done, and what to do next. The short list:
+
+1. **Record family voices** for the words and stories the child uses most.
+2. **A teacher's read** of the Hindi quizzes, poems and stories, and of the English math and phonics wording.
+3. **A placement check** that suggests a grade, and a short check before and after each unit to see real learning gains.
+4. **The parent area in Hindi.**
+5. **Openly licensed readers** from StoryWeaver (Pratham Books, CC BY 4.0), with attribution.
+6. **Read-along word highlighting**, and "tell it back" recordings of the child retelling a story.
+7. **Stroke-order handwriting** for Devanagari, and **math beyond Grade 1**.
+8. **A Play Store app** via a Trusted Web Activity, once tested on real phones.
 
 ## Project layout
 

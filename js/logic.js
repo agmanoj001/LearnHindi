@@ -264,6 +264,8 @@ export function lessonConfig(content, lesson) {
 
 // ---- Settings ----
 
+export const DAILY_LIMITS = [0, 15, 20, 30, 45, 60];
+
 export function defaultSettings(content) {
   const levels = content.levels || [];
   return {
@@ -273,6 +275,8 @@ export function defaultSettings(content) {
     lockGrade: false,
     unlockAll: false,
     math: true, // English math worlds (NC standards) for Kindergarten and Grade 1
+    captions: true, // show what the app says, as text
+    dailyLimit: 0, // minutes of play a day before a break screen (0 = no limit)
     music: true,
     sfx: true,
     voice: { hi: '', en: '', rate: 0.9 },
@@ -285,7 +289,8 @@ export function normalizeSettings(saved, content) {
   const out = { ...base, voice: { ...base.voice } };
   if (LANG_MODES.includes(saved.lang)) out.lang = saved.lang;
   if ((content.levels || []).some((l) => l.id === saved.level)) out.level = saved.level;
-  for (const k of ['onboarded', 'lockGrade', 'unlockAll', 'math', 'music', 'sfx']) if (typeof saved[k] === 'boolean') out[k] = saved[k];
+  if (DAILY_LIMITS.includes(saved.dailyLimit)) out.dailyLimit = saved.dailyLimit;
+  for (const k of ['onboarded', 'lockGrade', 'unlockAll', 'math', 'captions', 'music', 'sfx']) if (typeof saved[k] === 'boolean') out[k] = saved[k];
   if (saved.voice && typeof saved.voice === 'object') {
     for (const l of ['hi', 'en']) if (typeof saved.voice[l] === 'string') out.voice[l] = saved.voice[l];
     if (typeof saved.voice.rate === 'number' && saved.voice.rate >= 0.5 && saved.voice.rate <= 1.3) out.voice.rate = saved.voice.rate;
@@ -296,7 +301,7 @@ export function normalizeSettings(saved, content) {
 export function defaultProgress(content) {
   const collected = {};
   for (const [id, col] of Object.entries(content.collections || {})) collected[id] = col.items.slice(0, col.start || 0);
-  return { lessons: {}, collected, days: [], trainPos: {}, storyPos: {}, stats: {} };
+  return { lessons: {}, collected, days: [], trainPos: {}, storyPos: {}, stats: {}, time: {} };
 }
 
 export function normalizeProgress(saved, content) {
@@ -318,8 +323,13 @@ export function normalizeProgress(saved, content) {
       stars: Math.max(0, Math.min(3, r.stars | 0)),
       plays: Math.max(0, r.plays | 0),
       tier: Math.max(0, Math.min(2, r.tier | 0)),
+      // spaced review: which gap the lesson is on, and the day it was last played
+      ...(Number.isInteger(r.box) ? { box: Math.max(0, Math.min(4, r.box)) } : {}),
+      ...(typeof r.last === 'string' && /^\d{4}-\d\d-\d\d$/.test(r.last) ? { last: r.last } : {}),
     };
   }
+  const time = {};
+  for (const [day, sec] of Object.entries(obj(saved.time))) if (/^\d{4}-\d\d-\d\d$/.test(day) && Number.isFinite(sec) && sec >= 0) time[day] = Math.round(sec);
   return {
     lessons,
     collected,
@@ -327,6 +337,7 @@ export function normalizeProgress(saved, content) {
     trainPos: obj(saved.trainPos),
     storyPos: obj(saved.storyPos),
     stats: obj(saved.stats),
+    time,
   };
 }
 
