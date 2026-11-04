@@ -18,10 +18,9 @@ export default {
       const pic = about ? el('button', { class: 'prompt-pic', 'aria-label': about.en, html: ctx.picture(about) }) : null;
       const slots = tokens.map(() => el('div', { class: 'car-slot', lang }));
       const metro = el('div', { class: 'metro-train' }, slots);
-      const cards = shuffle(
-        tokens.map((t, k) => ({ t, k })),
-        ctx.rng,
-      ).map(({ t }) => Object.assign(el('button', { class: 'card word-chip', lang }, [el('span', { class: 'word-text', text: t })]), { token: t }));
+      // at the top level one extra word from another sentence sneaks in, so every word must be read
+      const decoys = ctx.tier >= 2 ? shuffle(pool.filter((s) => s !== sentence).flatMap((s) => sentenceTokens(s[lang])).filter((t) => !tokens.includes(t)), ctx.rng).slice(0, 1) : [];
+      const cards = shuffle([...tokens, ...decoys], ctx.rng).map((t) => Object.assign(el('button', { class: 'card word-chip', lang }, [el('span', { class: 'word-text', text: t })]), { token: t }));
       ctx.stage.replaceChildren(...[pic, el('div', { class: 'metro-track' }, [metro]), el('div', { class: 'choices chips' }, cards)].filter(Boolean));
       if (pic) pic.onclick = () => ctx.saySentence(sentence, [lang]);
       const prompt = async () => {
@@ -32,13 +31,18 @@ export default {
       prompt();
 
       let next = 0;
+      let mistakes = 0;
       slots[0].classList.add('next');
       await new Promise((resolve) => {
         for (const c of cards) {
           c.addEventListener('click', async () => {
             if (c.classList.contains('used') || next >= tokens.length) return;
             ctx.sayText(bare(c.token), lang);
-            if (c.token !== tokens[next]) return void wobble(c);
+            if (c.token !== tokens[next]) {
+              mistakes++;
+              ctx.miss();
+              return void wobble(c);
+            }
             const slot = slots[next++];
             slots[next]?.classList.add('next');
             ctx.sfx.pop();
@@ -51,6 +55,7 @@ export default {
           });
         }
       });
+      ctx.record(null, mistakes === 0);
       await cheer(ctx, metro);
       await ctx.saySentence(sentence, [lang]);
       ctx.sfx.vroom();

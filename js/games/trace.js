@@ -47,6 +47,8 @@ async function drive(ctx, vehicleId) {
 }
 
 function traceLetter(ctx, letter, canvas, car) {
+  // neater tracing is asked for as the level goes up (still forgiving: it's about the shape)
+  const threshold = () => ctx.config.threshold + [-0.05, 0, 0.06][ctx.tier];
   return new Promise((resolve) => {
     const dpr = window.devicePixelRatio || 1;
     const w = canvas.clientWidth;
@@ -128,7 +130,7 @@ function traceLetter(ctx, letter, canvas, car) {
       place(p, p.x < last.x);
       trail.push(p);
       last = p;
-      if (trail.length % 8 === 0 && traceCoverage(targets, trail, brush * 1.2) >= ctx.config.threshold) finish();
+      if (trail.length % 8 === 0 && traceCoverage(targets, trail, brush * 1.2) >= threshold()) finish();
     };
     const down = (e) => {
       if (done) return;
@@ -140,7 +142,7 @@ function traceLetter(ctx, letter, canvas, car) {
     };
     const up = () => {
       last = null;
-      if (!done && traceCoverage(targets, trail, brush * 1.2) >= ctx.config.threshold) finish();
+      if (!done && traceCoverage(targets, trail, brush * 1.2) >= threshold()) finish();
     };
     const finish = async () => {
       done = true;

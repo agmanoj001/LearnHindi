@@ -1,31 +1,25 @@
 // Math (Kindergarten and Grade 1, in English): problems from mathgen.js drawn with art-math.js.
 // A lesson lists the skills it practises ({ "skills": ["k-count", "k-quick"] }); rounds interleave
-// them, weaker skills come up more often, and the level moves inside the lesson: two right in a row
-// make the next one harder, two misses in a row make it easier. Objects can be tapped to count them.
+// them and weaker skills come up more often. The level (ctx.tier) moves inside the lesson like in
+// every game: two right in a row make it harder, two misses easier. Objects can be tapped to count.
 import { makeProblem, SKILLS } from '../mathgen.js';
 import { mathModel } from '../art-math.js';
 import { el, sleep, choose, runRounds, cheer, bounce, animate } from './kit.js';
-
-const LEVEL_UP = ['Ooh, a trickier one!', 'Level up!', "You're on fire! Here's a harder one."];
 
 export default {
   async start(ctx) {
     const skills = ctx.config.skills.filter((id) => SKILLS[id]);
     const rounds = ctx.config.rounds || 6;
-    const choices = ctx.config.choices || [3, 3, 4];
     // every skill at least once (when there are enough rounds), then the weaker ones more often
     const items = skills.map((skill) => ({ skill, id: skill }));
     const first = items.slice(0, rounds);
     const seq = [...first, ...ctx.practice(items, rounds - first.length)].map((x) => x.skill);
     const order = seq.length > 1 ? interleave(seq, ctx.rng) : seq;
 
-    let tier = ctx.tier;
-    let rightRun = 0;
-    let missRun = 0;
     let lastSay = 0;
 
     const ok = await runRounds(ctx, order.length, async (i) => {
-      const p = makeProblem(order[i], { tier, n: choices[tier] || 3, rng: ctx.rng });
+      const p = makeProblem(order[i], { tier: ctx.tier, n: ctx.nChoices, rng: ctx.rng });
       const board = el('div', { class: `math-board${p.model ? '' : ' no-model'}` });
       const ask = el('p', { class: 'math-ask', text: p.ask });
       const eq = p.eq ? el('div', { class: 'math-eq' }, p.eq.split('?').flatMap((part, k) => (k ? [el('span', { class: 'gap', text: '?' }), part] : [part]))) : null;
@@ -94,28 +88,6 @@ export default {
       }
       await ctx.sayText(p.explain, 'en');
 
-      // the level moves with the child
-      if (right.firstTry) {
-        missRun = 0;
-        rightRun++;
-        if (rightRun >= 2 && tier < 2) {
-          tier++;
-          rightRun = 0;
-          ctx.sfx.sparkle();
-          ctx.mascot?.react('dance');
-          const badge = el('div', { class: 'level-up', text: `★ ${LEVEL_UP[Math.floor(ctx.rng() * LEVEL_UP.length)]}` });
-          ctx.stage.append(badge);
-          await ctx.sayText(badge.textContent.slice(2), 'en');
-          await sleep(300);
-        }
-      } else {
-        rightRun = 0;
-        missRun++;
-        if (missRun >= 2 && tier > 0) {
-          tier--;
-          missRun = 0;
-        }
-      }
       await sleep(250);
     });
     if (ok) ctx.complete();

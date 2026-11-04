@@ -3346,3 +3346,6 @@ body.speaking .mascot .m-mouth-closed {
   font-size: 15px;
   font-weight: 600;
 }
+.screen > .level-up {
+  top: 84px;
+}

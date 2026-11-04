@@ -9,7 +9,7 @@ export default {
   async start(ctx) {
     const kinds = ctx.config.kinds;
     const ok = await runRounds(ctx, ctx.config.rounds, async () => {
-      const round = makePairRound(ctx.config.sets, kinds, ctx.rng);
+      const round = makePairRound(ctx.config.sets, kinds, ctx.rng, ctx.nChoices);
       const from = ctx.word(round.from);
       const parked = ctx.wordCard(from);
       const space = el('div', { class: 'parking-space' });

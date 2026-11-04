@@ -27,7 +27,9 @@ export default {
     const ok = await runRounds(ctx, items.length, async (i) => {
       const item = items[i];
       const w = item.word ? ctx.word(item.word) : null;
-      card.replaceChildren(...[w ? el('span', { class: 'pic', html: ctx.picture(w) }) : null, el('span', { class: 'word-text', lang: 'hi', text: item.text })].filter(Boolean));
+      // the picture helps at first; at the top level the child reads the word alone
+      const showPic = w && ctx.tier < 2;
+      card.replaceChildren(...[showPic ? el('span', { class: 'pic', html: ctx.picture(w) }) : null, el('span', { class: 'word-text', lang: 'hi', text: item.text })].filter(Boolean));
       animate(card, [{ transform: 'translateY(-40px) scale(0.8)', opacity: 0 }, { transform: 'none', opacity: 1 }], { duration: 350 });
       const say = () => ctx.sayText(item.text, 'hi');
       ctx.setRepeat(say);

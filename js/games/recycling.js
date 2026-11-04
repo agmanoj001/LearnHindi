@@ -23,7 +23,8 @@ export default {
     const ok = await runRounds(ctx, rounds, async (i) => {
       const modes = ctx.config.modes || ['color', 'shape'];
       const mode = modes[i % modes.length];
-      const round = makeSortRound(colors, shapes, mode, binCount, ctx.rng);
+      // one more bin at each level up (never more than 4)
+      const round = makeSortRound(colors, shapes, mode, Math.min(4, (binCount || 3) + ctx.tier), ctx.rng);
       const { color, shape } = round.item;
       item.innerHTML = shapePicture(shapeName(shape), color.color);
       animate(item, [{ transform: 'translateY(-60px)', opacity: 0 }, { transform: 'none', opacity: 1 }], { duration: 400 });

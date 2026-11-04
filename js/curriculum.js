@@ -53,6 +53,17 @@ export function starsFor(firstTry, answered) {
 }
 
 // Easy -> medium -> hard as the child gets things right first time, and back down if it is too hard.
+// Inside a lesson the level follows the child: two right first time in a row make it one step
+// harder, two misses in a row one step easier. `changed` is +1, -1 or 0.
+export function adaptTier({ tier = 0, right = 0, miss = 0 }, firstTry, max = TIERS.length - 1) {
+  if (firstTry) {
+    if (right + 1 >= 2 && tier < max) return { tier: tier + 1, right: 0, miss: 0, changed: 1 };
+    return { tier, right: right + 1, miss: 0, changed: 0 };
+  }
+  if (miss + 1 >= 2 && tier > 0) return { tier: tier - 1, right: 0, miss: 0, changed: -1 };
+  return { tier, right: 0, miss: miss + 1, changed: 0 };
+}
+
 export function nextTier(tier, firstTry, answered) {
   if (!answered) return tier;
   const r = firstTry / answered;
@@ -95,13 +106,14 @@ export function streak(days, today) {
 }
 
 // Everything that changes when a lesson is finished.
-export function applyLessonResult(progress, { world, lesson, collection, firstTry, answered, now = Date.now() }) {
+// `tier` is where the level ended inside the lesson; the next visit starts from there.
+export function applyLessonResult(progress, { world, lesson, collection, firstTry, answered, tier, now = Date.now() }) {
   const before = lessonRecord(progress, lesson.id);
   const stars = starsFor(firstTry, answered);
   const firstTime = before.stars === 0;
   const lessons = {
     ...progress.lessons,
-    [lesson.id]: { stars: Math.max(before.stars, stars), plays: before.plays + 1, tier: nextTier(before.tier || 0, firstTry, answered) },
+    [lesson.id]: { stars: Math.max(before.stars, stars), plays: before.plays + 1, tier: nextTier(tier ?? (before.tier || 0), firstTry, answered) },
   };
   // a new collectible the first time a lesson is finished, and for every 3-star replay
   let collected = progress.collected || {};

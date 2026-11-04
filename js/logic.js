@@ -420,7 +420,7 @@ export function sentenceTokens(text) {
 
 // ---- Rhymes and word pairs ----
 
-export function makeRhymeRound(groups, lang, rng = Math.random) {
+export function makeRhymeRound(groups, lang, rng = Math.random, wrong = 2) {
   const usable = groups.filter((g) => g.lang === lang && g.words.length >= 2);
   if (!usable.length) return null;
   const group = usable[Math.floor(rng() * usable.length)];
@@ -429,12 +429,13 @@ export function makeRhymeRound(groups, lang, rng = Math.random) {
     usable.filter((g) => g !== group).flatMap((g) => g.words).filter((id) => !group.words.includes(id)),
     rng,
   );
-  const distractors = [...new Set(others)].slice(0, 2);
+  const distractors = [...new Set(others)].slice(0, Math.max(1, wrong));
   return { lang, target, answer, options: shuffle([answer, ...distractors], rng) };
 }
 
 // kind: opposite (बड़ा -> छोटा), plural (केला -> केले) or female (शेर -> शेरनी).
-export function makePairRound(sets, kinds, rng = Math.random) {
+// `count` is how many cars to choose from (the answer included).
+export function makePairRound(sets, kinds, rng = Math.random, count = 3) {
   const usable = kinds.filter((k) => sets[k]?.length);
   const kind = usable[Math.floor(rng() * usable.length)];
   const pairs = sets[kind];
@@ -443,7 +444,7 @@ export function makePairRound(sets, kinds, rng = Math.random) {
   const [from, to] = flip ? [pair[1], pair[0]] : pair;
   const rest = pairs.filter((p) => p !== pair);
   const distractors =
-    kind === 'opposite' ? sample(rest.flat(), 2, rng) : [from, ...sample(rest.map((p) => p[1]), 1, rng)];
+    kind === 'opposite' ? sample(rest.flat(), Math.max(1, count - 1), rng) : [from, ...sample(rest.map((p) => p[1]), Math.max(0, count - 2), rng)];
   return { kind, from, to, options: shuffle([to, ...distractors], rng) };
 }
 

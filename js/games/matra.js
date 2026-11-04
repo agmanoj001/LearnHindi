@@ -55,7 +55,7 @@ export default {
           // which tile says this syllable?
           const target = sounds[i];
           car.querySelector('.matra-sticker').textContent = consonant;
-          const options = pickChoices(row, target, 3, ctx.rng);
+          const options = pickChoices(row, target, ctx.nChoices, ctx.rng);
           const btns = options.map((r) => Object.assign(el('button', { class: 'card tile syllable', lang: 'hi', 'aria-label': r.text }, [el('span', { class: 'glyph', text: r.text })]), { item: r }));
           ctx.stage.replaceChildren(el('div', { class: 'scene' }, [car]), el('div', { class: 'choices' }, btns));
           const prompt = () => ctx.say('find', syllable(target.text), ['hi']);
@@ -73,7 +73,7 @@ export default {
           const slot = el('span', { class: 'matra-slot', text: DOTTED });
           const shown = el('div', { class: 'gap-word', lang: 'hi' }, [el('span', { text: gap.before + gap.base }), slot, el('span', { text: gap.after })]);
           const pic = el('button', { class: 'prompt-pic', 'aria-label': w.en, html: ctx.picture(w), onclick: () => ctx.sayItem(w, ['hi']) });
-          const options = pickChoices(matras, gap.matra, 3, ctx.rng);
+          const options = pickChoices(matras, gap.matra, ctx.nChoices, ctx.rng);
           const btns = shuffle(options, ctx.rng).map((m) =>
             Object.assign(el('button', { class: 'card tile sign', lang: 'hi', 'aria-label': m.vowel }, [el('span', { class: 'glyph', text: DOTTED + m.sign })]), { item: m }),
           );

@@ -20,7 +20,7 @@ export default {
     const ok = await runRounds(ctx, rounds, async (i) => {
       const useLetter = i % 2 === 0 && letters.length >= 3;
       const target = useLetter ? letterSeq[i] : wordSeq[i];
-      const options = useLetter ? pickChoices(letters.filter((l) => l.lang === target.lang), target, 3, ctx.rng) : pickChoices(words, target, 3, ctx.rng);
+      const options = useLetter ? pickChoices(letters.filter((l) => l.lang === target.lang), target, ctx.nChoices, ctx.rng) : pickChoices(words, target, ctx.nChoices, ctx.rng);
       // From Grade 1 the windows show written words, so the child reads to find the one called.
       const readLang = ctx.settings.lang === 'en' ? 'en' : 'hi';
       const card = (o) =>

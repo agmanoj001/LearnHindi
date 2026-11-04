@@ -12,7 +12,7 @@ import {
   practiceWeight,
   weightedSequence,
 } from './logic.js';
-import { findLesson, lessonRecord, lessonLetters, applyLessonResult, homeWorld } from './curriculum.js';
+import { findLesson, lessonRecord, lessonLetters, applyLessonResult, homeWorld, adaptTier } from './curriculum.js';
 import { validateContent } from './validate.js';
 import { pictureExists, picture, pictureForWord, specialVehicle } from './art.js';
 import { initAudio, play, stop, wordSegs, letterSegs, numberSegs, soundSegs, sentenceSegs, phraseSegs, setVoicePrefs } from './audio.js';
@@ -274,14 +274,22 @@ function startLesson({ lessonId, worldId, storyId }) {
   const backBtn = el('button', { class: 'round-btn home', 'aria-label': 'Back to the map', html: ICONS.back, onclick: back });
   const speakBtn = el('button', { class: 'round-btn speak', 'aria-label': 'Say it again', html: ICONS.speaker, onclick: () => repeat && repeat() });
   const mascot = createMascot(world.mascot, { size: 'small', onTap: () => screens.mascotJoke(api, mascot) });
-  app.replaceChildren(
-    el('div', { class: `screen game game-${lesson.game} theme-${world.theme} enter`, style: { '--place': world.color } }, [
-      screens.backdrop(world),
-      el('header', { class: 'game-head' }, [backBtn, progressBar, speakBtn]),
-      stage,
-      el('div', { class: 'mascot-corner' }, [mascot.node]),
-    ]),
-  );
+  const screen = el('div', { class: `screen game game-${lesson.game} theme-${world.theme} enter`, style: { '--place': world.color } }, [
+    screens.backdrop(world),
+    el('header', { class: 'game-head' }, [backBtn, progressBar, speakBtn]),
+    stage,
+    el('div', { class: 'mascot-corner' }, [mascot.node]),
+  ]);
+  app.replaceChildren(screen);
+  let live = { tier, right: 0, miss: 0 };
+  // a little celebration when the level goes up; going down happens quietly
+  const levelUp = () => {
+    sfx.sparkle();
+    mascot.react('dance');
+    const badge = el('div', { class: 'level-up', text: { hi: '★ शाबाश! अगला स्तर', en: '★ Level up!', both: '★ Level up! · शाबाश!' }[state.lang] || '★ Level up!' });
+    screen.append(badge);
+    setTimeout(() => badge.remove(), 1900);
+  };
 
   const lessonWords = (ids) => {
     let list = expandWords(ids, state.content).map(word);
@@ -290,11 +298,13 @@ function startLesson({ lessonId, worldId, storyId }) {
   };
   const letterSets = () => {
     if (config.letters === false) return [];
-    const spec = config.letters || { sets: world.letterSets };
+    // a lesson may name its letters ({ sets, from, to }); `true` or nothing means the world's letters
+    const explicit = config.letters && typeof config.letters === 'object' && Array.isArray(config.letters.sets);
+    const spec = explicit ? config.letters : { sets: world.letterSets };
     const ls = langsFor(state.lang);
     const sets = lessonLetters(state.content, spec);
     // explicit letter lessons keep their script; otherwise follow the language mix
-    return config.letters ? sets : sets.filter((s) => ls.includes(s.lang));
+    return explicit ? sets : sets.filter((s) => ls.includes(s.lang));
   };
 
   const ctx = {
@@ -307,9 +317,14 @@ function startLesson({ lessonId, worldId, storyId }) {
     place: { game: lesson.game, color: world.color },
     options: config,
     config,
-    tier,
+    // the level moves inside the lesson (see adaptTier); games read these each round
+    get tier() {
+      return live.tier;
+    },
     // how many choices to show: 2, 3 or 4 as the child gets better (lessons may override per tier)
-    nChoices: (config.choices || [2, 3, 4])[tier] ?? 3,
+    get nChoices() {
+      return (config.choices || [2, 3, 4])[live.tier] ?? 3;
+    },
     level: state.content.levels.find((l) => l.id === world.level),
     rng,
     stage,
@@ -354,6 +369,8 @@ function startLesson({ lessonId, worldId, storyId }) {
       session.answered++;
       if (firstTry) session.firstTry++;
       mascot.react(firstTry ? 'happy' : 'cheer');
+      live = adaptTier(live, firstTry);
+      if (live.changed > 0) levelUp();
       const key = itemKey(item);
       if (!key) return;
       state.progress = { ...state.progress, stats: recordAnswer(state.progress.stats, key, firstTry) };
@@ -373,7 +390,7 @@ function startLesson({ lessonId, worldId, storyId }) {
     complete() {
       if (!ctx.alive()) return;
       state.token++;
-      const result = applyLessonResult(state.progress, { world, lesson, collection, firstTry: session.firstTry, answered: session.answered });
+      const result = applyLessonResult(state.progress, { world, lesson, collection, firstTry: session.firstTry, answered: session.answered, tier: live.tier });
       state.progress = result.progress;
       persistProgress();
       screens.results(api, { world, lesson, result, collection });

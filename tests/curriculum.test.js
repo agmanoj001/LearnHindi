@@ -93,6 +93,31 @@ test('tiers go up after an easy lesson and down after a hard one', () => {
   assert.equal(C.nextTier(1, 4, 6), 1);
 });
 
+test('inside a lesson the level follows the child', () => {
+  let s = { tier: 0 };
+  s = C.adaptTier(s, true);
+  assert.deepEqual([s.tier, s.changed], [0, 0]);
+  s = C.adaptTier(s, true);
+  assert.deepEqual([s.tier, s.changed], [1, 1]); // two right in a row: harder
+  s = C.adaptTier(s, false);
+  s = C.adaptTier(s, true);
+  s = C.adaptTier(s, false);
+  assert.equal(s.tier, 1); // a miss between rights doesn't drop the level
+  s = C.adaptTier(s, false);
+  assert.deepEqual([s.tier, s.changed], [0, -1]); // two misses in a row: easier
+  s = C.adaptTier(C.adaptTier(C.adaptTier(C.adaptTier({ tier: 1 }, true), true), true), true);
+  assert.equal(s.tier, 2); // never above the top level
+  assert.equal(C.adaptTier(C.adaptTier({ tier: 0 }, false), false).tier, 0);
+});
+
+test('the next visit starts from the level the child reached', () => {
+  const p0 = L.defaultProgress(content);
+  const r = C.applyLessonResult(p0, { world: town, lesson: lessons[0], collection: null, firstTry: 5, answered: 6, tier: 2 });
+  assert.equal(r.tier, 2);
+  const r2 = C.applyLessonResult(p0, { world: town, lesson: lessons[0], collection: null, firstTry: 2, answered: 6, tier: 1 });
+  assert.equal(r2.tier, 0);
+});
+
 test('finishing a lesson saves stars, gives a collectible, and counts the day', () => {
   const col = { id: 'vehicles', ...content.collections.vehicles };
   const p0 = L.defaultProgress(content);
@@ -262,6 +287,19 @@ test('pair rounds: opposites go both ways, plurals and females go one way', () =
     assert.equal(r.options.length, 3);
     assert.equal(new Set(r.options).size, 3);
     assert.ok(r.options.includes(r.to));
+  }
+});
+
+test('easier levels offer fewer choices in rhymes and pairs', () => {
+  const groups = content.games.rhyme.groups;
+  assert.equal(L.makeRhymeRound(groups, 'hi', L.makeRng(3), 1).options.length, 2);
+  const sets = content.games.pairs.sets;
+  for (let seed = 1; seed < 20; seed++) {
+    for (const count of [2, 3, 4]) {
+      const r = L.makePairRound(sets, ['opposite', 'plural', 'female'], L.makeRng(seed), count);
+      assert.equal(r.options.length, count);
+      assert.ok(r.options.includes(r.to));
+    }
   }
 });
 

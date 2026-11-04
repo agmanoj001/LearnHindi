@@ -50,7 +50,7 @@ async function ride(ctx, set) {
   const ok = await runRounds(ctx, train.length, async (i) => {
     const want = expectedLetter(train);
     cars[i].classList.add('next');
-    const btns = trainChoices(train, 3, ctx.rng).map((l) => Object.assign(ctx.letterCard(l), { item: l }));
+    const btns = trainChoices(train, ctx.nChoices, ctx.rng).map((l) => Object.assign(ctx.letterCard(l), { item: l }));
     choices.replaceChildren(...btns);
     const prompt = () => ctx.say('nextLetter', null, [set.lang]);
     ctx.setRepeat(prompt);

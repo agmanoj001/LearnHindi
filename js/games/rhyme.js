@@ -7,10 +7,10 @@ export default {
     const groups = ctx.config.groups;
     const ok = await runRounds(ctx, ctx.config.rounds, async (i) => {
       let lang = langForRound(ctx.settings.lang, i);
-      let round = makeRhymeRound(groups, lang, ctx.rng);
+      let round = makeRhymeRound(groups, lang, ctx.rng, ctx.nChoices - 1);
       if (!round) {
         lang = lang === 'hi' ? 'en' : 'hi';
-        round = makeRhymeRound(groups, lang, ctx.rng);
+        round = makeRhymeRound(groups, lang, ctx.rng, ctx.nChoices - 1);
       }
       const target = ctx.word(round.target);
       const van = vehicleEl(ctx, 'icecreamvan', 'rescuer');
