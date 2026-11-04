@@ -2589,11 +2589,11 @@
       "units": [
         {
           "id": "g1m-count",
-          "title": { "hi": "गिनती 120 तक", "en": "Let's count to 120" },
-          "skill": "Count and read to 120 · NC.1.NBT.1",
-          "icon": "letter:120",
+          "title": { "hi": "गिनती 150 तक", "en": "Let's count to 150" },
+          "skill": "Count and read to 150 · NC.1.NBT.1",
+          "icon": "letter:150",
           "lessons": [
-            { "id": "g1m-count-1", "game": "math", "icon": "letter:99", "title": { "hi": "आगे गिनो", "en": "Count on" }, "config": { "skills": ["g1-count120"] } },
+            { "id": "g1m-count-1", "game": "math", "icon": "letter:99", "title": { "hi": "आगे गिनो", "en": "Count on" }, "config": { "skills": ["g1-count150"] } },
             {
               "id": "g1m-count-2",
               "game": "math",

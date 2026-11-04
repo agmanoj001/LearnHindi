@@ -557,26 +557,27 @@ export const SKILLS = {
   },
 
   // ======================= Grade 1 =======================
-  'g1-count120': {
+  // NC asks for counting to 150 in Grade 1 (Common Core stops at 120)
+  'g1-count150': {
     code: 'NC.1.NBT.1',
-    name: 'Count to 120 from any number',
+    name: 'Count to 150 from any number',
     gen(t, rng, n) {
-      const start = t === 2 ? int(rng, 95, 115) : int(rng, t ? 10 : 1, t ? 95 : 36);
+      const start = t === 2 ? int(rng, 95, 145) : int(rng, t ? 10 : 1, t ? 95 : 36);
       const s = sequence(rng, { start, len: 4, gapAtEnd: t === 0 });
-      return { ...s, options: numberOptions(s.answer, n, rng, { min: 1, max: 125, tricky: [swapDigits(s.answer)] }), explain: `${s.answer}!`, hint: 'Count on by ones. Watch the tens change after 9.' };
+      return { ...s, options: numberOptions(s.answer, n, rng, { min: 1, max: 155, tricky: [swapDigits(s.answer)] }), explain: `${s.answer}!`, hint: 'Count on by ones. Watch the tens change after 9.' };
     },
   },
   'g1-numerals': {
     code: 'NC.1.NBT.1',
-    name: 'Read numbers to 120',
+    name: 'Read numbers to 150',
     gen(t, rng, n) {
-      const v = t === 2 ? int(rng, 100, 120) : int(rng, t ? 21 : 11, t ? 99 : 50);
+      const v = t === 2 ? int(rng, 100, 150) : int(rng, t ? 21 : 11, t ? 99 : 50);
       // 105 is often read as 15, and 12 mixed up with 21
       const tricky = [swapDigits(v), v > 100 && v < 110 ? 10 + (v % 10) : null];
       return {
         ask: `Find ${v}.`,
         say: `Find the number ${v}.`,
-        options: numberOptions(v, n, rng, { min: 1, max: 130, tricky: tricky.filter(Boolean) }),
+        options: numberOptions(v, n, rng, { min: 1, max: 155, tricky: tricky.filter(Boolean) }),
         answer: v,
         explain: `That's ${v}!`,
       };
