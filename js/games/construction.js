@@ -44,7 +44,9 @@ async function dig(ctx) {
   const n = ctx.config.digLetters;
   const letterPool = ctx.letters();
   const letters = letterPool.length ? sample(letterPool, n, ctx.rng) : sample(ctx.words(ctx.config.digWords), n, ctx.rng);
-  const digger = vehicleEl(ctx, 'digger');
+  // the digger in Vehicle Town; a rabbit digs up the letters in the garden
+  const diggerHelper = ctx.helper('digger', 'digger');
+  const digger = vehicleEl(ctx, diggerHelper.id, diggerHelper.vehicle ? '' : 'creature');
   const mounds = letters.map(() => el('button', { class: 'mound', 'aria-label': 'dirt', html: MOUND }));
   ctx.stage.replaceChildren(el('div', { class: 'scene' }, [digger]), el('div', { class: 'choices mounds' }, mounds));
   ctx.setProgress(0, n);

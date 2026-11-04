@@ -1,8 +1,9 @@
 # Khel Khel Mein · खेल-खेल में
 
-*"Learning through play."* An offline web app (PWA) where children learn **Hindi** from Toddler to Grade 4, and **math in English** in Kindergarten and Grade 1. Each grade is its own animated world with a guide character, a path of short lessons, stars to earn and a collection to fill.
+*"Learning through play."* An offline web app (PWA) where children learn **Hindi** from Toddler to Grade 4, and **English phonics** and **math in English** in Kindergarten and Grade 1. There are 16 animated worlds, at least three in every grade from Kindergarten to Grade 4, each with its own guide character, a path of short lessons, stars to earn and a collection to fill. Every world is tagged with what it teaches (Phonics, Grammar, Stories, Math …).
 
-- **Hindi** follows India's NIPUN Bharat targets and the themes of the NCERT books (*Sarangi*, *Veena*), with a different focus each grade: sounds and letters, then matras, half letters, grammar and folktales.
+- **Hindi** follows India's NIPUN Bharat targets and the themes of the NCERT books (*Sarangi*, *Veena*). From Grade 2 each grade has a phonics-and-reading world, a grammar-and-writing world and a stories-and-poems world.
+- **English phonics** follows the **North Carolina Standard Course of Study, Reading: Foundational Skills** for Kindergarten and Grade 1.
 - **Math** follows the **North Carolina Standard Course of Study** for Kindergarten and Grade 1, in English only.
 - **Every lesson adapts** while the child plays: it gets harder after a run of right answers and easier after misses.
 
@@ -14,26 +15,34 @@ It's plain HTML, CSS and JavaScript with no build step, so it runs on GitHub Pag
 
 ## The worlds
 
-| Grade | Age | World | Guide | Subject | What it teaches |
+| Grade | World | Guide | Subject | Tags | What it teaches |
 | --- | --- | --- | --- | --- | --- |
-| Toddler | 2–3 | **Animal Farm** · पशु फ़ार्म | Kuku the chick | Hindi | Listening and naming: animals and their sounds, colours, shapes, big and small, counting to 5, vehicles |
-| Kindergarten | 3–6 | **Vehicle Town** · गाड़ी नगर | Gappu the elephant | Hindi | Hearing sounds (rhymes, first sounds), स्वर, व्यंजन and A–Z, tracing, the alphabet train, two- and three-letter words, counting to 10 |
-| Kindergarten | 3–6 | **Pip's Number Igloo** | Pip the penguin | Math (English) | Counting, numbers to 100, comparing, adding and taking away, making 10, teen numbers, shapes, positions, measuring, sorting |
-| Grade 1 | 6–7 | **Jolly Jungle** · मस्त जंगल | Chiku the monkey | Hindi | Every matra, the barakhadi, words with matras, family, food and festival words, rhymes, little sentences, first stories |
-| Grade 1 | 6–7 | **Tiko's Number Carnival** | Tiko the owl | Math (English) | Counting to 150, tens and ones, > = <, facts to 20, story problems, the equal sign, adding tens, length, time, coins, graphs, shapes, halves and fourths |
-| Grade 2 | 7–8 | **Dino Valley** · डायनो घाटी | Dumdum the dinosaur | Hindi | Half letters, the shapes of र, home words, opposites, one and many, sentences, stories |
-| Grade 3 | 8–9 | **Space Trip** · अंतरिक्ष यात्रा | Zoomi the robot | Hindi | लिंग, वचन, विलोम, नाम and काम (nouns and verbs), पर्यायवाची, punctuation, space words, folktales |
-| Grade 4 | 9–10 | **Ocean Voyage** · समुद्री सफ़र | Ollu the octopus | Hindi | सर्वनाम, विशेषण, क्रिया, काल, मुहावरे, days and months, longer sentences, stories with a moral |
+| Toddler (2–3) | **Animal Farm** · पशु फ़ार्म | Kuku the chick | Hindi | Listening, Vocabulary, Counting | Animals and their sounds, colours, shapes, big and small, counting to 5, vehicles |
+| Kindergarten (3–6) | **Vehicle Town** · गाड़ी नगर | Gappu the elephant | Hindi | Letters, Phonics, Reading | Hearing sounds, स्वर and व्यंजन, tracing, the alphabet train, two- and three-letter words, counting to 10 |
+| Kindergarten | **Buzz's Letter Garden** | Buzz the bee | English | English, Phonics, Letters | Letters big and small, first and last sounds, rhyming, clapping syllables, reading CVC words, short vowels, sight words |
+| Kindergarten | **Pip's Number Igloo** | Pip the penguin | Math (English) | Math, Counting, Shapes | Counting, numbers to 100, comparing, adding and taking away, making 10, teen numbers, shapes, positions, measuring |
+| Grade 1 (6–7) | **Jolly Jungle** · मस्त जंगल | Chiku the monkey | Hindi | Phonics, Reading, Vocabulary, Stories | Every matra, the barakhadi, words with matras, family, food and festival words, rhymes, little sentences, first stories |
+| Grade 1 | **Kiki's Phonics Castle** | Kiki the dragon | English | English, Phonics, Reading | Short vowels, sh ch wh ck, blends, magic e, vowel teams, bossy r, syllables, -s and -es, tricky words |
+| Grade 1 | **Tiko's Number Carnival** | Tiko the owl | Math (English) | Math, Counting, Shapes | Counting to 150, tens and ones, > = <, facts to 20, story problems, time, coins, graphs, halves and fourths |
+| Grade 2 (7–8) | **Dino Valley** · डायनो घाटी | Dumdum the dinosaur | Hindi | Phonics, Reading, Spelling | Half letters, the shapes of र, ि and ी, ड and ड़, home words, all the matras |
+| Grade 2 | **Desert Fair** · रेगिस्तान का मेला | Ooty the camel | Hindi | Grammar, Writing, Vocabulary | Action words, living and non-living, opposites, one and many, । and ?, times of day and seasons, sentences |
+| Grade 2 | **Bholu's Story Forest** · भोलू का कहानी वन | Bholu the bear | Hindi | Stories, Poems, Listening | A lesson for each of the 8 Grade 2 stories, two poems, rhymes |
+| Grade 3 (8–9) | **Space Trip** · अंतरिक्ष यात्रा | Zoomi the robot | Hindi | Grammar, Vocabulary | लिंग, वचन, विलोम, नाम and काम, पर्यायवाची, punctuation, space words |
+| Grade 3 | **Mitthu's Folktale Palace** · मिट्ठू का कथा महल | Mitthu the parrot | Hindi | Stories, Poems | A lesson for each Panchatantra and folk tale, two poems, "which story teaches this?" |
+| Grade 3 | **Gauri's Village** · गौरी का गाँव | Gauri the calf | Hindi | Reading, Writing, Spelling | Village words, spelling, building words, completing sentences, building sentences |
+| Grade 4 (9–10) | **Ocean Voyage** · समुद्री सफ़र | Ollu the octopus | Hindi | Grammar, Vocabulary | सर्वनाम, विशेषण, क्रिया, काल, opposites and same-meaning words, ocean words |
+| Grade 4 | **Himu's Story Mountain** · हिमू का कथा पर्वत | Himu the snow leopard | Hindi | Stories, Poems | Akbar–Birbal, Tenali Raman and fables with a moral, two poems, "which story teaches this?" |
+| Grade 4 | **Chintu's Word City** · चिंटू का शब्द नगर | Chintu the squirrel | Hindi | Vocabulary, Writing, Reading | मुहावरे, synonyms, one word for many, days and months, city words, longer sentences |
 
-Each world is a winding path of **units** named for what the child is learning ("Let's learn matras ा ि ी", "Let's make 10"). Each unit has a few **lessons**. Lessons open one after another, each earns 1–3 stars (for answers right on the first try), and each first finish (and every 3-star replay) adds a friend to the world's **collection**: vehicles, farm animals, jungle animals, dinosaurs, space things, sea creatures, igloo friends and carnival prizes.
+Each world is a winding path of **units** named for what the child is learning ("Let's learn matras ा ि ी", "Let's learn magic e", "Let's make 10"). Each unit has a few **lessons**. Lessons open one after another, each earns 1–3 stars (for answers right on the first try), and each first finish (and every 3-star replay) adds something to the world's **collection**.
 
-The **home screen** shows the child's grade first, then every other world, so moving between grades is one tap. A parent can lock it to one grade instead.
+The **home screen** shows the child's grade first, then every other world, so moving between grades is one tap. A row of **tags** at the top filters the worlds: tap *Grammar* to see every grammar world, *Stories* for every story world, and so on. Each card shows its tags too. A parent can lock the app to one grade instead.
 
 **Getting out is always one tap.** The back button in a lesson returns to the world map, and the map's back button returns home. Android's back button and gesture do the same.
 
 ### The story library
 
-Grades 1–4 have a library of **31 read-along stories**: Panchatantra and Jataka tales (*The lion and the mouse*, *The monkey and the crocodile*, *The blue jackal*, *The talkative tortoise*), Akbar–Birbal and Tenali Raman stories, fables and new stories starring the app's characters. Every word can be tapped to hear it, pages are read aloud in Hindi (and English in "both" mode), and each story ends with questions: pictures for the younger grades, short written answers for older ones. Folktales finish with their **सीख** (moral). The library shows the child's grade and the one before it.
+Grades 1–4 have a library of **31 read-along stories and 6 poems**: Panchatantra and Jataka tales (*The lion and the mouse*, *The monkey and the crocodile*, *The blue jackal*, *The talkative tortoise*), Akbar–Birbal and Tenali Raman stories, fables and new stories starring the app's characters. Every word can be tapped to hear it, pages are read aloud in Hindi (and English in "both" mode), and each story ends with questions: pictures for the younger grades, short written answers for older ones. Folktales finish with their **सीख** (moral). The library shows the child's grade and the one before it.
 
 ### The characters
 
@@ -139,13 +148,14 @@ Built-in drawings are in `js/art.js`, `js/art-words.js`, `js/art-creatures.js` a
 }
 ```
 
-- `subject` is `hindi` or `math`. Math worlds need `"lang": "en"`.
-- `theme` picks the animated scene and music: `farm, town, jungle, dino, space, ocean, igloo, carnival` (`js/art-scenes.js`).
-- `mascot`: `kuku, gappu, chiku, dumdum, zoomi, ollu, pip, tiko` (`js/mascot.js`).
+- `subject` is `hindi`, `english` or `math`. English and math worlds need `"lang": "en"`.
+- `tags` lists what the world teaches, from the `"tags"` table (`{ "grammar": { "hi": "व्याकरण", "en": "Grammar", "color": "#E11D48" } }`). They show on the world's card and power the filter on the home screen.
+- `theme` picks the animated scene and music: `farm, town, jungle, dino, space, ocean, igloo, carnival, garden, castle, desert, forest, palace, village, mountain, city` (`js/art-scenes.js`).
+- `mascot`: `kuku, gappu, chiku, dumdum, zoomi, ollu, pip, tiko, buzz, kiki, ooty, bholu, mitthu, gauri, himu, chintu` (`js/mascot.js`).
 - `collection` is an id from `"collections"`: `{ "name": {…}, "items": [word ids], "start": 2 }` (`start` = how many are owned from the beginning).
 - `icon` is a picture id, `letter:क` for a big letter or number, `num`, or an **activity icon** that puts a world's creature into the activity: `book:` (story), `talk:` (sentences), `pair:` (word pairs), `card:` (reading words), `blocks:` (building words), `matra:`, `rhyme:` or `find:` followed by a picture id, e.g. `book:turtle`. Each Hindi grade uses its own creatures, so no two grades share an icon.
 - Lesson ids must be unique. A lesson's `config` overrides that game's defaults in `"games"`.
-- `helpers` (optional) names who helps inside the games in this world, as word ids: `courier` delivers the word in reading lessons, `vendor` serves the rhymes, `lifter` lifts the letters in word building, `rescuer` answers the call in rescue, `holder` holds up the matra sign, and `engine` pulls the sentence carriages. For example the jungle has `{ "courier": "parrot", "lifter": "elephant", "engine": "snake" }`. Anything left out uses the Vehicle Town helper (post van, ice-cream van, crane …). The houses, cups, carriages and parking spaces around them take the world's look from its `theme`.
+- `helpers` (optional) names who helps inside the games in this world, as word ids: `courier` delivers the word in reading lessons, `vendor` serves the rhymes, `lifter` lifts the letters in word building, `rescuer` answers the call in rescue, `holder` holds up the matra sign, `engine` pulls the sentence carriages, and `digger` digs up letters. For example the jungle has `{ "courier": "parrot", "lifter": "elephant", "engine": "snake" }`. Anything left out uses the Vehicle Town helper (post van, ice-cream van, crane …). The houses, cups, carriages and parking spaces around them take the world's look from its `theme`.
 
 ### Games and their settings
 
@@ -169,6 +179,7 @@ Built-in drawings are in `js/art.js`, `js/art-words.js`, `js/art-creatures.js` a
 | `sort` | Put each word in the right box (noun or verb, र forms…) | `sort` (a `sorts` id), `rounds` |
 | `story` | Read-along story with questions | `levels`, or `story` for one story |
 | `math` | Math problems with pictures and models | `skills` (ids from `js/mathgen.js`), `rounds` |
+| `phonics` | English phonics: pictures to hear, words with a gap, letters to blend | `skills` (ids from `js/phonicsgen.js`), `rounds` |
 
 Every game also takes `choices`: how many options to show at each of the three levels, e.g. `[2, 3, 4]` (the default). `letters` can name a range: `{ "sets": ["hindiConsonants"], "from": 0, "to": 10 }`.
 
@@ -220,6 +231,14 @@ Each page shows its `word`'s picture. Picture questions use word ids as options;
 - `"phrases"`: the spoken instructions. `{w}` marks where a word goes: `"find": { "hi": "{w} ढूँढो", "en": "Find {w}" }`.
 - `"mascotLines"`: what the guides say when tapped, with a `move` (`silly`, `sneeze`, `spin`, `dance`, `wave`).
 - `"levels"`: the grades, with `name`, `age` and an `about` line for parents.
+
+### Stories, poems and story lessons
+
+A story with `"kind": "poem"` is shown as a poem in the library. A lesson can name one story with `{ "game": "story", "config": { "story": "lion-mouse" } }`; without `story` it opens the next story on the grade's shelf.
+
+### Phonics skills
+
+Phonics lessons list skills from [`js/phonicsgen.js`](js/phonicsgen.js), for example `{ "game": "phonics", "config": { "skills": ["k-rhyme", "k-read-cvc"] } }`. Each skill carries its NC Reading: Foundational Skills code. Sounds are always said with a key word ("c, as in cat"), because text-to-speech can't say bare letter sounds well; you can record the real sounds in the parent area (Letters tab).
 
 ### Math skills
 

@@ -1,6 +1,6 @@
 # Curriculum and learning design
 
-Khel Khel Mein has six grades, from Toddler to Grade 4. Each grade has a **Hindi world** that follows India's foundational-stage targets and the themes of the NCERT Hindi books. Kindergarten and Grade 1 also have an **English math world** that follows the North Carolina Standard Course of Study. Everything below lives in [`content.json`](content.json) (Hindi) and [`js/mathgen.js`](js/mathgen.js) (math), and the README explains how to change it.
+Khel Khel Mein has six grades, from Toddler to Grade 4, and 16 worlds: at least three in every grade from Kindergarten to Grade 4. The **Hindi worlds** follow India's foundational-stage targets and the themes of the NCERT Hindi books; from Grade 2 each grade has one world for phonics and reading, one for grammar and writing, and one for stories and poems. Kindergarten and Grade 1 also have an **English phonics world** and an **English math world**, both following the North Carolina Standard Course of Study. Every world is tagged with what it teaches. Everything below lives in [`content.json`](content.json) (Hindi), [`js/phonicsgen.js`](js/phonicsgen.js) (phonics) and [`js/mathgen.js`](js/mathgen.js) (math), and the README explains how to change it.
 
 ## Sources
 
@@ -10,6 +10,7 @@ Khel Khel Mein has six grades, from Toddler to Grade 4. Each grade has a **Hindi
 | **National Curriculum Framework for the Foundational Stage (NCF-FS)**, 2022 | NCERT | Curricular goals CG-9 (talk in two languages), CG-10 (read and write in the first language) and CG-11 (begin a second language). That's why the Hindi worlds can run in Hindi, English or both |
 | **NCERT Hindi books**: *Sarangi* (Classes 1–2), *Veena* (Classes 3–4) | NCERT | The **themes** of each grade: family, food, festivals and the fair in Class 1; home and grandparents in Class 2; insects, the Moon mission and Panchatantra in Class 3; birds, trees, food and folktales in Class 4. They are free to read but **not openly licensed**, so nothing is copied: every word list, quiz, sentence and story here is original or a retelling of a public-domain folktale |
 | **NC Standard Course of Study, Mathematics** (adopted 2017) and the NC DPI unpacking documents for Kindergarten and Grade 1 | North Carolina Department of Public Instruction | The math standards, by code (NC.K.CC.1 … NC.1.G.3). NC differs from Common Core in places, e.g. Grade 1 counts to **150** (not 120) |
+| **NC Standard Course of Study, English Language Arts: Reading Foundational Skills** (NC.K.RF, NC.1.RF) | North Carolina Department of Public Instruction | Print concepts, phonological awareness (rhyme, syllables, sounds) and phonics (letter sounds, short and long vowels, digraphs, blends, final -e, vowel teams, high-frequency and irregular words) for Kindergarten and Grade 1. The codes on each phonics skill follow the Common Core numbering NC adopted; check exact wording against the DPI documents |
 | **Panchatantra, Jataka, Akbar–Birbal, Tenali Raman** and Aesop-style fables | Public-domain folk literature | Retold in simple Hindi for the story library |
 | **StoryWeaver** (Pratham Books) | Pratham Books | Openly licensed (CC BY 4.0) Hindi readers at levels 1–4: a good next step for reading together |
 
@@ -42,15 +43,14 @@ English runs alongside: A–Z, English names for every picture, English rhymes, 
 | Count to 5 | Count passengers getting on and off |
 | Vehicles | Dig up pictures, find the vehicle |
 
-### Kindergarten / Balvatika (age 3–6) · Vehicle Town
+### Kindergarten / Balvatika (age 3–6) · Vehicle Town (Hindi)
 *NIPUN Balvatika: recognise letters and their sounds; read simple 2–3 letter words.*
 
 | Unit | What the child does |
 | --- | --- |
-| Let's hear sounds | Rhymes; which picture starts with this sound (Hindi and ABC) |
+| Let's hear sounds | Rhymes; which picture starts with this sound |
 | Let's learn vowels | Dig, train, trace and rescue with स्वर |
 | Consonants क to ञ, ट to न, प to ज्ञ | Dig, deliver, trace, train, rescue and first sounds for each group |
-| English ABC | ABC train, dig, trace |
 | Two- and three-letter words | Build words with the crane; read them at the post office |
 | Numbers 1 to 10 | Count passengers in Hindi and English |
 
@@ -94,39 +94,84 @@ English runs alongside: A–Z, English names for every picture, English rhymes, 
 | Let's explore shapes | NC.1.G.1–3: sides and corners, put two shapes together, halves and fourths (a half is bigger than a fourth) |
 | Carnival challenge | Mixed review of the year |
 
-### Grade 2 (age 7–8) · Dino Valley
+### Kindergarten · Buzz's Letter Garden (English phonics)
+
+| Unit | Standards |
+| --- | --- |
+| Let's meet the letters | NC.K.RF.1d: find letters, big and small (b d p q look-alikes at the top level); the ABC train; tracing |
+| Let's hear first sounds | NC.K.RF.3a: which letter does *ball* start with; which picture starts with B; dig up ABC |
+| Let's rhyme | NC.K.RF.2a: which picture rhymes with *cat* |
+| Let's clap syllables | NC.K.RF.2b: clap *but-ter-fly*, then see the parts |
+| Let's read short words | NC.K.RF.3b: read c-a-t letter by letter and find the picture; the missing middle vowel |
+| Let's hear last sounds | NC.K.RF.2d: how does *bus* end |
+| Let's learn sight words | NC.K.RF.3c: the, and, is, see, look … |
+| Garden party! | Mixed review |
+
+### Grade 1 · Kiki's Phonics Castle (English phonics)
+
+| Unit | Standards |
+| --- | --- |
+| Short vowels | NC.1.RF.3b: the missing a, e, i, o or u (f_x, b_g) |
+| sh, ch, wh, ck | NC.1.RF.3a: digraphs at the start and end (__ip, du__) |
+| Blends | NC.1.RF.2b: fr, fl, st, sn, tr, cr, pl …, and reading blend words |
+| Magic e | NC.1.RF.3c: kite or kit, cake or cak |
+| Vowel teams | NC.1.RF.3c: ee, ea, ai, oa, oo |
+| Bossy r | ar, or, ir |
+| Syllables and endings | NC.1.RF.3d–f: syllables in longer words; cats, boxes |
+| Tricky words | NC.1.RF.3g: said, was, have, they, where … |
+| Castle challenge | Mixed review |
+
+### Grade 2 (age 7–8) · three worlds
 *NIPUN Grade 2: read 45–60 words a minute with meaning. NCERT Sarangi 2 themes: home, grandparents.*
 
-| Unit | What the child does |
+| World | Units |
 | --- | --- |
-| Let's learn half letters | Read and build words with conjuncts (पत्ता, चम्मच, स्कूल) |
-| The shapes of र | Sort words: र्, ्र or ृ? |
-| My home | Home words, read and build |
-| Opposites; One and many | Park each word next to its partner |
-| Rhyming words; Let's build sentences | Rhymes; 4–6 word sentences |
-| Stories | 8 stories: *The thirsty crow*, *The lion and the mouse*, *The tortoise and the hare*, *The cap seller and the monkeys* …, most ending with a सीख |
+| **Dino Valley** · Phonics, Reading, Spelling | Half letters (पत्ता, चम्मच, स्कूल); the shapes of र; ि or ी; ड or ड़; home words; all the matras; reading |
+| **Desert Fair** · Grammar, Writing, Vocabulary | Who does what (action words); living and non-living; opposites; one and many; । and ?; times of day and seasons; building sentences |
+| **Bholu's Story Forest** · Stories, Poems, Listening | One lesson for each story (*The thirsty crow*, *The lion and the mouse*, *The tortoise and the hare*, *The cap seller and the monkeys* …), two poems (बादल राजा, मेरी साइकिल), rhymes |
 
-### Grade 3 (age 8–9) · Space Trip
-*NIPUN Grade 3: read at least 60 words a minute with meaning. NCERT Veena 3 themes: insects, the Moon mission (चंद्रयान), Panchatantra, unity.*
+### Grade 3 (age 8–9) · three worlds
+*NIPUN Grade 3: read at least 60 words a minute with meaning. NCERT Veena 3 themes: insects, the Moon mission, Panchatantra, unity.*
 
-| Unit | What the child does |
+| World | Units |
 | --- | --- |
-| लिंग, वचन, विलोम | Gender, number and opposites |
-| Naming words and action words | Sort words into संज्ञा or क्रिया |
-| Same-meaning words; punctuation | पर्यायवाची; । ? ! |
-| Space words; sentences | Read space words; 6–8 word sentences |
-| Folktales | 8 stories: *The monkey and the crocodile*, *The blue jackal*, *Strength in unity*, *Zoomi goes to the Moon* … with written-answer questions and a सीख |
+| **Space Trip** · Grammar, Vocabulary | लिंग, वचन, विलोम, नाम and काम, पर्यायवाची, punctuation, space words |
+| **Mitthu's Folktale Palace** · Stories, Poems | One lesson for each tale (*The monkey and the crocodile*, *The blue jackal*, *Strength in unity*, *The honest woodcutter* …), two poems (चाँद की सैर, पेड़ हमारे दोस्त), "which story teaches this?" |
+| **Gauri's Village** · Reading, Writing, Spelling | Village words; spell it right; build words; complete the sentence; longer sentences |
 
-### Grade 4 (age 9–10) · Ocean Voyage
+### Grade 4 (age 9–10) · three worlds
 *NCERT Veena 4 themes: birds, garden creatures, trees, food and health, folktales.*
 
-| Unit | What the child does |
+| World | Units |
 | --- | --- |
-| सर्वनाम, विशेषण, क्रिया, काल | Pronouns, describing words (sort and quiz), verbs, past/present/future |
-| मुहावरे; days and months | Idioms and their meanings; दिन and महीने |
-| Ocean words; longer sentences | Reading and sentence building |
-| Opposites and same-meaning words | Review quiz and pairs |
-| Stories with a moral | 8 stories: *The talkative tortoise*, *Birbal's khichdi*, *Tenali Rama and the thieves*, *The golden egg*, *The talking cave* … |
+| **Ocean Voyage** · Grammar, Vocabulary | सर्वनाम, विशेषण, क्रिया, काल, opposites and same-meaning words, ocean words |
+| **Himu's Story Mountain** · Stories, Poems | One lesson for each tale (*The talkative tortoise*, *Birbal's khichdi*, *Tenali Rama and the thieves*, *The golden egg* …), two poems (किसान, पहाड़ों पर), "which story teaches this?" |
+| **Chintu's Word City** · Vocabulary, Writing, Reading | मुहावरे, समानार्थी शब्द, one word for many (अध्यापक, दर्ज़ी, माली …), days and months, city words, longer sentences |
+
+## Phonics skills
+
+Sounds are always said with a key word ("c, as in cat"): text-to-speech can't say bare phonemes well, and parents can record real letter sounds in the app.
+
+| Skill | Standard | What it practises | Unit |
+| --- | --- | --- | --- |
+| `k-letters` | NC.K.RF.1d | Know the letters, big and small | Let's meet the letters |
+| `k-first-sound` | NC.K.RF.3a | First sounds: which letter does it start with? | Let's hear first sounds, Garden party! |
+| `k-last-sound` | NC.K.RF.2d | Last sounds: how does it end? | Let's hear last sounds, Garden party! |
+| `k-rhyme` | NC.K.RF.2a | Rhyming words | Let's rhyme, Garden party! |
+| `k-syllables` | NC.K.RF.2b | Clap the syllables | Let's clap syllables, Garden party! |
+| `k-read-cvc` | NC.K.RF.3b | Read short words (CVC) | Let's read short words, Garden party! |
+| `k-middle-vowel` | NC.K.RF.3b | Short vowels in the middle | Let's read short words |
+| `k-sight` | NC.K.RF.3c | Sight words | Let's learn sight words, Garden party! |
+| `g1-short-vowels` | NC.1.RF.3b | Short vowels a e i o u | Let's learn short vowels, Castle challenge |
+| `g1-digraphs` | NC.1.RF.3a | Digraphs: sh, ch, wh, ck | Let's learn sh, ch, wh and ck, Castle challenge |
+| `g1-blends` | NC.1.RF.2b | Blends: fr, st, tr, pl … | Let's learn blends, Castle challenge |
+| `g1-magic-e` | NC.1.RF.3c | Magic e (kite, cake, bone) | Let's learn magic e, Castle challenge |
+| `g1-vowel-teams` | NC.1.RF.3c | Vowel teams: ee, ea, ai, oa, oo | Let's learn vowel teams, Castle challenge |
+| `g1-bossy-r` | NC.1.RF.3 | Bossy r: ar, or, ir | Let's learn bossy r, Castle challenge |
+| `g1-syllables` | NC.1.RF.3d | Syllables in longer words | Let's learn syllables and endings, Castle challenge |
+| `g1-endings` | NC.1.RF.3f | Endings: -s and -es | Let's learn syllables and endings |
+| `g1-read-words` | NC.1.RF.3b | Read words with blends and digraphs | Let's learn blends, Castle challenge |
+| `g1-sight` | NC.1.RF.3g | Tricky sight words | Let's learn tricky words, Castle challenge |
 
 ## Math skills
 

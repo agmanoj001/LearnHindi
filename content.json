@@ -292,7 +292,20 @@
     "bluejackal": { "hi": "नीला सियार", "translit": "neela siyaar", "en": "blue jackal", "picture": "bluejackal" },
     "cookingpot": { "hi": "हाँडी", "translit": "haandi", "en": "cooking pot", "picture": "cookingpot", "level": "grade1", "syllables": ["हाँ", "डी"] },
     "field": { "hi": "खेत", "translit": "khet", "en": "field", "picture": "field", "level": "grade1", "syllables": ["खे", "त"] },
-    "ferris": { "hi": "झूला", "translit": "jhoola", "en": "big wheel", "picture": "ferris" }
+    "ferris": { "hi": "झूला", "translit": "jhoola", "en": "big wheel", "picture": "ferris" },
+    "pig": { "hi": "सूअर", "translit": "suar", "en": "pig", "picture": "pig" },
+    "hat": { "hi": "हैट", "translit": "hait", "en": "hat", "picture": "hat" },
+    "box": { "hi": "डिब्बा", "translit": "dibba", "en": "box", "picture": "box" },
+    "bug": { "hi": "कीड़ा", "translit": "keeda", "en": "bug", "picture": "bug" },
+    "frog": { "hi": "मेंढक", "translit": "mendhak", "en": "frog", "picture": "frog" },
+    "cake": { "hi": "केक", "translit": "kek", "en": "cake", "picture": "cake" },
+    "bee": { "hi": "मधुमक्खी", "translit": "madhumakkhi", "en": "bee", "picture": "bee" },
+    "crown": { "hi": "मुकुट", "translit": "mukut", "en": "crown", "picture": "crown" },
+    "fork": { "hi": "काँटा", "translit": "kaanta", "en": "fork", "picture": "fork" },
+    "jar": { "hi": "मर्तबान", "translit": "martbaan", "en": "jar", "picture": "jar" },
+    "coat": { "hi": "कोट", "translit": "kot", "en": "coat", "picture": "coat" },
+    "log": { "hi": "लट्ठा", "translit": "lattha", "en": "log", "picture": "log" },
+    "raincloud": { "hi": "काले बादल", "translit": "kaale baadal", "en": "rain clouds", "picture": "raincloud" }
   },
   "sentences": [
     { "id": "bus-here", "about": "bus", "hi": "बस आई!", "translit": "bas aai", "en": "The bus is here!", "level": "grade2" },
@@ -972,6 +985,46 @@
       ]
     },
     {
+      "id": "poem-clouds",
+      "kind": "poem",
+      "level": "grade2",
+      "title": { "hi": "बादल राजा", "en": "King Cloud (a poem)" },
+      "cover": "raincloud",
+      "pages": [
+        { "word": "raincloud", "hi": "काले बादल आए, घिर-घिर कर छाए।", "en": "Dark clouds came and gathered all around." },
+        { "word": "raincloud", "hi": "टप-टप बूँदें गाएँ, सबको खूब नहलाएँ।", "en": "Drip-drop, the raindrops sing and give everyone a bath." },
+        { "word": "peacock", "hi": "मोर ने पंख फैलाए, छम-छम नाच दिखाए।", "en": "The peacock spread its feathers and danced." },
+        { "word": "umbrella", "hi": "हम भी छाता लाएँ, बारिश में मुस्काएँ।", "en": "We bring our umbrellas too, and smile in the rain." }
+      ],
+      "questions": [
+        { "hi": "बारिश में कौन नाचा?", "en": "Who danced in the rain?", "answer": "peacock", "options": ["peacock", "crow", "hen"] },
+        { "hi": "बच्चे क्या लाए?", "en": "What did the children bring?", "answer": "umbrella", "options": ["umbrella", "kite", "drum"] }
+      ]
+    },
+    {
+      "id": "poem-cycle",
+      "kind": "poem",
+      "level": "grade2",
+      "title": { "hi": "मेरी साइकिल", "en": "My bicycle (a poem)" },
+      "cover": "bicycle",
+      "pages": [
+        { "word": "bicycle", "hi": "लाल रंग की मेरी साइकिल, ट्रिन-ट्रिन घंटी बजाए।", "en": "My red bicycle rings its bell, tring-tring." },
+        { "word": "tree", "hi": "पेड़ों के नीचे से निकले, ठंडी हवा हमें सहलाए।", "en": "We ride under the trees and the cool breeze strokes us." },
+        { "word": "river", "hi": "नदी किनारे रुक जाएँ, मछली को हाथ हिलाएँ।", "en": "We stop by the river and wave to the fish." },
+        { "word": "house", "hi": "शाम हुई तो घर को लौटें, माँ को सारी बात बताएँ।", "en": "When evening comes we ride home and tell Mum everything." }
+      ],
+      "questions": [
+        {
+          "hi": "साइकिल की घंटी कैसे बजती है?",
+          "en": "How does the bicycle bell ring?",
+          "answer": "ट्रिन-ट्रिन",
+          "options": ["ट्रिन-ट्रिन", "टप-टप", "छम-छम"],
+          "text": true
+        },
+        { "hi": "नदी में किसे हाथ हिलाया?", "en": "Who did we wave to in the river?", "answer": "fish", "options": ["fish", "duck", "crocodile"] }
+      ]
+    },
+    {
       "id": "little-boat",
       "level": "grade3",
       "title": { "hi": "छोटी नाव", "en": "The little boat" },
@@ -1278,6 +1331,52 @@
         { "hi": "ज़ूमी कहाँ गया?", "en": "Where did Zoomi go?", "answer": "moon", "options": ["moon", "sun", "mars"] },
         { "hi": "चाँद पर क्या नहीं था?", "en": "What was not on the Moon?", "text": true, "answer": "हवा और पानी", "options": ["हवा और पानी", "पत्थर", "गड्ढे"] },
         { "hi": "ज़ूमी ने चाँद पर क्या लगाया?", "en": "What did Zoomi plant on the Moon?", "answer": "flag", "options": ["flag", "tree", "umbrella"] }
+      ]
+    },
+    {
+      "id": "poem-moon-trip",
+      "kind": "poem",
+      "level": "grade3",
+      "title": { "hi": "चाँद की सैर", "en": "A trip to the Moon (a poem)" },
+      "cover": "rocket",
+      "pages": [
+        { "word": "rocket", "hi": "रॉकेट में बैठकर, चाँद तक जाऊँगा।", "en": "I will sit in a rocket and fly to the Moon." },
+        { "word": "moon", "hi": "चाँद की सफ़ेद धूल में, पैरों के निशान बनाऊँगा।", "en": "In the Moon’s white dust I will make my footprints." },
+        { "word": "earth", "hi": "वहाँ से नीली धरती को, मैं जी भर कर देखूँगा।", "en": "From there I will gaze and gaze at the blue Earth." },
+        { "word": "house", "hi": "फिर लौटकर सब बच्चों को, अपनी कहानी सुनाऊँगा।", "en": "Then I will come home and tell all the children my story." }
+      ],
+      "questions": [
+        {
+          "hi": "बच्चा चाँद तक कैसे जाएगा?",
+          "en": "How will the child go to the Moon?",
+          "answer": "रॉकेट से",
+          "options": ["रॉकेट से", "साइकिल से", "नाव से"],
+          "text": true
+        },
+        { "hi": "वहाँ से नीली क्या दिखेगी?", "en": "What will look blue from there?", "answer": "earth", "options": ["earth", "sun", "mars"] }
+      ]
+    },
+    {
+      "id": "poem-trees",
+      "kind": "poem",
+      "level": "grade3",
+      "title": { "hi": "पेड़ हमारे दोस्त", "en": "Trees are our friends (a poem)" },
+      "cover": "tree",
+      "pages": [
+        { "word": "tree", "hi": "पेड़ हमें छाया देते, गर्मी में ठंडक देते।", "en": "Trees give us shade and keep us cool in summer." },
+        { "word": "mango", "hi": "मीठे-मीठे आम खिलाते, चिड़ियों का घर बन जाते।", "en": "They feed us sweet mangoes and become homes for birds." },
+        { "word": "bird", "hi": "डाल-डाल पर चिड़िया गाती, सुबह-सुबह हमें जगाती।", "en": "Birds sing on every branch and wake us early." },
+        { "word": "plant", "hi": "आओ मिलकर पेड़ लगाएँ, धरती को हरा बनाएँ।", "en": "Let’s plant trees together and make the Earth green." }
+      ],
+      "questions": [
+        { "hi": "पेड़ हमें कौन सा फल देते हैं?", "en": "Which fruit do trees give us?", "answer": "mango", "options": ["mango", "fish", "roti"] },
+        {
+          "hi": "हमें क्या करना चाहिए?",
+          "en": "What should we do?",
+          "answer": "पेड़ लगाने चाहिए",
+          "options": ["पेड़ लगाने चाहिए", "पेड़ काटने चाहिए", "पत्ते तोड़ने चाहिए"],
+          "text": true
+        }
       ]
     },
     {
@@ -1601,6 +1700,50 @@
         { "hi": "सबको किसने रोका?", "en": "Who stopped everyone?", "answer": "lion", "options": ["lion", "elephant", "monkey"] }
       ],
       "moral": { "hi": "बिना जाँचे किसी बात पर भरोसा मत करो।", "en": "Don't believe something without checking." }
+    },
+    {
+      "id": "poem-farmer",
+      "kind": "poem",
+      "level": "grade4",
+      "title": { "hi": "किसान", "en": "The farmer (a poem)" },
+      "cover": "farmer",
+      "pages": [
+        { "word": "farmer", "hi": "भोर हुई, किसान उठा, बैलों को ले खेत चला।", "en": "At dawn the farmer woke and took his oxen to the field." },
+        { "word": "field", "hi": "धूप-पसीने में वह जुटा, धरती में बीज बोता रहा।", "en": "In sun and sweat he worked on, sowing seeds in the earth." },
+        {
+          "word": "raincloud",
+          "hi": "बादल बरसे, अंकुर फूटे, खेत हुए सब हरे-भरे।",
+          "en": "The clouds rained, shoots sprang up, and the fields turned green."
+        },
+        { "word": "corn", "hi": "सुनहरी फ़सल लहराई, सबके घर में अन्न भरा।", "en": "The golden crop waved, and every home was filled with grain." }
+      ],
+      "questions": [
+        { "hi": "किसान खेत में क्या बोता है?", "en": "What does the farmer sow in the field?", "answer": "बीज", "options": ["बीज", "पत्थर", "पानी"], "text": true },
+        {
+          "hi": "इस कविता की सीख क्या है?",
+          "en": "What does this poem teach?",
+          "answer": "मेहनत का फल मीठा होता है",
+          "options": ["मेहनत का फल मीठा होता है", "सोते रहना अच्छा है", "बारिश बुरी होती है"],
+          "text": true
+        }
+      ]
+    },
+    {
+      "id": "poem-mountains",
+      "kind": "poem",
+      "level": "grade4",
+      "title": { "hi": "पहाड़ों पर", "en": "On the mountains (a poem)" },
+      "cover": "snowflake",
+      "pages": [
+        { "word": "snowflake", "hi": "ऊँचे-ऊँचे पहाड़ों पर, सफ़ेद बर्फ़ की चादर है।", "en": "On the high mountains lies a white sheet of snow." },
+        { "word": "river", "hi": "पिघली बर्फ़ से नदी बनी, कल-कल करती बहती है।", "en": "Melting snow becomes a river that babbles along." },
+        { "word": "sheep", "hi": "हरी घास पर भेड़ें चरतीं, बादल नीचे उतरते हैं।", "en": "Sheep graze on the green grass and the clouds come down low." },
+        { "word": "flag", "hi": "हवा में झंडियाँ लहरातीं, पहाड़ हमें बुलाते हैं।", "en": "Little flags flutter in the wind; the mountains call to us." }
+      ],
+      "questions": [
+        { "hi": "नदी कैसे बनी?", "en": "How was the river made?", "answer": "पिघली बर्फ़ से", "options": ["पिघली बर्फ़ से", "समुद्र से", "कुएँ से"], "text": true },
+        { "hi": "घास पर कौन चर रहा था?", "en": "Who was grazing on the grass?", "answer": "sheep", "options": ["sheep", "tiger", "crocodile"] }
+      ]
     }
   ],
   "levels": [
@@ -1616,35 +1759,35 @@
       "picture": "car",
       "name": { "hi": "बालवाटिका", "en": "Kindergarten" },
       "age": "3–6",
-      "about": "Sounds, स्वर, व्यंजन and A–Z, tracing, counting to 10, two- and three-letter words without matras. Math in English (NC kindergarten)."
+      "about": "Hindi letters and sounds in Vehicle Town, English phonics in the Letter Garden (letter sounds, rhymes, short words, sight words), and math in English."
     },
     {
       "id": "grade1",
       "picture": "monkey",
       "name": { "hi": "कक्षा 1", "en": "Grade 1" },
       "age": "6–7",
-      "about": "Matras and the barakhadi, words with matras, family, food and festival words, little sentences and first stories. Math in English (NC grade 1)."
+      "about": "Hindi matras, reading and first stories in the Jolly Jungle, English phonics in the Phonics Castle (digraphs, blends, magic e, vowel teams), and math in English."
     },
     {
       "id": "grade2",
       "picture": "trex",
       "name": { "hi": "कक्षा 2", "en": "Grade 2" },
       "age": "7–8",
-      "about": "Half letters and र के रूप, home words, opposites, one and many, rhymes, building sentences, folktales with questions."
+      "about": "Three Hindi worlds: phonics and reading (half letters, ि/ी, ड/ड़), grammar and writing (action words, opposites, one and many, punctuation, sentences), and stories, poems and rhymes."
     },
     {
       "id": "grade3",
       "picture": "rocket",
       "name": { "hi": "कक्षा 3", "en": "Grade 3" },
       "age": "8–9",
-      "about": "Grammar starts: naming words (संज्ञा), gender (लिंग), number (वचन), same-meaning words, punctuation, space words, Panchatantra stories."
+      "about": "Three Hindi worlds: grammar (लिंग, वचन, संज्ञा, क्रिया, punctuation), Panchatantra stories and poems, and reading, spelling and writing in the village."
     },
     {
       "id": "grade4",
       "picture": "octopus",
       "name": { "hi": "कक्षा 4", "en": "Grade 4" },
       "age": "9–10",
-      "about": "Pronouns, describing and action words, past-present-future, idioms (मुहावरे), days and months, ocean words, longer folktales with a moral."
+      "about": "Three Hindi worlds: grammar (सर्वनाम, विशेषण, काल), stories and poems with a moral, and words and writing in the city (idioms, synonyms, one word for many)."
     }
   ],
   "collections": {
@@ -1703,7 +1846,15 @@
       "items": ["octopus", "crab", "turtle", "whale", "dolphin", "starfish", "jellyfish", "seahorse", "shark", "shell", "lighthouse", "fish", "ship", "submarine"]
     },
     "igloo": { "name": { "hi": "मेरा इग्लू", "en": "My igloo" }, "items": ["penguin", "seal", "polarbear", "igloo", "snowman", "sled", "snowflake", "fish"] },
-    "carnival": { "name": { "hi": "मेले के इनाम", "en": "Carnival prizes" }, "items": ["balloon", "kite", "drum", "ferris", "laddoo", "flag", "bell", "swing", "icecreamvan"] }
+    "carnival": { "name": { "hi": "मेले के इनाम", "en": "Carnival prizes" }, "items": ["balloon", "kite", "drum", "ferris", "laddoo", "flag", "bell", "swing", "icecreamvan"] },
+    "garden": { "name": { "hi": "मेरा बगीचा", "en": "My garden" }, "items": ["flower", "rose", "lotus", "butterfly", "snail", "ant", "leaf", "bee", "sun", "tree"] },
+    "castle": { "name": { "hi": "महल का ख़ज़ाना", "en": "Castle treasure" }, "items": ["crown", "king", "flag", "bell", "drum", "lamp", "coins", "goldenaxe"] },
+    "desert": { "name": { "hi": "मेले की चीज़ें", "en": "Fair finds" }, "items": ["camel", "fort", "pot", "snake", "drum", "garland", "kite", "lamp"] },
+    "forest": { "name": { "hi": "वन के दोस्त", "en": "Forest friends" }, "items": ["bear", "owl", "deer", "squirrel", "fox", "rabbit", "tortoise", "jackal"] },
+    "palace": { "name": { "hi": "महल की शान", "en": "Palace treasures" }, "items": ["elephant", "peacock", "king", "minister", "garland", "swan", "horse", "rangoli"] },
+    "village": { "name": { "hi": "गाँव के साथी", "en": "Village friends" }, "items": ["cow", "ox", "hen", "chick", "goat", "buffalo", "well", "field"] },
+    "mountain": { "name": { "hi": "पहाड़ के ख़ज़ाने", "en": "Mountain treasures" }, "items": ["sheep", "deer", "bird", "cloud", "river", "flower", "snowman", "tree"] },
+    "city": { "name": { "hi": "शहर की सैर", "en": "City sights" }, "items": ["school", "bridge", "metro", "auto", "scooter", "clock", "umbrella", "glasses"] }
   },
   "worlds": [
     {
@@ -1801,6 +1952,7 @@
           ]
         }
       ],
+      "tags": ["listening", "vocabulary", "counting"],
       "helpers": { "rescuer": "tractor" }
     },
     {
@@ -1812,7 +1964,7 @@
       "color": "#6C63FF",
       "collection": "vehicles",
       "name": { "hi": "गाड़ी नगर", "en": "Vehicle Town" },
-      "letterSets": ["hindiVowels", "hindiConsonants", "english"],
+      "letterSets": ["hindiVowels", "hindiConsonants"],
       "units": [
         {
           "id": "k-sounds",
@@ -1843,35 +1995,6 @@
               "title": { "hi": "पहली ध्वनि", "en": "First sounds" },
               "config": {
                 "letters": { "sets": ["hindiConsonants"], "from": 0, "to": 33 },
-                "words": [
-                  "@kg",
-                  "@grade1",
-                  "@grade2",
-                  "cow",
-                  "dog",
-                  "cat",
-                  "duck",
-                  "lion",
-                  "monkey",
-                  "elephant",
-                  "tiger",
-                  "deer",
-                  "bus",
-                  "car",
-                  "truck",
-                  "train",
-                  "plane",
-                  "boat"
-                ]
-              }
-            },
-            {
-              "id": "k-sounds-3",
-              "game": "firstsound",
-              "icon": "letter:B",
-              "title": { "hi": "First sounds ABC", "en": "First sounds ABC" },
-              "config": {
-                "letters": { "sets": ["english"] },
                 "words": [
                   "@kg",
                   "@grade1",
@@ -2136,35 +2259,6 @@
           ]
         },
         {
-          "id": "k-abc",
-          "title": { "hi": "अंग्रेज़ी ABC", "en": "English ABC" },
-          "skill": "Phonics",
-          "icon": "letter:A",
-          "lessons": [
-            {
-              "id": "k-abc-1",
-              "game": "railway",
-              "icon": "train",
-              "title": { "hi": "ABC रेल", "en": "ABC train" },
-              "config": { "letters": { "sets": ["english"] }, "carriages": 4 }
-            },
-            {
-              "id": "k-abc-2",
-              "game": "construction",
-              "icon": "digger",
-              "title": { "hi": "ABC खोदो", "en": "Dig ABC" },
-              "config": { "activities": ["dig"], "letters": { "sets": ["english"] } }
-            },
-            {
-              "id": "k-abc-3",
-              "game": "trace",
-              "icon": "place-trace",
-              "title": { "hi": "ABC लिखो", "en": "Trace ABC" },
-              "config": { "letters": { "sets": ["english"] }, "count": 3 }
-            }
-          ]
-        },
-        {
           "id": "k-two",
           "title": { "hi": "दो अक्षर वाले शब्द", "en": "Let's learn two-letter words" },
           "skill": "Reading",
@@ -2224,7 +2318,8 @@
             }
           ]
         }
-      ]
+      ],
+      "tags": ["letters", "phonics", "reading"]
     },
     {
       "id": "igloo",
@@ -2359,7 +2454,180 @@
             }
           ]
         }
-      ]
+      ],
+      "tags": ["math", "counting", "shapes"]
+    },
+    {
+      "id": "garden",
+      "level": "kg",
+      "subject": "english",
+      "lang": "en",
+      "theme": "garden",
+      "mascot": "buzz",
+      "color": "#F59E0B",
+      "collection": "garden",
+      "tags": ["english", "phonics", "letters"],
+      "name": { "hi": "बज़ का अक्षर बगीचा", "en": "Buzz's Letter Garden" },
+      "letterSets": ["english"],
+      "units": [
+        {
+          "id": "ke-letters",
+          "title": { "hi": "ABC से मिलो", "en": "Let's meet the letters" },
+          "skill": "Letters · NC.K.RF.1d",
+          "icon": "letter:Aa",
+          "lessons": [
+            {
+              "id": "ke-letters-1",
+              "game": "phonics",
+              "icon": "letter:A",
+              "title": { "hi": "अक्षर ढूँढो", "en": "Find the letter" },
+              "config": { "skills": ["k-letters"] }
+            },
+            {
+              "id": "ke-letters-2",
+              "game": "railway",
+              "icon": "train",
+              "title": { "hi": "ABC रेल", "en": "ABC train" },
+              "config": { "letters": { "sets": ["english"] }, "carriages": 4 }
+            },
+            {
+              "id": "ke-letters-3",
+              "game": "trace",
+              "icon": "place-trace",
+              "title": { "hi": "ABC लिखो", "en": "Trace ABC" },
+              "config": { "letters": { "sets": ["english"] }, "count": 3 }
+            }
+          ]
+        },
+        {
+          "id": "ke-first",
+          "title": { "hi": "पहली ध्वनि", "en": "Let's hear first sounds" },
+          "skill": "Letter sounds · NC.K.RF.3a",
+          "icon": "letter:B",
+          "lessons": [
+            {
+              "id": "ke-first-1",
+              "game": "phonics",
+              "icon": "apple",
+              "title": { "hi": "पहली ध्वनि", "en": "What does it start with?" },
+              "config": { "skills": ["k-first-sound"] }
+            },
+            {
+              "id": "ke-first-2",
+              "game": "firstsound",
+              "icon": "letter:B",
+              "title": { "hi": "First sounds ABC", "en": "First sounds ABC" },
+              "config": {
+                "letters": { "sets": ["english"] },
+                "words": [
+                  "@kg",
+                  "@grade1",
+                  "@grade2",
+                  "cow",
+                  "dog",
+                  "cat",
+                  "duck",
+                  "lion",
+                  "monkey",
+                  "elephant",
+                  "tiger",
+                  "deer",
+                  "bus",
+                  "car",
+                  "truck",
+                  "train",
+                  "plane",
+                  "boat"
+                ]
+              }
+            },
+            {
+              "id": "ke-first-3",
+              "game": "construction",
+              "icon": "digger",
+              "title": { "hi": "ABC खोदो", "en": "Dig ABC" },
+              "config": { "activities": ["dig"], "letters": { "sets": ["english"] } }
+            }
+          ]
+        },
+        {
+          "id": "ke-rhyme",
+          "title": { "hi": "तुकबंदी", "en": "Let's rhyme" },
+          "skill": "Rhyming · NC.K.RF.2a",
+          "icon": "cat",
+          "lessons": [{ "id": "ke-rhyme-1", "game": "phonics", "icon": "hat", "title": { "hi": "तुक मिलाओ", "en": "Rhyme time" }, "config": { "skills": ["k-rhyme"] } }]
+        },
+        {
+          "id": "ke-clap",
+          "title": { "hi": "ताली बजाओ", "en": "Let's clap syllables" },
+          "skill": "Syllables · NC.K.RF.2b",
+          "icon": "butterfly",
+          "lessons": [{ "id": "ke-clap-1", "game": "phonics", "icon": "butterfly", "title": { "hi": "ताली बजाओ", "en": "Clap it" }, "config": { "skills": ["k-syllables"] } }]
+        },
+        {
+          "id": "ke-cvc",
+          "title": { "hi": "छोटे शब्द पढ़ो", "en": "Let's read short words" },
+          "skill": "Short vowels and CVC words · NC.K.RF.3b",
+          "icon": "pig",
+          "lessons": [
+            { "id": "ke-cvc-1", "game": "phonics", "icon": "pig", "title": { "hi": "शब्द पढ़ो", "en": "Read short words" }, "config": { "skills": ["k-read-cvc"] } },
+            {
+              "id": "ke-cvc-2",
+              "game": "phonics",
+              "icon": "bug",
+              "title": { "hi": "बीच की ध्वनि", "en": "The middle sound" },
+              "config": { "skills": ["k-middle-vowel"] }
+            }
+          ]
+        },
+        {
+          "id": "ke-last",
+          "title": { "hi": "आख़िरी ध्वनि", "en": "Let's hear last sounds" },
+          "skill": "Final sounds · NC.K.RF.2d",
+          "icon": "bus",
+          "lessons": [
+            {
+              "id": "ke-last-1",
+              "game": "phonics",
+              "icon": "bus",
+              "title": { "hi": "आख़िरी ध्वनि", "en": "How does it end?" },
+              "config": { "skills": ["k-last-sound"] }
+            }
+          ]
+        },
+        {
+          "id": "ke-sight",
+          "title": { "hi": "पहचाने शब्द", "en": "Let's learn sight words" },
+          "skill": "High-frequency words · NC.K.RF.3c",
+          "icon": "book",
+          "lessons": [
+            { "id": "ke-sight-1", "game": "phonics", "icon": "book", "title": { "hi": "शब्द पहचानो 1", "en": "Sight words 1" }, "config": { "skills": ["k-sight"] } },
+            {
+              "id": "ke-sight-2",
+              "game": "phonics",
+              "icon": "letter:the",
+              "title": { "hi": "शब्द पहचानो 2", "en": "Sight words 2" },
+              "config": { "skills": ["k-sight"], "rounds": 8 }
+            }
+          ]
+        },
+        {
+          "id": "ke-party",
+          "title": { "hi": "बगीचा पार्टी", "en": "Garden party!" },
+          "skill": "Review · mixed practice",
+          "icon": "bee",
+          "lessons": [
+            {
+              "id": "ke-party-1",
+              "game": "phonics",
+              "icon": "bee",
+              "title": { "hi": "मिला-जुला", "en": "Garden party" },
+              "config": { "skills": ["k-first-sound", "k-rhyme", "k-read-cvc", "k-sight", "k-syllables", "k-last-sound"], "rounds": 8 }
+            }
+          ]
+        }
+      ],
+      "helpers": { "digger": "rabbit" }
     },
     {
       "id": "jungle",
@@ -2575,6 +2843,7 @@
           "lessons": [{ "id": "g1-story-1", "game": "story", "icon": "book:monkey", "title": { "hi": "कहानी", "en": "Story" }, "config": { "levels": ["grade1"] } }]
         }
       ],
+      "tags": ["phonics", "reading", "vocabulary", "stories"],
       "helpers": { "courier": "parrot", "vendor": "bear", "lifter": "elephant", "rescuer": "tiger", "holder": "monkey", "engine": "snake" }
     },
     {
@@ -2754,6 +3023,135 @@
             }
           ]
         }
+      ],
+      "tags": ["math", "counting", "shapes"]
+    },
+    {
+      "id": "castle",
+      "level": "grade1",
+      "subject": "english",
+      "lang": "en",
+      "theme": "castle",
+      "mascot": "kiki",
+      "color": "#7C3AED",
+      "collection": "castle",
+      "tags": ["english", "phonics", "reading"],
+      "name": { "hi": "कीकी का ध्वनि महल", "en": "Kiki's Phonics Castle" },
+      "letterSets": ["english"],
+      "units": [
+        {
+          "id": "ge-short",
+          "title": { "hi": "छोटे स्वर", "en": "Let's learn short vowels" },
+          "skill": "Short vowels · NC.1.RF.3b",
+          "icon": "letter:a e i",
+          "lessons": [{ "id": "ge-short-1", "game": "phonics", "icon": "fox", "title": { "hi": "छोटे स्वर", "en": "Short vowels" }, "config": { "skills": ["g1-short-vowels"] } }]
+        },
+        {
+          "id": "ge-digraph",
+          "title": { "hi": "sh ch wh ck", "en": "Let's learn sh, ch, wh and ck" },
+          "skill": "Digraphs · NC.1.RF.3a",
+          "icon": "ship",
+          "lessons": [
+            {
+              "id": "ge-digraph-1",
+              "game": "phonics",
+              "icon": "ship",
+              "title": { "hi": "दो अक्षर एक ध्वनि", "en": "Two letters, one sound" },
+              "config": { "skills": ["g1-digraphs"] }
+            }
+          ]
+        },
+        {
+          "id": "ge-blend",
+          "title": { "hi": "मिली-जुली ध्वनि", "en": "Let's learn blends" },
+          "skill": "Blends · NC.1.RF.2b",
+          "icon": "frog",
+          "lessons": [
+            { "id": "ge-blend-1", "game": "phonics", "icon": "frog", "title": { "hi": "मिली ध्वनि", "en": "Blends" }, "config": { "skills": ["g1-blends"] } },
+            {
+              "id": "ge-blend-2",
+              "game": "phonics",
+              "icon": "train",
+              "title": { "hi": "शब्द पढ़ो", "en": "Read blend words" },
+              "config": { "skills": ["g1-read-words"] }
+            }
+          ]
+        },
+        {
+          "id": "ge-magic",
+          "title": { "hi": "जादुई e", "en": "Let's learn magic e" },
+          "skill": "Final -e · NC.1.RF.3c",
+          "icon": "kite",
+          "lessons": [{ "id": "ge-magic-1", "game": "phonics", "icon": "kite", "title": { "hi": "जादुई e", "en": "Magic e" }, "config": { "skills": ["g1-magic-e"] } }]
+        },
+        {
+          "id": "ge-teams",
+          "title": { "hi": "स्वरों की टीम", "en": "Let's learn vowel teams" },
+          "skill": "Vowel teams · NC.1.RF.3c",
+          "icon": "boat",
+          "lessons": [{ "id": "ge-teams-1", "game": "phonics", "icon": "boat", "title": { "hi": "स्वर टीम", "en": "Vowel teams" }, "config": { "skills": ["g1-vowel-teams"] } }]
+        },
+        {
+          "id": "ge-bossy",
+          "title": { "hi": "ज़िद्दी r", "en": "Let's learn bossy r" },
+          "skill": "r-controlled vowels · NC.1.RF.3",
+          "icon": "car",
+          "lessons": [{ "id": "ge-bossy-1", "game": "phonics", "icon": "car", "title": { "hi": "ज़िद्दी r", "en": "Bossy r" }, "config": { "skills": ["g1-bossy-r"] } }]
+        },
+        {
+          "id": "ge-syll",
+          "title": { "hi": "अक्षरांश और अंत", "en": "Let's learn syllables and endings" },
+          "skill": "Syllables and -s/-es · NC.1.RF.3d–f",
+          "icon": "elephant",
+          "lessons": [
+            { "id": "ge-syll-1", "game": "phonics", "icon": "elephant", "title": { "hi": "अक्षरांश", "en": "Syllables" }, "config": { "skills": ["g1-syllables"] } },
+            {
+              "id": "ge-syll-2",
+              "game": "phonics",
+              "icon": "many:dog",
+              "title": { "hi": "एक से ज़्यादा", "en": "More than one" },
+              "config": { "skills": ["g1-endings"] }
+            }
+          ]
+        },
+        {
+          "id": "ge-sight",
+          "title": { "hi": "मुश्किल शब्द", "en": "Let's learn tricky words" },
+          "skill": "Irregular words · NC.1.RF.3g",
+          "icon": "crown",
+          "lessons": [
+            { "id": "ge-sight-1", "game": "phonics", "icon": "crown", "title": { "hi": "मुश्किल शब्द", "en": "Tricky words" }, "config": { "skills": ["g1-sight"] } },
+            {
+              "id": "ge-sight-2",
+              "game": "phonics",
+              "icon": "letter:said",
+              "title": { "hi": "और शब्द", "en": "More tricky words" },
+              "config": { "skills": ["g1-sight"], "rounds": 8 }
+            }
+          ]
+        },
+        {
+          "id": "ge-challenge",
+          "title": { "hi": "महल चुनौती", "en": "Castle challenge" },
+          "skill": "Review · mixed practice",
+          "icon": "flag",
+          "lessons": [
+            {
+              "id": "ge-challenge-1",
+              "game": "phonics",
+              "icon": "flag",
+              "title": { "hi": "चुनौती 1", "en": "Challenge 1" },
+              "config": { "skills": ["g1-short-vowels", "g1-digraphs", "g1-blends", "g1-magic-e"], "rounds": 8 }
+            },
+            {
+              "id": "ge-challenge-2",
+              "game": "phonics",
+              "icon": "bell",
+              "title": { "hi": "चुनौती 2", "en": "Challenge 2" },
+              "config": { "skills": ["g1-vowel-teams", "g1-bossy-r", "g1-syllables", "g1-sight", "g1-read-words"], "rounds": 8 }
+            }
+          ]
+        }
       ]
     },
     {
@@ -2819,50 +3217,231 @@
           ]
         },
         {
+          "id": "g2-ii",
+          "title": { "hi": "छोटी इ, बड़ी ई", "en": "Short i and long ii" },
+          "skill": "Phonics",
+          "icon": "letter:ि ी",
+          "lessons": [{ "id": "g2-ii-1", "game": "sort", "icon": "arrow", "title": { "hi": "ि या ी?", "en": "ि or ी?" }, "config": { "sort": "g2-ii" } }]
+        },
+        {
+          "id": "g2-rra",
+          "title": { "hi": "ड और ड़", "en": "ड and ड़" },
+          "skill": "Phonics",
+          "icon": "letter:ड़",
+          "lessons": [{ "id": "g2-rra-1", "game": "sort", "icon": "tree", "title": { "hi": "ड या ड़?", "en": "ड or ड़?" }, "config": { "sort": "g2-rra" } }]
+        },
+        {
+          "id": "g2-more",
+          "title": { "hi": "चलो और पढ़ें", "en": "Let's read more" },
+          "skill": "Reading",
+          "icon": "book",
+          "lessons": [
+            {
+              "id": "g2-more-1",
+              "game": "read",
+              "icon": "card:dinoegg",
+              "title": { "hi": "शब्द पढ़ो", "en": "Read words" },
+              "config": { "words": ["@grade2"], "modes": ["find", "match"] }
+            },
+            {
+              "id": "g2-more-2",
+              "game": "matra",
+              "icon": "matra:stegosaurus",
+              "title": { "hi": "सारी मात्राएँ", "en": "All the matras" },
+              "config": { "matras": ["aa", "i", "ii", "u", "uu", "e", "ai", "o", "au"], "words": ["@grade1", "@grade2"] }
+            }
+          ]
+        }
+      ],
+      "tags": ["phonics", "reading", "spelling"],
+      "helpers": { "courier": "pterodactyl", "vendor": "triceratops", "lifter": "brachiosaurus", "engine": "stegosaurus", "holder": "stegosaurus" }
+    },
+    {
+      "id": "desert",
+      "level": "grade2",
+      "subject": "hindi",
+      "theme": "desert",
+      "mascot": "ooty",
+      "color": "#D97706",
+      "collection": "desert",
+      "tags": ["grammar", "writing", "vocabulary"],
+      "name": { "hi": "रेगिस्तान का मेला", "en": "Desert Fair" },
+      "letterSets": [],
+      "units": [
+        {
+          "id": "g2-actions",
+          "title": { "hi": "कौन क्या करता है?", "en": "Let's learn action words" },
+          "skill": "Grammar",
+          "icon": "dog",
+          "lessons": [
+            {
+              "id": "g2-actions-1",
+              "game": "quiz",
+              "icon": "dog",
+              "title": { "hi": "कौन क्या करता है?", "en": "Who does what?" },
+              "config": { "bank": "g2-actions", "rounds": 6 }
+            }
+          ]
+        },
+        {
+          "id": "g2-living",
+          "title": { "hi": "सजीव और निर्जीव", "en": "Living and non-living" },
+          "skill": "Vocabulary",
+          "icon": "cow",
+          "lessons": [{ "id": "g2-living-1", "game": "sort", "icon": "cow", "title": { "hi": "सजीव या निर्जीव?", "en": "Living or not?" }, "config": { "sort": "g2-living" } }]
+        },
+        {
           "id": "g2-opp",
           "title": { "hi": "विलोम शब्द", "en": "Let's learn opposites" },
           "skill": "Vocabulary",
           "icon": "size-big",
-          "lessons": [{ "id": "g2-opp-1", "game": "pairs", "icon": "pair:stegosaurus", "title": { "hi": "उल्टा", "en": "Opposites" }, "config": { "kinds": ["opposite"] } }]
+          "lessons": [{ "id": "g2-opp-1", "game": "pairs", "icon": "pair:snake", "title": { "hi": "उल्टा", "en": "Opposites" }, "config": { "kinds": ["opposite"] } }]
         },
         {
           "id": "g2-many",
           "title": { "hi": "एक और अनेक", "en": "One and many" },
           "skill": "Grammar",
           "icon": "bananas",
-          "lessons": [{ "id": "g2-many-1", "game": "pairs", "icon": "pair:stegosaurus", "title": { "hi": "एक-अनेक", "en": "One, many" }, "config": { "kinds": ["plural"] } }]
+          "lessons": [{ "id": "g2-many-1", "game": "pairs", "icon": "pair:snake", "title": { "hi": "एक-अनेक", "en": "One, many" }, "config": { "kinds": ["plural"] } }]
         },
         {
-          "id": "g2-rhyme",
-          "title": { "hi": "तुकांत शब्द", "en": "Rhyming words" },
-          "skill": "Phonological awareness",
-          "icon": "rhyme:pterodactyl",
-          "lessons": [{ "id": "g2-rhyme-1", "game": "rhyme", "icon": "rhyme:pterodactyl", "title": { "hi": "तुक मिलाओ", "en": "Rhymes" }, "config": { "rounds": 5 } }]
+          "id": "g2-punct",
+          "title": { "hi": "विराम चिह्न", "en": "Let's learn । and ?" },
+          "skill": "Writing",
+          "icon": "letter:।",
+          "lessons": [
+            {
+              "id": "g2-punct-1",
+              "game": "quiz",
+              "icon": "letter:?",
+              "title": { "hi": "चिह्न लगाओ", "en": "Add the mark" },
+              "config": { "bank": "g2-punct", "rounds": 6 }
+            }
+          ]
+        },
+        {
+          "id": "g2-time",
+          "title": { "hi": "समय और मौसम", "en": "Times of day and seasons" },
+          "skill": "Vocabulary",
+          "icon": "sun",
+          "lessons": [{ "id": "g2-time-1", "game": "quiz", "icon": "sun", "title": { "hi": "समय और मौसम", "en": "Time and seasons" }, "config": { "bank": "g2-time", "rounds": 6 } }]
         },
         {
           "id": "g2-sent",
           "title": { "hi": "वाक्य बनाओ", "en": "Let's build sentences" },
           "skill": "Writing",
-          "icon": "talk:triceratops",
+          "icon": "talk:camel",
           "lessons": [
             {
               "id": "g2-sent-1",
               "game": "sentence",
-              "icon": "talk:triceratops",
+              "icon": "talk:camel",
               "title": { "hi": "वाक्य", "en": "Sentences" },
               "config": { "levels": ["grade1", "grade2"], "rounds": 4 }
             }
           ]
-        },
-        {
-          "id": "g2-story",
-          "title": { "hi": "कहानियाँ", "en": "Stories" },
-          "skill": "Reading",
-          "icon": "book:trex",
-          "lessons": [{ "id": "g2-story-1", "game": "story", "icon": "book:trex", "title": { "hi": "कहानी", "en": "Story" }, "config": { "levels": ["grade2"] } }]
         }
       ],
-      "helpers": { "courier": "pterodactyl", "vendor": "triceratops", "lifter": "brachiosaurus", "engine": "stegosaurus" }
+      "helpers": { "engine": "camel" }
+    },
+    {
+      "id": "forest",
+      "level": "grade2",
+      "subject": "hindi",
+      "theme": "forest",
+      "mascot": "bholu",
+      "color": "#15803D",
+      "collection": "forest",
+      "tags": ["stories", "poems", "listening"],
+      "name": { "hi": "भोलू का कहानी वन", "en": "Bholu's Story Forest" },
+      "letterSets": [],
+      "units": [
+        {
+          "id": "g2-fables",
+          "title": { "hi": "पंचतंत्र और नीति कथाएँ", "en": "Let's read fables" },
+          "skill": "Stories",
+          "icon": "lion",
+          "lessons": [
+            { "id": "g2-fables-1", "game": "story", "icon": "crow", "title": { "hi": "प्यासा कौआ", "en": "The thirsty crow" }, "config": { "story": "thirsty-crow" } },
+            {
+              "id": "g2-fables-2",
+              "game": "story",
+              "icon": "lion",
+              "title": { "hi": "शेर और चूहा", "en": "The lion and the mouse" },
+              "config": { "story": "lion-mouse" }
+            },
+            {
+              "id": "g2-fables-3",
+              "game": "story",
+              "icon": "tortoise",
+              "title": { "hi": "कछुआ और खरगोश", "en": "The tortoise and the hare" },
+              "config": { "story": "tortoise-hare" }
+            },
+            { "id": "g2-fables-4", "game": "story", "icon": "dog", "title": { "hi": "लालची कुत्ता", "en": "The greedy dog" }, "config": { "story": "greedy-dog" } },
+            {
+              "id": "g2-fables-5",
+              "game": "story",
+              "icon": "dove",
+              "title": { "hi": "चींटी और कबूतर", "en": "The ant and the pigeon" },
+              "config": { "story": "ant-dove" }
+            }
+          ]
+        },
+        {
+          "id": "g2-funny",
+          "title": { "hi": "मज़ेदार कहानियाँ", "en": "Funny stories" },
+          "skill": "Stories",
+          "icon": "capseller",
+          "lessons": [
+            {
+              "id": "g2-funny-1",
+              "game": "story",
+              "icon": "capseller",
+              "title": { "hi": "टोपीवाला और बंदर", "en": "The cap seller and the monkeys" },
+              "config": { "story": "capseller" }
+            },
+            { "id": "g2-funny-2", "game": "story", "icon": "dinoegg", "title": { "hi": "डमडम का अंडा", "en": "Dumdum's egg" }, "config": { "story": "dumdum-egg" } },
+            { "id": "g2-funny-3", "game": "story", "icon": "bear", "title": { "hi": "भालू की साइकिल", "en": "Bear's bicycle" }, "config": { "story": "bear-bicycle" } }
+          ]
+        },
+        {
+          "id": "g2-poems",
+          "title": { "hi": "कविताएँ", "en": "Let's read poems" },
+          "skill": "Poems",
+          "icon": "raincloud",
+          "lessons": [
+            {
+              "id": "g2-poems-1",
+              "game": "story",
+              "icon": "raincloud",
+              "title": { "hi": "बादल राजा", "en": "King Cloud (a poem)" },
+              "config": { "story": "poem-clouds" }
+            },
+            {
+              "id": "g2-poems-2",
+              "game": "story",
+              "icon": "bicycle",
+              "title": { "hi": "मेरी साइकिल", "en": "My bicycle (a poem)" },
+              "config": { "story": "poem-cycle" }
+            }
+          ]
+        },
+        {
+          "id": "g2-rhyme",
+          "title": { "hi": "तुकांत शब्द", "en": "Rhyming words" },
+          "skill": "Phonological awareness",
+          "icon": "rhyme:squirrel",
+          "lessons": [{ "id": "g2-rhyme-1", "game": "rhyme", "icon": "rhyme:squirrel", "title": { "hi": "तुक मिलाओ", "en": "Rhymes" }, "config": { "rounds": 5 } }]
+        },
+        {
+          "id": "g2-anystory",
+          "title": { "hi": "कोई भी कहानी", "en": "Story surprise" },
+          "skill": "Reading",
+          "icon": "book:bear",
+          "lessons": [{ "id": "g2-story-1", "game": "story", "icon": "book:bear", "title": { "hi": "कहानी", "en": "Story" }, "config": { "levels": ["grade2"] } }]
+        }
+      ],
+      "helpers": { "vendor": "squirrel" }
     },
     {
       "id": "space",
@@ -2898,21 +3477,6 @@
           "skill": "Vocabulary",
           "icon": "size-small",
           "lessons": [{ "id": "g3-opp-1", "game": "pairs", "icon": "pair:alien", "title": { "hi": "विलोम", "en": "Opposites" }, "config": { "kinds": ["opposite"] } }]
-        },
-        {
-          "id": "g3-sent",
-          "title": { "hi": "वाक्य", "en": "Sentences" },
-          "skill": "Writing",
-          "icon": "talk:astronaut",
-          "lessons": [
-            {
-              "id": "g3-sent-1",
-              "game": "sentence",
-              "icon": "talk:astronaut",
-              "title": { "hi": "वाक्य", "en": "Sentences" },
-              "config": { "levels": ["grade2", "grade3"], "rounds": 4 }
-            }
-          ]
         },
         {
           "id": "g3-nouns",
@@ -2965,16 +3529,190 @@
               "config": { "words": ["rocket", "moon", "sun", "earth", "saturn", "mars", "satellite", "telescope", "comet", "star"], "modes": ["match", "find"], "rounds": 6 }
             }
           ]
-        },
-        {
-          "id": "g3-story",
-          "title": { "hi": "लोककथाएँ", "en": "Folktales" },
-          "skill": "Reading",
-          "icon": "book:saturn",
-          "lessons": [{ "id": "g3-story-1", "game": "story", "icon": "book:saturn", "title": { "hi": "कहानी", "en": "Story" }, "config": { "levels": ["grade3"] } }]
         }
       ],
+      "tags": ["grammar", "vocabulary"],
       "helpers": { "courier": "satellite", "engine": "rocket" }
+    },
+    {
+      "id": "palace",
+      "level": "grade3",
+      "subject": "hindi",
+      "theme": "palace",
+      "mascot": "mitthu",
+      "color": "#BE185D",
+      "collection": "palace",
+      "tags": ["stories", "poems"],
+      "name": { "hi": "मिट्ठू का कथा महल", "en": "Mitthu's Folktale Palace" },
+      "letterSets": [],
+      "units": [
+        {
+          "id": "g3-panch",
+          "title": { "hi": "पंचतंत्र", "en": "Let's read Panchatantra" },
+          "skill": "Stories",
+          "icon": "crocodile",
+          "lessons": [
+            {
+              "id": "g3-panch-1",
+              "game": "story",
+              "icon": "crocodile",
+              "title": { "hi": "बंदर और मगरमच्छ", "en": "The monkey and the crocodile" },
+              "config": { "story": "monkey-crocodile" }
+            },
+            {
+              "id": "g3-panch-2",
+              "game": "story",
+              "icon": "rabbit",
+              "title": { "hi": "चतुर खरगोश और शेर", "en": "The clever rabbit and the lion" },
+              "config": { "story": "clever-rabbit" }
+            },
+            { "id": "g3-panch-3", "game": "story", "icon": "bluejackal", "title": { "hi": "नीला सियार", "en": "The blue jackal" }, "config": { "story": "blue-jackal" } },
+            { "id": "g3-panch-4", "game": "story", "icon": "sticks", "title": { "hi": "एकता में बल", "en": "Strength in unity" }, "config": { "story": "unity-sticks" } }
+          ]
+        },
+        {
+          "id": "g3-tales",
+          "title": { "hi": "और कहानियाँ", "en": "More tales" },
+          "skill": "Stories",
+          "icon": "woodcutter",
+          "lessons": [
+            {
+              "id": "g3-tales-1",
+              "game": "story",
+              "icon": "woodcutter",
+              "title": { "hi": "ईमानदार लकड़हारा", "en": "The honest woodcutter" },
+              "config": { "story": "honest-woodcutter" }
+            },
+            {
+              "id": "g3-tales-2",
+              "game": "story",
+              "icon": "bell",
+              "title": { "hi": "बिल्ली के गले में घंटी", "en": "Who will bell the cat?" },
+              "config": { "story": "bell-cat" }
+            },
+            { "id": "g3-tales-3", "game": "story", "icon": "boat", "title": { "hi": "छोटी नाव", "en": "The little boat" }, "config": { "story": "little-boat" } },
+            {
+              "id": "g3-tales-4",
+              "game": "story",
+              "icon": "rocket",
+              "title": { "hi": "ज़ूमी चाँद पर", "en": "Zoomi goes to the Moon" },
+              "config": { "story": "zoomi-moon" }
+            }
+          ]
+        },
+        {
+          "id": "g3-poems",
+          "title": { "hi": "कविताएँ", "en": "Let's read poems" },
+          "skill": "Poems",
+          "icon": "tree",
+          "lessons": [
+            {
+              "id": "g3-poems-1",
+              "game": "story",
+              "icon": "rocket",
+              "title": { "hi": "चाँद की सैर", "en": "A trip to the Moon (a poem)" },
+              "config": { "story": "poem-moon-trip" }
+            },
+            {
+              "id": "g3-poems-2",
+              "game": "story",
+              "icon": "tree",
+              "title": { "hi": "पेड़ हमारे दोस्त", "en": "Trees are our friends (a poem)" },
+              "config": { "story": "poem-trees" }
+            }
+          ]
+        },
+        {
+          "id": "g3-morals",
+          "title": { "hi": "कहानी की सीख", "en": "What the stories teach" },
+          "skill": "Comprehension",
+          "icon": "sticks",
+          "lessons": [
+            {
+              "id": "g3-morals-1",
+              "game": "quiz",
+              "icon": "sticks",
+              "title": { "hi": "किस कहानी की सीख?", "en": "Which story?" },
+              "config": { "bank": "g3-morals", "rounds": 6 }
+            }
+          ]
+        },
+        {
+          "id": "g3-anystory",
+          "title": { "hi": "कोई भी कहानी", "en": "Story surprise" },
+          "skill": "Reading",
+          "icon": "book:peacock",
+          "lessons": [{ "id": "g3-story-1", "game": "story", "icon": "book:peacock", "title": { "hi": "कहानी", "en": "Story" }, "config": { "levels": ["grade3"] } }]
+        }
+      ]
+    },
+    {
+      "id": "village",
+      "level": "grade3",
+      "subject": "hindi",
+      "theme": "village",
+      "mascot": "gauri",
+      "color": "#65A30D",
+      "collection": "village",
+      "tags": ["reading", "writing", "spelling"],
+      "name": { "hi": "गौरी का गाँव", "en": "Gauri's Village" },
+      "letterSets": [],
+      "units": [
+        {
+          "id": "g3-village",
+          "title": { "hi": "गाँव के शब्द", "en": "Village words" },
+          "skill": "Reading",
+          "icon": "well",
+          "lessons": [
+            {
+              "id": "g3-village-1",
+              "game": "read",
+              "icon": "card:hen",
+              "title": { "hi": "गाँव के शब्द", "en": "Village words" },
+              "config": { "words": ["field", "well", "ox", "cow", "hen", "buffalo", "pot", "house", "tree", "river", "farmer", "goat"], "modes": ["match", "find"] }
+            }
+          ]
+        },
+        {
+          "id": "g3-spell",
+          "title": { "hi": "सही वर्तनी", "en": "Spell it right" },
+          "skill": "Spelling",
+          "icon": "school",
+          "lessons": [
+            { "id": "g3-spell-1", "game": "quiz", "icon": "school", "title": { "hi": "सही वर्तनी", "en": "Spelling" }, "config": { "bank": "g3-spelling", "rounds": 6 } },
+            {
+              "id": "g3-spell-2",
+              "game": "construction",
+              "icon": "blocks:ox",
+              "title": { "hi": "शब्द बनाओ", "en": "Build words" },
+              "config": { "activities": ["build"], "buildWords": ["@grade2"], "buildRounds": 4 }
+            }
+          ]
+        },
+        {
+          "id": "g3-fill",
+          "title": { "hi": "वाक्य पूरा करो", "en": "Complete the sentence" },
+          "skill": "Writing",
+          "icon": "letter:___",
+          "lessons": [{ "id": "g3-fill-1", "game": "quiz", "icon": "letter:…", "title": { "hi": "खाली जगह", "en": "Fill the gap" }, "config": { "bank": "g3-fill", "rounds": 6 } }]
+        },
+        {
+          "id": "g3-sent",
+          "title": { "hi": "वाक्य", "en": "Sentences" },
+          "skill": "Writing",
+          "icon": "talk:buffalo",
+          "lessons": [
+            {
+              "id": "g3-sent-1",
+              "game": "sentence",
+              "icon": "talk:buffalo",
+              "title": { "hi": "वाक्य", "en": "Sentences" },
+              "config": { "levels": ["grade2", "grade3"], "rounds": 4 }
+            }
+          ]
+        }
+      ],
+      "helpers": { "courier": "hen", "lifter": "elephant", "engine": "buffalo" }
     },
     {
       "id": "ocean",
@@ -3031,28 +3769,6 @@
           "lessons": [{ "id": "g4-tense-1", "game": "quiz", "icon": "clock", "title": { "hi": "कब?", "en": "When?" }, "config": { "bank": "g4-tense", "rounds": 6 } }]
         },
         {
-          "id": "g4-idioms",
-          "title": { "hi": "मुहावरे", "en": "Let's learn idioms" },
-          "skill": "Vocabulary",
-          "icon": "eye",
-          "lessons": [{ "id": "g4-idioms-1", "game": "quiz", "icon": "eye", "title": { "hi": "मुहावरे", "en": "Idioms" }, "config": { "bank": "g4-idioms", "rounds": 5 } }]
-        },
-        {
-          "id": "g4-days",
-          "title": { "hi": "दिन और महीने", "en": "Days and months" },
-          "skill": "Vocabulary",
-          "icon": "clock",
-          "lessons": [
-            {
-              "id": "g4-days-1",
-              "game": "quiz",
-              "icon": "clock",
-              "title": { "hi": "दिन और महीने", "en": "Days and months" },
-              "config": { "bank": "g4-days", "rounds": 6 }
-            }
-          ]
-        },
-        {
           "id": "g4-ocean",
           "title": { "hi": "समुद्र के शब्द", "en": "Ocean words" },
           "skill": "Reading",
@@ -3082,31 +3798,200 @@
               "config": { "kinds": ["opposite", "plural", "female"] }
             }
           ]
+        }
+      ],
+      "tags": ["grammar", "vocabulary"],
+      "helpers": { "courier": "dolphin", "engine": "whale" }
+    },
+    {
+      "id": "mountain",
+      "level": "grade4",
+      "subject": "hindi",
+      "theme": "mountain",
+      "mascot": "himu",
+      "color": "#475569",
+      "collection": "mountain",
+      "tags": ["stories", "poems"],
+      "name": { "hi": "हिमू का कथा पर्वत", "en": "Himu's Story Mountain" },
+      "letterSets": [],
+      "units": [
+        {
+          "id": "g4-wits",
+          "title": { "hi": "चतुराई की कहानियाँ", "en": "Clever tales" },
+          "skill": "Stories",
+          "icon": "thief",
+          "lessons": [
+            {
+              "id": "g4-wits-1",
+              "game": "story",
+              "icon": "tortoise",
+              "title": { "hi": "बातूनी कछुआ", "en": "The talkative tortoise" },
+              "config": { "story": "talkative-tortoise" }
+            },
+            {
+              "id": "g4-wits-2",
+              "game": "story",
+              "icon": "cookingpot",
+              "title": { "hi": "बीरबल की खिचड़ी", "en": "Birbal's khichdi" },
+              "config": { "story": "birbal-khichdi" }
+            },
+            {
+              "id": "g4-wits-3",
+              "game": "story",
+              "icon": "thief",
+              "title": { "hi": "तेनालीराम और चोर", "en": "Tenali Rama and the thieves" },
+              "config": { "story": "tenali-thieves" }
+            },
+            { "id": "g4-wits-4", "game": "story", "icon": "goldenegg", "title": { "hi": "सोने का अंडा", "en": "The golden egg" }, "config": { "story": "golden-egg" } }
+          ]
+        },
+        {
+          "id": "g4-fables",
+          "title": { "hi": "सीख वाली कहानियाँ", "en": "Tales with a lesson" },
+          "skill": "Stories",
+          "icon": "fox",
+          "lessons": [
+            {
+              "id": "g4-fables-1",
+              "game": "story",
+              "icon": "cave",
+              "title": { "hi": "बोलने वाली गुफा", "en": "The talking cave" },
+              "config": { "story": "talking-cave" }
+            },
+            { "id": "g4-fables-2", "game": "story", "icon": "fox", "title": { "hi": "खट्टे अंगूर", "en": "The sour grapes" }, "config": { "story": "sour-grapes" } },
+            {
+              "id": "g4-fables-3",
+              "game": "story",
+              "icon": "field",
+              "title": { "hi": "मेहनत का फल", "en": "The fruit of hard work" },
+              "config": { "story": "hard-work" }
+            },
+            { "id": "g4-fables-4", "game": "story", "icon": "rabbit", "title": { "hi": "डरपोक खरगोश", "en": "The timid hare" }, "config": { "story": "timid-hare" } }
+          ]
+        },
+        {
+          "id": "g4-poems",
+          "title": { "hi": "कविताएँ", "en": "Let's read poems" },
+          "skill": "Poems",
+          "icon": "farmer",
+          "lessons": [
+            { "id": "g4-poems-1", "game": "story", "icon": "farmer", "title": { "hi": "किसान", "en": "The farmer (a poem)" }, "config": { "story": "poem-farmer" } },
+            {
+              "id": "g4-poems-2",
+              "game": "story",
+              "icon": "snowflake",
+              "title": { "hi": "पहाड़ों पर", "en": "On the mountains (a poem)" },
+              "config": { "story": "poem-mountains" }
+            }
+          ]
+        },
+        {
+          "id": "g4-morals",
+          "title": { "hi": "कहानी की सीख", "en": "What the stories teach" },
+          "skill": "Comprehension",
+          "icon": "goldenegg",
+          "lessons": [
+            {
+              "id": "g4-morals-1",
+              "game": "quiz",
+              "icon": "goldenegg",
+              "title": { "hi": "किस कहानी की सीख?", "en": "Which story?" },
+              "config": { "bank": "g4-morals", "rounds": 6 }
+            }
+          ]
+        },
+        {
+          "id": "g4-anystory",
+          "title": { "hi": "कोई भी कहानी", "en": "Story surprise" },
+          "skill": "Reading",
+          "icon": "book:deer",
+          "lessons": [{ "id": "g4-story-1", "game": "story", "icon": "book:deer", "title": { "hi": "कहानी", "en": "Story" }, "config": { "levels": ["grade3", "grade4"] } }]
+        }
+      ]
+    },
+    {
+      "id": "city",
+      "level": "grade4",
+      "subject": "hindi",
+      "theme": "city",
+      "mascot": "chintu",
+      "color": "#4F46E5",
+      "collection": "city",
+      "tags": ["vocabulary", "writing", "reading"],
+      "name": { "hi": "चिंटू का शब्द नगर", "en": "Chintu's Word City" },
+      "letterSets": [],
+      "units": [
+        {
+          "id": "g4-idioms",
+          "title": { "hi": "मुहावरे", "en": "Let's learn idioms" },
+          "skill": "Vocabulary",
+          "icon": "eye",
+          "lessons": [{ "id": "g4-idioms-1", "game": "quiz", "icon": "eye", "title": { "hi": "मुहावरे", "en": "Idioms" }, "config": { "bank": "g4-idioms", "rounds": 5 } }]
+        },
+        {
+          "id": "g4-syn",
+          "title": { "hi": "समानार्थी शब्द", "en": "Words that mean the same" },
+          "skill": "Vocabulary",
+          "icon": "eye",
+          "lessons": [{ "id": "g4-syn-1", "game": "quiz", "icon": "eye", "title": { "hi": "समानार्थी", "en": "Same meaning" }, "config": { "bank": "g4-synonyms", "rounds": 6 } }]
+        },
+        {
+          "id": "g4-one",
+          "title": { "hi": "एक शब्द", "en": "One word for many" },
+          "skill": "Vocabulary",
+          "icon": "farmer",
+          "lessons": [{ "id": "g4-one-1", "game": "quiz", "icon": "farmer", "title": { "hi": "एक शब्द", "en": "One word" }, "config": { "bank": "g4-oneword", "rounds": 6 } }]
+        },
+        {
+          "id": "g4-days",
+          "title": { "hi": "दिन और महीने", "en": "Days and months" },
+          "skill": "Vocabulary",
+          "icon": "clock",
+          "lessons": [
+            {
+              "id": "g4-days-1",
+              "game": "quiz",
+              "icon": "clock",
+              "title": { "hi": "दिन और महीने", "en": "Days and months" },
+              "config": { "bank": "g4-days", "rounds": 6 }
+            }
+          ]
+        },
+        {
+          "id": "g4-city",
+          "title": { "hi": "शहर के शब्द", "en": "City words" },
+          "skill": "Reading",
+          "icon": "school",
+          "lessons": [
+            {
+              "id": "g4-city-1",
+              "game": "read",
+              "icon": "card:scooter",
+              "title": { "hi": "शहर के शब्द", "en": "City words" },
+              "config": {
+                "words": ["school", "bridge", "metro", "bus", "auto", "scooter", "clock", "umbrella", "glasses", "book", "bicycle", "train"],
+                "modes": ["match", "find"]
+              }
+            }
+          ]
         },
         {
           "id": "g4-sent",
           "title": { "hi": "लंबे वाक्य", "en": "Longer sentences" },
           "skill": "Writing",
-          "icon": "talk:octopus",
+          "icon": "talk:auto",
           "lessons": [
             {
               "id": "g4-sent-1",
               "game": "sentence",
-              "icon": "talk:octopus",
+              "icon": "talk:auto",
               "title": { "hi": "वाक्य बनाओ", "en": "Build sentences" },
               "config": { "levels": ["grade3", "grade4"], "rounds": 3 }
             }
           ]
-        },
-        {
-          "id": "g4-story",
-          "title": { "hi": "कहानियाँ", "en": "Stories with a moral" },
-          "skill": "Reading",
-          "icon": "book:turtle",
-          "lessons": [{ "id": "g4-story-1", "game": "story", "icon": "book:turtle", "title": { "hi": "कहानी", "en": "Story" }, "config": { "levels": ["grade3", "grade4"] } }]
         }
       ],
-      "helpers": { "courier": "dolphin", "engine": "whale" }
+      "helpers": { "courier": "scooter", "engine": "metro" }
     }
   ],
   "mascotLines": [
@@ -3438,6 +4323,282 @@
         { "hi": "'पक्षी' का दूसरा नाम क्या है?", "en": "Another word for 'पक्षी'?", "options": ["चिड़िया", "मछली", "पेड़"], "answer": "चिड़िया", "word": "bird" },
         { "hi": "'समुद्र' का दूसरा नाम क्या है?", "en": "Another word for 'समुद्र'?", "options": ["सागर", "नदी", "तालाब"], "answer": "सागर", "word": "ship" }
       ]
+    },
+    "g2-actions": {
+      "title": { "hi": "कौन क्या करता है?", "en": "Who does what?" },
+      "questions": [
+        { "hi": "कौन भौंकता है?", "en": "Who barks?", "answer": "dog", "options": ["dog", "cat", "cow"], "pictures": true },
+        { "hi": "कौन म्याऊँ करती है?", "en": "Who says miaow?", "answer": "cat", "options": ["cat", "dog", "duck"], "pictures": true },
+        { "hi": "कौन आसमान में उड़ती है?", "en": "Who flies in the sky?", "answer": "bird", "options": ["bird", "fish", "cow"], "pictures": true },
+        { "hi": "कौन पानी में तैरती है?", "en": "Who swims in water?", "answer": "fish", "options": ["fish", "horse", "dog"], "pictures": true },
+        { "hi": "कौन दूध देती है?", "en": "Who gives milk?", "answer": "cow", "options": ["cow", "hen", "dog"], "pictures": true },
+        { "hi": "कौन अंडा देती है?", "en": "Who lays eggs?", "answer": "hen", "options": ["hen", "cow", "goat"], "pictures": true },
+        { "hi": "कौन सुबह बाँग देता है?", "en": "Who crows in the morning?", "answer": "rooster", "options": ["rooster", "cat", "sheep"], "pictures": true },
+        { "hi": "बारिश में कौन नाचता है?", "en": "Who dances in the rain?", "answer": "peacock", "options": ["peacock", "crow", "fish"], "pictures": true }
+      ]
+    },
+    "g2-punct": {
+      "title": { "hi": "पूर्ण विराम और प्रश्न चिह्न", "en": "Full stop and question mark" },
+      "questions": [
+        { "hi": "सही चिह्न लगाओ", "en": "Add the right mark", "answer": "।", "options": ["।", "?"], "show": "यह मेरा घर है___" },
+        { "hi": "सही चिह्न लगाओ", "en": "Add the right mark", "answer": "?", "options": ["।", "?"], "show": "तुम्हारा नाम क्या है___" },
+        { "hi": "सही चिह्न लगाओ", "en": "Add the right mark", "answer": "।", "options": ["।", "?"], "show": "मैं स्कूल जाता हूँ___" },
+        { "hi": "सही चिह्न लगाओ", "en": "Add the right mark", "answer": "?", "options": ["।", "?"], "show": "क्या तुम खेलोगे___" },
+        { "hi": "सही चिह्न लगाओ", "en": "Add the right mark", "answer": "।", "options": ["।", "?"], "show": "आसमान नीला है___" },
+        { "hi": "सही चिह्न लगाओ", "en": "Add the right mark", "answer": "?", "options": ["।", "?"], "show": "तुम कहाँ रहते हो___" },
+        { "hi": "सही चिह्न लगाओ", "en": "Add the right mark", "answer": "।", "options": ["।", "?"], "show": "बिल्ली दूध पीती है___" },
+        { "hi": "सही चिह्न लगाओ", "en": "Add the right mark", "answer": "?", "options": ["।", "?"], "show": "यह किसकी किताब है___" }
+      ]
+    },
+    "g2-time": {
+      "title": { "hi": "सुबह, शाम और मौसम", "en": "Times of day and seasons" },
+      "questions": [
+        { "hi": "सूरज कब निकलता है?", "en": "When does the sun rise?", "answer": "सुबह", "options": ["सुबह", "रात", "शाम"], "word": "sun" },
+        { "hi": "हम कब सोते हैं?", "en": "When do we sleep?", "answer": "रात", "options": ["रात", "सुबह", "दोपहर"], "word": "moon" },
+        { "hi": "सूरज कब डूबता है?", "en": "When does the sun set?", "answer": "शाम", "options": ["शाम", "सुबह", "दोपहर"], "word": "sun" },
+        { "hi": "एक हफ़्ते में कितने दिन होते हैं?", "en": "How many days are there in a week?", "answer": "सात", "options": ["सात", "पाँच", "दस"] },
+        { "hi": "बारिश किस मौसम में होती है?", "en": "Which season brings rain?", "answer": "बरसात", "options": ["बरसात", "गर्मी", "सर्दी"], "word": "umbrella" },
+        {
+          "hi": "किस मौसम में हम स्वेटर पहनते हैं?",
+          "en": "In which season do we wear sweaters?",
+          "answer": "सर्दी",
+          "options": ["सर्दी", "गर्मी", "बरसात"],
+          "word": "snowman"
+        },
+        {
+          "hi": "आइसक्रीम किस मौसम में सबसे अच्छी लगती है?",
+          "en": "When does ice cream taste best?",
+          "answer": "गर्मी",
+          "options": ["गर्मी", "सर्दी", "बरसात"],
+          "word": "icecreamvan"
+        }
+      ]
+    },
+    "g3-spelling": {
+      "title": { "hi": "सही वर्तनी", "en": "Spell it right" },
+      "questions": [
+        { "hi": "सही शब्द चुनो", "en": "Pick the right spelling", "answer": "स्कूल", "options": ["स्कूल", "सकूल", "इस्कूल"], "word": "school" },
+        { "hi": "सही शब्द चुनो", "en": "Pick the right spelling", "answer": "तितली", "options": ["तितली", "तीतली", "तितलि"], "word": "butterfly" },
+        { "hi": "सही शब्द चुनो", "en": "Pick the right spelling", "answer": "हाथी", "options": ["हाथी", "हाती", "हाथि"], "word": "elephant" },
+        { "hi": "सही शब्द चुनो", "en": "Pick the right spelling", "answer": "छाता", "options": ["छाता", "छता", "छाटा"], "word": "umbrella" },
+        { "hi": "सही शब्द चुनो", "en": "Pick the right spelling", "answer": "किताब", "options": ["किताब", "कीताब", "किताप"], "word": "book" },
+        { "hi": "सही शब्द चुनो", "en": "Pick the right spelling", "answer": "फूल", "options": ["फूल", "फुल", "फ़ूल"], "word": "flower" },
+        { "hi": "सही शब्द चुनो", "en": "Pick the right spelling", "answer": "नदी", "options": ["नदी", "नदि", "नादी"], "word": "river" },
+        { "hi": "सही शब्द चुनो", "en": "Pick the right spelling", "answer": "खिड़की", "options": ["खिड़की", "खिड़कि", "खीड़की"], "word": "window" },
+        { "hi": "सही शब्द चुनो", "en": "Pick the right spelling", "answer": "अंगूर", "options": ["अंगूर", "अंगुर", "अगूंर"], "word": "grapes" }
+      ]
+    },
+    "g3-fill": {
+      "title": { "hi": "वाक्य पूरा करो", "en": "Complete the sentence" },
+      "questions": [
+        { "hi": "खाली जगह भरो", "en": "Fill in the blank", "answer": "नीला", "options": ["नीला", "मीठा", "गोल"], "show": "आसमान ___ है।" },
+        { "hi": "खाली जगह भरो", "en": "Fill in the blank", "answer": "मीठी", "options": ["मीठी", "खट्टी", "कड़वी"], "show": "चीनी ___ होती है।" },
+        {
+          "hi": "खाली जगह भरो",
+          "en": "Fill in the blank",
+          "answer": "तैरती",
+          "options": ["तैरती", "उड़ती", "दौड़ती"],
+          "show": "मछली पानी में ___ है।",
+          "word": "fish"
+        },
+        {
+          "hi": "खाली जगह भरो",
+          "en": "Fill in the blank",
+          "answer": "उड़ती",
+          "options": ["उड़ती", "तैरती", "सोती"],
+          "show": "चिड़िया आसमान में ___ है।",
+          "word": "bird"
+        },
+        {
+          "hi": "खाली जगह भरो",
+          "en": "Fill in the blank",
+          "answer": "देखते",
+          "options": ["देखते", "सुनते", "सूँघते"],
+          "show": "हम आँखों से ___ हैं।",
+          "word": "eye"
+        },
+        { "hi": "खाली जगह भरो", "en": "Fill in the blank", "answer": "सुनते", "options": ["सुनते", "देखते", "चखते"], "show": "हम कानों से ___ हैं।" },
+        {
+          "hi": "खाली जगह भरो",
+          "en": "Fill in the blank",
+          "answer": "चाँद",
+          "options": ["चाँद", "सूरज", "बादल"],
+          "show": "रात को आसमान में ___ चमकता है।",
+          "word": "moon"
+        },
+        {
+          "hi": "खाली जगह भरो",
+          "en": "Fill in the blank",
+          "answer": "छाता",
+          "options": ["छाता", "चश्मा", "बस्ता"],
+          "show": "बारिश में हम ___ लेकर चलते हैं।",
+          "word": "umbrella"
+        }
+      ]
+    },
+    "g4-synonyms": {
+      "title": { "hi": "समानार्थी शब्द", "en": "Words that mean the same" },
+      "questions": [
+        { "hi": "'आँख' का समानार्थी शब्द कौन सा है?", "en": "Which word means the same as 'आँख'?", "answer": "नयन", "options": ["नयन", "कान", "हाथ"] },
+        { "hi": "'राजा' का समानार्थी शब्द कौन सा है?", "en": "Which word means the same as 'राजा'?", "answer": "नृप", "options": ["नृप", "सेवक", "दास"] },
+        { "hi": "'हवा' का समानार्थी शब्द कौन सा है?", "en": "Which word means the same as 'हवा'?", "answer": "पवन", "options": ["पवन", "पानी", "पत्थर"] },
+        { "hi": "'रात' का समानार्थी शब्द कौन सा है?", "en": "Which word means the same as 'रात'?", "answer": "रात्रि", "options": ["रात्रि", "दिन", "सुबह"] },
+        { "hi": "'घोड़ा' का समानार्थी शब्द कौन सा है?", "en": "Which word means the same as 'घोड़ा'?", "answer": "अश्व", "options": ["अश्व", "गज", "सिंह"] },
+        { "hi": "'बादल' का समानार्थी शब्द कौन सा है?", "en": "Which word means the same as 'बादल'?", "answer": "मेघ", "options": ["मेघ", "धरती", "सागर"] },
+        { "hi": "'आग' का समानार्थी शब्द कौन सा है?", "en": "Which word means the same as 'आग'?", "answer": "अग्नि", "options": ["अग्नि", "जल", "वायु"] },
+        { "hi": "'नदी' का समानार्थी शब्द कौन सा है?", "en": "Which word means the same as 'नदी'?", "answer": "सरिता", "options": ["सरिता", "पर्वत", "वन"] }
+      ]
+    },
+    "g4-oneword": {
+      "title": { "hi": "अनेक शब्दों के लिए एक शब्द", "en": "One word for many" },
+      "questions": [
+        {
+          "hi": "जो पढ़ाता है: उसे क्या कहते हैं?",
+          "en": "Someone who teaches: what do we call them?",
+          "answer": "अध्यापक",
+          "options": ["अध्यापक", "विद्यार्थी", "डॉक्टर"]
+        },
+        {
+          "hi": "जो इलाज करता है: उसे क्या कहते हैं?",
+          "en": "Someone who treats the sick: what do we call them?",
+          "answer": "डॉक्टर",
+          "options": ["डॉक्टर", "किसान", "दर्ज़ी"]
+        },
+        {
+          "hi": "जो खेती करता है: उसे क्या कहते हैं?",
+          "en": "Someone who farms: what do we call them?",
+          "answer": "किसान",
+          "options": ["किसान", "राजा", "नाविक"],
+          "word": "farmer"
+        },
+        {
+          "hi": "जो कपड़े सिलता है: उसे क्या कहते हैं?",
+          "en": "Someone who sews clothes: what do we call them?",
+          "answer": "दर्ज़ी",
+          "options": ["दर्ज़ी", "धोबी", "माली"]
+        },
+        {
+          "hi": "जो बगीचे की देखभाल करता है: उसे क्या कहते हैं?",
+          "en": "Someone who looks after a garden: what do we call them?",
+          "answer": "माली",
+          "options": ["माली", "दर्ज़ी", "डाकिया"],
+          "word": "flower"
+        },
+        {
+          "hi": "जो चिट्ठी लाता है: उसे क्या कहते हैं?",
+          "en": "Someone who brings letters: what do we call them?",
+          "answer": "डाकिया",
+          "options": ["डाकिया", "माली", "सिपाही"],
+          "word": "envelope"
+        },
+        {
+          "hi": "जो नाव चलाता है: उसे क्या कहते हैं?",
+          "en": "Someone who rows a boat: what do we call them?",
+          "answer": "नाविक",
+          "options": ["नाविक", "माली", "दर्ज़ी"],
+          "word": "boat"
+        },
+        {
+          "hi": "जो खूब मेहनत करता है: उसे क्या कहते हैं?",
+          "en": "Someone who works hard: what do we call them?",
+          "answer": "मेहनती",
+          "options": ["मेहनती", "आलसी", "डरपोक"]
+        }
+      ]
+    },
+    "g3-morals": {
+      "title": { "hi": "किस कहानी की सीख?", "en": "Which story teaches this?" },
+      "questions": [
+        {
+          "hi": "किस कहानी की सीख है: \"मुसीबत में घबराओ नहीं, सूझ-बूझ से काम लो।\"",
+          "en": "Which story teaches: \"In trouble, don't panic: think clearly.\"",
+          "answer": "बंदर और मगरमच्छ",
+          "options": ["बंदर और मगरमच्छ", "चतुर खरगोश और शेर", "ईमानदार लकड़हारा"]
+        },
+        {
+          "hi": "किस कहानी की सीख है: \"बुद्धि बल से बड़ी होती है।\"",
+          "en": "Which story teaches: \"Brains beat strength.\"",
+          "answer": "चतुर खरगोश और शेर",
+          "options": ["चतुर खरगोश और शेर", "नीला सियार", "बिल्ली के गले में घंटी"]
+        },
+        {
+          "hi": "किस कहानी की सीख है: \"झूठ ज़्यादा दिन नहीं छिपता।\"",
+          "en": "Which story teaches: \"A lie cannot stay hidden for long.\"",
+          "answer": "नीला सियार",
+          "options": ["नीला सियार", "एकता में बल", "बंदर और मगरमच्छ"]
+        },
+        {
+          "hi": "किस कहानी की सीख है: \"एकता में बल है।\"",
+          "en": "Which story teaches: \"There is strength in unity.\"",
+          "answer": "एकता में बल",
+          "options": ["एकता में बल", "ईमानदार लकड़हारा", "चतुर खरगोश और शेर"]
+        },
+        {
+          "hi": "किस कहानी की सीख है: \"ईमानदारी सबसे अच्छी नीति है।\"",
+          "en": "Which story teaches: \"Honesty is the best policy.\"",
+          "answer": "ईमानदार लकड़हारा",
+          "options": ["ईमानदार लकड़हारा", "बिल्ली के गले में घंटी", "नीला सियार"]
+        },
+        {
+          "hi": "किस कहानी की सीख है: \"कहना आसान है, करना मुश्किल।\"",
+          "en": "Which story teaches: \"Easier said than done.\"",
+          "answer": "बिल्ली के गले में घंटी",
+          "options": ["बिल्ली के गले में घंटी", "बंदर और मगरमच्छ", "एकता में बल"]
+        }
+      ]
+    },
+    "g4-morals": {
+      "title": { "hi": "किस कहानी की सीख?", "en": "Which story teaches this?" },
+      "questions": [
+        {
+          "hi": "किस कहानी की सीख है: \"सोच-समझकर बोलना चाहिए।\"",
+          "en": "Which story teaches: \"Think before you speak.\"",
+          "answer": "बातूनी कछुआ",
+          "options": ["बातूनी कछुआ", "बीरबल की खिचड़ी", "बोलने वाली गुफा"]
+        },
+        {
+          "hi": "किस कहानी की सीख है: \"हर किसी के साथ न्याय करना चाहिए।\"",
+          "en": "Which story teaches: \"Be fair to everyone.\"",
+          "answer": "बीरबल की खिचड़ी",
+          "options": ["बीरबल की खिचड़ी", "तेनालीराम और चोर", "खट्टे अंगूर"]
+        },
+        {
+          "hi": "किस कहानी की सीख है: \"चतुराई से हर मुश्किल हल हो सकती है।\"",
+          "en": "Which story teaches: \"Clever thinking can solve any problem.\"",
+          "answer": "तेनालीराम और चोर",
+          "options": ["तेनालीराम और चोर", "सोने का अंडा", "मेहनत का फल"]
+        },
+        {
+          "hi": "किस कहानी की सीख है: \"लालच से सब कुछ खो जाता है।\"",
+          "en": "Which story teaches: \"Greed can lose you everything.\"",
+          "answer": "सोने का अंडा",
+          "options": ["सोने का अंडा", "बोलने वाली गुफा", "डरपोक खरगोश"]
+        },
+        {
+          "hi": "किस कहानी की सीख है: \"सावधान रहो और ध्यान से देखो।\"",
+          "en": "Which story teaches: \"Stay alert and look carefully.\"",
+          "answer": "बोलने वाली गुफा",
+          "options": ["बोलने वाली गुफा", "खट्टे अंगूर", "बातूनी कछुआ"]
+        },
+        {
+          "hi": "किस कहानी की सीख है: \"जो न मिले, उसे बुरा कहना ठीक नहीं।\"",
+          "en": "Which story teaches: \"Don't call something bad just because you can't have it.\"",
+          "answer": "खट्टे अंगूर",
+          "options": ["खट्टे अंगूर", "मेहनत का फल", "बीरबल की खिचड़ी"]
+        },
+        {
+          "hi": "किस कहानी की सीख है: \"मेहनत का फल मीठा होता है।\"",
+          "en": "Which story teaches: \"Hard work brings sweet rewards.\"",
+          "answer": "मेहनत का फल",
+          "options": ["मेहनत का फल", "डरपोक खरगोश", "तेनालीराम और चोर"]
+        },
+        {
+          "hi": "किस कहानी की सीख है: \"बिना जाँचे किसी बात पर भरोसा मत करो।\"",
+          "en": "Which story teaches: \"Don't believe something without checking.\"",
+          "answer": "डरपोक खरगोश",
+          "options": ["डरपोक खरगोश", "बातूनी कछुआ", "सोने का अंडा"]
+        }
+      ]
     }
   },
   "sorts": {
@@ -3490,6 +4651,75 @@
         { "text": "दूध", "bin": "noun", "word": "milk" },
         { "text": "जहाज़", "bin": "noun", "word": "ship" }
       ]
+    },
+    "g2-living": {
+      "prompt": { "hi": "यह सजीव है या निर्जीव?", "en": "Is it living or non-living?" },
+      "bins": [{ "id": "living", "hi": "सजीव", "en": "Living" }, { "id": "thing", "hi": "निर्जीव", "en": "Non-living" }],
+      "items": [
+        { "text": "पेड़", "bin": "living", "word": "tree" },
+        { "text": "गाय", "bin": "living", "word": "cow" },
+        { "text": "मछली", "bin": "living", "word": "fish" },
+        { "text": "फूल", "bin": "living", "word": "flower" },
+        { "text": "तोता", "bin": "living", "word": "parrot" },
+        { "text": "लड़का", "bin": "living", "word": "boy" },
+        { "text": "किताब", "bin": "thing", "word": "book" },
+        { "text": "कुर्सी", "bin": "thing", "word": "chair" },
+        { "text": "बस", "bin": "thing", "word": "bus" },
+        { "text": "घड़ी", "bin": "thing", "word": "clock" },
+        { "text": "पत्थर", "bin": "thing", "word": "stones" },
+        { "text": "चम्मच", "bin": "thing", "word": "spoon" }
+      ]
+    },
+    "g2-ii": {
+      "prompt": { "hi": "इसमें छोटी इ (ि) की मात्रा है या बड़ी ई (ी) की?", "en": "Short i (ि) or long ii (ी)?" },
+      "bins": [{ "id": "i", "hi": "ि  छोटी इ", "en": "short i" }, { "id": "ii", "hi": "ी  बड़ी ई", "en": "long ii" }],
+      "items": [
+        { "text": "किला", "bin": "i", "word": "fort" },
+        { "text": "किताब", "bin": "i", "word": "book" },
+        { "text": "पिता", "bin": "i", "word": "father" },
+        { "text": "दिन", "bin": "i" },
+        { "text": "सिर", "bin": "i" },
+        { "text": "तीर", "bin": "ii", "word": "arrow" },
+        { "text": "खीर", "bin": "ii", "word": "kheer" },
+        { "text": "सीप", "bin": "ii", "word": "shell" },
+        { "text": "दीया", "bin": "ii", "word": "lamp" },
+        { "text": "नीला", "bin": "ii" },
+        { "text": "पीला", "bin": "ii" }
+      ]
+    },
+    "g2-rra": {
+      "prompt": { "hi": "इस शब्द में ड है या ड़?", "en": "Does this word have ड or ड़?" },
+      "bins": [{ "id": "da", "hi": "ड", "en": "ड (no dot)" }, { "id": "rra", "hi": "ड़", "en": "ड़ (with a dot)" }],
+      "items": [
+        { "text": "डमरू", "bin": "da" },
+        { "text": "डिब्बा", "bin": "da", "word": "box" },
+        { "text": "अंडा", "bin": "da" },
+        { "text": "लड्डू", "bin": "da", "word": "laddoo" },
+        { "text": "डाकिया", "bin": "da" },
+        { "text": "ठंडा", "bin": "da" },
+        { "text": "पेड़", "bin": "rra", "word": "tree" },
+        { "text": "घड़ी", "bin": "rra", "word": "clock" },
+        { "text": "लड़का", "bin": "rra", "word": "boy" },
+        { "text": "पहाड़", "bin": "rra" },
+        { "text": "सड़क", "bin": "rra" },
+        { "text": "बड़ा", "bin": "rra" }
+      ]
     }
+  },
+  "tags": {
+    "listening": { "hi": "सुनना", "en": "Listening", "color": "#0EA5E9" },
+    "letters": { "hi": "अक्षर", "en": "Letters", "color": "#6C63FF" },
+    "phonics": { "hi": "ध्वनि", "en": "Phonics", "color": "#A66BFF" },
+    "reading": { "hi": "पढ़ना", "en": "Reading", "color": "#2563EB" },
+    "vocabulary": { "hi": "शब्द भंडार", "en": "Vocabulary", "color": "#0D9488" },
+    "grammar": { "hi": "व्याकरण", "en": "Grammar", "color": "#E11D48" },
+    "writing": { "hi": "लिखना", "en": "Writing", "color": "#EA580C" },
+    "spelling": { "hi": "वर्तनी", "en": "Spelling", "color": "#7C3AED" },
+    "stories": { "hi": "कहानियाँ", "en": "Stories", "color": "#B45309" },
+    "poems": { "hi": "कविताएँ", "en": "Poems", "color": "#DB2777" },
+    "english": { "hi": "अंग्रेज़ी", "en": "English", "color": "#1D4ED8" },
+    "math": { "hi": "गणित", "en": "Math", "color": "#2B2D42" },
+    "counting": { "hi": "गिनती", "en": "Counting", "color": "#16A34A" },
+    "shapes": { "hi": "आकार", "en": "Shapes", "color": "#0891B2" }
   }
 }

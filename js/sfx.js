@@ -221,6 +221,14 @@ const STYLES = {
   ocean: { root: 59, scale: [0, 2, 4, 7, 9], bpm: 84, inst: 'kalimba' },
   igloo: { root: 67, scale: [0, 2, 4, 7, 9], bpm: 96, inst: 'bell' },
   carnival: { root: 65, scale: [0, 2, 4, 7, 9], bpm: 118, inst: 'marimba' },
+  garden: { root: 64, scale: [0, 2, 4, 7, 9], bpm: 104, inst: 'kalimba' },
+  castle: { root: 62, scale: [0, 2, 4, 5, 7, 9], bpm: 100, inst: 'bell' },
+  desert: { root: 57, scale: [0, 1, 4, 5, 7, 8], bpm: 96, inst: 'marimba' },
+  forest: { root: 55, scale: [0, 2, 4, 7, 9], bpm: 84, inst: 'kalimba' },
+  palace: { root: 60, scale: [0, 1, 4, 5, 7, 8, 11], bpm: 88, inst: 'bell' },
+  village: { root: 62, scale: [0, 2, 4, 7, 9], bpm: 98, inst: 'marimba' },
+  mountain: { root: 59, scale: [0, 2, 5, 7, 9], bpm: 80, inst: 'bell' },
+  city: { root: 65, scale: [0, 2, 4, 7, 11], bpm: 112, inst: 'kalimba' },
 };
 
 let theme = null;

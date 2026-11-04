@@ -1,5 +1,5 @@
 // Offline support: cache the app shell, then serve from cache and refresh in the background.
-const VERSION = 'kkm-v3';
+const VERSION = 'kkm-v4';
 const SHELL = [
   './',
   'index.html',
@@ -24,6 +24,8 @@ const SHELL = [
   'js/art-math.js',
   'js/art-icons.js',
   'js/mathgen.js',
+  'js/phonicsgen.js',
+  'js/art-phonics.js',
   'js/curriculum.js',
   'js/screens.js',
   'js/parent.js',
@@ -51,6 +53,7 @@ const SHELL = [
   'js/games/quiz.js',
   'js/games/sort.js',
   'js/games/math.js',
+  'js/games/phonics.js',
 ];
 
 self.addEventListener('install', (event) => {

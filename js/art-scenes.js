@@ -174,6 +174,138 @@ const SCENES = {
       balloons
     );
   },
+  // Buzz's Letter Garden: flowers, a beehive and bees drifting about
+  garden: (id) => {
+    const colors = ['#FF5A5F', '#FFB020', '#A66BFF', '#FF7AB6', '#3D7BFF'];
+    const flower = (x, y, c, s = 1) =>
+      `<g class="sway" style="--d:${R(4 + (x % 3))}s"><path d="M${x} ${y} V${y + 60 * s}" stroke="#2E9E52" stroke-width="${5 * s}"/><g transform="translate(${x} ${y}) scale(${s})">${[0, 72, 144, 216, 288].map((a) => `<ellipse cx="0" cy="-12" rx="8" ry="13" fill="${c}" transform="rotate(${a})"/>`).join('')}<circle r="8" fill="#FFD43B"/></g></g>`;
+    let flowers = '';
+    for (let i = 0; i < 9; i++) flowers += flower(20 + i * 45, 600 + (i % 3) * 30, colors[i % colors.length], 0.9 + (i % 2) * 0.3);
+    const bee = (x, y, d) => `<g class="swim" style="--d:${d}s"><g transform="translate(${x} ${y})"><ellipse cx="-4" cy="-8" rx="6" ry="4" fill="#fff" opacity="0.9"/><ellipse cx="4" cy="-8" rx="6" ry="4" fill="#fff" opacity="0.9"/><ellipse rx="10" ry="7" fill="#FFD43B"/><path d="M-3 -6 V6 M3 -6 V6" stroke="#2B2D42" stroke-width="2.5"/></g></g>`;
+    return (
+      sky(id, '#C9F0FF', '#F4FFF0') +
+      `<circle cx="70" cy="90" r="38" fill="#FFE27A"/>` +
+      cloud(260, 120, 0.8) +
+      hills([
+        [560, '#B5E88E', 40],
+        [650, '#9ADB74', 30],
+      ]) +
+      `<g transform="translate(300 380)"><path d="M0 0 V40" stroke="#8A5A44" stroke-width="6"/><ellipse cx="0" cy="70" rx="38" ry="44" fill="#FFB020"/>${[50, 70, 90].map((y) => `<path d="M-36 ${y} Q0 ${y + 8} 36 ${y}" fill="none" stroke="#E08E0B" stroke-width="4"/>`).join('')}<ellipse cx="0" cy="92" rx="9" ry="7" fill="#7A4D16"/></g>` +
+      flowers +
+      bee(-40, 300, 13) +
+      bee(-40, 470, 17)
+    );
+  },
+  // Kiki's Phonics Castle: towers, flags and a rainbow
+  castle: (id) =>
+    sky(id, '#D7C9FF', '#FFF0F6') +
+    `<path d="M-20 360 Q200 120 420 360" fill="none" stroke="#FF8FB1" stroke-width="16" opacity="0.5"/><path d="M0 360 Q200 145 400 360" fill="none" stroke="#FFD666" stroke-width="16" opacity="0.5"/><path d="M20 360 Q200 170 380 360" fill="none" stroke="#7DD3FC" stroke-width="16" opacity="0.5"/>` +
+    cloud(60, 110, 0.9) +
+    hills([
+      [600, '#A6E07A', 30],
+      [680, '#8BD164', 24],
+    ]) +
+    `<g transform="translate(110 360)">` +
+    [
+      [0, 80, 60, 180],
+      [180, 80, 60, 180],
+      [50, 120, 130, 140],
+    ]
+      .map(([x, y, w, h]) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="#C7C2F2"/>` + Array.from({ length: Math.floor(w / 20) }, (_, i) => `<rect x="${x + i * 20}" y="${y - 12}" width="12" height="14" fill="#C7C2F2"/>`).join(''))
+      .join('') +
+    `<path d="M-6 80 L30 20 L66 80 Z M174 80 L210 20 L246 80 Z" fill="#A66BFF"/><path d="M30 20 V-6 M210 20 V-6" stroke="#6E768A" stroke-width="3"/><g class="sway"><path d="M30 -6 l22 7 l-22 7 z" fill="#FF5A5F"/><path d="M210 -6 l22 7 l-22 7 z" fill="#FFB020"/></g><path d="M95 260 V200 Q115 175 135 200 V260 Z" fill="#7A5AC8"/><rect x="18" y="120" width="22" height="30" rx="11" fill="#7DD3FC"/><rect x="198" y="120" width="22" height="30" rx="11" fill="#7DD3FC"/></g>`,
+  // Desert Fair (Grade 2): dunes, a fort, camels and a hot-air balloon
+  desert: (id) =>
+    sky(id, '#FFD9A8', '#FFF4E0') +
+    `<circle cx="310" cy="110" r="46" fill="#FFB86B" opacity="0.85"/>` +
+    `<g class="drift" style="--d:50s"><g transform="translate(70 170)"><ellipse cx="0" cy="0" rx="30" ry="36" fill="#FF5A5F"/><path d="M-30 0 Q0 12 30 0 M-26 -18 Q0 -10 26 -18" stroke="#FFD666" stroke-width="5" fill="none"/><path d="M-14 32 L-8 52 M14 32 L8 52" stroke="#8A5A44" stroke-width="2"/><rect x="-10" y="50" width="20" height="14" rx="3" fill="#A0673F"/></g></g>` +
+    `<g transform="translate(220 400)"><rect x="0" y="40" width="150" height="90" fill="#E0A86B"/><rect x="-10" y="20" width="40" height="110" fill="#D9985A"/><rect x="120" y="20" width="40" height="110" fill="#D9985A"/>${[0, 20, 40, 60, 80, 100, 120, 140].map((x) => `<rect x="${x}" y="30" width="12" height="12" fill="#E0A86B"/>`).join('')}<path d="M60 130 V90 Q75 72 90 90 V130 Z" fill="#7A4D36"/><path d="M-10 20 Q10 -6 30 20 M120 20 Q140 -6 160 20" fill="#D9985A"/></g>` +
+    `<path d="M0 560 Q100 500 200 560 T400 540 V800 H0 Z" fill="#F2C27E"/><path d="M0 640 Q120 590 240 640 T400 630 V800 H0 Z" fill="#E8AE62"/><path d="M0 720 Q140 680 280 720 T400 710 V800 H0 Z" fill="#DB9B4E"/>` +
+    `<g class="swim" style="--d:30s"><g transform="translate(-80 600)"><ellipse cx="0" cy="0" rx="30" ry="16" fill="#C98B3E"/><ellipse cx="0" cy="-16" rx="14" ry="10" fill="#C98B3E"/><path d="M26 -6 Q40 -40 52 -36 Q60 -34 56 -26" stroke="#C98B3E" stroke-width="10" fill="none" stroke-linecap="round"/>${[-20, -8, 8, 20].map((x) => `<path d="M${x} 10 V38" stroke="#B07A35" stroke-width="5"/>`).join('')}</g></g>`,
+  // Bholu's Story Forest (Grade 2): tall pines, a stream and fireflies
+  forest: (id) => {
+    const r = rnd(13);
+    let flies = '';
+    for (let i = 0; i < 14; i++) flies += `<circle class="twinkle" cx="${R(r() * 400)}" cy="${R(300 + r() * 380)}" r="3" fill="#FFF59D" style="animation-delay:${R(r() * 3)}s"/>`;
+    const pine = (x, y, s, c) => `<g transform="translate(${x} ${y}) scale(${s})"><rect x="-6" y="0" width="12" height="40" fill="#7A4D36"/><path d="M0 -110 L-40 -40 H-20 L-50 10 H50 L20 -40 H40 Z" fill="${c}"/></g>`;
+    return (
+      sky(id, '#B6E3D4', '#EAF8F1') +
+      `<circle cx="300" cy="100" r="34" fill="#FFF3A6" opacity="0.9"/>` +
+      [40, 120, 210, 300, 380].map((x, i) => pine(x, 470 + (i % 2) * 20, 1.1, '#3F8F6A')).join('') +
+      hills([
+        [560, '#7DCB8A', 30],
+        [640, '#5DB873', 26],
+      ]) +
+      `<path d="M-10 720 Q120 680 200 710 T410 690" fill="none" stroke="#7FD6FF" stroke-width="26" opacity="0.8"/>` +
+      [70, 340].map((x) => pine(x, 640, 1.4, '#2E7D55')).join('') +
+      flies
+    );
+  },
+  // Mitthu's Folktale Palace (Grade 3): domes, arches and lanterns
+  palace: (id) =>
+    sky(id, '#FFD3E1', '#FFF6EA') +
+    cloud(80, 120, 0.8) +
+    `<g transform="translate(40 330)"><rect x="40" y="110" width="240" height="200" fill="#FFF0D9"/><path d="M90 110 Q160 10 230 110 Z" fill="#FFB86B"/><circle cx="160" cy="38" r="6" fill="#FFD666"/><path d="M160 38 V20" stroke="#E08E0B" stroke-width="3"/>` +
+    [0, 280].map((x) => `<rect x="${x}" y="70" width="40" height="240" fill="#FFE2BC"/><path d="M${x} 70 Q${x + 20} 30 ${x + 40} 70 Z" fill="#FF8FB1"/>`).join('') +
+    [70, 130, 190].map((x) => `<path d="M${x} 300 V220 Q${x + 30} 180 ${x + 60} 220 V300 Z" fill="#E9B872"/>`).join('') +
+    `</g>` +
+    hills([[660, '#A6E07A', 18]]) +
+    `<g class="sway">${[50, 350].map((x) => `<path d="M${x} 380 V420" stroke="#8A5A44" stroke-width="2"/><rect x="${x - 10}" y="420" width="20" height="28" rx="6" fill="#FF5A5F"/><rect x="${x - 6}" y="426" width="12" height="16" rx="4" fill="#FFD666" class="twinkle"/>`).join('')}</g>`,
+  // Village walk (Grade 3): huts, fields, a well and a bullock cart
+  village: (id) =>
+    sky(id, '#BFE6FF', '#F3FBE8') +
+    `<circle cx="320" cy="90" r="36" fill="#FFE27A"/>` +
+    cloud(90, 120, 0.9) +
+    cloud(240, 190, 0.6) +
+    hills([
+      [520, '#C5E88A', 40],
+      [600, '#A9D96A', 30],
+    ]) +
+    `<g fill="#9BD15C">${Array.from({ length: 8 }, (_, i) => `<path d="M0 ${640 + i * 18} H400" stroke="#86C24A" stroke-width="3"/>`).join('')}</g>` +
+    [
+      [60, 470],
+      [240, 450],
+    ]
+      .map(([x, y]) => `<g transform="translate(${x} ${y})"><rect x="0" y="40" width="90" height="60" fill="#E9C9A0"/><path d="M-12 44 L45 0 L102 44 Z" fill="#B07A35"/><rect x="34" y="62" width="22" height="38" fill="#8A5A44"/></g>`)
+      .join('') +
+    `<g transform="translate(180 580)"><ellipse cx="0" cy="30" rx="30" ry="10" fill="#9AA3B5"/><rect x="-30" y="0" width="60" height="30" fill="#B7BDCB"/><path d="M-26 0 V-40 M26 0 V-40 M-30 -40 H30" stroke="#8A5A44" stroke-width="5"/></g>` +
+    `<g class="sway">${[20, 380].map((x) => `<g transform="translate(${x} 560)"><path d="M0 0 V-80" stroke="#8A5A44" stroke-width="8"/>${[-50, -20, 20, 50].map((a) => `<path d="M0 -80 Q${a} -110 ${a * 1.3} -70" fill="none" stroke="#4CC36A" stroke-width="8" stroke-linecap="round"/>`).join('')}</g>`).join('')}</g>`,
+  // Story Mountain (Grade 4): snowy peaks, prayer flags and an eagle gliding
+  mountain: (id) =>
+    sky(id, '#B9D7FF', '#EEF6FF') +
+    `<path d="M-40 520 L90 260 L170 400 L250 230 L440 520 Z" fill="#8FA3C8"/><path d="M90 260 L60 320 L90 310 L115 330 Z M250 230 L215 300 L250 290 L290 310 Z" fill="#fff"/>` +
+    `<path d="M40 330 Q200 300 360 330" fill="none" stroke="#9AA3B5" stroke-width="2"/>` +
+    `<g class="sway">${['#3D7BFF', '#fff', '#FF5A5F', '#2EC27E', '#FFD43B', '#3D7BFF', '#fff', '#FF5A5F'].map((c, i) => `<rect x="${52 + i * 38}" y="${322 + Math.sin(i / 2) * 6}" width="22" height="18" fill="${c}"/>`).join('')}</g>` +
+    `<g class="swim" style="--d:24s"><path d="M-60 200 q20 -14 40 0 q20 -14 40 0" fill="none" stroke="#5B4636" stroke-width="5" stroke-linecap="round"/></g>` +
+    hills([
+      [560, '#A3D9A0', 40],
+      [650, '#86C988', 30],
+    ]) +
+    cloud(300, 140, 0.7),
+  // Word City (Grade 4): towers, a flyover, lit windows and a kite
+  city: (id) => {
+    const r = rnd(17);
+    const towers = [
+      [0, 360, 70, 260, '#9C8FE6'],
+      [70, 300, 60, 320, '#7DA2F5'],
+      [130, 380, 80, 240, '#B38FE6'],
+      [210, 260, 70, 360, '#6F8DE8'],
+      [280, 340, 60, 280, '#9C8FE6'],
+      [340, 300, 70, 320, '#7DA2F5'],
+    ];
+    let win = '';
+    for (const [x, y, w, h] of towers) for (let yy = y + 16; yy < y + h - 20; yy += 26) for (let xx = x + 10; xx < x + w - 14; xx += 18) if (r() < 0.55) win += `<rect x="${xx}" y="${yy}" width="10" height="14" rx="2" fill="#FFE58A" class="${r() < 0.2 ? 'twinkle' : ''}"/>`;
+    return (
+      sky(id, '#FFC7A8', '#FFE9D6') +
+      `<circle cx="80" cy="140" r="40" fill="#FFB86B" opacity="0.8"/>` +
+      towers.map(([x, y, w, h, c]) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${c}"/>`).join('') +
+      win +
+      `<rect x="0" y="600" width="400" height="16" fill="#6E768A"/>${[40, 140, 240, 340].map((x) => `<rect x="${x}" y="616" width="14" height="60" fill="#8B93A7"/>`).join('')}` +
+      `<g class="swim" style="--d:10s"><g transform="translate(-80 588)"><rect x="0" y="0" width="70" height="14" rx="6" fill="#FF5A5F"/><rect x="72" y="0" width="70" height="14" rx="6" fill="#FF5A5F"/></g></g>` +
+      `<rect x="0" y="700" width="400" height="100" fill="#5B6478"/>` +
+      `<g class="sway"><path d="M300 200 l20 -26 l20 26 l-20 26 z" fill="#2EC27E"/><path d="M320 226 Q300 300 330 360" fill="none" stroke="#fff" stroke-width="1.5"/></g>`
+    );
+  },
 };
 
 export const THEMES = Object.keys(SCENES);

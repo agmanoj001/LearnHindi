@@ -38,8 +38,13 @@ test('grades 1 to 4 each have their own lesson icons, not Vehicle Town ones', ()
       }
     }
   }
-  const stories = content.worlds.filter((x) => /^grade/.test(x.level) && x.subject === 'hindi').map((x) => C.worldLessons(x).find((l) => l.game === 'story').icon);
-  assert.equal(new Set(stories).size, 4);
+  // the "any story" lessons: one storybook icon per grade
+  const stories = content.worlds
+    .filter((x) => /^grade/.test(x.level) && x.subject === 'hindi')
+    .flatMap((x) => C.worldLessons(x).filter((l) => l.game === 'story' && !l.config.story))
+    .map((l) => l.icon);
+  assert.equal(new Set(stories).size, stories.length);
+  assert.ok(stories.length >= 4);
 });
 
 test('grades 1 to 4 have their own helpers inside the games', () => {
@@ -53,6 +58,30 @@ test('grades 1 to 4 have their own helpers inside the games', () => {
   const bad = structuredClone(content);
   bad.worlds.find((x) => x.id === 'jungle').helpers.driver = 'bus';
   assert.ok(validateContent(bad).errors.some((e) => e.includes('"driver" is not one of')));
+});
+
+test('every grade from Kindergarten to Grade 4 has at least three worlds, each tagged with what it teaches', () => {
+  for (const level of ['kg', 'grade1', 'grade2', 'grade3', 'grade4']) {
+    const worlds = content.worlds.filter((w) => w.level === level);
+    assert.ok(worlds.length >= 3, `${level} has ${worlds.length} worlds`);
+    // the worlds of a grade teach different things
+    const sets = worlds.map((w) => w.tags.slice().sort().join('+'));
+    assert.equal(new Set(sets).size, sets.length, `${level}: ${sets}`);
+  }
+  for (const w of content.worlds) {
+    assert.ok(w.tags.length >= 1, w.id);
+    for (const t of w.tags) assert.ok(content.tags[t], `${w.id}: ${t}`);
+  }
+  for (const key of ['theme', 'mascot', 'collection']) assert.equal(new Set(content.worlds.map((w) => w[key])).size, content.worlds.length, key);
+});
+
+test('grammar, stories and phonics each have their own worlds from Grade 2', () => {
+  for (const level of ['grade2', 'grade3', 'grade4']) {
+    const tags = content.worlds.filter((w) => w.level === level).flatMap((w) => w.tags);
+    for (const t of ['grammar', 'stories']) assert.ok(tags.includes(t), `${level} needs ${t}`);
+  }
+  const forest = content.worlds.find((w) => w.id === 'forest');
+  assert.ok(C.worldLessons(forest).filter((l) => l.config.story).length >= 8, 'one lesson per story');
 });
 
 test('every world has its own theme, mascot and collection', () => {
