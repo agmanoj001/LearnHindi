@@ -1,8 +1,8 @@
 {
-  "name": "vehicle-town",
+  "name": "khel-khel-mein",
   "version": "1.0.0",
   "private": true,
-  "description": "Offline PWA for learning Hindi and English with vehicles",
+  "description": "Offline PWA for learning Hindi (and English math) through playful worlds",
   "type": "module",
   "scripts": {
     "test": "node --test tests/*.test.js",

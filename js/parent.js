@@ -238,6 +238,15 @@ function recorderSection(api) {
       const sets = new Set(worlds.flatMap((w) => w.letterSets));
       return content.letterSets.filter((x) => sets.has(x.id)).flatMap((x) => x.letters.map((l) => ({ key: l.id, hi: l.char, en: l.translit, langFixed: x.lang })));
     }
+    if (filter === 'stories') {
+      // this grade's story shelf (Grade 1 stories for the younger grades): every page, then the moral
+      const shelf = content.stories.filter((s) => s.level === level);
+      const stories = shelf.length ? shelf : content.stories.filter((s) => s.level === 'grade1');
+      return stories.flatMap((s) => [
+        ...s.pages.map((p, i) => ({ key: `story-${s.id}-${i + 1}`, hi: p.hi, en: p.en, note: `${s.title.en} · page ${i + 1}` })),
+        ...(s.moral ? [{ key: `story-${s.id}-moral`, hi: s.moral.hi, en: s.moral.en, note: `${s.title.en} · moral` }] : []),
+      ]);
+    }
     if (filter === 'phrases') return Object.entries(content.phrases).filter(([, p]) => !p.hi.includes('{w}')).map(([k, p]) => ({ key: `phrase-${k}`, hi: p.hi, en: p.en }));
     const ids = new Set();
     for (const [id, w] of Object.entries(content.words)) if (w.level === level) ids.add(id);
@@ -281,7 +290,10 @@ function recorderSection(api) {
         refreshClipKeys(await clips.keys());
         render();
       });
-      return el('div', { class: `rec-row ${have.has(key) ? 'has' : ''}` }, [el('span', { class: 'rec-text' }, [el('b', { lang: 'hi', text: it.hi }), el('small', { text: it.en })]), recBtn, playBtn, delBtn]);
+      // show what to read out in bold, in the language being recorded
+      const inEnglish = lang === 'en' && !it.langFixed;
+      const sub = [it.note, inEnglish ? it.hi : it.en].filter(Boolean).join(' · ');
+      return el('div', { class: `rec-row ${have.has(key) ? 'has' : ''}` }, [el('span', { class: 'rec-text' }, [el('b', { lang: inEnglish ? 'en' : 'hi', text: inEnglish ? it.en : it.hi }), el('small', { text: sub })]), recBtn, playBtn, delBtn]);
     });
     list.replaceChildren(...rows);
   };
@@ -295,7 +307,7 @@ function recorderSection(api) {
   return el('section', {}, [
     el('h2', { text: 'Record your voice' }),
     el('p', { class: 'note', text: 'Children learn best from a familiar voice. Tap Record, say the word, tap Stop. Your recording replaces the computer voice. Recordings stay on this device.' }),
-    seg('rec-filter', [['words', 'Words'], ['letters', 'Letters'], ['phrases', 'Instructions']], () => filter, (v) => (filter = v)),
+    seg('rec-filter', [['words', 'Words'], ['letters', 'Letters'], ['stories', 'Stories'], ['phrases', 'Phrases']], () => filter, (v) => (filter = v)),
     seg('rec-lang', [['hi', 'हिन्दी'], ['en', 'English']], () => lang, (v) => (lang = v)),
     list,
   ]);
