@@ -40,6 +40,28 @@ test('content.json is valid with the real pictures, mascots and themes', () => {
   assert.deepEqual(warnings, []);
 });
 
+test('every grade from 1 to 4 has a shelf of stories, and folktales end with a moral', () => {
+  for (const level of ['grade1', 'grade2', 'grade3', 'grade4']) {
+    const shelf = content.stories.filter((s) => s.level === level);
+    assert.ok(shelf.length >= 6, `${level} has ${shelf.length} stories`);
+    assert.ok(shelf.every((s) => s.questions.length >= 2), `${level}: every story asks questions`);
+  }
+  const ids = content.stories.map((s) => s.id);
+  assert.equal(new Set(ids).size, ids.length);
+  for (const id of ['lion-mouse', 'monkey-crocodile', 'birbal-khichdi', 'tenali-thieves']) {
+    const s = content.stories.find((x) => x.id === id);
+    assert.ok(s?.moral?.hi && s.moral.en, `${id} has a moral`);
+  }
+  // older grades ask about the story in words, not only pictures
+  for (const level of ['grade3', 'grade4']) assert.ok(content.stories.some((s) => s.level === level && s.questions.some((q) => q.text)), level);
+});
+
+test('story recordings include the moral', () => {
+  const keys = L.clipKeysFor(content);
+  assert.ok(keys.includes('story-lion-mouse-1_hi'));
+  assert.ok(keys.includes('story-lion-mouse-moral_en'));
+});
+
 // ---- unlocking, stars, tiers, streaks ----
 
 const town = world('town');

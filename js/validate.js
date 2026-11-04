@@ -268,12 +268,16 @@ export function validateContent(c, { knownPictures = null, pictureExists = null,
         (Array.isArray(s.questions) ? s.questions : []).forEach((q, j) => {
           const qat = `${at}.questions[${j}]`;
           if (!hasText(q)) err(`${qat} needs "hi" and "en"`);
-          if (!Array.isArray(q?.options) || q.options.length < 2) err(`${qat}.options needs at least 2 word ids`);
+          // picture options are word ids; "text": true questions have short Hindi answers instead
+          if (!Array.isArray(q?.options) || q.options.length < 2) err(`${qat}.options needs at least 2 ${q?.text ? 'answers' : 'word ids'}`);
           else {
-            for (const o of q.options) if (!hasWord(o)) err(`${qat}: option "${o}" not found in words`);
+            if (q.text) {
+              for (const o of q.options) if (!isStr(o) || !o.trim()) err(`${qat}: options must be text`);
+            } else for (const o of q.options) if (!hasWord(o)) err(`${qat}: option "${o}" not found in words`);
             if (!q.options.includes(q.answer)) err(`${qat}.answer must be one of its options`);
           }
         });
+        if (s.moral !== undefined && !hasText(s.moral)) err(`${at} (${s.id}).moral needs "hi" and "en"`);
       });
     }
   }

@@ -691,6 +691,108 @@
       ]
     },
     {
+      "id": "chiku-banana",
+      "level": "grade1",
+      "title": { "hi": "चीकू और केला", "en": "Chiku and the banana" },
+      "cover": "monkey",
+      "pages": [
+        { "word": "monkey", "hi": "यह चीकू है। चीकू एक बंदर है।", "en": "This is Chiku. Chiku is a monkey." },
+        { "word": "banana", "hi": "पेड़ पर एक पीला केला है।", "en": "There is a yellow banana on the tree." },
+        { "word": "monkey", "hi": "चीकू कूदा, पर केला बहुत ऊपर था।", "en": "Chiku jumped, but the banana was too high." },
+        { "word": "elephant", "hi": "हाथी आया। उसने सूँड़ से केला तोड़ा।", "en": "Elephant came. He picked the banana with his trunk." },
+        { "word": "heart", "hi": "चीकू और हाथी ने केला बाँटकर खाया।", "en": "Chiku and Elephant shared the banana." }
+      ],
+      "questions": [
+        { "hi": "पेड़ पर क्या था?", "en": "What was on the tree?", "answer": "banana", "options": ["banana", "apple", "mango"] },
+        { "hi": "केला किसने तोड़ा?", "en": "Who picked the banana?", "answer": "elephant", "options": ["elephant", "lion", "dog"] }
+      ]
+    },
+    {
+      "id": "peacock-dance",
+      "level": "grade1",
+      "title": { "hi": "मोर का नाच", "en": "The peacock's dance" },
+      "cover": "peacock",
+      "pages": [
+        { "word": "cloud", "hi": "आसमान में काले बादल आए।", "en": "Dark clouds came into the sky." },
+        { "word": "rain", "hi": "टप टप बारिश होने लगी।", "en": "Pitter-patter, it began to rain." },
+        { "word": "peacock", "hi": "मोर ने अपने रंग-बिरंगे पंख खोले।", "en": "The peacock opened its colourful feathers." },
+        { "word": "peacock", "hi": "मोर छम छम नाचने लगा।", "en": "The peacock began to dance." },
+        { "word": "girl", "hi": "सब बच्चे ताली बजाने लगे।", "en": "All the children clapped." }
+      ],
+      "questions": [
+        { "hi": "बारिश से पहले आसमान में क्या आया?", "en": "What came into the sky before the rain?", "answer": "cloud", "options": ["cloud", "sun", "kite"] },
+        { "hi": "कौन नाचा?", "en": "Who danced?", "answer": "peacock", "options": ["peacock", "cow", "crow"] }
+      ]
+    },
+    {
+      "id": "little-ant",
+      "level": "grade1",
+      "title": { "hi": "छोटी चींटी", "en": "The little ant" },
+      "cover": "ant",
+      "pages": [
+        { "word": "ant", "hi": "एक छोटी चींटी थी।", "en": "There was a little ant." },
+        { "word": "rice", "hi": "उसे चावल का एक दाना मिला।", "en": "She found a grain of rice." },
+        { "word": "ant", "hi": "दाना भारी था। चींटी थक गई।", "en": "The grain was heavy. The ant got tired." },
+        { "word": "ant", "hi": "उसकी सहेलियाँ आईं। सबने मिलकर दाना उठाया।", "en": "Her friends came. Together they lifted the grain." },
+        { "word": "house", "hi": "दाना घर पहुँच गया। मिलकर काम आसान है!", "en": "The grain got home. Working together is easy!" }
+      ],
+      "questions": [
+        { "hi": "चींटी को क्या मिला?", "en": "What did the ant find?", "answer": "rice", "options": ["rice", "roti", "apple"] },
+        { "hi": "कहानी में कौन था?", "en": "Who was in the story?", "answer": "ant", "options": ["ant", "fly", "butterfly"] }
+      ]
+    },
+    {
+      "id": "mouse-cat",
+      "level": "grade1",
+      "title": { "hi": "चूहा और बिल्ली", "en": "The mouse and the cat" },
+      "cover": "mouse",
+      "pages": [
+        { "word": "mouse", "hi": "एक छोटा चूहा था।", "en": "There was a little mouse." },
+        { "word": "roti", "hi": "उसे रोटी का एक टुकड़ा दिखा।", "en": "He saw a piece of roti." },
+        { "word": "cat", "hi": "तभी म्याऊँ करती बिल्ली आई!", "en": "Just then a cat came — meow!" },
+        { "word": "mouse", "hi": "चूहा भागा और अपने बिल में छिप गया।", "en": "The mouse ran and hid in his hole." },
+        { "word": "cat", "hi": "बिल्ली देखती रह गई। चूहा बच गया!", "en": "The cat just stared. The mouse was safe!" }
+      ],
+      "questions": [
+        { "hi": "चूहे को क्या दिखा?", "en": "What did the mouse see?", "answer": "roti", "options": ["roti", "milk", "mango"] },
+        { "hi": "कौन आया?", "en": "Who came?", "answer": "cat", "options": ["cat", "dog", "cow"] }
+      ]
+    },
+    {
+      "id": "kite-day",
+      "level": "grade1",
+      "title": { "hi": "पतंग उड़ी", "en": "Up goes the kite" },
+      "cover": "kite",
+      "pages": [
+        { "word": "sun", "hi": "आज धूप खिली है।", "en": "Today the sun is shining." },
+        { "word": "sister", "hi": "दीदी लाल पतंग लाई।", "en": "Big sister brought a red kite." },
+        { "word": "kite", "hi": "हवा चली, पतंग ऊपर उड़ी।", "en": "The wind blew, and the kite flew up." },
+        { "word": "bird", "hi": "पतंग चिड़ियों के पास पहुँच गई।", "en": "The kite reached the birds." },
+        { "word": "brother", "hi": "भाई बोला, \"वाह! कितनी ऊँची!\"", "en": "Brother said, \"Wow! So high!\"" }
+      ],
+      "questions": [
+        { "hi": "पतंग कौन लाया?", "en": "Who brought the kite?", "answer": "sister", "options": ["sister", "mother", "grandfather"] },
+        { "hi": "पतंग कहाँ गई?", "en": "Where did the kite go?", "answer": "up", "options": ["up", "down"] }
+      ]
+    },
+    {
+      "id": "dadi-kheer",
+      "level": "grade1",
+      "title": { "hi": "दादी की खीर", "en": "Grandma's kheer" },
+      "cover": "grandmother",
+      "pages": [
+        { "word": "grandmother", "hi": "आज दादी खीर बना रही हैं।", "en": "Today Grandma is making kheer." },
+        { "word": "milk", "hi": "दादी ने दूध उबाला।", "en": "Grandma boiled the milk." },
+        { "word": "rice", "hi": "फिर उसमें चावल और चीनी डाली।", "en": "Then she added rice and sugar." },
+        { "word": "kheer", "hi": "खीर की मीठी खुशबू आई।", "en": "A sweet smell came from the kheer." },
+        { "word": "boy", "hi": "सबने मिलकर खीर खाई। वाह, कितनी मीठी!", "en": "Everyone ate kheer together. So sweet!" }
+      ],
+      "questions": [
+        { "hi": "खीर कौन बना रहा था?", "en": "Who was making the kheer?", "answer": "grandmother", "options": ["grandmother", "father", "boy"] },
+        { "hi": "खीर में क्या डाला?", "en": "What went into the kheer?", "answer": "rice", "options": ["rice", "carrot", "potato"] }
+      ]
+    },
+    {
       "id": "bear-bicycle",
       "level": "grade2",
       "title": { "hi": "भालू की साइकिल", "en": "Bear's bicycle" },
@@ -707,6 +809,164 @@
         { "hi": "भालू के पास क्या है?", "en": "What does Bear have?", "answer": "bicycle", "options": ["bicycle", "car", "boat"] },
         { "hi": "रास्ते में भालू को कौन मिला?", "en": "Who did Bear meet on the way?", "answer": "monkey", "options": ["monkey", "cow", "lion"] },
         { "hi": "भालू ने बंदर को क्या दिया?", "en": "What did Bear give Monkey?", "answer": "banana", "options": ["banana", "apple", "grapes"] }
+      ]
+    },
+    {
+      "id": "thirsty-crow",
+      "level": "grade2",
+      "title": { "hi": "प्यासा कौआ", "en": "The thirsty crow" },
+      "cover": "crow",
+      "pages": [
+        { "word": "sun", "hi": "गरमी का दिन था। एक कौआ बहुत प्यासा था।", "en": "It was a hot day. A crow was very thirsty." },
+        { "word": "pot", "hi": "उसने एक घड़ा देखा। घड़े में थोड़ा-सा पानी था।", "en": "He saw a clay pot. There was a little water in it." },
+        { "word": "crow", "hi": "कौए की चोंच पानी तक नहीं पहुँची।", "en": "The crow's beak could not reach the water." },
+        { "word": "stones", "hi": "उसने कंकड़ उठाए और घड़े में डाले।", "en": "He picked up pebbles and dropped them into the pot." },
+        { "word": "up", "hi": "पानी ऊपर आ गया।", "en": "The water came up." },
+        { "word": "crow", "hi": "कौए ने पानी पिया और खुशी से उड़ गया।", "en": "The crow drank the water and flew away happily." }
+      ],
+      "questions": [
+        { "hi": "कौए ने क्या देखा?", "en": "What did the crow see?", "answer": "pot", "options": ["pot", "cup", "bottle"] },
+        { "hi": "कौए ने घड़े में क्या डाला?", "en": "What did the crow drop into the pot?", "answer": "stones", "options": ["stones", "flower", "mango"] },
+        { "hi": "पानी कहाँ आया?", "en": "Where did the water go?", "answer": "up", "options": ["up", "down"] }
+      ]
+    },
+    {
+      "id": "lion-mouse",
+      "level": "grade2",
+      "title": { "hi": "शेर और चूहा", "en": "The lion and the mouse" },
+      "cover": "lion",
+      "pages": [
+        { "word": "lion", "hi": "जंगल में एक शेर पेड़ के नीचे सो रहा था।", "en": "A lion was sleeping under a tree in the jungle." },
+        { "word": "mouse", "hi": "एक चूहा उसके ऊपर उछलने-कूदने लगा।", "en": "A mouse began jumping about on him." },
+        { "word": "lion", "hi": "शेर जाग गया और उसने चूहे को पकड़ लिया।", "en": "The lion woke up and caught the mouse." },
+        {
+          "word": "mouse",
+          "hi": "चूहा बोला, \"मुझे छोड़ दो, मैं कभी तुम्हारी मदद करूँगा।\"",
+          "en": "The mouse said, \"Let me go, and one day I will help you.\""
+        },
+        { "word": "lion", "hi": "शेर हँसा और उसने चूहे को छोड़ दिया।", "en": "The lion laughed and let the mouse go." },
+        { "word": "net", "hi": "एक दिन शेर शिकारी के जाल में फँस गया।", "en": "One day the lion was caught in a hunter's net." },
+        { "word": "mouse", "hi": "चूहे ने अपने दाँतों से जाल काट दिया। शेर आज़ाद हो गया!", "en": "The mouse cut the net with his teeth. The lion was free!" }
+      ],
+      "questions": [
+        { "hi": "शेर कहाँ फँस गया?", "en": "What was the lion caught in?", "answer": "net", "options": ["net", "well", "cave"] },
+        { "hi": "शेर को किसने बचाया?", "en": "Who saved the lion?", "answer": "mouse", "options": ["mouse", "cat", "monkey"] }
+      ],
+      "moral": { "hi": "छोटे दोस्त भी बड़ी मदद कर सकते हैं।", "en": "Even small friends can be a big help." }
+    },
+    {
+      "id": "tortoise-hare",
+      "level": "grade2",
+      "title": { "hi": "कछुआ और खरगोश", "en": "The tortoise and the hare" },
+      "cover": "tortoise",
+      "pages": [
+        { "word": "rabbit", "hi": "खरगोश को अपनी तेज़ चाल पर बहुत घमंड था।", "en": "The hare was very proud of how fast he was." },
+        { "word": "tortoise", "hi": "एक दिन कछुए ने कहा, \"चलो, दौड़ लगाते हैं।\"", "en": "One day the tortoise said, \"Let's have a race.\"" },
+        { "word": "rabbit", "hi": "दौड़ शुरू हुई। खरगोश बहुत आगे निकल गया।", "en": "The race began. The hare ran far ahead." },
+        {
+          "word": "tree",
+          "hi": "उसने सोचा, \"थोड़ा आराम कर लूँ।\" और वह पेड़ के नीचे सो गया।",
+          "en": "He thought, \"I'll rest a little,\" and fell asleep under a tree."
+        },
+        { "word": "tortoise", "hi": "कछुआ धीरे-धीरे चलता रहा, बिना रुके।", "en": "The tortoise kept walking slowly, without stopping." },
+        { "word": "tortoise", "hi": "जब खरगोश जागा, कछुआ जीत चुका था!", "en": "When the hare woke up, the tortoise had already won!" }
+      ],
+      "questions": [
+        { "hi": "दौड़ में कौन सो गया?", "en": "Who fell asleep in the race?", "answer": "rabbit", "options": ["rabbit", "tortoise", "lion"] },
+        { "hi": "दौड़ किसने जीती?", "en": "Who won the race?", "answer": "tortoise", "options": ["tortoise", "rabbit", "deer"] }
+      ],
+      "moral": { "hi": "धीरे-धीरे पर लगातार चलने वाला जीतता है।", "en": "Slow and steady wins the race." }
+    },
+    {
+      "id": "greedy-dog",
+      "level": "grade2",
+      "title": { "hi": "लालची कुत्ता", "en": "The greedy dog" },
+      "cover": "dog",
+      "pages": [
+        { "word": "dog", "hi": "एक कुत्ते को एक हड्डी मिली।", "en": "A dog found a bone." },
+        { "word": "bridge", "hi": "वह हड्डी लेकर पुल पर से जा रहा था।", "en": "He was crossing a bridge with the bone." },
+        { "word": "water", "hi": "पानी में उसे अपनी परछाईं दिखी।", "en": "He saw his reflection in the water." },
+        { "word": "dog", "hi": "उसने सोचा, वहाँ दूसरा कुत्ता है जिसके पास बड़ी हड्डी है।", "en": "He thought it was another dog with a bigger bone." },
+        { "word": "dog", "hi": "वह उसकी हड्डी छीनने के लिए भौंका, भौं भौं!", "en": "He barked to grab that bone — woof!" },
+        { "word": "bone", "hi": "उसकी अपनी हड्डी पानी में गिर गई।", "en": "His own bone fell into the water." }
+      ],
+      "questions": [
+        { "hi": "कुत्ते को क्या मिला?", "en": "What did the dog find?", "answer": "bone", "options": ["bone", "roti", "apple"] },
+        { "hi": "हड्डी कहाँ गिरी?", "en": "Where did the bone fall?", "answer": "water", "options": ["water", "tree", "house"] }
+      ],
+      "moral": { "hi": "लालच बुरी बला है।", "en": "Greed leads to loss." }
+    },
+    {
+      "id": "ant-dove",
+      "level": "grade2",
+      "title": { "hi": "चींटी और कबूतर", "en": "The ant and the pigeon" },
+      "cover": "dove",
+      "pages": [
+        { "word": "ant", "hi": "एक चींटी पानी पीने नदी पर गई।", "en": "An ant went to the river to drink." },
+        { "word": "river", "hi": "वह फिसलकर पानी में गिर गई।", "en": "She slipped and fell into the water." },
+        { "word": "dove", "hi": "पेड़ पर बैठे कबूतर ने उसे देखा।", "en": "A pigeon sitting in a tree saw her." },
+        {
+          "word": "leaf",
+          "hi": "कबूतर ने एक पत्ता पानी में गिराया। चींटी पत्ते पर चढ़ गई।",
+          "en": "The pigeon dropped a leaf into the water. The ant climbed onto it."
+        },
+        { "word": "arrow", "hi": "कुछ दिन बाद एक शिकारी कबूतर पर निशाना लगा रहा था।", "en": "Some days later a hunter was aiming at the pigeon." },
+        { "word": "foot", "hi": "चींटी ने शिकारी के पैर में काट लिया। कबूतर उड़ गया!", "en": "The ant bit the hunter's foot. The pigeon flew away!" }
+      ],
+      "questions": [
+        { "hi": "चींटी को किसने बचाया?", "en": "Who saved the ant?", "answer": "dove", "options": ["dove", "crow", "parrot"] },
+        { "hi": "कबूतर ने पानी में क्या गिराया?", "en": "What did the pigeon drop into the water?", "answer": "leaf", "options": ["leaf", "stones", "flower"] }
+      ],
+      "moral": { "hi": "भलाई का बदला भलाई।", "en": "One good turn deserves another." }
+    },
+    {
+      "id": "capseller",
+      "level": "grade2",
+      "title": { "hi": "टोपीवाला और बंदर", "en": "The cap seller and the monkeys" },
+      "cover": "capseller",
+      "pages": [
+        { "word": "capseller", "hi": "एक टोपीवाला गाँव-गाँव टोपियाँ बेचता था।", "en": "A cap seller sold caps from village to village." },
+        { "word": "tree", "hi": "एक दिन वह पेड़ के नीचे सो गया।", "en": "One day he fell asleep under a tree." },
+        { "word": "monkey", "hi": "पेड़ पर बहुत सारे बंदर थे। वे सारी टोपियाँ ले गए!", "en": "Many monkeys lived in the tree. They took all the caps!" },
+        { "word": "cap", "hi": "टोपीवाला जागा तो बंदरों ने टोपियाँ पहन रखी थीं।", "en": "When he woke up, the monkeys were wearing the caps." },
+        {
+          "word": "capseller",
+          "hi": "उसने अपनी टोपी फेंकी। बंदरों ने भी नकल करके टोपियाँ फेंक दीं!",
+          "en": "He threw down his cap. The monkeys copied him and threw theirs down too!"
+        },
+        { "word": "cap", "hi": "टोपीवाले ने सारी टोपियाँ उठाईं और खुशी से घर गया।", "en": "He picked up all the caps and went home happily." }
+      ],
+      "questions": [
+        { "hi": "टोपियाँ कौन ले गया?", "en": "Who took the caps?", "answer": "monkey", "options": ["monkey", "dog", "crow"] },
+        { "hi": "टोपीवाले ने क्या फेंका?", "en": "What did the cap seller throw?", "answer": "cap", "options": ["cap", "shoe", "bag"] }
+      ],
+      "moral": { "hi": "सूझ-बूझ से काम बन जाता है।", "en": "A little thinking solves the problem." }
+    },
+    {
+      "id": "dumdum-egg",
+      "level": "grade2",
+      "title": { "hi": "डमडम का अंडा", "en": "Dumdum's egg" },
+      "cover": "dinoegg",
+      "pages": [
+        { "word": "trex", "hi": "डायनो घाटी में डमडम नाम का छोटा डायनासोर रहता था।", "en": "A little dinosaur called Dumdum lived in Dino Valley." },
+        { "word": "dinoegg", "hi": "एक दिन उसे घास में एक बड़ा अंडा मिला।", "en": "One day he found a big egg in the grass." },
+        { "word": "trex", "hi": "डमडम ने पूछा, \"यह अंडा किसका है?\"", "en": "Dumdum asked, \"Whose egg is this?\"" },
+        { "word": "pterodactyl", "hi": "उड़ने वाले डायनासोर ने कहा, \"मेरा नहीं।\"", "en": "The flying dinosaur said, \"Not mine.\"" },
+        { "word": "triceratops", "hi": "सींग वाले डायनासोर ने कहा, \"मेरा भी नहीं।\"", "en": "The horned dinosaur said, \"Not mine either.\"" },
+        {
+          "word": "dinoegg",
+          "hi": "तभी अंडा टूटा, टक टक! अंदर से एक नन्हा डायनासोर निकला!",
+          "en": "Then the egg cracked — tap tap! A tiny dinosaur came out!"
+        },
+        {
+          "word": "heart",
+          "hi": "नन्हे ने डमडम को देखा और बोला, \"दोस्त!\" डमडम बहुत खुश हुआ।",
+          "en": "The little one saw Dumdum and said, \"Friend!\" Dumdum was very happy."
+        }
+      ],
+      "questions": [
+        { "hi": "डमडम को क्या मिला?", "en": "What did Dumdum find?", "answer": "dinoegg", "options": ["dinoegg", "stones", "apple"] },
+        { "hi": "अंडे से कौन निकला?", "en": "Who came out of the egg?", "answer": "trex", "options": ["trex", "chick", "fish"] }
       ]
     },
     {
@@ -729,23 +989,616 @@
       ]
     },
     {
-      "id": "thirsty-crow",
+      "id": "monkey-crocodile",
       "level": "grade3",
-      "title": { "hi": "प्यासा कौआ", "en": "The thirsty crow" },
-      "cover": "crow",
+      "title": { "hi": "बंदर और मगरमच्छ", "en": "The monkey and the crocodile" },
+      "cover": "crocodile",
       "pages": [
-        { "word": "sun", "hi": "गरमी का दिन था। एक कौआ बहुत प्यासा था।", "en": "It was a hot day. A crow was very thirsty." },
-        { "word": "pot", "hi": "उसने एक घड़ा देखा। घड़े में थोड़ा-सा पानी था।", "en": "He saw a clay pot. There was a little water in it." },
-        { "word": "crow", "hi": "कौए की चोंच पानी तक नहीं पहुँची।", "en": "The crow's beak could not reach the water." },
-        { "word": "stones", "hi": "उसने कंकड़ उठाए और घड़े में डाले।", "en": "He picked up pebbles and dropped them into the pot." },
-        { "word": "up", "hi": "पानी ऊपर आ गया।", "en": "The water came up." },
-        { "word": "crow", "hi": "कौए ने पानी पिया और खुशी से उड़ गया।", "en": "The crow drank the water and flew away happily." }
+        { "word": "tree", "hi": "नदी किनारे जामुन के पेड़ पर एक बंदर रहता था।", "en": "A monkey lived in a jamun tree by the river." },
+        {
+          "word": "crocodile",
+          "hi": "एक मगरमच्छ उसका दोस्त बन गया। बंदर उसे रोज़ मीठे जामुन देता था।",
+          "en": "A crocodile became his friend. The monkey gave him sweet jamuns every day."
+        },
+        {
+          "word": "crocodile",
+          "hi": "मगरमच्छ की पत्नी बोली, \"मुझे बंदर का दिल खाना है।\"",
+          "en": "The crocodile's wife said, \"I want to eat the monkey's heart.\""
+        },
+        { "word": "river", "hi": "मगरमच्छ बंदर को अपनी पीठ पर बिठाकर नदी में ले चला।", "en": "The crocodile carried the monkey on his back into the river." },
+        {
+          "word": "monkey",
+          "hi": "बीच नदी में उसने सच बता दिया। बंदर डर गया, पर उसने दिमाग़ लगाया।",
+          "en": "In the middle of the river he told the truth. The monkey was scared, but he thought fast."
+        },
+        {
+          "word": "heart",
+          "hi": "बंदर बोला, \"अरे! मेरा दिल तो पेड़ पर रखा है। चलो, ले आते हैं।\"",
+          "en": "The monkey said, \"Oh! My heart is kept up in the tree. Let's go back for it.\""
+        },
+        {
+          "word": "monkey",
+          "hi": "किनारे पहुँचते ही बंदर कूदकर पेड़ पर चढ़ गया और बच गया।",
+          "en": "As soon as they reached the bank, the monkey leapt up the tree and was safe."
+        }
       ],
       "questions": [
-        { "hi": "कौए ने क्या देखा?", "en": "What did the crow see?", "answer": "pot", "options": ["pot", "cup", "bottle"] },
-        { "hi": "कौए ने घड़े में क्या डाला?", "en": "What did the crow drop into the pot?", "answer": "stones", "options": ["stones", "flower", "mango"] },
-        { "hi": "पानी कहाँ आया?", "en": "Where did the water go?", "answer": "up", "options": ["up", "down"] }
+        { "hi": "बंदर कहाँ रहता था?", "en": "Where did the monkey live?", "answer": "tree", "options": ["tree", "cave", "house"] },
+        {
+          "hi": "बंदर कैसे बचा?",
+          "en": "How did the monkey escape?",
+          "text": true,
+          "answer": "अपनी चतुराई से",
+          "options": ["अपनी चतुराई से", "तेज़ दौड़कर", "सोकर"]
+        }
+      ],
+      "moral": { "hi": "मुसीबत में घबराओ नहीं, सूझ-बूझ से काम लो।", "en": "In trouble, don't panic: think clearly." }
+    },
+    {
+      "id": "clever-rabbit",
+      "level": "grade3",
+      "title": { "hi": "चतुर खरगोश और शेर", "en": "The clever rabbit and the lion" },
+      "cover": "rabbit",
+      "pages": [
+        { "word": "lion", "hi": "जंगल में एक घमंडी शेर सब जानवरों को डराता था।", "en": "In the jungle a proud lion frightened all the animals." },
+        {
+          "word": "deer",
+          "hi": "जानवरों ने तय किया कि रोज़ एक जानवर शेर के पास जाएगा।",
+          "en": "The animals agreed that each day one of them would go to the lion."
+        },
+        {
+          "word": "rabbit",
+          "hi": "एक दिन छोटे खरगोश की बारी आई। वह जान-बूझकर देर से पहुँचा।",
+          "en": "One day it was the little rabbit's turn. He arrived late on purpose."
+        },
+        { "word": "lion", "hi": "शेर गरजा, \"इतनी देर क्यों?\"", "en": "The lion roared, \"Why so late?\"" },
+        {
+          "word": "rabbit",
+          "hi": "खरगोश बोला, \"रास्ते में दूसरा शेर मिला था। वह कहता है, जंगल का राजा वही है।\"",
+          "en": "The rabbit said, \"I met another lion on the way. He says he is king of the jungle.\""
+        },
+        {
+          "word": "well",
+          "hi": "शेर गुस्से में खरगोश के साथ एक कुएँ पर पहुँचा। खरगोश बोला, \"वह इसमें रहता है।\"",
+          "en": "The angry lion went with the rabbit to a well. \"He lives in here,\" said the rabbit."
+        },
+        {
+          "word": "water",
+          "hi": "शेर ने पानी में अपनी परछाईं देखी और दहाड़कर कुएँ में कूद गया।",
+          "en": "The lion saw his own reflection, roared, and jumped into the well."
+        },
+        {
+          "word": "rabbit",
+          "hi": "जंगल के सब जानवर खुश हो गए। छोटा खरगोश सबका हीरो बन गया!",
+          "en": "All the animals were happy. The little rabbit became everyone's hero!"
+        }
+      ],
+      "questions": [
+        { "hi": "शेर कहाँ कूद गया?", "en": "Where did the lion jump?", "answer": "well", "options": ["well", "river", "cave"] },
+        {
+          "hi": "शेर ने पानी में किसे देखा?",
+          "en": "Whom did the lion see in the water?",
+          "text": true,
+          "answer": "अपनी परछाईं",
+          "options": ["अपनी परछाईं", "दूसरा शेर", "एक मछली"]
+        },
+        {
+          "hi": "इस कहानी से क्या सीख मिलती है?",
+          "en": "What does this story teach?",
+          "text": true,
+          "answer": "बुद्धि बल से बड़ी होती है",
+          "options": ["बुद्धि बल से बड़ी होती है", "देर से जाना अच्छा है", "शेर सबसे अच्छा है"]
+        }
+      ],
+      "moral": { "hi": "बुद्धि बल से बड़ी होती है।", "en": "Brains beat strength." }
+    },
+    {
+      "id": "blue-jackal",
+      "level": "grade3",
+      "title": { "hi": "नीला सियार", "en": "The blue jackal" },
+      "cover": "bluejackal",
+      "pages": [
+        { "word": "jackal", "hi": "एक भूखा सियार खाना ढूँढते हुए गाँव में आ गया।", "en": "A hungry jackal came into a village looking for food." },
+        { "word": "dog", "hi": "कुत्ते भौंकने लगे। सियार डरकर भागा।", "en": "The dogs began to bark. The jackal ran away, scared." },
+        { "word": "bucket", "hi": "भागते-भागते वह नीले रंग से भरे एक बड़े टब में गिर गया।", "en": "As he ran, he fell into a big tub of blue dye." },
+        { "word": "bluejackal", "hi": "जब वह निकला, तो पूरा नीला हो गया था!", "en": "When he came out, he was completely blue!" },
+        {
+          "word": "bluejackal",
+          "hi": "जंगल के जानवरों ने ऐसा जानवर कभी नहीं देखा था। सियार बोला, \"मैं तुम्हारा राजा हूँ!\"",
+          "en": "The jungle animals had never seen such a creature. The jackal said, \"I am your king!\""
+        },
+        { "word": "moon", "hi": "एक रात दूसरे सियार \"हुआँ हुआँ\" करने लगे।", "en": "One night the other jackals began to howl." },
+        {
+          "word": "bluejackal",
+          "hi": "नीला सियार भी खुद को रोक न सका और \"हुआँ हुआँ\" करने लगा।",
+          "en": "The blue jackal could not stop himself and howled too."
+        },
+        { "word": "jackal", "hi": "सबको सच पता चल गया, और राजा बना सियार वहाँ से भाग गया।", "en": "Everyone learned the truth, and the \"king\" ran away." }
+      ],
+      "questions": [
+        { "hi": "सियार किस रंग का हो गया?", "en": "What colour did the jackal turn?", "answer": "blue", "options": ["blue", "red", "green"] },
+        {
+          "hi": "सबको सच कैसे पता चला?",
+          "en": "How did everyone find out the truth?",
+          "text": true,
+          "answer": "वह हुआँ हुआँ करने लगा",
+          "options": ["वह हुआँ हुआँ करने लगा", "वह सो गया", "वह नदी में नहाया"]
+        }
+      ],
+      "moral": { "hi": "झूठ ज़्यादा दिन नहीं छिपता।", "en": "A lie cannot stay hidden for long." }
+    },
+    {
+      "id": "unity-sticks",
+      "level": "grade3",
+      "title": { "hi": "एकता में बल", "en": "Strength in unity" },
+      "cover": "sticks",
+      "pages": [
+        {
+          "word": "grandfather",
+          "hi": "एक बूढ़े किसान के चार बेटे थे। वे हमेशा आपस में लड़ते थे।",
+          "en": "An old farmer had four sons. They were always quarrelling."
+        },
+        {
+          "word": "sticks",
+          "hi": "किसान ने उन्हें लकड़ियों का एक गट्ठर दिया और कहा, \"इसे तोड़ो।\"",
+          "en": "The farmer gave them a bundle of sticks and said, \"Break this.\""
+        },
+        { "word": "boy", "hi": "चारों ने बहुत ज़ोर लगाया, पर गट्ठर नहीं टूटा।", "en": "All four tried hard, but the bundle did not break." },
+        {
+          "word": "sticks",
+          "hi": "फिर किसान ने गट्ठर खोलकर सबको एक-एक लकड़ी दी।",
+          "en": "Then the farmer untied the bundle and gave each of them one stick."
+        },
+        { "word": "boy", "hi": "इस बार हर लकड़ी आसानी से टूट गई।", "en": "This time each stick broke easily." },
+        {
+          "word": "grandfather",
+          "hi": "किसान बोला, \"मिलकर रहोगे तो कोई तुम्हें तोड़ नहीं पाएगा।\"",
+          "en": "The farmer said, \"If you stay together, no one can break you.\""
+        },
+        { "word": "heart", "hi": "बेटों ने बात समझ ली और फिर कभी नहीं लड़े।", "en": "The sons understood and never quarrelled again." }
+      ],
+      "questions": [
+        { "hi": "किसान ने बेटों को क्या दिया?", "en": "What did the farmer give his sons?", "answer": "sticks", "options": ["sticks", "coins", "axe"] },
+        {
+          "hi": "गट्ठर क्यों नहीं टूटा?",
+          "en": "Why did the bundle not break?",
+          "text": true,
+          "answer": "लकड़ियाँ एक साथ बँधी थीं",
+          "options": ["लकड़ियाँ एक साथ बँधी थीं", "बेटे सो रहे थे", "लकड़ियाँ लोहे की थीं"]
+        }
+      ],
+      "moral": { "hi": "एकता में बल है।", "en": "There is strength in unity." }
+    },
+    {
+      "id": "honest-woodcutter",
+      "level": "grade3",
+      "title": { "hi": "ईमानदार लकड़हारा", "en": "The honest woodcutter" },
+      "cover": "woodcutter",
+      "pages": [
+        { "word": "woodcutter", "hi": "एक गरीब लकड़हारा नदी किनारे पेड़ काट रहा था।", "en": "A poor woodcutter was cutting wood beside a river." },
+        { "word": "axe", "hi": "अचानक उसकी कुल्हाड़ी नदी में गिर गई।", "en": "Suddenly his axe fell into the river." },
+        { "word": "river", "hi": "वह रोने लगा। तभी नदी से जल देवता निकले।", "en": "He began to cry. Then the river spirit rose from the water." },
+        {
+          "word": "goldenaxe",
+          "hi": "जल देवता सोने की कुल्हाड़ी लाए। लकड़हारा बोला, \"यह मेरी नहीं है।\"",
+          "en": "The spirit brought a golden axe. The woodcutter said, \"This is not mine.\""
+        },
+        {
+          "word": "axe",
+          "hi": "फिर वे चाँदी की कुल्हाड़ी लाए। लकड़हारा बोला, \"यह भी मेरी नहीं है।\"",
+          "en": "Then a silver one. \"This is not mine either.\""
+        },
+        {
+          "word": "axe",
+          "hi": "आख़िर में वे लोहे की कुल्हाड़ी लाए। लकड़हारा खुश होकर बोला, \"हाँ, यही मेरी है!\"",
+          "en": "At last the iron axe. \"Yes, this one is mine!\" he said happily."
+        },
+        {
+          "word": "goldenaxe",
+          "hi": "जल देवता उसकी ईमानदारी से खुश हुए और तीनों कुल्हाड़ियाँ उसे दे दीं।",
+          "en": "Pleased with his honesty, the spirit gave him all three axes."
+        }
+      ],
+      "questions": [
+        { "hi": "कुल्हाड़ी कहाँ गिरी?", "en": "Where did the axe fall?", "answer": "river", "options": ["river", "well", "field"] },
+        {
+          "hi": "लकड़हारे को तीनों कुल्हाड़ियाँ क्यों मिलीं?",
+          "en": "Why did he get all three axes?",
+          "text": true,
+          "answer": "क्योंकि वह ईमानदार था",
+          "options": ["क्योंकि वह ईमानदार था", "क्योंकि वह रोया", "क्योंकि वह अमीर था"]
+        }
+      ],
+      "moral": { "hi": "ईमानदारी सबसे अच्छी नीति है।", "en": "Honesty is the best policy." }
+    },
+    {
+      "id": "bell-cat",
+      "level": "grade3",
+      "title": { "hi": "बिल्ली के गले में घंटी", "en": "Who will bell the cat?" },
+      "cover": "bell",
+      "pages": [
+        { "word": "mouse", "hi": "एक घर में बहुत सारे चूहे रहते थे।", "en": "Many mice lived in a house." },
+        { "word": "cat", "hi": "एक मोटी बिल्ली रोज़ उन्हें डराती थी।", "en": "A fat cat frightened them every day." },
+        { "word": "mouse", "hi": "चूहों ने एक सभा की। सबने सोचा, अब क्या करें?", "en": "The mice held a meeting. What should they do?" },
+        {
+          "word": "bell",
+          "hi": "एक छोटा चूहा बोला, \"बिल्ली के गले में घंटी बाँध दो। वह आएगी तो घंटी बजेगी।\"",
+          "en": "A little mouse said, \"Tie a bell round the cat's neck. When she comes, it will ring.\""
+        },
+        { "word": "mouse", "hi": "सब चूहे खुश होकर ताली बजाने लगे।", "en": "All the mice clapped happily." },
+        {
+          "word": "mouse",
+          "hi": "तभी एक बूढ़ा चूहा बोला, \"उपाय अच्छा है। पर घंटी बाँधेगा कौन?\"",
+          "en": "Then an old mouse said, \"A good plan. But who will tie the bell?\""
+        },
+        { "word": "cat", "hi": "सब चुप हो गए। किसी में हिम्मत नहीं थी!", "en": "Everyone went quiet. Nobody dared!" }
+      ],
+      "questions": [
+        {
+          "hi": "चूहे बिल्ली के गले में क्या बाँधना चाहते थे?",
+          "en": "What did the mice want to tie on the cat?",
+          "answer": "bell",
+          "options": ["bell", "cap", "garland"]
+        },
+        {
+          "hi": "बूढ़े चूहे ने क्या पूछा?",
+          "en": "What did the old mouse ask?",
+          "text": true,
+          "answer": "घंटी कौन बाँधेगा?",
+          "options": ["घंटी कौन बाँधेगा?", "खाना कहाँ है?", "बिल्ली कहाँ है?"]
+        }
+      ],
+      "moral": { "hi": "कहना आसान है, करना मुश्किल।", "en": "Easier said than done." }
+    },
+    {
+      "id": "zoomi-moon",
+      "level": "grade3",
+      "title": { "hi": "ज़ूमी चाँद पर", "en": "Zoomi goes to the Moon" },
+      "cover": "rocket",
+      "pages": [
+        { "word": "rocket", "hi": "ज़ूमी रोबोट का सपना था, चाँद पर जाना।", "en": "Zoomi the robot's dream was to go to the Moon." },
+        { "word": "rocket", "hi": "तीन, दो, एक... रॉकेट ने आग और धुआँ छोड़ा और ऊपर उड़ गया!", "en": "Three, two, one... the rocket roared and flew up!" },
+        {
+          "word": "earth",
+          "hi": "खिड़की से ज़ूमी ने नीली-हरी पृथ्वी देखी। वह कितनी सुंदर थी!",
+          "en": "From the window Zoomi saw the blue-green Earth. How beautiful it was!"
+        },
+        { "word": "moon", "hi": "कई दिनों बाद रॉकेट धीरे से चाँद पर उतरा।", "en": "After many days the rocket landed gently on the Moon." },
+        {
+          "word": "astronaut",
+          "hi": "चाँद पर न हवा थी, न पानी। ज़मीन पर बड़े-बड़े गड्ढे थे।",
+          "en": "There was no air and no water on the Moon. The ground had big craters."
+        },
+        { "word": "flag", "hi": "ज़ूमी ने वहाँ एक झंडा लगाया और पत्थरों की तस्वीरें लीं।", "en": "Zoomi planted a flag and took photos of the rocks." },
+        { "word": "earth", "hi": "फिर वह घर लौटा और सबको अपनी यात्रा की कहानी सुनाई।", "en": "Then he came home and told everyone about his trip." }
+      ],
+      "questions": [
+        { "hi": "ज़ूमी कहाँ गया?", "en": "Where did Zoomi go?", "answer": "moon", "options": ["moon", "sun", "mars"] },
+        { "hi": "चाँद पर क्या नहीं था?", "en": "What was not on the Moon?", "text": true, "answer": "हवा और पानी", "options": ["हवा और पानी", "पत्थर", "गड्ढे"] },
+        { "hi": "ज़ूमी ने चाँद पर क्या लगाया?", "en": "What did Zoomi plant on the Moon?", "answer": "flag", "options": ["flag", "tree", "umbrella"] }
       ]
+    },
+    {
+      "id": "talkative-tortoise",
+      "level": "grade4",
+      "title": { "hi": "बातूनी कछुआ", "en": "The talkative tortoise" },
+      "cover": "tortoise",
+      "pages": [
+        { "word": "tortoise", "hi": "एक तालाब में एक कछुआ रहता था। वह बहुत बातें करता था।", "en": "A tortoise lived in a pond. He talked a lot." },
+        { "word": "swan", "hi": "दो हंस उसके अच्छे दोस्त थे।", "en": "Two swans were his good friends." },
+        { "word": "sun", "hi": "एक साल बारिश नहीं हुई और तालाब सूखने लगा।", "en": "One year it did not rain and the pond began to dry up." },
+        {
+          "word": "sticks",
+          "hi": "हंसों ने उपाय सोचा, \"तुम यह लकड़ी मुँह से पकड़ लो। हम दोनों सिरे पकड़कर उड़ेंगे।\"",
+          "en": "The swans had an idea: \"Hold this stick in your mouth. We will hold the ends and fly.\""
+        },
+        { "word": "swan", "hi": "हंसों ने कहा, \"पर रास्ते में बिल्कुल मत बोलना!\"", "en": "\"But don't say a word on the way!\" said the swans." },
+        { "word": "cloud", "hi": "वे ऊँचे आसमान में उड़ चले।", "en": "Up they flew, high into the sky." },
+        {
+          "word": "boy",
+          "hi": "नीचे बच्चे चिल्लाए, \"देखो! हंस कछुए को उड़ा ले जा रहे हैं!\"",
+          "en": "Below, children shouted, \"Look! The swans are carrying a tortoise!\""
+        },
+        {
+          "word": "tortoise",
+          "hi": "कछुए से रहा नहीं गया। जैसे ही उसने बोलने के लिए मुँह खोला, वह नीचे गिर पड़ा।",
+          "en": "The tortoise could not help himself. The moment he opened his mouth to speak, he fell."
+        },
+        {
+          "word": "tortoise",
+          "hi": "भाग्य से वह झाड़ियों में गिरा और बच गया। उस दिन से उसने सोच-समझकर बोलना सीखा।",
+          "en": "Luckily he landed in the bushes and was safe. From that day on he thought before he spoke."
+        }
+      ],
+      "questions": [
+        { "hi": "कछुए के दोस्त कौन थे?", "en": "Who were the tortoise's friends?", "answer": "swan", "options": ["swan", "crow", "dove"] },
+        {
+          "hi": "कछुआ नीचे क्यों गिरा?",
+          "en": "Why did the tortoise fall?",
+          "text": true,
+          "answer": "उसने बोलने के लिए मुँह खोला",
+          "options": ["उसने बोलने के लिए मुँह खोला", "लकड़ी टूट गई", "हंस थक गए"]
+        },
+        {
+          "hi": "इस कहानी से क्या सीख मिलती है?",
+          "en": "What does this story teach?",
+          "text": true,
+          "answer": "सोच-समझकर बोलना चाहिए",
+          "options": ["सोच-समझकर बोलना चाहिए", "हमेशा उड़ना चाहिए", "दोस्त नहीं बनाने चाहिए"]
+        }
+      ],
+      "moral": { "hi": "सोच-समझकर बोलना चाहिए।", "en": "Think before you speak." }
+    },
+    {
+      "id": "birbal-khichdi",
+      "level": "grade4",
+      "title": { "hi": "बीरबल की खिचड़ी", "en": "Birbal's khichdi" },
+      "cover": "cookingpot",
+      "pages": [
+        {
+          "word": "king",
+          "hi": "सर्दी का मौसम था। बादशाह अकबर ने कहा, \"जो रात भर ठंडे तालाब में खड़ा रहेगा, उसे इनाम मिलेगा।\"",
+          "en": "It was winter. Emperor Akbar said, \"Whoever stands all night in the cold pond will get a reward.\""
+        },
+        { "word": "farmer", "hi": "एक गरीब आदमी रात भर ठंडे पानी में खड़ा रहा।", "en": "A poor man stood in the cold water all night." },
+        {
+          "word": "lamp",
+          "hi": "सुबह उसने बताया कि दूर महल में एक दीया जल रहा था। वह उसे देखता रहा।",
+          "en": "In the morning he said a lamp was burning far away in the palace, and he kept looking at it."
+        },
+        {
+          "word": "king",
+          "hi": "अकबर बोले, \"तुमने दीये की गरमी ली, इसलिए इनाम नहीं मिलेगा।\"",
+          "en": "Akbar said, \"You took warmth from the lamp, so there is no reward.\""
+        },
+        {
+          "word": "minister",
+          "hi": "बीरबल को यह बात ठीक नहीं लगी। अगले दिन वह दरबार नहीं आया।",
+          "en": "Birbal felt this was unfair. The next day he did not come to court."
+        },
+        {
+          "word": "cookingpot",
+          "hi": "अकबर उसके घर गए। बीरबल ने खिचड़ी की हाँडी बहुत ऊँचे टाँग रखी थी और आग बहुत नीचे जल रही थी।",
+          "en": "Akbar went to his house. Birbal had hung the khichdi pot very high, with the fire far below."
+        },
+        { "word": "minister", "hi": "बीरबल बोला, \"खिचड़ी बस पकने ही वाली है!\"", "en": "Birbal said, \"The khichdi is just about to cook!\"" },
+        {
+          "word": "king",
+          "hi": "अकबर हँसे, \"इतनी दूर से कैसे पकेगी?\" बीरबल बोला, \"जैसे दूर के दीये से उस आदमी को गरमी मिली थी।\"",
+          "en": "Akbar laughed, \"How can it cook from so far?\" Birbal said, \"The same way that man got warmth from a faraway lamp.\""
+        },
+        { "word": "coins", "hi": "अकबर बात समझ गए और उस आदमी को इनाम दे दिया।", "en": "Akbar understood and gave the man his reward." }
+      ],
+      "questions": [
+        { "hi": "आदमी रात भर किसे देखता रहा?", "en": "What did the man look at all night?", "answer": "lamp", "options": ["lamp", "moon", "flag"] },
+        {
+          "hi": "बीरबल ने हाँडी ऊँची क्यों टाँगी?",
+          "en": "Why did Birbal hang the pot so high?",
+          "text": true,
+          "answer": "अकबर को सच समझाने के लिए",
+          "options": ["अकबर को सच समझाने के लिए", "खिचड़ी बचाने के लिए", "आग बुझाने के लिए"]
+        }
+      ],
+      "moral": { "hi": "हर किसी के साथ न्याय करना चाहिए।", "en": "Be fair to everyone." }
+    },
+    {
+      "id": "tenali-thieves",
+      "level": "grade4",
+      "title": { "hi": "तेनालीराम और चोर", "en": "Tenali Rama and the thieves" },
+      "cover": "thief",
+      "pages": [
+        { "word": "minister", "hi": "तेनालीराम बहुत चतुर था।", "en": "Tenali Rama was very clever." },
+        { "word": "thief", "hi": "एक रात उसने देखा कि दो चोर उसके बगीचे में छिपे हैं।", "en": "One night he saw two thieves hiding in his garden." },
+        {
+          "word": "minister",
+          "hi": "तेनालीराम ने ज़ोर से कहा, \"सारे गहने संदूक में भरकर कुएँ में डाल दो!\"",
+          "en": "Tenali said loudly, \"Put all the jewels in a box and drop it in the well!\""
+        },
+        { "word": "well", "hi": "उन्होंने पत्थरों से भरा एक संदूक कुएँ में डाल दिया।", "en": "They dropped a box full of stones into the well." },
+        {
+          "word": "thief",
+          "hi": "चोरों ने रात भर कुएँ से पानी निकाला, ताकि संदूक मिल जाए।",
+          "en": "The thieves pulled water out of the well all night to reach the box."
+        },
+        {
+          "word": "plant",
+          "hi": "वह पानी बहकर बगीचे में गया। सारे पौधों को पानी मिल गया!",
+          "en": "The water ran into the garden. All the plants got watered!"
+        },
+        {
+          "word": "stones",
+          "hi": "सुबह चोरों को संदूक मिला। उसमें सिर्फ़ पत्थर थे!",
+          "en": "In the morning the thieves found the box. It held only stones!"
+        },
+        {
+          "word": "minister",
+          "hi": "तेनालीराम हँसकर बोला, \"धन्यवाद! मेरे बगीचे को पानी देने के लिए।\"",
+          "en": "Tenali laughed, \"Thank you for watering my garden!\""
+        }
+      ],
+      "questions": [
+        { "hi": "संदूक में क्या था?", "en": "What was in the box?", "answer": "stones", "options": ["stones", "coins", "laddoo"] },
+        {
+          "hi": "चोरों की मेहनत से किसका फ़ायदा हुआ?",
+          "en": "Who gained from the thieves' hard work?",
+          "text": true,
+          "answer": "तेनालीराम के बगीचे का",
+          "options": ["तेनालीराम के बगीचे का", "चोरों का", "राजा का"]
+        }
+      ],
+      "moral": { "hi": "चतुराई से हर मुश्किल हल हो सकती है।", "en": "Clever thinking can solve any problem." }
+    },
+    {
+      "id": "golden-egg",
+      "level": "grade4",
+      "title": { "hi": "सोने का अंडा", "en": "The golden egg" },
+      "cover": "goldenegg",
+      "pages": [
+        { "word": "farmer", "hi": "एक किसान के पास एक मुर्गी थी।", "en": "A farmer had a hen." },
+        { "word": "goldenegg", "hi": "वह मुर्गी रोज़ एक सोने का अंडा देती थी!", "en": "Every day that hen laid a golden egg!" },
+        { "word": "coins", "hi": "किसान अंडे बेचकर अमीर होने लगा।", "en": "The farmer sold the eggs and grew rich." },
+        {
+          "word": "farmer",
+          "hi": "पर उसे और जल्दी अमीर बनना था। उसने सोचा, \"मुर्गी के अंदर बहुत सारे अंडे होंगे।\"",
+          "en": "But he wanted to be rich faster. He thought, \"There must be lots of eggs inside the hen.\""
+        },
+        {
+          "word": "hen",
+          "hi": "वह मुर्गी पर चिल्लाया, \"सारे अंडे अभी दो!\" और उसे डराने लगा।",
+          "en": "He shouted at the hen, \"Give me all the eggs now!\" and frightened her."
+        },
+        { "word": "hen", "hi": "डरकर मुर्गी उड़ गई और फिर कभी नहीं लौटी।", "en": "The frightened hen flew away and never came back." },
+        { "word": "farmer", "hi": "अब किसान के पास एक भी अंडा नहीं था।", "en": "Now the farmer had not a single egg." }
+      ],
+      "questions": [
+        { "hi": "मुर्गी कैसा अंडा देती थी?", "en": "What kind of egg did the hen lay?", "answer": "goldenegg", "options": ["goldenegg", "dinoegg", "coins"] },
+        {
+          "hi": "किसान ने सारे अंडे क्यों खो दिए?",
+          "en": "Why did the farmer lose all the eggs?",
+          "text": true,
+          "answer": "लालच के कारण",
+          "options": ["लालच के कारण", "बीमारी के कारण", "बारिश के कारण"]
+        }
+      ],
+      "moral": { "hi": "लालच से सब कुछ खो जाता है।", "en": "Greed can lose you everything." }
+    },
+    {
+      "id": "talking-cave",
+      "level": "grade4",
+      "title": { "hi": "बोलने वाली गुफा", "en": "The talking cave" },
+      "cover": "cave",
+      "pages": [
+        { "word": "lion", "hi": "एक भूखा शेर दिन भर खाना ढूँढता रहा, पर कुछ नहीं मिला।", "en": "A hungry lion searched all day for food but found nothing." },
+        {
+          "word": "cave",
+          "hi": "शाम को उसे एक गुफा दिखी। उसने सोचा, \"जो यहाँ रहता है, लौटेगा तो उसे पकड़ लूँगा।\"",
+          "en": "In the evening he saw a cave. He thought, \"Whoever lives here will come back, and I'll catch them.\""
+        },
+        {
+          "word": "jackal",
+          "hi": "वह गुफा एक सियार का घर था। लौटते समय सियार ने शेर के पंजों के निशान देखे।",
+          "en": "The cave was a jackal's home. Coming back, the jackal saw the lion's paw prints."
+        },
+        {
+          "word": "jackal",
+          "hi": "निशान अंदर जा रहे थे, बाहर नहीं आ रहे थे। सियार समझ गया!",
+          "en": "The prints went in but did not come out. The jackal understood!"
+        },
+        {
+          "word": "cave",
+          "hi": "उसने ज़ोर से पुकारा, \"ओ गुफा! आज तुमने मुझे बुलाया क्यों नहीं?\"",
+          "en": "He called loudly, \"O cave! Why didn't you call me today?\""
+        },
+        {
+          "word": "lion",
+          "hi": "शेर ने सोचा, \"शायद गुफा रोज़ बोलती है।\" उसने गुफा बनकर कहा, \"आओ, सियार!\"",
+          "en": "The lion thought, \"Maybe the cave talks every day.\" Pretending to be the cave, he said, \"Come in, jackal!\""
+        },
+        {
+          "word": "jackal",
+          "hi": "सियार हँसा, \"गुफाएँ नहीं बोलतीं!\" और तेज़ी से भाग गया।",
+          "en": "The jackal laughed, \"Caves don't talk!\" and ran off fast."
+        }
+      ],
+      "questions": [
+        { "hi": "सियार कहाँ रहता था?", "en": "Where did the jackal live?", "answer": "cave", "options": ["cave", "well", "tree"] },
+        {
+          "hi": "सियार को कैसे पता चला कि अंदर शेर है?",
+          "en": "How did the jackal know the lion was inside?",
+          "text": true,
+          "answer": "पंजों के निशान देखकर",
+          "options": ["पंजों के निशान देखकर", "शेर को देखकर", "गुफा से पूछकर"]
+        }
+      ],
+      "moral": { "hi": "सावधान रहो और ध्यान से देखो।", "en": "Stay alert and look carefully." }
+    },
+    {
+      "id": "sour-grapes",
+      "level": "grade4",
+      "title": { "hi": "खट्टे अंगूर", "en": "The sour grapes" },
+      "cover": "fox",
+      "pages": [
+        { "word": "fox", "hi": "एक दिन एक भूखी लोमड़ी जंगल में घूम रही थी।", "en": "One day a hungry fox was wandering in the jungle." },
+        { "word": "grapes", "hi": "उसे ऊँची बेल पर मीठे-मीठे अंगूर लटके दिखे।", "en": "She saw sweet grapes hanging high on a vine." },
+        { "word": "fox", "hi": "लोमड़ी ने ऊँची छलाँग लगाई, पर अंगूर तक नहीं पहुँची।", "en": "The fox jumped high, but could not reach the grapes." },
+        { "word": "fox", "hi": "उसने बार-बार कोशिश की, पर हर बार नाकाम रही।", "en": "She tried again and again, and failed every time." },
+        {
+          "word": "grapes",
+          "hi": "आख़िर में वह थककर बोली, \"ये अंगूर तो खट्टे हैं!\" और चली गई।",
+          "en": "At last, tired, she said, \"These grapes are sour anyway!\" and walked away."
+        }
+      ],
+      "questions": [
+        { "hi": "लोमड़ी क्या खाना चाहती थी?", "en": "What did the fox want to eat?", "answer": "grapes", "options": ["grapes", "banana", "mango"] },
+        {
+          "hi": "लोमड़ी ने अंगूरों को खट्टा क्यों कहा?",
+          "en": "Why did the fox call the grapes sour?",
+          "text": true,
+          "answer": "क्योंकि वह उन तक नहीं पहुँच सकी",
+          "options": ["क्योंकि वह उन तक नहीं पहुँच सकी", "क्योंकि उसने उन्हें चखा", "क्योंकि वे हरे थे"]
+        }
+      ],
+      "moral": { "hi": "जो न मिले, उसे बुरा कहना ठीक नहीं।", "en": "Don't call something bad just because you can't have it." }
+    },
+    {
+      "id": "hard-work",
+      "level": "grade4",
+      "title": { "hi": "मेहनत का फल", "en": "The fruit of hard work" },
+      "cover": "field",
+      "pages": [
+        {
+          "word": "grandfather",
+          "hi": "एक बूढ़े किसान के तीन बेटे थे। वे काम नहीं करना चाहते थे।",
+          "en": "An old farmer had three sons who did not want to work."
+        },
+        {
+          "word": "grandfather",
+          "hi": "किसान ने कहा, \"हमारे खेत में खज़ाना छिपा है।\"",
+          "en": "The farmer said, \"There is treasure hidden in our field.\""
+        },
+        { "word": "field", "hi": "बेटों ने पूरा खेत खोद डाला, पर कोई खज़ाना नहीं मिला।", "en": "The sons dug up the whole field, but found no treasure." },
+        {
+          "word": "rain",
+          "hi": "फिर बारिश आई। किसान बोला, \"अब खेत खुद गया है, तो बीज बो दो।\"",
+          "en": "Then the rain came. The farmer said, \"Now the field is dug, so sow some seeds.\""
+        },
+        { "word": "corn", "hi": "कुछ महीनों बाद खेत में सुनहरी फ़सल लहराने लगी।", "en": "A few months later a golden crop swayed in the field." },
+        { "word": "coins", "hi": "फ़सल बेचकर उन्हें बहुत पैसे मिले।", "en": "They sold the crop and earned a lot of money." },
+        { "word": "boy", "hi": "बेटे समझ गए, \"मेहनत ही असली खज़ाना है!\"", "en": "The sons understood: \"Hard work is the real treasure!\"" }
+      ],
+      "questions": [
+        { "hi": "बेटों ने कहाँ खुदाई की?", "en": "Where did the sons dig?", "answer": "field", "options": ["field", "river", "cave"] },
+        { "hi": "असली खज़ाना क्या था?", "en": "What was the real treasure?", "text": true, "answer": "मेहनत", "options": ["मेहनत", "सोना", "अंगूर"] }
+      ],
+      "moral": { "hi": "मेहनत का फल मीठा होता है।", "en": "Hard work brings sweet rewards." }
+    },
+    {
+      "id": "timid-hare",
+      "level": "grade4",
+      "title": { "hi": "डरपोक खरगोश", "en": "The timid hare" },
+      "cover": "rabbit",
+      "pages": [
+        { "word": "rabbit", "hi": "एक खरगोश बेल के पेड़ के नीचे सो रहा था।", "en": "A hare was sleeping under a bael tree." },
+        { "word": "fruit", "hi": "अचानक एक बड़ा बेल का फल \"धम्म\" से गिरा!", "en": "Suddenly a big bael fruit fell — thud!" },
+        { "word": "rabbit", "hi": "खरगोश डरकर भागा, \"भागो! धरती टूट रही है!\"", "en": "The hare ran in fright: \"Run! The earth is breaking!\"" },
+        {
+          "word": "deer",
+          "hi": "हिरन, बंदर और हाथी भी बिना सोचे उसके पीछे भागने लगे।",
+          "en": "A deer, a monkey and an elephant ran after him without thinking."
+        },
+        {
+          "word": "lion",
+          "hi": "तभी शेर ने सबको रोका, \"धरती कहाँ टूटी है? मुझे दिखाओ।\"",
+          "en": "Then a lion stopped them: \"Where has the earth broken? Show me.\""
+        },
+        { "word": "tree", "hi": "सब पेड़ के पास लौटे। वहाँ बस एक बेल का फल पड़ा था!", "en": "They all went back to the tree. Only a bael fruit lay there!" },
+        { "word": "heart", "hi": "सब हँसने लगे, और खरगोश शरमा गया।", "en": "Everyone laughed, and the hare felt shy." }
+      ],
+      "questions": [
+        { "hi": "पेड़ से क्या गिरा था?", "en": "What fell from the tree?", "answer": "fruit", "options": ["fruit", "stones", "bird"] },
+        { "hi": "सबको किसने रोका?", "en": "Who stopped everyone?", "answer": "lion", "options": ["lion", "elephant", "monkey"] }
+      ],
+      "moral": { "hi": "बिना जाँचे किसी बात पर भरोसा मत करो।", "en": "Don't believe something without checking." }
     }
   ],
   "levels": [

@@ -1,4 +1,4 @@
-// Library (Grade 1+): read-along picture stories, then a few picture questions about the story.
+// Library (Grade 1+): read-along picture stories, a few questions about the story and, for folktales, the moral.
 // Every word on the page can be tapped to hear it. Each visit opens the next story for the stage.
 import { sentenceTokens, shuffle } from '../logic.js';
 import { el, sleep, choose, runRounds, cheer, waitTap, bounce, ICONS } from './kit.js';
@@ -79,21 +79,54 @@ export default {
       story.questions.length,
       async (i) => {
         const q = story.questions[i];
-        const btns = shuffle(q.options, ctx.rng).map((id) => Object.assign(ctx.wordCard(ctx.word(id)), { item: ctx.word(id) }));
+        // picture questions show word cards; "text" questions (Grade 2+) show short Hindi answer bubbles.
+        // Easier tiers drop some wrong options, always keeping the answer and at least one other.
+        const wrong = shuffle(q.options.filter((o) => o !== q.answer), ctx.rng).slice(0, Math.max(1, ctx.nChoices - 1));
+        const options = shuffle([q.answer, ...wrong], ctx.rng);
+        const btns = options.map((o) =>
+          q.text
+            ? Object.assign(el('button', { class: 'card answer', lang: 'hi' }, [el('span', { class: 'word-text', text: o })]), { value: o })
+            : Object.assign(ctx.wordCard(ctx.word(o)), { item: ctx.word(o), value: o }),
+        );
         ctx.stage.replaceChildren(
           el('div', { class: 'story-question' }, lines(q).map((t) => el('p', { class: `story-line ${t.lang}`, lang: t.lang, text: t.text }))),
-          el('div', { class: 'choices' }, btns),
+          el('div', { class: `choices${q.text ? ' answers' : ''}` }, btns),
         );
         const ask = () => ctx.playSegs(langs.flatMap((l, k) => [...(k ? [{ pause: 400 }] : []), { text: q[l], lang: l }]));
         ctx.setRepeat(ask);
         ask();
-        const right = await choose(btns, (b) => b.item.id === q.answer, { ctx, onWrong: (b) => ctx.say('thisIs', b.item) });
+        const right = await choose(btns, (b) => b.value === q.answer, {
+          ctx,
+          onWrong: (b) => (q.text ? ctx.sayText(b.value, 'hi') : ctx.say('thisIs', b.item)),
+        });
         await cheer(ctx, right);
-        await ctx.sayItem(right.item);
+        if (q.text) await ctx.sayText(q.answer, 'hi');
+        else await ctx.sayItem(right.item);
         await sleep(300);
       },
       { offset: story.pages.length, total },
     );
-    if (ok) ctx.complete();
+    if (!ok) return;
+
+    // ---- the moral (सीख), for folktales that have one ----
+    if (story.moral) {
+      const done = el('button', { class: 'round-btn big go', 'aria-label': 'Done', html: ICONS.check });
+      const card = el('div', { class: 'story-moral' }, [
+        el('div', { class: 'moral-badge', html: ICONS.sparkle }),
+        el('div', { class: 'moral-head' }, [el('span', { class: 'hi', lang: 'hi', text: 'सीख' }), el('span', { class: 'en', text: 'The lesson' })]),
+        ...lines(story.moral).map((t) => el('p', { class: `story-line ${t.lang}`, lang: t.lang, text: t.text })),
+      ]);
+      ctx.stage.replaceChildren(card, done);
+      ctx.sfx.sparkle();
+      const read = async () => {
+        await ctx.playSegs(langs.flatMap((l, k) => [...(k ? [{ pause: 400 }] : []), { text: story.moral[l], lang: l, clipKey: `story-${story.id}-moral_${l}` }]));
+        done.classList.add('ready');
+      };
+      ctx.setRepeat(read);
+      read();
+      await waitTap(done);
+      if (!ctx.alive()) return;
+    }
+    ctx.complete();
   },
 };
