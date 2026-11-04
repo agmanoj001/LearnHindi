@@ -80,11 +80,11 @@ The top of the home screen shows **three steps for today**: *Keep going* (the ne
 
 ## Parent area
 
-**Press and hold the settings button (top right of the home screen) for 3 seconds.** A ring fills while you hold.
+**Press and hold the settings button (top right of the home screen) for about 1½ seconds.** A ring fills while you hold; a quick tap shows a reminder to hold.
 
 - **Children**: up to four children, each with their own grade, stars and settings, a guide character and an optional nickname. With more than one, the start screen asks "Who's playing?". Voice recordings are shared.
 - **Grade**: who is learning.
-- **Navigation**: *Stay in this grade* hides the other worlds. *Unlock every lesson* opens the whole path. *Math worlds* shows or hides the English math worlds.
+- **Navigation**: *Stay in this grade* shows only this grade's worlds on the home screen. *Unlock every lesson* opens the whole path. *Math worlds* shows or hides the English math worlds.
 - **Language** (Hindi worlds): Hindi, English, or both. In "both", words are said in Hindi then English, and some rounds alternate languages. Math worlds are always in English.
 - **Play time and reading support**: a *daily limit* (15–60 minutes, or none). When it's reached, the next lesson shows a break screen with an idea for off-screen play; a lesson already started is never cut off, and a grown-up can hold *+10* for ten more minutes. *Captions* show everything the app says as text. *Tell it back* lets the child record themselves retelling each story.
 - **Sound**: background music and sound effects, each on or off.

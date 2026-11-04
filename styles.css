@@ -4429,3 +4429,83 @@ body.speaking .mascot .m-mouth-closed {
 .world-card.theme-space .world-name-en {
   text-shadow: none;
 }
+
+/* ---------- grown-ups button: press and hold ---------- */
+.gate {
+  position: relative;
+  transition: transform 0.2s var(--spring);
+}
+.gate.holding {
+  transform: scale(1.14);
+}
+.gate-icon {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+}
+.gate-icon svg {
+  width: 100%;
+  height: 100%;
+}
+.gate-hint {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: -4px;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  padding: 8px 12px;
+  border-radius: 14px;
+  background: var(--ink, #1f2340);
+  color: #fff;
+  box-shadow: var(--shadow);
+  white-space: nowrap;
+  line-height: 1.25;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease;
+}
+.gate-hint b {
+  font-size: 15px;
+}
+.gate-hint span {
+  font: 600 13px 'Fredoka', var(--font);
+  opacity: 0.9;
+}
+.gate-hint::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  right: 22px;
+  width: 12px;
+  height: 12px;
+  background: inherit;
+  transform: rotate(45deg);
+  border-radius: 2px;
+}
+.gate.show-hint .gate-hint,
+.gate.holding .gate-hint {
+  opacity: 1;
+  transform: none;
+}
+.gate.more-time .gate-hint {
+  right: 50%;
+  align-items: center;
+  transform: translate(50%, -4px);
+}
+.gate.more-time.show-hint .gate-hint,
+.gate.more-time.holding .gate-hint {
+  transform: translate(50%, 0);
+}
+.gate.more-time .gate-hint::before {
+  right: calc(50% - 6px);
+}
+.hub-head {
+  position: relative;
+  z-index: 5;
+}
