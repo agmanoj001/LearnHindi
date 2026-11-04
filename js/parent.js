@@ -2,6 +2,7 @@
 // sound, unlocking, the special photo, and a progress report. Nothing here leaves the device.
 import { el, ICONS } from './ui.js';
 import { normalizeProgress, clipKeysFor, clipKeyFromFileName, practiceReport } from './logic.js';
+import { skillName } from './mathgen.js';
 import { worldStars, worldLessons, lessonRecord } from './curriculum.js';
 import { refreshClipKeys, voicesFor, setVoicePrefs, hasVoice, play } from './audio.js';
 import { KEYS, save, clips, resizeImage } from './storage.js';
@@ -149,6 +150,7 @@ export function showParent(api) {
     const [kind, id] = [key[0], key.slice(2)];
     if (kind === 'w') return api.word(id) ? `${api.word(id).hi} · ${api.word(id).en}` : id;
     if (kind === 'l') return content.letterSets.flatMap((x) => x.letters).find((l) => l.id === id)?.char ?? id;
+    if (kind === 's') return skillName(id);
     if (kind === 'm') {
       const m = content.matras.find((x) => x.id === id);
       return m ? `क${m.sign} (${m.vowel})` : id;
@@ -185,6 +187,7 @@ export function showParent(api) {
         'Navigation',
         toggle('Stay in this grade', s.lockGrade, (v) => ((s.lockGrade = v), persist()), 'Hides the other worlds. The home screen opens this grade’s Hindi world.'),
         toggle('Unlock every lesson', s.unlockAll, (v) => ((s.unlockAll = v), persist()), 'Normally lessons open one after another.'),
+        toggle('Math worlds', s.math, (v) => ((s.math = v), persist()), 'English math for Kindergarten and Grade 1, following the North Carolina Standard Course of Study.'),
       ),
       section('Language', langRow, el('p', { class: 'note', text: 'For Hindi worlds. Math worlds are always in English.' })),
       section(

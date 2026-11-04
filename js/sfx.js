@@ -220,6 +220,7 @@ const STYLES = {
   space: { root: 64, scale: [0, 2, 4, 7, 11], bpm: 80, inst: 'bell' },
   ocean: { root: 59, scale: [0, 2, 4, 7, 9], bpm: 84, inst: 'kalimba' },
   igloo: { root: 67, scale: [0, 2, 4, 7, 9], bpm: 96, inst: 'bell' },
+  carnival: { root: 65, scale: [0, 2, 4, 7, 9], bpm: 118, inst: 'marimba' },
 };
 
 let theme = null;

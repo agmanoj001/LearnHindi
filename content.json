@@ -291,7 +291,8 @@
     "jackal": { "hi": "सियार", "translit": "siyaar", "en": "jackal", "picture": "jackal", "level": "grade1", "syllables": ["सि", "या", "र"] },
     "bluejackal": { "hi": "नीला सियार", "translit": "neela siyaar", "en": "blue jackal", "picture": "bluejackal" },
     "cookingpot": { "hi": "हाँडी", "translit": "haandi", "en": "cooking pot", "picture": "cookingpot", "level": "grade1", "syllables": ["हाँ", "डी"] },
-    "field": { "hi": "खेत", "translit": "khet", "en": "field", "picture": "field", "level": "grade1", "syllables": ["खे", "त"] }
+    "field": { "hi": "खेत", "translit": "khet", "en": "field", "picture": "field", "level": "grade1", "syllables": ["खे", "त"] },
+    "ferris": { "hi": "झूला", "translit": "jhoola", "en": "big wheel", "picture": "ferris" }
   },
   "sentences": [
     { "id": "bus-here", "about": "bus", "hi": "बस आई!", "translit": "bas aai", "en": "The bus is here!", "level": "grade2" },
@@ -656,7 +657,8 @@
     },
     "firstsound": { "rounds": 5 },
     "quiz": { "rounds": 5 },
-    "sort": { "rounds": 8 }
+    "sort": { "rounds": 8 },
+    "math": { "rounds": 6, "choices": [3, 3, 4] }
   },
   "matras": [
     { "id": "aa", "sign": "ा", "vowel": "आ", "translit": "aa" },
@@ -1700,7 +1702,8 @@
       "name": { "hi": "मेरा समुद्र", "en": "My ocean" },
       "items": ["octopus", "crab", "turtle", "whale", "dolphin", "starfish", "jellyfish", "seahorse", "shark", "shell", "lighthouse", "fish", "ship", "submarine"]
     },
-    "igloo": { "name": { "hi": "मेरा इग्लू", "en": "My igloo" }, "items": ["penguin", "seal", "polarbear", "igloo", "snowman", "sled", "snowflake", "fish"] }
+    "igloo": { "name": { "hi": "मेरा इग्लू", "en": "My igloo" }, "items": ["penguin", "seal", "polarbear", "igloo", "snowman", "sled", "snowflake", "fish"] },
+    "carnival": { "name": { "hi": "मेले के इनाम", "en": "Carnival prizes" }, "items": ["balloon", "kite", "drum", "ferris", "laddoo", "flag", "bell", "swing", "icecreamvan"] }
   },
   "worlds": [
     {
@@ -1720,7 +1723,7 @@
           "skill": "Listening",
           "icon": "cow",
           "lessons": [
-            { "id": "t-animals-1", "game": "farm", "icon": "cow", "title": { "hi": "कौन बोला?", "en": "Who said that?" }, "config": { "rounds": 4 }},
+            { "id": "t-animals-1", "game": "farm", "icon": "cow", "title": { "hi": "कौन बोला?", "en": "Who said that?" }, "config": { "rounds": 4 } },
             {
               "id": "t-animals-2",
               "game": "rescue",
@@ -1743,7 +1746,7 @@
           "skill": "Colours",
           "icon": "red",
           "lessons": [
-            { "id": "t-colours-1", "game": "recycling", "icon": "red", "title": { "hi": "रंग", "en": "Colours" }, "config": { "modes": ["color"], "rounds": 5, "bins": 2 }},
+            { "id": "t-colours-1", "game": "recycling", "icon": "red", "title": { "hi": "रंग", "en": "Colours" }, "config": { "modes": ["color"], "rounds": 5, "bins": 2 } },
             {
               "id": "t-colours-2",
               "game": "recycling",
@@ -1758,7 +1761,7 @@
           "title": { "hi": "बड़ा और छोटा", "en": "Big and small" },
           "skill": "Concepts",
           "icon": "plane",
-          "lessons": [{ "id": "t-bigsmall-1", "game": "opposites", "icon": "plane", "title": { "hi": "बड़ा-छोटा", "en": "Big, small" }, "config": { "rounds": 4 }}]
+          "lessons": [{ "id": "t-bigsmall-1", "game": "opposites", "icon": "plane", "title": { "hi": "बड़ा-छोटा", "en": "Big, small" }, "config": { "rounds": 4 } }]
         },
         {
           "id": "t-count",
@@ -1903,7 +1906,7 @@
               "game": "construction",
               "icon": "digger",
               "title": { "hi": "स्वर खोदो", "en": "Dig vowels" },
-              "config": { "activities": ["dig"], "letters": { "sets": ["hindiVowels"] }}
+              "config": { "activities": ["dig"], "letters": { "sets": ["hindiVowels"] } }
             },
             {
               "id": "k-vowels-2",
@@ -1939,14 +1942,14 @@
               "game": "construction",
               "icon": "digger",
               "title": { "hi": "खोदो", "en": "Dig" },
-              "config": { "activities": ["dig"], "letters": { "sets": ["hindiConsonants"], "from": 0, "to": 10 }}
+              "config": { "activities": ["dig"], "letters": { "sets": ["hindiConsonants"], "from": 0, "to": 10 } }
             },
             {
               "id": "k-cons1-2",
               "game": "construction",
               "icon": "dumptruck",
               "title": { "hi": "ब्लॉक पहुँचाओ", "en": "Deliver" },
-              "config": { "activities": ["deliver"], "letters": { "sets": ["hindiConsonants"], "from": 0, "to": 10 }}
+              "config": { "activities": ["deliver"], "letters": { "sets": ["hindiConsonants"], "from": 0, "to": 10 } }
             },
             {
               "id": "k-cons1-3",
@@ -2004,7 +2007,7 @@
               "game": "construction",
               "icon": "digger",
               "title": { "hi": "खोदो", "en": "Dig" },
-              "config": { "activities": ["dig"], "letters": { "sets": ["hindiConsonants"], "from": 10, "to": 20 }}
+              "config": { "activities": ["dig"], "letters": { "sets": ["hindiConsonants"], "from": 10, "to": 20 } }
             },
             {
               "id": "k-cons2-2",
@@ -2029,7 +2032,7 @@
               "game": "construction",
               "icon": "dumptruck",
               "title": { "hi": "ब्लॉक पहुँचाओ", "en": "Deliver" },
-              "config": { "activities": ["deliver"], "letters": { "sets": ["hindiConsonants"], "from": 10, "to": 20 }}
+              "config": { "activities": ["deliver"], "letters": { "sets": ["hindiConsonants"], "from": 10, "to": 20 } }
             },
             {
               "id": "k-cons2-5",
@@ -2073,7 +2076,7 @@
               "game": "construction",
               "icon": "digger",
               "title": { "hi": "खोदो", "en": "Dig" },
-              "config": { "activities": ["dig"], "letters": { "sets": ["hindiConsonants"], "from": 20, "to": 36 }}
+              "config": { "activities": ["dig"], "letters": { "sets": ["hindiConsonants"], "from": 20, "to": 36 } }
             },
             {
               "id": "k-cons3-2",
@@ -2149,7 +2152,7 @@
               "game": "construction",
               "icon": "digger",
               "title": { "hi": "ABC खोदो", "en": "Dig ABC" },
-              "config": { "activities": ["dig"], "letters": { "sets": ["english"] }}
+              "config": { "activities": ["dig"], "letters": { "sets": ["english"] } }
             },
             {
               "id": "k-abc-3",
@@ -2210,13 +2213,148 @@
           "skill": "Numbers",
           "icon": "num",
           "lessons": [
-            { "id": "k-numbers-1", "game": "busdepot", "icon": "bus", "title": { "hi": "गिनो", "en": "Count" }, "config": { "parts": ["count"], "countRounds": 5 }},
+            { "id": "k-numbers-1", "game": "busdepot", "icon": "bus", "title": { "hi": "गिनो", "en": "Count" }, "config": { "parts": ["count"], "countRounds": 5 } },
             {
               "id": "k-numbers-2",
               "game": "busdepot",
               "icon": "bus",
               "title": { "hi": "बस में बिठाओ", "en": "Bus ride" },
               "config": { "parts": ["pickup"], "pickupRounds": 5 }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "igloo",
+      "level": "kg",
+      "subject": "math",
+      "lang": "en",
+      "theme": "igloo",
+      "mascot": "pip",
+      "color": "#0EA5E9",
+      "collection": "igloo",
+      "name": { "hi": "पिप का गिनती इग्लू", "en": "Pip's Number Igloo" },
+      "letterSets": [],
+      "units": [
+        {
+          "id": "km-count",
+          "title": { "hi": "गिनती", "en": "Let's count!" },
+          "skill": "Counting · NC.K.CC.4–5",
+          "icon": "penguin",
+          "lessons": [
+            { "id": "km-count-1", "game": "math", "icon": "fish", "title": { "hi": "गिनो", "en": "Count the fish" }, "config": { "skills": ["k-count"] } },
+            { "id": "km-count-2", "game": "math", "icon": "snowflake", "title": { "hi": "झट से देखो", "en": "Quick look" }, "config": { "skills": ["k-quick"] } },
+            {
+              "id": "km-count-3",
+              "game": "math",
+              "icon": "penguin",
+              "title": { "hi": "गिनो और देखो", "en": "Count and look" },
+              "config": { "skills": ["k-count", "k-quick"] }
+            }
+          ]
+        },
+        {
+          "id": "km-numbers",
+          "title": { "hi": "संख्याएँ", "en": "Let's learn numbers" },
+          "skill": "Numbers to 100 · NC.K.CC.1–3",
+          "icon": "letter:7",
+          "lessons": [
+            {
+              "id": "km-numbers-1",
+              "game": "math",
+              "icon": "letter:7",
+              "title": { "hi": "संख्या ढूँढो", "en": "Find the number" },
+              "config": { "skills": ["k-numerals"] }
+            },
+            { "id": "km-numbers-2", "game": "math", "icon": "letter:8", "title": { "hi": "आगे क्या?", "en": "What comes next?" }, "config": { "skills": ["k-next"] } },
+            { "id": "km-numbers-3", "game": "math", "icon": "letter:10", "title": { "hi": "दस-दस गिनो", "en": "Count by tens" }, "config": { "skills": ["k-tens"] } }
+          ]
+        },
+        {
+          "id": "km-compare",
+          "title": { "hi": "तुलना", "en": "Let's compare" },
+          "skill": "Compare numbers · NC.K.CC.6–7",
+          "icon": "apple",
+          "lessons": [
+            { "id": "km-compare-1", "game": "math", "icon": "apple", "title": { "hi": "ज़्यादा या कम?", "en": "More or fewer?" }, "config": { "skills": ["k-more"] } },
+            { "id": "km-compare-2", "game": "math", "icon": "letter:9", "title": { "hi": "बड़ी संख्या", "en": "Bigger number" }, "config": { "skills": ["k-compare"] } }
+          ]
+        },
+        {
+          "id": "km-add",
+          "title": { "hi": "जोड़-घटाव", "en": "Let's add and take away" },
+          "skill": "Addition and subtraction · NC.K.OA.1, 2, 5",
+          "icon": "duck",
+          "lessons": [
+            { "id": "km-add-1", "game": "math", "icon": "duck", "title": { "hi": "जोड़ की कहानियाँ", "en": "Adding stories" }, "config": { "skills": ["k-add"] } },
+            { "id": "km-add-2", "game": "math", "icon": "balloon", "title": { "hi": "घटाव की कहानियाँ", "en": "Take-away stories" }, "config": { "skills": ["k-sub"] } },
+            { "id": "km-add-3", "game": "math", "icon": "letter:+", "title": { "hi": "5 तक के जोड़", "en": "Quick facts to 5" }, "config": { "skills": ["k-facts5"] } }
+          ]
+        },
+        {
+          "id": "km-ten",
+          "title": { "hi": "दस बनाओ", "en": "Let's make 10" },
+          "skill": "Partners, 10 and teens · NC.K.OA.3–4, NBT.1",
+          "icon": "letter:10",
+          "lessons": [
+            { "id": "km-ten-1", "game": "math", "icon": "letter:5", "title": { "hi": "संख्या के साथी", "en": "Number partners" }, "config": { "skills": ["k-partner"] } },
+            { "id": "km-ten-2", "game": "math", "icon": "letter:10", "title": { "hi": "10 बनाओ", "en": "Make 10" }, "config": { "skills": ["k-make10"] } },
+            { "id": "km-ten-3", "game": "math", "icon": "letter:14", "title": { "hi": "11 से 19", "en": "Teen numbers" }, "config": { "skills": ["k-teens"] } }
+          ]
+        },
+        {
+          "id": "km-shapes",
+          "title": { "hi": "आकार", "en": "Let's find shapes" },
+          "skill": "Shapes and positions · NC.K.G.1–3",
+          "icon": "shape-triangle",
+          "lessons": [
+            { "id": "km-shapes-1", "game": "math", "icon": "chair", "title": { "hi": "कहाँ है?", "en": "Where is it?" }, "config": { "skills": ["k-position"] } },
+            { "id": "km-shapes-2", "game": "math", "icon": "shape-triangle", "title": { "hi": "आकार ढूँढो", "en": "Shape hunt" }, "config": { "skills": ["k-shapes"] } },
+            {
+              "id": "km-shapes-3",
+              "game": "math",
+              "icon": "shape-square",
+              "title": { "hi": "सपाट या ठोस?", "en": "Flat or solid?" },
+              "config": { "skills": ["k-solids"] }
+            }
+          ]
+        },
+        {
+          "id": "km-measure",
+          "title": { "hi": "नापो और छाँटो", "en": "Let's measure and sort" },
+          "skill": "Measure and sort · NC.K.MD.1–3",
+          "icon": "giraffe",
+          "lessons": [
+            {
+              "id": "km-measure-1",
+              "game": "math",
+              "icon": "giraffe",
+              "title": { "hi": "लंबा या ऊँचा?", "en": "Longer or taller?" },
+              "config": { "skills": ["k-measure"] }
+            },
+            { "id": "km-measure-2", "game": "math", "icon": "fish", "title": { "hi": "छाँटो और गिनो", "en": "Sort and count" }, "config": { "skills": ["k-sort"] } }
+          ]
+        },
+        {
+          "id": "km-party",
+          "title": { "hi": "गिनती पार्टी", "en": "Number party!" },
+          "skill": "Review · mixed practice",
+          "icon": "snowman",
+          "lessons": [
+            {
+              "id": "km-party-1",
+              "game": "math",
+              "icon": "snowman",
+              "title": { "hi": "मिला-जुला 1", "en": "Party mix 1" },
+              "config": { "skills": ["k-count", "k-add", "k-make10", "k-shapes", "k-next"], "rounds": 8 }
+            },
+            {
+              "id": "km-party-2",
+              "game": "math",
+              "icon": "igloo",
+              "title": { "hi": "मिला-जुला 2", "en": "Party mix 2" },
+              "config": { "skills": ["k-numerals", "k-compare", "k-teens", "k-sub", "k-position", "k-measure"], "rounds": 8 }
             }
           ]
         }
@@ -2356,7 +2494,7 @@
           "skill": "Vocabulary",
           "icon": "grandmother",
           "lessons": [
-            { "id": "g1-family-1", "game": "quiz", "icon": "grandmother", "title": { "hi": "परिवार", "en": "Family" }, "config": { "bank": "g1-family", "rounds": 5 }},
+            { "id": "g1-family-1", "game": "quiz", "icon": "grandmother", "title": { "hi": "परिवार", "en": "Family" }, "config": { "bank": "g1-family", "rounds": 5 } },
             {
               "id": "g1-family-2",
               "game": "read",
@@ -2364,7 +2502,7 @@
               "title": { "hi": "परिवार के शब्द", "en": "Family words" },
               "config": { "words": ["mother", "father", "grandfather", "grandmother", "brother", "sister"], "modes": ["find", "match"], "rounds": 5 }
             },
-            { "id": "g1-family-3", "game": "quiz", "icon": "roti", "title": { "hi": "खाना", "en": "Food" }, "config": { "bank": "g1-food", "rounds": 5 }},
+            { "id": "g1-family-3", "game": "quiz", "icon": "roti", "title": { "hi": "खाना", "en": "Food" }, "config": { "bank": "g1-food", "rounds": 5 } },
             {
               "id": "g1-family-4",
               "game": "read",
@@ -2380,7 +2518,7 @@
           "skill": "Vocabulary",
           "icon": "lamp",
           "lessons": [
-            { "id": "g1-fest-1", "game": "quiz", "icon": "lamp", "title": { "hi": "त्योहार", "en": "Festivals" }, "config": { "bank": "g1-festivals", "rounds": 5 }},
+            { "id": "g1-fest-1", "game": "quiz", "icon": "lamp", "title": { "hi": "त्योहार", "en": "Festivals" }, "config": { "bank": "g1-festivals", "rounds": 5 } },
             {
               "id": "g1-fest-2",
               "game": "read",
@@ -2411,7 +2549,7 @@
           "title": { "hi": "तुकबंदी", "en": "Rhyme time" },
           "skill": "Phonological awareness",
           "icon": "icecreamvan",
-          "lessons": [{ "id": "g1-rhyme-1", "game": "rhyme", "icon": "icecreamvan", "title": { "hi": "तुक मिलाओ", "en": "Rhymes" }, "config": { "rounds": 4 }}]
+          "lessons": [{ "id": "g1-rhyme-1", "game": "rhyme", "icon": "icecreamvan", "title": { "hi": "तुक मिलाओ", "en": "Rhymes" }, "config": { "rounds": 4 } }]
         },
         {
           "id": "g1-sent",
@@ -2433,7 +2571,186 @@
           "title": { "hi": "कहानी का समय", "en": "Story time" },
           "skill": "Reading",
           "icon": "bookbus",
-          "lessons": [{ "id": "g1-story-1", "game": "story", "icon": "bookbus", "title": { "hi": "कहानी", "en": "Story" }, "config": { "levels": ["grade1"] }}]
+          "lessons": [{ "id": "g1-story-1", "game": "story", "icon": "bookbus", "title": { "hi": "कहानी", "en": "Story" }, "config": { "levels": ["grade1"] } }]
+        }
+      ]
+    },
+    {
+      "id": "carnival",
+      "level": "grade1",
+      "subject": "math",
+      "lang": "en",
+      "theme": "carnival",
+      "mascot": "tiko",
+      "color": "#F43F5E",
+      "collection": "carnival",
+      "name": { "hi": "टीको का गणित मेला", "en": "Tiko's Number Carnival" },
+      "letterSets": [],
+      "units": [
+        {
+          "id": "g1m-count",
+          "title": { "hi": "गिनती 120 तक", "en": "Let's count to 120" },
+          "skill": "Count and read to 120 · NC.1.NBT.1",
+          "icon": "letter:120",
+          "lessons": [
+            { "id": "g1m-count-1", "game": "math", "icon": "letter:99", "title": { "hi": "आगे गिनो", "en": "Count on" }, "config": { "skills": ["g1-count120"] } },
+            {
+              "id": "g1m-count-2",
+              "game": "math",
+              "icon": "letter:105",
+              "title": { "hi": "बड़ी संख्याएँ पढ़ो", "en": "Read big numbers" },
+              "config": { "skills": ["g1-numerals"] }
+            }
+          ]
+        },
+        {
+          "id": "g1m-place",
+          "title": { "hi": "दहाई और इकाई", "en": "Let's learn tens and ones" },
+          "skill": "Place value · NC.1.NBT.2–3",
+          "icon": "letter:34",
+          "lessons": [
+            { "id": "g1m-place-1", "game": "math", "icon": "letter:34", "title": { "hi": "दहाई और इकाई", "en": "Tens and ones" }, "config": { "skills": ["g1-place"] } },
+            {
+              "id": "g1m-place-2",
+              "game": "math",
+              "icon": "letter:>",
+              "title": { "hi": "बड़ा या छोटा?", "en": "Greater or less?" },
+              "config": { "skills": ["g1-compare"] }
+            }
+          ]
+        },
+        {
+          "id": "g1m-facts",
+          "title": { "hi": "20 तक जोड़-घटाव", "en": "Let's add and subtract to 20" },
+          "skill": "Facts within 20 · NC.1.OA.2, 3, 6",
+          "icon": "letter:+",
+          "lessons": [
+            { "id": "g1m-facts-1", "game": "math", "icon": "letter:+", "title": { "hi": "दस बनाओ", "en": "Make a ten" }, "config": { "skills": ["g1-facts20"] } },
+            { "id": "g1m-facts-2", "game": "math", "icon": "letter:3+", "title": { "hi": "तीन संख्याएँ", "en": "Three numbers" }, "config": { "skills": ["g1-three"] } },
+            {
+              "id": "g1m-facts-3",
+              "game": "math",
+              "icon": "letter:?",
+              "title": { "hi": "छूटी संख्या", "en": "Missing numbers" },
+              "config": { "skills": ["g1-missing"] }
+            }
+          ]
+        },
+        {
+          "id": "g1m-story",
+          "title": { "hi": "कहानी वाले सवाल", "en": "Let's solve story problems" },
+          "skill": "Word problems and the equal sign · NC.1.OA.1, 7, 8",
+          "icon": "kite",
+          "lessons": [
+            { "id": "g1m-story-1", "game": "math", "icon": "kite", "title": { "hi": "कहानी के सवाल", "en": "Story problems" }, "config": { "skills": ["g1-story"] } },
+            { "id": "g1m-story-2", "game": "math", "icon": "letter:=", "title": { "hi": "सही या ग़लत?", "en": "True or false?" }, "config": { "skills": ["g1-equal"] } }
+          ]
+        },
+        {
+          "id": "g1m-100",
+          "title": { "hi": "100 तक", "en": "Let's add big numbers" },
+          "skill": "Add and subtract tens · NC.1.NBT.4–6",
+          "icon": "letter:+10",
+          "lessons": [
+            {
+              "id": "g1m-100-1",
+              "game": "math",
+              "icon": "letter:+10",
+              "title": { "hi": "10 ज़्यादा, 10 कम", "en": "10 more, 10 less" },
+              "config": { "skills": ["g1-tenmore"] }
+            },
+            { "id": "g1m-100-2", "game": "math", "icon": "letter:+20", "title": { "hi": "दहाई जोड़ो", "en": "Adding tens" }, "config": { "skills": ["g1-add100"] } }
+          ]
+        },
+        {
+          "id": "g1m-measure",
+          "title": { "hi": "नाप और समय", "en": "Let's measure and tell time" },
+          "skill": "Length and time · NC.1.MD.1–3",
+          "icon": "clock",
+          "lessons": [
+            {
+              "id": "g1m-measure-1",
+              "game": "math",
+              "icon": "snake",
+              "title": { "hi": "सबसे लंबा, सबसे छोटा", "en": "Longest and shortest" },
+              "config": { "skills": ["g1-length"] }
+            },
+            {
+              "id": "g1m-measure-2",
+              "game": "math",
+              "icon": "train",
+              "title": { "hi": "घनों से नापो", "en": "Measure with cubes" },
+              "config": { "skills": ["g1-units"] }
+            },
+            {
+              "id": "g1m-measure-3",
+              "game": "math",
+              "icon": "clock",
+              "title": { "hi": "कितने बजे हैं?", "en": "What time is it?" },
+              "config": { "skills": ["g1-time"] }
+            }
+          ]
+        },
+        {
+          "id": "g1m-money",
+          "title": { "hi": "सिक्के और ग्राफ़", "en": "Let's learn coins and graphs" },
+          "skill": "Money and data · NC.1.MD.4–5",
+          "icon": "coins",
+          "lessons": [
+            { "id": "g1m-money-1", "game": "math", "icon": "coins", "title": { "hi": "सिक्के", "en": "Coins" }, "config": { "skills": ["g1-coins"] } },
+            { "id": "g1m-money-2", "game": "math", "icon": "balloon", "title": { "hi": "चित्र ग्राफ़", "en": "Picture graphs" }, "config": { "skills": ["g1-graph"] } }
+          ]
+        },
+        {
+          "id": "g1m-shapes",
+          "title": { "hi": "आकार", "en": "Let's explore shapes" },
+          "skill": "Shapes and fractions · NC.1.G.1–3",
+          "icon": "shape-square",
+          "lessons": [
+            {
+              "id": "g1m-shapes-1",
+              "game": "math",
+              "icon": "shape-triangle",
+              "title": { "hi": "भुजाएँ और कोने", "en": "Sides and corners" },
+              "config": { "skills": ["g1-sides"] }
+            },
+            {
+              "id": "g1m-shapes-2",
+              "game": "math",
+              "icon": "shape-square",
+              "title": { "hi": "आकार जोड़ो", "en": "Put shapes together" },
+              "config": { "skills": ["g1-compose"] }
+            },
+            {
+              "id": "g1m-shapes-3",
+              "game": "math",
+              "icon": "roti",
+              "title": { "hi": "आधा और चौथाई", "en": "Halves and fourths" },
+              "config": { "skills": ["g1-halves"] }
+            }
+          ]
+        },
+        {
+          "id": "g1m-challenge",
+          "title": { "hi": "मेला चुनौती", "en": "Carnival challenge" },
+          "skill": "Review · mixed practice",
+          "icon": "ferris",
+          "lessons": [
+            {
+              "id": "g1m-challenge-1",
+              "game": "math",
+              "icon": "ferris",
+              "title": { "hi": "चुनौती 1", "en": "Challenge 1" },
+              "config": { "skills": ["g1-facts20", "g1-place", "g1-time", "g1-story", "g1-halves"], "rounds": 8 }
+            },
+            {
+              "id": "g1m-challenge-2",
+              "game": "math",
+              "icon": "drum",
+              "title": { "hi": "चुनौती 2", "en": "Challenge 2" },
+              "config": { "skills": ["g1-missing", "g1-compare", "g1-coins", "g1-tenmore", "g1-graph", "g1-sides"], "rounds": 8 }
+            }
+          ]
         }
       ]
     },
@@ -2475,7 +2792,7 @@
           "title": { "hi": "र के रूप", "en": "The shapes of र" },
           "skill": "Phonics",
           "icon": "chair",
-          "lessons": [{ "id": "g2-ra-1", "game": "sort", "icon": "chair", "title": { "hi": "र कहाँ है?", "en": "Where is र?" }, "config": { "sort": "g2-ra", "rounds": 8 }}]
+          "lessons": [{ "id": "g2-ra-1", "game": "sort", "icon": "chair", "title": { "hi": "र कहाँ है?", "en": "Where is र?" }, "config": { "sort": "g2-ra", "rounds": 8 } }]
         },
         {
           "id": "g2-home",
@@ -2504,21 +2821,21 @@
           "title": { "hi": "विलोम शब्द", "en": "Let's learn opposites" },
           "skill": "Vocabulary",
           "icon": "size-big",
-          "lessons": [{ "id": "g2-opp-1", "game": "pairs", "icon": "place-parking", "title": { "hi": "उल्टा", "en": "Opposites" }, "config": { "kinds": ["opposite"] }}]
+          "lessons": [{ "id": "g2-opp-1", "game": "pairs", "icon": "place-parking", "title": { "hi": "उल्टा", "en": "Opposites" }, "config": { "kinds": ["opposite"] } }]
         },
         {
           "id": "g2-many",
           "title": { "hi": "एक और अनेक", "en": "One and many" },
           "skill": "Grammar",
           "icon": "bananas",
-          "lessons": [{ "id": "g2-many-1", "game": "pairs", "icon": "place-parking", "title": { "hi": "एक-अनेक", "en": "One, many" }, "config": { "kinds": ["plural"] }}]
+          "lessons": [{ "id": "g2-many-1", "game": "pairs", "icon": "place-parking", "title": { "hi": "एक-अनेक", "en": "One, many" }, "config": { "kinds": ["plural"] } }]
         },
         {
           "id": "g2-rhyme",
           "title": { "hi": "तुकांत शब्द", "en": "Rhyming words" },
           "skill": "Phonological awareness",
           "icon": "icecreamvan",
-          "lessons": [{ "id": "g2-rhyme-1", "game": "rhyme", "icon": "icecreamvan", "title": { "hi": "तुक मिलाओ", "en": "Rhymes" }, "config": { "rounds": 5 }}]
+          "lessons": [{ "id": "g2-rhyme-1", "game": "rhyme", "icon": "icecreamvan", "title": { "hi": "तुक मिलाओ", "en": "Rhymes" }, "config": { "rounds": 5 } }]
         },
         {
           "id": "g2-sent",
@@ -2540,7 +2857,7 @@
           "title": { "hi": "कहानियाँ", "en": "Stories" },
           "skill": "Reading",
           "icon": "bookbus",
-          "lessons": [{ "id": "g2-story-1", "game": "story", "icon": "bookbus", "title": { "hi": "कहानी", "en": "Story" }, "config": { "levels": ["grade2"] }}]
+          "lessons": [{ "id": "g2-story-1", "game": "story", "icon": "bookbus", "title": { "hi": "कहानी", "en": "Story" }, "config": { "levels": ["grade2"] } }]
         }
       ]
     },
@@ -2561,8 +2878,8 @@
           "skill": "Grammar",
           "icon": "lioness",
           "lessons": [
-            { "id": "g3-gender-1", "game": "pairs", "icon": "place-parking", "title": { "hi": "लिंग", "en": "Gender" }, "config": { "kinds": ["female"] }},
-            { "id": "g3-gender-2", "game": "quiz", "icon": "girl", "title": { "hi": "सही शब्द", "en": "Pick the word" }, "config": { "bank": "g3-gender", "rounds": 6 }}
+            { "id": "g3-gender-1", "game": "pairs", "icon": "place-parking", "title": { "hi": "लिंग", "en": "Gender" }, "config": { "kinds": ["female"] } },
+            { "id": "g3-gender-2", "game": "quiz", "icon": "girl", "title": { "hi": "सही शब्द", "en": "Pick the word" }, "config": { "bank": "g3-gender", "rounds": 6 } }
           ]
         },
         {
@@ -2570,14 +2887,14 @@
           "title": { "hi": "वचन", "en": "Let's learn singular and plural" },
           "skill": "Grammar",
           "icon": "books",
-          "lessons": [{ "id": "g3-number-1", "game": "pairs", "icon": "place-parking", "title": { "hi": "वचन", "en": "Number" }, "config": { "kinds": ["plural"] }}]
+          "lessons": [{ "id": "g3-number-1", "game": "pairs", "icon": "place-parking", "title": { "hi": "वचन", "en": "Number" }, "config": { "kinds": ["plural"] } }]
         },
         {
           "id": "g3-opp",
           "title": { "hi": "विलोम", "en": "Opposites" },
           "skill": "Vocabulary",
           "icon": "size-small",
-          "lessons": [{ "id": "g3-opp-1", "game": "pairs", "icon": "place-parking", "title": { "hi": "विलोम", "en": "Opposites" }, "config": { "kinds": ["opposite"] }}]
+          "lessons": [{ "id": "g3-opp-1", "game": "pairs", "icon": "place-parking", "title": { "hi": "विलोम", "en": "Opposites" }, "config": { "kinds": ["opposite"] } }]
         },
         {
           "id": "g3-sent",
@@ -2614,7 +2931,7 @@
           "title": { "hi": "पर्यायवाची शब्द", "en": "Same-meaning words" },
           "skill": "Vocabulary",
           "icon": "sun",
-          "lessons": [{ "id": "g3-syn-1", "game": "quiz", "icon": "sun", "title": { "hi": "दूसरा नाम", "en": "Another word" }, "config": { "bank": "g3-synonyms", "rounds": 6 }}]
+          "lessons": [{ "id": "g3-syn-1", "game": "quiz", "icon": "sun", "title": { "hi": "दूसरा नाम", "en": "Another word" }, "config": { "bank": "g3-synonyms", "rounds": 6 } }]
         },
         {
           "id": "g3-punct",
@@ -2651,7 +2968,7 @@
           "title": { "hi": "लोककथाएँ", "en": "Folktales" },
           "skill": "Reading",
           "icon": "bookbus",
-          "lessons": [{ "id": "g3-story-1", "game": "story", "icon": "bookbus", "title": { "hi": "कहानी", "en": "Story" }, "config": { "levels": ["grade3"] }}]
+          "lessons": [{ "id": "g3-story-1", "game": "story", "icon": "bookbus", "title": { "hi": "कहानी", "en": "Story" }, "config": { "levels": ["grade3"] } }]
         }
       ]
     },
@@ -2671,7 +2988,7 @@
           "title": { "hi": "सर्वनाम", "en": "Let's learn pronouns" },
           "skill": "Grammar",
           "icon": "girl",
-          "lessons": [{ "id": "g4-pron-1", "game": "quiz", "icon": "girl", "title": { "hi": "मैं, तुम, वह", "en": "I, you, she" }, "config": { "bank": "g4-pronouns", "rounds": 6 }}]
+          "lessons": [{ "id": "g4-pron-1", "game": "quiz", "icon": "girl", "title": { "hi": "मैं, तुम, वह", "en": "I, you, she" }, "config": { "bank": "g4-pronouns", "rounds": 6 } }]
         },
         {
           "id": "g4-adj",
@@ -2700,21 +3017,21 @@
           "title": { "hi": "क्रिया", "en": "Let's learn action words" },
           "skill": "Grammar",
           "icon": "bird",
-          "lessons": [{ "id": "g4-verbs-1", "game": "quiz", "icon": "bird", "title": { "hi": "काम वाले शब्द", "en": "Action words" }, "config": { "bank": "g4-verbs", "rounds": 6 }}]
+          "lessons": [{ "id": "g4-verbs-1", "game": "quiz", "icon": "bird", "title": { "hi": "काम वाले शब्द", "en": "Action words" }, "config": { "bank": "g4-verbs", "rounds": 6 } }]
         },
         {
           "id": "g4-tense",
           "title": { "hi": "काल", "en": "Past, present and future" },
           "skill": "Grammar",
           "icon": "clock",
-          "lessons": [{ "id": "g4-tense-1", "game": "quiz", "icon": "clock", "title": { "hi": "कब?", "en": "When?" }, "config": { "bank": "g4-tense", "rounds": 6 }}]
+          "lessons": [{ "id": "g4-tense-1", "game": "quiz", "icon": "clock", "title": { "hi": "कब?", "en": "When?" }, "config": { "bank": "g4-tense", "rounds": 6 } }]
         },
         {
           "id": "g4-idioms",
           "title": { "hi": "मुहावरे", "en": "Let's learn idioms" },
           "skill": "Vocabulary",
           "icon": "eye",
-          "lessons": [{ "id": "g4-idioms-1", "game": "quiz", "icon": "eye", "title": { "hi": "मुहावरे", "en": "Idioms" }, "config": { "bank": "g4-idioms", "rounds": 5 }}]
+          "lessons": [{ "id": "g4-idioms-1", "game": "quiz", "icon": "eye", "title": { "hi": "मुहावरे", "en": "Idioms" }, "config": { "bank": "g4-idioms", "rounds": 5 } }]
         },
         {
           "id": "g4-days",
@@ -2752,7 +3069,7 @@
           "skill": "Vocabulary",
           "icon": "size-big",
           "lessons": [
-            { "id": "g4-review-1", "game": "quiz", "icon": "size-big", "title": { "hi": "उल्टा", "en": "Opposites" }, "config": { "bank": "g4-review", "rounds": 6 }},
+            { "id": "g4-review-1", "game": "quiz", "icon": "size-big", "title": { "hi": "उल्टा", "en": "Opposites" }, "config": { "bank": "g4-review", "rounds": 6 } },
             {
               "id": "g4-review-2",
               "game": "pairs",
@@ -2782,7 +3099,7 @@
           "title": { "hi": "कहानियाँ", "en": "Stories with a moral" },
           "skill": "Reading",
           "icon": "bookbus",
-          "lessons": [{ "id": "g4-story-1", "game": "story", "icon": "bookbus", "title": { "hi": "कहानी", "en": "Story" }, "config": { "levels": ["grade3", "grade4"] }}]
+          "lessons": [{ "id": "g4-story-1", "game": "story", "icon": "bookbus", "title": { "hi": "कहानी", "en": "Story" }, "config": { "levels": ["grade3", "grade4"] } }]
         }
       ]
     }

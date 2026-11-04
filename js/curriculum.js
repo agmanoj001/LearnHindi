@@ -133,7 +133,7 @@ export function lessonLetters(content, spec) {
 export function hubWorlds(content, settings) {
   const order = content.levels.map((l) => l.id);
   const mine = settings.level;
-  const all = content.worlds.slice().sort((a, b) => order.indexOf(a.level) - order.indexOf(b.level));
+  const all = content.worlds.filter((w) => w.subject !== 'math' || settings.math !== false).sort((a, b) => order.indexOf(a.level) - order.indexOf(b.level));
   if (settings.lockGrade) return all.filter((w) => w.level === mine);
   return [...all.filter((w) => w.level === mine), ...all.filter((w) => w.level !== mine)];
 }

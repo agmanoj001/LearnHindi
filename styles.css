@@ -1590,6 +1590,17 @@ svg {
 .backdrop .swim {
   animation: swim var(--d, 14s) linear infinite;
 }
+.backdrop .turn,
+.world-card-scene .turn {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: turn 40s linear infinite;
+}
+@keyframes turn {
+  to {
+    transform: rotate(360deg);
+  }
+}
 @keyframes drift {
   to {
     transform: translateX(60px);
@@ -2831,4 +2842,507 @@ body.speaking .mascot .m-mouth-closed {
   .moral-badge {
     animation: none;
   }
+}
+
+/* ---------- math worlds ---------- */
+.math-board {
+  width: min(94vw, 760px);
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: 32px;
+  box-shadow: var(--shadow-lg);
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Fredoka', var(--font);
+}
+.math-ask {
+  margin: 0;
+  font-size: clamp(20px, 4.4vmin, 32px);
+  font-weight: 700;
+  color: var(--ink);
+  text-align: center;
+  line-height: 1.2;
+}
+.math-eq {
+  font-size: clamp(34px, 8vmin, 60px);
+  font-weight: 700;
+  color: var(--glyph);
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  gap: 0.15em;
+  white-space: pre;
+}
+.math-eq .gap {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.3em;
+  padding: 0 0.15em;
+  border-radius: 16px;
+  border: 4px dashed var(--brand);
+  color: var(--brand);
+  line-height: 1.1;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+.math-eq.done .gap {
+  border: 0;
+  background: var(--good-soft);
+  color: #158a55;
+  animation: pop-in 0.4s ease-out;
+}
+.math-model {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  max-height: 34vh;
+}
+.mm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+}
+.mm-svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+.math-model .mm-svg {
+  max-height: 32vh;
+}
+
+/* objects to count */
+.mm-objects {
+  --obj: clamp(66px, 16vmin, 104px);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px 18px;
+}
+.mm-objects.some {
+  --obj: clamp(50px, 11.5vmin, 80px);
+}
+.mm-objects.many {
+  --obj: clamp(36px, 8vmin, 58px);
+}
+.mm-objects.big {
+  --obj: clamp(60px, 13vmin, 90px);
+}
+.mm-objects.stacked {
+  flex-direction: column;
+  gap: 4px;
+}
+.mm-group {
+  display: grid;
+  grid-template-columns: repeat(var(--cols), var(--obj));
+  gap: 4px;
+  padding: 6px;
+  border-radius: 18px;
+  background: var(--well);
+}
+.mm-group.arrive {
+  background: #e6f3ff;
+  animation: arrive 0.7s cubic-bezier(0.2, 1.3, 0.4, 1) both;
+}
+@keyframes arrive {
+  from {
+    transform: translateX(60px);
+    opacity: 0;
+  }
+}
+.mm-op {
+  font-size: clamp(30px, 6vmin, 44px);
+  font-weight: 800;
+  color: var(--glyph);
+}
+.mm-obj {
+  position: relative;
+  width: var(--obj);
+  height: calc(var(--obj) * 0.72);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  border-radius: 12px;
+  transition: transform 0.15s;
+}
+.mm-obj svg {
+  width: 100%;
+  height: 100%;
+}
+.mm-dot {
+  width: 74%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--c);
+  box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.12);
+}
+.mm-obj.counted {
+  background: rgba(255, 214, 102, 0.45);
+}
+.mm-obj.counted::after {
+  content: attr(data-n);
+  position: absolute;
+  top: -8px;
+  right: -6px;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 4px;
+  border-radius: 11px;
+  background: var(--brand);
+  color: #fff;
+  font: 700 14px/22px 'Fredoka', sans-serif;
+  text-align: center;
+  animation: pop-in 0.25s ease-out;
+}
+.mm-obj.gone {
+  opacity: 0.32;
+  filter: grayscale(0.6);
+  animation: go-away 1.2s ease-in both 0.5s;
+}
+.mm-obj.gone::before {
+  content: '';
+  position: absolute;
+  inset: 20% 10%;
+  background: linear-gradient(to top right, transparent calc(50% - 2px), #e2463f calc(50% - 2px), #e2463f calc(50% + 2px), transparent calc(50% + 2px));
+  z-index: 1;
+}
+@keyframes go-away {
+  from {
+    opacity: 1;
+    filter: none;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0.32;
+    transform: translateY(-6px);
+  }
+}
+.mm-objects.scatter {
+  position: relative;
+  width: min(88vw, 520px);
+  height: clamp(170px, 30vh, 260px);
+  display: block;
+  background: var(--well);
+  border-radius: 22px;
+}
+.mm-objects.scatter .mm-obj {
+  position: absolute;
+  transform: translate(-50%, -50%);
+}
+.mm-objects.mixed {
+  max-width: 560px;
+  padding: 8px;
+  background: var(--well);
+  border-radius: 22px;
+}
+
+/* ten frames, sequences, number lines */
+.mm-frames {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+.mm-frame {
+  width: min(84vw, 300px);
+}
+.mm-counter {
+  animation: pop-in 0.3s ease-out both;
+}
+.mm-missing {
+  animation: pulse 1.6s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.mm-seq {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+.mm-num {
+  min-width: 1.7em;
+  padding: 4px 10px;
+  border-radius: 18px;
+  background: var(--well);
+  font-size: clamp(28px, 6.5vmin, 46px);
+  font-weight: 700;
+  color: var(--glyph);
+  text-align: center;
+}
+.mm-num.gap {
+  border: 4px dashed var(--brand);
+  color: var(--brand);
+  background: #fff;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+.mm-num.gap.done {
+  border-color: transparent;
+  background: var(--good-soft);
+  color: #158a55;
+  animation: pop-in 0.4s ease-out;
+}
+.mm-line {
+  width: min(92vw, 640px);
+}
+.mm-base10 {
+  height: clamp(120px, 24vh, 190px);
+  width: auto;
+}
+.mm-compare {
+  display: flex;
+  gap: 18px;
+  align-items: flex-end;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.mm-cmp-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.mm-cmp-side .mm-base10 {
+  height: clamp(100px, 18vh, 150px);
+}
+.mm-cmp-num {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--glyph);
+}
+.mm-position {
+  width: min(80vw, 360px);
+}
+.mm-balance {
+  width: min(84vw, 380px);
+}
+.mm-clock {
+  width: clamp(150px, 30vh, 230px);
+}
+.mm-clock.small {
+  width: clamp(84px, 15vmin, 120px);
+}
+.mm-coin {
+  width: clamp(70px, 13vmin, 110px);
+}
+.mm-coin.big {
+  width: clamp(120px, 24vmin, 170px);
+}
+.mm-shape {
+  width: clamp(84px, 20vmin, 130px);
+}
+.math-model .mm-shape {
+  width: clamp(110px, 22vh, 170px);
+}
+.mm-parts {
+  width: clamp(96px, 24vmin, 150px);
+}
+.mm-compose {
+  width: clamp(160px, 34vmin, 240px);
+}
+.mm-piece {
+  transform: var(--apart);
+  transition: transform 0.7s cubic-bezier(0.3, 1.4, 0.5, 1);
+}
+.mm-compose.joined .mm-piece {
+  transform: none;
+}
+.mm-measure {
+  width: min(90vw, 460px);
+}
+.mm-bar {
+  width: min(80vw, 420px);
+}
+.mm-tower {
+  height: clamp(130px, 24vh, 200px);
+  width: auto;
+}
+.mm-pic {
+  width: clamp(80px, 16vmin, 130px);
+  height: calc(clamp(80px, 16vmin, 130px) * 0.7);
+  display: block;
+}
+.mm-pic svg {
+  width: 100%;
+  height: 100%;
+}
+.mm-dice {
+  width: clamp(110px, 22vh, 160px);
+}
+
+/* picture graph */
+.mm-graph {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px;
+  border-radius: 18px;
+  background: var(--well);
+}
+.mm-graph-row {
+  display: grid;
+  grid-template-columns: repeat(calc(var(--max) + 1), clamp(34px, 9vmin, 56px));
+  gap: 3px;
+  align-items: center;
+}
+.mm-graph-key {
+  border-right: 3px solid #b9b3e6;
+  padding-right: 4px;
+}
+.mm-graph-cell {
+  height: clamp(28px, 7.4vmin, 46px);
+  border-radius: 8px;
+  background: #fff;
+}
+.mm-graph-key svg,
+.mm-graph-cell svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* matching two rows to compare */
+.mm-match {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: min(100%, calc(3.4em + var(--n) * 52px));
+}
+.mm-match-row {
+  display: grid;
+  grid-template-columns: 3.4em repeat(var(--n), minmax(0, 1fr));
+  gap: 3px;
+  align-items: center;
+}
+.mm-match-who {
+  font-weight: 700;
+  color: var(--muted);
+}
+.mm-match-cell {
+  aspect-ratio: 1 / 0.8;
+}
+.mm-match-cell svg {
+  width: 100%;
+  height: 100%;
+}
+.mm-match.show-extra .mm-match-cell.extra {
+  border-radius: 8px;
+  background: rgba(255, 214, 102, 0.6);
+  animation: pop-in 0.4s ease-out;
+}
+
+/* options */
+.math-options {
+  max-width: 820px;
+}
+.math-options.stack {
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+.math-options.stack .math-opt {
+  width: min(88vw, 460px);
+  min-height: 0;
+  padding: 8px 12px;
+  align-items: flex-start;
+}
+.math-opt.num {
+  min-width: calc(var(--tap) * 0.72);
+  min-height: calc(var(--tap) * 0.72);
+  border-radius: 50%;
+}
+.math-opt.num .word-text {
+  font-family: 'Fredoka', var(--font);
+  font-size: clamp(34px, 7.4vmin, 56px);
+  font-weight: 700;
+  color: var(--glyph);
+}
+.math-opt.word {
+  min-height: calc(var(--tap) * 0.56);
+  padding: 8px 24px;
+  border-radius: 999px;
+}
+.math-opt.word .word-text {
+  font-family: 'Fredoka', var(--font);
+  font-size: clamp(22px, 4.6vmin, 34px);
+  font-weight: 700;
+  color: var(--glyph);
+}
+.math-opt.pictured {
+  min-width: 0;
+  min-height: 0;
+  padding: 10px;
+}
+.math-opt-label {
+  font-weight: 700;
+  color: var(--glyph);
+  font-size: 18px;
+}
+.math-opt.tried {
+  opacity: 0.45;
+  filter: grayscale(0.4);
+}
+.math-opt .mm-objects {
+  --obj: clamp(34px, 9vmin, 58px);
+}
+.math-opt .mm-objects.big {
+  --obj: clamp(44px, 12vmin, 72px);
+}
+.level-up {
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #ffd666, #ff9f43);
+  color: #5a2d00;
+  font: 700 18px 'Fredoka', sans-serif;
+  box-shadow: var(--shadow);
+  animation: level-up 1.8s ease-out both;
+  pointer-events: none;
+  z-index: 3;
+}
+@keyframes level-up {
+  0% {
+    transform: translate(-50%, 20px) scale(0.6);
+    opacity: 0;
+  }
+  15% {
+    transform: translate(-50%, 0) scale(1.08);
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -16px);
+    opacity: 0;
+  }
+}
+@media (max-height: 700px) {
+  .math-model {
+    max-height: 28vh;
+  }
+  .math-model .mm-svg {
+    max-height: 26vh;
+  }
+}
+
+/* English-first names in the math worlds */
+.latin {
+  font-family: 'Fredoka', var(--font);
+}
+.world-card .world-name-hi.latin {
+  font-size: 27px;
+  font-weight: 700;
+}
+.unit-title-hi.latin {
+  font-weight: 700;
+}
+.node-title .latin {
+  font-size: 15px;
+  font-weight: 600;
 }

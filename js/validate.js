@@ -1,4 +1,5 @@
 // Validates content.json. Pure function: used by the app at startup and by tests.
+import { SKILLS } from './mathgen.js';
 // Errors stop the app from using the content; warnings are shown in parent settings.
 
 export const GAME_TYPES = [
@@ -19,6 +20,7 @@ export const GAME_TYPES = [
   'firstsound',
   'quiz',
   'sort',
+  'math',
 ];
 export const OPPOSITE_KINDS = ['size', 'height', 'speed'];
 export const PAIR_KINDS = ['opposite', 'plural', 'female'];
@@ -455,6 +457,11 @@ export function validateContent(c, { knownPictures = null, pictureExists = null,
         if (!isObj(c.sorts?.[x.sort])) err(`${at}.sort "${x.sort}" is not in sorts`);
         if (x.rounds !== undefined) count('rounds');
         break;
+      case 'math':
+        if (!Array.isArray(x.skills) || !x.skills.length) err(`${at}.skills must list math skills`);
+        else for (const s of x.skills) if (!SKILLS[s]) err(`${at}: "${s}" is not a math skill (see js/mathgen.js)`);
+        if (x.rounds !== undefined) count('rounds');
+        break;
       case 'pairs':
         count('rounds');
         if (!isObj(x.sets)) err(`${at}.sets must be an object`);
@@ -498,6 +505,7 @@ export function validateContent(c, { knownPictures = null, pictureExists = null,
       if (!levelIds.has(w.level)) err(`${wat}.level "${w.level}" is not one of the levels`);
       if (!SUBJECTS.includes(w.subject)) err(`${wat}.subject must be ${SUBJECTS.join(' or ')}`);
       if (w.lang !== undefined && !['hi', 'en', 'both'].includes(w.lang)) err(`${wat}.lang must be hi, en or both`);
+      if (w.subject === 'math' && w.lang !== 'en') err(`${wat}: math worlds are in English (lang "en")`);
       if (!hasText(w.name)) err(`${wat}.name needs "hi" and "en"`);
       if (!HEX.test(w.color || '')) err(`${wat}.color must look like #ff0000`);
       if (!collectionIds.has(w.collection)) err(`${wat}.collection "${w.collection}" is not in collections`);

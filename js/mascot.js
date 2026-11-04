@@ -156,6 +156,29 @@ export const MASCOTS = {
   },
 };
 
+// Tiko, the clever owl in glasses who runs the Number Carnival
+MASCOTS.tiko = {
+  name: { hi: 'टीको', en: 'Tiko' },
+  pitch: 1.1,
+  art: () =>
+    svg(
+      `<path d="M47 106 l-5 8 h11 Z M73 106 l-5 8 h11 Z" fill="#FF9F43"/>` +
+        `<g class="m-arm-l"><path d="M30 58 Q10 80 26 102 Q36 88 38 66 Z" fill="#3F6FD8"/></g>` +
+        `<g class="m-arm-r"><path d="M90 58 Q110 80 94 102 Q84 88 82 66 Z" fill="#3F6FD8"/></g>` +
+        `<path d="M30 34 L33 10 L50 26 Z M90 34 L87 10 L70 26 Z" fill="#3F6FD8"/>` +
+        `<ellipse cx="60" cy="64" rx="35" ry="44" fill="#5B8DEF"/>` +
+        `<ellipse cx="60" cy="82" rx="22" ry="24" fill="#DCE7FF"/>` +
+        `<path d="M47 78 q4.3 5 8.6 0 q4.3 5 8.6 0 q4.3 5 8.6 0 M51 90 q4.5 5 9 0 q4.5 5 9 0" fill="none" stroke="#AFC6F7" stroke-width="2.4" stroke-linecap="round"/>` +
+        `<circle cx="46" cy="46" r="15" fill="#fff" opacity="0.35"/><circle cx="74" cy="46" r="15" fill="#fff" opacity="0.35"/>` +
+        eye(46, 46, 8.5, '#5B8DEF') +
+        eye(74, 46, 8.5, '#5B8DEF') +
+        `<circle cx="46" cy="46" r="14" fill="none" stroke="${INK}" stroke-width="3.5"/><circle cx="74" cy="46" r="14" fill="none" stroke="${INK}" stroke-width="3.5"/><path d="M58 44 Q60 40.5 62 44" stroke="${INK}" stroke-width="3" fill="none"/>` +
+        cheeks(34, 86, 62) +
+        `<path class="m-mouth-closed" d="M55 59 L60 67 L65 59 Z" fill="#FF9F43"/>` +
+        `<g class="m-mouth-open"><path d="M55 57 L60 60 L65 57 Z" fill="#FF9F43"/><path d="M56 62 L60 69 L64 62 Z" fill="#F28C28"/></g>`,
+    ),
+};
+
 export const MASCOT_IDS = Object.keys(MASCOTS);
 
 export function mascotSvg(id) {

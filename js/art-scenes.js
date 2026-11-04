@@ -132,6 +132,48 @@ const SCENES = {
       flakes
     );
   },
+  // the Number Carnival: bunting, a turning big wheel, a striped tent and balloons floating up
+  carnival: (id) => {
+    const r = rnd(9);
+    const colors = ['#FF5A5F', '#FFB020', '#3D7BFF', '#2EC27E', '#A66BFF', '#FF7AB6'];
+    let bunting = '';
+    for (const [y0, sag] of [
+      [40, 40],
+      [120, 30],
+    ]) {
+      bunting += `<path d="M-10 ${y0} Q200 ${y0 + sag * 2} 410 ${y0}" fill="none" stroke="#B9A5E8" stroke-width="2"/>`;
+      for (let i = 0; i < 14; i++) {
+        const x = -10 + i * 32 + 8;
+        const t = (x + 10) / 420;
+        const y = y0 + 4 * sag * t * (1 - t);
+        bunting += `<path d="M${R(x)} ${R(y)} l16 0 l-8 18 z" fill="${colors[i % colors.length]}"/>`;
+      }
+    }
+    let cabins = '';
+    for (let i = 0; i < 8; i++) {
+      const a = (i / 8) * Math.PI * 2;
+      cabins += `<line x1="0" y1="0" x2="${R(84 * Math.cos(a))}" y2="${R(84 * Math.sin(a))}" stroke="#fff" stroke-width="3"/><circle cx="${R(84 * Math.cos(a))}" cy="${R(84 * Math.sin(a))}" r="13" fill="${colors[i % colors.length]}"/>`;
+    }
+    let balloons = '';
+    for (let i = 0; i < 7; i++) {
+      const x = R(20 + r() * 360);
+      const y = R(600 + r() * 160);
+      balloons += `<g class="rise" style="animation-delay:${R(r() * 9)}s;--d:${R(10 + r() * 6)}s"><ellipse cx="${x}" cy="${y}" rx="15" ry="18" fill="${colors[i % colors.length]}" opacity="0.9"/><path d="M${x} ${R(y + 18)} q-4 14 2 30" fill="none" stroke="#9AA3B5" stroke-width="1.5"/></g>`;
+    }
+    return (
+      sky(id, '#FFE0F0', '#FFF6DA') +
+      `<circle cx="330" cy="200" r="34" fill="#FFE27A"/>` +
+      bunting +
+      cloud(300, 260, 0.6) +
+      `<g transform="translate(120 360)"><path d="M0 0 L-55 170 M0 0 L55 170" stroke="#8B93A7" stroke-width="8" stroke-linecap="round"/><circle r="92" fill="none" stroke="#FF8FB1" stroke-width="6"/><g class="turn">${cabins}</g><circle r="12" fill="#FFB020"/></g>` +
+      `<g transform="translate(250 430)"><path d="M0 110 L60 10 L120 110 Z" fill="#fff"/>${[0, 1, 2, 3].map((i) => `<path d="M60 10 L${R(i * 30 + 3)} 110 L${R(i * 30 + 18)} 110 Z" fill="#FF5A5F"/>`).join('')}<path d="M60 10 V-14" stroke="#8B93A7" stroke-width="3"/><path d="M60 -14 l18 6 l-18 6 z" fill="#FFB020"/><path d="M45 110 Q60 76 75 110 Z" fill="#7A2E3A"/></g>` +
+      hills([
+        [560, '#A6E07A', 26],
+        [650, '#8BD164', 22],
+      ]) +
+      balloons
+    );
+  },
 };
 
 export const THEMES = Object.keys(SCENES);

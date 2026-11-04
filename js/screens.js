@@ -15,6 +15,10 @@ function appTitle(api) {
   return el('div', { class: 'title' }, [el('span', { class: 'title-hi', lang: 'hi', text: t.hi }), el('span', { class: 'title-en', text: t.en })]);
 }
 
+// English-only worlds (math) lead with English; Hindi worlds lead with Hindi.
+const english = (w) => w.lang === 'en';
+const bigName = (w, text, cls) => (english(w) ? el('span', { class: `${cls} latin`, text: text.en }) : el('span', { class: cls, lang: 'hi', text: text.hi }));
+
 function subjectName(world) {
   return world.subject === 'math' ? { hi: 'गणित', en: 'Math' } : { hi: 'हिन्दी', en: 'Hindi' };
 }
@@ -107,8 +111,8 @@ export function hub(api) {
       el('div', { class: 'world-card-mascot', html: mascotSvg(world.mascot) }),
       el('div', { class: 'world-card-text' }, [
         el('span', { class: 'chips' }, [el('span', { class: 'chip grade', text: level(world.level).name.en }), el('span', { class: `chip subject ${world.subject}`, text: `${sub.en} · ${sub.hi}` })]),
-        el('span', { class: 'world-name-hi', lang: 'hi', text: world.name.hi }),
-        el('span', { class: 'world-name-en', text: world.name.en }),
+        bigName(world, world.name, 'world-name-hi'),
+        el('span', { class: 'world-name-en', lang: english(world) ? 'hi' : 'en', text: english(world) ? world.name.hi : world.name.en }),
         el('span', { class: 'world-stars' }, [el('span', { class: 'star-icon', html: ICONS.star }), el('span', { text: `${st.got} / ${st.max}` })]),
       ]),
     ]);
@@ -175,7 +179,7 @@ export function world(api, w) {
       const x = SNAKE[i % SNAKE.length];
       const row = el('div', { class: `node-row ${cls} ${x > 0 ? 'guide-left' : ''}`, style: { '--x': String(x) } }, [
         node,
-        el('span', { class: 'node-title' }, [el('span', { lang: 'hi', text: lesson.title.hi }), el('span', { class: 'en', text: lesson.title.en })]),
+        el('span', { class: 'node-title' }, english(w) ? [el('span', { class: 'latin', text: lesson.title.en })] : [el('span', { lang: 'hi', text: lesson.title.hi }), el('span', { class: 'en', text: lesson.title.en })]),
         stars,
       ]);
       node.addEventListener('click', () => {
@@ -198,8 +202,8 @@ export function world(api, w) {
       el('span', { class: 'unit-icon', html: api.iconHtml(unit.icon) }),
       el('span', { class: 'unit-text' }, [
         el('span', { class: 'unit-skill', text: `Unit ${ui + 1} · ${unit.skill}` }),
-        el('span', { class: 'unit-title-hi', lang: 'hi', text: unit.title.hi }),
-        el('span', { class: 'unit-title-en', text: unit.title.en }),
+        bigName(w, unit.title, 'unit-title-hi'),
+        english(w) ? null : el('span', { class: 'unit-title-en', text: unit.title.en }),
       ]),
       done ? el('span', { class: 'unit-trophy', html: ICONS.trophy }) : null,
     ]);
@@ -210,7 +214,7 @@ export function world(api, w) {
   const canLeave = !settings.lockGrade;
   const head = el('header', { class: 'world-head' }, [
     canLeave ? el('button', { class: 'round-btn', 'aria-label': 'All worlds', html: ICONS.back, onclick: () => api.back() }) : parentGate(api),
-    el('div', { class: 'world-title' }, [el('span', { class: 'world-name-hi', lang: 'hi', text: w.name.hi }), el('span', { class: 'world-name-en', text: `${w.name.en} · ${subjectName(w).en}` })]),
+    el('div', { class: 'world-title' }, [bigName(w, w.name, 'world-name-hi'), el('span', { class: 'world-name-en', text: english(w) ? `${subjectName(w).en} · in English` : `${w.name.en} · ${subjectName(w).en}` })]),
     el('span', { class: 'star-chip' }, [el('span', { class: 'star-icon', html: ICONS.star }), el('b', { text: String(st.got) })]),
     el('button', { class: 'round-btn small', 'aria-label': 'My collection', html: ICONS.album, onclick: () => api.go('collection', { worldId: w.id }) }),
     w.subject === 'hindi' && api.state.content.stories.some((s) => storyLevels(api, w).includes(s.level))

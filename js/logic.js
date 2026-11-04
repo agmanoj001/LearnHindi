@@ -272,6 +272,7 @@ export function defaultSettings(content) {
     onboarded: false,
     lockGrade: false,
     unlockAll: false,
+    math: true, // English math worlds (NC standards) for Kindergarten and Grade 1
     music: true,
     sfx: true,
     voice: { hi: '', en: '', rate: 0.9 },
@@ -284,7 +285,7 @@ export function normalizeSettings(saved, content) {
   const out = { ...base, voice: { ...base.voice } };
   if (LANG_MODES.includes(saved.lang)) out.lang = saved.lang;
   if ((content.levels || []).some((l) => l.id === saved.level)) out.level = saved.level;
-  for (const k of ['onboarded', 'lockGrade', 'unlockAll', 'music', 'sfx']) if (typeof saved[k] === 'boolean') out[k] = saved[k];
+  for (const k of ['onboarded', 'lockGrade', 'unlockAll', 'math', 'music', 'sfx']) if (typeof saved[k] === 'boolean') out[k] = saved[k];
   if (saved.voice && typeof saved.voice === 'object') {
     for (const l of ['hi', 'en']) if (typeof saved.voice[l] === 'string') out.voice[l] = saved.voice[l];
     if (typeof saved.voice.rate === 'number' && saved.voice.rate >= 0.5 && saved.voice.rate <= 1.3) out.voice.rate = saved.voice.rate;
@@ -451,6 +452,7 @@ export function makePairRound(sets, kinds, rng = Math.random) {
 // A stable key for anything a child answers: words, letters, matras (or barakhadi syllables), numbers.
 export function itemKey(item) {
   if (!item || typeof item !== 'object') return null;
+  if (typeof item.skill === 'string') return `s:${item.skill}`;
   if (typeof item.char === 'string') return `l:${item.id}`;
   if (item.matra && typeof item.text === 'string') return `m:${item.matra.id}`;
   if (typeof item.sign === 'string') return `m:${item.id}`;
@@ -484,7 +486,8 @@ export function weightedSequence(pool, n, rng = Math.random, weightOf = () => 1,
   const out = [];
   for (let i = 0; i < n; i++) {
     const prev = out.length ? key(out[out.length - 1]) : undefined;
-    const options = pool.length > 1 ? pool.filter((x) => key(x) !== prev) : pool;
+    const others = pool.filter((x) => key(x) !== prev);
+    const options = others.length ? others : pool;
     const weights = options.map((x) => Math.max(0.01, weightOf(x)));
     let r = rng() * weights.reduce((a, b) => a + b, 0);
     let idx = 0;
