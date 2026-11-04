@@ -89,6 +89,8 @@ export function hasRecording(seg) {
 
 async function playSegment(seg, mine) {
   if (seg.pause) return wait(seg.pause);
+  // captions: whatever is said is also shown as text (for deaf and hard-of-hearing children, and for early readers)
+  if (seg.text) window.dispatchEvent(new CustomEvent('vt-caption', { detail: { text: seg.text, lang: seg.lang } }));
   const url = seg.clipKey ? await clipUrl(seg.clipKey) : null;
   if (mine !== token) return;
   if (url && (await playUrl(url))) return;

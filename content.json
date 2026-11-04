@@ -808,6 +808,57 @@
       ]
     },
     {
+      "id": "frog-jump",
+      "level": "grade1",
+      "title": { "hi": "टिंकू की छलाँग", "en": "Tinku's big jump" },
+      "cover": "frog",
+      "pages": [
+        { "word": "frog", "hi": "यह मेंढक है। उसका नाम टिंकू है।", "en": "This is a frog. His name is Tinku." },
+        { "word": "river", "hi": "टिंकू नदी के पास रहता है।", "en": "Tinku lives near the river." },
+        { "word": "leaf", "hi": "वह एक बड़े पत्ते पर बैठता है।", "en": "He sits on a big leaf." },
+        { "word": "fish", "hi": "मछली बोली, \"टिंकू, कूदो!\"", "en": "The fish said, \"Tinku, jump!\"" },
+        { "word": "frog", "hi": "टिंकू ने बड़ी छलाँग लगाई। छपाक!", "en": "Tinku took a big jump. Splash!" }
+      ],
+      "questions": [
+        { "hi": "टिंकू कौन है?", "en": "Who is Tinku?", "answer": "frog", "options": ["frog", "fish", "duck"] },
+        { "hi": "टिंकू किस पर बैठता है?", "en": "What does Tinku sit on?", "answer": "leaf", "options": ["leaf", "book", "bus"] }
+      ]
+    },
+    {
+      "id": "lost-chick",
+      "level": "grade1",
+      "title": { "hi": "चूज़ा खो गया", "en": "The lost chick" },
+      "cover": "chick",
+      "pages": [
+        { "word": "chick", "hi": "एक छोटा चूज़ा खो गया।", "en": "A little chick was lost." },
+        { "word": "duck", "hi": "उसने बत्तख से पूछा, \"मेरी माँ कहाँ है?\"", "en": "He asked the duck, \"Where is my mother?\"" },
+        { "word": "cow", "hi": "गाय बोली, \"मैं तुम्हारी माँ नहीं हूँ।\"", "en": "The cow said, \"I am not your mother.\"" },
+        { "word": "dog", "hi": "कुत्ता बोला, \"चलो, मिलकर ढूँढते हैं।\"", "en": "The dog said, \"Come, let’s look together.\"" },
+        { "word": "hen", "hi": "मुर्गी आई। \"माँ!\" चूज़ा ख़ुश हो गया।", "en": "The hen came. \"Mother!\" The chick was happy." }
+      ],
+      "questions": [
+        { "hi": "चूज़े की माँ कौन है?", "en": "Who is the chick’s mother?", "answer": "hen", "options": ["hen", "cow", "duck"] },
+        { "hi": "किसने कहा, \"मिलकर ढूँढते हैं\"?", "en": "Who said, \"Let’s look together\"?", "answer": "dog", "options": ["dog", "cat", "cow"] }
+      ]
+    },
+    {
+      "id": "rainy-day",
+      "level": "grade1",
+      "title": { "hi": "बारिश का दिन", "en": "A rainy day" },
+      "cover": "umbrella",
+      "pages": [
+        { "word": "raincloud", "hi": "आसमान में काले बादल आए।", "en": "Dark clouds came into the sky." },
+        { "word": "umbrella", "hi": "रिया ने अपना लाल छाता लिया।", "en": "Riya took her red umbrella." },
+        { "word": "girl", "hi": "रिया बारिश में नाची।", "en": "Riya danced in the rain." },
+        { "word": "frog", "hi": "मेंढक भी टर्र-टर्र गाने लगे।", "en": "The frogs began to sing, croak-croak." },
+        { "word": "boat", "hi": "रिया ने काग़ज़ की नाव बनाई।", "en": "Riya made a paper boat." }
+      ],
+      "questions": [
+        { "hi": "रिया ने क्या लिया?", "en": "What did Riya take?", "answer": "umbrella", "options": ["umbrella", "kite", "bag"] },
+        { "hi": "रिया ने क्या बनाया?", "en": "What did Riya make?", "answer": "boat", "options": ["boat", "kite", "house"] }
+      ]
+    },
+    {
       "id": "bear-bicycle",
       "level": "grade2",
       "title": { "hi": "भालू की साइकिल", "en": "Bear's bicycle" },
@@ -1023,6 +1074,88 @@
         },
         { "hi": "नदी में किसे हाथ हिलाया?", "en": "Who did we wave to in the river?", "answer": "fish", "options": ["fish", "duck", "crocodile"] }
       ]
+    },
+    {
+      "id": "elephant-mice",
+      "level": "grade2",
+      "title": { "hi": "हाथी और चूहे", "en": "The elephants and the mice" },
+      "cover": "elephant",
+      "pages": [
+        { "word": "mouse", "hi": "एक पुराने गाँव में बहुत सारे चूहे रहते थे।", "en": "Many mice lived in an old village." },
+        {
+          "word": "elephant",
+          "hi": "हाथी पानी पीने जाते तो चूहे उनके पैरों के नीचे आ जाते।",
+          "en": "When the elephants went to drink water, the mice got trampled."
+        },
+        {
+          "word": "mouse",
+          "hi": "चूहों के राजा ने विनती की, और हाथियों ने अपना रास्ता बदल दिया।",
+          "en": "The mouse king asked kindly, and the elephants changed their path."
+        },
+        { "word": "net", "hi": "एक दिन शिकारियों ने हाथियों को जाल में फँसा लिया।", "en": "One day hunters trapped the elephants in nets." },
+        { "word": "mouse", "hi": "चूहे दौड़कर आए और दाँतों से सारे जाल काट दिए।", "en": "The mice came running and cut all the nets with their teeth." },
+        { "word": "elephant", "hi": "हाथी आज़ाद हो गए, और सब पक्के दोस्त बन गए।", "en": "The elephants were free, and they all became true friends." }
+      ],
+      "questions": [
+        { "hi": "जाल किसने काटे?", "en": "Who cut the nets?", "answer": "mouse", "options": ["mouse", "elephant", "lion"] },
+        {
+          "hi": "हाथियों ने चूहों के लिए क्या किया?",
+          "en": "What did the elephants do for the mice?",
+          "text": true,
+          "answer": "रास्ता बदल दिया",
+          "options": ["रास्ता बदल दिया", "घर बनाया", "खाना दिया"]
+        }
+      ],
+      "moral": { "hi": "दूसरों की मदद करो, वे भी तुम्हारी मदद करेंगे।", "en": "Help others, and they will help you too." }
+    },
+    {
+      "id": "farmer-goat",
+      "level": "grade2",
+      "title": { "hi": "किसान और तीन ठग", "en": "The farmer and the three tricksters" },
+      "cover": "goat",
+      "pages": [
+        { "word": "farmer", "hi": "एक किसान बाज़ार से बकरी ख़रीदकर घर जा रहा था।", "en": "A farmer was walking home with a goat he had bought." },
+        { "word": "thief", "hi": "तीन ठगों ने बकरी हड़पने की चाल सोची।", "en": "Three tricksters made a plan to get the goat." },
+        { "word": "thief", "hi": "पहला ठग बोला, \"अरे! तुम कुत्ता क्यों उठाए हो?\"", "en": "The first one said, \"Hey! Why are you carrying a dog?\"" },
+        { "word": "dog", "hi": "दूसरे और तीसरे ठग ने भी यही कहा: \"यह तो कुत्ता है!\"", "en": "The second and the third said the same: \"That is a dog!\"" },
+        { "word": "goat", "hi": "किसान घबरा गया और बकरी छोड़कर चला गया।", "en": "The farmer got confused, left the goat and walked away." },
+        { "word": "farmer", "hi": "बाद में किसान समझ गया कि उसे ठगा गया था।", "en": "Later the farmer understood that he had been tricked." }
+      ],
+      "questions": [
+        { "hi": "किसान क्या ख़रीदकर ला रहा था?", "en": "What had the farmer bought?", "answer": "goat", "options": ["goat", "dog", "cow"] },
+        {
+          "hi": "ठगों ने बकरी को क्या बताया?",
+          "en": "What did the tricksters call the goat?",
+          "text": true,
+          "answer": "कुत्ता",
+          "options": ["कुत्ता", "गाय", "बिल्ली"]
+        }
+      ],
+      "moral": { "hi": "अपनी आँखों पर भरोसा करो, दूसरों की बातों में मत आओ।", "en": "Trust your own eyes, not what tricksters say." }
+    },
+    {
+      "id": "kind-tree",
+      "level": "grade2",
+      "title": { "hi": "आम का पेड़", "en": "The mango tree" },
+      "cover": "tree",
+      "pages": [
+        { "word": "tree", "hi": "गाँव के किनारे एक बड़ा आम का पेड़ था।", "en": "At the edge of the village stood a big mango tree." },
+        { "word": "boy", "hi": "एक लड़का रोज़ उसकी छाँव में खेलता था।", "en": "A boy played in its shade every day." },
+        { "word": "mango", "hi": "पेड़ उसे मीठे-मीठे आम देता था।", "en": "The tree gave him sweet mangoes." },
+        { "word": "bird", "hi": "पेड़ पर चिड़ियों के घोंसले भी थे।", "en": "Birds had their nests in the tree too." },
+        { "word": "plant", "hi": "बड़ा होकर लड़के ने भी एक नया पेड़ लगाया।", "en": "When the boy grew up, he planted a new tree too." }
+      ],
+      "questions": [
+        { "hi": "पेड़ लड़के को क्या देता था?", "en": "What did the tree give the boy?", "answer": "mango", "options": ["mango", "fish", "milk"] },
+        {
+          "hi": "बड़े होकर लड़के ने क्या किया?",
+          "en": "What did the boy do when he grew up?",
+          "text": true,
+          "answer": "नया पेड़ लगाया",
+          "options": ["नया पेड़ लगाया", "पेड़ काटा", "गाँव छोड़ा"]
+        }
+      ],
+      "moral": { "hi": "जो हमें देता है, हमें भी उसे कुछ लौटाना चाहिए।", "en": "We should give back to those who give to us." }
     },
     {
       "id": "little-boat",
@@ -1378,6 +1511,78 @@
           "text": true
         }
       ]
+    },
+    {
+      "id": "birbal-crows",
+      "level": "grade3",
+      "title": { "hi": "बीरबल और कौवे", "en": "Birbal counts the crows" },
+      "cover": "crow",
+      "pages": [
+        {
+          "word": "king",
+          "hi": "एक दिन बादशाह अकबर ने पूछा, \"हमारे शहर में कितने कौवे हैं?\"",
+          "en": "One day Emperor Akbar asked, \"How many crows are there in our city?\""
+        },
+        { "word": "minister", "hi": "सब चुप थे। बीरबल मुस्कुराया।", "en": "Everyone was quiet. Birbal smiled." },
+        {
+          "word": "crow",
+          "hi": "बीरबल बोला, \"हुज़ूर, पचास हज़ार पाँच सौ नवासी कौवे हैं।\"",
+          "en": "Birbal said, \"Your Majesty, there are fifty thousand five hundred and eighty-nine crows.\""
+        },
+        { "word": "king", "hi": "अकबर ने पूछा, \"अगर गिनने पर कम निकले तो?\"", "en": "Akbar asked, \"And if we count fewer?\"" },
+        {
+          "word": "crow",
+          "hi": "बीरबल बोला, \"तो कुछ कौवे रिश्तेदारों से मिलने गए होंगे। ज़्यादा निकले, तो मेहमान आए होंगे!\"",
+          "en": "Birbal said, \"Then some have gone to visit relatives. If there are more, guests have come!\""
+        },
+        { "word": "king", "hi": "अकबर ज़ोर से हँस पड़े।", "en": "Akbar burst out laughing." }
+      ],
+      "questions": [
+        { "hi": "अकबर ने किनके बारे में पूछा?", "en": "What did Akbar ask about?", "answer": "crow", "options": ["crow", "dove", "parrot"] },
+        {
+          "hi": "कौवे कम निकलते तो बीरबल क्या कहता?",
+          "en": "What did Birbal say if there were fewer?",
+          "text": true,
+          "answer": "रिश्तेदारों से मिलने गए",
+          "options": ["रिश्तेदारों से मिलने गए", "सो रहे हैं", "खो गए"]
+        }
+      ],
+      "moral": { "hi": "समझदारी और हँसी से मुश्किल सवाल भी आसान हो जाते हैं।", "en": "Wit and a smile make even hard questions easy." }
+    },
+    {
+      "id": "elephant-sparrow",
+      "level": "grade3",
+      "title": { "hi": "हाथी और गौरैया", "en": "The elephant and the sparrow" },
+      "cover": "bird",
+      "pages": [
+        { "word": "bird", "hi": "एक पेड़ पर गौरैया का घोंसला था, जिसमें उसके अंडे थे।", "en": "A sparrow had a nest with eggs in a tree." },
+        {
+          "word": "elephant",
+          "hi": "एक घमंडी हाथी ने डाल तोड़ दी, और अंडे गिरकर फूट गए।",
+          "en": "A proud elephant broke the branch, and the eggs fell and broke."
+        },
+        {
+          "word": "bird",
+          "hi": "गौरैया ने अपने दोस्तों को बुलाया: कठफोड़वा, मक्खी और मेंढक।",
+          "en": "The sparrow called her friends: a woodpecker, a fly and a frog."
+        },
+        {
+          "word": "fly",
+          "hi": "मक्खी ने हाथी के कान में भिन-भिन किया, तो हाथी ने आँखें बंद कर लीं।",
+          "en": "The fly buzzed in the elephant’s ear, and he shut his eyes."
+        },
+        {
+          "word": "frog",
+          "hi": "मेंढक गड्ढे के पास टर्राया। हाथी पानी समझकर गड्ढे में फँस गया।",
+          "en": "The frog croaked by a ditch. The elephant thought it was water and got stuck."
+        },
+        { "word": "elephant", "hi": "हाथी ने माफ़ी माँगी और फिर कभी घमंड नहीं किया।", "en": "The elephant said sorry and was never proud again." }
+      ],
+      "questions": [
+        { "hi": "मक्खी ने किसके कान में भिन-भिन किया?", "en": "Whose ear did the fly buzz in?", "answer": "elephant", "options": ["elephant", "lion", "cow"] },
+        { "hi": "गड्ढे के पास कौन टर्राया?", "en": "Who croaked by the ditch?", "answer": "frog", "options": ["frog", "fly", "bird"] }
+      ],
+      "moral": { "hi": "छोटे भी मिलकर बड़े काम कर सकते हैं।", "en": "Small friends together can do big things." }
     },
     {
       "id": "talkative-tortoise",
@@ -1744,6 +1949,87 @@
         { "hi": "नदी कैसे बनी?", "en": "How was the river made?", "answer": "पिघली बर्फ़ से", "options": ["पिघली बर्फ़ से", "समुद्र से", "कुएँ से"], "text": true },
         { "hi": "घास पर कौन चर रहा था?", "en": "Who was grazing on the grass?", "answer": "sheep", "options": ["sheep", "tiger", "crocodile"] }
       ]
+    },
+    {
+      "id": "tenali-cat",
+      "level": "grade4",
+      "title": { "hi": "तेनाली की बिल्ली", "en": "Tenali's cat" },
+      "cover": "cat",
+      "pages": [
+        {
+          "word": "king",
+          "hi": "राजा ने हर दरबारी को एक बिल्ली दी, ताकि महल से चूहे भाग जाएँ।",
+          "en": "The king gave every courtier a cat to chase the mice from the palace."
+        },
+        { "word": "cow", "hi": "साथ में बिल्ली के दूध के लिए एक गाय भी दी।", "en": "He also gave each a cow, for the cat’s milk." },
+        {
+          "word": "cat",
+          "hi": "तेनाली ने पहली बार बिल्ली को बहुत गरम दूध दिया, और उसका मुँह जल गया।",
+          "en": "The first time, Tenali gave the cat very hot milk, and it burnt its mouth."
+        },
+        {
+          "word": "milk",
+          "hi": "उसके बाद बिल्ली दूध देखते ही भाग जाती, और दूध तेनाली के घर काम आता।",
+          "en": "After that the cat ran from milk, and Tenali’s family used the milk."
+        },
+        {
+          "word": "king",
+          "hi": "राजा ने पूछा, \"तुम्हारी बिल्ली इतनी दुबली क्यों है?\" तेनाली बोला, \"यह दूध पीती ही नहीं!\"",
+          "en": "The king asked, \"Why is your cat so thin?\" Tenali said, \"It just won’t drink milk!\""
+        },
+        {
+          "word": "cat",
+          "hi": "राजा ने सामने दूध रखा, तो बिल्ली भाग गई। सब हँस पड़े, राजा भी।",
+          "en": "The king put milk in front of it, and the cat ran away. Everyone laughed, the king too."
+        }
+      ],
+      "questions": [
+        { "hi": "राजा ने चूहे भगाने के लिए क्या दिया?", "en": "What did the king give to chase the mice?", "answer": "cat", "options": ["cat", "dog", "owl"] },
+        {
+          "hi": "बिल्ली दूध से क्यों भागती थी?",
+          "en": "Why did the cat run from milk?",
+          "text": true,
+          "answer": "उसका मुँह जल गया था",
+          "options": ["उसका मुँह जल गया था", "उसे दूध पसंद था", "दूध ठंडा था"]
+        }
+      ]
+    },
+    {
+      "id": "monkey-king",
+      "level": "grade4",
+      "title": { "hi": "बंदरों का राजा", "en": "The monkey king" },
+      "cover": "monkey",
+      "pages": [
+        {
+          "word": "monkey",
+          "hi": "नदी किनारे एक बड़े आम के पेड़ पर बंदरों का राजा अपने साथियों के साथ रहता था।",
+          "en": "By a river, a monkey king lived with his troop in a big mango tree."
+        },
+        { "word": "mango", "hi": "उस पेड़ के आम बहुत मीठे थे।", "en": "The mangoes of that tree were very sweet." },
+        { "word": "king", "hi": "एक दिन एक राजा के सैनिक पेड़ को घेरने आए।", "en": "One day a king’s soldiers came to surround the tree." },
+        {
+          "word": "river",
+          "hi": "बंदरों के राजा ने नदी के ऊपर अपने शरीर से पुल बना दिया।",
+          "en": "The monkey king stretched himself across the river to make a bridge."
+        },
+        { "word": "monkey", "hi": "सारे बंदर उसकी पीठ पर से होकर सुरक्षित पार चले गए।", "en": "All the monkeys crossed safely over his back." },
+        {
+          "word": "king",
+          "hi": "राजा बहुत प्रभावित हुआ और उसने बंदरों को कभी नहीं सताया।",
+          "en": "The king was deeply moved and never troubled the monkeys again."
+        }
+      ],
+      "questions": [
+        { "hi": "बंदर किस पेड़ पर रहते थे?", "en": "Which tree did the monkeys live in?", "answer": "mango", "options": ["mango", "banana", "apple"] },
+        {
+          "hi": "बंदरों के राजा ने साथियों को कैसे बचाया?",
+          "en": "How did the monkey king save his troop?",
+          "text": true,
+          "answer": "अपने शरीर से पुल बनाकर",
+          "options": ["अपने शरीर से पुल बनाकर", "नाव चलाकर", "छिपकर"]
+        }
+      ],
+      "moral": { "hi": "सच्चा नेता पहले दूसरों की रक्षा करता है।", "en": "A true leader takes care of others first." }
     }
   ],
   "levels": [
@@ -2841,6 +3127,24 @@
           "skill": "Reading",
           "icon": "book:monkey",
           "lessons": [{ "id": "g1-story-1", "game": "story", "icon": "book:monkey", "title": { "hi": "कहानी", "en": "Story" }, "config": { "levels": ["grade1"] } }]
+        },
+        {
+          "id": "g1-more",
+          "title": { "hi": "और कहानियाँ", "en": "More stories" },
+          "skill": "Reading",
+          "icon": "frog",
+          "lessons": [
+            { "id": "g1-more-1", "game": "story", "icon": "frog", "title": { "hi": "टिंकू की छलाँग", "en": "Tinku's big jump" }, "config": { "story": "frog-jump" } },
+            { "id": "g1-more-2", "game": "story", "icon": "chick", "title": { "hi": "चूज़ा खो गया", "en": "The lost chick" }, "config": { "story": "lost-chick" } },
+            { "id": "g1-more-3", "game": "story", "icon": "umbrella", "title": { "hi": "बारिश का दिन", "en": "A rainy day" }, "config": { "story": "rainy-day" } },
+            {
+              "id": "g1-more-4",
+              "game": "sequence",
+              "icon": "letter:123",
+              "title": { "hi": "कहानी का क्रम", "en": "Story order" },
+              "config": { "levels": ["grade1"], "rounds": 2 }
+            }
+          ]
         }
       ],
       "tags": ["phonics", "reading", "vocabulary", "stories"],
@@ -3439,6 +3743,36 @@
           "skill": "Reading",
           "icon": "book:bear",
           "lessons": [{ "id": "g2-story-1", "game": "story", "icon": "book:bear", "title": { "hi": "कहानी", "en": "Story" }, "config": { "levels": ["grade2"] } }]
+        },
+        {
+          "id": "g2-new",
+          "title": { "hi": "नई कहानियाँ", "en": "New stories" },
+          "skill": "Stories",
+          "icon": "elephant",
+          "lessons": [
+            {
+              "id": "g2-new-1",
+              "game": "story",
+              "icon": "elephant",
+              "title": { "hi": "हाथी और चूहे", "en": "The elephants and the mice" },
+              "config": { "story": "elephant-mice" }
+            },
+            {
+              "id": "g2-new-2",
+              "game": "story",
+              "icon": "goat",
+              "title": { "hi": "किसान और तीन ठग", "en": "The farmer and the three tricksters" },
+              "config": { "story": "farmer-goat" }
+            },
+            { "id": "g2-new-3", "game": "story", "icon": "tree", "title": { "hi": "आम का पेड़", "en": "The mango tree" }, "config": { "story": "kind-tree" } },
+            {
+              "id": "g2-new-4",
+              "game": "sequence",
+              "icon": "letter:123",
+              "title": { "hi": "कहानी का क्रम", "en": "Story order" },
+              "config": { "levels": ["grade2"], "rounds": 2 }
+            }
+          ]
         }
       ],
       "helpers": { "vendor": "squirrel" }
@@ -3643,6 +3977,35 @@
           "skill": "Reading",
           "icon": "book:peacock",
           "lessons": [{ "id": "g3-story-1", "game": "story", "icon": "book:peacock", "title": { "hi": "कहानी", "en": "Story" }, "config": { "levels": ["grade3"] } }]
+        },
+        {
+          "id": "g3-new",
+          "title": { "hi": "नई कहानियाँ", "en": "New stories" },
+          "skill": "Stories",
+          "icon": "crow",
+          "lessons": [
+            {
+              "id": "g3-new-1",
+              "game": "story",
+              "icon": "crow",
+              "title": { "hi": "बीरबल और कौवे", "en": "Birbal counts the crows" },
+              "config": { "story": "birbal-crows" }
+            },
+            {
+              "id": "g3-new-2",
+              "game": "story",
+              "icon": "bird",
+              "title": { "hi": "हाथी और गौरैया", "en": "The elephant and the sparrow" },
+              "config": { "story": "elephant-sparrow" }
+            },
+            {
+              "id": "g3-new-3",
+              "game": "sequence",
+              "icon": "letter:123",
+              "title": { "hi": "कहानी का क्रम", "en": "Story order" },
+              "config": { "levels": ["grade3"], "rounds": 2 }
+            }
+          ]
         }
       ]
     },
@@ -3906,6 +4269,23 @@
           "skill": "Reading",
           "icon": "book:deer",
           "lessons": [{ "id": "g4-story-1", "game": "story", "icon": "book:deer", "title": { "hi": "कहानी", "en": "Story" }, "config": { "levels": ["grade3", "grade4"] } }]
+        },
+        {
+          "id": "g4-new",
+          "title": { "hi": "नई कहानियाँ", "en": "New stories" },
+          "skill": "Stories",
+          "icon": "monkey",
+          "lessons": [
+            { "id": "g4-new-1", "game": "story", "icon": "cat", "title": { "hi": "तेनाली की बिल्ली", "en": "Tenali's cat" }, "config": { "story": "tenali-cat" } },
+            { "id": "g4-new-2", "game": "story", "icon": "monkey", "title": { "hi": "बंदरों का राजा", "en": "The monkey king" }, "config": { "story": "monkey-king" } },
+            {
+              "id": "g4-new-3",
+              "game": "sequence",
+              "icon": "letter:123",
+              "title": { "hi": "कहानी का क्रम", "en": "Story order" },
+              "config": { "levels": ["grade4"], "rounds": 2 }
+            }
+          ]
         }
       ]
     },

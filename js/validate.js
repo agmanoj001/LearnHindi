@@ -23,6 +23,7 @@ export const GAME_TYPES = [
   'sort',
   'math',
   'phonics',
+  'sequence',
 ];
 export const OPPOSITE_KINDS = ['size', 'height', 'speed'];
 export const PAIR_KINDS = ['opposite', 'plural', 'female'];
@@ -474,6 +475,10 @@ export function validateContent(c, { knownPictures = null, pictureExists = null,
         else for (const s of x.skills) if (!SKILLS[s]) err(`${at}: "${s}" is not a math skill (see js/mathgen.js)`);
         if (x.rounds !== undefined) count('rounds');
         break;
+      case 'sequence':
+        if (x.story !== undefined && !(c.stories || []).some((st) => st.id === x.story)) err(`${at}.story "${x.story}" is not a story id`);
+        if (x.rounds !== undefined) count('rounds');
+        break;
       case 'phonics':
         if (!Array.isArray(x.skills) || !x.skills.length) err(`${at}.skills must list phonics skills`);
         else for (const s of x.skills) if (!PHONICS[s]) err(`${at}: "${s}" is not a phonics skill (see js/phonicsgen.js)`);
@@ -565,7 +570,7 @@ export function validateContent(c, { knownPictures = null, pictureExists = null,
           // reading games need something to read at this level
           const lv = cfg.levels || [w.level];
           if (lesson.game === 'sentence' && !(c.sentences || []).some((st) => lv.includes(st.level))) err(`${lat} (${lesson.id}): no sentences for levels ${lv.join(', ')}`);
-          if (lesson.game === 'story' && !cfg.story && !(c.stories || []).some((st) => lv.includes(st.level))) err(`${lat} (${lesson.id}): no stories for levels ${lv.join(', ')}`);
+          if ((lesson.game === 'story' || lesson.game === 'sequence') && !cfg.story && !(c.stories || []).some((st) => lv.includes(st.level))) err(`${lat} (${lesson.id}): no stories for levels ${lv.join(', ')}`);
           if (['railway', 'trace'].includes(lesson.game) && !cfg.letters && !w.letterSets.length) err(`${lat} (${lesson.id}) needs letters`);
           if (['matra', 'read', 'construction'].includes(lesson.game) && cfg.focus) {
             if (!Array.isArray(cfg.focus) || !cfg.focus.every((m) => matraIds.has(m) || m === 'an')) err(`${lat} (${lesson.id}).focus must list matra ids`);

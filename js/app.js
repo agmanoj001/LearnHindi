@@ -12,14 +12,14 @@ import {
   practiceWeight,
   weightedSequence,
 } from './logic.js';
-import { findLesson, lessonRecord, lessonLetters, applyLessonResult, homeWorld, adaptTier } from './curriculum.js';
+import { findLesson, lessonRecord, lessonLetters, applyLessonResult, homeWorld, adaptTier, addPlayTime, isoDay } from './curriculum.js';
 import { validateContent } from './validate.js';
 import { pictureExists, picture, pictureForWord, specialVehicle } from './art.js';
 import { initAudio, play, stop, wordSegs, letterSegs, numberSegs, soundSegs, sentenceSegs, phraseSegs, setVoicePrefs } from './audio.js';
-import { KEYS, load, save } from './storage.js';
+import { KEYS, load, save, normalizeProfiles, profileKey } from './storage.js';
 import { sfx, music } from './sfx.js';
 import { el, sleep, bounce, ICONS } from './ui.js';
-import { createMascot } from './mascot.js';
+import { createMascot, MASCOT_IDS } from './mascot.js';
 import * as screens from './screens.js';
 import { showParent } from './parent.js';
 
@@ -42,17 +42,87 @@ async function boot() {
   for (const [id, w] of Object.entries(content.words)) w.id = id;
   state.content = content;
   state.warnings = warnings;
-  state.settings = normalizeSettings(load(KEYS.settings), content);
-  state.progress = normalizeProgress(load(KEYS.progress), content);
+  state.profiles = normalizeProfiles(load(KEYS.profiles), MASCOT_IDS);
+  loadProfile();
   state.special = load(KEYS.special);
-  state.lang = state.settings.lang;
-  setVoicePrefs(state.settings.voice);
-  sfx.enabled = state.settings.sfx;
-  music.enabled = state.settings.music;
   await initAudio();
+  startPlayClock();
+  initCaptions();
   history.replaceState({ name: 'splash', depth: 0 }, '');
   window.addEventListener('popstate', (e) => render(e.state || { name: 'hub', depth: 0 }));
   render({ name: 'splash', depth: 0 });
+}
+
+// ---------- play time and the daily limit ----------
+// Time counts while the app is on screen. A parent can set a daily limit (WHO and AAP advise about an
+// hour a day of good-quality screen time for young children); when it is reached, the next lesson
+// shows a friendly break screen instead. A grown-up can allow 10 more minutes.
+
+const TICK = 15;
+function startPlayClock() {
+  setInterval(() => {
+    if (document.hidden || !state.content) return;
+    state.progress = addPlayTime(state.progress, TICK);
+    persistProgress();
+  }, TICK * 1000);
+}
+
+function minutesToday() {
+  return Math.floor((state.progress.time?.[isoDay(Date.now())] || 0) / 60);
+}
+
+function overLimit() {
+  const limit = state.settings.dailyLimit;
+  if (!limit) return false;
+  return minutesToday() >= limit + (state.extraMinutes?.[isoDay(Date.now())] || 0);
+}
+
+function allowMore(minutes = 10) {
+  const day = isoDay(Date.now());
+  state.extraMinutes = { ...(state.extraMinutes || {}), [day]: (state.extraMinutes?.[day] || 0) + minutes };
+}
+
+// ---------- captions ----------
+
+function initCaptions() {
+  const bar = el('div', { class: 'caption-bar', role: 'status', 'aria-live': 'polite' });
+  document.body.append(bar);
+  let hide = 0;
+  window.addEventListener('vt-caption', (e) => {
+    if (!state.settings.captions) return;
+    clearTimeout(hide);
+    bar.lang = e.detail.lang === 'hi' ? 'hi' : 'en';
+    bar.textContent = e.detail.text;
+    bar.classList.add('on');
+  });
+  window.addEventListener('vt-speaking', (e) => {
+    if (e.detail) return;
+    clearTimeout(hide);
+    hide = setTimeout(() => bar.classList.remove('on'), 1400);
+  });
+}
+
+// ---------- children's profiles ----------
+
+function loadProfile() {
+  const id = state.profiles.current;
+  state.settings = normalizeSettings(load(profileKey(KEYS.settings, id)), state.content);
+  state.progress = normalizeProgress(load(profileKey(KEYS.progress, id)), state.content);
+  state.lang = state.settings.lang;
+  state.hubTag = null;
+  setVoicePrefs(state.settings.voice);
+  sfx.enabled = state.settings.sfx;
+  music.enabled = state.settings.music;
+}
+
+function saveProfiles(profiles) {
+  state.profiles = normalizeProfiles(profiles, MASCOT_IDS);
+  save(KEYS.profiles, state.profiles);
+}
+
+function switchProfile(id) {
+  saveProfiles({ ...state.profiles, current: id });
+  loadProfile();
 }
 
 function showError(errors) {
@@ -115,7 +185,8 @@ function render(route) {
     case 'library':
       return world ? screens.library(api, world) : goHome();
     case 'lesson':
-      return startLesson(p);
+      // past the daily limit, the next lesson waits for a grown-up (a lesson already started is never cut off)
+      return overLimit() ? screens.rest(api) : startLesson(p);
     case 'parent':
       return showParent(api);
     default:
@@ -235,11 +306,11 @@ function iconHtml(icon) {
 }
 
 function persistSettings() {
-  save(KEYS.settings, state.settings);
+  save(profileKey(KEYS.settings, state.profiles.current), state.settings);
 }
 
 function persistProgress() {
-  save(KEYS.progress, state.progress);
+  save(profileKey(KEYS.progress, state.profiles.current), state.progress);
 }
 
 // ---------- lesson frame ----------
@@ -437,6 +508,10 @@ const api = {
   persistProgress,
   rng,
   sleep,
+  minutesToday,
+  allowMore,
+  saveProfiles,
+  switchProfile,
 };
 
 // ---------- offline ----------

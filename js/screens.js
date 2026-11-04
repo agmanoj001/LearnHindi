@@ -4,7 +4,7 @@ import { el, sleep, bounce, animate, ICONS } from './ui.js';
 import { createMascot, mascotSvg, MASCOTS, MASCOT_IDS } from './mascot.js';
 import { sceneSvg } from './art-scenes.js';
 import { picture, pictureForWord, specialVehicle } from './art.js';
-import { worldLessons, lessonRecord, isUnlocked, currentLesson, nextLesson, worldStars, hubWorlds, streak, nextCollectible } from './curriculum.js';
+import { worldLessons, lessonRecord, isUnlocked, currentLesson, nextLesson, worldStars, hubWorlds, streak, nextCollectible, todayPlan } from './curriculum.js';
 
 export function backdrop(world) {
   return el('div', { class: 'backdrop', html: sceneSvg(world?.theme || 'hub') });
@@ -40,21 +40,39 @@ export function mascotJoke(api, mascot) {
 // ---------- splash ----------
 
 export function splash(api) {
-  const btn = el('button', { class: 'splash-play bubble green', 'aria-label': 'Play', html: ICONS.play });
-  btn.addEventListener('click', () => {
+  const start = () => {
     api.sfx.unlock();
     api.music.unlock();
     api.sfx.jingle();
     const r = api.homeRoute();
     api.go(r.name, r.params, { replace: true });
     if (r.name !== 'onboard') api.say('welcome');
-  });
+  };
+  const btn = el('button', { class: 'splash-play bubble green', 'aria-label': 'Play', html: ICONS.play, onclick: start });
+  // with more than one child, each picks their own guide to start
+  const { list } = api.state.profiles;
+  const who =
+    list.length > 1
+      ? el('div', { class: 'who', role: 'group', 'aria-label': "Who's playing?" }, [
+          el('p', { class: 'who-q' }, [el('b', { lang: 'hi', text: 'कौन खेलेगा?' }), el('span', { text: "Who's playing?" })]),
+          el(
+            'div',
+            { class: 'who-list' },
+            list.map((p, i) =>
+              el('button', { class: 'who-btn', 'aria-label': p.name || `Child ${i + 1}`, onclick: () => (api.switchProfile(p.id), start()) }, [
+                el('span', { class: 'who-face', html: mascotSvg(p.avatar) }),
+                el('span', { class: 'who-name', text: p.name || `${i + 1}` }),
+              ]),
+            ),
+          ),
+        ])
+      : null;
   const parade = el(
     'div',
     { class: 'parade' },
     MASCOT_IDS.map((id, i) => el('div', { class: 'parade-item', style: { animationDelay: `${i * 0.12}s` }, html: mascotSvg(id) })),
   );
-  api.app.replaceChildren(el('div', { class: 'screen splash enter' }, [backdrop(null), parade, appTitle(api), btn]));
+  api.app.replaceChildren(el('div', { class: 'screen splash enter' }, [backdrop(null), parade, appTitle(api), who || btn]));
 }
 
 // ---------- onboarding: who is learning ----------
@@ -159,6 +177,7 @@ export function hub(api) {
         ]),
       ]),
       el('div', { class: 'hub-scroll' }, [
+        filter ? null : todayCard(api, todayPlan(content, progress, all.filter((w) => w.level === settings.level))),
         usedTags.length > 1 ? el('div', { class: 'tag-filters', role: 'toolbar', 'aria-label': 'Show worlds about' }, [tagBtn(null, null), ...usedTags.map(([id, t]) => tagBtn(id, t))]) : null,
         mine.length ? el('h2', { class: 'hub-section', text: `${level(settings.level).name.en} · ${level(settings.level).name.hi}` }) : null,
         el('div', { class: 'world-cards' }, mine.map(card)),
@@ -404,8 +423,8 @@ export function library(api, w) {
 
 // ---------- parent gate: hold for 3 seconds ----------
 
-export function parentGate(api) {
-  const btn = el('button', { class: 'gate', 'aria-label': 'Grown-ups: press and hold for 3 seconds', html: ICONS.gear });
+export function parentGate(api, { onDone = () => api.go('parent'), html = ICONS.gear, label = 'Grown-ups: press and hold for 3 seconds', cls = '' } = {}) {
+  const btn = el('button', { class: `gate ${cls}`, 'aria-label': label, html });
   let start = 0;
   let raf = 0;
   const reset = () => {
@@ -418,7 +437,7 @@ export function parentGate(api) {
     btn.style.setProperty('--p', p);
     if (p >= 1) {
       reset();
-      api.go('parent');
+      onDone();
     } else raf = requestAnimationFrame(tick);
   };
   btn.addEventListener('pointerdown', (e) => {
@@ -429,6 +448,80 @@ export function parentGate(api) {
   for (const ev of ['pointerup', 'pointerleave', 'pointercancel']) btn.addEventListener(ev, reset);
   btn.addEventListener('contextmenu', (e) => e.preventDefault());
   return btn;
+}
+
+// ---------- break time: the daily limit was reached ----------
+
+const OFFLINE_IDEAS = [
+  { hi: 'बाहर जाकर खेलो!', en: 'Go and play outside!' },
+  { hi: 'किसी के साथ एक असली किताब पढ़ो।', en: 'Read a real book with someone.' },
+  { hi: 'आज जो सीखा, उसका चित्र बनाओ।', en: 'Draw a picture of what you learned today.' },
+  { hi: 'घर में चीज़ें गिनो: कितने चम्मच? कितनी कुर्सियाँ?', en: 'Count things at home: how many spoons? How many chairs?' },
+  { hi: 'किसी को आज की कहानी सुनाओ।', en: 'Tell someone a story from today.' },
+  { hi: 'काग़ज़ पर आज के शब्द लिखो।', en: "Write today's words on paper." },
+];
+
+export function rest(api) {
+  const idea = OFFLINE_IDEAS[Math.floor(api.rng() * OFFLINE_IDEAS.length)];
+  const mascot = createMascot(api.state.world?.mascot || 'gappu', { size: 'large', onTap: () => mascotJoke(api, mascot) });
+  const more = parentGate(api, {
+    cls: 'more-time',
+    html: '<span>+10</span>',
+    label: 'Grown-ups: press and hold for 10 more minutes',
+    onDone: () => {
+      api.allowMore(10);
+      api.back();
+    },
+  });
+  api.app.replaceChildren(
+    el('div', { class: 'screen rest-screen enter' }, [
+      backdrop(api.state.world),
+      el('div', { class: 'rest-card' }, [
+        el('div', { class: 'rest-mascot' }, [mascot.node, el('span', { class: 'zzz', text: 'z z z' })]),
+        el('h1', { lang: 'hi', text: 'आराम का समय!' }),
+        el('p', { class: 'rest-en', text: `Time for a break! You played ${api.minutesToday()} minutes today.` }),
+        el('p', { class: 'rest-idea', lang: 'hi', text: idea.hi }),
+        el('p', { class: 'rest-en', text: idea.en }),
+        el('div', { class: 'rest-actions' }, [el('button', { class: 'bubble green', 'aria-label': 'Home', html: ICONS.home, onclick: () => api.goHome() }), more]),
+        el('p', { class: 'rest-note', text: 'Grown-ups: hold +10 for ten more minutes. The limit is in the parent area.' }),
+      ]),
+    ]),
+  );
+  api.sayLines({ hi: `आराम का समय! ${idea.hi}`, en: `Time for a break! ${idea.en}` });
+}
+
+// ---------- today's path: keep going, a review, a story ----------
+
+const STEP = {
+  go: { hi: 'आगे बढ़ो', en: 'Keep going', icon: 'play' },
+  review: { hi: 'दोहराओ', en: 'Review', icon: 'replay' },
+  story: { hi: 'कहानी', en: 'Story time', icon: 'star' },
+};
+
+export function todayCard(api, steps) {
+  if (!steps.length) return null;
+  const done = steps.filter((s) => s.done).length;
+  return el('section', { class: 'today', 'aria-label': "Today's path" }, [
+    el('div', { class: 'today-head' }, [el('b', { lang: 'hi', text: 'आज का सफ़र' }), el('span', { text: `Today · ${done} / ${steps.length}` })]),
+    el(
+      'div',
+      { class: 'today-steps' },
+      steps.map((s, i) => {
+        const meta = STEP[s.kind];
+        const b = el('button', { class: `today-step ${s.kind}${s.done ? ' done' : ''}`, style: { '--place': s.world.color }, 'aria-label': `${meta.en}: ${s.lesson.title.en}` }, [
+          el('span', { class: 'today-icon', html: api.iconHtml(s.lesson.icon) }),
+          el('span', { class: 'today-text' }, [el('b', { text: `${i + 1}. ${meta.en}` }), el('span', { class: 'today-lesson', text: s.lesson.title.en })]),
+          el('span', { class: 'today-badge', html: s.done ? ICONS.check : ICONS[meta.icon] }),
+        ]);
+        b.addEventListener('click', () => {
+          api.sfx.pop();
+          bounce(b);
+          api.go('lesson', { lessonId: s.lesson.id });
+        });
+        return b;
+      }),
+    ),
+  ]);
 }
 
 export { MASCOTS };

@@ -5,7 +5,40 @@ export const KEYS = {
   settings: 'vt.settings',
   progress: 'vt.progress',
   special: 'vt.special',
+  profiles: 'vt.profiles',
 };
+
+// ---- children's profiles ----
+// Each child has their own settings and progress; voice recordings and the special photo are shared
+// by the family. The first child keeps the original keys, so existing saves carry on unchanged.
+// A profile is just a nickname (optional) and a guide character, stored on this device only.
+
+export const MAX_PROFILES = 4;
+
+export function normalizeProfiles(saved, mascots = []) {
+  const list = Array.isArray(saved?.list) ? saved.list.filter((p) => p && typeof p.id === 'string' && /^p\d+$/.test(p.id)).slice(0, MAX_PROFILES) : [];
+  const clean = list.map((p) => ({ id: p.id, name: typeof p.name === 'string' ? p.name.slice(0, 20) : '', avatar: mascots.includes(p.avatar) ? p.avatar : mascots[0] || 'gappu' }));
+  if (!clean.some((p) => p.id === 'p1')) clean.unshift({ id: 'p1', name: '', avatar: mascots[0] || 'gappu' });
+  const current = clean.some((p) => p.id === saved?.current) ? saved.current : 'p1';
+  return { list: clean.slice(0, MAX_PROFILES), current };
+}
+
+export function profileKey(base, profileId) {
+  return !profileId || profileId === 'p1' ? base : `${base}:${profileId}`;
+}
+
+export function addProfile(profiles, avatar) {
+  if (profiles.list.length >= MAX_PROFILES) return profiles;
+  let n = 1;
+  while (profiles.list.some((p) => p.id === `p${n}`)) n++;
+  return { ...profiles, list: [...profiles.list, { id: `p${n}`, name: '', avatar }] };
+}
+
+export function removeProfile(profiles, id) {
+  if (id === 'p1') return profiles;
+  const list = profiles.list.filter((p) => p.id !== id);
+  return { list, current: profiles.current === id ? 'p1' : profiles.current };
+}
 
 export function load(key) {
   try {

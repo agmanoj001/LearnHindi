@@ -113,7 +113,14 @@ export function applyLessonResult(progress, { world, lesson, collection, firstTr
   const firstTime = before.stars === 0;
   const lessons = {
     ...progress.lessons,
-    [lesson.id]: { stars: Math.max(before.stars, stars), plays: before.plays + 1, tier: nextTier(tier ?? (before.tier || 0), firstTry, answered) },
+    [lesson.id]: {
+      stars: Math.max(before.stars, stars),
+      plays: before.plays + 1,
+      tier: nextTier(tier ?? (before.tier || 0), firstTry, answered),
+      // spaced review: a strong result moves the lesson to a longer gap, a weak one back to the start
+      box: stars === 3 ? Math.min(REVIEW_DAYS.length - 1, (before.box ?? -1) + 1) : stars === 2 ? Math.max(0, before.box ?? 0) : 0,
+      last: isoDay(now),
+    },
   };
   // a new collectible the first time a lesson is finished, and for every 3-star replay
   let collected = progress.collected || {};
@@ -161,4 +168,74 @@ export function migrateProgress(saved) {
     return { ...saved, collected: { vehicles: saved.unlockedVehicles.slice() } };
   }
   return saved;
+}
+
+// ---------- spaced review and the daily plan ----------
+
+// Days to wait before a lesson comes back for review, by "box": 1, 2, 4, 7, then 14 days
+// (expanding intervals, as in a Leitner system).
+export const REVIEW_DAYS = [1, 2, 4, 7, 14];
+
+const dayNumber = (iso) => Math.round(new Date(`${iso}T12:00:00`).getTime() / 86400000);
+
+// Finished lessons whose review is due, most overdue (then weakest) first.
+export function dueReviews(progress, worlds, now = Date.now()) {
+  const today = dayNumber(isoDay(now));
+  const out = [];
+  for (const world of worlds) {
+    for (const lesson of worldLessons(world)) {
+      const rec = lessonRecord(progress, lesson.id);
+      if (!rec.stars || !rec.last) continue;
+      const overdue = today - dayNumber(rec.last) - REVIEW_DAYS[rec.box ?? 0];
+      if (overdue >= 0) out.push({ world, lesson, overdue, stars: rec.stars });
+    }
+  }
+  return out.sort((a, b) => b.overdue - a.overdue || a.stars - b.stars);
+}
+
+// Today's path: three short steps for the child's grade.
+//   go     the next new lesson, in the grade's world with the least done (keeps subjects balanced)
+//   review a finished lesson that is due again (spaced repetition), if there is one
+//   story  a story the child hasn't read yet (or any story lesson)
+// Each step says whether it was already done today.
+export function todayPlan(content, progress, worlds, now = Date.now()) {
+  const today = isoDay(now);
+  const done = (lessonId) => lessonRecord(progress, lessonId).last === today;
+  const ratio = (w) => {
+    const list = worldLessons(w);
+    return list.filter((l) => lessonRecord(progress, l.id).stars > 0).length / list.length;
+  };
+  const steps = [];
+  const open = worlds.filter((w) => worldLessons(w).some((l) => lessonRecord(progress, l.id).stars === 0));
+  const goWorld = open.slice().sort((a, b) => ratio(a) - ratio(b))[0];
+  if (goWorld) steps.push({ kind: 'go', world: goWorld, lesson: currentLesson(progress, goWorld) });
+  const review = dueReviews(progress, worlds, now).find((r) => !steps.some((s) => s.lesson.id === r.lesson.id));
+  if (review) steps.push({ kind: 'review', world: review.world, lesson: review.lesson });
+  const stories = worlds.flatMap((w) => worldLessons(w).filter((l) => l.game === 'story').map((lesson) => ({ world: w, lesson })));
+  const story = stories.find((s) => lessonRecord(progress, s.lesson.id).stars === 0) || stories.find((s) => !s.lesson.config?.story) || stories[0];
+  if (story && !steps.some((s) => s.lesson.id === story.lesson.id)) steps.push({ kind: 'story', ...story });
+  return steps.map((s) => ({ ...s, done: done(s.lesson.id) }));
+}
+
+// Minutes played per day, for the daily limit and the parent's week view.
+export function addPlayTime(progress, seconds, now = Date.now()) {
+  const day = isoDay(now);
+  const time = { ...(progress.time || {}) };
+  time[day] = Math.round((time[day] || 0) + seconds);
+  // keep the last 60 days
+  const keep = Object.keys(time).sort().slice(-60);
+  return { ...progress, time: Object.fromEntries(keep.map((d) => [d, time[d]])) };
+}
+
+export function weekSummary(progress, now = Date.now()) {
+  const days = [];
+  const d = new Date(now);
+  for (let i = 6; i >= 0; i--) {
+    const day = new Date(d.getFullYear(), d.getMonth(), d.getDate() - i);
+    const iso = isoDay(day);
+    days.push({ day: iso, minutes: Math.round((progress.time?.[iso] || 0) / 60), weekday: day.getDay() });
+  }
+  const recent = new Set(days.map((x) => x.day));
+  const lessons = Object.values(progress.lessons || {}).filter((r) => recent.has(r.last)).length;
+  return { days, minutes: days.reduce((n, x) => n + x.minutes, 0), lessons };
 }
