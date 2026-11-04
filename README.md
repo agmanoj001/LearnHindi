@@ -11,6 +11,12 @@ Everything is spoken aloud, so a child doesn't need to read to play. Tap targets
 
 It's plain HTML, CSS and JavaScript with no build step, so it runs on GitHub Pages and works offline once opened.
 
+### Does it work without internet?
+
+**Yes, after the first visit.** The first time the app is opened online, it saves all its files on the device (the pages, every picture, the fonts and the lessons: about 55 files). After that it opens and plays with no internet at all: every lesson, story, game, recording and setting works offline, and progress is saved on the device. Updates download in the background the next time it is online.
+
+The one thing that can depend on the device is the **computer voice**. On Android the Google text-to-speech voices work offline once their voice data is installed (*Settings › System › Languages › Text-to-speech › Google › Install voice data › Hindi*). Some desktop browsers use online voices, so offline they fall back to a plainer voice or stay silent. **Family recordings made in the app always work offline**, which is another good reason to record them.
+
 [CURRICULUM.md](CURRICULUM.md) explains what each grade teaches, the sources, and the learning research behind the design.
 
 ## The worlds
@@ -48,6 +54,14 @@ Grades 1–4 have a library of **41 read-along stories and 6 poems**: Panchatant
 
 Each world has a guide who waves, talks when the app speaks, reacts to answers, and does something silly when tapped (sneezes, spins, dances). They turn up in each other's worlds too: Pip and Tiko star in Grade 1 story problems, Chiku chases a banana and Zoomi flies to the Moon in the story library.
 
+### Placement check
+
+Not sure which grade to start with? The first screen (and the parent area) has a **two-minute check**: two quick questions per level, from Kindergarten letters (क, अ) through reading words with matras and half letters to Grade 4 grammar. It stops at the first level the child doesn't know yet and suggests that grade.
+
+### Read-along and "tell it back"
+
+Story pages light up **word by word** as they are read (exactly, where the voice reports word timings; otherwise estimated from word length, which also works for family recordings). With **Tell it back** turned on in the parent area, each story ends with "Now you tell the story!": the child records their own retelling, with the pictures as prompts, and grown-ups can listen to it later. Recordings never leave the device.
+
 ### Today's path
 
 The top of the home screen shows **three steps for today**: *Keep going* (the next new lesson, in the grade's world with the least done, so subjects stay balanced), *Review* (a finished lesson that is due again) and *Story time* (a story not read yet). Each turns green once done today.
@@ -68,13 +82,14 @@ The top of the home screen shows **three steps for today**: *Keep going* (the ne
 - **Grade**: who is learning.
 - **Navigation**: *Stay in this grade* hides the other worlds. *Unlock every lesson* opens the whole path. *Math worlds* shows or hides the English math worlds.
 - **Language** (Hindi worlds): Hindi, English, or both. In "both", words are said in Hindi then English, and some rounds alternate languages. Math worlds are always in English.
-- **Play time and reading support**: a *daily limit* (15–60 minutes, or none). When it's reached, the next lesson shows a break screen with an idea for off-screen play; a lesson already started is never cut off, and a grown-up can hold *+10* for ten more minutes. *Captions* show everything the app says as text.
+- **Play time and reading support**: a *daily limit* (15–60 minutes, or none). When it's reached, the next lesson shows a break screen with an idea for off-screen play; a lesson already started is never cut off, and a grown-up can hold *+10* for ten more minutes. *Captions* show everything the app says as text. *Tell it back* lets the child record themselves retelling each story.
 - **Sound**: background music and sound effects, each on or off.
 - **Voices**: pick the Hindi and English text-to-speech voice (the best installed voice is chosen by default), set the speed, and test them.
 - **Record your voice**: record any word, letter, story page, moral or phrase right in the app. Your recording replaces the computer voice. See below.
 - **Recordings from files**: load recordings made elsewhere.
 - **Special vehicle photo**: a photo from the device becomes a vehicle in Vehicle Town's garage. It is shrunk and saved only in this browser.
-- **Progress**: this week's minutes per day, lessons played and reviews due; stars per world, a "practise together" list (words, letters, matras and math skills the child often misses) and a "doing great" list, and a reset button.
+- **Parent area language**: English or हिन्दी, switched at the top.
+- **Progress**: this week's minutes per day, lessons played and reviews due; **Getting better** (each lesson's first score against its latest, as a before-and-after measure); the child's **story retellings**; stars per world, a "practise together" list (words, letters, matras and math skills the child often misses) and a "doing great" list, and a reset button.
 
 Everything stays on the device. Nothing is uploaded.
 
@@ -289,12 +304,9 @@ See [docs/LEARNING-REVIEW.md](docs/LEARNING-REVIEW.md) for a full review against
 
 1. **Record family voices** for the words and stories the child uses most.
 2. **A teacher's read** of the Hindi quizzes, poems and stories, and of the English math and phonics wording.
-3. **A placement check** that suggests a grade, and a short check before and after each unit to see real learning gains.
-4. **The parent area in Hindi.**
-5. **Openly licensed readers** from StoryWeaver (Pratham Books, CC BY 4.0), with attribution.
-6. **Read-along word highlighting**, and "tell it back" recordings of the child retelling a story.
-7. **Stroke-order handwriting** for Devanagari, and **math beyond Grade 1**.
-8. **A Play Store app** via a Trusted Web Activity, once tested on real phones.
+3. **Openly licensed readers** from StoryWeaver (Pratham Books, CC BY 4.0), with attribution: check each book's licence page first.
+4. **Stroke-order handwriting** for Devanagari, and **math beyond Grade 1**.
+5. **A Play Store app** via a Trusted Web Activity, once tested on real phones.
 
 ## Project layout
 

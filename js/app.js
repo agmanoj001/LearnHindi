@@ -175,6 +175,16 @@ function render(route) {
       return screens.splash(api);
     case 'onboard':
       return screens.onboard(api);
+    case 'placement':
+      return screens.placement(api, {
+        onPick: (level) => {
+          state.settings.level = level.id;
+          state.settings.onboarded = true;
+          persistSettings();
+          sfx.jingle();
+          goHome();
+        },
+      });
     case 'hub':
       enterWorld(null);
       return screens.hub(api);
@@ -381,6 +391,7 @@ function startLesson({ lessonId, worldId, storyId }) {
   const ctx = {
     content: state.content,
     settings: { ...state.settings, lang: state.lang },
+    profileId: state.profiles.current,
     progress: state.progress,
     special: world.collection === 'vehicles' ? state.special : null,
     world,

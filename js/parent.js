@@ -4,12 +4,16 @@ import { el, ICONS } from './ui.js';
 import { normalizeProgress, clipKeysFor, clipKeyFromFileName, practiceReport, DAILY_LIMITS } from './logic.js';
 import { skillName, SKILLS as MATH_SKILLS } from './mathgen.js';
 import { phonicsName } from './phonicsgen.js';
-import { worldStars, worldLessons, lessonRecord, weekSummary, dueReviews } from './curriculum.js';
+import { worldStars, worldLessons, lessonRecord, weekSummary, dueReviews, learningGains } from './curriculum.js';
 import { refreshClipKeys, voicesFor, setVoicePrefs, hasVoice, play } from './audio.js';
 import { KEYS, save, clips, resizeImage, addProfile, removeProfile, MAX_PROFILES } from './storage.js';
 import { MASCOTS, MASCOT_IDS, mascotSvg } from './mascot.js';
 import { specialVehicle } from './art.js';
 import { levelCard } from './screens.js';
+import { translateParent } from './parent-hi.js';
+
+// the parent area in Hindi when a grown-up picks it
+const localize = (api, root) => api.state.settings.parentLang === 'hi' && translateParent(root);
 
 export function showParent(api) {
   api.stop();
@@ -127,6 +131,7 @@ export function showParent(api) {
   const audioStatus = el('p', { class: 'note' });
   const showCount = async () => {
     audioStatus.textContent = `${(await clips.keys()).length} recording(s) saved on this device.`;
+    localize(api, audioStatus);
   };
   showCount();
   const audioInput = el('input', { type: 'file', accept: 'audio/*', multiple: true, class: 'visually-hidden', id: 'audio-in' });
@@ -183,9 +188,9 @@ export function showParent(api) {
 
   api.app.replaceChildren(
     el('div', { class: 'screen settings enter' }, [
-      el('div', { class: 'settings-head' }, [el('button', { class: 'round-btn', 'aria-label': 'Done', html: ICONS.back, onclick: () => api.back() }), el('h1', { text: 'Grown-ups' })]),
+      el('div', { class: 'settings-head' }, [el('button', { class: 'round-btn', 'aria-label': 'Done', html: ICONS.back, onclick: () => api.back() }), el('h1', { text: 'Grown-ups' }), parentLangSwitch(api)]),
       childrenSection(api),
-      section('Grade', levels),
+      section('Grade', levels, el('button', { class: 'btn', text: 'Not sure? Quick check (2 minutes)', onclick: () => api.go('placement') })),
       section(
         'Navigation',
         toggle('Stay in this grade', s.lockGrade, (v) => ((s.lockGrade = v), persist()), 'Hides the other worlds. The home screen opens this grade’s Hindi world.'),
@@ -205,6 +210,17 @@ export function showParent(api) {
         ]),
         el('p', { class: 'note', text: `Played today: ${api.minutesToday()} min. When the limit is reached, the next lesson shows a break screen with an idea for off-screen play (a lesson already started is never cut off). WHO and the AAP suggest about an hour a day of good-quality screen time for young children, ideally together with a grown-up.` }),
         toggle('Captions', s.captions, (v) => ((s.captions = v), persist()), 'Shows everything the app says as text. Helps children who are hard of hearing, and helps early readers match sounds to words.'),
+        toggle(
+          'Tell it back',
+          s.retell,
+          async (v) => {
+            s.retell = v;
+            persist();
+            // ask for the microphone now, while a grown-up is here
+            if (v && navigator.mediaDevices?.getUserMedia) navigator.mediaDevices.getUserMedia({ audio: true }).then((st) => st.getTracks().forEach((t) => t.stop())).catch(() => {});
+          },
+          'After each story the child can record themselves retelling it, with the pictures as prompts. Retelling is one of the best checks of understanding. Recordings stay on this device; listen to them under Progress.',
+        ),
       ),
       section(
         'Sound',
@@ -228,6 +244,8 @@ export function showParent(api) {
       section(
         'Progress',
         weekView(api),
+        gainsView(api),
+        retellView(api),
         el('div', { class: 'world-rows' }, worldRows),
         el('h3', { text: 'Practise together' }),
         report.practise.length ? chips(report.practise) : el('p', { class: 'note', text: 'Items show up here after a few tries.' }),
@@ -238,6 +256,7 @@ export function showParent(api) {
       api.state.warnings.length ? section('Content warnings', el('ul', {}, api.state.warnings.map((w) => el('li', { text: w })))) : null,
     ]),
   );
+  localize(api, api.app);
 }
 
 // Record your own voice for the words, letters and phrases of the child's grade.
@@ -313,6 +332,7 @@ function recorderSection(api) {
       return el('div', { class: `rec-row ${have.has(key) ? 'has' : ''}` }, [el('span', { class: 'rec-text' }, [el('b', { lang: inEnglish ? 'en' : 'hi', text: inEnglish ? it.en : it.hi }), el('small', { text: sub })]), recBtn, playBtn, delBtn]);
     });
     list.replaceChildren(...rows);
+    localize(api, list);
   };
   const seg = (name, options, get, set) =>
     el(
@@ -393,4 +413,62 @@ function childrenSection(api) {
     ...rows,
     add,
   ]);
+}
+
+// Before and after: each lesson's first score against its latest one.
+function gainsView(api) {
+  const g = learningGains(api.state.progress, api.state.content);
+  if (!g.rows.length) return el('p', { class: 'note', text: 'Getting better: once lessons have been played twice, their first and latest scores show here.' });
+  return el('div', { class: 'gains' }, [
+    el('h3', { text: 'Getting better' }),
+    el('p', { class: 'note', text: `Lessons played more than once: ${g.rows.length}. Average score the first time ${g.first}%, latest ${g.recent}% (right on the first try).` }),
+    ...g.rows.slice(0, 8).map((r) =>
+      el('div', { class: 'gain-row' }, [
+        el('span', { class: 'gain-name', text: `${r.world.name.en} · ${r.lesson.title.en}` }),
+        el('span', { class: 'gain-bar' }, [el('span', { class: 'gain-first', style: { width: `${r.first}%` } }), el('span', { class: 'gain-recent', style: { width: `${r.recent}%` } })]),
+        el('span', { class: `gain-num${r.gain > 0 ? ' up' : ''}`, text: `${r.first}% → ${r.recent}%` }),
+      ]),
+    ),
+  ]);
+}
+
+// The child's "tell it back" recordings.
+function retellView(api) {
+  const box = el('div', { class: 'retells' });
+  const prefix = `retell:${api.state.profiles.current}:`;
+  const refresh = async () => {
+    const mine = (await clips.keys()).filter((k) => String(k).startsWith(prefix));
+    box.replaceChildren(
+      ...(mine.length ? [el('h3', { text: 'Story retellings' })] : []),
+      ...mine.map((k) => {
+        const id = k.slice(prefix.length);
+        const story = api.state.content.stories.find((x) => x.id === id);
+        return el('div', { class: 'rec-row has' }, [
+          el('span', { class: 'rec-text' }, [el('b', { lang: 'hi', text: story?.title.hi || id }), el('small', { text: story?.title.en || '' })]),
+          el('button', { class: 'btn', text: '▶', 'aria-label': 'play', onclick: async () => new Audio(URL.createObjectURL(await clips.get(k))).play().catch(() => {}) }),
+          el('button', { class: 'btn', text: '✕', 'aria-label': 'delete', onclick: async () => (await clips.del(k), refresh()) }),
+        ]);
+      }),
+    );
+    localize(api, box);
+  };
+  refresh();
+  return box;
+}
+
+function parentLangSwitch(api) {
+  const s = api.state.settings;
+  return el(
+    'div',
+    { class: 'seg parent-lang', role: 'group', 'aria-label': 'Parent area language' },
+    [
+      ['en', 'English'],
+      ['hi', 'हिन्दी'],
+    ].map(([value, text]) =>
+      el('label', {}, [
+        el('input', { type: 'radio', name: 'parent-lang', value, checked: s.parentLang === value, onchange: () => ((s.parentLang = value), api.persistSettings(), showParent(api)) }),
+        el('span', { text }),
+      ]),
+    ),
+  );
 }

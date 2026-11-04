@@ -110,6 +110,8 @@ export function streak(days, today) {
 export function applyLessonResult(progress, { world, lesson, collection, firstTry, answered, tier, now = Date.now() }) {
   const before = lessonRecord(progress, lesson.id);
   const stars = starsFor(firstTry, answered);
+  // first and latest score (% right first time): a simple before-and-after measure of learning
+  const score = answered ? Math.round((100 * firstTry) / answered) : null;
   const firstTime = before.stars === 0;
   const lessons = {
     ...progress.lessons,
@@ -120,6 +122,7 @@ export function applyLessonResult(progress, { world, lesson, collection, firstTr
       // spaced review: a strong result moves the lesson to a longer gap, a weak one back to the start
       box: stars === 3 ? Math.min(REVIEW_DAYS.length - 1, (before.box ?? -1) + 1) : stars === 2 ? Math.max(0, before.box ?? 0) : 0,
       last: isoDay(now),
+      ...(score === null ? {} : { first: before.first ?? score, recent: score }),
     },
   };
   // a new collectible the first time a lesson is finished, and for every 3-star replay
@@ -238,4 +241,18 @@ export function weekSummary(progress, now = Date.now()) {
   const recent = new Set(days.map((x) => x.day));
   const lessons = Object.values(progress.lessons || {}).filter((r) => recent.has(r.last)).length;
   return { days, minutes: days.reduce((n, x) => n + x.minutes, 0), lessons };
+}
+
+// Lessons played more than once, with their first and latest score: how much the child has improved.
+export function learningGains(progress, content) {
+  const rows = [];
+  for (const w of content.worlds) {
+    for (const lesson of worldLessons(w)) {
+      const r = lessonRecord(progress, lesson.id);
+      if (r.plays >= 2 && Number.isFinite(r.first) && Number.isFinite(r.recent)) rows.push({ world: w, lesson, first: r.first, recent: r.recent, gain: r.recent - r.first });
+    }
+  }
+  rows.sort((a, b) => b.gain - a.gain);
+  const avg = (k) => (rows.length ? Math.round(rows.reduce((n, r) => n + r[k], 0) / rows.length) : null);
+  return { rows, first: avg('first'), recent: avg('recent') };
 }

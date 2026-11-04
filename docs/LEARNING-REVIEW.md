@@ -8,7 +8,7 @@ The most widely used framework for judging children's learning apps is Hirsh-Pas
 
 | Pillar | Where the app is strong | Gap | Status |
 | --- | --- | --- | --- |
-| Active | Every screen asks for a choice; tracing, building words and sentences, putting a story in order | Few open-ended or creative tasks (drawing, recording their own story) | ➡️ "Tell it back": the child records themselves retelling a story |
+| Active | Every screen asks for a choice; tracing, building words and sentences, putting a story in order | Few open-ended or creative tasks | ✅ "Tell it back": the child records themselves retelling a story |
 | Engaged | No ads, no menus mid-lesson, no timers; short lessons; adaptive difficulty | Collections could tempt "collecting for its own sake" | ✅ The daily limit and break screen keep play bounded |
 | Meaningful | Indian themes (family, festivals, village, folktales), NCERT topics, everyday objects | English phonics words are generic | ➡️ Add more Indian-context English words (mango, auto, kite, chai) |
 | Socially interactive | Parent recordings; "what to do off-screen" list | Nothing prompts talk between child and grown-up | ✅ The break screen suggests an off-screen activity. ➡️ "Ask me" prompts after stories ("What would you do?") for the grown-up |
@@ -22,7 +22,7 @@ Other well-established findings, and where they stand:
 | **Interleaving** (Rohrer & Taylor 2007) | ✅ Math and phonics lessons interleave skills; review units mix them; Today's path mixes subjects |
 | **Scaffolding / zone of proximal development** | ✅ Levels move inside every lesson; hints after a second miss |
 | **Concrete → pictorial → abstract** for math | ✅ Math levels |
-| **Science of Reading** (Scarborough's Reading Rope; Ehri's phases): phonological awareness → phonics → fluency → comprehension, with vocabulary and background knowledge alongside | ✅ Phonics and Hindi follow this order. ✅ New: putting stories in order (comprehension) and captions (print–speech link). ➡️ Fluency: timed-free repeated reading with word highlighting |
+| **Science of Reading** (Scarborough's Reading Rope; Ehri's phases): phonological awareness → phonics → fluency → comprehension, with vocabulary and background knowledge alongside | ✅ Phonics and Hindi follow this order. ✅ Putting stories in order and retelling them (comprehension); captions and word-by-word read-along highlighting (print–speech link, fluency) |
 | **Dual coding / multimedia principle** (Mayer): words with pictures, spoken not written for pre-readers | ✅ Everywhere. Captions are optional, so they don't clutter for pre-readers |
 | **Character attachment** (Calvert et al. 2019) | ✅ A guide per world; children pick their own guide in their profile |
 | **Process praise** (Mueller & Dweck 1998) | ✅ Feedback explains the strategy. ➡️ Vary praise for "you kept trying" after a correct second try |
@@ -34,7 +34,7 @@ Other well-established findings, and where they stand:
 | --- | --- | --- | --- |
 | Curriculum | NIPUN Bharat, NCF-FS (India); NC Standard Course of Study for Math and ELA Foundational Skills (US) | Every unit names its standard | ✅ Done in earlier rounds |
 | Learning design | Hirsh-Pasek four pillars; **UDL** (Universal Design for Learning, CAST): several ways to take in information, act and stay engaged | Audio + pictures + text; tap, trace, build; choice of worlds | ✅ Captions add a third channel. ➡️ Bigger-text option |
-| Evidence | **ESSA tiers of evidence** (US) and Digital Promise's *Research-Based Design* certification | Document the research basis (this file) and, later, measure learning | ➡️ A simple pre/post check per unit (e.g. 5 questions before and after) would give Tier 3–4 evidence |
+| Evidence | **ESSA tiers of evidence** (US) and Digital Promise's *Research-Based Design* certification | Document the research basis (this file) and measure learning | ✅ "Getting better" in the parent area compares each lesson's first and latest score (a simple pre/post measure). ➡️ A planned pre/post study with a few families would give Tier 3–4 evidence |
 | Accessibility | **WCAG 2.2 AA** | Text alternatives, captions for speech, visible focus, no time limits, reduced motion, contrast, touch targets ≥ 24 px (ours are ≥ 100 px) | ✅ Captions, visible keyboard focus (new), reduced motion, no timers, `lang` on Hindi text, aria labels. ➡️ Check every colour pair against 4.5:1 contrast |
 | Privacy | **COPPA** (US), **GDPR** / **UK Age Appropriate Design Code**, **India's DPDP Act 2023** (verifiable parental consent for anyone under 18) | Collect nothing; keep everything on the device; no ads, no tracking, no third-party SDKs | ✅ By design: no accounts, no analytics, no network calls except loading the app. Profiles are a nickname on the device only |
 | Platform | Google Play **Families** policy / Apple **Kids** category | No ads or tracking; parental gate before settings and external links | ✅ Press-and-hold parent gate. ➡️ Needed only if published as a store app |
@@ -50,8 +50,8 @@ Other well-established findings, and where they stand:
 | Hard of hearing, or learning to read | **Captions** of everything said | ✅ |
 | Too much screen time | **Daily limit** and break screen with an off-screen idea; a grown-up can allow 10 more minutes | ✅ |
 | Keyboard and switch access | Visible focus outline | ✅ |
-| Placement: which grade? | ➡️ A 3-minute placement check that suggests a grade and starting level |  |
-| Grandparents who don't read English | ➡️ Parent area in Hindi |  |
+| Placement: which grade? | A two-minute placement check (two questions per level) that suggests a grade | ✅ |
+| Grandparents who don't read English | The parent area in Hindi, switched at the top | ✅ |
 
 ## 4. Stories
 
@@ -66,9 +66,9 @@ Worth adding next:
 
 ## 5. What to do next, in order
 
-1. Record family voices for the most-used words and stories (the biggest quality jump).
-2. A teacher's read of new Hindi quizzes, poems and stories.
-3. Placement check and a pre/post check per unit, to see real learning gains.
-4. Parent area in Hindi.
-5. StoryWeaver imports with attribution.
-6. Read-along word highlighting and "tell it back" recordings.
+Done since the first version of this review: placement check, before-and-after scores ("Getting better"), the parent area in Hindi, read-along word highlighting and "tell it back" recordings.
+
+1. Record family voices for the most-used words and stories (the biggest quality jump, and it makes speech work offline on every device).
+2. A teacher's read of the Hindi quizzes, poems and stories, and of the English math and phonics wording.
+3. StoryWeaver imports with attribution, after checking each book's licence page.
+4. A small pre/post study with a few families, for real evidence of learning.
