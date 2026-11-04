@@ -164,6 +164,10 @@ function speak(text, lang) {
       }
     };
     currentResolve = finish;
+    // word by word, for read-along highlighting (not every voice reports these)
+    u.onboundary = (e) => {
+      if (e.name === 'word' || e.name === undefined) window.dispatchEvent(new CustomEvent('vt-word', { detail: { text, charIndex: e.charIndex } }));
+    };
     u.onend = finish;
     u.onerror = finish;
     // Some Android voices never fire onend; don't let the queue hang.

@@ -3,6 +3,7 @@
 import { el, sleep, bounce, animate, ICONS } from './ui.js';
 import { createMascot, mascotSvg, MASCOTS, MASCOT_IDS } from './mascot.js';
 import { sceneSvg } from './art-scenes.js';
+import { PLACEMENT_LEVELS, placementQuestions, placementResult } from './placement.js';
 import { picture, pictureForWord, specialVehicle } from './art.js';
 import { worldLessons, lessonRecord, isUnlocked, currentLesson, nextLesson, worldStars, hubWorlds, streak, nextCollectible, todayPlan } from './curriculum.js';
 
@@ -94,6 +95,7 @@ export function onboard(api) {
         appTitle(api),
         el('h1', { text: 'Who is learning?' }),
         el('p', { class: 'note', text: 'Pick a grade. You can switch grades any time from the home screen.' }),
+        el('button', { class: 'bubble placement-btn', onclick: () => api.go('placement') }, [el('b', { lang: 'hi', text: 'पता नहीं? छोटी-सी जाँच' }), el('span', { text: 'Not sure? Take a 2-minute check' })]),
         el(
           'div',
           { class: 'level-list' },
@@ -522,6 +524,74 @@ export function todayCard(api, steps) {
       }),
     ),
   ]);
+}
+
+// ---------- placement check: which grade should we start in? ----------
+
+export async function placement(api, { onPick } = {}) {
+  const { content } = api.state;
+  const answers = {};
+  const mascot = createMascot('gappu', { size: 'small' });
+  const stage = el('main', { class: 'stage' });
+  const bar = el('div', { class: 'placement-dots' }, PLACEMENT_LEVELS.map(() => el('span', { class: 'dot' })));
+  api.app.replaceChildren(
+    el('div', { class: 'screen game placement enter' }, [
+      backdrop(null),
+      el('header', { class: 'game-head' }, [el('button', { class: 'round-btn home', 'aria-label': 'Back', html: ICONS.back, onclick: () => api.back() }), bar, el('span', { class: 'round-spacer' })]),
+      stage,
+      el('div', { class: 'mascot-corner' }, [mascot.node]),
+    ]),
+  );
+  const token = api.state.token;
+  const alive = () => token === api.state.token;
+  await api.sayLines({ hi: 'चलो, एक छोटा सा खेल खेलें। जितना आता है, करो!', en: "Let's play a little game. Just do what you can!" });
+  let result = null;
+  for (const [li, level] of PLACEMENT_LEVELS.entries()) {
+    let right = 0;
+    for (const q of placementQuestions(level)) {
+      if (!alive()) return;
+      // shuffled, so the answer isn't always in the same place
+      const shuffled = q.options.map((o) => [api.rng(), o]).sort((a, b) => a[0] - b[0]).map((x) => x[1]);
+      const btns = shuffled.map((o) =>
+        Object.assign(
+          q.pictures ? api.wordCard(api.word(o), { showLabel: false }) : el('button', { class: 'card answer', lang: 'hi' }, [el('span', { class: 'word-text', text: o })]),
+          { value: o },
+        ),
+      );
+      stage.replaceChildren(
+        ...[
+          el('div', { class: 'quiz-question' }, [el('p', { class: 'quiz-q hi', lang: 'hi', text: q.ask.hi }), el('p', { class: 'quiz-q en', text: q.ask.en })]),
+          q.show ? el('div', { class: 'quiz-sentence placement-word', lang: 'hi', text: q.show }) : null,
+          el('div', { class: 'choices answers' }, btns),
+        ].filter(Boolean),
+      );
+      api.sayLines(q.ask);
+      // one tap per question: right or not, we move on (this is a check, not a lesson)
+      const tapped = await new Promise((resolve) => btns.forEach((b) => b.addEventListener('click', () => resolve(b), { once: true })));
+      api.sfx.pop();
+      bounce(tapped);
+      if (tapped.value === q.answer) right++;
+      await sleep(350);
+    }
+    answers[level] = right;
+    bar.children[li].classList.add(right === 2 ? 'good' : 'tried');
+    result = placementResult(answers);
+    if (result) break;
+  }
+  if (!alive()) return;
+  const lv = content.levels.find((l) => l.id === result);
+  const start = el('button', { class: 'bubble green big', text: `Start ${lv.name.en}`, onclick: () => onPick(lv) });
+  stage.replaceChildren(
+    el('div', { class: 'placement-result' }, [
+      el('p', { class: 'rest-en', text: 'A good place to start:' }),
+      levelCard(api, lv, true, () => onPick(lv)),
+      el('p', { class: 'note', text: result === 'kg' ? 'Under 3? The Toddler stage is gentler: choose it in the list instead.' : 'You can change the grade any time in the parent area.' }),
+      start,
+    ]),
+  );
+  mascot.react('dance');
+  api.sfx.jingle();
+  api.sayLines({ hi: `शाबाश! चलो ${lv.name.hi} से शुरू करें।`, en: `Well done! Let's start with ${lv.name.en}.` });
 }
 
 export { MASCOTS };

@@ -276,6 +276,8 @@ export function defaultSettings(content) {
     unlockAll: false,
     math: true, // English math worlds (NC standards) for Kindergarten and Grade 1
     captions: true, // show what the app says, as text
+    retell: false, // after a story, the child records themselves telling it back (stays on this device)
+    parentLang: 'en', // the parent area in English or Hindi
     dailyLimit: 0, // minutes of play a day before a break screen (0 = no limit)
     music: true,
     sfx: true,
@@ -290,7 +292,8 @@ export function normalizeSettings(saved, content) {
   if (LANG_MODES.includes(saved.lang)) out.lang = saved.lang;
   if ((content.levels || []).some((l) => l.id === saved.level)) out.level = saved.level;
   if (DAILY_LIMITS.includes(saved.dailyLimit)) out.dailyLimit = saved.dailyLimit;
-  for (const k of ['onboarded', 'lockGrade', 'unlockAll', 'math', 'captions', 'music', 'sfx']) if (typeof saved[k] === 'boolean') out[k] = saved[k];
+  if (saved.parentLang === 'hi' || saved.parentLang === 'en') out.parentLang = saved.parentLang;
+  for (const k of ['onboarded', 'lockGrade', 'unlockAll', 'math', 'captions', 'retell', 'music', 'sfx']) if (typeof saved[k] === 'boolean') out[k] = saved[k];
   if (saved.voice && typeof saved.voice === 'object') {
     for (const l of ['hi', 'en']) if (typeof saved.voice[l] === 'string') out.voice[l] = saved.voice[l];
     if (typeof saved.voice.rate === 'number' && saved.voice.rate >= 0.5 && saved.voice.rate <= 1.3) out.voice.rate = saved.voice.rate;
@@ -326,6 +329,9 @@ export function normalizeProgress(saved, content) {
       // spaced review: which gap the lesson is on, and the day it was last played
       ...(Number.isInteger(r.box) ? { box: Math.max(0, Math.min(4, r.box)) } : {}),
       ...(typeof r.last === 'string' && /^\d{4}-\d\d-\d\d$/.test(r.last) ? { last: r.last } : {}),
+      // first and latest score, 0–100
+      ...(Number.isFinite(r.first) ? { first: Math.max(0, Math.min(100, Math.round(r.first))) } : {}),
+      ...(Number.isFinite(r.recent) ? { recent: Math.max(0, Math.min(100, Math.round(r.recent))) } : {}),
     };
   }
   const time = {};
