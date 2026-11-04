@@ -17,7 +17,9 @@ export default {
       const about = sentence.about ? ctx.word(sentence.about) : null;
       const pic = about ? el('button', { class: 'prompt-pic', 'aria-label': about.en, html: ctx.picture(about) }) : null;
       const slots = tokens.map(() => el('div', { class: 'car-slot', lang }));
-      const metro = el('div', { class: 'metro-train' }, slots);
+      // a world friend pulls the word carriages (a snake in the jungle, a whale in the ocean)
+      const engine = ctx.helper('engine', null);
+      const metro = el('div', { class: 'metro-train' }, [...(engine ? [el('div', { class: 'train-engine', 'aria-hidden': 'true', html: ctx.picture(engine.word) })] : []), ...slots]);
       // at the top level one extra word from another sentence sneaks in, so every word must be read
       const decoys = ctx.tier >= 2 ? shuffle(pool.filter((s) => s !== sentence).flatMap((s) => sentenceTokens(s[lang])).filter((t) => !tokens.includes(t)), ctx.rng).slice(0, 1) : [];
       const cards = shuffle([...tokens, ...decoys], ctx.rng).map((t) => Object.assign(el('button', { class: 'card word-chip', lang }, [el('span', { class: 'word-text', text: t })]), { token: t }));
@@ -58,7 +60,7 @@ export default {
       ctx.record(null, mistakes === 0);
       await cheer(ctx, metro);
       await ctx.saySentence(sentence, [lang]);
-      ctx.sfx.vroom();
+      ctx.moveSound(engine);
       await animate(metro, [{ transform: 'translateX(0)' }, { transform: 'translateX(110vw)' }], { duration: 1200, easing: 'ease-in', fill: 'forwards' });
       await sleep(200);
     });

@@ -27,6 +27,8 @@ export const PAIR_KINDS = ['opposite', 'plural', 'female'];
 export const READ_MODES = ['find', 'match'];
 export const ACTIVITIES = ['dig', 'deliver', 'build'];
 export const SUBJECTS = ['hindi', 'math'];
+// who helps inside the games; a world may name its own (see README)
+export const HELPER_ROLES = ['courier', 'vendor', 'lifter', 'rescuer', 'holder', 'engine'];
 
 export const REQUIRED_PHRASES = {
   title: false,
@@ -506,6 +508,14 @@ export function validateContent(c, { knownPictures = null, pictureExists = null,
       if (!SUBJECTS.includes(w.subject)) err(`${wat}.subject must be ${SUBJECTS.join(' or ')}`);
       if (w.lang !== undefined && !['hi', 'en', 'both'].includes(w.lang)) err(`${wat}.lang must be hi, en or both`);
       if (w.subject === 'math' && w.lang !== 'en') err(`${wat}: math worlds are in English (lang "en")`);
+      if (w.helpers !== undefined) {
+        if (!isObj(w.helpers)) err(`${wat}.helpers must be an object`);
+        else
+          for (const [role, id] of Object.entries(w.helpers)) {
+            if (!HELPER_ROLES.includes(role)) err(`${wat}.helpers: "${role}" is not one of ${HELPER_ROLES.join(', ')}`);
+            if (!hasWord(id)) err(`${wat}.helpers.${role} "${id}" is not a word id`);
+          }
+      }
       if (!hasText(w.name)) err(`${wat}.name needs "hi" and "en"`);
       if (!HEX.test(w.color || '')) err(`${wat}.color must look like #ff0000`);
       if (!collectionIds.has(w.collection)) err(`${wat}.collection "${w.collection}" is not in collections`);

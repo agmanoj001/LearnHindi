@@ -18,7 +18,9 @@ export default {
 
     // ---- explore ----
     ctx.setProgress(0, total);
-    const car = el('div', { class: 'matra-car' }, [el('span', { class: 'pic', html: ctx.vehicleArt('car') }), el('span', { class: 'matra-sticker', lang: 'hi', text: consonant })]);
+    // a car wearing a sticker in Vehicle Town; elsewhere a world friend holds up the sign
+    const holder = ctx.helper('holder', 'car');
+    const car = el('div', { class: `matra-car${holder.vehicle ? '' : ' creature'}` }, [el('span', { class: 'pic', html: ctx.vehicleArt(holder.id) }), el('span', { class: 'matra-sticker', lang: 'hi', text: consonant })]);
     const heard = new Set();
     const tiles = row.map((r) => el('button', { class: 'card tile syllable', lang: 'hi', 'aria-label': r.text }, [el('span', { class: 'glyph', text: r.text })]));
     ctx.stage.replaceChildren(el('div', { class: 'scene' }, [car]), el('div', { class: 'choices barakhadi' }, tiles));

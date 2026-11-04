@@ -1800,7 +1800,8 @@
             }
           ]
         }
-      ]
+      ],
+      "helpers": { "rescuer": "tractor" }
     },
     {
       "id": "town",
@@ -2573,7 +2574,8 @@
           "icon": "book:monkey",
           "lessons": [{ "id": "g1-story-1", "game": "story", "icon": "book:monkey", "title": { "hi": "कहानी", "en": "Story" }, "config": { "levels": ["grade1"] } }]
         }
-      ]
+      ],
+      "helpers": { "courier": "parrot", "vendor": "bear", "lifter": "elephant", "rescuer": "tiger", "holder": "monkey", "engine": "snake" }
     },
     {
       "id": "carnival",
@@ -2859,7 +2861,8 @@
           "icon": "book:trex",
           "lessons": [{ "id": "g2-story-1", "game": "story", "icon": "book:trex", "title": { "hi": "कहानी", "en": "Story" }, "config": { "levels": ["grade2"] } }]
         }
-      ]
+      ],
+      "helpers": { "courier": "pterodactyl", "vendor": "triceratops", "lifter": "brachiosaurus", "engine": "stegosaurus" }
     },
     {
       "id": "space",
@@ -2970,7 +2973,8 @@
           "icon": "book:saturn",
           "lessons": [{ "id": "g3-story-1", "game": "story", "icon": "book:saturn", "title": { "hi": "कहानी", "en": "Story" }, "config": { "levels": ["grade3"] } }]
         }
-      ]
+      ],
+      "helpers": { "courier": "satellite", "engine": "rocket" }
     },
     {
       "id": "ocean",
@@ -3101,7 +3105,8 @@
           "icon": "book:turtle",
           "lessons": [{ "id": "g4-story-1", "game": "story", "icon": "book:turtle", "title": { "hi": "कहानी", "en": "Story" }, "config": { "levels": ["grade3", "grade4"] } }]
         }
-      ]
+      ],
+      "helpers": { "courier": "dolphin", "engine": "whale" }
     }
   ],
   "mascotLines": [

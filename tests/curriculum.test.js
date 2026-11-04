@@ -42,6 +42,19 @@ test('grades 1 to 4 each have their own lesson icons, not Vehicle Town ones', ()
   assert.equal(new Set(stories).size, 4);
 });
 
+test('grades 1 to 4 have their own helpers inside the games', () => {
+  const ROLE = { read: 'courier', rhyme: 'vendor', sentence: 'engine', rescue: 'rescuer', matra: 'holder' };
+  for (const w of content.worlds.filter((x) => x.subject === 'hindi' && /^grade/.test(x.level))) {
+    for (const lesson of C.worldLessons(w)) {
+      const role = lesson.game === 'construction' ? 'lifter' : ROLE[lesson.game];
+      if (role) assert.ok(w.helpers?.[role] && word(w.helpers[role]), `${w.id} needs a ${role} for ${lesson.id}`);
+    }
+  }
+  const bad = structuredClone(content);
+  bad.worlds.find((x) => x.id === 'jungle').helpers.driver = 'bus';
+  assert.ok(validateContent(bad).errors.some((e) => e.includes('"driver" is not one of')));
+});
+
 test('every world has its own theme, mascot and collection', () => {
   const hindi = content.worlds.filter((w) => w.subject === 'hindi');
   for (const key of ['theme', 'mascot', 'collection']) assert.equal(new Set(hindi.map((w) => w[key])).size, hindi.length, key);

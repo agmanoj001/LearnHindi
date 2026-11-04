@@ -21,7 +21,7 @@ export default {
       ctx.setRepeat(prompt);
       prompt();
       const right = await choose(btns, (b) => b.item.id === round.to, { ctx, onWrong: (b) => ctx.say('thisIs', b.item) });
-      ctx.sfx.vroom();
+      ctx.moveSound();
       await flyTo(right, space, { duration: 650 });
       right.classList.add('used');
       space.replaceChildren(ctx.wordCard(right.item));

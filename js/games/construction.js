@@ -135,7 +135,9 @@ async function build(ctx) {
     const tiles = splitTiles(w, lang);
     let state = createBuild(tiles);
 
-    const crane = vehicleEl(ctx, 'crane');
+    // the crane in Vehicle Town; an elephant or a long-necked dinosaur lifts the letters elsewhere
+    const lifter = ctx.helper('lifter', 'crane');
+    const crane = vehicleEl(ctx, lifter.id, lifter.vehicle ? '' : 'creature');
     const pic = el('button', { class: 'prompt-pic', 'aria-label': w.en, html: ctx.picture(w) });
     const slots = tiles.map((t) => el('div', { class: 'slot', lang }, [el('span', { class: 'ghost', text: t })]));
     const ground = tileChoices(tiles, charsOf(lang), ctx.tier + 1, ctx.rng).map((t) =>

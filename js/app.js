@@ -353,6 +353,15 @@ function startLesson({ lessonId, worldId, storyId }) {
     letterCard,
     vehicleArt,
     picture: pictureForWord,
+    // Who helps in a game: a world names its own (a parrot delivers words in the jungle, a
+    // pterodactyl in Dino Valley); otherwise the Vehicle Town one is used.
+    helper(role, fallback) {
+      const id = world.helpers?.[role] || fallback;
+      if (!id) return null;
+      return { id, word: word(id), vehicle: (state.content.collections.vehicles?.items || []).includes(id) };
+    },
+    // the sound of something moving off: an engine in Vehicle Town, a whoosh everywhere else
+    moveSound: (h) => ((h ? h.vehicle : world.collection === 'vehicles') ? sfx.vroom() : sfx.whoosh()),
     iconHtml,
     collectedItems: () => state.progress.collected[world.collection] || [],
     unlockedVehicles: () => state.progress.collected[world.collection] || [],

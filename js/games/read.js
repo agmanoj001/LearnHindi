@@ -11,8 +11,10 @@ export default {
     const modes = ctx.config.modes || ['find', 'match'];
     const targets = ctx.practice(pool, ctx.config.rounds);
     const lang = ctx.settings.lang === 'en' ? 'en' : 'hi';
-    const van = vehicleEl(ctx, 'postvan', 'rescuer');
-    van.addEventListener('click', () => ctx.sayItem(ctx.word('postvan')));
+    // the post van in Vehicle Town; a parrot, a pterodactyl, a satellite or a dolphin elsewhere
+    const courier = ctx.helper('courier', 'postvan');
+    const van = vehicleEl(ctx, courier.id, `rescuer courier${courier.vehicle ? '' : ' creature'}`);
+    van.addEventListener('click', () => ctx.sayItem(courier.word));
 
     const options = (target) => shuffle([target, ...similarWords(target, pool, ctx.nChoices - 1, ctx.rng, ctx.content.matras, lang)], ctx.rng);
 
@@ -30,7 +32,7 @@ export default {
         await flyTo(parcel, right, { duration: 700, scale: 0.4 });
         parcel.style.visibility = 'hidden';
         await cheer(ctx, right);
-        ctx.sfx.vroom();
+        ctx.moveSound(courier);
         animate(van, [{ transform: 'translateX(0)' }, { transform: 'translateX(30vw)' }, { transform: 'translateX(0)' }], { duration: 1400 });
         await ctx.sayItem(target);
       } else {
