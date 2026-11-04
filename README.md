@@ -17,6 +17,10 @@ It's plain HTML, CSS and JavaScript with no build step, so it runs on GitHub Pag
 
 The one thing that can depend on the device is the **computer voice**. On Android the Google text-to-speech voices work offline once their voice data is installed (*Settings › System › Languages › Text-to-speech › Google › Install voice data › Hindi*). Some desktop browsers use online voices, so offline they fall back to a plainer voice or stay silent. **Family recordings made in the app always work offline**, which is another good reason to record them.
 
+On an iPhone or iPad, **add the app to the Home Screen** (Share › Add to Home Screen): Safari can clear the data of websites that haven't been opened for a while, but not of home-screen apps. Installed copies also ask the browser to keep progress and recordings safe from storage clean-ups.
+
+Thinking of rebuilding it in an app builder? [docs/PLATFORM-EVALUATION.md](docs/PLATFORM-EVALUATION.md) compares FlutterFlow, Thunkable and Appy Pie with the current web app, with offline as the deciding requirement, and explains how to put the app in Google Play and the App Store without a rewrite.
+
 [CURRICULUM.md](CURRICULUM.md) explains what each grade teaches, the sources, and the learning research behind the design.
 
 ## The worlds
@@ -40,7 +44,7 @@ The one thing that can depend on the device is the **computer voice**. On Androi
 | Grade 4 | **Himu's Story Mountain** · हिमू का कथा पर्वत | Himu the snow leopard | Hindi | Stories, Poems | Akbar–Birbal, Tenali Raman and fables with a moral, two poems, "which story teaches this?" |
 | Grade 4 | **Chintu's Word City** · चिंटू का शब्द नगर | Chintu the squirrel | Hindi | Vocabulary, Writing, Reading | मुहावरे, synonyms, one word for many, days and months, city words, longer sentences |
 
-Each world is a winding path of **units** named for what the child is learning ("Let's learn matras ा ि ी", "Let's learn magic e", "Let's make 10"). Each unit has a few **lessons**. Lessons open one after another, each earns 1–3 stars (for answers right on the first try), and each first finish (and every 3-star replay) adds something to the world's **collection**.
+Each world is a winding path of **units** named for what the child is learning ("Let's learn matras ा ि ी", "Let's learn magic e", "Let's make 10"). Each unit has a few **lessons**, joined by a trail that is gold where the child has been and dotted ahead, with a **Start** tag on the next lesson. Lessons open one after another, each earns 1–3 stars (for answers right on the first try), and each first finish (and every 3-star replay) adds something to the world's **collection**.
 
 The **home screen** shows the child's grade first, then every other world, so moving between grades is one tap. A row of **tags** at the top filters the worlds: tap *Grammar* to see every grammar world, *Stories* for every story world, and so on. Each card shows its tags too. A parent can lock the app to one grade instead.
 

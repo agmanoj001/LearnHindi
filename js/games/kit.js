@@ -22,6 +22,7 @@ export function choose(buttons, isRight, { ctx, onRight, onWrong } = {}) {
         } else {
           misses++;
           wobble(b);
+          ctx?.sfx.haptic?.([18, 60, 18]);
           onWrong?.(b);
         }
       });
@@ -50,6 +51,7 @@ export async function runRounds(ctx, count, playRound, { offset = 0, total = cou
 // Positive feedback after a correct answer.
 export async function cheer(ctx, node) {
   ctx.sfx.chime();
+  ctx.sfx.haptic?.(14);
   if (node) bounce(node);
   await sleep(250);
 }

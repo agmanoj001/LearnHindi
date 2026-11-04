@@ -85,8 +85,19 @@ async function tx(mode, fn) {
   });
 }
 
+// Ask the browser to keep progress and recordings even when the device runs low on space.
+// Chrome and Safari decide quietly; Firefox may ask, so this runs only when a recording is saved
+// or when the app was opened from the home screen.
+export function keepStorage() {
+  try {
+    return navigator.storage?.persist?.().catch(() => false) ?? Promise.resolve(false);
+  } catch {
+    return Promise.resolve(false);
+  }
+}
+
 export const clips = {
-  put: (key, blob) => tx('readwrite', (s) => s.put(blob, key)),
+  put: (key, blob) => (keepStorage(), tx('readwrite', (s) => s.put(blob, key))),
   get: (key) => tx('readonly', (s) => s.get(key)),
   keys: () => tx('readonly', (s) => s.getAllKeys()).catch(() => []),
   clear: () => tx('readwrite', (s) => s.clear()),

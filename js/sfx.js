@@ -156,6 +156,14 @@ const on = (fn) => (...a) => (sfx.enabled ? fn(...a) : undefined);
 export const sfx = {
   enabled: true,
   unlock: () => ac(),
+  // a light tap of vibration on phones that have it (most Android phones; iPhones ignore it)
+  haptic: on((pattern = 14) => {
+    try {
+      navigator.vibrate?.(pattern);
+    } catch {
+      /* not allowed before the first tap */
+    }
+  }),
   tap: on(() => tone(900, 0, 0.05, { type: 'triangle', vol: 0.06 })),
   pop: on(() => {
     tone(420, 0, 0.12, { to: 900, vol: 0.14 });
