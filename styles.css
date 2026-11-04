@@ -4216,3 +4216,8 @@ body.speaking .mascot .m-mouth-closed {
 .parent-lang {
   margin-left: auto;
 }
+/* a story in one language only (an English rhyme) shows it as the main text */
+.story-line.en.main {
+  font: 700 clamp(24px, 5vmin, 36px) / 1.4 'Fredoka', sans-serif;
+  color: var(--ink);
+}

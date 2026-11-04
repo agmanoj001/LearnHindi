@@ -48,7 +48,7 @@ The **home screen** shows the child's grade first, then every other world, so mo
 
 ### The story library
 
-Grades 1–4 have a library of **41 read-along stories and 6 poems**: Panchatantra and Jataka tales (*The lion and the mouse*, *The monkey and the crocodile*, *The blue jackal*, *The talkative tortoise*), Akbar–Birbal and Tenali Raman stories, fables and new stories starring the app's characters. Every word can be tapped to hear it, pages are read aloud in Hindi (and English in "both" mode), and each story ends with questions: pictures for the younger grades, short written answers for older ones. Folktales finish with their **सीख** (moral). The library shows the child's grade and the one before it. Every story world also has a **story order** lesson: pictures from a story, shuffled, to tap in the order things happened.
+The libraries hold **77 read-along stories and rhymes**: Panchatantra and Jataka tales (*The lion and the mouse*, *The monkey and the crocodile*, *The four friends*, *The jackal and the drum*, *The monkey and the wedge*, *The hare in the moon*), Akbar–Birbal stories (*The emperor's parrot*, *Who owns the water?*, *The shorter line*, *The cucumber in the bottle*, *Birbal counts the crows*, *Birbal's khichdi*), Tenali Raman, fables, poems, new stories starring the app's characters, **बाल गीत** for Kindergarten (मछली जल की रानी है, चंदा मामा दूर के, आलू कचालू, हाथी राजा and new ones), and classic **English nursery rhymes** in the English phonics worlds (*Twinkle, Twinkle*, *Humpty Dumpty*, *Baa, Baa, Black Sheep*, *Hickory, Dickory, Dock*, *Jack and Jill*, *Rain, Rain*, *Row Your Boat*, *Hey Diddle Diddle*), each with a rhyming-word question. Only traditional or public-domain rhymes and our own are used; film songs are left out because they are still in copyright. Every word can be tapped to hear it, pages are read aloud in Hindi (and English in "both" mode), and each story ends with questions: pictures for the younger grades, short written answers for older ones. Folktales finish with their **सीख** (moral). The library shows the child's grade and the one before it. Every story world also has a **story order** lesson: pictures from a story, shuffled, to tap in the order things happened.
 
 ### The characters
 
@@ -257,7 +257,7 @@ Each page shows its `word`'s picture. Picture questions use word ids as options;
 
 ### Stories, poems and story lessons
 
-A story with `"kind": "poem"` is shown as a poem in the library. A lesson can name one story with `{ "game": "story", "config": { "story": "lion-mouse" } }`; without `story` it opens the next story on the grade's shelf.
+A story with `"kind": "poem"` is shown as a poem (or a rhyme) in the library. `"lang": "en"` makes an English-only story (pages and questions need only `en`); English worlds show only English stories, Hindi worlds only Hindi ones. A lesson can name one story with `{ "game": "story", "config": { "story": "lion-mouse" } }`; without `story` it opens the next story on the grade's shelf.
 
 ### Phonics skills
 

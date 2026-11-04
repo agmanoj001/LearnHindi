@@ -256,3 +256,8 @@ export function learningGains(progress, content) {
   const avg = (k) => (rows.length ? Math.round(rows.reduce((n, r) => n + r[k], 0) / rows.length) : null);
   return { rows, first: avg('first'), recent: avg('recent') };
 }
+
+// Stories in a world's language: English worlds get the English-only ones (nursery rhymes),
+// Hindi worlds everything else.
+export const storyLang = (story) => story.lang || 'hi';
+export const worldStoryLang = (world) => (world?.lang === 'en' ? 'en' : 'hi');

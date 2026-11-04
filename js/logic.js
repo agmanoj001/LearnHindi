@@ -358,7 +358,8 @@ export function clipKeysFor(content) {
   for (const n of content.numbers) keys.push(`num-${n.value}_hi`, `num-${n.value}_en`);
   for (const s of content.sentences || []) keys.push(`sentence-${s.id}_hi`, `sentence-${s.id}_en`);
   for (const st of content.stories || []) {
-    st.pages.forEach((_, i) => keys.push(`story-${st.id}-${i + 1}_hi`, `story-${st.id}-${i + 1}_en`));
+    const ls = st.lang === 'en' ? ['en'] : ['hi', 'en'];
+    st.pages.forEach((_, i) => keys.push(...ls.map((l) => `story-${st.id}-${i + 1}_${l}`)));
     if (st.moral) keys.push(`story-${st.id}-moral_hi`, `story-${st.id}-moral_en`);
   }
   for (const [k, p] of Object.entries(content.phrases)) {

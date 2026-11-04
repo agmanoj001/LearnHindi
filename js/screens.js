@@ -5,7 +5,7 @@ import { createMascot, mascotSvg, MASCOTS, MASCOT_IDS } from './mascot.js';
 import { sceneSvg } from './art-scenes.js';
 import { PLACEMENT_LEVELS, placementQuestions, placementResult } from './placement.js';
 import { picture, pictureForWord, specialVehicle } from './art.js';
-import { worldLessons, lessonRecord, isUnlocked, currentLesson, nextLesson, worldStars, hubWorlds, streak, nextCollectible, todayPlan } from './curriculum.js';
+import { worldLessons, lessonRecord, isUnlocked, currentLesson, nextLesson, worldStars, hubWorlds, streak, nextCollectible, todayPlan, storyLang, worldStoryLang } from './curriculum.js';
 
 export function backdrop(world) {
   return el('div', { class: 'backdrop', html: sceneSvg(world?.theme || 'hub') });
@@ -260,7 +260,7 @@ export function world(api, w) {
     el('div', { class: 'world-title' }, [bigName(w, w.name, 'world-name-hi'), el('span', { class: 'world-name-en', text: [english(w) ? null : w.name.en, ...tagsOf(api, w).map((t) => t.en)].filter(Boolean).join(' · ') })]),
     el('span', { class: 'star-chip' }, [el('span', { class: 'star-icon', html: ICONS.star }), el('b', { text: String(st.got) })]),
     el('button', { class: 'round-btn small', 'aria-label': 'My collection', html: ICONS.album, onclick: () => api.go('collection', { worldId: w.id }) }),
-    w.subject === 'hindi' && api.state.content.stories.some((s) => storyLevels(api, w).includes(s.level))
+    w.subject !== 'math' && api.state.content.stories.some((s) => storyLevels(api, w).includes(s.level) && storyLang(s) === worldStoryLang(w))
       ? el('button', { class: 'round-btn small', 'aria-label': 'Story library', html: ICONS.book, onclick: () => api.go('library', { worldId: w.id }) })
       : null,
   ]);
@@ -388,14 +388,15 @@ export function collection(api, w) {
 export function library(api, w) {
   const { content, progress } = api.state;
   const levels = storyLevels(api, w);
-  const stories = content.stories.filter((s) => levels.includes(s.level));
+  const stories = content.stories.filter((s) => levels.includes(s.level) && storyLang(s) === worldStoryLang(w));
   const books = stories.map((s) => {
     const read = lessonRecord(progress, `story:${s.id}`).stars > 0;
     const b = el('button', { class: `book ${read ? 'read' : ''} ${s.kind === 'poem' ? 'poem' : ''}`, 'aria-label': s.title.en }, [
-      s.kind === 'poem' ? el('span', { class: 'poem-ribbon', text: 'कविता · Poem' }) : null,
+      s.kind === 'poem' ? el('span', { class: 'poem-ribbon', text: s.lang === 'en' ? 'Rhyme' : 'कविता · Poem' }) : null,
       el('span', { class: 'book-cover', html: pictureForWord(api.word(s.cover)) }),
-      el('span', { class: 'book-title', lang: 'hi', text: s.title.hi }),
-      el('span', { class: 'book-title-en', text: s.title.en }),
+      // English rhymes lead with their English title
+      s.lang === 'en' ? el('span', { class: 'book-title latin', text: s.title.en }) : el('span', { class: 'book-title', lang: 'hi', text: s.title.hi }),
+      el('span', { class: 'book-title-en', lang: s.lang === 'en' ? 'hi' : 'en', text: s.lang === 'en' ? s.title.hi : s.title.en }),
       read ? el('span', { class: 'book-badge', html: ICONS.check }) : null,
     ]);
     b.addEventListener('click', () => {
@@ -412,7 +413,9 @@ export function library(api, w) {
       backdrop(w),
       el('header', { class: 'game-head' }, [
         el('button', { class: 'round-btn', 'aria-label': 'Back', html: ICONS.back, onclick: () => api.back() }),
-        el('div', { class: 'head-title' }, [el('span', { class: 'world-name-hi', lang: 'hi', text: `${guide.hi} का पुस्तकालय` }), el('span', { class: 'world-name-en', text: `${guide.en}'s library · ${stories.length} books` })]),
+        el('div', { class: 'head-title' }, english(w)
+          ? [el('span', { class: 'world-name-hi latin', text: `${guide.en}'s library` }), el('span', { class: 'world-name-en', text: `${stories.length} rhymes and stories` })]
+          : [el('span', { class: 'world-name-hi', lang: 'hi', text: `${guide.hi} का पुस्तकालय` }), el('span', { class: 'world-name-en', text: `${guide.en}'s library · ${stories.length} books` })]),
         el('span', { class: 'round-spacer' }),
       ]),
       el('main', { class: 'shelf' }, books),
