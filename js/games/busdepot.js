@@ -5,9 +5,14 @@ import { el, sleep, choose, runRounds, cheer, vehicleEl, flyTo, animate, bounce,
 
 export default {
   async start(ctx) {
-    const { pickupRounds, countRounds } = ctx.config;
+    // "parts" picks the bus ride, the counting or both
+    const parts = ctx.config.parts || ['pickup', 'count'];
+    const pickupRounds = parts.includes('pickup') ? ctx.config.pickupRounds : 0;
+    const countRounds = parts.includes('count') ? ctx.config.countRounds : 0;
     const total = pickupRounds + countRounds;
-    if ((await pickup(ctx, total)) && (await count(ctx, pickupRounds, total))) ctx.complete();
+    if (pickupRounds && !(await pickup(ctx, total))) return;
+    if (countRounds && !(await count(ctx, pickupRounds, total))) return;
+    ctx.complete();
   },
 };
 

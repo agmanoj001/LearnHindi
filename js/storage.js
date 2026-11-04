@@ -57,6 +57,7 @@ export const clips = {
   get: (key) => tx('readonly', (s) => s.get(key)),
   keys: () => tx('readonly', (s) => s.getAllKeys()).catch(() => []),
   clear: () => tx('readwrite', (s) => s.clear()),
+  del: (key) => tx('readwrite', (s) => s.delete(key)),
 };
 
 // Shrink a picked photo so it fits comfortably in localStorage.

@@ -21,6 +21,7 @@ export const OPPOSITE_KINDS = ['size', 'height', 'speed'];
 export const PAIR_KINDS = ['opposite', 'plural', 'female'];
 export const READ_MODES = ['find', 'match'];
 export const ACTIVITIES = ['dig', 'deliver', 'build'];
+export const SUBJECTS = ['hindi', 'math'];
 
 export const REQUIRED_PHRASES = {
   title: false,
@@ -55,6 +56,8 @@ export const REQUIRED_PHRASES = {
   pluralOf: true,
   femaleOf: true,
   listenStory: false,
+  newItem: true,
+  unitDone: false,
 }; // value: whether the phrase must contain the {w} placeholder
 
 const DEVANAGARI = /[ऀ-ॿ]/;
@@ -68,15 +71,22 @@ const isPosInt = (v) => Number.isInteger(v) && v > 0;
 const hasText = (v) => isObj(v) && isStr(v.hi) && isStr(v.en);
 
 // `pictureExists(id)` (or a `knownPictures` list) lets the validator warn about pictures with no drawing.
-export function validateContent(c, { knownPictures = null, pictureExists = null } = {}) {
+export function validateContent(c, { knownPictures = null, pictureExists = null, mascots = null, themes = null } = {}) {
   const errors = [];
   const warnings = [];
   const err = (m) => errors.push(m);
   const warn = (m) => warnings.push(m);
   const drawable = pictureExists || (knownPictures ? (id) => knownPictures.includes(id) : null);
+  // icons: a word id or picture id, "letter:क" or "num"
+  const checkIcon = (icon, at) => {
+    if (!isStr(icon)) return err(`${at} is required`);
+    if (icon.startsWith('letter:') || icon === 'num') return;
+    const pic = c.words?.[icon]?.picture || icon;
+    if (drawable && !drawable(pic)) warn(`${at} "${icon}" has no built-in drawing`);
+  };
 
   if (!isObj(c)) return { errors: ['content must be a JSON object'], warnings };
-  if (c.version !== 1) err('version must be 1');
+  if (c.version !== 2) err('version must be 2');
 
   // phrases
   if (!isObj(c.phrases)) err('phrases must be an object');
@@ -126,42 +136,17 @@ export function validateContent(c, { knownPictures = null, pictureExists = null 
   const refCount = (list) =>
     list.reduce((n, id) => n + (id.startsWith('@') ? Object.values(words).filter((w) => w.level === id.slice(1)).length : 1), 0);
 
-  // vehicles
-  if (!Array.isArray(c.vehicles) || !c.vehicles.length) err('vehicles must be a non-empty list');
-  else {
-    const seen = new Set();
-    for (const [i, v] of c.vehicles.entries()) {
-      if (!isObj(v) || !isStr(v.id)) {
-        err(`vehicles[${i}] needs an id`);
-        continue;
-      }
-      if (seen.has(v.id)) err(`vehicles: duplicate id "${v.id}"`);
-      seen.add(v.id);
-      if (!hasWord(v.id)) err(`vehicles: "${v.id}" has no matching entry in words`);
+  // collections: stickers a world gives as lessons are finished
+  const collectionIds = new Set();
+  if (!isObj(c.collections)) err('collections must be an object');
+  else
+    for (const [id, col] of Object.entries(c.collections)) {
+      collectionIds.add(id);
+      if (!hasText(col?.name)) err(`collections.${id}.name needs "hi" and "en"`);
+      if (!Array.isArray(col?.items) || col.items.length < 3) err(`collections.${id} needs at least 3 items`);
+      else for (const w of col.items) if (!hasWord(w)) err(`collections.${id}: "${w}" not found in words`);
+      if (col?.start !== undefined && (!Number.isInteger(col.start) || col.start < 0 || col.start > (col.items?.length || 0))) err(`collections.${id}.start must be 0 to the number of items`);
     }
-    if (!c.vehicles.some((v) => v && v.unlockedByDefault)) warn('no vehicle is unlockedByDefault; the garage starts empty');
-  }
-
-  // places
-  const placeIds = new Set();
-  if (!Array.isArray(c.places) || !c.places.length) err('places must be a non-empty list');
-  else {
-    for (const [i, p] of c.places.entries()) {
-      const at = `places[${i}]`;
-      if (!isObj(p) || !isStr(p.id)) {
-        err(`${at} needs an id`);
-        continue;
-      }
-      if (placeIds.has(p.id)) err(`places: duplicate id "${p.id}"`);
-      placeIds.add(p.id);
-      if (!hasWord(p.word)) err(`${at} (${p.id}): word "${p.word}" not found in words`);
-      if (!GAME_TYPES.includes(p.game)) err(`${at} (${p.id}): unknown game "${p.game}"`);
-      if (p.color !== undefined && !HEX.test(p.color)) err(`${at} (${p.id}): color must look like #ff0000`);
-      if (p.game === 'rescue' && !hasWord(p.options?.vehicle)) err(`${at} (${p.id}): rescue places need options.vehicle (a word id)`);
-      if (p.langs !== undefined && (!Array.isArray(p.langs) || !p.langs.length || !p.langs.every((l) => l === 'hi' || l === 'en')))
-        err(`${at} (${p.id}).langs must list "hi" and/or "en"`);
-    }
-  }
 
   // sentences
   if (c.sentences !== undefined) {
@@ -289,12 +274,15 @@ export function validateContent(c, { knownPictures = null, pictureExists = null 
     }
   }
 
-  // per-game settings, checked as written and as each level sees them
+  // per-game settings: each lesson's settings on top of the shared ones in "games"
   const g = isObj(c.games) ? c.games : {};
   if (!isObj(c.games)) err('games must be an object');
-  const usedGames = new Set((Array.isArray(c.places) ? c.places : []).map((p) => p?.game));
-  for (const type of usedGames) if (GAME_TYPES.includes(type) && !isObj(g[type])) err(`games.${type} settings are missing`);
-
+  const lettersSpec = (spec, at) => {
+    if (spec === undefined || spec === false) return;
+    if (!isObj(spec) || !Array.isArray(spec.sets) || !spec.sets.length || !spec.sets.every((x) => setIds.has(x))) return err(`${at} must be false or { "sets": [letter set ids], "from": 0, "to": 10 }`);
+    for (const k of ['from', 'to']) if (spec[k] !== undefined && !(Number.isInteger(spec[k]) && spec[k] >= 0)) err(`${at}.${k} must be a whole number`);
+    if (spec.from !== undefined && spec.to !== undefined && spec.to - spec.from < 3) err(`${at} needs at least 3 letters`);
+  };
   const checkGame = (type, x, at) => {
     const wordList = (key, min, check) => {
       const list = x[key];
@@ -314,6 +302,7 @@ export function validateContent(c, { knownPictures = null, pictureExists = null 
     };
     switch (type) {
       case 'construction':
+        lettersSpec(x.letters, `${at}.letters`);
         count('digLetters');
         count('deliverRounds');
         count('buildRounds');
@@ -327,8 +316,11 @@ export function validateContent(c, { knownPictures = null, pictureExists = null 
         count('countRounds');
         if (!isPosInt(x.maxPassengers) || x.maxPassengers < 3 || x.maxPassengers > 10) err(`${at}.maxPassengers must be 3 to 10`);
         wordList('passengers', 3);
+        if (x.parts !== undefined && (!Array.isArray(x.parts) || !x.parts.length || !x.parts.every((p) => ['pickup', 'count'].includes(p)))) err(`${at}.parts must list "pickup" and/or "count"`);
         break;
       case 'rescue':
+        lettersSpec(x.letters, `${at}.letters`);
+        if (!hasWord(x.vehicle)) err(`${at}.vehicle must be a word id (the vehicle that comes to the rescue)`);
         count('rounds');
         wordList('words', 3);
         if (x.cards !== undefined && !['picture', 'text'].includes(x.cards)) err(`${at}.cards must be "picture" or "text"`);
@@ -340,11 +332,13 @@ export function validateContent(c, { knownPictures = null, pictureExists = null 
         });
         break;
       case 'railway':
+        lettersSpec(x.letters, `${at}.letters`);
         count('carriages');
         break;
       case 'recycling':
         count('rounds');
         if (!isPosInt(x.bins) || x.bins < 2) err(`${at}.bins must be 2 or more`);
+        if (x.modes !== undefined && (!Array.isArray(x.modes) || !x.modes.length || !x.modes.every((m) => ['color', 'shape'].includes(m)))) err(`${at}.modes must list "color" and/or "shape"`);
         wordList('colors', 2, (id, w) => {
           if (!w.color) err(`${at}.colors: "${id}" needs a "color"`);
         });
@@ -363,7 +357,8 @@ export function validateContent(c, { knownPictures = null, pictureExists = null 
           });
         break;
       case 'trace': {
-        count('letters');
+        lettersSpec(x.letters, `${at}.letters`);
+        count('count');
         const t = x.threshold;
         if (typeof t !== 'number' || t <= 0 || t > 1) err(`${at}.threshold must be between 0 and 1`);
         break;
@@ -402,6 +397,7 @@ export function validateContent(c, { knownPictures = null, pictureExists = null 
         break;
       case 'story':
         levelsList('levels');
+        if (x.story !== undefined && !(c.stories || []).some((st) => st.id === x.story)) err(`${at}.story "${x.story}" is not a story id`);
         break;
       case 'pairs':
         count('rounds');
@@ -419,40 +415,79 @@ export function validateContent(c, { knownPictures = null, pictureExists = null 
         break;
     }
   };
-  for (const type of GAME_TYPES) if (isObj(g[type])) checkGame(type, g[type], `games.${type}`);
 
-  // levels
+  // levels (grades)
   if (!Array.isArray(c.levels) || !c.levels.length) err('levels must be a non-empty list');
-  else {
-    const seen = new Set();
-    const byPlace = new Map((Array.isArray(c.places) ? c.places : []).filter(isObj).map((p) => [p.id, p]));
+  else
     c.levels.forEach((l, i) => {
       const at = `levels[${i}]`;
-      if (!isObj(l) || !isStr(l.id)) return err(`${at} needs an id`);
-      if (!ID.test(l.id)) err(`${at}: id must be lowercase letters, digits and dashes`);
-      if (seen.has(l.id)) err(`levels: duplicate id "${l.id}"`);
-      seen.add(l.id);
+      if (!isObj(l) || !isStr(l.id) || !ID.test(l.id)) return err(`${at} needs an id of lowercase letters, digits and dashes`);
       if (!hasText(l.name)) err(`${at} (${l.id}).name needs "hi" and "en"`);
-      if (l.picture !== undefined && drawable && !drawable(l.picture)) warn(`${at} (${l.id}).picture "${l.picture}" has no built-in drawing`);
-      if (!Array.isArray(l.places) || !l.places.length) err(`${at} (${l.id}).places needs at least one place id`);
-      else for (const p of l.places) if (!placeIds.has(p)) err(`${at} (${l.id}).places: "${p}" is not a place`);
-      if (!Array.isArray(l.letterSets) || !l.letterSets.every((s) => setIds.has(s))) err(`${at} (${l.id}).letterSets must list letter set ids (or be empty)`);
-      if (l.games !== undefined && !isObj(l.games)) err(`${at} (${l.id}).games must be an object`);
-      for (const [type, over] of Object.entries(l.games || {})) {
-        if (!GAME_TYPES.includes(type)) err(`${at} (${l.id}).games: unknown game "${type}"`);
-        else if (!isObj(over)) err(`${at} (${l.id}).games.${type} must be an object`);
-        else checkGame(type, { ...(g[type] || {}), ...over }, `${at} (${l.id}).games.${type}`);
-      }
-      // every reading game in this level needs something to show
-      for (const pid of Array.isArray(l.places) ? l.places : []) {
-        const game = byPlace.get(pid)?.game;
-        const cfg = { ...(g[game] || {}), ...(l.games?.[game] || {}) };
-        const lv = cfg.levels || [l.id];
-        if (game === 'sentence' && !(c.sentences || []).some((s) => lv.includes(s.level))) err(`${at} (${l.id}): the ${pid} place has no sentences for levels ${lv.join(', ')}`);
-        if (game === 'story' && !lv.some((x) => storyLevels.has(x))) err(`${at} (${l.id}): the ${pid} place has no stories for levels ${lv.join(', ')}`);
-        if (['railway', 'trace'].includes(game) && !l.letterSets?.length) err(`${at} (${l.id}): the ${pid} place needs letterSets`);
-      }
+      if (!isStr(l.age)) err(`${at} (${l.id}).age is required`);
+      if (!isStr(l.about)) err(`${at} (${l.id}).about is required`);
+      if (l.picture !== undefined && drawable && !drawable(c.words?.[l.picture]?.picture || l.picture)) warn(`${at} (${l.id}).picture "${l.picture}" has no built-in drawing`);
     });
+
+  // worlds -> units -> lessons
+  const lessonIds = new Set();
+  if (!Array.isArray(c.worlds) || !c.worlds.length) err('worlds must be a non-empty list');
+  else {
+    const worldIds = new Set();
+    c.worlds.forEach((w, wi) => {
+      const at = `worlds[${wi}]`;
+      if (!isObj(w) || !isStr(w.id) || !ID.test(w.id)) return err(`${at} needs an id of lowercase letters, digits and dashes`);
+      if (worldIds.has(w.id)) err(`worlds: duplicate id "${w.id}"`);
+      worldIds.add(w.id);
+      const wat = `${at} (${w.id})`;
+      if (!levelIds.has(w.level)) err(`${wat}.level "${w.level}" is not one of the levels`);
+      if (!SUBJECTS.includes(w.subject)) err(`${wat}.subject must be ${SUBJECTS.join(' or ')}`);
+      if (w.lang !== undefined && !['hi', 'en', 'both'].includes(w.lang)) err(`${wat}.lang must be hi, en or both`);
+      if (!hasText(w.name)) err(`${wat}.name needs "hi" and "en"`);
+      if (!HEX.test(w.color || '')) err(`${wat}.color must look like #ff0000`);
+      if (!collectionIds.has(w.collection)) err(`${wat}.collection "${w.collection}" is not in collections`);
+      if (mascots && !mascots.includes(w.mascot)) err(`${wat}.mascot "${w.mascot}" is not one of ${mascots.join(', ')}`);
+      if (themes && !themes.includes(w.theme)) err(`${wat}.theme "${w.theme}" is not one of ${themes.join(', ')}`);
+      if (!Array.isArray(w.letterSets) || !w.letterSets.every((x) => setIds.has(x))) err(`${wat}.letterSets must list letter set ids (or be empty)`);
+      if (!Array.isArray(w.units) || !w.units.length) return err(`${wat} needs at least one unit`);
+      const unitIds = new Set();
+      w.units.forEach((u, ui) => {
+        const uat = `${wat}.units[${ui}]`;
+        if (!isObj(u) || !isStr(u.id)) return err(`${uat} needs an id`);
+        if (unitIds.has(u.id)) err(`${wat}: duplicate unit id "${u.id}"`);
+        unitIds.add(u.id);
+        if (!hasText(u.title)) err(`${uat} (${u.id}).title needs "hi" and "en"`);
+        if (!isStr(u.skill)) err(`${uat} (${u.id}).skill is required (e.g. "Phonics")`);
+        checkIcon(u.icon, `${uat} (${u.id}).icon`);
+        if (!Array.isArray(u.lessons) || !u.lessons.length) return err(`${uat} (${u.id}) needs at least one lesson`);
+        u.lessons.forEach((lesson, li) => {
+          const lat = `${uat}.lessons[${li}]`;
+          if (!isObj(lesson) || !isStr(lesson.id)) return err(`${lat} needs an id`);
+          if (lessonIds.has(lesson.id)) err(`lessons: duplicate id "${lesson.id}"`);
+          lessonIds.add(lesson.id);
+          if (!GAME_TYPES.includes(lesson.game)) return err(`${lat} (${lesson.id}): unknown game "${lesson.game}"`);
+          if (!hasText(lesson.title)) err(`${lat} (${lesson.id}).title needs "hi" and "en"`);
+          checkIcon(lesson.icon, `${lat} (${lesson.id}).icon`);
+          if (lesson.config !== undefined && !isObj(lesson.config)) return err(`${lat} (${lesson.id}).config must be an object`);
+          const cfg = { ...(g[lesson.game] || {}), ...(lesson.config || {}) };
+          checkGame(lesson.game, cfg, `${lat} (${lesson.id})`);
+          // reading games need something to read at this level
+          const lv = cfg.levels || [w.level];
+          if (lesson.game === 'sentence' && !(c.sentences || []).some((st) => lv.includes(st.level))) err(`${lat} (${lesson.id}): no sentences for levels ${lv.join(', ')}`);
+          if (lesson.game === 'story' && !cfg.story && !(c.stories || []).some((st) => lv.includes(st.level))) err(`${lat} (${lesson.id}): no stories for levels ${lv.join(', ')}`);
+          if (['railway', 'trace'].includes(lesson.game) && !cfg.letters && !w.letterSets.length) err(`${lat} (${lesson.id}) needs letters`);
+          if (['matra', 'read', 'construction'].includes(lesson.game) && cfg.focus) {
+            if (!Array.isArray(cfg.focus) || !cfg.focus.every((m) => matraIds.has(m) || m === 'an')) err(`${lat} (${lesson.id}).focus must list matra ids`);
+            if (cfg.allow !== undefined && (!Array.isArray(cfg.allow) || !cfg.allow.every((m) => matraIds.has(m) || m === 'an'))) err(`${lat} (${lesson.id}).allow must list matra ids`);
+          }
+        });
+      });
+    });
+  }
+
+  // what a mascot says when tapped
+  if (c.mascotLines !== undefined) {
+    if (!Array.isArray(c.mascotLines)) err('mascotLines must be a list');
+    else c.mascotLines.forEach((m, i) => !hasText(m) && err(`mascotLines[${i}] needs "hi" and "en"`));
   }
 
   return { errors, warnings };

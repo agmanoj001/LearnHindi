@@ -2,67 +2,120 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import * as L from '../js/logic.js';
+import * as C from '../js/curriculum.js';
 import { validateContent } from '../js/validate.js';
 import { pictureExists } from '../js/art.js';
+import { MASCOT_IDS } from '../js/mascot.js';
+import { THEMES } from '../js/art-scenes.js';
 
 const content = JSON.parse(readFileSync(new URL('../content.json', import.meta.url), 'utf8'));
 for (const [id, w] of Object.entries(content.words)) w.id = id;
-const settings = (level, lang = 'both') => L.normalizeSettings({ level, lang }, content);
 const word = (id) => content.words[id];
+const world = (id) => content.worlds.find((w) => w.id === id);
 
-// ---- phases ----
+// ---- grades and worlds ----
 
-test('there are five phases in order', () => {
+test('six grades, from toddler to grade 4, each with a Hindi world', () => {
   assert.deepEqual(
     content.levels.map((l) => l.id),
-    ['toddler', 'kg', 'grade1', 'grade2', 'grade3'],
+    ['toddler', 'kg', 'grade1', 'grade2', 'grade3', 'grade4'],
   );
+  for (const l of content.levels) assert.ok(content.worlds.some((w) => w.level === l.id && w.subject === 'hindi'), l.id);
 });
 
-test('the default phase is kindergarten, and unknown phases are ignored', () => {
-  assert.equal(L.normalizeSettings(null, content).level, 'kg');
-  assert.equal(L.normalizeSettings({ level: 'grade9' }, content).level, 'kg');
-  assert.equal(settings('grade2').level, 'grade2');
+test('every world has its own theme, mascot and collection', () => {
+  const hindi = content.worlds.filter((w) => w.subject === 'hindi');
+  for (const key of ['theme', 'mascot', 'collection']) assert.equal(new Set(hindi.map((w) => w[key])).size, hindi.length, key);
 });
 
-test('the map shows the phase places in the phase order, minus places the parent hid', () => {
-  const s = settings('grade1');
-  assert.deepEqual(
-    L.visiblePlaces(content, s).map((p) => p.id),
-    content.levels.find((l) => l.id === 'grade1').places,
-  );
-  s.places.matra = false;
-  assert.ok(!L.visiblePlaces(content, s).some((p) => p.id === 'matra'));
+test('lesson ids are unique and findLesson finds every lesson', () => {
+  const ids = content.worlds.flatMap((w) => C.worldLessons(w).map((l) => l.id));
+  assert.equal(new Set(ids).size, ids.length);
+  for (const id of ids) assert.equal(C.findLesson(content, id).lesson.id, id);
 });
 
-test('the Hindi-only matra garage is hidden in English-only mode', () => {
-  assert.ok(L.visiblePlaces(content, settings('grade1', 'both')).some((p) => p.id === 'matra'));
-  assert.ok(L.visiblePlaces(content, settings('grade1', 'hi')).some((p) => p.id === 'matra'));
-  assert.ok(!L.visiblePlaces(content, settings('grade1', 'en')).some((p) => p.id === 'matra'));
+test('content.json is valid with the real pictures, mascots and themes', () => {
+  const { errors, warnings } = validateContent(content, { pictureExists, mascots: MASCOT_IDS, themes: THEMES });
+  assert.deepEqual(errors, []);
+  assert.deepEqual(warnings, []);
 });
 
-test('toddlers get no letters; KG gets all three sets; the language mix filters them', () => {
-  assert.equal(L.activeLetters(content, settings('toddler')).length, 0);
-  const kg = L.activeLetterSets(content, settings('kg')).map((s) => s.id);
-  assert.deepEqual(kg, ['hindiVowels', 'hindiConsonants', 'english']);
-  assert.deepEqual(
-    L.activeLetterSets(content, settings('kg', 'en')).map((s) => s.id),
-    ['english'],
-  );
+// ---- unlocking, stars, tiers, streaks ----
+
+const town = world('town');
+const lessons = C.worldLessons(town);
+
+test('lessons open one after another, or all at once for grown-ups', () => {
+  const p = L.defaultProgress(content);
+  assert.ok(C.isUnlocked(p, town, lessons[0].id));
+  assert.ok(!C.isUnlocked(p, town, lessons[1].id));
+  assert.ok(C.isUnlocked(p, town, lessons[5].id, true));
+  const after = { ...p, lessons: { [lessons[0].id]: { stars: 1, plays: 1, tier: 0 } } };
+  assert.ok(C.isUnlocked(after, town, lessons[1].id));
+  assert.equal(C.currentLesson(after, town).id, lessons[1].id);
+  assert.equal(C.nextLesson(town, lessons[0].id).id, lessons[1].id);
+  assert.equal(C.nextLesson(town, lessons[lessons.length - 1].id), null);
 });
 
-test('a phase overrides game settings', () => {
-  assert.equal(L.gameConfig(content, settings('toddler'), 'busdepot').maxPassengers, 5);
-  assert.equal(L.gameConfig(content, settings('kg'), 'busdepot').maxPassengers, 10);
-  assert.deepEqual(L.gameConfig(content, settings('toddler'), 'construction').activities, ['dig']);
-  assert.equal(L.gameConfig(content, settings('grade1'), 'rescue').cards, 'text');
+test('stars: never fewer than one; three for nine in ten right first time', () => {
+  assert.equal(C.starsFor(0, 5), 1);
+  assert.equal(C.starsFor(4, 5), 2);
+  assert.equal(C.starsFor(5, 5), 3);
+  assert.equal(C.starsFor(0, 0), 3, 'games with nothing to get wrong');
 });
 
-test('"@level" in a word list expands to that phase\'s words', () => {
-  const kg = L.expandWords(['@kg'], content);
-  assert.ok(kg.includes('house') && kg.includes('bus'));
-  assert.ok(kg.every((id) => content.words[id].level === 'kg'));
-  assert.deepEqual(L.expandWords(['bus', '@kg'], content).filter((id) => id === 'bus'), ['bus'], 'no duplicates');
+test('tiers go up after an easy lesson and down after a hard one', () => {
+  assert.equal(C.nextTier(0, 6, 6), 1);
+  assert.equal(C.nextTier(2, 6, 6), 2);
+  assert.equal(C.nextTier(1, 2, 6), 0);
+  assert.equal(C.nextTier(1, 4, 6), 1);
+});
+
+test('finishing a lesson saves stars, gives a collectible, and counts the day', () => {
+  const col = { id: 'vehicles', ...content.collections.vehicles };
+  const p0 = L.defaultProgress(content);
+  const r = C.applyLessonResult(p0, { world: town, lesson: lessons[0], collection: col, firstTry: 5, answered: 5, now: new Date(2026, 10, 4) });
+  assert.equal(r.stars, 3);
+  assert.equal(r.item, col.items[2], 'the first two vehicles are free, so the third comes next');
+  assert.deepEqual(r.progress.days, ['2026-11-04']);
+  assert.equal(r.progress.lessons[lessons[0].id].tier, 1);
+  assert.ok(r.unitComplete, 'unit 1 has one lesson');
+  // a 1-star replay keeps the best stars and gives nothing new
+  const again = C.applyLessonResult(r.progress, { world: town, lesson: lessons[0], collection: col, firstTry: 0, answered: 4 });
+  assert.equal(again.progress.lessons[lessons[0].id].stars, 3);
+  assert.equal(again.item, null);
+});
+
+test('streak counts days in a row up to today or yesterday', () => {
+  const days = ['2026-11-01', '2026-11-02', '2026-11-03'];
+  assert.equal(C.streak(days, new Date(2026, 10, 3)), 3);
+  assert.equal(C.streak(days, new Date(2026, 10, 4)), 3);
+  assert.equal(C.streak(days, new Date(2026, 10, 6)), 0);
+});
+
+test('the hub shows the child\'s grade first, or only that grade when locked', () => {
+  const s = L.normalizeSettings({ level: 'grade2' }, content);
+  assert.equal(C.hubWorlds(content, s)[0].level, 'grade2');
+  assert.ok(C.hubWorlds(content, { ...s, lockGrade: true }).every((w) => w.level === 'grade2'));
+  assert.equal(C.homeWorld(content, s).id, 'dino');
+});
+
+test('letter lessons can take a slice of a set', () => {
+  const [set] = C.lessonLetters(content, { sets: ['hindiConsonants'], from: 0, to: 10 });
+  assert.equal(set.letters.length, 10);
+  assert.equal(set.letters[0].char, 'क');
+  assert.equal(set.id, 'hindiConsonants:0-10');
+  assert.equal(C.lessonLetters(content, { sets: ['english'] })[0].id, 'english');
+});
+
+test('matra lessons give each unit words that use its matras', () => {
+  const g1 = world('jungle');
+  for (const unit of g1.units.filter((u) => u.id.startsWith('g1-m'))) {
+    for (const lesson of unit.lessons.filter((l) => l.config.focus)) {
+      const words = L.wordsForMatras(L.expandWords(lesson.config.words || lesson.config.buildWords, content).map(word), content.matras, lesson.config.focus, lesson.config.allow || []);
+      assert.ok(words.length >= 3, `${lesson.id} has only ${words.length} words`);
+    }
+  }
 });
 
 // ---- the curriculum: words fit the phase they are in ----
@@ -113,10 +166,6 @@ test('sentences get longer from Grade 1 to Grade 3', () => {
   assert.ok(avg('grade2') < avg('grade3'));
 });
 
-test('every phase with a reading place has something to read', () => {
-  const { errors } = validateContent(content, { pictureExists });
-  assert.deepEqual(errors, []);
-});
 
 // ---- matras ----
 
@@ -194,53 +243,3 @@ test('plural and female words have the matching picture', () => {
 });
 
 // ---- validator: new sections ----
-
-const errorsFor = (mutate) => {
-  const c = structuredClone(content);
-  mutate(c);
-  return validateContent(c).errors.join('\n');
-};
-
-test('validator: unknown level on a word', () => {
-  assert.match(errorsFor((c) => (c.words.bus.level = 'grade9')), /level "grade9" is not one of the levels/);
-});
-
-test('validator: a level with an unknown place', () => {
-  assert.match(errorsFor((c) => c.levels[0].places.push('moon-base')), /"moon-base" is not a place/);
-});
-
-test('validator: bad @level reference in a word list', () => {
-  assert.match(errorsFor((c) => (c.games.read.words = ['@grade9'])), /"@grade9" not found/);
-});
-
-test('validator: a level override is checked too', () => {
-  assert.match(errorsFor((c) => (c.levels[0].games.busdepot.maxPassengers = 50)), /maxPassengers must be 3 to 10/);
-});
-
-test('validator: story answer must be one of its options', () => {
-  assert.match(errorsFor((c) => (c.stories[0].questions[0].answer = 'cow')), /answer must be one of its options/);
-});
-
-test('validator: a reading place needs sentences for its level', () => {
-  assert.match(
-    errorsFor((c) => (c.sentences = c.sentences.filter((s) => s.level !== 'grade1'))),
-    /metro place has no sentences/,
-  );
-});
-
-test('validator: matra game needs known matra ids', () => {
-  assert.match(errorsFor((c) => c.games.matra.matras.push('zz')), /matras must list at least 3 ids/);
-});
-
-test('validator: rhyme groups need a partner group in the same language', () => {
-  assert.match(
-    errorsFor((c) => (c.games.rhyme.groups = c.games.rhyme.groups.filter((g) => g.lang === 'hi').concat([{ lang: 'en', words: ['car', 'star'] }]))),
-    /en needs at least 2 groups/,
-  );
-});
-
-test('story recordings get their own file names', () => {
-  const keys = L.clipKeysFor(content);
-  assert.ok(keys.includes('story-red-bus-1_hi'));
-  assert.ok(keys.includes('story-thirsty-crow-6_en'));
-});

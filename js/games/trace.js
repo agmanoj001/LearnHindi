@@ -6,7 +6,9 @@ import { el, sleep, runRounds, cheer, bounce, animate } from './kit.js';
 
 export default {
   start(ctx) {
-    const ids = [...(ctx.special ? ['special'] : []), ...ctx.unlockedVehicles()];
+    // drive with anything from this world's collection (vehicles, dinosaurs, rockets...)
+    const ids = [...(ctx.special ? ['special'] : []), ...ctx.collectedItems()].slice(0, 8);
+    if (!ids.length) ids.push(ctx.content.collections[ctx.world.collection].items[0]);
     let started = false;
     const btns = ids.map((id) => {
       const b = el('button', { class: 'card pick-vehicle', 'aria-label': id, html: ctx.vehicleArt(id) });
@@ -28,7 +30,7 @@ export default {
 };
 
 async function drive(ctx, vehicleId) {
-  const letters = sample(ctx.letters(), ctx.config.letters, ctx.rng);
+  const letters = sample(ctx.letters(), ctx.config.count, ctx.rng);
   const canvas = el('canvas', { class: 'road', 'aria-label': 'trace the letter' });
   const car = el('div', { class: 'tracer', html: ctx.vehicleArt(vehicleId) });
   const wrap = el('div', { class: 'trace-wrap' }, [canvas, car]);

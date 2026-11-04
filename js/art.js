@@ -3,6 +3,7 @@
 
 import { INK, OUT, GLASS, svg, rect, circ, ell, path, line, win, wheel, eye, tracks, starPoints } from './art-kit.js';
 import { WORD_ART, PLACE_ART, FLOATING, parkingCars } from './art-words.js';
+import { CREATURES, FLOATING_CREATURES } from './art-creatures.js';
 
 function car(color) {
   return (
@@ -508,7 +509,7 @@ const PLACES = {
     [84, 96, 108, 120].map((y) => line(46, y, 154, y, '#B4B0FF', 3)).join(''),
 };
 
-const ALL = { ...VEHICLES, ...ANIMALS, ...CONCEPTS, ...PLACES, ...WORD_ART, ...PLACE_ART };
+const ALL = { ...VEHICLES, ...ANIMALS, ...CONCEPTS, ...PLACES, ...WORD_ART, ...PLACE_ART, ...CREATURES };
 for (const [name, fn] of Object.entries(SHAPES)) ALL[`shape-${name}`] = fn;
 ALL['place-parking'] = () => PLACE_ART['place-parking']() + parkingCars(car);
 
@@ -524,7 +525,12 @@ function badge(label = '?', color = '#7e57c2') {
   );
 }
 
-const SHADOWED = new Set([...Object.keys(VEHICLES), ...Object.keys(ANIMALS), ...Object.keys(WORD_ART).filter((k) => !FLOATING.has(k))]);
+const SHADOWED = new Set([
+  ...Object.keys(VEHICLES),
+  ...Object.keys(ANIMALS),
+  ...Object.keys(WORD_ART).filter((k) => !FLOATING.has(k)),
+  ...Object.keys(CREATURES).filter((k) => !FLOATING_CREATURES.has(k)),
+]);
 const groundShadow = '<ellipse cx="100" cy="128" rx="78" ry="7" fill="#1E1B4B" opacity="0.08"/>';
 
 // "many:banana" draws three bananas: used for plurals (केला / केले).

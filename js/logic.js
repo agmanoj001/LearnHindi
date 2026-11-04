@@ -233,35 +233,7 @@ export function thinPoints(points, max) {
   return out;
 }
 
-// ---- Rewards ----
-
-export function nextUnlock(vehicleIds, unlocked) {
-  const have = new Set(unlocked);
-  return vehicleIds.find((id) => !have.has(id)) ?? null;
-}
-
-export function applyCompletion(progress, gameId, vehicleIds) {
-  const completed = { ...(progress.completed || {}) };
-  completed[gameId] = (completed[gameId] || 0) + 1;
-  const unlocked = (progress.unlockedVehicles || []).slice();
-  const newVehicle = nextUnlock(vehicleIds, unlocked);
-  if (newVehicle) unlocked.push(newVehicle);
-  return { progress: { ...progress, completed, unlockedVehicles: unlocked }, newVehicle };
-}
-
-// ---- Phases (levels) ----
-
-// The phase the child is in: Toddler, Kindergarten, Grade 1, 2 or 3.
-export function currentLevel(content, settings) {
-  const levels = content.levels || [];
-  return levels.find((l) => l.id === settings?.level) || levels.find((l) => l.id === 'kg') || levels[0] || null;
-}
-
-// A game's settings: content.games[game] with the current phase's overrides on top.
-export function gameConfig(content, settings, game) {
-  const level = currentLevel(content, settings);
-  return { ...(content.games?.[game] || {}), ...(level?.games?.[game] || {}) };
-}
+// ---- Words and letters for a lesson ----
 
 // ["@grade1", "bus"] -> every word whose level is grade1, then "bus". Duplicates removed.
 export function expandWords(list, content) {
@@ -273,69 +245,88 @@ export function expandWords(list, content) {
   return out;
 }
 
+// Matra lessons: words that use at least one "focus" matra and nothing beyond focus + "allow".
+// ँ counts with अं (id "am") so a lesson on अं/ँ can ask for both.
+export function wordsForMatras(words, matras, focus, allow = []) {
+  const extra = [{ id: 'an', sign: '\u0901' }];
+  const all = [...matras, ...extra];
+  const ok = new Set([...focus, ...allow]);
+  return words.filter((w) => {
+    const used = all.filter((m) => w.hi.includes(m.sign)).map((m) => m.id);
+    return used.some((id) => focus.includes(id)) && used.every((id) => ok.has(id));
+  });
+}
+
+// A game's settings: content.games[game] with the lesson's own settings on top.
+export function lessonConfig(content, lesson) {
+  return { ...(content.games?.[lesson.game] || {}), ...(lesson.config || {}) };
+}
+
 // ---- Settings ----
 
 export function defaultSettings(content) {
-  const places = {};
-  for (const p of content.places) places[p.id] = p.unlockedByDefault !== false;
-  const letterSets = {};
-  for (const s of content.letterSets) letterSets[s.id] = s.enabledByDefault !== false;
-  return { lang: 'both', level: currentLevel(content, {})?.id ?? null, onboarded: false, places, letterSets };
+  const levels = content.levels || [];
+  return {
+    lang: 'both',
+    level: (levels.find((l) => l.id === 'kg') || levels[0])?.id ?? null,
+    onboarded: false,
+    lockGrade: false,
+    unlockAll: false,
+    music: true,
+    sfx: true,
+    voice: { hi: '', en: '', rate: 0.9 },
+  };
 }
 
 export function normalizeSettings(saved, content) {
   const base = defaultSettings(content);
   if (!saved || typeof saved !== 'object') return base;
-  const out = { ...base, places: { ...base.places }, letterSets: { ...base.letterSets } };
+  const out = { ...base, voice: { ...base.voice } };
   if (LANG_MODES.includes(saved.lang)) out.lang = saved.lang;
   if ((content.levels || []).some((l) => l.id === saved.level)) out.level = saved.level;
-  if (typeof saved.onboarded === 'boolean') out.onboarded = saved.onboarded;
-  for (const id of Object.keys(out.places)) if (typeof saved.places?.[id] === 'boolean') out.places[id] = saved.places[id];
-  for (const id of Object.keys(out.letterSets)) if (typeof saved.letterSets?.[id] === 'boolean') out.letterSets[id] = saved.letterSets[id];
+  for (const k of ['onboarded', 'lockGrade', 'unlockAll', 'music', 'sfx']) if (typeof saved[k] === 'boolean') out[k] = saved[k];
+  if (saved.voice && typeof saved.voice === 'object') {
+    for (const l of ['hi', 'en']) if (typeof saved.voice[l] === 'string') out.voice[l] = saved.voice[l];
+    if (typeof saved.voice.rate === 'number' && saved.voice.rate >= 0.5 && saved.voice.rate <= 1.3) out.voice.rate = saved.voice.rate;
+  }
   return out;
 }
 
 export function defaultProgress(content) {
-  return {
-    unlockedVehicles: content.vehicles.filter((v) => v.unlockedByDefault).map((v) => v.id),
-    completed: {},
-    trainPos: {},
-    storyPos: {},
-    stats: {},
-  };
+  const collected = {};
+  for (const [id, col] of Object.entries(content.collections || {})) collected[id] = col.items.slice(0, col.start || 0);
+  return { lessons: {}, collected, days: [], trainPos: {}, storyPos: {}, stats: {} };
 }
 
 export function normalizeProgress(saved, content) {
   const base = defaultProgress(content);
   if (!saved || typeof saved !== 'object') return base;
-  const known = new Set(content.vehicles.map((v) => v.id));
-  const unlocked = new Set(base.unlockedVehicles);
-  for (const id of saved.unlockedVehicles || []) if (known.has(id)) unlocked.add(id);
   const obj = (v) => (v && typeof v === 'object' && !Array.isArray(v) ? { ...v } : {});
+  // old saves kept vehicles in unlockedVehicles
+  const oldCollected = Array.isArray(saved.unlockedVehicles) ? { vehicles: saved.unlockedVehicles } : {};
+  const savedCollected = { ...oldCollected, ...obj(saved.collected) };
+  const collected = {};
+  for (const [id, col] of Object.entries(content.collections || {})) {
+    const have = new Set([...base.collected[id], ...(Array.isArray(savedCollected[id]) ? savedCollected[id] : [])]);
+    collected[id] = col.items.filter((x) => have.has(x));
+  }
+  const lessons = {};
+  for (const [id, r] of Object.entries(obj(saved.lessons))) {
+    if (!r || typeof r !== 'object') continue;
+    lessons[id] = {
+      stars: Math.max(0, Math.min(3, r.stars | 0)),
+      plays: Math.max(0, r.plays | 0),
+      tier: Math.max(0, Math.min(2, r.tier | 0)),
+    };
+  }
   return {
-    unlockedVehicles: content.vehicles.map((v) => v.id).filter((id) => unlocked.has(id)),
-    completed: obj(saved.completed),
+    lessons,
+    collected,
+    days: Array.isArray(saved.days) ? saved.days.filter((d) => typeof d === 'string').slice(-120) : [],
     trainPos: obj(saved.trainPos),
     storyPos: obj(saved.storyPos),
     stats: obj(saved.stats),
   };
-}
-
-// Letter sets the child should see: the phase's sets, in the chosen language(s), minus any the
-// parent turned off. Toddlers get none. If the parent turned every set off, all of the phase's sets come back.
-export function activeLetterSets(content, settings) {
-  const langs = langsFor(settings.lang);
-  const level = currentLevel(content, settings);
-  const allowed = level ? content.letterSets.filter((s) => level.letterSets.includes(s.id)) : content.letterSets;
-  const inLang = allowed.filter((s) => langs.includes(s.lang));
-  const chosen = inLang.filter((s) => settings.letterSets[s.id]);
-  return chosen.length ? chosen : inLang;
-}
-
-export function activeLetters(content, settings) {
-  return activeLetterSets(content, settings).flatMap((s) =>
-    s.letters.map((l) => ({ ...l, lang: s.lang, setId: s.id })),
-  );
 }
 
 // Every file name (without extension) a family recording can use, e.g. "bus_hi", "hc-ka", "num-3_en".
@@ -360,17 +351,6 @@ export function clipKeysFor(content) {
 export function clipKeyFromFileName(name, validKeys) {
   const base = name.replace(/\.[^.]+$/, '').trim().toLowerCase();
   return validKeys.find((k) => k.toLowerCase() === base) ?? null;
-}
-
-// Places on the map: the phase's places, in the phase's order, minus any the parent hid.
-export function visiblePlaces(content, settings) {
-  const level = currentLevel(content, settings);
-  const byId = new Map(content.places.map((p) => [p.id, p]));
-  const ids = level ? level.places : content.places.map((p) => p.id);
-  const langs = langsFor(settings.lang);
-  // a place with "langs": ["hi"] (the matra garage) only makes sense when Hindi is on
-  const speaks = (p) => !p.langs || p.langs.some((l) => langs.includes(l));
-  return ids.map((id) => byId.get(id)).filter((p) => p && settings.places[p.id] !== false && speaks(p));
 }
 
 // ---- Matras and reading ----

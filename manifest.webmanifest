@@ -1,7 +1,7 @@
 {
-  "name": "Vehicle Town",
-  "short_name": "Vehicle Town",
-  "description": "Learn Hindi and English with vehicles.",
+  "name": "Khel Khel Mein",
+  "short_name": "Khel Khel",
+  "description": "Learn Hindi and Math through play.",
   "start_url": "./",
   "scope": "./",
   "display": "fullscreen",

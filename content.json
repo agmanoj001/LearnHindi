@@ -1,7 +1,7 @@
 {
-  "version": 1,
+  "version": 2,
   "phrases": {
-    "title": { "hi": "गाड़ी नगर", "en": "Vehicle Town" },
+    "title": { "hi": "खेल-खेल में", "en": "Khel Khel Mein" },
     "welcome": { "hi": "चलो खेलें!", "en": "Let's play!" },
     "find": { "hi": "{w} ढूँढो", "en": "Find {w}" },
     "thisIs": { "hi": "यह {w} है", "en": "This is {w}" },
@@ -32,7 +32,9 @@
     "oppositeOf": { "hi": "{w} का उल्टा क्या है?", "en": "What is the opposite of {w}?" },
     "pluralOf": { "hi": "एक {w}, और बहुत सारे?", "en": "One {w}. And many?" },
     "femaleOf": { "hi": "{w} का स्त्रीलिंग क्या है?", "en": "What is the female of {w}?" },
-    "listenStory": { "hi": "चलो कहानी पढ़ें", "en": "Let's read a story" }
+    "listenStory": { "hi": "चलो कहानी पढ़ें", "en": "Let's read a story" },
+    "newItem": { "hi": "नया दोस्त मिला: {w}!", "en": "You found a new friend: {w}!" },
+    "unitDone": { "hi": "वाह! यह पाठ पूरा हो गया!", "en": "Hooray! You finished this unit!" }
   },
   "words": {
     "digger": { "hi": "खुदाई मशीन", "translit": "khudaai mashin", "en": "digger", "picture": "digger" },
@@ -193,56 +195,53 @@
     "place-metro": { "hi": "मेट्रो स्टेशन", "translit": "metro station", "en": "metro station", "picture": "place-metro" },
     "place-icecream": { "hi": "आइसक्रीम वाला", "translit": "icecream waala", "en": "ice-cream van", "picture": "place-icecream" },
     "place-library": { "hi": "पुस्तकालय", "translit": "pustakaalay", "en": "library", "picture": "place-library" },
-    "place-parking": { "hi": "पार्किंग", "translit": "parking", "en": "parking", "picture": "place-parking" }
+    "place-parking": { "hi": "पार्किंग", "translit": "parking", "en": "parking", "picture": "place-parking" },
+    "chick": { "hi": "चूज़ा", "translit": "chooza", "en": "chick", "picture": "chick" },
+    "buffalo": { "hi": "भैंस", "translit": "bhains", "en": "buffalo", "picture": "buffalo" },
+    "donkey": { "hi": "गधा", "translit": "gadha", "en": "donkey", "picture": "donkey" },
+    "tiger": { "hi": "बाघ", "translit": "baagh", "en": "tiger", "picture": "tiger" },
+    "deer": { "hi": "हिरन", "translit": "hiran", "en": "deer", "picture": "deer" },
+    "giraffe": { "hi": "जिराफ़", "translit": "jiraaf", "en": "giraffe", "picture": "giraffe" },
+    "zebra": { "hi": "ज़ेबरा", "translit": "zebra", "en": "zebra", "picture": "zebra" },
+    "fox": { "hi": "लोमड़ी", "translit": "lomdi", "en": "fox", "picture": "fox" },
+    "tortoise": { "hi": "कछुआ", "translit": "kachhua", "en": "tortoise", "picture": "tortoise" },
+    "squirrel": { "hi": "गिलहरी", "translit": "gilahari", "en": "squirrel", "picture": "squirrel" },
+    "owl": { "hi": "उल्लू", "translit": "ullu", "en": "owl", "picture": "owl" },
+    "trex": { "hi": "टी-रेक्स", "translit": "tee-rex", "en": "T. rex", "picture": "trex" },
+    "triceratops": { "hi": "ट्राइसेराटॉप्स", "translit": "triceratops", "en": "triceratops", "picture": "triceratops" },
+    "stegosaurus": { "hi": "स्टेगोसॉरस", "translit": "stegosaurus", "en": "stegosaurus", "picture": "stegosaurus" },
+    "brachiosaurus": { "hi": "ब्रैकियोसॉरस", "translit": "brachiosaurus", "en": "brachiosaurus", "picture": "brachiosaurus" },
+    "pterodactyl": { "hi": "टेरोडैक्टिल", "translit": "pterodactyl", "en": "pterodactyl", "picture": "pterodactyl" },
+    "ankylosaurus": { "hi": "एंकिलोसॉरस", "translit": "ankylosaurus", "en": "ankylosaurus", "picture": "ankylosaurus" },
+    "dinoegg": { "hi": "डायनासोर का अंडा", "translit": "dinosaur ka anda", "en": "dinosaur egg", "picture": "dinoegg" },
+    "volcano": { "hi": "ज्वालामुखी", "translit": "jwaalamukhi", "en": "volcano", "picture": "volcano" },
+    "astronaut": { "hi": "अंतरिक्ष यात्री", "translit": "antariksh yaatri", "en": "astronaut", "picture": "astronaut" },
+    "earth": { "hi": "पृथ्वी", "translit": "prithvi", "en": "Earth", "picture": "earth" },
+    "saturn": { "hi": "शनि", "translit": "shani", "en": "Saturn", "picture": "saturn" },
+    "mars": { "hi": "मंगल", "translit": "mangal", "en": "Mars", "picture": "mars" },
+    "comet": { "hi": "धूमकेतु", "translit": "dhoomketu", "en": "comet", "picture": "comet" },
+    "satellite": { "hi": "उपग्रह", "translit": "upgrah", "en": "satellite", "picture": "satellite" },
+    "alien": { "hi": "एलियन दोस्त", "translit": "alien dost", "en": "alien friend", "picture": "alien" },
+    "telescope": { "hi": "दूरबीन", "translit": "doorbeen", "en": "telescope", "picture": "telescope" },
+    "octopus": { "hi": "ऑक्टोपस", "translit": "octopus", "en": "octopus", "picture": "octopus" },
+    "crab": { "hi": "केकड़ा", "translit": "kekda", "en": "crab", "picture": "crab" },
+    "turtle": { "hi": "समुद्री कछुआ", "translit": "samudri kachhua", "en": "sea turtle", "picture": "turtle" },
+    "whale": { "hi": "व्हेल", "translit": "whale", "en": "whale", "picture": "whale" },
+    "dolphin": { "hi": "डॉल्फ़िन", "translit": "dolphin", "en": "dolphin", "picture": "dolphin" },
+    "starfish": { "hi": "तारा मछली", "translit": "taara machhli", "en": "starfish", "picture": "starfish" },
+    "jellyfish": { "hi": "जेलीफ़िश", "translit": "jellyfish", "en": "jellyfish", "picture": "jellyfish" },
+    "seahorse": { "hi": "समुद्री घोड़ा", "translit": "samudri ghoda", "en": "seahorse", "picture": "seahorse" },
+    "shark": { "hi": "शार्क", "translit": "shark", "en": "shark", "picture": "shark" },
+    "shell": { "hi": "सीप", "translit": "seep", "en": "shell", "picture": "shell" },
+    "lighthouse": { "hi": "प्रकाश स्तंभ", "translit": "prakaash stambh", "en": "lighthouse", "picture": "lighthouse" },
+    "penguin": { "hi": "पेंगुइन", "translit": "penguin", "en": "penguin", "picture": "penguin" },
+    "seal": { "hi": "सील", "translit": "seal", "en": "seal", "picture": "seal" },
+    "polarbear": { "hi": "ध्रुवीय भालू", "translit": "dhruveey bhaalu", "en": "polar bear", "picture": "polarbear" },
+    "igloo": { "hi": "इग्लू", "translit": "igloo", "en": "igloo", "picture": "igloo" },
+    "snowman": { "hi": "बर्फ़ का पुतला", "translit": "barf ka putla", "en": "snowman", "picture": "snowman" },
+    "sled": { "hi": "स्लेज", "translit": "slej", "en": "sled", "picture": "sled" },
+    "snowflake": { "hi": "बर्फ़ का फाहा", "translit": "barf ka phaaha", "en": "snowflake", "picture": "snowflake" }
   },
-  "vehicles": [
-    { "id": "bus", "unlockedByDefault": true },
-    { "id": "car", "unlockedByDefault": true },
-    { "id": "digger" },
-    { "id": "dumptruck" },
-    { "id": "firetruck" },
-    { "id": "crane" },
-    { "id": "ambulance" },
-    { "id": "policecar" },
-    { "id": "tractor" },
-    { "id": "mixer" },
-    { "id": "train" },
-    { "id": "bulldozer" },
-    { "id": "garbagetruck" },
-    { "id": "plane" },
-    { "id": "helicopter" },
-    { "id": "boat" },
-    { "id": "auto" },
-    { "id": "scooter" },
-    { "id": "bicycle" },
-    { "id": "motorbike" },
-    { "id": "truck" },
-    { "id": "ship" },
-    { "id": "rocket" },
-    { "id": "submarine" },
-    { "id": "postvan" },
-    { "id": "metro" },
-    { "id": "icecreamvan" },
-    { "id": "bookbus" }
-  ],
-  "places": [
-    { "id": "construction", "word": "place-construction", "game": "construction", "color": "#ffb300" },
-    { "id": "busdepot", "word": "place-busdepot", "game": "busdepot", "color": "#fdd835" },
-    { "id": "fire", "word": "place-fire", "game": "rescue", "color": "#e53935", "options": { "vehicle": "firetruck" } },
-    { "id": "police", "word": "place-police", "game": "rescue", "color": "#1e88e5", "options": { "vehicle": "policecar" } },
-    { "id": "hospital", "word": "place-hospital", "game": "rescue", "color": "#26a69a", "options": { "vehicle": "ambulance" } },
-    { "id": "farm", "word": "place-farm", "game": "farm", "color": "#7cb342" },
-    { "id": "railway", "word": "place-railway", "game": "railway", "color": "#8d6e63" },
-    { "id": "recycling", "word": "place-recycling", "game": "recycling", "color": "#43a047" },
-    { "id": "airport", "word": "place-airport", "game": "opposites", "color": "#29b6f6" },
-    { "id": "trace", "word": "place-trace", "game": "trace", "color": "#ff7043" },
-    { "id": "matra", "word": "place-matra", "game": "matra", "color": "#6C63FF", "langs": ["hi"] },
-    { "id": "postoffice", "word": "place-postoffice", "game": "read", "color": "#FF5A5F" },
-    { "id": "metro", "word": "place-metro", "game": "sentence", "color": "#3D7BFF" },
-    { "id": "icecream", "word": "place-icecream", "game": "rhyme", "color": "#38BDF8" },
-    { "id": "library", "word": "place-library", "game": "story", "color": "#A66BFF" },
-    { "id": "parking", "word": "place-parking", "game": "pairs", "color": "#64748B" }
-  ],
   "sentences": [
     { "id": "bus-here", "about": "bus", "hi": "बस आई!", "translit": "bas aai", "en": "The bus is here!", "level": "grade2" },
     { "id": "car-fast", "about": "car", "hi": "कार तेज़ चलती है", "translit": "kaar tez chalti hai", "en": "The car goes fast.", "level": "grade2" },
@@ -530,7 +529,7 @@
         { "a": "big", "b": "small", "kind": "size", "vehicle": "ship" }
       ]
     },
-    "trace": { "letters": 4, "threshold": 0.6 },
+    "trace": { "count": 4, "threshold": 0.6 },
     "matra": {
       "rounds": 6,
       "consonants": ["क", "ग", "ज", "त", "द", "न", "प", "ब", "म", "र", "ल", "स"],
@@ -658,80 +657,837 @@
   "levels": [
     {
       "id": "toddler",
-      "picture": "scooter",
+      "picture": "duck",
       "name": { "hi": "नन्हे", "en": "Toddler" },
       "age": "2–3",
-      "about": "Listening and first words: vehicles, animals, colours, shapes, animal sounds, counting to 5. No letters yet.",
-      "places": ["busdepot", "farm", "recycling", "airport", "fire", "police", "hospital", "construction"],
-      "letterSets": [],
-      "games": {
-        "construction": { "activities": ["dig"], "digLetters": 4 },
-        "busdepot": { "maxPassengers": 5, "pickupRounds": 4, "countRounds": 3, "letters": false },
-        "rescue": { "rounds": 4 },
-        "farm": { "rounds": 4 },
-        "recycling": { "rounds": 6 },
-        "opposites": { "rounds": 4 }
-      }
+      "about": "Listening and naming: animals and their sounds, colours, shapes, big and small, counting to 5. No letters yet."
     },
     {
       "id": "kg",
       "picture": "car",
       "name": { "hi": "बालवाटिका", "en": "Kindergarten" },
       "age": "3–6",
-      "about": "Letters and their sounds (स्वर, व्यंजन, A–Z), tracing, counting to 10, and first two- and three-letter words without matras (घर, नल, कमल).",
-      "places": ["construction", "busdepot", "fire", "police", "hospital", "farm", "railway", "recycling", "airport", "trace", "postoffice"],
-      "letterSets": ["hindiVowels", "hindiConsonants", "english"],
-      "games": { "construction": { "buildWords": ["@kg"] }, "read": { "words": ["@kg"], "modes": ["find"] }}
+      "about": "Sounds, स्वर, व्यंजन and A–Z, tracing, counting to 10, two- and three-letter words without matras. Math in English (NC kindergarten)."
     },
     {
       "id": "grade1",
-      "picture": "bus",
+      "picture": "monkey",
       "name": { "hi": "कक्षा 1", "en": "Grade 1" },
       "age": "6–7",
-      "about": "Matras (का कि की कु कू के कै को कौ कं काँ) and the barakhadi, reading two- and three-letter words with matras, matching words to pictures, and short sentences of 3–5 words.",
-      "places": ["matra", "postoffice", "construction", "metro", "library", "icecream", "railway", "trace", "fire", "police", "hospital", "busdepot"],
-      "letterSets": ["hindiVowels", "hindiConsonants", "english"],
-      "games": {
-        "construction": { "activities": ["build", "deliver"], "buildWords": ["@kg", "@grade1"], "buildRounds": 3 },
-        "read": { "words": ["@grade1"], "modes": ["find", "match"] },
-        "rescue": { "words": ["@grade1"], "cards": "text" },
-        "sentence": { "levels": ["grade1"] },
-        "story": { "levels": ["grade1"] },
-        "rhyme": { "rounds": 4 }
-      }
+      "about": "Matras and the barakhadi, words with matras, family, food and festival words, little sentences and first stories. Math in English (NC grade 1)."
     },
     {
       "id": "grade2",
-      "picture": "train",
+      "picture": "trex",
       "name": { "hi": "कक्षा 2", "en": "Grade 2" },
       "age": "7–8",
-      "about": "Half letters and conjuncts (त्त, म्म, क्ख, स्क), longer words, rhyming words, building sentences of 4–6 words, reading short stories with meaning, opposites and plurals.",
-      "places": ["library", "metro", "postoffice", "matra", "icecream", "parking", "construction", "railway"],
-      "letterSets": ["hindiConsonants", "english"],
-      "games": {
-        "construction": { "activities": ["build"], "buildWords": ["@grade1", "@grade2"], "buildRounds": 3 },
-        "read": { "words": ["@grade1", "@grade2"], "modes": ["match"] },
-        "matra": { "words": ["@grade1", "@grade2"] },
-        "sentence": { "levels": ["grade1", "grade2"], "rounds": 4 },
-        "story": { "levels": ["grade1", "grade2"] },
-        "pairs": { "kinds": ["opposite", "plural"] }
-      }
+      "about": "Half letters and र के रूप, home words, opposites, one and many, rhymes, building sentences, folktales with questions."
     },
     {
       "id": "grade3",
       "picture": "rocket",
       "name": { "hi": "कक्षा 3", "en": "Grade 3" },
       "age": "8–9",
-      "about": "Reading stories and answering questions, longer sentences, opposites (विलोम), singular and plural (वचन), male and female (लिंग).",
-      "places": ["library", "metro", "parking", "postoffice", "icecream", "matra"],
-      "letterSets": ["hindiConsonants", "english"],
-      "games": {
-        "read": { "words": ["@grade2", "@grade3"], "modes": ["match"] },
-        "matra": { "words": ["@grade1", "@grade2"] },
-        "sentence": { "levels": ["grade2", "grade3"], "rounds": 4 },
-        "story": { "levels": ["grade2", "grade3"] },
-        "pairs": { "kinds": ["opposite", "plural", "female"] }
-      }
+      "about": "Grammar starts: naming words (संज्ञा), gender (लिंग), number (वचन), same-meaning words, punctuation, space words, Panchatantra stories."
+    },
+    {
+      "id": "grade4",
+      "picture": "octopus",
+      "name": { "hi": "कक्षा 4", "en": "Grade 4" },
+      "age": "9–10",
+      "about": "Pronouns, describing and action words, past-present-future, idioms (मुहावरे), days and months, ocean words, longer folktales with a moral."
     }
+  ],
+  "collections": {
+    "farm": {
+      "name": { "hi": "मेरा फ़ार्म", "en": "My farm" },
+      "items": ["cow", "dog", "cat", "duck", "rooster", "hen", "goat", "sheep", "horse", "ox", "rabbit", "chick", "buffalo", "donkey"]
+    },
+    "vehicles": {
+      "name": { "hi": "मेरा गैराज", "en": "My garage" },
+      "start": 2,
+      "items": [
+        "bus",
+        "car",
+        "digger",
+        "dumptruck",
+        "firetruck",
+        "crane",
+        "ambulance",
+        "policecar",
+        "tractor",
+        "mixer",
+        "train",
+        "bulldozer",
+        "garbagetruck",
+        "plane",
+        "helicopter",
+        "boat",
+        "auto",
+        "scooter",
+        "bicycle",
+        "motorbike",
+        "truck",
+        "ship",
+        "rocket",
+        "submarine",
+        "postvan",
+        "metro",
+        "icecreamvan",
+        "bookbus"
+      ]
+    },
+    "jungle": {
+      "name": { "hi": "मेरा जंगल", "en": "My jungle" },
+      "items": ["monkey", "elephant", "lion", "tiger", "deer", "giraffe", "zebra", "peacock", "parrot", "snake", "bear", "fox", "tortoise", "squirrel", "owl", "lioness"]
+    },
+    "dinos": {
+      "name": { "hi": "मेरे डायनासोर", "en": "My dinosaurs" },
+      "items": ["trex", "triceratops", "stegosaurus", "brachiosaurus", "pterodactyl", "ankylosaurus", "dinoegg", "volcano"]
+    },
+    "space": {
+      "name": { "hi": "मेरा अंतरिक्ष", "en": "My space" },
+      "items": ["rocket", "astronaut", "moon", "earth", "saturn", "mars", "comet", "satellite", "alien", "telescope", "sun"]
+    },
+    "ocean": {
+      "name": { "hi": "मेरा समुद्र", "en": "My ocean" },
+      "items": ["octopus", "crab", "turtle", "whale", "dolphin", "starfish", "jellyfish", "seahorse", "shark", "shell", "lighthouse", "fish", "ship", "submarine"]
+    },
+    "igloo": { "name": { "hi": "मेरा इग्लू", "en": "My igloo" }, "items": ["penguin", "seal", "polarbear", "igloo", "snowman", "sled", "snowflake", "fish"] }
+  },
+  "worlds": [
+    {
+      "id": "farm",
+      "level": "toddler",
+      "subject": "hindi",
+      "theme": "farm",
+      "mascot": "kuku",
+      "color": "#5CB85C",
+      "collection": "farm",
+      "name": { "hi": "पशु फ़ार्म", "en": "Animal Farm" },
+      "letterSets": [],
+      "units": [
+        {
+          "id": "t-animals",
+          "title": { "hi": "जानवर दोस्त", "en": "Animal friends" },
+          "skill": "Listening",
+          "icon": "cow",
+          "lessons": [
+            { "id": "t-animals-1", "game": "farm", "icon": "cow", "title": { "hi": "कौन बोला?", "en": "Who said that?" }, "config": { "rounds": 4 }},
+            {
+              "id": "t-animals-2",
+              "game": "rescue",
+              "icon": "dog",
+              "title": { "hi": "ढूँढो", "en": "Find it" },
+              "config": { "words": ["cow", "dog", "cat", "duck", "rooster", "goat", "sheep", "horse"], "rounds": 4, "vehicle": "firetruck" }
+            },
+            {
+              "id": "t-animals-3",
+              "game": "busdepot",
+              "icon": "bus",
+              "title": { "hi": "बस में बिठाओ", "en": "Bus ride" },
+              "config": { "parts": ["pickup"], "letters": false, "pickupRounds": 4 }
+            }
+          ]
+        },
+        {
+          "id": "t-colours",
+          "title": { "hi": "रंग और आकार", "en": "Colours and shapes" },
+          "skill": "Colours",
+          "icon": "red",
+          "lessons": [
+            { "id": "t-colours-1", "game": "recycling", "icon": "red", "title": { "hi": "रंग", "en": "Colours" }, "config": { "modes": ["color"], "rounds": 5, "bins": 2 }},
+            {
+              "id": "t-colours-2",
+              "game": "recycling",
+              "icon": "shape-star",
+              "title": { "hi": "आकार", "en": "Shapes" },
+              "config": { "modes": ["shape"], "rounds": 5, "bins": 2 }
+            }
+          ]
+        },
+        {
+          "id": "t-bigsmall",
+          "title": { "hi": "बड़ा और छोटा", "en": "Big and small" },
+          "skill": "Concepts",
+          "icon": "plane",
+          "lessons": [{ "id": "t-bigsmall-1", "game": "opposites", "icon": "plane", "title": { "hi": "बड़ा-छोटा", "en": "Big, small" }, "config": { "rounds": 4 }}]
+        },
+        {
+          "id": "t-count",
+          "title": { "hi": "पाँच तक गिनो", "en": "Count to 5" },
+          "skill": "Numbers",
+          "icon": "num",
+          "lessons": [
+            {
+              "id": "t-count-1",
+              "game": "busdepot",
+              "icon": "bus",
+              "title": { "hi": "गिनो", "en": "Count" },
+              "config": { "parts": ["count"], "maxPassengers": 5, "countRounds": 4, "letters": false }
+            }
+          ]
+        },
+        {
+          "id": "t-vehicles",
+          "title": { "hi": "गाड़ियाँ", "en": "Vehicles" },
+          "skill": "Words",
+          "icon": "car",
+          "lessons": [
+            {
+              "id": "t-vehicles-1",
+              "game": "construction",
+              "icon": "digger",
+              "title": { "hi": "खोदो", "en": "Dig" },
+              "config": { "activities": ["dig"], "digLetters": 4, "digWords": ["bus", "car", "boat", "train", "plane", "truck", "tractor", "bicycle"] }
+            },
+            {
+              "id": "t-vehicles-2",
+              "game": "rescue",
+              "icon": "firetruck",
+              "title": { "hi": "गाड़ी ढूँढो", "en": "Find the vehicle" },
+              "config": { "words": ["bus", "car", "boat", "train", "plane", "truck", "tractor", "bicycle"], "rounds": 4, "vehicle": "policecar" }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "town",
+      "level": "kg",
+      "subject": "hindi",
+      "theme": "town",
+      "mascot": "gappu",
+      "color": "#6C63FF",
+      "collection": "vehicles",
+      "name": { "hi": "गाड़ी नगर", "en": "Vehicle Town" },
+      "letterSets": ["hindiVowels", "hindiConsonants", "english"],
+      "units": [
+        {
+          "id": "k-sounds",
+          "title": { "hi": "ध्वनि पहचानो", "en": "Let's hear sounds" },
+          "skill": "Phonological awareness",
+          "icon": "eye",
+          "lessons": [
+            {
+              "id": "k-sounds-1",
+              "game": "rhyme",
+              "icon": "tap",
+              "title": { "hi": "तुक मिलाओ", "en": "Rhymes" },
+              "config": {
+                "groups": [
+                  { "lang": "hi", "words": ["tap", "water", "fruit", "lotus"] },
+                  { "lang": "hi", "words": ["house", "crocodile", "peas"] },
+                  { "lang": "en", "words": ["car", "star"] },
+                  { "lang": "en", "words": ["boat", "goat"] },
+                  { "lang": "en", "words": ["house", "mouse"] }
+                ],
+                "rounds": 4
+              }
+            }
+          ]
+        },
+        {
+          "id": "k-vowels",
+          "title": { "hi": "स्वर सीखें", "en": "Let's learn vowels" },
+          "skill": "Phonics",
+          "icon": "letter:अ",
+          "lessons": [
+            {
+              "id": "k-vowels-1",
+              "game": "construction",
+              "icon": "digger",
+              "title": { "hi": "स्वर खोदो", "en": "Dig vowels" },
+              "config": { "activities": ["dig"], "letters": { "sets": ["hindiVowels"] }}
+            },
+            {
+              "id": "k-vowels-2",
+              "game": "railway",
+              "icon": "train",
+              "title": { "hi": "स्वर रेल", "en": "Vowel train" },
+              "config": { "letters": { "sets": ["hindiVowels"] }, "carriages": 4 }
+            },
+            {
+              "id": "k-vowels-3",
+              "game": "trace",
+              "icon": "place-trace",
+              "title": { "hi": "स्वर लिखो", "en": "Trace vowels" },
+              "config": { "letters": { "sets": ["hindiVowels"] }, "count": 3 }
+            },
+            {
+              "id": "k-vowels-4",
+              "game": "rescue",
+              "icon": "firetruck",
+              "title": { "hi": "स्वर बचाओ", "en": "Vowel rescue" },
+              "config": { "letters": { "sets": ["hindiVowels"] }, "words": ["bus", "car", "boat", "train", "plane", "truck", "tractor", "bicycle"], "vehicle": "firetruck" }
+            }
+          ]
+        },
+        {
+          "id": "k-cons1",
+          "title": { "hi": "व्यंजन क से ञ", "en": "Consonants क to ञ" },
+          "skill": "Phonics",
+          "icon": "letter:क",
+          "lessons": [
+            {
+              "id": "k-cons1-1",
+              "game": "construction",
+              "icon": "digger",
+              "title": { "hi": "खोदो", "en": "Dig" },
+              "config": { "activities": ["dig"], "letters": { "sets": ["hindiConsonants"], "from": 0, "to": 10 }}
+            },
+            {
+              "id": "k-cons1-2",
+              "game": "construction",
+              "icon": "dumptruck",
+              "title": { "hi": "ब्लॉक पहुँचाओ", "en": "Deliver" },
+              "config": { "activities": ["deliver"], "letters": { "sets": ["hindiConsonants"], "from": 0, "to": 10 }}
+            },
+            {
+              "id": "k-cons1-3",
+              "game": "trace",
+              "icon": "place-trace",
+              "title": { "hi": "लिखो", "en": "Trace" },
+              "config": { "letters": { "sets": ["hindiConsonants"], "from": 0, "to": 10 }, "count": 3 }
+            },
+            {
+              "id": "k-cons1-4",
+              "game": "railway",
+              "icon": "train",
+              "title": { "hi": "रेल", "en": "Train" },
+              "config": { "letters": { "sets": ["hindiConsonants"], "from": 0, "to": 10 }, "carriages": 4 }
+            }
+          ]
+        },
+        {
+          "id": "k-cons2",
+          "title": { "hi": "व्यंजन ट से न", "en": "Consonants ट to न" },
+          "skill": "Phonics",
+          "icon": "letter:ट",
+          "lessons": [
+            {
+              "id": "k-cons2-1",
+              "game": "construction",
+              "icon": "digger",
+              "title": { "hi": "खोदो", "en": "Dig" },
+              "config": { "activities": ["dig"], "letters": { "sets": ["hindiConsonants"], "from": 10, "to": 20 }}
+            },
+            {
+              "id": "k-cons2-2",
+              "game": "rescue",
+              "icon": "ambulance",
+              "title": { "hi": "बचाओ", "en": "Rescue" },
+              "config": {
+                "letters": { "sets": ["hindiConsonants"], "from": 10, "to": 20 },
+                "words": ["bus", "car", "boat", "train", "plane", "truck", "tractor", "bicycle"],
+                "vehicle": "ambulance"
+              }
+            },
+            {
+              "id": "k-cons2-3",
+              "game": "trace",
+              "icon": "place-trace",
+              "title": { "hi": "लिखो", "en": "Trace" },
+              "config": { "letters": { "sets": ["hindiConsonants"], "from": 10, "to": 20 }, "count": 3 }
+            },
+            {
+              "id": "k-cons2-4",
+              "game": "construction",
+              "icon": "dumptruck",
+              "title": { "hi": "ब्लॉक पहुँचाओ", "en": "Deliver" },
+              "config": { "activities": ["deliver"], "letters": { "sets": ["hindiConsonants"], "from": 10, "to": 20 }}
+            }
+          ]
+        },
+        {
+          "id": "k-cons3",
+          "title": { "hi": "व्यंजन प से ज्ञ", "en": "Consonants प to ज्ञ" },
+          "skill": "Phonics",
+          "icon": "letter:प",
+          "lessons": [
+            {
+              "id": "k-cons3-1",
+              "game": "construction",
+              "icon": "digger",
+              "title": { "hi": "खोदो", "en": "Dig" },
+              "config": { "activities": ["dig"], "letters": { "sets": ["hindiConsonants"], "from": 20, "to": 36 }}
+            },
+            {
+              "id": "k-cons3-2",
+              "game": "railway",
+              "icon": "train",
+              "title": { "hi": "रेल", "en": "Train" },
+              "config": { "letters": { "sets": ["hindiConsonants"], "from": 20, "to": 36 }, "carriages": 4 }
+            },
+            {
+              "id": "k-cons3-3",
+              "game": "trace",
+              "icon": "place-trace",
+              "title": { "hi": "लिखो", "en": "Trace" },
+              "config": { "letters": { "sets": ["hindiConsonants"], "from": 20, "to": 36 }, "count": 3 }
+            },
+            {
+              "id": "k-cons3-4",
+              "game": "rescue",
+              "icon": "policecar",
+              "title": { "hi": "बचाओ", "en": "Rescue" },
+              "config": {
+                "letters": { "sets": ["hindiConsonants"], "from": 20, "to": 36 },
+                "words": ["bus", "car", "boat", "train", "plane", "truck", "tractor", "bicycle"],
+                "vehicle": "policecar"
+              }
+            }
+          ]
+        },
+        {
+          "id": "k-abc",
+          "title": { "hi": "अंग्रेज़ी ABC", "en": "English ABC" },
+          "skill": "Phonics",
+          "icon": "letter:A",
+          "lessons": [
+            {
+              "id": "k-abc-1",
+              "game": "railway",
+              "icon": "train",
+              "title": { "hi": "ABC रेल", "en": "ABC train" },
+              "config": { "letters": { "sets": ["english"] }, "carriages": 4 }
+            },
+            {
+              "id": "k-abc-2",
+              "game": "construction",
+              "icon": "digger",
+              "title": { "hi": "ABC खोदो", "en": "Dig ABC" },
+              "config": { "activities": ["dig"], "letters": { "sets": ["english"] }}
+            },
+            {
+              "id": "k-abc-3",
+              "game": "trace",
+              "icon": "place-trace",
+              "title": { "hi": "ABC लिखो", "en": "Trace ABC" },
+              "config": { "letters": { "sets": ["english"] }, "count": 3 }
+            }
+          ]
+        },
+        {
+          "id": "k-two",
+          "title": { "hi": "दो अक्षर वाले शब्द", "en": "Let's learn two-letter words" },
+          "skill": "Reading",
+          "icon": "house",
+          "lessons": [
+            {
+              "id": "k-two-1",
+              "game": "construction",
+              "icon": "crane",
+              "title": { "hi": "शब्द बनाओ", "en": "Build words" },
+              "config": { "activities": ["build"], "buildWords": ["bus", "house", "tap", "fruit", "cup", "water", "envelope"], "buildRounds": 3 }
+            },
+            {
+              "id": "k-two-2",
+              "game": "read",
+              "icon": "postvan",
+              "title": { "hi": "शब्द पढ़ो", "en": "Read words" },
+              "config": { "words": ["bus", "house", "tap", "fruit", "cup", "water", "envelope"], "modes": ["find"], "rounds": 5 }
+            }
+          ]
+        },
+        {
+          "id": "k-three",
+          "title": { "hi": "तीन अक्षर वाले शब्द", "en": "Let's learn three-letter words" },
+          "skill": "Reading",
+          "icon": "lotus",
+          "lessons": [
+            {
+              "id": "k-three-1",
+              "game": "construction",
+              "icon": "crane",
+              "title": { "hi": "शब्द बनाओ", "en": "Build words" },
+              "config": { "activities": ["build"], "buildWords": ["lotus", "pen", "button", "peas", "crocodile"], "buildRounds": 3 }
+            },
+            {
+              "id": "k-three-2",
+              "game": "read",
+              "icon": "postvan",
+              "title": { "hi": "शब्द पढ़ो", "en": "Read words" },
+              "config": { "words": ["@kg"], "modes": ["find", "match"], "rounds": 6 }
+            }
+          ]
+        },
+        {
+          "id": "k-numbers",
+          "title": { "hi": "गिनती 1 से 10", "en": "Numbers 1 to 10" },
+          "skill": "Numbers",
+          "icon": "num",
+          "lessons": [
+            { "id": "k-numbers-1", "game": "busdepot", "icon": "bus", "title": { "hi": "गिनो", "en": "Count" }, "config": { "parts": ["count"], "countRounds": 5 }},
+            {
+              "id": "k-numbers-2",
+              "game": "busdepot",
+              "icon": "bus",
+              "title": { "hi": "बस में बिठाओ", "en": "Bus ride" },
+              "config": { "parts": ["pickup"], "pickupRounds": 5 }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "jungle",
+      "level": "grade1",
+      "subject": "hindi",
+      "theme": "jungle",
+      "mascot": "chiku",
+      "color": "#22A05B",
+      "collection": "jungle",
+      "name": { "hi": "मस्त जंगल", "en": "Jolly Jungle" },
+      "letterSets": ["hindiVowels", "hindiConsonants", "english"],
+      "units": [
+        {
+          "id": "g1-m1",
+          "title": { "hi": "मात्राएँ: ा ि ी", "en": "Let's learn matras ा ि ी" },
+          "skill": "Phonics",
+          "icon": "mango",
+          "lessons": [
+            {
+              "id": "g1-m1-1",
+              "game": "matra",
+              "icon": "place-matra",
+              "title": { "hi": "बारहखड़ी", "en": "Barakhadi" },
+              "config": { "matras": ["aa", "i", "ii"], "words": ["@grade1"], "focus": ["aa", "i", "ii"], "allow": [] }
+            },
+            {
+              "id": "g1-m1-2",
+              "game": "read",
+              "icon": "postvan",
+              "title": { "hi": "शब्द पढ़ो", "en": "Read words" },
+              "config": { "words": ["@grade1"], "focus": ["aa", "i", "ii"], "allow": [], "modes": ["find", "match"] }
+            },
+            {
+              "id": "g1-m1-3",
+              "game": "construction",
+              "icon": "crane",
+              "title": { "hi": "शब्द बनाओ", "en": "Build words" },
+              "config": { "activities": ["build"], "buildWords": ["@grade1"], "focus": ["aa", "i", "ii"], "allow": [], "buildRounds": 3 }
+            }
+          ]
+        },
+        {
+          "id": "g1-m2",
+          "title": { "hi": "मात्राएँ: ु ू", "en": "Let's learn matras ु ू" },
+          "skill": "Phonics",
+          "icon": "flower",
+          "lessons": [
+            {
+              "id": "g1-m2-1",
+              "game": "matra",
+              "icon": "place-matra",
+              "title": { "hi": "मात्रा गैराज", "en": "Matra garage" },
+              "config": { "matras": ["u", "uu", "aa", "i", "ii"], "words": ["@grade1"], "focus": ["u", "uu"], "allow": ["aa", "i", "ii"] }
+            },
+            {
+              "id": "g1-m2-2",
+              "game": "read",
+              "icon": "postvan",
+              "title": { "hi": "शब्द पढ़ो", "en": "Read words" },
+              "config": { "words": ["@grade1"], "focus": ["u", "uu"], "allow": ["aa", "i", "ii"], "modes": ["find", "match"] }
+            }
+          ]
+        },
+        {
+          "id": "g1-m3",
+          "title": { "hi": "मात्राएँ: े ै", "en": "Let's learn matras े ै" },
+          "skill": "Phonics",
+          "icon": "banana",
+          "lessons": [
+            {
+              "id": "g1-m3-1",
+              "game": "matra",
+              "icon": "place-matra",
+              "title": { "hi": "मात्रा गैराज", "en": "Matra garage" },
+              "config": { "matras": ["e", "ai", "aa", "i", "u"], "words": ["@grade1"], "focus": ["e", "ai"], "allow": ["aa", "i", "ii", "u", "uu"] }
+            },
+            {
+              "id": "g1-m3-2",
+              "game": "read",
+              "icon": "postvan",
+              "title": { "hi": "शब्द पढ़ो", "en": "Read words" },
+              "config": { "words": ["@grade1"], "focus": ["e", "ai"], "allow": ["aa", "i", "ii", "u", "uu"], "modes": ["find", "match"] }
+            }
+          ]
+        },
+        {
+          "id": "g1-m4",
+          "title": { "hi": "मात्राएँ: ो ौ", "en": "Let's learn matras ो ौ" },
+          "skill": "Phonics",
+          "icon": "peacock",
+          "lessons": [
+            {
+              "id": "g1-m4-1",
+              "game": "matra",
+              "icon": "place-matra",
+              "title": { "hi": "मात्रा गैराज", "en": "Matra garage" },
+              "config": { "matras": ["o", "au", "e", "aa", "i"], "words": ["@grade1"], "focus": ["o", "au"], "allow": ["aa", "i", "ii", "u", "uu", "e", "ai"] }
+            },
+            {
+              "id": "g1-m4-2",
+              "game": "read",
+              "icon": "postvan",
+              "title": { "hi": "शब्द पढ़ो", "en": "Read words" },
+              "config": { "words": ["@grade1"], "focus": ["o", "au"], "allow": ["aa", "i", "ii", "u", "uu", "e", "ai"], "modes": ["find", "match"] }
+            }
+          ]
+        },
+        {
+          "id": "g1-m5",
+          "title": { "hi": "अं और ँ", "en": "Let's learn अं and ँ" },
+          "skill": "Phonics",
+          "icon": "kite",
+          "lessons": [
+            {
+              "id": "g1-m5-1",
+              "game": "read",
+              "icon": "postvan",
+              "title": { "hi": "शब्द पढ़ो", "en": "Read words" },
+              "config": { "words": ["@grade1"], "focus": ["am", "an"], "allow": ["aa", "i", "ii", "u", "uu", "e", "ai", "o", "au"], "modes": ["find", "match"] }
+            },
+            {
+              "id": "g1-m5-2",
+              "game": "rescue",
+              "icon": "firetruck",
+              "title": { "hi": "पढ़ो और बचाओ", "en": "Read and rescue" },
+              "config": { "words": ["@grade1"], "cards": "text", "vehicle": "firetruck", "letters": false }
+            }
+          ]
+        },
+        {
+          "id": "g1-bara",
+          "title": { "hi": "बारहखड़ी", "en": "Let's learn the barakhadi" },
+          "skill": "Phonics",
+          "icon": "letter:का",
+          "lessons": [
+            { "id": "g1-bara-1", "game": "matra", "icon": "place-matra", "title": { "hi": "बारहखड़ी", "en": "Barakhadi" }, "config": {} },
+            {
+              "id": "g1-bara-2",
+              "game": "construction",
+              "icon": "crane",
+              "title": { "hi": "शब्द बनाओ", "en": "Build words" },
+              "config": { "activities": ["build"], "buildWords": ["@grade1"], "buildRounds": 3 }
+            }
+          ]
+        },
+        {
+          "id": "g1-rhyme",
+          "title": { "hi": "तुकबंदी", "en": "Rhyme time" },
+          "skill": "Phonological awareness",
+          "icon": "icecreamvan",
+          "lessons": [{ "id": "g1-rhyme-1", "game": "rhyme", "icon": "icecreamvan", "title": { "hi": "तुक मिलाओ", "en": "Rhymes" }, "config": { "rounds": 4 }}]
+        },
+        {
+          "id": "g1-sent",
+          "title": { "hi": "छोटे वाक्य", "en": "Let's read little sentences" },
+          "skill": "Reading",
+          "icon": "metro",
+          "lessons": [
+            {
+              "id": "g1-sent-1",
+              "game": "sentence",
+              "icon": "metro",
+              "title": { "hi": "वाक्य बनाओ", "en": "Build sentences" },
+              "config": { "levels": ["grade1"], "rounds": 3 }
+            }
+          ]
+        },
+        {
+          "id": "g1-story",
+          "title": { "hi": "कहानी का समय", "en": "Story time" },
+          "skill": "Reading",
+          "icon": "bookbus",
+          "lessons": [{ "id": "g1-story-1", "game": "story", "icon": "bookbus", "title": { "hi": "कहानी", "en": "Story" }, "config": { "levels": ["grade1"] }}]
+        }
+      ]
+    },
+    {
+      "id": "dino",
+      "level": "grade2",
+      "subject": "hindi",
+      "theme": "dino",
+      "mascot": "dumdum",
+      "color": "#F28C28",
+      "collection": "dinos",
+      "name": { "hi": "डायनो घाटी", "en": "Dino Valley" },
+      "letterSets": ["hindiConsonants", "english"],
+      "units": [
+        {
+          "id": "g2-half",
+          "title": { "hi": "आधे अक्षर", "en": "Let's learn half letters" },
+          "skill": "Phonics",
+          "icon": "leaf",
+          "lessons": [
+            {
+              "id": "g2-half-1",
+              "game": "read",
+              "icon": "postvan",
+              "title": { "hi": "शब्द पढ़ो", "en": "Read words" },
+              "config": { "words": ["@grade2"], "modes": ["match", "find"] }
+            },
+            {
+              "id": "g2-half-2",
+              "game": "construction",
+              "icon": "crane",
+              "title": { "hi": "शब्द बनाओ", "en": "Build words" },
+              "config": { "activities": ["build"], "buildWords": ["@grade2"], "buildRounds": 3 }
+            }
+          ]
+        },
+        {
+          "id": "g2-opp",
+          "title": { "hi": "विलोम शब्द", "en": "Let's learn opposites" },
+          "skill": "Vocabulary",
+          "icon": "size-big",
+          "lessons": [{ "id": "g2-opp-1", "game": "pairs", "icon": "place-parking", "title": { "hi": "उल्टा", "en": "Opposites" }, "config": { "kinds": ["opposite"] }}]
+        },
+        {
+          "id": "g2-many",
+          "title": { "hi": "एक और अनेक", "en": "One and many" },
+          "skill": "Grammar",
+          "icon": "bananas",
+          "lessons": [{ "id": "g2-many-1", "game": "pairs", "icon": "place-parking", "title": { "hi": "एक-अनेक", "en": "One, many" }, "config": { "kinds": ["plural"] }}]
+        },
+        {
+          "id": "g2-rhyme",
+          "title": { "hi": "तुकांत शब्द", "en": "Rhyming words" },
+          "skill": "Phonological awareness",
+          "icon": "icecreamvan",
+          "lessons": [{ "id": "g2-rhyme-1", "game": "rhyme", "icon": "icecreamvan", "title": { "hi": "तुक मिलाओ", "en": "Rhymes" }, "config": { "rounds": 5 }}]
+        },
+        {
+          "id": "g2-sent",
+          "title": { "hi": "वाक्य बनाओ", "en": "Let's build sentences" },
+          "skill": "Writing",
+          "icon": "metro",
+          "lessons": [
+            {
+              "id": "g2-sent-1",
+              "game": "sentence",
+              "icon": "metro",
+              "title": { "hi": "वाक्य", "en": "Sentences" },
+              "config": { "levels": ["grade1", "grade2"], "rounds": 4 }
+            }
+          ]
+        },
+        {
+          "id": "g2-story",
+          "title": { "hi": "कहानियाँ", "en": "Stories" },
+          "skill": "Reading",
+          "icon": "bookbus",
+          "lessons": [{ "id": "g2-story-1", "game": "story", "icon": "bookbus", "title": { "hi": "कहानी", "en": "Story" }, "config": { "levels": ["grade2"] }}]
+        }
+      ]
+    },
+    {
+      "id": "space",
+      "level": "grade3",
+      "subject": "hindi",
+      "theme": "space",
+      "mascot": "zoomi",
+      "color": "#6D5DF6",
+      "collection": "space",
+      "name": { "hi": "अंतरिक्ष यात्रा", "en": "Space Trip" },
+      "letterSets": ["hindiConsonants", "english"],
+      "units": [
+        {
+          "id": "g3-gender",
+          "title": { "hi": "लिंग", "en": "Let's learn gender" },
+          "skill": "Grammar",
+          "icon": "lioness",
+          "lessons": [{ "id": "g3-gender-1", "game": "pairs", "icon": "place-parking", "title": { "hi": "लिंग", "en": "Gender" }, "config": { "kinds": ["female"] }}]
+        },
+        {
+          "id": "g3-number",
+          "title": { "hi": "वचन", "en": "Let's learn singular and plural" },
+          "skill": "Grammar",
+          "icon": "books",
+          "lessons": [{ "id": "g3-number-1", "game": "pairs", "icon": "place-parking", "title": { "hi": "वचन", "en": "Number" }, "config": { "kinds": ["plural"] }}]
+        },
+        {
+          "id": "g3-opp",
+          "title": { "hi": "विलोम", "en": "Opposites" },
+          "skill": "Vocabulary",
+          "icon": "size-small",
+          "lessons": [{ "id": "g3-opp-1", "game": "pairs", "icon": "place-parking", "title": { "hi": "विलोम", "en": "Opposites" }, "config": { "kinds": ["opposite"] }}]
+        },
+        {
+          "id": "g3-sent",
+          "title": { "hi": "वाक्य", "en": "Sentences" },
+          "skill": "Writing",
+          "icon": "metro",
+          "lessons": [
+            {
+              "id": "g3-sent-1",
+              "game": "sentence",
+              "icon": "metro",
+              "title": { "hi": "वाक्य", "en": "Sentences" },
+              "config": { "levels": ["grade2", "grade3"], "rounds": 4 }
+            }
+          ]
+        },
+        {
+          "id": "g3-story",
+          "title": { "hi": "लोककथाएँ", "en": "Folktales" },
+          "skill": "Reading",
+          "icon": "bookbus",
+          "lessons": [{ "id": "g3-story-1", "game": "story", "icon": "bookbus", "title": { "hi": "कहानी", "en": "Story" }, "config": { "levels": ["grade3"] }}]
+        }
+      ]
+    },
+    {
+      "id": "ocean",
+      "level": "grade4",
+      "subject": "hindi",
+      "theme": "ocean",
+      "mascot": "ollu",
+      "color": "#0EA5E9",
+      "collection": "ocean",
+      "name": { "hi": "समुद्री सफ़र", "en": "Ocean Voyage" },
+      "letterSets": ["hindiConsonants", "english"],
+      "units": [
+        {
+          "id": "g4-sent",
+          "title": { "hi": "लंबे वाक्य", "en": "Longer sentences" },
+          "skill": "Writing",
+          "icon": "metro",
+          "lessons": [{ "id": "g4-sent-1", "game": "sentence", "icon": "metro", "title": { "hi": "वाक्य", "en": "Sentences" }, "config": { "levels": ["grade3"], "rounds": 3 }}]
+        },
+        {
+          "id": "g4-pairs",
+          "title": { "hi": "शब्दों के जोड़े", "en": "Word pairs" },
+          "skill": "Grammar",
+          "icon": "place-parking",
+          "lessons": [
+            {
+              "id": "g4-pairs-1",
+              "game": "pairs",
+              "icon": "place-parking",
+              "title": { "hi": "जोड़े", "en": "Pairs" },
+              "config": { "kinds": ["opposite", "plural", "female"] }
+            }
+          ]
+        },
+        {
+          "id": "g4-story",
+          "title": { "hi": "कहानियाँ", "en": "Stories" },
+          "skill": "Reading",
+          "icon": "bookbus",
+          "lessons": [{ "id": "g4-story-1", "game": "story", "icon": "bookbus", "title": { "hi": "कहानी", "en": "Story" }, "config": { "levels": ["grade3"] }}]
+        }
+      ]
+    }
+  ],
+  "mascotLines": [
+    { "hi": "हा हा! गुदगुदी होती है!", "en": "Ha ha! That tickles!", "move": "silly" },
+    { "hi": "आछू! माफ़ करना!", "en": "Achoo! Excuse me!", "move": "sneeze" },
+    { "hi": "देखो, गोल-गोल!", "en": "Look, round and round!", "move": "spin" },
+    { "hi": "चलो नाचें!", "en": "Let's dance!", "move": "dance" },
+    { "hi": "नमस्ते दोस्त!", "en": "Hello, friend!", "move": "wave" },
+    { "hi": "वाह! तुम तो कमाल हो!", "en": "Wow, you are amazing!", "move": "dance" }
   ]
 }

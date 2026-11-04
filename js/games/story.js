@@ -11,8 +11,9 @@ export default {
     const stories = ctx.content.stories.filter((s) => levels.includes(s.level));
     const key = levels.join('+');
     const pos = ctx.progress.storyPos?.[key] ?? 0;
-    const story = stories[pos % stories.length];
-    ctx.saveProgress({ storyPos: { ...ctx.progress.storyPos, [key]: pos + 1 } });
+    // a lesson (or the library) can name the story; otherwise each visit opens the next one
+    const story = ctx.config.story ? ctx.content.stories.find((s) => s.id === ctx.config.story) : stories[pos % stories.length];
+    if (!ctx.config.story) ctx.saveProgress({ storyPos: { ...ctx.progress.storyPos, [key]: pos + 1 } });
 
     const langs = ctx.langs;
     const total = story.pages.length + story.questions.length;

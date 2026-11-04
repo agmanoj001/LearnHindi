@@ -12,6 +12,20 @@ const failedFiles = new Set();
 let token = 0;
 let currentAudio = null;
 let currentResolve = null;
+let prefs = { hi: '', en: '', rate: 0.9 };
+
+// The parent's choice of voice per language and speaking speed (Parent area › Voices).
+export function setVoicePrefs(p) {
+  prefs = { ...prefs, ...(p || {}) };
+}
+
+// Mascots move their mouths while anything is being said.
+let speaking = false;
+function setSpeaking(on) {
+  if (on === speaking || typeof window === 'undefined') return;
+  speaking = on;
+  window.dispatchEvent(new CustomEvent('vt-speaking', { detail: on }));
+}
 
 export async function initAudio() {
   clipKeys = new Set(await clips.keys());
@@ -35,6 +49,7 @@ export function hasVoice(lang) {
 
 export function stop() {
   token++;
+  setSpeaking(false);
   if ('speechSynthesis' in window) speechSynthesis.cancel();
   if (currentAudio) {
     currentAudio.pause();
@@ -50,10 +65,12 @@ export function stop() {
 export async function play(segments) {
   stop();
   const mine = token;
+  setSpeaking(true);
   for (const seg of segments) {
     if (mine !== token) return;
     await playSegment(seg, mine);
   }
+  if (mine === token) setSpeaking(false);
 }
 
 async function clipUrl(key) {
@@ -101,15 +118,31 @@ function playUrl(url) {
   });
 }
 
-function pickVoice(lang) {
-  const voices = speechSynthesis.getVoices();
+// Natural-sounding voices first: names with Neural, Natural, Enhanced, Premium or Google
+// usually sound much less robotic than the default ones.
+export function rankVoice(v, lang) {
   const full = (TTS_LANG[lang] || 'en-US').toLowerCase();
-  const norm = (v) => v.lang.replace('_', '-').toLowerCase();
-  return (
-    voices.find((v) => norm(v) === full && v.localService) ||
-    voices.find((v) => norm(v) === full) ||
-    voices.find((v) => norm(v).startsWith(lang))
-  );
+  const tag = v.lang.replace('_', '-').toLowerCase();
+  if (!tag.startsWith(lang)) return -1;
+  let score = tag === full ? 10 : 5;
+  if (/neural|natural|enhanced|premium|wavenet|studio/i.test(v.name)) score += 8;
+  if (/google/i.test(v.name)) score += 4;
+  if (/compact|espeak/i.test(v.name)) score -= 6;
+  if (v.localService) score += 1;
+  return score;
+}
+
+export function voicesFor(lang) {
+  if (!('speechSynthesis' in window)) return [];
+  return speechSynthesis
+    .getVoices()
+    .filter((v) => rankVoice(v, lang) >= 0)
+    .sort((a, b) => rankVoice(b, lang) - rankVoice(a, lang));
+}
+
+function pickVoice(lang) {
+  const list = voicesFor(lang);
+  return list.find((v) => v.name === prefs[lang]) || list[0];
 }
 
 function speak(text, lang) {
@@ -119,8 +152,8 @@ function speak(text, lang) {
     u.lang = TTS_LANG[lang] || 'en-US';
     const voice = pickVoice(lang);
     if (voice) u.voice = voice;
-    u.rate = 0.85;
-    u.pitch = 1.1;
+    u.rate = prefs.rate || 0.9;
+    u.pitch = 1.05;
     let done = false;
     const finish = () => {
       if (!done) {

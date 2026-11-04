@@ -21,7 +21,8 @@ export default {
     truck.addEventListener('click', () => ctx.sayItem(ctx.word('garbagetruck')));
 
     const ok = await runRounds(ctx, rounds, async (i) => {
-      const mode = i % 2 === 0 ? 'color' : 'shape';
+      const modes = ctx.config.modes || ['color', 'shape'];
+      const mode = modes[i % modes.length];
       const round = makeSortRound(colors, shapes, mode, binCount, ctx.rng);
       const { color, shape } = round.item;
       item.innerHTML = shapePicture(shapeName(shape), color.color);

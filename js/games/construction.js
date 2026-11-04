@@ -11,6 +11,11 @@ export default {
     const W = ctx.word;
     const on = new Set(ctx.config.activities || ['dig', 'deliver', 'build']);
     if (!ctx.letters().length) on.delete('deliver');
+    // a lesson with one activity starts it straight away
+    if (on.size === 1) {
+      const only = [...on][0];
+      return void { dig, deliver, build }[only](ctx);
+    }
     activityMenu(ctx, [
       on.has('dig') && { word: W('digger'), go: () => dig(ctx) },
       on.has('deliver') && { word: W('dumptruck'), go: () => deliver(ctx) },
