@@ -278,6 +278,7 @@ export function defaultSettings(content) {
     captions: true, // show what the app says, as text
     retell: false, // after a story, the child records themselves telling it back (stays on this device)
     parentLang: 'en', // the parent area in English or Hindi
+    showMode: 'watch', // Show time: 'watch' answers questions itself after a few seconds; 'play' waits for a tap
     dailyLimit: 0, // minutes of play a day before a break screen (0 = no limit)
     music: true,
     sfx: true,
@@ -293,6 +294,7 @@ export function normalizeSettings(saved, content) {
   if ((content.levels || []).some((l) => l.id === saved.level)) out.level = saved.level;
   if (DAILY_LIMITS.includes(saved.dailyLimit)) out.dailyLimit = saved.dailyLimit;
   if (saved.parentLang === 'hi' || saved.parentLang === 'en') out.parentLang = saved.parentLang;
+  if (saved.showMode === 'watch' || saved.showMode === 'play') out.showMode = saved.showMode;
   for (const k of ['onboarded', 'lockGrade', 'unlockAll', 'math', 'captions', 'retell', 'music', 'sfx']) if (typeof saved[k] === 'boolean') out[k] = saved[k];
   if (saved.voice && typeof saved.voice === 'object') {
     for (const l of ['hi', 'en']) if (typeof saved.voice[l] === 'string') out.voice[l] = saved.voice[l];
@@ -304,7 +306,7 @@ export function normalizeSettings(saved, content) {
 export function defaultProgress(content) {
   const collected = {};
   for (const [id, col] of Object.entries(content.collections || {})) collected[id] = col.items.slice(0, col.start || 0);
-  return { lessons: {}, collected, days: [], trainPos: {}, storyPos: {}, stats: {}, time: {} };
+  return { lessons: {}, collected, days: [], trainPos: {}, storyPos: {}, stats: {}, time: {}, shows: {} };
 }
 
 export function normalizeProgress(saved, content) {
@@ -344,7 +346,34 @@ export function normalizeProgress(saved, content) {
     storyPos: obj(saved.storyPos),
     stats: obj(saved.stats),
     time,
+    shows: Object.fromEntries(
+      Object.entries(obj(saved.shows))
+        .filter(([, r]) => r && typeof r === 'object' && typeof r.last === 'string' && /^\d{4}-\d\d-\d\d$/.test(r.last))
+        .map(([id, r]) => [id, { views: Math.max(1, r.views | 0), last: r.last }]),
+    ),
   };
+}
+
+// ---------- Show time ----------
+// The beats an episode script can use (see README › Show time), and every spoken line in order
+// with the key a family recording uses: show-<id>-<n>_hi / _en.
+// Checked in this order: a beat can carry extra fields (a "letter" beat names its "word", a "say" beat may "do" something).
+export const BEAT_KINDS = ['say', 'narrate', 'ask', 'echo', 'letter', 'build', 'enter', 'move', 'exit', 'do', 'show', 'word', 'glyph', 'tenframe', 'number', 'clear', 'sfx', 'wait'];
+export const beatKind = (b) => BEAT_KINDS.find((k) => b && b[k] !== undefined) || null;
+
+export function showLines(show) {
+  const lines = [];
+  const add = (text, beat) => text && (text.hi || text.en) && lines.push({ key: `show-${show.id}-${lines.length + 1}`, hi: text.hi || '', en: text.en || '', beat });
+  for (const scene of show.scenes || [])
+    for (const b of scene.beats || []) {
+      const k = beatKind(b);
+      if (k === 'say' || k === 'narrate' || k === 'build') add(b, b);
+      else if (k === 'ask') {
+        add(b.ask, b);
+        add(b.then, b);
+      } else if (k === 'echo') add(b.echo, b);
+    }
+  return lines;
 }
 
 // Every file name (without extension) a family recording can use, e.g. "bus_hi", "hc-ka", "num-3_en".
@@ -362,6 +391,7 @@ export function clipKeysFor(content) {
     st.pages.forEach((_, i) => keys.push(...ls.map((l) => `story-${st.id}-${i + 1}_${l}`)));
     if (st.moral) keys.push(`story-${st.id}-moral_hi`, `story-${st.id}-moral_en`);
   }
+  for (const show of content.shows || []) for (const l of showLines(show)) keys.push(...['hi', 'en'].filter((x) => l[x]).map((x) => `${l.key}_${x}`));
   for (const [k, p] of Object.entries(content.phrases)) {
     if (!p.hi.includes('{w}')) keys.push(`phrase-${k}_hi`);
     if (!p.en.includes('{w}')) keys.push(`phrase-${k}_en`);

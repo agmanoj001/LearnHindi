@@ -1,7 +1,7 @@
 // The grown-ups' area (behind a 3-second press): grade, language, voices and recordings,
 // sound, unlocking, the special photo, and a progress report. Nothing here leaves the device.
 import { el, ICONS } from './ui.js';
-import { normalizeProgress, clipKeysFor, clipKeyFromFileName, practiceReport, DAILY_LIMITS } from './logic.js';
+import { normalizeProgress, clipKeysFor, clipKeyFromFileName, practiceReport, DAILY_LIMITS, showLines } from './logic.js';
 import { skillName, SKILLS as MATH_SKILLS } from './mathgen.js';
 import { phonicsName } from './phonicsgen.js';
 import { worldStars, worldLessons, lessonRecord, weekSummary, dueReviews, learningGains } from './curriculum.js';
@@ -222,6 +222,7 @@ export function showParent(api) {
           'After each story the child can record themselves retelling it, with the pictures as prompts. Retelling is one of the best checks of understanding. Recordings stay on this device; listen to them under Progress.',
         ),
       ),
+      tripSection(api),
       section(
         'Sound',
         toggle('Music', s.music, (v) => ((s.music = v), persist(), api.music.setEnabled(v))),
@@ -244,6 +245,7 @@ export function showParent(api) {
       section(
         'Progress',
         weekView(api),
+        showsWatched(api),
         gainsView(api),
         retellView(api),
         el('div', { class: 'world-rows' }, worldRows),
@@ -273,6 +275,11 @@ function recorderSection(api) {
     if (filter === 'letters') {
       const sets = new Set(worlds.flatMap((w) => w.letterSets));
       return content.letterSets.filter((x) => sets.has(x.id)).flatMap((x) => x.letters.map((l) => ({ key: l.id, hi: l.char, en: l.translit, langFixed: x.lang })));
+    }
+    if (filter === 'shows') {
+      // Show time episodes: every line, in order (this grade's episodes first)
+      const shows = [...(content.shows || [])].sort((a, b) => (b.level === level) - (a.level === level));
+      return shows.flatMap((sh) => showLines(sh).map((l, i) => ({ key: l.key, hi: l.hi || l.en, en: l.en, note: `${sh.title.en} · line ${i + 1}` })));
     }
     if (filter === 'stories') {
       // this grade's story shelf (Grade 1 stories for the younger grades): every page, then the moral
@@ -344,7 +351,7 @@ function recorderSection(api) {
   return el('section', {}, [
     el('h2', { text: 'Record your voice' }),
     el('p', { class: 'note', text: 'Children learn best from a familiar voice. Tap Record, say the word, tap Stop. Your recording replaces the computer voice. Recordings stay on this device.' }),
-    seg('rec-filter', [['words', 'Words'], ['letters', 'Letters'], ['stories', 'Stories'], ['phrases', 'Phrases']], () => filter, (v) => (filter = v)),
+    seg('rec-filter', [['words', 'Words'], ['letters', 'Letters'], ['stories', 'Stories'], ['shows', 'Shows'], ['phrases', 'Phrases']], () => filter, (v) => (filter = v)),
     seg('rec-lang', [['hi', 'हिन्दी'], ['en', 'English']], () => lang, (v) => (lang = v)),
     list,
   ]);
@@ -366,6 +373,41 @@ function weekView(api) {
     )),
     el('p', { class: 'note', text: `This week: ${week.minutes} minutes, ${week.lessons} lessons played. ${due ? `${due} finished lessons are due for a review (they show up in Today's path).` : 'No reviews due.'}` }),
   ]);
+}
+
+// Show time episodes this child has watched to the end.
+function showsWatched(api) {
+  const seen = api.state.progress.shows || {};
+  const list = (api.state.content.shows || []).filter((s) => seen[s.id]);
+  if (!list.length) return el('p', { class: 'note', text: 'Show time: no episodes watched yet.' });
+  return el('div', {}, [
+    el('h3', { text: 'Show time' }),
+    el('ul', { class: 'watched-list' }, list.map((s) => el('li', {}, [el('b', { text: s.title.en }), el('span', { text: ` · ${s.teaches.en} · watched ${seen[s.id].views}× (last ${seen[s.id].last})` })]))),
+  ]);
+}
+
+// Before a trip: what to check while there is still internet.
+function tripSection(api) {
+  const list = el('ul', { class: 'trip-list' });
+  const row = (ok, title, note) => el('li', { class: ok === true ? 'ok' : ok === false ? 'todo' : 'info' }, [el('span', { class: 'trip-mark', text: ok === true ? '✓' : ok === false ? '!' : 'i' }), el('span', {}, [el('b', { text: title }), el('small', { text: note })])]);
+  const check = async () => {
+    const cached = 'caches' in window ? (await caches.keys().catch(() => [])).some((k) => k.startsWith('kkm-')) && !!navigator.serviceWorker?.controller : false;
+    const installed = window.matchMedia?.('(display-mode: standalone)').matches || navigator.standalone === true;
+    const kept = (await navigator.storage?.persisted?.().catch(() => false)) || false;
+    const recordings = (await clips.keys().catch(() => [])).length;
+    const limit = api.state.settings.dailyLimit;
+    list.replaceChildren(
+      row(cached, cached ? 'Saved for offline use' : 'Not saved for offline use yet', cached ? 'Every lesson, story, episode and picture is on this device.' : 'Open the app once with internet and reload the page; it then saves itself on this device.'),
+      row(installed, installed ? 'On the home screen' : 'Not on the home screen', installed ? 'It opens like an app, without the browser.' : 'Browser menu › Add to Home screen (or Install app). On iPhone and iPad this also stops Safari clearing its data.'),
+      row(hasVoice('hi'), hasVoice('hi') ? 'Hindi voice found' : 'No Hindi voice on this device', 'On Android, make sure it works offline: Settings › System › Languages › Text-to-speech › Google › Install voice data › Hindi.'),
+      row(recordings > 0 ? true : null, `${recordings} family recording(s)`, 'Recorded voices always work offline. Record a few words or episode lines under Record your voice.'),
+      row(kept, kept ? 'Storage kept safe' : 'Storage may be cleared', kept ? 'The browser will not delete progress or recordings to free space.' : 'Installing the app on the home screen usually fixes this.'),
+      row(null, limit ? `Daily limit: ${limit} minutes` : 'Daily limit: none', 'For a long journey you can change it under Play time. Story radio keeps the screen dark, which helps with car sickness; headphones with a volume limit are kind to small ears.'),
+    );
+    localize(api, list);
+  };
+  check();
+  return el('section', {}, [el('h2', { text: 'Before a trip' }), el('p', { class: 'note', text: 'Check these while you still have internet. Then Show time, Story radio and every lesson work with no signal.' }), list]);
 }
 
 // Siblings each get their own grade, settings and progress. A nickname is optional and stays on this device.

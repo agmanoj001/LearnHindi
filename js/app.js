@@ -21,6 +21,7 @@ import { sfx, music } from './sfx.js';
 import { el, sleep, bounce, ICONS } from './ui.js';
 import { createMascot, MASCOT_IDS } from './mascot.js';
 import * as screens from './screens.js';
+import * as shows from './shows.js';
 import { showParent } from './parent.js';
 
 const app = document.getElementById('app');
@@ -195,6 +196,18 @@ function render(route) {
     case 'lesson':
       // past the daily limit, the next lesson waits for a grown-up (a lesson already started is never cut off)
       return overLimit() ? screens.rest(api) : startLesson(p);
+    case 'shows':
+      enterWorld(null);
+      return shows.showsHome(api);
+    case 'show': {
+      const show = (state.content.shows || []).find((s) => s.id === p.showId);
+      if (!show) return goHome();
+      enterWorld(worldById(show.world));
+      return overLimit() ? screens.rest(api) : shows.showPlayer(api, show);
+    }
+    case 'radio':
+      enterWorld(null);
+      return overLimit() ? screens.rest(api) : shows.radio(api);
     case 'parent':
       return showParent(api);
     default:

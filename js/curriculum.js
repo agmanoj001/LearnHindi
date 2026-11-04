@@ -217,7 +217,25 @@ export function todayPlan(content, progress, worlds, now = Date.now()) {
   const stories = worlds.flatMap((w) => worldLessons(w).filter((l) => l.game === 'story').map((lesson) => ({ world: w, lesson })));
   const story = stories.find((s) => lessonRecord(progress, s.lesson.id).stars === 0) || stories.find((s) => !s.lesson.config?.story) || stories[0];
   if (story && !steps.some((s) => s.lesson.id === story.lesson.id)) steps.push({ kind: 'story', ...story });
+  const watched = showPractice(content, progress, worlds, now);
+  if (watched && !steps.some((s) => s.lesson.id === watched.lesson.id)) steps.splice(1, 0, { kind: 'watched', ...watched });
   return steps.map((s) => ({ ...s, done: done(s.lesson.id) }));
+}
+
+// An episode watched today or yesterday whose game hasn't been played since: practise it next.
+export function showPractice(content, progress, worlds, now = Date.now()) {
+  const today = isoDay(now);
+  const yesterday = isoDay(new Date(now - 86400000));
+  for (const show of content.shows || []) {
+    const seen = progress.shows?.[show.id];
+    if (!seen || (seen.last !== today && seen.last !== yesterday) || !show.lesson) continue;
+    const world = worlds.find((w) => worldLessons(w).some((l) => l.id === show.lesson));
+    if (!world) continue;
+    const lesson = worldLessons(world).find((l) => l.id === show.lesson);
+    const last = lessonRecord(progress, lesson.id).last;
+    if (!last || last < seen.last) return { world, lesson, show };
+  }
+  return null;
 }
 
 // Minutes played per day, for the daily limit and the parent's week view.

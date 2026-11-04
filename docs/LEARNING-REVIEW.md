@@ -27,6 +27,7 @@ Other well-established findings, and where they stand:
 | **Character attachment** (Calvert et al. 2019) | ✅ A guide per world; children pick their own guide in their profile |
 | **Process praise** (Mueller & Dweck 1998) | ✅ Feedback explains the strategy. ➡️ Vary praise for "you kept trying" after a correct second try |
 | **Screen time** (WHO 2019: under-5s no more than 1 hour; AAP: 1 hour of high-quality media for ages 2–5, co-viewed) | ✅ Daily limit (15–60 minutes) with a friendly break screen; play time per day in the parent area |
+| **Learning from video** (Mares & Pan 2013, Sesame Street in 15 countries incl. *Galli Galli Sim Sim*; Anderson et al. 2000 on pausing shows that ask the viewer; Kothari's Same Language Subtitling studies in India; the "video deficit" for under-2s, Anderson & Pempek 2005) | ✅ **Show time**: short episodes that teach one thing and repeat it, ask questions and wait, light up subtitles word by word, and end with a recap and a game. ✅ **Story radio**: audio-only stories for journeys. ➡️ More episodes; record narration; keep toddlers co-viewing |
 
 ## 2. Standards to follow
 

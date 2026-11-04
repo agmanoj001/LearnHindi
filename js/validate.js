@@ -1,6 +1,7 @@
 // Validates content.json. Pure function: used by the app at startup and by tests.
 import { SKILLS } from './mathgen.js';
 import { PHONICS } from './phonicsgen.js';
+import { BEAT_KINDS, beatKind } from './logic.js';
 // Errors stop the app from using the content; warnings are shown in parent settings.
 
 export const GAME_TYPES = [
@@ -587,6 +588,91 @@ export function validateContent(c, { knownPictures = null, pictureExists = null,
   if (c.mascotLines !== undefined) {
     if (!Array.isArray(c.mascotLines)) err('mascotLines must be a list');
     else c.mascotLines.forEach((m, i) => !hasText(m) && err(`mascotLines[${i}] needs "hi" and "en"`));
+  }
+
+  // Show time: animated comic episodes (see README › Show time)
+  if (c.shows !== undefined) {
+    if (!Array.isArray(c.shows)) err('shows must be a list');
+    else {
+      const seen = new Set();
+      const lessonIds = new Set((c.worlds || []).flatMap((w) => (w?.units || []).flatMap((u) => (u?.lessons || []).map((l) => l?.id))));
+      const REACTS = ['happy', 'cheer', 'oops', 'silly', 'wave', 'dance', 'spin', 'sneeze'];
+      const SOUNDS = ['pop', 'chime', 'sparkle', 'cheer', 'jingle', 'boing', 'whoosh', 'vroom', 'toot', 'thud', 'siren', 'page', 'sneeze'];
+      const pct = (v) => typeof v === 'number' && v >= -40 && v <= 140;
+      c.shows.forEach((show, i) => {
+        const at = `shows[${i}]`;
+        if (!isObj(show) || !isStr(show.id) || !ID.test(show.id)) return err(`${at} needs an id (lowercase letters, numbers and -)`);
+        if (seen.has(show.id)) err(`shows: duplicate id "${show.id}"`);
+        seen.add(show.id);
+        const sat = `${at} (${show.id})`;
+        const en = show.lang === 'en';
+        if (!['hi', 'en'].includes(show.lang)) err(`${sat}.lang must be "hi" or "en"`);
+        if (!levelIds.has(show.level)) err(`${sat}: level "${show.level}" is not one of the levels`);
+        if (!(c.worlds || []).some((w) => w?.id === show.world)) err(`${sat}: world "${show.world}" not found`);
+        if (!isObj(show.title) || !isStr(show.title.en) || (!en && !isStr(show.title.hi))) err(`${sat}.title needs ${en ? '"en"' : '"hi" and "en"'}`);
+        if (!isObj(show.teaches) || !isStr(show.teaches.en)) err(`${sat}.teaches.en should say what the episode teaches (shown to grown-ups)`);
+        if (show.lesson !== undefined && !lessonIds.has(show.lesson)) err(`${sat}.lesson "${show.lesson}" is not a lesson id`);
+        if (show.recap !== undefined) {
+          const r = show.recap;
+          if (!isObj(r) || (!Array.isArray(r.words) && !Array.isArray(r.lines))) err(`${sat}.recap needs "words" (word ids) or "lines" (text)`);
+          else (r.words || []).forEach((w) => !hasWord(w) && err(`${sat}.recap: word "${w}" not found`));
+        }
+        const text = (t, where) => {
+          if (!isObj(t) || !isStr(t.en)) return err(`${where} needs "en"${en ? '' : ' and "hi"'}`);
+          if (!en && (!isStr(t.hi) || !DEVANAGARI.test(t.hi))) err(`${where}.hi must be Devanagari text`);
+        };
+        if (!Array.isArray(show.scenes) || !show.scenes.length) return err(`${sat} needs at least one scene`);
+        show.scenes.forEach((scene, j) => {
+          const cat = `${sat}.scenes[${j}]`;
+          if (!isObj(scene) || !isStr(scene.bg)) return err(`${cat}.bg must name a scene, like "jungle"`);
+          if (themes && !themes.includes(scene.bg)) err(`${cat}.bg "${scene.bg}" is not one of ${themes.join(', ')}`);
+          if (scene.actors !== undefined && !isObj(scene.actors)) err(`${cat}.actors must map a guide to where it stands, like {"chiku": 30}`);
+          for (const [id, x] of Object.entries(isObj(scene.actors) ? scene.actors : {})) {
+            if (mascots && !mascots.includes(id)) err(`${cat}.actors: "${id}" is not a guide`);
+            if (!pct(x)) err(`${cat}.actors.${id} must be a position from 0 to 100`);
+          }
+          if (!Array.isArray(scene.beats) || !scene.beats.length) return err(`${cat} needs beats`);
+          scene.beats.forEach((b, k) => {
+            const bat = `${cat}.beats[${k}]`;
+            const kind = beatKind(b);
+            if (!kind) return err(`${bat} must be one of: ${BEAT_KINDS.join(', ')}`);
+            const guide = (id, what) => mascots && !mascots.includes(id) && err(`${bat}.${what} "${id}" is not a guide`);
+            if (kind === 'say') (guide(b.say, 'say'), text(b, bat));
+            if (kind === 'narrate') text(b, bat);
+            if (kind === 'enter' || kind === 'move' || kind === 'exit') guide(b[kind], kind);
+            if (kind === 'enter' && !pct(b.at)) err(`${bat}.at must be a position from 0 to 100`);
+            if (kind === 'move' && !pct(b.to)) err(`${bat}.to must be a position from 0 to 100`);
+            if ((kind === 'say' && b.do !== undefined) || kind === 'do') {
+              if (!REACTS.includes(b.do)) err(`${bat}.do must be one of ${REACTS.join(', ')}`);
+              if (kind === 'do') guide(b.who, 'who');
+            }
+            if ((kind === 'show' || kind === 'word') && !hasWord(b[kind])) err(`${bat}: word "${b[kind]}" not found`);
+            if (kind === 'letter' && (!isStr(b.letter) || !DEVANAGARI.test(b.letter))) err(`${bat}.letter must be a Devanagari letter`);
+            if (kind === 'letter' && b.word !== undefined && !hasWord(b.word)) err(`${bat}: word "${b.word}" not found`);
+            if (kind === 'glyph' && !isStr(b.glyph)) err(`${bat}.glyph must be text`);
+            if (kind === 'build') {
+              if (!Array.isArray(b.build) || b.build.length !== 2 || !b.build.every(isStr)) err(`${bat}.build must be two pieces, like ["न", "ा"]`);
+              text(b, bat);
+            }
+            if (kind === 'tenframe' && (!Array.isArray(b.tenframe) || !b.tenframe.every((f) => isObj(f) && Number.isInteger(f.a) && f.a >= 0 && f.a + (f.b || 0) <= 10))) err(`${bat}.tenframe must be frames like [{"a": 6, "b": 4}] with at most 10 in each`);
+            if (kind === 'ask') {
+              text(b.ask, `${bat}.ask`);
+              if (b.then !== undefined) text(b.then, `${bat}.then`);
+              if (b.who !== undefined) guide(b.who, 'who');
+              if (!Array.isArray(b.options) || b.options.length < 2) err(`${bat}.options needs at least 2`);
+              else {
+                if (b.kind === 'number') b.options.forEach((o) => typeof o !== 'number' && err(`${bat}: number options must be numbers`));
+                else b.options.forEach((o) => !hasWord(o) && err(`${bat}: option "${o}" not found in words`));
+                if (!b.options.includes(b.answer)) err(`${bat}.answer must be one of its options`);
+              }
+            }
+            if (kind === 'echo') text(b.echo, `${bat}.echo`);
+            if (kind === 'sfx' && !SOUNDS.includes(b.sfx)) err(`${bat}.sfx must be one of ${SOUNDS.join(', ')}`);
+            if (kind === 'wait' && !(typeof b.wait === 'number' && b.wait > 0 && b.wait <= 10000)) err(`${bat}.wait must be milliseconds (up to 10000)`);
+          });
+        });
+      });
+    }
   }
 
   return { errors, warnings };
