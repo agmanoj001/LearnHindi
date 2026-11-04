@@ -193,7 +193,7 @@ export function showParent(api) {
       section('Grade', levels, el('button', { class: 'btn', text: 'Not sure? Quick check (2 minutes)', onclick: () => api.go('placement') })),
       section(
         'Navigation',
-        toggle('Stay in this grade', s.lockGrade, (v) => ((s.lockGrade = v), persist()), 'Hides the other worlds. The home screen opens this grade’s Hindi world.'),
+        toggle('Stay in this grade', s.lockGrade, (v) => ((s.lockGrade = v), persist()), 'The home screen shows only this grade’s worlds.'),
         toggle('Unlock every lesson', s.unlockAll, (v) => ((s.unlockAll = v), persist()), 'Normally lessons open one after another.'),
         toggle('Math worlds', s.math, (v) => ((s.math = v), persist()), 'English math for Kindergarten and Grade 1, following the North Carolina Standard Course of Study.'),
       ),

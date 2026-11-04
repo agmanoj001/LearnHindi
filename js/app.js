@@ -12,7 +12,7 @@ import {
   practiceWeight,
   weightedSequence,
 } from './logic.js';
-import { findLesson, lessonRecord, lessonLetters, applyLessonResult, homeWorld, adaptTier, addPlayTime, isoDay } from './curriculum.js';
+import { findLesson, lessonRecord, lessonLetters, applyLessonResult, adaptTier, addPlayTime, isoDay } from './curriculum.js';
 import { validateContent } from './validate.js';
 import { pictureExists, picture, pictureForWord, specialVehicle } from './art.js';
 import { initAudio, play, stop, wordSegs, letterSegs, numberSegs, soundSegs, sentenceSegs, phraseSegs, setVoicePrefs } from './audio.js';
@@ -137,12 +137,10 @@ function showError(errors) {
 
 // ---------- navigation ----------
 // Every screen is a history entry, so Android's back button (and the in-app back arrows) walk back up:
-// lesson -> world map -> hub.
+// lesson -> world map -> hub. With "Stay in this grade" the hub shows only that grade's worlds.
 
 function homeRoute() {
-  const s = state.settings;
-  if (!s.onboarded) return { name: 'onboard', params: {} };
-  if (s.lockGrade) return { name: 'world', params: { worldId: homeWorld(state.content, s).id } };
+  if (!state.settings.onboarded) return { name: 'onboard', params: {} };
   return { name: 'hub', params: {} };
 }
 

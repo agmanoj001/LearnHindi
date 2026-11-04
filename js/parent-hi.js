@@ -14,7 +14,7 @@ const HI = {
   'Not sure? Quick check (2 minutes)': 'पक्का नहीं? छोटी जाँच (2 मिनट)',
   Navigation: 'रास्ता',
   'Stay in this grade': 'इसी कक्षा में रहें',
-  'Hides the other worlds. The home screen opens this grade’s Hindi world.': 'बाकी दुनिया छिप जाती हैं। ऐप इसी कक्षा की हिन्दी दुनिया में खुलता है।',
+  'The home screen shows only this grade’s worlds.': 'होम स्क्रीन पर सिर्फ़ इसी कक्षा की दुनिया दिखती हैं।',
   'Unlock every lesson': 'सारे पाठ खोल दें',
   'Normally lessons open one after another.': 'आम तौर पर पाठ एक के बाद एक खुलते हैं।',
   'Math worlds': 'गणित की दुनिया',

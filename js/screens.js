@@ -262,9 +262,8 @@ export function world(api, w) {
     return el('section', { class: 'unit' }, [banner, el('div', { class: 'nodes' }, rows)]);
   });
 
-  const canLeave = !settings.lockGrade;
   const head = el('header', { class: 'world-head' }, [
-    canLeave ? el('button', { class: 'round-btn', 'aria-label': 'All worlds', html: ICONS.back, onclick: () => api.back() }) : parentGate(api),
+    el('button', { class: 'round-btn', 'aria-label': 'All worlds', html: ICONS.back, onclick: () => api.back() }),
     el('div', { class: 'world-title' }, [bigName(w, w.name, 'world-name-hi'), el('span', { class: 'world-name-en', text: [english(w) ? null : w.name.en, ...tagsOf(api, w).map((t) => t.en)].filter(Boolean).join(' · ') })]),
     el('span', { class: 'star-chip' }, [el('span', { class: 'star-icon', html: ICONS.star }), el('b', { text: String(st.got) })]),
     el('button', { class: 'round-btn small', 'aria-label': 'My collection', html: ICONS.album, onclick: () => api.go('collection', { worldId: w.id }) }),
@@ -494,31 +493,66 @@ export function library(api, w) {
   api.sayLines({ hi: `${guide.hi} के पुस्तकालय में स्वागत है! कौन सी कहानी पढ़ें?`, en: `Welcome to ${guide.en}'s library! Which story shall we read?` });
 }
 
-// ---------- parent gate: hold for 3 seconds ----------
+// ---------- parent gate: press and hold ----------
+// Holding (not tapping) keeps small children out of the grown-ups' area. A quick tap shows a hint,
+// a ring fills while the button is held, and it opens after GATE_HOLD_MS. Enter or Space can be held too.
 
-export function parentGate(api, { onDone = () => api.go('parent'), html = ICONS.gear, label = 'Grown-ups: press and hold for 3 seconds', cls = '' } = {}) {
-  const btn = el('button', { class: `gate ${cls}`, 'aria-label': label, html });
+export const GATE_HOLD_MS = 1500;
+
+export function parentGate(api, { onDone = () => api.go('parent'), html = ICONS.gear, label = 'Grown-ups: press and hold', cls = '' } = {}) {
+  const hint = el('span', { class: 'gate-hint', 'aria-hidden': 'true' }, [el('b', { lang: 'hi', text: 'बड़े: दबाए रखें' }), el('span', { text: 'Grown-ups: press and hold' })]);
+  const btn = el('button', { class: `gate ${cls}`, 'aria-label': label }, [el('span', { class: 'gate-icon', html }), hint]);
   let start = 0;
   let raf = 0;
+  let hintTimer = 0;
+  const showHint = () => {
+    clearTimeout(hintTimer);
+    btn.classList.add('show-hint');
+    hintTimer = setTimeout(() => btn.classList.remove('show-hint'), 2400);
+  };
   const reset = () => {
     cancelAnimationFrame(raf);
-    start = 0;
+    btn.classList.remove('holding');
     btn.style.setProperty('--p', 0);
+    // let go too early: show what to do
+    if (start && performance.now() - start < GATE_HOLD_MS) showHint();
+    start = 0;
   };
   const tick = () => {
-    const p = Math.min(1, (performance.now() - start) / 3000);
+    if (!start || !btn.isConnected) return;
+    const p = Math.min(1, (performance.now() - start) / GATE_HOLD_MS);
     btn.style.setProperty('--p', p);
-    if (p >= 1) {
-      reset();
-      onDone();
-    } else raf = requestAnimationFrame(tick);
+    if (p < 1) return void (raf = requestAnimationFrame(tick));
+    start = 0;
+    reset();
+    btn.classList.remove('show-hint');
+    api.sfx?.pop?.();
+    api.sfx?.haptic?.(30);
+    onDone();
+  };
+  const begin = () => {
+    if (start) return;
+    start = performance.now();
+    btn.classList.add('holding');
+    raf = requestAnimationFrame(tick);
   };
   btn.addEventListener('pointerdown', (e) => {
     e.preventDefault();
-    start = performance.now();
-    raf = requestAnimationFrame(tick);
+    try {
+      btn.setPointerCapture(e.pointerId); // a wobbly finger doesn't cancel the hold
+    } catch {
+      /* not supported */
+    }
+    begin();
   });
-  for (const ev of ['pointerup', 'pointerleave', 'pointercancel']) btn.addEventListener(ev, reset);
+  for (const ev of ['pointerup', 'pointercancel', 'lostpointercapture']) btn.addEventListener(ev, reset);
+  btn.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    e.preventDefault();
+    if (!e.repeat) begin();
+  });
+  btn.addEventListener('keyup', (e) => (e.key === 'Enter' || e.key === ' ') && reset());
+  btn.addEventListener('blur', reset);
   btn.addEventListener('contextmenu', (e) => e.preventDefault());
   return btn;
 }
