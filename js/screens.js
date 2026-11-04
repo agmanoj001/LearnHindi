@@ -497,7 +497,7 @@ export function library(api, w) {
 // Holding (not tapping) keeps small children out of the grown-ups' area. A quick tap shows a hint,
 // a ring fills while the button is held, and it opens after GATE_HOLD_MS. Enter or Space can be held too.
 
-export const GATE_HOLD_MS = 1500;
+export const GATE_HOLD_MS = 1000;
 
 export function parentGate(api, { onDone = () => api.go('parent'), html = ICONS.gear, label = 'Grown-ups: press and hold', cls = '' } = {}) {
   const hint = el('span', { class: 'gate-hint', 'aria-hidden': 'true' }, [el('b', { lang: 'hi', text: 'बड़े: दबाए रखें' }), el('span', { text: 'Grown-ups: press and hold' })]);
