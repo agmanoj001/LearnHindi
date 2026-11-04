@@ -2380,21 +2380,21 @@
             {
               "id": "g1-m1-1",
               "game": "matra",
-              "icon": "place-matra",
+              "icon": "matra:peacock",
               "title": { "hi": "बारहखड़ी", "en": "Barakhadi" },
               "config": { "matras": ["aa", "i", "ii"], "words": ["@grade1"], "focus": ["aa", "i", "ii"], "allow": [] }
             },
             {
               "id": "g1-m1-2",
               "game": "read",
-              "icon": "postvan",
+              "icon": "card:parrot",
               "title": { "hi": "शब्द पढ़ो", "en": "Read words" },
               "config": { "words": ["@grade1"], "focus": ["aa", "i", "ii"], "allow": [], "modes": ["find", "match"] }
             },
             {
               "id": "g1-m1-3",
               "game": "construction",
-              "icon": "crane",
+              "icon": "blocks:elephant",
               "title": { "hi": "शब्द बनाओ", "en": "Build words" },
               "config": { "activities": ["build"], "buildWords": ["@grade1"], "focus": ["aa", "i", "ii"], "allow": [], "buildRounds": 3 }
             }
@@ -2409,14 +2409,14 @@
             {
               "id": "g1-m2-1",
               "game": "matra",
-              "icon": "place-matra",
+              "icon": "matra:peacock",
               "title": { "hi": "मात्रा गैराज", "en": "Matra garage" },
               "config": { "matras": ["u", "uu", "aa", "i", "ii"], "words": ["@grade1"], "focus": ["u", "uu"], "allow": ["aa", "i", "ii"] }
             },
             {
               "id": "g1-m2-2",
               "game": "read",
-              "icon": "postvan",
+              "icon": "card:parrot",
               "title": { "hi": "शब्द पढ़ो", "en": "Read words" },
               "config": { "words": ["@grade1"], "focus": ["u", "uu"], "allow": ["aa", "i", "ii"], "modes": ["find", "match"] }
             }
@@ -2431,14 +2431,14 @@
             {
               "id": "g1-m3-1",
               "game": "matra",
-              "icon": "place-matra",
+              "icon": "matra:peacock",
               "title": { "hi": "मात्रा गैराज", "en": "Matra garage" },
               "config": { "matras": ["e", "ai", "aa", "i", "u"], "words": ["@grade1"], "focus": ["e", "ai"], "allow": ["aa", "i", "ii", "u", "uu"] }
             },
             {
               "id": "g1-m3-2",
               "game": "read",
-              "icon": "postvan",
+              "icon": "card:parrot",
               "title": { "hi": "शब्द पढ़ो", "en": "Read words" },
               "config": { "words": ["@grade1"], "focus": ["e", "ai"], "allow": ["aa", "i", "ii", "u", "uu"], "modes": ["find", "match"] }
             }
@@ -2453,14 +2453,14 @@
             {
               "id": "g1-m4-1",
               "game": "matra",
-              "icon": "place-matra",
+              "icon": "matra:peacock",
               "title": { "hi": "मात्रा गैराज", "en": "Matra garage" },
               "config": { "matras": ["o", "au", "e", "aa", "i"], "words": ["@grade1"], "focus": ["o", "au"], "allow": ["aa", "i", "ii", "u", "uu", "e", "ai"] }
             },
             {
               "id": "g1-m4-2",
               "game": "read",
-              "icon": "postvan",
+              "icon": "card:parrot",
               "title": { "hi": "शब्द पढ़ो", "en": "Read words" },
               "config": { "words": ["@grade1"], "focus": ["o", "au"], "allow": ["aa", "i", "ii", "u", "uu", "e", "ai"], "modes": ["find", "match"] }
             }
@@ -2475,14 +2475,14 @@
             {
               "id": "g1-m5-1",
               "game": "read",
-              "icon": "postvan",
+              "icon": "card:parrot",
               "title": { "hi": "शब्द पढ़ो", "en": "Read words" },
               "config": { "words": ["@grade1"], "focus": ["am", "an"], "allow": ["aa", "i", "ii", "u", "uu", "e", "ai", "o", "au"], "modes": ["find", "match"] }
             },
             {
               "id": "g1-m5-2",
               "game": "rescue",
-              "icon": "firetruck",
+              "icon": "find:tiger",
               "title": { "hi": "पढ़ो और बचाओ", "en": "Read and rescue" },
               "config": { "words": ["@grade1"], "cards": "text", "vehicle": "firetruck", "letters": false }
             }
@@ -2498,7 +2498,7 @@
             {
               "id": "g1-family-2",
               "game": "read",
-              "icon": "postvan",
+              "icon": "card:parrot",
               "title": { "hi": "परिवार के शब्द", "en": "Family words" },
               "config": { "words": ["mother", "father", "grandfather", "grandmother", "brother", "sister"], "modes": ["find", "match"], "rounds": 5 }
             },
@@ -2506,7 +2506,7 @@
             {
               "id": "g1-family-4",
               "game": "read",
-              "icon": "postvan",
+              "icon": "card:parrot",
               "title": { "hi": "खाने के शब्द", "en": "Food words" },
               "config": { "words": ["roti", "rice", "milk", "kheer", "mango", "banana", "apple", "tea"], "modes": ["match", "find"], "rounds": 5 }
             }
@@ -2522,7 +2522,7 @@
             {
               "id": "g1-fest-2",
               "game": "read",
-              "icon": "postvan",
+              "icon": "card:parrot",
               "title": { "hi": "शब्द पढ़ो", "en": "Read words" },
               "config": { "words": ["lamp", "kite", "flag", "swing", "rangoli", "fair", "cloud", "rain", "umbrella"], "modes": ["match", "find"], "rounds": 5 }
             }
@@ -2534,11 +2534,11 @@
           "skill": "Phonics",
           "icon": "letter:का",
           "lessons": [
-            { "id": "g1-bara-1", "game": "matra", "icon": "place-matra", "title": { "hi": "बारहखड़ी", "en": "Barakhadi" }, "config": {} },
+            { "id": "g1-bara-1", "game": "matra", "icon": "matra:peacock", "title": { "hi": "बारहखड़ी", "en": "Barakhadi" }, "config": {} },
             {
               "id": "g1-bara-2",
               "game": "construction",
-              "icon": "crane",
+              "icon": "blocks:elephant",
               "title": { "hi": "शब्द बनाओ", "en": "Build words" },
               "config": { "activities": ["build"], "buildWords": ["@grade1"], "buildRounds": 3 }
             }
@@ -2548,19 +2548,19 @@
           "id": "g1-rhyme",
           "title": { "hi": "तुकबंदी", "en": "Rhyme time" },
           "skill": "Phonological awareness",
-          "icon": "icecreamvan",
-          "lessons": [{ "id": "g1-rhyme-1", "game": "rhyme", "icon": "icecreamvan", "title": { "hi": "तुक मिलाओ", "en": "Rhymes" }, "config": { "rounds": 4 } }]
+          "icon": "rhyme:monkey",
+          "lessons": [{ "id": "g1-rhyme-1", "game": "rhyme", "icon": "rhyme:monkey", "title": { "hi": "तुक मिलाओ", "en": "Rhymes" }, "config": { "rounds": 4 } }]
         },
         {
           "id": "g1-sent",
           "title": { "hi": "छोटे वाक्य", "en": "Let's read little sentences" },
           "skill": "Reading",
-          "icon": "metro",
+          "icon": "talk:parrot",
           "lessons": [
             {
               "id": "g1-sent-1",
               "game": "sentence",
-              "icon": "metro",
+              "icon": "talk:parrot",
               "title": { "hi": "वाक्य बनाओ", "en": "Build sentences" },
               "config": { "levels": ["grade1"], "rounds": 3 }
             }
@@ -2570,8 +2570,8 @@
           "id": "g1-story",
           "title": { "hi": "कहानी का समय", "en": "Story time" },
           "skill": "Reading",
-          "icon": "bookbus",
-          "lessons": [{ "id": "g1-story-1", "game": "story", "icon": "bookbus", "title": { "hi": "कहानी", "en": "Story" }, "config": { "levels": ["grade1"] } }]
+          "icon": "book:monkey",
+          "lessons": [{ "id": "g1-story-1", "game": "story", "icon": "book:monkey", "title": { "hi": "कहानी", "en": "Story" }, "config": { "levels": ["grade1"] } }]
         }
       ]
     },
@@ -2774,14 +2774,14 @@
             {
               "id": "g2-half-1",
               "game": "read",
-              "icon": "postvan",
+              "icon": "card:dinoegg",
               "title": { "hi": "शब्द पढ़ो", "en": "Read words" },
               "config": { "words": ["@grade2"], "modes": ["match", "find"] }
             },
             {
               "id": "g2-half-2",
               "game": "construction",
-              "icon": "crane",
+              "icon": "blocks:brachiosaurus",
               "title": { "hi": "शब्द बनाओ", "en": "Build words" },
               "config": { "activities": ["build"], "buildWords": ["@grade2"], "buildRounds": 3 }
             }
@@ -2803,14 +2803,14 @@
             {
               "id": "g2-home-1",
               "game": "read",
-              "icon": "postvan",
+              "icon": "card:dinoegg",
               "title": { "hi": "घर के शब्द", "en": "Home words" },
               "config": { "words": ["door", "window", "bed", "chair", "clock", "table", "fan", "bucket", "spoon", "tumbler"], "modes": ["match", "find"], "rounds": 6 }
             },
             {
               "id": "g2-home-2",
               "game": "construction",
-              "icon": "crane",
+              "icon": "blocks:brachiosaurus",
               "title": { "hi": "शब्द बनाओ", "en": "Build words" },
               "config": { "activities": ["build"], "buildWords": ["window", "clock", "chair", "bed", "tumbler", "fan", "table"], "buildRounds": 3 }
             }
@@ -2821,32 +2821,32 @@
           "title": { "hi": "विलोम शब्द", "en": "Let's learn opposites" },
           "skill": "Vocabulary",
           "icon": "size-big",
-          "lessons": [{ "id": "g2-opp-1", "game": "pairs", "icon": "place-parking", "title": { "hi": "उल्टा", "en": "Opposites" }, "config": { "kinds": ["opposite"] } }]
+          "lessons": [{ "id": "g2-opp-1", "game": "pairs", "icon": "pair:stegosaurus", "title": { "hi": "उल्टा", "en": "Opposites" }, "config": { "kinds": ["opposite"] } }]
         },
         {
           "id": "g2-many",
           "title": { "hi": "एक और अनेक", "en": "One and many" },
           "skill": "Grammar",
           "icon": "bananas",
-          "lessons": [{ "id": "g2-many-1", "game": "pairs", "icon": "place-parking", "title": { "hi": "एक-अनेक", "en": "One, many" }, "config": { "kinds": ["plural"] } }]
+          "lessons": [{ "id": "g2-many-1", "game": "pairs", "icon": "pair:stegosaurus", "title": { "hi": "एक-अनेक", "en": "One, many" }, "config": { "kinds": ["plural"] } }]
         },
         {
           "id": "g2-rhyme",
           "title": { "hi": "तुकांत शब्द", "en": "Rhyming words" },
           "skill": "Phonological awareness",
-          "icon": "icecreamvan",
-          "lessons": [{ "id": "g2-rhyme-1", "game": "rhyme", "icon": "icecreamvan", "title": { "hi": "तुक मिलाओ", "en": "Rhymes" }, "config": { "rounds": 5 } }]
+          "icon": "rhyme:pterodactyl",
+          "lessons": [{ "id": "g2-rhyme-1", "game": "rhyme", "icon": "rhyme:pterodactyl", "title": { "hi": "तुक मिलाओ", "en": "Rhymes" }, "config": { "rounds": 5 } }]
         },
         {
           "id": "g2-sent",
           "title": { "hi": "वाक्य बनाओ", "en": "Let's build sentences" },
           "skill": "Writing",
-          "icon": "metro",
+          "icon": "talk:triceratops",
           "lessons": [
             {
               "id": "g2-sent-1",
               "game": "sentence",
-              "icon": "metro",
+              "icon": "talk:triceratops",
               "title": { "hi": "वाक्य", "en": "Sentences" },
               "config": { "levels": ["grade1", "grade2"], "rounds": 4 }
             }
@@ -2856,8 +2856,8 @@
           "id": "g2-story",
           "title": { "hi": "कहानियाँ", "en": "Stories" },
           "skill": "Reading",
-          "icon": "bookbus",
-          "lessons": [{ "id": "g2-story-1", "game": "story", "icon": "bookbus", "title": { "hi": "कहानी", "en": "Story" }, "config": { "levels": ["grade2"] } }]
+          "icon": "book:trex",
+          "lessons": [{ "id": "g2-story-1", "game": "story", "icon": "book:trex", "title": { "hi": "कहानी", "en": "Story" }, "config": { "levels": ["grade2"] } }]
         }
       ]
     },
@@ -2878,7 +2878,7 @@
           "skill": "Grammar",
           "icon": "lioness",
           "lessons": [
-            { "id": "g3-gender-1", "game": "pairs", "icon": "place-parking", "title": { "hi": "लिंग", "en": "Gender" }, "config": { "kinds": ["female"] } },
+            { "id": "g3-gender-1", "game": "pairs", "icon": "pair:alien", "title": { "hi": "लिंग", "en": "Gender" }, "config": { "kinds": ["female"] } },
             { "id": "g3-gender-2", "game": "quiz", "icon": "girl", "title": { "hi": "सही शब्द", "en": "Pick the word" }, "config": { "bank": "g3-gender", "rounds": 6 } }
           ]
         },
@@ -2887,25 +2887,25 @@
           "title": { "hi": "वचन", "en": "Let's learn singular and plural" },
           "skill": "Grammar",
           "icon": "books",
-          "lessons": [{ "id": "g3-number-1", "game": "pairs", "icon": "place-parking", "title": { "hi": "वचन", "en": "Number" }, "config": { "kinds": ["plural"] } }]
+          "lessons": [{ "id": "g3-number-1", "game": "pairs", "icon": "pair:alien", "title": { "hi": "वचन", "en": "Number" }, "config": { "kinds": ["plural"] } }]
         },
         {
           "id": "g3-opp",
           "title": { "hi": "विलोम", "en": "Opposites" },
           "skill": "Vocabulary",
           "icon": "size-small",
-          "lessons": [{ "id": "g3-opp-1", "game": "pairs", "icon": "place-parking", "title": { "hi": "विलोम", "en": "Opposites" }, "config": { "kinds": ["opposite"] } }]
+          "lessons": [{ "id": "g3-opp-1", "game": "pairs", "icon": "pair:alien", "title": { "hi": "विलोम", "en": "Opposites" }, "config": { "kinds": ["opposite"] } }]
         },
         {
           "id": "g3-sent",
           "title": { "hi": "वाक्य", "en": "Sentences" },
           "skill": "Writing",
-          "icon": "metro",
+          "icon": "talk:astronaut",
           "lessons": [
             {
               "id": "g3-sent-1",
               "game": "sentence",
-              "icon": "metro",
+              "icon": "talk:astronaut",
               "title": { "hi": "वाक्य", "en": "Sentences" },
               "config": { "levels": ["grade2", "grade3"], "rounds": 4 }
             }
@@ -2967,8 +2967,8 @@
           "id": "g3-story",
           "title": { "hi": "लोककथाएँ", "en": "Folktales" },
           "skill": "Reading",
-          "icon": "bookbus",
-          "lessons": [{ "id": "g3-story-1", "game": "story", "icon": "bookbus", "title": { "hi": "कहानी", "en": "Story" }, "config": { "levels": ["grade3"] } }]
+          "icon": "book:saturn",
+          "lessons": [{ "id": "g3-story-1", "game": "story", "icon": "book:saturn", "title": { "hi": "कहानी", "en": "Story" }, "config": { "levels": ["grade3"] } }]
         }
       ]
     },
@@ -3073,7 +3073,7 @@
             {
               "id": "g4-review-2",
               "game": "pairs",
-              "icon": "place-parking",
+              "icon": "pair:crab",
               "title": { "hi": "जोड़े", "en": "Pairs" },
               "config": { "kinds": ["opposite", "plural", "female"] }
             }
@@ -3083,12 +3083,12 @@
           "id": "g4-sent",
           "title": { "hi": "लंबे वाक्य", "en": "Longer sentences" },
           "skill": "Writing",
-          "icon": "metro",
+          "icon": "talk:octopus",
           "lessons": [
             {
               "id": "g4-sent-1",
               "game": "sentence",
-              "icon": "metro",
+              "icon": "talk:octopus",
               "title": { "hi": "वाक्य बनाओ", "en": "Build sentences" },
               "config": { "levels": ["grade3", "grade4"], "rounds": 3 }
             }
@@ -3098,8 +3098,8 @@
           "id": "g4-story",
           "title": { "hi": "कहानियाँ", "en": "Stories with a moral" },
           "skill": "Reading",
-          "icon": "bookbus",
-          "lessons": [{ "id": "g4-story-1", "game": "story", "icon": "bookbus", "title": { "hi": "कहानी", "en": "Story" }, "config": { "levels": ["grade3", "grade4"] } }]
+          "icon": "book:turtle",
+          "lessons": [{ "id": "g4-story-1", "game": "story", "icon": "book:turtle", "title": { "hi": "कहानी", "en": "Story" }, "config": { "levels": ["grade3", "grade4"] } }]
         }
       ]
     }

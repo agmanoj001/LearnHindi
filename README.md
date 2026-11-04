@@ -143,7 +143,7 @@ Built-in drawings are in `js/art.js`, `js/art-words.js`, `js/art-creatures.js` a
 - `theme` picks the animated scene and music: `farm, town, jungle, dino, space, ocean, igloo, carnival` (`js/art-scenes.js`).
 - `mascot`: `kuku, gappu, chiku, dumdum, zoomi, ollu, pip, tiko` (`js/mascot.js`).
 - `collection` is an id from `"collections"`: `{ "name": {…}, "items": [word ids], "start": 2 }` (`start` = how many are owned from the beginning).
-- `icon` is a picture id, `letter:क` for a big letter or number, or `num`.
+- `icon` is a picture id, `letter:क` for a big letter or number, `num`, or an **activity icon** that puts a world's creature into the activity: `book:` (story), `talk:` (sentences), `pair:` (word pairs), `card:` (reading words), `blocks:` (building words), `matra:`, `rhyme:` or `find:` followed by a picture id, e.g. `book:turtle`. Each Hindi grade uses its own creatures, so no two grades share an icon.
 - Lesson ids must be unique. A lesson's `config` overrides that game's defaults in `"games"`.
 
 ### Games and their settings

@@ -360,18 +360,23 @@ export function library(api, w) {
     });
     return b;
   });
+  // each world's guide keeps its own library, on shelves that match the world
+  const guide = MASCOTS[w.mascot]?.name || { hi: '', en: '' };
+  const mascot = createMascot(w.mascot, { size: 'small', onTap: () => mascotJoke(api, mascot) });
   api.app.replaceChildren(
     el('div', { class: `screen library theme-${w.theme} enter`, style: { '--place': w.color } }, [
       backdrop(w),
       el('header', { class: 'game-head' }, [
         el('button', { class: 'round-btn', 'aria-label': 'Back', html: ICONS.back, onclick: () => api.back() }),
-        el('div', { class: 'head-title' }, [el('span', { class: 'world-name-hi', lang: 'hi', text: 'कहानियाँ' }), el('span', { class: 'world-name-en', text: `Story library · ${stories.length} books` })]),
+        el('div', { class: 'head-title' }, [el('span', { class: 'world-name-hi', lang: 'hi', text: `${guide.hi} का पुस्तकालय` }), el('span', { class: 'world-name-en', text: `${guide.en}'s library · ${stories.length} books` })]),
         el('span', { class: 'round-spacer' }),
       ]),
       el('main', { class: 'shelf' }, books),
+      el('div', { class: 'mascot-corner' }, [mascot.node]),
     ]),
   );
-  api.sayLines({ hi: 'कौन सी कहानी पढ़ें?', en: 'Which story shall we read?' });
+  setTimeout(() => mascot.react('wave'), 400);
+  api.sayLines({ hi: `${guide.hi} के पुस्तकालय में स्वागत है! कौन सी कहानी पढ़ें?`, en: `Welcome to ${guide.en}'s library! Which story shall we read?` });
 }
 
 // ---------- parent gate: hold for 3 seconds ----------

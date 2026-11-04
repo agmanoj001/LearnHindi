@@ -3349,3 +3349,25 @@ body.speaking .mascot .m-mouth-closed {
 .screen > .level-up {
   top: 84px;
 }
+
+/* each world's library has its own shelves: jungle wood, dino stone, space metal, ocean coral */
+.library {
+  --plank: #b9773e;
+}
+.library.theme-dino {
+  --plank: #a3958a;
+}
+.library.theme-space {
+  --plank: #8a84c8;
+}
+.library.theme-ocean {
+  --plank: #ff8fb1;
+}
+.library .book {
+  box-shadow:
+    0 6px 0 -2px var(--plank),
+    0 14px 18px -10px rgba(0, 0, 0, 0.35);
+}
+.library .shelf {
+  padding-bottom: 120px;
+}

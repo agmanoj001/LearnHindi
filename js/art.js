@@ -5,6 +5,7 @@ import { INK, OUT, GLASS, svg, rect, circ, ell, path, line, win, wheel, eye, tra
 import { WORD_ART, PLACE_ART, FLOATING, parkingCars } from './art-words.js';
 import { CREATURES, FLOATING_CREATURES } from './art-creatures.js';
 import { PEOPLE, THINGS } from './art-people.js';
+import { ACTIVITY_ICONS } from './art-icons.js';
 
 function car(color) {
   return (
@@ -537,12 +538,19 @@ const SHADOWED = new Set([
 const groundShadow = '<ellipse cx="100" cy="128" rx="78" ry="7" fill="#1E1B4B" opacity="0.08"/>';
 
 // "many:banana" draws three bananas: used for plurals (केला / केले).
+// "book:monkey", "talk:trex" and the other ACTIVITY_ICONS put a creature into an activity icon.
 const MANY = 'many:';
+const composite = (id) => {
+  const i = id.indexOf(':');
+  return i > 0 && ACTIVITY_ICONS[id.slice(0, i)] && id.slice(i + 1) in ALL ? [ACTIVITY_ICONS[id.slice(0, i)], id.slice(i + 1)] : null;
+};
 export function pictureExists(id) {
-  return typeof id === 'string' && (id in ALL || (id.startsWith(MANY) && id.slice(MANY.length) in ALL));
+  return typeof id === 'string' && (id in ALL || (id.startsWith(MANY) && id.slice(MANY.length) in ALL) || !!composite(id));
 }
 
 function body(id, color) {
+  const comp = composite(id);
+  if (comp) return comp[0](ALL[comp[1]](color));
   if (id.startsWith(MANY)) {
     const one = ALL[id.slice(MANY.length)](color);
     return [

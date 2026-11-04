@@ -23,6 +23,25 @@ test('six grades, from toddler to grade 4, each with a Hindi world', () => {
   for (const l of content.levels) assert.ok(content.worlds.some((w) => w.level === l.id && w.subject === 'hindi'), l.id);
 });
 
+test('grades 1 to 4 each have their own lesson icons, not Vehicle Town ones', () => {
+  const vehicles = ['bookbus', 'metro', 'place-parking', 'postvan', 'crane', 'place-matra', 'icecreamvan', 'firetruck'];
+  const seen = new Map();
+  for (const w of content.worlds.filter((x) => x.subject === 'hindi' && /^grade/.test(x.level))) {
+    for (const lesson of C.worldLessons(w)) {
+      assert.ok(!vehicles.includes(lesson.icon), `${lesson.id} still uses ${lesson.icon}`);
+      assert.ok(pictureExists(content.words[lesson.icon]?.picture || lesson.icon) || lesson.icon.startsWith('letter:'), `${lesson.id}: ${lesson.icon}`);
+      // the same activity icon (story book, speech bubble…) never appears in two grades
+      if (lesson.icon.includes(':') && !lesson.icon.startsWith('letter:')) {
+        const other = seen.get(lesson.icon);
+        assert.ok(!other || other === w.level, `${lesson.icon} is in ${other} and ${w.level}`);
+        seen.set(lesson.icon, w.level);
+      }
+    }
+  }
+  const stories = content.worlds.filter((x) => /^grade/.test(x.level) && x.subject === 'hindi').map((x) => C.worldLessons(x).find((l) => l.game === 'story').icon);
+  assert.equal(new Set(stories).size, 4);
+});
+
 test('every world has its own theme, mascot and collection', () => {
   const hindi = content.worlds.filter((w) => w.subject === 'hindi');
   for (const key of ['theme', 'mascot', 'collection']) assert.equal(new Set(hindi.map((w) => w[key])).size, hindi.length, key);
