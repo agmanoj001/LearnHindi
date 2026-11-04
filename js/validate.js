@@ -1,5 +1,6 @@
 // Validates content.json. Pure function: used by the app at startup and by tests.
 import { SKILLS } from './mathgen.js';
+import { PHONICS } from './phonicsgen.js';
 // Errors stop the app from using the content; warnings are shown in parent settings.
 
 export const GAME_TYPES = [
@@ -21,14 +22,15 @@ export const GAME_TYPES = [
   'quiz',
   'sort',
   'math',
+  'phonics',
 ];
 export const OPPOSITE_KINDS = ['size', 'height', 'speed'];
 export const PAIR_KINDS = ['opposite', 'plural', 'female'];
 export const READ_MODES = ['find', 'match'];
 export const ACTIVITIES = ['dig', 'deliver', 'build'];
-export const SUBJECTS = ['hindi', 'math'];
+export const SUBJECTS = ['hindi', 'math', 'english'];
 // who helps inside the games; a world may name its own (see README)
-export const HELPER_ROLES = ['courier', 'vendor', 'lifter', 'rescuer', 'holder', 'engine'];
+export const HELPER_ROLES = ['courier', 'vendor', 'lifter', 'rescuer', 'holder', 'engine', 'digger'];
 
 export const REQUIRED_PHRASES = {
   title: false,
@@ -95,6 +97,13 @@ export function validateContent(c, { knownPictures = null, pictureExists = null,
 
   if (!isObj(c)) return { errors: ['content must be a JSON object'], warnings };
   if (c.version !== 2) err('version must be 2');
+
+  // tags: what worlds teach ("phonics": { "hi": "ध्वनि", "en": "Phonics", "color": "#…" })
+  if (c.tags !== undefined && !isObj(c.tags)) err('tags must be an object');
+  for (const [id, t] of Object.entries(isObj(c.tags) ? c.tags : {})) {
+    if (!hasText(t)) err(`tags.${id} needs "hi" and "en"`);
+    if (t?.color !== undefined && !HEX.test(t.color)) err(`tags.${id}.color must look like #ff0000`);
+  }
 
   // phrases
   if (!isObj(c.phrases)) err('phrases must be an object');
@@ -282,6 +291,7 @@ export function validateContent(c, { knownPictures = null, pictureExists = null,
           }
         });
         if (s.moral !== undefined && !hasText(s.moral)) err(`${at} (${s.id}).moral needs "hi" and "en"`);
+        if (s.kind !== undefined && !['story', 'poem'].includes(s.kind)) err(`${at} (${s.id}).kind must be "story" or "poem"`);
       });
     }
   }
@@ -464,6 +474,11 @@ export function validateContent(c, { knownPictures = null, pictureExists = null,
         else for (const s of x.skills) if (!SKILLS[s]) err(`${at}: "${s}" is not a math skill (see js/mathgen.js)`);
         if (x.rounds !== undefined) count('rounds');
         break;
+      case 'phonics':
+        if (!Array.isArray(x.skills) || !x.skills.length) err(`${at}.skills must list phonics skills`);
+        else for (const s of x.skills) if (!PHONICS[s]) err(`${at}: "${s}" is not a phonics skill (see js/phonicsgen.js)`);
+        if (x.rounds !== undefined) count('rounds');
+        break;
       case 'pairs':
         count('rounds');
         if (!isObj(x.sets)) err(`${at}.sets must be an object`);
@@ -507,7 +522,10 @@ export function validateContent(c, { knownPictures = null, pictureExists = null,
       if (!levelIds.has(w.level)) err(`${wat}.level "${w.level}" is not one of the levels`);
       if (!SUBJECTS.includes(w.subject)) err(`${wat}.subject must be ${SUBJECTS.join(' or ')}`);
       if (w.lang !== undefined && !['hi', 'en', 'both'].includes(w.lang)) err(`${wat}.lang must be hi, en or both`);
-      if (w.subject === 'math' && w.lang !== 'en') err(`${wat}: math worlds are in English (lang "en")`);
+      if ((w.subject === 'math' || w.subject === 'english') && w.lang !== 'en') err(`${wat}: ${w.subject} worlds are in English (lang "en")`);
+      // what the world teaches, from "tags"
+      if (!Array.isArray(w.tags) || !w.tags.length) err(`${wat}.tags must list what the world teaches`);
+      else for (const t of w.tags) if (!isObj(c.tags?.[t])) err(`${wat}.tags: "${t}" is not in tags`);
       if (w.helpers !== undefined) {
         if (!isObj(w.helpers)) err(`${wat}.helpers must be an object`);
         else

@@ -2,7 +2,8 @@
 // sound, unlocking, the special photo, and a progress report. Nothing here leaves the device.
 import { el, ICONS } from './ui.js';
 import { normalizeProgress, clipKeysFor, clipKeyFromFileName, practiceReport } from './logic.js';
-import { skillName } from './mathgen.js';
+import { skillName, SKILLS as MATH_SKILLS } from './mathgen.js';
+import { phonicsName } from './phonicsgen.js';
 import { worldStars, worldLessons, lessonRecord } from './curriculum.js';
 import { refreshClipKeys, voicesFor, setVoicePrefs, hasVoice, play } from './audio.js';
 import { KEYS, save, clips, resizeImage } from './storage.js';
@@ -150,7 +151,7 @@ export function showParent(api) {
     const [kind, id] = [key[0], key.slice(2)];
     if (kind === 'w') return api.word(id) ? `${api.word(id).hi} · ${api.word(id).en}` : id;
     if (kind === 'l') return content.letterSets.flatMap((x) => x.letters).find((l) => l.id === id)?.char ?? id;
-    if (kind === 's') return skillName(id);
+    if (kind === 's') return MATH_SKILLS[id] ? skillName(id) : phonicsName(id);
     if (kind === 'm') {
       const m = content.matras.find((x) => x.id === id);
       return m ? `क${m.sign} (${m.vowel})` : id;

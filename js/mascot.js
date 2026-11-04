@@ -179,6 +179,145 @@ MASCOTS.tiko = {
     ),
 };
 
+// ---- guides for the newer worlds ----
+const add = (id, hi, en, pitch, inner) => (MASCOTS[id] = { name: { hi, en }, pitch, art: () => svg(inner) });
+
+// Buzz, the busy bee of the Letter Garden
+add(
+  'buzz',
+  'बज़',
+  'Buzz',
+  1.25,
+  `<g class="m-arm-l"><ellipse cx="26" cy="40" rx="20" ry="13" fill="#DCEFFF" opacity="0.95" transform="rotate(-30 26 40)"/></g>` +
+    `<g class="m-arm-r"><ellipse cx="94" cy="40" rx="20" ry="13" fill="#DCEFFF" opacity="0.95" transform="rotate(30 94 40)"/></g>` +
+    `<ellipse cx="60" cy="74" rx="36" ry="38" fill="#FFD43B"/>` +
+    `<path d="M26 82 Q60 92 94 82 M28 100 Q60 110 92 100" stroke="${INK}" stroke-width="8" fill="none"/>` +
+    `<path d="M48 38 Q40 16 30 14 M72 38 Q80 16 90 14" stroke="${INK}" stroke-width="3" fill="none"/><circle cx="30" cy="14" r="4" fill="${INK}"/><circle cx="90" cy="14" r="4" fill="${INK}"/>` +
+    eye(48, 60, 8, '#FFD43B') +
+    eye(72, 60, 8, '#FFD43B') +
+    cheeks(38, 82, 72) +
+    mouth(60, 72, 12),
+);
+// Kiki, the little dragon who looks after the Phonics Castle
+add(
+  'kiki',
+  'कीकी',
+  'Kiki',
+  1.15,
+  `<path class="m-tail" d="M84 100 Q112 104 108 80 L116 74 L104 72" fill="none" stroke="#2EC27E" stroke-width="8" stroke-linecap="round"/>` +
+    `<g class="m-arm-l"><path d="M30 64 L6 44 L12 70 L2 74 L30 84 Z" fill="#7BE0A8"/></g>` +
+    `<g class="m-arm-r"><path d="M90 64 L114 44 L108 70 L118 74 L90 84 Z" fill="#7BE0A8"/></g>` +
+    `<ellipse cx="60" cy="88" rx="30" ry="24" fill="#2EC27E"/><ellipse cx="60" cy="94" rx="18" ry="16" fill="#C8F5DC"/>` +
+    `<path d="M40 22 L46 6 L54 22 M66 22 L74 6 L80 22" fill="#FFB020"/>` +
+    `<circle cx="60" cy="50" r="30" fill="#2EC27E"/><ellipse cx="60" cy="64" rx="18" ry="11" fill="#7BE0A8"/><circle cx="54" cy="62" r="2" fill="${INK}"/><circle cx="66" cy="62" r="2" fill="${INK}"/>` +
+    eye(48, 44, 7.5, '#2EC27E') +
+    eye(72, 44, 7.5, '#2EC27E') +
+    cheeks(36, 84, 56) +
+    mouth(60, 70, 12),
+);
+// Ooty, the camel who runs the Desert Fair
+add(
+  'ooty',
+  'ऊटी',
+  'Ooty',
+  0.95,
+  `<ellipse cx="62" cy="92" rx="34" ry="18" fill="#D9A55E"/><path d="M42 78 Q52 56 64 78 Q74 58 86 80" fill="#D9A55E"/>` +
+    `<g class="m-arm-l"><rect x="38" y="100" width="9" height="16" rx="4" fill="#C98B3E"/></g><g class="m-arm-r"><rect x="76" y="100" width="9" height="16" rx="4" fill="#C98B3E"/></g>` +
+    `<path d="M34 86 Q24 60 34 40" fill="none" stroke="#D9A55E" stroke-width="16" stroke-linecap="round"/>` +
+    `<ellipse cx="38" cy="36" rx="22" ry="18" fill="#E2B373"/><ellipse cx="26" cy="44" rx="10" ry="8" fill="#F0CFA0"/>` +
+    `<path d="M30 20 Q40 6 52 20" fill="#FF5A5F"/><circle cx="41" cy="10" r="4" fill="#FFD43B"/>` +
+    eye(34, 32, 6, '#E2B373') +
+    eye(48, 32, 6, '#E2B373') +
+    mouth(26, 48, 9),
+);
+// Bholu, the bear who reads stories in the forest
+add(
+  'bholu',
+  'भोलू',
+  'Bholu',
+  0.9,
+  `<g class="m-arm-l"><ellipse cx="28" cy="88" rx="11" ry="16" fill="#8A5A44"/></g>` +
+    `<g class="m-arm-r"><ellipse cx="92" cy="86" rx="11" ry="16" fill="#8A5A44"/><rect x="84" y="62" width="24" height="18" rx="3" fill="#3D7BFF" transform="rotate(-12 96 70)"/></g>` +
+    `<ellipse cx="60" cy="92" rx="30" ry="22" fill="#A0673F"/><ellipse cx="60" cy="96" rx="18" ry="14" fill="#E9C9A0"/>` +
+    `<circle cx="36" cy="24" r="11" fill="#A0673F"/><circle cx="84" cy="24" r="11" fill="#A0673F"/><circle cx="36" cy="24" r="5" fill="#E9C9A0"/><circle cx="84" cy="24" r="5" fill="#E9C9A0"/>` +
+    `<circle cx="60" cy="48" r="30" fill="#A0673F"/><ellipse cx="60" cy="60" rx="14" ry="10" fill="#E9C9A0"/><ellipse cx="60" cy="55" rx="5" ry="3.5" fill="${INK}"/>` +
+    eye(48, 44, 6.5, '#A0673F') +
+    eye(72, 44, 6.5, '#A0673F') +
+    cheeks(36, 84, 58) +
+    mouth(60, 64, 10),
+);
+// Mitthu, the parrot who tells folktales at the palace
+add(
+  'mitthu',
+  'मिट्ठू',
+  'Mitthu',
+  1.25,
+  `<path d="M52 104 L46 118 M68 104 L74 118" stroke="#FF9F43" stroke-width="4" stroke-linecap="round"/>` +
+    `<g class="m-arm-l"><path d="M34 60 Q18 86 36 104 Q42 84 44 66 Z" fill="#1F9D63"/></g>` +
+    `<g class="m-arm-r"><path d="M86 60 Q102 86 84 104 Q78 84 76 66 Z" fill="#1F9D63"/></g>` +
+    `<ellipse cx="60" cy="74" rx="28" ry="34" fill="#2EC27E"/><ellipse cx="60" cy="84" rx="16" ry="20" fill="#A8EBC6"/>` +
+    `<path d="M50 16 Q60 2 70 16" fill="#FF5A5F"/>` +
+    `<circle cx="60" cy="40" r="24" fill="#2EC27E"/><path d="M36 44 Q60 30 84 44" fill="none" stroke="#FF5A5F" stroke-width="3"/>` +
+    eye(50, 36, 6.5, '#2EC27E') +
+    eye(70, 36, 6.5, '#2EC27E') +
+    `<path class="m-mouth-closed" d="M54 46 Q60 44 66 46 Q64 58 58 60 Q56 52 54 46 Z" fill="#FF5A5F"/>` +
+    `<g class="m-mouth-open"><path d="M54 44 Q60 42 66 44 Q64 52 58 54 Z" fill="#FF5A5F"/><path d="M56 56 Q60 58 64 56 L60 62 Z" fill="#C2364A"/></g>`,
+);
+// Gauri, the calf who shows you round the village
+add(
+  'gauri',
+  'गौरी',
+  'Gauri',
+  1.1,
+  `<ellipse cx="60" cy="94" rx="30" ry="20" fill="#fff"/><ellipse cx="72" cy="90" rx="10" ry="8" fill="#8A5A44"/>` +
+    `<g class="m-arm-l"><rect x="38" y="104" width="9" height="12" rx="4" fill="#F0E6DA"/></g><g class="m-arm-r"><rect x="74" y="104" width="9" height="12" rx="4" fill="#F0E6DA"/></g>` +
+    `<path d="M34 26 Q24 12 30 6 M86 26 Q96 12 90 6" stroke="#E9B872" stroke-width="6" fill="none" stroke-linecap="round"/>` +
+    `<ellipse cx="22" cy="40" rx="14" ry="7" fill="#fff" transform="rotate(-20 22 40)"/><ellipse cx="98" cy="40" rx="14" ry="7" fill="#fff" transform="rotate(20 98 40)"/>` +
+    `<ellipse cx="60" cy="46" rx="28" ry="26" fill="#fff"/><ellipse cx="48" cy="34" rx="9" ry="7" fill="#8A5A44"/>` +
+    `<ellipse cx="60" cy="64" rx="18" ry="11" fill="#FFC2D6"/><circle cx="54" cy="64" r="2.5" fill="#C2627A"/><circle cx="66" cy="64" r="2.5" fill="#C2627A"/>` +
+    `<circle cx="60" cy="74" r="5" fill="#FFD43B"/>` +
+    eye(48, 44, 6.5, '#fff') +
+    eye(72, 44, 6.5, '#fff') +
+    mouth(60, 70, 8),
+);
+// Himu, the snow leopard on Story Mountain
+add(
+  'himu',
+  'हिमू',
+  'Himu',
+  1.0,
+  `<path class="m-tail" d="M82 100 Q112 100 108 72 Q106 60 96 66" fill="none" stroke="#E6E9F2" stroke-width="10" stroke-linecap="round"/>` +
+    `<g class="m-arm-l"><ellipse cx="38" cy="104" rx="10" ry="8" fill="#E6E9F2"/></g><g class="m-arm-r"><ellipse cx="82" cy="104" rx="10" ry="8" fill="#E6E9F2"/></g>` +
+    `<ellipse cx="60" cy="90" rx="28" ry="20" fill="#F4F6FB"/>` +
+    `<circle cx="34" cy="24" r="10" fill="#E6E9F2"/><circle cx="86" cy="24" r="10" fill="#E6E9F2"/>` +
+    `<circle cx="60" cy="48" r="30" fill="#F4F6FB"/>` +
+    [[42, 28], [78, 28], [36, 52], [84, 52], [60, 22], [52, 74], [70, 72]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="3.5" fill="none" stroke="#9AA3B5" stroke-width="2"/>`).join('') +
+    `<path d="M55 58 H65 L60 64 Z" fill="#FF8FB1"/>` +
+    eye(48, 46, 7, '#F4F6FB') +
+    eye(72, 46, 7, '#F4F6FB') +
+    cheeks(38, 82, 60) +
+    mouth(60, 68, 10),
+);
+// Chintu, the squirrel who knows every word in Word City
+add(
+  'chintu',
+  'चिंटू',
+  'Chintu',
+  1.3,
+  `<path class="m-tail" d="M80 104 Q120 96 108 56 Q100 34 84 46 Q96 62 84 84 Z" fill="#C98B3E"/>` +
+    `<g class="m-arm-l"><ellipse cx="44" cy="86" rx="7" ry="10" fill="#A0673F"/></g>` +
+    `<g class="m-arm-r"><ellipse cx="76" cy="86" rx="7" ry="10" fill="#A0673F"/><ellipse cx="78" cy="78" rx="8" ry="6" fill="#8A5A44"/></g>` +
+    `<ellipse cx="60" cy="92" rx="24" ry="20" fill="#B9773E"/><ellipse cx="60" cy="96" rx="14" ry="13" fill="#F0CFA0"/>` +
+    `<path d="M38 26 L42 8 L52 22 M82 26 L78 8 L68 22" fill="#B9773E"/>` +
+    `<circle cx="60" cy="46" r="26" fill="#B9773E"/><ellipse cx="60" cy="56" rx="14" ry="10" fill="#F0CFA0"/>` +
+    `<path d="M40 40 H52 M68 40 H80" stroke="#fff" stroke-width="3" opacity="0.6"/>` +
+    eye(50, 44, 6.5, '#B9773E') +
+    eye(70, 44, 6.5, '#B9773E') +
+    cheeks(40, 80, 56) +
+    mouth(60, 60, 9) +
+    `<rect class="m-mouth-closed" x="57" y="61" width="6" height="5" rx="1" fill="#fff"/>`,
+);
+
 export const MASCOT_IDS = Object.keys(MASCOTS);
 
 export function mascotSvg(id) {

@@ -6,6 +6,7 @@ import { WORD_ART, PLACE_ART, FLOATING, parkingCars } from './art-words.js';
 import { CREATURES, FLOATING_CREATURES } from './art-creatures.js';
 import { PEOPLE, THINGS } from './art-people.js';
 import { ACTIVITY_ICONS } from './art-icons.js';
+import { PHONICS_ART } from './art-phonics.js';
 
 function car(color) {
   return (
@@ -511,7 +512,7 @@ const PLACES = {
     [84, 96, 108, 120].map((y) => line(46, y, 154, y, '#B4B0FF', 3)).join(''),
 };
 
-const ALL = { ...VEHICLES, ...ANIMALS, ...CONCEPTS, ...PLACES, ...WORD_ART, ...PLACE_ART, ...CREATURES, ...PEOPLE, ...THINGS };
+const ALL = { ...VEHICLES, ...ANIMALS, ...CONCEPTS, ...PLACES, ...WORD_ART, ...PLACE_ART, ...CREATURES, ...PEOPLE, ...THINGS, ...PHONICS_ART };
 for (const [name, fn] of Object.entries(SHAPES)) ALL[`shape-${name}`] = fn;
 ALL['place-parking'] = () => PLACE_ART['place-parking']() + parkingCars(car);
 
@@ -534,6 +535,7 @@ const SHADOWED = new Set([
   ...Object.keys(CREATURES).filter((k) => !FLOATING_CREATURES.has(k)),
   ...Object.keys(PEOPLE),
   ...Object.keys(THINGS).filter((k) => !['cloud', 'raincloud', 'rangoli', 'net', 'field', 'roti'].includes(k)),
+  ...Object.keys(PHONICS_ART).filter((k) => k !== 'bee'),
 ]);
 const groundShadow = '<ellipse cx="100" cy="128" rx="78" ry="7" fill="#1E1B4B" opacity="0.08"/>';
 

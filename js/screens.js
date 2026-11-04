@@ -20,8 +20,12 @@ const english = (w) => w.lang === 'en';
 const bigName = (w, text, cls) => (english(w) ? el('span', { class: `${cls} latin`, text: text.en }) : el('span', { class: cls, lang: 'hi', text: text.hi }));
 
 function subjectName(world) {
-  return world.subject === 'math' ? { hi: 'गणित', en: 'Math' } : { hi: 'हिन्दी', en: 'Hindi' };
+  return { math: { hi: 'गणित', en: 'Math' }, english: { hi: 'अंग्रेज़ी', en: 'English' } }[world.subject] || { hi: 'हिन्दी', en: 'Hindi' };
 }
+
+// What a world teaches, from content.json "tags": Phonics, Grammar, Stories, Math …
+const tagsOf = (api, w) => (w.tags || []).map((id) => ({ id, ...(api.state.content.tags?.[id] || { hi: id, en: id }) }));
+const tagChips = (api, w) => el('span', { class: 'tag-chips' }, tagsOf(api, w).map((t) => el('span', { class: 'tag-chip', style: { '--tag': t.color || '#6C63FF' }, text: t.en })));
 
 // Tap a mascot and it does something silly.
 export function mascotJoke(api, mascot) {
@@ -97,9 +101,25 @@ export function levelCard(api, level, selected, onPick) {
 
 export function hub(api) {
   const { content, settings, progress } = api.state;
-  const worlds = hubWorlds(content, settings);
+  const all = hubWorlds(content, settings);
+  // a row of tags filters the worlds: "show me everything about Grammar"
+  const filter = api.state.hubTag && all.some((w) => (w.tags || []).includes(api.state.hubTag)) ? api.state.hubTag : null;
+  const worlds = filter ? all.filter((w) => (w.tags || []).includes(filter)) : all;
   const mine = worlds.filter((w) => w.level === settings.level);
   const others = worlds.filter((w) => w.level !== settings.level);
+  const usedTags = Object.entries(content.tags || {}).filter(([id]) => all.some((w) => (w.tags || []).includes(id)));
+  const tagBtn = (id, t) =>
+    el('button', {
+      class: `tag-filter${(filter || null) === id ? ' on' : ''}`,
+      style: { '--tag': t?.color || '#6C63FF' },
+      text: t ? t.en : 'All',
+      onclick: () => {
+        api.sfx.pop();
+        api.state.hubTag = id;
+        if (t) api.sayLines(t);
+        hub(api);
+      },
+    });
   const level = (id) => content.levels.find((l) => l.id === id);
   const days = streak(progress.days, Date.now());
 
@@ -113,6 +133,7 @@ export function hub(api) {
         el('span', { class: 'chips' }, [el('span', { class: 'chip grade', text: level(world.level).name.en }), el('span', { class: `chip subject ${world.subject}`, text: `${sub.en} · ${sub.hi}` })]),
         bigName(world, world.name, 'world-name-hi'),
         el('span', { class: 'world-name-en', lang: english(world) ? 'hi' : 'en', text: english(world) ? world.name.hi : world.name.en }),
+        tagChips(api, world),
         el('span', { class: 'world-stars' }, [el('span', { class: 'star-icon', html: ICONS.star }), el('span', { text: `${st.got} / ${st.max}` })]),
       ]),
     ]);
@@ -138,7 +159,8 @@ export function hub(api) {
         ]),
       ]),
       el('div', { class: 'hub-scroll' }, [
-        el('h2', { class: 'hub-section', text: `${level(settings.level).name.en} · ${level(settings.level).name.hi}` }),
+        usedTags.length > 1 ? el('div', { class: 'tag-filters', role: 'toolbar', 'aria-label': 'Show worlds about' }, [tagBtn(null, null), ...usedTags.map(([id, t]) => tagBtn(id, t))]) : null,
+        mine.length ? el('h2', { class: 'hub-section', text: `${level(settings.level).name.en} · ${level(settings.level).name.hi}` }) : null,
         el('div', { class: 'world-cards' }, mine.map(card)),
         others.length ? el('h2', { class: 'hub-section', text: 'More worlds · और दुनिया' }) : null,
         others.length ? el('div', { class: 'world-cards' }, others.map(card)) : null,
@@ -214,7 +236,7 @@ export function world(api, w) {
   const canLeave = !settings.lockGrade;
   const head = el('header', { class: 'world-head' }, [
     canLeave ? el('button', { class: 'round-btn', 'aria-label': 'All worlds', html: ICONS.back, onclick: () => api.back() }) : parentGate(api),
-    el('div', { class: 'world-title' }, [bigName(w, w.name, 'world-name-hi'), el('span', { class: 'world-name-en', text: english(w) ? `${subjectName(w).en} · in English` : `${w.name.en} · ${subjectName(w).en}` })]),
+    el('div', { class: 'world-title' }, [bigName(w, w.name, 'world-name-hi'), el('span', { class: 'world-name-en', text: [english(w) ? null : w.name.en, ...tagsOf(api, w).map((t) => t.en)].filter(Boolean).join(' · ') })]),
     el('span', { class: 'star-chip' }, [el('span', { class: 'star-icon', html: ICONS.star }), el('b', { text: String(st.got) })]),
     el('button', { class: 'round-btn small', 'aria-label': 'My collection', html: ICONS.album, onclick: () => api.go('collection', { worldId: w.id }) }),
     w.subject === 'hindi' && api.state.content.stories.some((s) => storyLevels(api, w).includes(s.level))
@@ -348,7 +370,8 @@ export function library(api, w) {
   const stories = content.stories.filter((s) => levels.includes(s.level));
   const books = stories.map((s) => {
     const read = lessonRecord(progress, `story:${s.id}`).stars > 0;
-    const b = el('button', { class: `book ${read ? 'read' : ''}`, 'aria-label': s.title.en }, [
+    const b = el('button', { class: `book ${read ? 'read' : ''} ${s.kind === 'poem' ? 'poem' : ''}`, 'aria-label': s.title.en }, [
+      s.kind === 'poem' ? el('span', { class: 'poem-ribbon', text: 'कविता · Poem' }) : null,
       el('span', { class: 'book-cover', html: pictureForWord(api.word(s.cover)) }),
       el('span', { class: 'book-title', lang: 'hi', text: s.title.hi }),
       el('span', { class: 'book-title-en', text: s.title.en }),
