@@ -6,7 +6,9 @@ import { el, sleep, runRounds, cheer, bounce, animate } from './kit.js';
 
 export default {
   start(ctx) {
-    const ids = [...(ctx.special ? ['special'] : []), ...ctx.unlockedVehicles()];
+    // drive with anything from this world's collection (vehicles, dinosaurs, rockets...)
+    const ids = [...(ctx.special ? ['special'] : []), ...ctx.collectedItems()].slice(0, 8);
+    if (!ids.length) ids.push(ctx.content.collections[ctx.world.collection].items[0]);
     let started = false;
     const btns = ids.map((id) => {
       const b = el('button', { class: 'card pick-vehicle', 'aria-label': id, html: ctx.vehicleArt(id) });
@@ -28,7 +30,7 @@ export default {
 };
 
 async function drive(ctx, vehicleId) {
-  const letters = sample(ctx.letters(), ctx.config.letters, ctx.rng);
+  const letters = sample(ctx.letters(), ctx.config.count, ctx.rng);
   const canvas = el('canvas', { class: 'road', 'aria-label': 'trace the letter' });
   const car = el('div', { class: 'tracer', html: ctx.vehicleArt(vehicleId) });
   const wrap = el('div', { class: 'trace-wrap' }, [canvas, car]);
@@ -45,6 +47,8 @@ async function drive(ctx, vehicleId) {
 }
 
 function traceLetter(ctx, letter, canvas, car) {
+  // neater tracing is asked for as the level goes up (still forgiving: it's about the shape)
+  const threshold = () => ctx.config.threshold + [-0.05, 0, 0.06][ctx.tier];
   return new Promise((resolve) => {
     const dpr = window.devicePixelRatio || 1;
     const w = canvas.clientWidth;
@@ -126,7 +130,7 @@ function traceLetter(ctx, letter, canvas, car) {
       place(p, p.x < last.x);
       trail.push(p);
       last = p;
-      if (trail.length % 8 === 0 && traceCoverage(targets, trail, brush * 1.2) >= ctx.config.threshold) finish();
+      if (trail.length % 8 === 0 && traceCoverage(targets, trail, brush * 1.2) >= threshold()) finish();
     };
     const down = (e) => {
       if (done) return;
@@ -138,7 +142,7 @@ function traceLetter(ctx, letter, canvas, car) {
     };
     const up = () => {
       last = null;
-      if (!done && traceCoverage(targets, trail, brush * 1.2) >= ctx.config.threshold) finish();
+      if (!done && traceCoverage(targets, trail, brush * 1.2) >= threshold()) finish();
     };
     const finish = async () => {
       done = true;

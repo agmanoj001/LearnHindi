@@ -181,60 +181,54 @@ test('traceCoverage', () => {
   assert.equal(L.thinPoints([1, 2, 3, 4, 5, 6], 3).length, 3);
 });
 
-test('rewards unlock vehicles in order and stop when all are unlocked', () => {
-  const ids = ['bus', 'car', 'rocket'];
-  let p = { unlockedVehicles: ['bus'], completed: {} };
-  let r = L.applyCompletion(p, 'construction', ids);
-  assert.equal(r.newVehicle, 'car');
-  r = L.applyCompletion(r.progress, 'construction', ids);
-  assert.equal(r.newVehicle, 'rocket');
-  assert.equal(r.progress.completed.construction, 2);
-  r = L.applyCompletion(r.progress, 'farm', ids);
-  assert.equal(r.newVehicle, null);
-  assert.deepEqual(r.progress.unlockedVehicles, ids);
-  assert.deepEqual(p.unlockedVehicles, ['bus'], 'input not mutated');
-});
-
 const content = {
-  places: [{ id: 'a' }, { id: 'b', unlockedByDefault: false }],
-  vehicles: [{ id: 'bus', unlockedByDefault: true }, { id: 'car' }],
-  letterSets: [
-    { id: 'hv', lang: 'hi', letters: [{ id: 'x', char: 'अ' }] },
-    { id: 'en', lang: 'en', letters: [{ id: 'y', char: 'A' }] },
-    { id: 'hc', lang: 'hi', enabledByDefault: false, letters: [{ id: 'z', char: 'क' }] },
-  ],
+  levels: [{ id: 'toddler' }, { id: 'kg' }],
+  collections: { vehicles: { start: 2, items: ['bus', 'car', 'rocket'] }, farm: { items: ['cow', 'dog', 'cat'] } },
 };
 
 test('settings defaults and normalisation ignore junk', () => {
   const d = L.defaultSettings(content);
-  assert.deepEqual(d, { lang: 'both', level: null, onboarded: false, places: { a: true, b: false }, letterSets: { hv: true, en: true, hc: false } });
-  const n = L.normalizeSettings({ lang: 'fr', places: { a: false, zzz: true }, letterSets: { hc: 'yes' } }, content);
+  assert.equal(d.level, 'kg');
+  assert.equal(d.lang, 'both');
+  assert.equal(d.lockGrade, false);
+  const n = L.normalizeSettings({ lang: 'fr', level: 'grade9', music: 'loud', unlockAll: true, voice: { hi: 'X', rate: 9 } }, content);
   assert.equal(n.lang, 'both');
-  assert.deepEqual(n.places, { a: false, b: false });
-  assert.equal(n.letterSets.hc, false);
+  assert.equal(n.level, 'kg');
+  assert.equal(n.music, true);
+  assert.equal(n.unlockAll, true);
+  assert.equal(n.voice.hi, 'X');
+  assert.equal(n.voice.rate, 0.9, 'out-of-range speed ignored');
   assert.deepEqual(L.normalizeSettings(null, content), d);
 });
 
-test('progress normalisation drops unknown vehicles and keeps defaults', () => {
-  const p = L.normalizeProgress({ unlockedVehicles: ['car', 'spaceship'] }, content);
-  assert.deepEqual(p.unlockedVehicles, ['bus', 'car']);
+test('progress: collections start with their free items, old garages carry over, junk is dropped', () => {
+  const fresh = L.defaultProgress(content);
+  assert.deepEqual(fresh.collected, { vehicles: ['bus', 'car'], farm: [] });
+  const old = L.normalizeProgress({ unlockedVehicles: ['car', 'rocket', 'spaceship'] }, content);
+  assert.deepEqual(old.collected.vehicles, ['bus', 'car', 'rocket']);
+  const p = L.normalizeProgress({ lessons: { a: { stars: 7, plays: -2, tier: 5 }, b: 'x' }, days: ['2026-11-01', 3] }, content);
+  assert.deepEqual(p.lessons, { a: { stars: 3, plays: 0, tier: 2 } });
+  assert.deepEqual(p.days, ['2026-11-01']);
 });
 
-test('active letters follow the language mix, falling back when all sets are off', () => {
-  const s = L.defaultSettings(content);
-  assert.deepEqual(L.activeLetters(content, s).map((l) => l.id), ['x', 'y']);
-  s.lang = 'hi';
-  assert.deepEqual(L.activeLetters(content, s).map((l) => l.id), ['x']);
-  assert.equal(L.activeLetters(content, s)[0].lang, 'hi');
-  s.letterSets = { hv: false, en: false, hc: false };
-  assert.deepEqual(L.activeLetters(content, s).map((l) => l.id), ['x', 'z']);
-  s.lang = 'en';
-  assert.deepEqual(L.activeLetters(content, s).map((l) => l.id), ['y']);
+test('lessonConfig puts lesson settings on top of the shared game settings', () => {
+  const c = { games: { read: { rounds: 6, modes: ['find'] } } };
+  assert.deepEqual(L.lessonConfig(c, { game: 'read', config: { modes: ['match'] } }), { rounds: 6, modes: ['match'] });
+  assert.deepEqual(L.lessonConfig(c, { game: 'farm' }), {});
 });
 
-test('visiblePlaces respects the parent switches', () => {
-  const s = L.defaultSettings(content);
-  assert.deepEqual(L.visiblePlaces(content, s).map((p) => p.id), ['a']);
+test('wordsForMatras keeps words with a focus matra and nothing beyond what is allowed', () => {
+  const matras = [
+    { id: 'aa', sign: 'ा' },
+    { id: 'i', sign: 'ि' },
+    { id: 'u', sign: 'ु' },
+    { id: 'am', sign: 'ं' },
+  ];
+  const w = (hi) => ({ hi });
+  const out = L.wordsForMatras([w('किला'), w('कार'), w('पुल'), w('गुलाब'), w('पतंग'), w('चाँद')], matras, ['u'], ['aa', 'i']);
+  assert.deepEqual(out.map((x) => x.hi), ['पुल', 'गुलाब']);
+  const nasal = L.wordsForMatras([w('चाँद'), w('पतंग'), w('कार')], matras, ['am', 'an'], ['aa']);
+  assert.deepEqual(nasal.map((x) => x.hi), ['चाँद', 'पतंग']);
 });
 
 test('recording file names map to clip keys', () => {

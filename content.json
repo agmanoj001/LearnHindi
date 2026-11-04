@@ -1,7 +1,7 @@
 {
-  "version": 1,
+  "version": 2,
   "phrases": {
-    "title": { "hi": "गाड़ी नगर", "en": "Vehicle Town" },
+    "title": { "hi": "खेल-खेल में", "en": "Khel Khel Mein" },
     "welcome": { "hi": "चलो खेलें!", "en": "Let's play!" },
     "find": { "hi": "{w} ढूँढो", "en": "Find {w}" },
     "thisIs": { "hi": "यह {w} है", "en": "This is {w}" },
@@ -32,7 +32,10 @@
     "oppositeOf": { "hi": "{w} का उल्टा क्या है?", "en": "What is the opposite of {w}?" },
     "pluralOf": { "hi": "एक {w}, और बहुत सारे?", "en": "One {w}. And many?" },
     "femaleOf": { "hi": "{w} का स्त्रीलिंग क्या है?", "en": "What is the female of {w}?" },
-    "listenStory": { "hi": "चलो कहानी पढ़ें", "en": "Let's read a story" }
+    "listenStory": { "hi": "चलो कहानी पढ़ें", "en": "Let's read a story" },
+    "newItem": { "hi": "नया दोस्त मिला: {w}!", "en": "You found a new friend: {w}!" },
+    "unitDone": { "hi": "वाह! यह पाठ पूरा हो गया!", "en": "Hooray! You finished this unit!" },
+    "startsWith": { "hi": "कौन सा शब्द {w} से शुरू होता है?", "en": "Which word starts with {w}?" }
   },
   "words": {
     "digger": { "hi": "खुदाई मशीन", "translit": "khudaai mashin", "en": "digger", "picture": "digger" },
@@ -193,56 +196,104 @@
     "place-metro": { "hi": "मेट्रो स्टेशन", "translit": "metro station", "en": "metro station", "picture": "place-metro" },
     "place-icecream": { "hi": "आइसक्रीम वाला", "translit": "icecream waala", "en": "ice-cream van", "picture": "place-icecream" },
     "place-library": { "hi": "पुस्तकालय", "translit": "pustakaalay", "en": "library", "picture": "place-library" },
-    "place-parking": { "hi": "पार्किंग", "translit": "parking", "en": "parking", "picture": "place-parking" }
+    "place-parking": { "hi": "पार्किंग", "translit": "parking", "en": "parking", "picture": "place-parking" },
+    "chick": { "hi": "चूज़ा", "translit": "chooza", "en": "chick", "picture": "chick" },
+    "buffalo": { "hi": "भैंस", "translit": "bhains", "en": "buffalo", "picture": "buffalo" },
+    "donkey": { "hi": "गधा", "translit": "gadha", "en": "donkey", "picture": "donkey" },
+    "tiger": { "hi": "बाघ", "translit": "baagh", "en": "tiger", "picture": "tiger" },
+    "deer": { "hi": "हिरन", "translit": "hiran", "en": "deer", "picture": "deer" },
+    "giraffe": { "hi": "जिराफ़", "translit": "jiraaf", "en": "giraffe", "picture": "giraffe" },
+    "zebra": { "hi": "ज़ेबरा", "translit": "zebra", "en": "zebra", "picture": "zebra" },
+    "fox": { "hi": "लोमड़ी", "translit": "lomdi", "en": "fox", "picture": "fox" },
+    "tortoise": { "hi": "कछुआ", "translit": "kachhua", "en": "tortoise", "picture": "tortoise" },
+    "squirrel": { "hi": "गिलहरी", "translit": "gilahari", "en": "squirrel", "picture": "squirrel" },
+    "owl": { "hi": "उल्लू", "translit": "ullu", "en": "owl", "picture": "owl" },
+    "trex": { "hi": "टी-रेक्स", "translit": "tee-rex", "en": "T. rex", "picture": "trex" },
+    "triceratops": { "hi": "ट्राइसेराटॉप्स", "translit": "triceratops", "en": "triceratops", "picture": "triceratops" },
+    "stegosaurus": { "hi": "स्टेगोसॉरस", "translit": "stegosaurus", "en": "stegosaurus", "picture": "stegosaurus" },
+    "brachiosaurus": { "hi": "ब्रैकियोसॉरस", "translit": "brachiosaurus", "en": "brachiosaurus", "picture": "brachiosaurus" },
+    "pterodactyl": { "hi": "टेरोडैक्टिल", "translit": "pterodactyl", "en": "pterodactyl", "picture": "pterodactyl" },
+    "ankylosaurus": { "hi": "एंकिलोसॉरस", "translit": "ankylosaurus", "en": "ankylosaurus", "picture": "ankylosaurus" },
+    "dinoegg": { "hi": "डायनासोर का अंडा", "translit": "dinosaur ka anda", "en": "dinosaur egg", "picture": "dinoegg" },
+    "volcano": { "hi": "ज्वालामुखी", "translit": "jwaalamukhi", "en": "volcano", "picture": "volcano" },
+    "astronaut": { "hi": "अंतरिक्ष यात्री", "translit": "antariksh yaatri", "en": "astronaut", "picture": "astronaut" },
+    "earth": { "hi": "पृथ्वी", "translit": "prithvi", "en": "Earth", "picture": "earth" },
+    "saturn": { "hi": "शनि", "translit": "shani", "en": "Saturn", "picture": "saturn" },
+    "mars": { "hi": "मंगल", "translit": "mangal", "en": "Mars", "picture": "mars" },
+    "comet": { "hi": "धूमकेतु", "translit": "dhoomketu", "en": "comet", "picture": "comet" },
+    "satellite": { "hi": "उपग्रह", "translit": "upgrah", "en": "satellite", "picture": "satellite" },
+    "alien": { "hi": "एलियन दोस्त", "translit": "alien dost", "en": "alien friend", "picture": "alien" },
+    "telescope": { "hi": "दूरबीन", "translit": "doorbeen", "en": "telescope", "picture": "telescope" },
+    "octopus": { "hi": "ऑक्टोपस", "translit": "octopus", "en": "octopus", "picture": "octopus" },
+    "crab": { "hi": "केकड़ा", "translit": "kekda", "en": "crab", "picture": "crab" },
+    "turtle": { "hi": "समुद्री कछुआ", "translit": "samudri kachhua", "en": "sea turtle", "picture": "turtle" },
+    "whale": { "hi": "व्हेल", "translit": "whale", "en": "whale", "picture": "whale" },
+    "dolphin": { "hi": "डॉल्फ़िन", "translit": "dolphin", "en": "dolphin", "picture": "dolphin" },
+    "starfish": { "hi": "तारा मछली", "translit": "taara machhli", "en": "starfish", "picture": "starfish" },
+    "jellyfish": { "hi": "जेलीफ़िश", "translit": "jellyfish", "en": "jellyfish", "picture": "jellyfish" },
+    "seahorse": { "hi": "समुद्री घोड़ा", "translit": "samudri ghoda", "en": "seahorse", "picture": "seahorse" },
+    "shark": { "hi": "शार्क", "translit": "shark", "en": "shark", "picture": "shark" },
+    "shell": { "hi": "सीप", "translit": "seep", "en": "shell", "picture": "shell" },
+    "lighthouse": { "hi": "प्रकाश स्तंभ", "translit": "prakaash stambh", "en": "lighthouse", "picture": "lighthouse" },
+    "penguin": { "hi": "पेंगुइन", "translit": "penguin", "en": "penguin", "picture": "penguin" },
+    "seal": { "hi": "सील", "translit": "seal", "en": "seal", "picture": "seal" },
+    "polarbear": { "hi": "ध्रुवीय भालू", "translit": "dhruveey bhaalu", "en": "polar bear", "picture": "polarbear" },
+    "igloo": { "hi": "इग्लू", "translit": "igloo", "en": "igloo", "picture": "igloo" },
+    "snowman": { "hi": "बर्फ़ का पुतला", "translit": "barf ka putla", "en": "snowman", "picture": "snowman" },
+    "sled": { "hi": "स्लेज", "translit": "slej", "en": "sled", "picture": "sled" },
+    "snowflake": { "hi": "बर्फ़ का फाहा", "translit": "barf ka phaaha", "en": "snowflake", "picture": "snowflake" },
+    "mother": { "hi": "माँ", "translit": "maa", "en": "mother", "picture": "mother", "level": "grade1", "syllables": ["माँ"] },
+    "father": { "hi": "पिता", "translit": "pita", "en": "father", "picture": "father", "level": "grade1", "syllables": ["पि", "ता"] },
+    "grandfather": { "hi": "दादा", "translit": "daada", "en": "grandfather", "picture": "grandfather", "level": "grade1", "syllables": ["दा", "दा"] },
+    "grandmother": { "hi": "दादी", "translit": "daadi", "en": "grandmother", "picture": "grandmother", "level": "grade1", "syllables": ["दा", "दी"] },
+    "brother": { "hi": "भाई", "translit": "bhaai", "en": "brother", "picture": "boy", "level": "grade1", "syllables": ["भा", "ई"] },
+    "sister": { "hi": "दीदी", "translit": "didi", "en": "big sister", "picture": "girl", "level": "grade1", "syllables": ["दी", "दी"] },
+    "boy": { "hi": "लड़का", "translit": "ladka", "en": "boy", "picture": "boy", "level": "grade1", "syllables": ["ल", "ड़", "का"] },
+    "girl": { "hi": "लड़की", "translit": "ladki", "en": "girl", "picture": "girl", "level": "grade1", "syllables": ["ल", "ड़", "की"] },
+    "king": { "hi": "राजा", "translit": "raaja", "en": "king", "picture": "king", "level": "grade1", "syllables": ["रा", "जा"] },
+    "farmer": { "hi": "किसान", "translit": "kisaan", "en": "farmer", "picture": "farmer", "level": "grade1", "syllables": ["कि", "सा", "न"] },
+    "thief": { "hi": "चोर", "translit": "chor", "en": "thief", "picture": "thief", "level": "grade1", "syllables": ["चो", "र"] },
+    "woodcutter": { "hi": "लकड़हारा", "translit": "lakadhaara", "en": "woodcutter", "picture": "woodcutter" },
+    "capseller": { "hi": "टोपीवाला", "translit": "topiwaala", "en": "cap seller", "picture": "capseller" },
+    "minister": { "hi": "मंत्री", "translit": "mantri", "en": "minister", "picture": "minister" },
+    "roti": { "hi": "रोटी", "translit": "roti", "en": "roti", "picture": "roti", "level": "grade1", "syllables": ["रो", "टी"] },
+    "rice": { "hi": "चावल", "translit": "chaawal", "en": "rice", "picture": "rice", "level": "grade1", "syllables": ["चा", "व", "ल"] },
+    "milk": { "hi": "दूध", "translit": "doodh", "en": "milk", "picture": "milk", "level": "grade1", "syllables": ["दू", "ध"] },
+    "kheer": { "hi": "खीर", "translit": "kheer", "en": "kheer", "picture": "kheer", "level": "grade1", "syllables": ["खी", "र"] },
+    "corn": { "hi": "भुट्टा", "translit": "bhutta", "en": "corn", "picture": "corn", "level": "grade2", "syllables": ["भु", "ट्टा"] },
+    "laddoo": { "hi": "लड्डू", "translit": "laddoo", "en": "laddoo", "picture": "laddoo", "level": "grade2", "syllables": ["ल", "ड्डू"] },
+    "door": { "hi": "दरवाज़ा", "translit": "darwaaza", "en": "door", "picture": "door" },
+    "window": { "hi": "खिड़की", "translit": "khidki", "en": "window", "picture": "window", "level": "grade1", "syllables": ["खि", "ड़", "की"] },
+    "bed": { "hi": "बिस्तर", "translit": "bistar", "en": "bed", "picture": "bed", "level": "grade2", "syllables": ["बि", "स्त", "र"] },
+    "chair": { "hi": "कुर्सी", "translit": "kursi", "en": "chair", "picture": "chair", "level": "grade2", "syllables": ["कु", "र्सी"] },
+    "clock": { "hi": "घड़ी", "translit": "ghadi", "en": "clock", "picture": "clock", "level": "grade1", "syllables": ["घ", "ड़ी"] },
+    "tumbler": { "hi": "गिलास", "translit": "gilaas", "en": "glass", "picture": "tumbler", "level": "grade1", "syllables": ["गि", "ला", "स"] },
+    "fair": { "hi": "मेला", "translit": "mela", "en": "fair", "picture": "ferris", "level": "grade1", "syllables": ["मे", "ला"] },
+    "cloud": { "hi": "बादल", "translit": "baadal", "en": "cloud", "picture": "cloud", "level": "grade1", "syllables": ["बा", "द", "ल"] },
+    "rain": { "hi": "बारिश", "translit": "baarish", "en": "rain", "picture": "raincloud", "level": "grade1", "syllables": ["बा", "रि", "श"] },
+    "flag": { "hi": "झंडा", "translit": "jhanda", "en": "flag", "picture": "flag", "level": "grade1", "syllables": ["झं", "डा"] },
+    "rangoli": { "hi": "रंगोली", "translit": "rangoli", "en": "rangoli", "picture": "rangoli", "level": "grade1", "syllables": ["रं", "गो", "ली"] },
+    "swan": { "hi": "हंस", "translit": "hans", "en": "swan", "picture": "swan", "level": "grade1", "syllables": ["हं", "स"] },
+    "dove": { "hi": "कबूतर", "translit": "kabootar", "en": "pigeon", "picture": "dove", "level": "grade1", "syllables": ["क", "बू", "त", "र"] },
+    "ant": { "hi": "चींटी", "translit": "cheenti", "en": "ant", "picture": "ant", "level": "grade1", "syllables": ["चीं", "टी"] },
+    "bone": { "hi": "हड्डी", "translit": "haddi", "en": "bone", "picture": "bone", "level": "grade2", "syllables": ["ह", "ड्डी"] },
+    "well": { "hi": "कुआँ", "translit": "kuaan", "en": "well", "picture": "well", "level": "grade1", "syllables": ["कु", "आँ"] },
+    "net": { "hi": "जाल", "translit": "jaal", "en": "net", "picture": "net", "level": "grade1", "syllables": ["जा", "ल"] },
+    "bell": { "hi": "घंटी", "translit": "ghanti", "en": "bell", "picture": "bell", "level": "grade1", "syllables": ["घं", "टी"] },
+    "sticks": { "hi": "लकड़ियाँ", "translit": "lakdiyaan", "en": "sticks", "picture": "sticks" },
+    "axe": { "hi": "कुल्हाड़ी", "translit": "kulhaadi", "en": "axe", "picture": "axe" },
+    "goldenaxe": { "hi": "सोने की कुल्हाड़ी", "translit": "sone ki kulhaadi", "en": "golden axe", "picture": "goldenaxe" },
+    "coins": { "hi": "सिक्के", "translit": "sikke", "en": "coins", "picture": "coins" },
+    "goldenegg": { "hi": "सोने का अंडा", "translit": "sone ka anda", "en": "golden egg", "picture": "goldenegg" },
+    "cave": { "hi": "गुफा", "translit": "gufa", "en": "cave", "picture": "cave", "level": "grade1", "syllables": ["गु", "फा"] },
+    "snail": { "hi": "घोंघा", "translit": "ghongha", "en": "snail", "picture": "snail", "level": "grade1", "syllables": ["घों", "घा"] },
+    "bird": { "hi": "चिड़िया", "translit": "chidiya", "en": "bird", "picture": "bird", "level": "grade1", "syllables": ["चि", "ड़ि", "या"] },
+    "jackal": { "hi": "सियार", "translit": "siyaar", "en": "jackal", "picture": "jackal", "level": "grade1", "syllables": ["सि", "या", "र"] },
+    "bluejackal": { "hi": "नीला सियार", "translit": "neela siyaar", "en": "blue jackal", "picture": "bluejackal" },
+    "cookingpot": { "hi": "हाँडी", "translit": "haandi", "en": "cooking pot", "picture": "cookingpot", "level": "grade1", "syllables": ["हाँ", "डी"] },
+    "field": { "hi": "खेत", "translit": "khet", "en": "field", "picture": "field", "level": "grade1", "syllables": ["खे", "त"] },
+    "ferris": { "hi": "झूला", "translit": "jhoola", "en": "big wheel", "picture": "ferris" }
   },
-  "vehicles": [
-    { "id": "bus", "unlockedByDefault": true },
-    { "id": "car", "unlockedByDefault": true },
-    { "id": "digger" },
-    { "id": "dumptruck" },
-    { "id": "firetruck" },
-    { "id": "crane" },
-    { "id": "ambulance" },
-    { "id": "policecar" },
-    { "id": "tractor" },
-    { "id": "mixer" },
-    { "id": "train" },
-    { "id": "bulldozer" },
-    { "id": "garbagetruck" },
-    { "id": "plane" },
-    { "id": "helicopter" },
-    { "id": "boat" },
-    { "id": "auto" },
-    { "id": "scooter" },
-    { "id": "bicycle" },
-    { "id": "motorbike" },
-    { "id": "truck" },
-    { "id": "ship" },
-    { "id": "rocket" },
-    { "id": "submarine" },
-    { "id": "postvan" },
-    { "id": "metro" },
-    { "id": "icecreamvan" },
-    { "id": "bookbus" }
-  ],
-  "places": [
-    { "id": "construction", "word": "place-construction", "game": "construction", "color": "#ffb300" },
-    { "id": "busdepot", "word": "place-busdepot", "game": "busdepot", "color": "#fdd835" },
-    { "id": "fire", "word": "place-fire", "game": "rescue", "color": "#e53935", "options": { "vehicle": "firetruck" } },
-    { "id": "police", "word": "place-police", "game": "rescue", "color": "#1e88e5", "options": { "vehicle": "policecar" } },
-    { "id": "hospital", "word": "place-hospital", "game": "rescue", "color": "#26a69a", "options": { "vehicle": "ambulance" } },
-    { "id": "farm", "word": "place-farm", "game": "farm", "color": "#7cb342" },
-    { "id": "railway", "word": "place-railway", "game": "railway", "color": "#8d6e63" },
-    { "id": "recycling", "word": "place-recycling", "game": "recycling", "color": "#43a047" },
-    { "id": "airport", "word": "place-airport", "game": "opposites", "color": "#29b6f6" },
-    { "id": "trace", "word": "place-trace", "game": "trace", "color": "#ff7043" },
-    { "id": "matra", "word": "place-matra", "game": "matra", "color": "#6C63FF", "langs": ["hi"] },
-    { "id": "postoffice", "word": "place-postoffice", "game": "read", "color": "#FF5A5F" },
-    { "id": "metro", "word": "place-metro", "game": "sentence", "color": "#3D7BFF" },
-    { "id": "icecream", "word": "place-icecream", "game": "rhyme", "color": "#38BDF8" },
-    { "id": "library", "word": "place-library", "game": "story", "color": "#A66BFF" },
-    { "id": "parking", "word": "place-parking", "game": "pairs", "color": "#64748B" }
-  ],
   "sentences": [
     { "id": "bus-here", "about": "bus", "hi": "बस आई!", "translit": "bas aai", "en": "The bus is here!", "level": "grade2" },
     { "id": "car-fast", "about": "car", "hi": "कार तेज़ चलती है", "translit": "kaar tez chalti hai", "en": "The car goes fast.", "level": "grade2" },
@@ -389,6 +440,46 @@
       "hi": "प्यासे कौए ने घड़े में कंकड़ डाले।",
       "translit": "pyaase kaue ne ghade mein kankad daale",
       "en": "The thirsty crow dropped pebbles into the pot."
+    },
+    {
+      "id": "waves",
+      "level": "grade4",
+      "about": "ship",
+      "hi": "समुद्र में बड़ी-बड़ी लहरें उठती हैं।",
+      "translit": "samudra mein badi-badi lahren uthti hain",
+      "en": "Big waves rise in the sea."
+    },
+    {
+      "id": "fishers",
+      "level": "grade4",
+      "about": "boat",
+      "hi": "मछुआरे सुबह जल्दी नाव लेकर निकलते हैं।",
+      "translit": "machhuaare subah jaldi naav lekar nikalte hain",
+      "en": "Fishers set out early in the morning in their boats."
+    },
+    {
+      "id": "stars-night",
+      "level": "grade4",
+      "about": "moon",
+      "hi": "रात को आसमान में अनगिनत तारे चमकते हैं।",
+      "translit": "raat ko aasmaan mein anginat taare chamakte hain",
+      "en": "At night countless stars shine in the sky."
+    },
+    {
+      "id": "save-water",
+      "level": "grade4",
+      "about": "water",
+      "hi": "हमें पानी बर्बाद नहीं करना चाहिए।",
+      "translit": "hamen paani barbaad nahin karna chaahiye",
+      "en": "We should not waste water."
+    },
+    {
+      "id": "snail-garden",
+      "level": "grade4",
+      "about": "snail",
+      "hi": "बगीचे में घोंघा धीरे-धीरे चलता है।",
+      "translit": "bagiche mein ghongha dheere-dheere chalta hai",
+      "en": "The snail moves slowly in the garden."
     }
   ],
   "numbers": [
@@ -530,7 +621,7 @@
         { "a": "big", "b": "small", "kind": "size", "vehicle": "ship" }
       ]
     },
-    "trace": { "letters": 4, "threshold": 0.6 },
+    "trace": { "count": 4, "threshold": 0.6 },
     "matra": {
       "rounds": 6,
       "consonants": ["क", "ग", "ज", "त", "द", "न", "प", "ब", "म", "र", "ल", "स"],
@@ -563,7 +654,11 @@
         "plural": [["banana", "bananas"], ["leaf", "leaves"], ["balloon", "balloons"], ["shoe", "shoes"], ["book", "books"], ["horse", "horses"], ["kite", "kites"]],
         "female": [["lion", "lioness"], ["peacock", "peahen"], ["rooster", "hen"]]
       }
-    }
+    },
+    "firstsound": { "rounds": 5 },
+    "quiz": { "rounds": 5 },
+    "sort": { "rounds": 8 },
+    "math": { "rounds": 6, "choices": [3, 3, 4] }
   },
   "matras": [
     { "id": "aa", "sign": "ा", "vowel": "आ", "translit": "aa" },
@@ -598,6 +693,108 @@
       ]
     },
     {
+      "id": "chiku-banana",
+      "level": "grade1",
+      "title": { "hi": "चीकू और केला", "en": "Chiku and the banana" },
+      "cover": "monkey",
+      "pages": [
+        { "word": "monkey", "hi": "यह चीकू है। चीकू एक बंदर है।", "en": "This is Chiku. Chiku is a monkey." },
+        { "word": "banana", "hi": "पेड़ पर एक पीला केला है।", "en": "There is a yellow banana on the tree." },
+        { "word": "monkey", "hi": "चीकू कूदा, पर केला बहुत ऊपर था।", "en": "Chiku jumped, but the banana was too high." },
+        { "word": "elephant", "hi": "हाथी आया। उसने सूँड़ से केला तोड़ा।", "en": "Elephant came. He picked the banana with his trunk." },
+        { "word": "heart", "hi": "चीकू और हाथी ने केला बाँटकर खाया।", "en": "Chiku and Elephant shared the banana." }
+      ],
+      "questions": [
+        { "hi": "पेड़ पर क्या था?", "en": "What was on the tree?", "answer": "banana", "options": ["banana", "apple", "mango"] },
+        { "hi": "केला किसने तोड़ा?", "en": "Who picked the banana?", "answer": "elephant", "options": ["elephant", "lion", "dog"] }
+      ]
+    },
+    {
+      "id": "peacock-dance",
+      "level": "grade1",
+      "title": { "hi": "मोर का नाच", "en": "The peacock's dance" },
+      "cover": "peacock",
+      "pages": [
+        { "word": "cloud", "hi": "आसमान में काले बादल आए।", "en": "Dark clouds came into the sky." },
+        { "word": "rain", "hi": "टप टप बारिश होने लगी।", "en": "Pitter-patter, it began to rain." },
+        { "word": "peacock", "hi": "मोर ने अपने रंग-बिरंगे पंख खोले।", "en": "The peacock opened its colourful feathers." },
+        { "word": "peacock", "hi": "मोर छम छम नाचने लगा।", "en": "The peacock began to dance." },
+        { "word": "girl", "hi": "सब बच्चे ताली बजाने लगे।", "en": "All the children clapped." }
+      ],
+      "questions": [
+        { "hi": "बारिश से पहले आसमान में क्या आया?", "en": "What came into the sky before the rain?", "answer": "cloud", "options": ["cloud", "sun", "kite"] },
+        { "hi": "कौन नाचा?", "en": "Who danced?", "answer": "peacock", "options": ["peacock", "cow", "crow"] }
+      ]
+    },
+    {
+      "id": "little-ant",
+      "level": "grade1",
+      "title": { "hi": "छोटी चींटी", "en": "The little ant" },
+      "cover": "ant",
+      "pages": [
+        { "word": "ant", "hi": "एक छोटी चींटी थी।", "en": "There was a little ant." },
+        { "word": "rice", "hi": "उसे चावल का एक दाना मिला।", "en": "She found a grain of rice." },
+        { "word": "ant", "hi": "दाना भारी था। चींटी थक गई।", "en": "The grain was heavy. The ant got tired." },
+        { "word": "ant", "hi": "उसकी सहेलियाँ आईं। सबने मिलकर दाना उठाया।", "en": "Her friends came. Together they lifted the grain." },
+        { "word": "house", "hi": "दाना घर पहुँच गया। मिलकर काम आसान है!", "en": "The grain got home. Working together is easy!" }
+      ],
+      "questions": [
+        { "hi": "चींटी को क्या मिला?", "en": "What did the ant find?", "answer": "rice", "options": ["rice", "roti", "apple"] },
+        { "hi": "कहानी में कौन था?", "en": "Who was in the story?", "answer": "ant", "options": ["ant", "fly", "butterfly"] }
+      ]
+    },
+    {
+      "id": "mouse-cat",
+      "level": "grade1",
+      "title": { "hi": "चूहा और बिल्ली", "en": "The mouse and the cat" },
+      "cover": "mouse",
+      "pages": [
+        { "word": "mouse", "hi": "एक छोटा चूहा था।", "en": "There was a little mouse." },
+        { "word": "roti", "hi": "उसे रोटी का एक टुकड़ा दिखा।", "en": "He saw a piece of roti." },
+        { "word": "cat", "hi": "तभी म्याऊँ करती बिल्ली आई!", "en": "Just then a cat came — meow!" },
+        { "word": "mouse", "hi": "चूहा भागा और अपने बिल में छिप गया।", "en": "The mouse ran and hid in his hole." },
+        { "word": "cat", "hi": "बिल्ली देखती रह गई। चूहा बच गया!", "en": "The cat just stared. The mouse was safe!" }
+      ],
+      "questions": [
+        { "hi": "चूहे को क्या दिखा?", "en": "What did the mouse see?", "answer": "roti", "options": ["roti", "milk", "mango"] },
+        { "hi": "कौन आया?", "en": "Who came?", "answer": "cat", "options": ["cat", "dog", "cow"] }
+      ]
+    },
+    {
+      "id": "kite-day",
+      "level": "grade1",
+      "title": { "hi": "पतंग उड़ी", "en": "Up goes the kite" },
+      "cover": "kite",
+      "pages": [
+        { "word": "sun", "hi": "आज धूप खिली है।", "en": "Today the sun is shining." },
+        { "word": "sister", "hi": "दीदी लाल पतंग लाई।", "en": "Big sister brought a red kite." },
+        { "word": "kite", "hi": "हवा चली, पतंग ऊपर उड़ी।", "en": "The wind blew, and the kite flew up." },
+        { "word": "bird", "hi": "पतंग चिड़ियों के पास पहुँच गई।", "en": "The kite reached the birds." },
+        { "word": "brother", "hi": "भाई बोला, \"वाह! कितनी ऊँची!\"", "en": "Brother said, \"Wow! So high!\"" }
+      ],
+      "questions": [
+        { "hi": "पतंग कौन लाया?", "en": "Who brought the kite?", "answer": "sister", "options": ["sister", "mother", "grandfather"] },
+        { "hi": "पतंग कहाँ गई?", "en": "Where did the kite go?", "answer": "up", "options": ["up", "down"] }
+      ]
+    },
+    {
+      "id": "dadi-kheer",
+      "level": "grade1",
+      "title": { "hi": "दादी की खीर", "en": "Grandma's kheer" },
+      "cover": "grandmother",
+      "pages": [
+        { "word": "grandmother", "hi": "आज दादी खीर बना रही हैं।", "en": "Today Grandma is making kheer." },
+        { "word": "milk", "hi": "दादी ने दूध उबाला।", "en": "Grandma boiled the milk." },
+        { "word": "rice", "hi": "फिर उसमें चावल और चीनी डाली।", "en": "Then she added rice and sugar." },
+        { "word": "kheer", "hi": "खीर की मीठी खुशबू आई।", "en": "A sweet smell came from the kheer." },
+        { "word": "boy", "hi": "सबने मिलकर खीर खाई। वाह, कितनी मीठी!", "en": "Everyone ate kheer together. So sweet!" }
+      ],
+      "questions": [
+        { "hi": "खीर कौन बना रहा था?", "en": "Who was making the kheer?", "answer": "grandmother", "options": ["grandmother", "father", "boy"] },
+        { "hi": "खीर में क्या डाला?", "en": "What went into the kheer?", "answer": "rice", "options": ["rice", "carrot", "potato"] }
+      ]
+    },
+    {
       "id": "bear-bicycle",
       "level": "grade2",
       "title": { "hi": "भालू की साइकिल", "en": "Bear's bicycle" },
@@ -614,6 +811,164 @@
         { "hi": "भालू के पास क्या है?", "en": "What does Bear have?", "answer": "bicycle", "options": ["bicycle", "car", "boat"] },
         { "hi": "रास्ते में भालू को कौन मिला?", "en": "Who did Bear meet on the way?", "answer": "monkey", "options": ["monkey", "cow", "lion"] },
         { "hi": "भालू ने बंदर को क्या दिया?", "en": "What did Bear give Monkey?", "answer": "banana", "options": ["banana", "apple", "grapes"] }
+      ]
+    },
+    {
+      "id": "thirsty-crow",
+      "level": "grade2",
+      "title": { "hi": "प्यासा कौआ", "en": "The thirsty crow" },
+      "cover": "crow",
+      "pages": [
+        { "word": "sun", "hi": "गरमी का दिन था। एक कौआ बहुत प्यासा था।", "en": "It was a hot day. A crow was very thirsty." },
+        { "word": "pot", "hi": "उसने एक घड़ा देखा। घड़े में थोड़ा-सा पानी था।", "en": "He saw a clay pot. There was a little water in it." },
+        { "word": "crow", "hi": "कौए की चोंच पानी तक नहीं पहुँची।", "en": "The crow's beak could not reach the water." },
+        { "word": "stones", "hi": "उसने कंकड़ उठाए और घड़े में डाले।", "en": "He picked up pebbles and dropped them into the pot." },
+        { "word": "up", "hi": "पानी ऊपर आ गया।", "en": "The water came up." },
+        { "word": "crow", "hi": "कौए ने पानी पिया और खुशी से उड़ गया।", "en": "The crow drank the water and flew away happily." }
+      ],
+      "questions": [
+        { "hi": "कौए ने क्या देखा?", "en": "What did the crow see?", "answer": "pot", "options": ["pot", "cup", "bottle"] },
+        { "hi": "कौए ने घड़े में क्या डाला?", "en": "What did the crow drop into the pot?", "answer": "stones", "options": ["stones", "flower", "mango"] },
+        { "hi": "पानी कहाँ आया?", "en": "Where did the water go?", "answer": "up", "options": ["up", "down"] }
+      ]
+    },
+    {
+      "id": "lion-mouse",
+      "level": "grade2",
+      "title": { "hi": "शेर और चूहा", "en": "The lion and the mouse" },
+      "cover": "lion",
+      "pages": [
+        { "word": "lion", "hi": "जंगल में एक शेर पेड़ के नीचे सो रहा था।", "en": "A lion was sleeping under a tree in the jungle." },
+        { "word": "mouse", "hi": "एक चूहा उसके ऊपर उछलने-कूदने लगा।", "en": "A mouse began jumping about on him." },
+        { "word": "lion", "hi": "शेर जाग गया और उसने चूहे को पकड़ लिया।", "en": "The lion woke up and caught the mouse." },
+        {
+          "word": "mouse",
+          "hi": "चूहा बोला, \"मुझे छोड़ दो, मैं कभी तुम्हारी मदद करूँगा।\"",
+          "en": "The mouse said, \"Let me go, and one day I will help you.\""
+        },
+        { "word": "lion", "hi": "शेर हँसा और उसने चूहे को छोड़ दिया।", "en": "The lion laughed and let the mouse go." },
+        { "word": "net", "hi": "एक दिन शेर शिकारी के जाल में फँस गया।", "en": "One day the lion was caught in a hunter's net." },
+        { "word": "mouse", "hi": "चूहे ने अपने दाँतों से जाल काट दिया। शेर आज़ाद हो गया!", "en": "The mouse cut the net with his teeth. The lion was free!" }
+      ],
+      "questions": [
+        { "hi": "शेर कहाँ फँस गया?", "en": "What was the lion caught in?", "answer": "net", "options": ["net", "well", "cave"] },
+        { "hi": "शेर को किसने बचाया?", "en": "Who saved the lion?", "answer": "mouse", "options": ["mouse", "cat", "monkey"] }
+      ],
+      "moral": { "hi": "छोटे दोस्त भी बड़ी मदद कर सकते हैं।", "en": "Even small friends can be a big help." }
+    },
+    {
+      "id": "tortoise-hare",
+      "level": "grade2",
+      "title": { "hi": "कछुआ और खरगोश", "en": "The tortoise and the hare" },
+      "cover": "tortoise",
+      "pages": [
+        { "word": "rabbit", "hi": "खरगोश को अपनी तेज़ चाल पर बहुत घमंड था।", "en": "The hare was very proud of how fast he was." },
+        { "word": "tortoise", "hi": "एक दिन कछुए ने कहा, \"चलो, दौड़ लगाते हैं।\"", "en": "One day the tortoise said, \"Let's have a race.\"" },
+        { "word": "rabbit", "hi": "दौड़ शुरू हुई। खरगोश बहुत आगे निकल गया।", "en": "The race began. The hare ran far ahead." },
+        {
+          "word": "tree",
+          "hi": "उसने सोचा, \"थोड़ा आराम कर लूँ।\" और वह पेड़ के नीचे सो गया।",
+          "en": "He thought, \"I'll rest a little,\" and fell asleep under a tree."
+        },
+        { "word": "tortoise", "hi": "कछुआ धीरे-धीरे चलता रहा, बिना रुके।", "en": "The tortoise kept walking slowly, without stopping." },
+        { "word": "tortoise", "hi": "जब खरगोश जागा, कछुआ जीत चुका था!", "en": "When the hare woke up, the tortoise had already won!" }
+      ],
+      "questions": [
+        { "hi": "दौड़ में कौन सो गया?", "en": "Who fell asleep in the race?", "answer": "rabbit", "options": ["rabbit", "tortoise", "lion"] },
+        { "hi": "दौड़ किसने जीती?", "en": "Who won the race?", "answer": "tortoise", "options": ["tortoise", "rabbit", "deer"] }
+      ],
+      "moral": { "hi": "धीरे-धीरे पर लगातार चलने वाला जीतता है।", "en": "Slow and steady wins the race." }
+    },
+    {
+      "id": "greedy-dog",
+      "level": "grade2",
+      "title": { "hi": "लालची कुत्ता", "en": "The greedy dog" },
+      "cover": "dog",
+      "pages": [
+        { "word": "dog", "hi": "एक कुत्ते को एक हड्डी मिली।", "en": "A dog found a bone." },
+        { "word": "bridge", "hi": "वह हड्डी लेकर पुल पर से जा रहा था।", "en": "He was crossing a bridge with the bone." },
+        { "word": "water", "hi": "पानी में उसे अपनी परछाईं दिखी।", "en": "He saw his reflection in the water." },
+        { "word": "dog", "hi": "उसने सोचा, वहाँ दूसरा कुत्ता है जिसके पास बड़ी हड्डी है।", "en": "He thought it was another dog with a bigger bone." },
+        { "word": "dog", "hi": "वह उसकी हड्डी छीनने के लिए भौंका, भौं भौं!", "en": "He barked to grab that bone — woof!" },
+        { "word": "bone", "hi": "उसकी अपनी हड्डी पानी में गिर गई।", "en": "His own bone fell into the water." }
+      ],
+      "questions": [
+        { "hi": "कुत्ते को क्या मिला?", "en": "What did the dog find?", "answer": "bone", "options": ["bone", "roti", "apple"] },
+        { "hi": "हड्डी कहाँ गिरी?", "en": "Where did the bone fall?", "answer": "water", "options": ["water", "tree", "house"] }
+      ],
+      "moral": { "hi": "लालच बुरी बला है।", "en": "Greed leads to loss." }
+    },
+    {
+      "id": "ant-dove",
+      "level": "grade2",
+      "title": { "hi": "चींटी और कबूतर", "en": "The ant and the pigeon" },
+      "cover": "dove",
+      "pages": [
+        { "word": "ant", "hi": "एक चींटी पानी पीने नदी पर गई।", "en": "An ant went to the river to drink." },
+        { "word": "river", "hi": "वह फिसलकर पानी में गिर गई।", "en": "She slipped and fell into the water." },
+        { "word": "dove", "hi": "पेड़ पर बैठे कबूतर ने उसे देखा।", "en": "A pigeon sitting in a tree saw her." },
+        {
+          "word": "leaf",
+          "hi": "कबूतर ने एक पत्ता पानी में गिराया। चींटी पत्ते पर चढ़ गई।",
+          "en": "The pigeon dropped a leaf into the water. The ant climbed onto it."
+        },
+        { "word": "arrow", "hi": "कुछ दिन बाद एक शिकारी कबूतर पर निशाना लगा रहा था।", "en": "Some days later a hunter was aiming at the pigeon." },
+        { "word": "foot", "hi": "चींटी ने शिकारी के पैर में काट लिया। कबूतर उड़ गया!", "en": "The ant bit the hunter's foot. The pigeon flew away!" }
+      ],
+      "questions": [
+        { "hi": "चींटी को किसने बचाया?", "en": "Who saved the ant?", "answer": "dove", "options": ["dove", "crow", "parrot"] },
+        { "hi": "कबूतर ने पानी में क्या गिराया?", "en": "What did the pigeon drop into the water?", "answer": "leaf", "options": ["leaf", "stones", "flower"] }
+      ],
+      "moral": { "hi": "भलाई का बदला भलाई।", "en": "One good turn deserves another." }
+    },
+    {
+      "id": "capseller",
+      "level": "grade2",
+      "title": { "hi": "टोपीवाला और बंदर", "en": "The cap seller and the monkeys" },
+      "cover": "capseller",
+      "pages": [
+        { "word": "capseller", "hi": "एक टोपीवाला गाँव-गाँव टोपियाँ बेचता था।", "en": "A cap seller sold caps from village to village." },
+        { "word": "tree", "hi": "एक दिन वह पेड़ के नीचे सो गया।", "en": "One day he fell asleep under a tree." },
+        { "word": "monkey", "hi": "पेड़ पर बहुत सारे बंदर थे। वे सारी टोपियाँ ले गए!", "en": "Many monkeys lived in the tree. They took all the caps!" },
+        { "word": "cap", "hi": "टोपीवाला जागा तो बंदरों ने टोपियाँ पहन रखी थीं।", "en": "When he woke up, the monkeys were wearing the caps." },
+        {
+          "word": "capseller",
+          "hi": "उसने अपनी टोपी फेंकी। बंदरों ने भी नकल करके टोपियाँ फेंक दीं!",
+          "en": "He threw down his cap. The monkeys copied him and threw theirs down too!"
+        },
+        { "word": "cap", "hi": "टोपीवाले ने सारी टोपियाँ उठाईं और खुशी से घर गया।", "en": "He picked up all the caps and went home happily." }
+      ],
+      "questions": [
+        { "hi": "टोपियाँ कौन ले गया?", "en": "Who took the caps?", "answer": "monkey", "options": ["monkey", "dog", "crow"] },
+        { "hi": "टोपीवाले ने क्या फेंका?", "en": "What did the cap seller throw?", "answer": "cap", "options": ["cap", "shoe", "bag"] }
+      ],
+      "moral": { "hi": "सूझ-बूझ से काम बन जाता है।", "en": "A little thinking solves the problem." }
+    },
+    {
+      "id": "dumdum-egg",
+      "level": "grade2",
+      "title": { "hi": "डमडम का अंडा", "en": "Dumdum's egg" },
+      "cover": "dinoegg",
+      "pages": [
+        { "word": "trex", "hi": "डायनो घाटी में डमडम नाम का छोटा डायनासोर रहता था।", "en": "A little dinosaur called Dumdum lived in Dino Valley." },
+        { "word": "dinoegg", "hi": "एक दिन उसे घास में एक बड़ा अंडा मिला।", "en": "One day he found a big egg in the grass." },
+        { "word": "trex", "hi": "डमडम ने पूछा, \"यह अंडा किसका है?\"", "en": "Dumdum asked, \"Whose egg is this?\"" },
+        { "word": "pterodactyl", "hi": "उड़ने वाले डायनासोर ने कहा, \"मेरा नहीं।\"", "en": "The flying dinosaur said, \"Not mine.\"" },
+        { "word": "triceratops", "hi": "सींग वाले डायनासोर ने कहा, \"मेरा भी नहीं।\"", "en": "The horned dinosaur said, \"Not mine either.\"" },
+        {
+          "word": "dinoegg",
+          "hi": "तभी अंडा टूटा, टक टक! अंदर से एक नन्हा डायनासोर निकला!",
+          "en": "Then the egg cracked — tap tap! A tiny dinosaur came out!"
+        },
+        {
+          "word": "heart",
+          "hi": "नन्हे ने डमडम को देखा और बोला, \"दोस्त!\" डमडम बहुत खुश हुआ।",
+          "en": "The little one saw Dumdum and said, \"Friend!\" Dumdum was very happy."
+        }
+      ],
+      "questions": [
+        { "hi": "डमडम को क्या मिला?", "en": "What did Dumdum find?", "answer": "dinoegg", "options": ["dinoegg", "stones", "apple"] },
+        { "hi": "अंडे से कौन निकला?", "en": "Who came out of the egg?", "answer": "trex", "options": ["trex", "chick", "fish"] }
       ]
     },
     {
@@ -636,102 +991,2505 @@
       ]
     },
     {
-      "id": "thirsty-crow",
+      "id": "monkey-crocodile",
       "level": "grade3",
-      "title": { "hi": "प्यासा कौआ", "en": "The thirsty crow" },
-      "cover": "crow",
+      "title": { "hi": "बंदर और मगरमच्छ", "en": "The monkey and the crocodile" },
+      "cover": "crocodile",
       "pages": [
-        { "word": "sun", "hi": "गरमी का दिन था। एक कौआ बहुत प्यासा था।", "en": "It was a hot day. A crow was very thirsty." },
-        { "word": "pot", "hi": "उसने एक घड़ा देखा। घड़े में थोड़ा-सा पानी था।", "en": "He saw a clay pot. There was a little water in it." },
-        { "word": "crow", "hi": "कौए की चोंच पानी तक नहीं पहुँची।", "en": "The crow's beak could not reach the water." },
-        { "word": "stones", "hi": "उसने कंकड़ उठाए और घड़े में डाले।", "en": "He picked up pebbles and dropped them into the pot." },
-        { "word": "up", "hi": "पानी ऊपर आ गया।", "en": "The water came up." },
-        { "word": "crow", "hi": "कौए ने पानी पिया और खुशी से उड़ गया।", "en": "The crow drank the water and flew away happily." }
+        { "word": "tree", "hi": "नदी किनारे जामुन के पेड़ पर एक बंदर रहता था।", "en": "A monkey lived in a jamun tree by the river." },
+        {
+          "word": "crocodile",
+          "hi": "एक मगरमच्छ उसका दोस्त बन गया। बंदर उसे रोज़ मीठे जामुन देता था।",
+          "en": "A crocodile became his friend. The monkey gave him sweet jamuns every day."
+        },
+        {
+          "word": "crocodile",
+          "hi": "मगरमच्छ की पत्नी बोली, \"मुझे बंदर का दिल खाना है।\"",
+          "en": "The crocodile's wife said, \"I want to eat the monkey's heart.\""
+        },
+        { "word": "river", "hi": "मगरमच्छ बंदर को अपनी पीठ पर बिठाकर नदी में ले चला।", "en": "The crocodile carried the monkey on his back into the river." },
+        {
+          "word": "monkey",
+          "hi": "बीच नदी में उसने सच बता दिया। बंदर डर गया, पर उसने दिमाग़ लगाया।",
+          "en": "In the middle of the river he told the truth. The monkey was scared, but he thought fast."
+        },
+        {
+          "word": "heart",
+          "hi": "बंदर बोला, \"अरे! मेरा दिल तो पेड़ पर रखा है। चलो, ले आते हैं।\"",
+          "en": "The monkey said, \"Oh! My heart is kept up in the tree. Let's go back for it.\""
+        },
+        {
+          "word": "monkey",
+          "hi": "किनारे पहुँचते ही बंदर कूदकर पेड़ पर चढ़ गया और बच गया।",
+          "en": "As soon as they reached the bank, the monkey leapt up the tree and was safe."
+        }
       ],
       "questions": [
-        { "hi": "कौए ने क्या देखा?", "en": "What did the crow see?", "answer": "pot", "options": ["pot", "cup", "bottle"] },
-        { "hi": "कौए ने घड़े में क्या डाला?", "en": "What did the crow drop into the pot?", "answer": "stones", "options": ["stones", "flower", "mango"] },
-        { "hi": "पानी कहाँ आया?", "en": "Where did the water go?", "answer": "up", "options": ["up", "down"] }
+        { "hi": "बंदर कहाँ रहता था?", "en": "Where did the monkey live?", "answer": "tree", "options": ["tree", "cave", "house"] },
+        {
+          "hi": "बंदर कैसे बचा?",
+          "en": "How did the monkey escape?",
+          "text": true,
+          "answer": "अपनी चतुराई से",
+          "options": ["अपनी चतुराई से", "तेज़ दौड़कर", "सोकर"]
+        }
+      ],
+      "moral": { "hi": "मुसीबत में घबराओ नहीं, सूझ-बूझ से काम लो।", "en": "In trouble, don't panic: think clearly." }
+    },
+    {
+      "id": "clever-rabbit",
+      "level": "grade3",
+      "title": { "hi": "चतुर खरगोश और शेर", "en": "The clever rabbit and the lion" },
+      "cover": "rabbit",
+      "pages": [
+        { "word": "lion", "hi": "जंगल में एक घमंडी शेर सब जानवरों को डराता था।", "en": "In the jungle a proud lion frightened all the animals." },
+        {
+          "word": "deer",
+          "hi": "जानवरों ने तय किया कि रोज़ एक जानवर शेर के पास जाएगा।",
+          "en": "The animals agreed that each day one of them would go to the lion."
+        },
+        {
+          "word": "rabbit",
+          "hi": "एक दिन छोटे खरगोश की बारी आई। वह जान-बूझकर देर से पहुँचा।",
+          "en": "One day it was the little rabbit's turn. He arrived late on purpose."
+        },
+        { "word": "lion", "hi": "शेर गरजा, \"इतनी देर क्यों?\"", "en": "The lion roared, \"Why so late?\"" },
+        {
+          "word": "rabbit",
+          "hi": "खरगोश बोला, \"रास्ते में दूसरा शेर मिला था। वह कहता है, जंगल का राजा वही है।\"",
+          "en": "The rabbit said, \"I met another lion on the way. He says he is king of the jungle.\""
+        },
+        {
+          "word": "well",
+          "hi": "शेर गुस्से में खरगोश के साथ एक कुएँ पर पहुँचा। खरगोश बोला, \"वह इसमें रहता है।\"",
+          "en": "The angry lion went with the rabbit to a well. \"He lives in here,\" said the rabbit."
+        },
+        {
+          "word": "water",
+          "hi": "शेर ने पानी में अपनी परछाईं देखी और दहाड़कर कुएँ में कूद गया।",
+          "en": "The lion saw his own reflection, roared, and jumped into the well."
+        },
+        {
+          "word": "rabbit",
+          "hi": "जंगल के सब जानवर खुश हो गए। छोटा खरगोश सबका हीरो बन गया!",
+          "en": "All the animals were happy. The little rabbit became everyone's hero!"
+        }
+      ],
+      "questions": [
+        { "hi": "शेर कहाँ कूद गया?", "en": "Where did the lion jump?", "answer": "well", "options": ["well", "river", "cave"] },
+        {
+          "hi": "शेर ने पानी में किसे देखा?",
+          "en": "Whom did the lion see in the water?",
+          "text": true,
+          "answer": "अपनी परछाईं",
+          "options": ["अपनी परछाईं", "दूसरा शेर", "एक मछली"]
+        },
+        {
+          "hi": "इस कहानी से क्या सीख मिलती है?",
+          "en": "What does this story teach?",
+          "text": true,
+          "answer": "बुद्धि बल से बड़ी होती है",
+          "options": ["बुद्धि बल से बड़ी होती है", "देर से जाना अच्छा है", "शेर सबसे अच्छा है"]
+        }
+      ],
+      "moral": { "hi": "बुद्धि बल से बड़ी होती है।", "en": "Brains beat strength." }
+    },
+    {
+      "id": "blue-jackal",
+      "level": "grade3",
+      "title": { "hi": "नीला सियार", "en": "The blue jackal" },
+      "cover": "bluejackal",
+      "pages": [
+        { "word": "jackal", "hi": "एक भूखा सियार खाना ढूँढते हुए गाँव में आ गया।", "en": "A hungry jackal came into a village looking for food." },
+        { "word": "dog", "hi": "कुत्ते भौंकने लगे। सियार डरकर भागा।", "en": "The dogs began to bark. The jackal ran away, scared." },
+        { "word": "bucket", "hi": "भागते-भागते वह नीले रंग से भरे एक बड़े टब में गिर गया।", "en": "As he ran, he fell into a big tub of blue dye." },
+        { "word": "bluejackal", "hi": "जब वह निकला, तो पूरा नीला हो गया था!", "en": "When he came out, he was completely blue!" },
+        {
+          "word": "bluejackal",
+          "hi": "जंगल के जानवरों ने ऐसा जानवर कभी नहीं देखा था। सियार बोला, \"मैं तुम्हारा राजा हूँ!\"",
+          "en": "The jungle animals had never seen such a creature. The jackal said, \"I am your king!\""
+        },
+        { "word": "moon", "hi": "एक रात दूसरे सियार \"हुआँ हुआँ\" करने लगे।", "en": "One night the other jackals began to howl." },
+        {
+          "word": "bluejackal",
+          "hi": "नीला सियार भी खुद को रोक न सका और \"हुआँ हुआँ\" करने लगा।",
+          "en": "The blue jackal could not stop himself and howled too."
+        },
+        { "word": "jackal", "hi": "सबको सच पता चल गया, और राजा बना सियार वहाँ से भाग गया।", "en": "Everyone learned the truth, and the \"king\" ran away." }
+      ],
+      "questions": [
+        { "hi": "सियार किस रंग का हो गया?", "en": "What colour did the jackal turn?", "answer": "blue", "options": ["blue", "red", "green"] },
+        {
+          "hi": "सबको सच कैसे पता चला?",
+          "en": "How did everyone find out the truth?",
+          "text": true,
+          "answer": "वह हुआँ हुआँ करने लगा",
+          "options": ["वह हुआँ हुआँ करने लगा", "वह सो गया", "वह नदी में नहाया"]
+        }
+      ],
+      "moral": { "hi": "झूठ ज़्यादा दिन नहीं छिपता।", "en": "A lie cannot stay hidden for long." }
+    },
+    {
+      "id": "unity-sticks",
+      "level": "grade3",
+      "title": { "hi": "एकता में बल", "en": "Strength in unity" },
+      "cover": "sticks",
+      "pages": [
+        {
+          "word": "grandfather",
+          "hi": "एक बूढ़े किसान के चार बेटे थे। वे हमेशा आपस में लड़ते थे।",
+          "en": "An old farmer had four sons. They were always quarrelling."
+        },
+        {
+          "word": "sticks",
+          "hi": "किसान ने उन्हें लकड़ियों का एक गट्ठर दिया और कहा, \"इसे तोड़ो।\"",
+          "en": "The farmer gave them a bundle of sticks and said, \"Break this.\""
+        },
+        { "word": "boy", "hi": "चारों ने बहुत ज़ोर लगाया, पर गट्ठर नहीं टूटा।", "en": "All four tried hard, but the bundle did not break." },
+        {
+          "word": "sticks",
+          "hi": "फिर किसान ने गट्ठर खोलकर सबको एक-एक लकड़ी दी।",
+          "en": "Then the farmer untied the bundle and gave each of them one stick."
+        },
+        { "word": "boy", "hi": "इस बार हर लकड़ी आसानी से टूट गई।", "en": "This time each stick broke easily." },
+        {
+          "word": "grandfather",
+          "hi": "किसान बोला, \"मिलकर रहोगे तो कोई तुम्हें तोड़ नहीं पाएगा।\"",
+          "en": "The farmer said, \"If you stay together, no one can break you.\""
+        },
+        { "word": "heart", "hi": "बेटों ने बात समझ ली और फिर कभी नहीं लड़े।", "en": "The sons understood and never quarrelled again." }
+      ],
+      "questions": [
+        { "hi": "किसान ने बेटों को क्या दिया?", "en": "What did the farmer give his sons?", "answer": "sticks", "options": ["sticks", "coins", "axe"] },
+        {
+          "hi": "गट्ठर क्यों नहीं टूटा?",
+          "en": "Why did the bundle not break?",
+          "text": true,
+          "answer": "लकड़ियाँ एक साथ बँधी थीं",
+          "options": ["लकड़ियाँ एक साथ बँधी थीं", "बेटे सो रहे थे", "लकड़ियाँ लोहे की थीं"]
+        }
+      ],
+      "moral": { "hi": "एकता में बल है।", "en": "There is strength in unity." }
+    },
+    {
+      "id": "honest-woodcutter",
+      "level": "grade3",
+      "title": { "hi": "ईमानदार लकड़हारा", "en": "The honest woodcutter" },
+      "cover": "woodcutter",
+      "pages": [
+        { "word": "woodcutter", "hi": "एक गरीब लकड़हारा नदी किनारे पेड़ काट रहा था।", "en": "A poor woodcutter was cutting wood beside a river." },
+        { "word": "axe", "hi": "अचानक उसकी कुल्हाड़ी नदी में गिर गई।", "en": "Suddenly his axe fell into the river." },
+        { "word": "river", "hi": "वह रोने लगा। तभी नदी से जल देवता निकले।", "en": "He began to cry. Then the river spirit rose from the water." },
+        {
+          "word": "goldenaxe",
+          "hi": "जल देवता सोने की कुल्हाड़ी लाए। लकड़हारा बोला, \"यह मेरी नहीं है।\"",
+          "en": "The spirit brought a golden axe. The woodcutter said, \"This is not mine.\""
+        },
+        {
+          "word": "axe",
+          "hi": "फिर वे चाँदी की कुल्हाड़ी लाए। लकड़हारा बोला, \"यह भी मेरी नहीं है।\"",
+          "en": "Then a silver one. \"This is not mine either.\""
+        },
+        {
+          "word": "axe",
+          "hi": "आख़िर में वे लोहे की कुल्हाड़ी लाए। लकड़हारा खुश होकर बोला, \"हाँ, यही मेरी है!\"",
+          "en": "At last the iron axe. \"Yes, this one is mine!\" he said happily."
+        },
+        {
+          "word": "goldenaxe",
+          "hi": "जल देवता उसकी ईमानदारी से खुश हुए और तीनों कुल्हाड़ियाँ उसे दे दीं।",
+          "en": "Pleased with his honesty, the spirit gave him all three axes."
+        }
+      ],
+      "questions": [
+        { "hi": "कुल्हाड़ी कहाँ गिरी?", "en": "Where did the axe fall?", "answer": "river", "options": ["river", "well", "field"] },
+        {
+          "hi": "लकड़हारे को तीनों कुल्हाड़ियाँ क्यों मिलीं?",
+          "en": "Why did he get all three axes?",
+          "text": true,
+          "answer": "क्योंकि वह ईमानदार था",
+          "options": ["क्योंकि वह ईमानदार था", "क्योंकि वह रोया", "क्योंकि वह अमीर था"]
+        }
+      ],
+      "moral": { "hi": "ईमानदारी सबसे अच्छी नीति है।", "en": "Honesty is the best policy." }
+    },
+    {
+      "id": "bell-cat",
+      "level": "grade3",
+      "title": { "hi": "बिल्ली के गले में घंटी", "en": "Who will bell the cat?" },
+      "cover": "bell",
+      "pages": [
+        { "word": "mouse", "hi": "एक घर में बहुत सारे चूहे रहते थे।", "en": "Many mice lived in a house." },
+        { "word": "cat", "hi": "एक मोटी बिल्ली रोज़ उन्हें डराती थी।", "en": "A fat cat frightened them every day." },
+        { "word": "mouse", "hi": "चूहों ने एक सभा की। सबने सोचा, अब क्या करें?", "en": "The mice held a meeting. What should they do?" },
+        {
+          "word": "bell",
+          "hi": "एक छोटा चूहा बोला, \"बिल्ली के गले में घंटी बाँध दो। वह आएगी तो घंटी बजेगी।\"",
+          "en": "A little mouse said, \"Tie a bell round the cat's neck. When she comes, it will ring.\""
+        },
+        { "word": "mouse", "hi": "सब चूहे खुश होकर ताली बजाने लगे।", "en": "All the mice clapped happily." },
+        {
+          "word": "mouse",
+          "hi": "तभी एक बूढ़ा चूहा बोला, \"उपाय अच्छा है। पर घंटी बाँधेगा कौन?\"",
+          "en": "Then an old mouse said, \"A good plan. But who will tie the bell?\""
+        },
+        { "word": "cat", "hi": "सब चुप हो गए। किसी में हिम्मत नहीं थी!", "en": "Everyone went quiet. Nobody dared!" }
+      ],
+      "questions": [
+        {
+          "hi": "चूहे बिल्ली के गले में क्या बाँधना चाहते थे?",
+          "en": "What did the mice want to tie on the cat?",
+          "answer": "bell",
+          "options": ["bell", "cap", "garland"]
+        },
+        {
+          "hi": "बूढ़े चूहे ने क्या पूछा?",
+          "en": "What did the old mouse ask?",
+          "text": true,
+          "answer": "घंटी कौन बाँधेगा?",
+          "options": ["घंटी कौन बाँधेगा?", "खाना कहाँ है?", "बिल्ली कहाँ है?"]
+        }
+      ],
+      "moral": { "hi": "कहना आसान है, करना मुश्किल।", "en": "Easier said than done." }
+    },
+    {
+      "id": "zoomi-moon",
+      "level": "grade3",
+      "title": { "hi": "ज़ूमी चाँद पर", "en": "Zoomi goes to the Moon" },
+      "cover": "rocket",
+      "pages": [
+        { "word": "rocket", "hi": "ज़ूमी रोबोट का सपना था, चाँद पर जाना।", "en": "Zoomi the robot's dream was to go to the Moon." },
+        { "word": "rocket", "hi": "तीन, दो, एक... रॉकेट ने आग और धुआँ छोड़ा और ऊपर उड़ गया!", "en": "Three, two, one... the rocket roared and flew up!" },
+        {
+          "word": "earth",
+          "hi": "खिड़की से ज़ूमी ने नीली-हरी पृथ्वी देखी। वह कितनी सुंदर थी!",
+          "en": "From the window Zoomi saw the blue-green Earth. How beautiful it was!"
+        },
+        { "word": "moon", "hi": "कई दिनों बाद रॉकेट धीरे से चाँद पर उतरा।", "en": "After many days the rocket landed gently on the Moon." },
+        {
+          "word": "astronaut",
+          "hi": "चाँद पर न हवा थी, न पानी। ज़मीन पर बड़े-बड़े गड्ढे थे।",
+          "en": "There was no air and no water on the Moon. The ground had big craters."
+        },
+        { "word": "flag", "hi": "ज़ूमी ने वहाँ एक झंडा लगाया और पत्थरों की तस्वीरें लीं।", "en": "Zoomi planted a flag and took photos of the rocks." },
+        { "word": "earth", "hi": "फिर वह घर लौटा और सबको अपनी यात्रा की कहानी सुनाई।", "en": "Then he came home and told everyone about his trip." }
+      ],
+      "questions": [
+        { "hi": "ज़ूमी कहाँ गया?", "en": "Where did Zoomi go?", "answer": "moon", "options": ["moon", "sun", "mars"] },
+        { "hi": "चाँद पर क्या नहीं था?", "en": "What was not on the Moon?", "text": true, "answer": "हवा और पानी", "options": ["हवा और पानी", "पत्थर", "गड्ढे"] },
+        { "hi": "ज़ूमी ने चाँद पर क्या लगाया?", "en": "What did Zoomi plant on the Moon?", "answer": "flag", "options": ["flag", "tree", "umbrella"] }
       ]
+    },
+    {
+      "id": "talkative-tortoise",
+      "level": "grade4",
+      "title": { "hi": "बातूनी कछुआ", "en": "The talkative tortoise" },
+      "cover": "tortoise",
+      "pages": [
+        { "word": "tortoise", "hi": "एक तालाब में एक कछुआ रहता था। वह बहुत बातें करता था।", "en": "A tortoise lived in a pond. He talked a lot." },
+        { "word": "swan", "hi": "दो हंस उसके अच्छे दोस्त थे।", "en": "Two swans were his good friends." },
+        { "word": "sun", "hi": "एक साल बारिश नहीं हुई और तालाब सूखने लगा।", "en": "One year it did not rain and the pond began to dry up." },
+        {
+          "word": "sticks",
+          "hi": "हंसों ने उपाय सोचा, \"तुम यह लकड़ी मुँह से पकड़ लो। हम दोनों सिरे पकड़कर उड़ेंगे।\"",
+          "en": "The swans had an idea: \"Hold this stick in your mouth. We will hold the ends and fly.\""
+        },
+        { "word": "swan", "hi": "हंसों ने कहा, \"पर रास्ते में बिल्कुल मत बोलना!\"", "en": "\"But don't say a word on the way!\" said the swans." },
+        { "word": "cloud", "hi": "वे ऊँचे आसमान में उड़ चले।", "en": "Up they flew, high into the sky." },
+        {
+          "word": "boy",
+          "hi": "नीचे बच्चे चिल्लाए, \"देखो! हंस कछुए को उड़ा ले जा रहे हैं!\"",
+          "en": "Below, children shouted, \"Look! The swans are carrying a tortoise!\""
+        },
+        {
+          "word": "tortoise",
+          "hi": "कछुए से रहा नहीं गया। जैसे ही उसने बोलने के लिए मुँह खोला, वह नीचे गिर पड़ा।",
+          "en": "The tortoise could not help himself. The moment he opened his mouth to speak, he fell."
+        },
+        {
+          "word": "tortoise",
+          "hi": "भाग्य से वह झाड़ियों में गिरा और बच गया। उस दिन से उसने सोच-समझकर बोलना सीखा।",
+          "en": "Luckily he landed in the bushes and was safe. From that day on he thought before he spoke."
+        }
+      ],
+      "questions": [
+        { "hi": "कछुए के दोस्त कौन थे?", "en": "Who were the tortoise's friends?", "answer": "swan", "options": ["swan", "crow", "dove"] },
+        {
+          "hi": "कछुआ नीचे क्यों गिरा?",
+          "en": "Why did the tortoise fall?",
+          "text": true,
+          "answer": "उसने बोलने के लिए मुँह खोला",
+          "options": ["उसने बोलने के लिए मुँह खोला", "लकड़ी टूट गई", "हंस थक गए"]
+        },
+        {
+          "hi": "इस कहानी से क्या सीख मिलती है?",
+          "en": "What does this story teach?",
+          "text": true,
+          "answer": "सोच-समझकर बोलना चाहिए",
+          "options": ["सोच-समझकर बोलना चाहिए", "हमेशा उड़ना चाहिए", "दोस्त नहीं बनाने चाहिए"]
+        }
+      ],
+      "moral": { "hi": "सोच-समझकर बोलना चाहिए।", "en": "Think before you speak." }
+    },
+    {
+      "id": "birbal-khichdi",
+      "level": "grade4",
+      "title": { "hi": "बीरबल की खिचड़ी", "en": "Birbal's khichdi" },
+      "cover": "cookingpot",
+      "pages": [
+        {
+          "word": "king",
+          "hi": "सर्दी का मौसम था। बादशाह अकबर ने कहा, \"जो रात भर ठंडे तालाब में खड़ा रहेगा, उसे इनाम मिलेगा।\"",
+          "en": "It was winter. Emperor Akbar said, \"Whoever stands all night in the cold pond will get a reward.\""
+        },
+        { "word": "farmer", "hi": "एक गरीब आदमी रात भर ठंडे पानी में खड़ा रहा।", "en": "A poor man stood in the cold water all night." },
+        {
+          "word": "lamp",
+          "hi": "सुबह उसने बताया कि दूर महल में एक दीया जल रहा था। वह उसे देखता रहा।",
+          "en": "In the morning he said a lamp was burning far away in the palace, and he kept looking at it."
+        },
+        {
+          "word": "king",
+          "hi": "अकबर बोले, \"तुमने दीये की गरमी ली, इसलिए इनाम नहीं मिलेगा।\"",
+          "en": "Akbar said, \"You took warmth from the lamp, so there is no reward.\""
+        },
+        {
+          "word": "minister",
+          "hi": "बीरबल को यह बात ठीक नहीं लगी। अगले दिन वह दरबार नहीं आया।",
+          "en": "Birbal felt this was unfair. The next day he did not come to court."
+        },
+        {
+          "word": "cookingpot",
+          "hi": "अकबर उसके घर गए। बीरबल ने खिचड़ी की हाँडी बहुत ऊँचे टाँग रखी थी और आग बहुत नीचे जल रही थी।",
+          "en": "Akbar went to his house. Birbal had hung the khichdi pot very high, with the fire far below."
+        },
+        { "word": "minister", "hi": "बीरबल बोला, \"खिचड़ी बस पकने ही वाली है!\"", "en": "Birbal said, \"The khichdi is just about to cook!\"" },
+        {
+          "word": "king",
+          "hi": "अकबर हँसे, \"इतनी दूर से कैसे पकेगी?\" बीरबल बोला, \"जैसे दूर के दीये से उस आदमी को गरमी मिली थी।\"",
+          "en": "Akbar laughed, \"How can it cook from so far?\" Birbal said, \"The same way that man got warmth from a faraway lamp.\""
+        },
+        { "word": "coins", "hi": "अकबर बात समझ गए और उस आदमी को इनाम दे दिया।", "en": "Akbar understood and gave the man his reward." }
+      ],
+      "questions": [
+        { "hi": "आदमी रात भर किसे देखता रहा?", "en": "What did the man look at all night?", "answer": "lamp", "options": ["lamp", "moon", "flag"] },
+        {
+          "hi": "बीरबल ने हाँडी ऊँची क्यों टाँगी?",
+          "en": "Why did Birbal hang the pot so high?",
+          "text": true,
+          "answer": "अकबर को सच समझाने के लिए",
+          "options": ["अकबर को सच समझाने के लिए", "खिचड़ी बचाने के लिए", "आग बुझाने के लिए"]
+        }
+      ],
+      "moral": { "hi": "हर किसी के साथ न्याय करना चाहिए।", "en": "Be fair to everyone." }
+    },
+    {
+      "id": "tenali-thieves",
+      "level": "grade4",
+      "title": { "hi": "तेनालीराम और चोर", "en": "Tenali Rama and the thieves" },
+      "cover": "thief",
+      "pages": [
+        { "word": "minister", "hi": "तेनालीराम बहुत चतुर था।", "en": "Tenali Rama was very clever." },
+        { "word": "thief", "hi": "एक रात उसने देखा कि दो चोर उसके बगीचे में छिपे हैं।", "en": "One night he saw two thieves hiding in his garden." },
+        {
+          "word": "minister",
+          "hi": "तेनालीराम ने ज़ोर से कहा, \"सारे गहने संदूक में भरकर कुएँ में डाल दो!\"",
+          "en": "Tenali said loudly, \"Put all the jewels in a box and drop it in the well!\""
+        },
+        { "word": "well", "hi": "उन्होंने पत्थरों से भरा एक संदूक कुएँ में डाल दिया।", "en": "They dropped a box full of stones into the well." },
+        {
+          "word": "thief",
+          "hi": "चोरों ने रात भर कुएँ से पानी निकाला, ताकि संदूक मिल जाए।",
+          "en": "The thieves pulled water out of the well all night to reach the box."
+        },
+        {
+          "word": "plant",
+          "hi": "वह पानी बहकर बगीचे में गया। सारे पौधों को पानी मिल गया!",
+          "en": "The water ran into the garden. All the plants got watered!"
+        },
+        {
+          "word": "stones",
+          "hi": "सुबह चोरों को संदूक मिला। उसमें सिर्फ़ पत्थर थे!",
+          "en": "In the morning the thieves found the box. It held only stones!"
+        },
+        {
+          "word": "minister",
+          "hi": "तेनालीराम हँसकर बोला, \"धन्यवाद! मेरे बगीचे को पानी देने के लिए।\"",
+          "en": "Tenali laughed, \"Thank you for watering my garden!\""
+        }
+      ],
+      "questions": [
+        { "hi": "संदूक में क्या था?", "en": "What was in the box?", "answer": "stones", "options": ["stones", "coins", "laddoo"] },
+        {
+          "hi": "चोरों की मेहनत से किसका फ़ायदा हुआ?",
+          "en": "Who gained from the thieves' hard work?",
+          "text": true,
+          "answer": "तेनालीराम के बगीचे का",
+          "options": ["तेनालीराम के बगीचे का", "चोरों का", "राजा का"]
+        }
+      ],
+      "moral": { "hi": "चतुराई से हर मुश्किल हल हो सकती है।", "en": "Clever thinking can solve any problem." }
+    },
+    {
+      "id": "golden-egg",
+      "level": "grade4",
+      "title": { "hi": "सोने का अंडा", "en": "The golden egg" },
+      "cover": "goldenegg",
+      "pages": [
+        { "word": "farmer", "hi": "एक किसान के पास एक मुर्गी थी।", "en": "A farmer had a hen." },
+        { "word": "goldenegg", "hi": "वह मुर्गी रोज़ एक सोने का अंडा देती थी!", "en": "Every day that hen laid a golden egg!" },
+        { "word": "coins", "hi": "किसान अंडे बेचकर अमीर होने लगा।", "en": "The farmer sold the eggs and grew rich." },
+        {
+          "word": "farmer",
+          "hi": "पर उसे और जल्दी अमीर बनना था। उसने सोचा, \"मुर्गी के अंदर बहुत सारे अंडे होंगे।\"",
+          "en": "But he wanted to be rich faster. He thought, \"There must be lots of eggs inside the hen.\""
+        },
+        {
+          "word": "hen",
+          "hi": "वह मुर्गी पर चिल्लाया, \"सारे अंडे अभी दो!\" और उसे डराने लगा।",
+          "en": "He shouted at the hen, \"Give me all the eggs now!\" and frightened her."
+        },
+        { "word": "hen", "hi": "डरकर मुर्गी उड़ गई और फिर कभी नहीं लौटी।", "en": "The frightened hen flew away and never came back." },
+        { "word": "farmer", "hi": "अब किसान के पास एक भी अंडा नहीं था।", "en": "Now the farmer had not a single egg." }
+      ],
+      "questions": [
+        { "hi": "मुर्गी कैसा अंडा देती थी?", "en": "What kind of egg did the hen lay?", "answer": "goldenegg", "options": ["goldenegg", "dinoegg", "coins"] },
+        {
+          "hi": "किसान ने सारे अंडे क्यों खो दिए?",
+          "en": "Why did the farmer lose all the eggs?",
+          "text": true,
+          "answer": "लालच के कारण",
+          "options": ["लालच के कारण", "बीमारी के कारण", "बारिश के कारण"]
+        }
+      ],
+      "moral": { "hi": "लालच से सब कुछ खो जाता है।", "en": "Greed can lose you everything." }
+    },
+    {
+      "id": "talking-cave",
+      "level": "grade4",
+      "title": { "hi": "बोलने वाली गुफा", "en": "The talking cave" },
+      "cover": "cave",
+      "pages": [
+        { "word": "lion", "hi": "एक भूखा शेर दिन भर खाना ढूँढता रहा, पर कुछ नहीं मिला।", "en": "A hungry lion searched all day for food but found nothing." },
+        {
+          "word": "cave",
+          "hi": "शाम को उसे एक गुफा दिखी। उसने सोचा, \"जो यहाँ रहता है, लौटेगा तो उसे पकड़ लूँगा।\"",
+          "en": "In the evening he saw a cave. He thought, \"Whoever lives here will come back, and I'll catch them.\""
+        },
+        {
+          "word": "jackal",
+          "hi": "वह गुफा एक सियार का घर था। लौटते समय सियार ने शेर के पंजों के निशान देखे।",
+          "en": "The cave was a jackal's home. Coming back, the jackal saw the lion's paw prints."
+        },
+        {
+          "word": "jackal",
+          "hi": "निशान अंदर जा रहे थे, बाहर नहीं आ रहे थे। सियार समझ गया!",
+          "en": "The prints went in but did not come out. The jackal understood!"
+        },
+        {
+          "word": "cave",
+          "hi": "उसने ज़ोर से पुकारा, \"ओ गुफा! आज तुमने मुझे बुलाया क्यों नहीं?\"",
+          "en": "He called loudly, \"O cave! Why didn't you call me today?\""
+        },
+        {
+          "word": "lion",
+          "hi": "शेर ने सोचा, \"शायद गुफा रोज़ बोलती है।\" उसने गुफा बनकर कहा, \"आओ, सियार!\"",
+          "en": "The lion thought, \"Maybe the cave talks every day.\" Pretending to be the cave, he said, \"Come in, jackal!\""
+        },
+        {
+          "word": "jackal",
+          "hi": "सियार हँसा, \"गुफाएँ नहीं बोलतीं!\" और तेज़ी से भाग गया।",
+          "en": "The jackal laughed, \"Caves don't talk!\" and ran off fast."
+        }
+      ],
+      "questions": [
+        { "hi": "सियार कहाँ रहता था?", "en": "Where did the jackal live?", "answer": "cave", "options": ["cave", "well", "tree"] },
+        {
+          "hi": "सियार को कैसे पता चला कि अंदर शेर है?",
+          "en": "How did the jackal know the lion was inside?",
+          "text": true,
+          "answer": "पंजों के निशान देखकर",
+          "options": ["पंजों के निशान देखकर", "शेर को देखकर", "गुफा से पूछकर"]
+        }
+      ],
+      "moral": { "hi": "सावधान रहो और ध्यान से देखो।", "en": "Stay alert and look carefully." }
+    },
+    {
+      "id": "sour-grapes",
+      "level": "grade4",
+      "title": { "hi": "खट्टे अंगूर", "en": "The sour grapes" },
+      "cover": "fox",
+      "pages": [
+        { "word": "fox", "hi": "एक दिन एक भूखी लोमड़ी जंगल में घूम रही थी।", "en": "One day a hungry fox was wandering in the jungle." },
+        { "word": "grapes", "hi": "उसे ऊँची बेल पर मीठे-मीठे अंगूर लटके दिखे।", "en": "She saw sweet grapes hanging high on a vine." },
+        { "word": "fox", "hi": "लोमड़ी ने ऊँची छलाँग लगाई, पर अंगूर तक नहीं पहुँची।", "en": "The fox jumped high, but could not reach the grapes." },
+        { "word": "fox", "hi": "उसने बार-बार कोशिश की, पर हर बार नाकाम रही।", "en": "She tried again and again, and failed every time." },
+        {
+          "word": "grapes",
+          "hi": "आख़िर में वह थककर बोली, \"ये अंगूर तो खट्टे हैं!\" और चली गई।",
+          "en": "At last, tired, she said, \"These grapes are sour anyway!\" and walked away."
+        }
+      ],
+      "questions": [
+        { "hi": "लोमड़ी क्या खाना चाहती थी?", "en": "What did the fox want to eat?", "answer": "grapes", "options": ["grapes", "banana", "mango"] },
+        {
+          "hi": "लोमड़ी ने अंगूरों को खट्टा क्यों कहा?",
+          "en": "Why did the fox call the grapes sour?",
+          "text": true,
+          "answer": "क्योंकि वह उन तक नहीं पहुँच सकी",
+          "options": ["क्योंकि वह उन तक नहीं पहुँच सकी", "क्योंकि उसने उन्हें चखा", "क्योंकि वे हरे थे"]
+        }
+      ],
+      "moral": { "hi": "जो न मिले, उसे बुरा कहना ठीक नहीं।", "en": "Don't call something bad just because you can't have it." }
+    },
+    {
+      "id": "hard-work",
+      "level": "grade4",
+      "title": { "hi": "मेहनत का फल", "en": "The fruit of hard work" },
+      "cover": "field",
+      "pages": [
+        {
+          "word": "grandfather",
+          "hi": "एक बूढ़े किसान के तीन बेटे थे। वे काम नहीं करना चाहते थे।",
+          "en": "An old farmer had three sons who did not want to work."
+        },
+        {
+          "word": "grandfather",
+          "hi": "किसान ने कहा, \"हमारे खेत में खज़ाना छिपा है।\"",
+          "en": "The farmer said, \"There is treasure hidden in our field.\""
+        },
+        { "word": "field", "hi": "बेटों ने पूरा खेत खोद डाला, पर कोई खज़ाना नहीं मिला।", "en": "The sons dug up the whole field, but found no treasure." },
+        {
+          "word": "rain",
+          "hi": "फिर बारिश आई। किसान बोला, \"अब खेत खुद गया है, तो बीज बो दो।\"",
+          "en": "Then the rain came. The farmer said, \"Now the field is dug, so sow some seeds.\""
+        },
+        { "word": "corn", "hi": "कुछ महीनों बाद खेत में सुनहरी फ़सल लहराने लगी।", "en": "A few months later a golden crop swayed in the field." },
+        { "word": "coins", "hi": "फ़सल बेचकर उन्हें बहुत पैसे मिले।", "en": "They sold the crop and earned a lot of money." },
+        { "word": "boy", "hi": "बेटे समझ गए, \"मेहनत ही असली खज़ाना है!\"", "en": "The sons understood: \"Hard work is the real treasure!\"" }
+      ],
+      "questions": [
+        { "hi": "बेटों ने कहाँ खुदाई की?", "en": "Where did the sons dig?", "answer": "field", "options": ["field", "river", "cave"] },
+        { "hi": "असली खज़ाना क्या था?", "en": "What was the real treasure?", "text": true, "answer": "मेहनत", "options": ["मेहनत", "सोना", "अंगूर"] }
+      ],
+      "moral": { "hi": "मेहनत का फल मीठा होता है।", "en": "Hard work brings sweet rewards." }
+    },
+    {
+      "id": "timid-hare",
+      "level": "grade4",
+      "title": { "hi": "डरपोक खरगोश", "en": "The timid hare" },
+      "cover": "rabbit",
+      "pages": [
+        { "word": "rabbit", "hi": "एक खरगोश बेल के पेड़ के नीचे सो रहा था।", "en": "A hare was sleeping under a bael tree." },
+        { "word": "fruit", "hi": "अचानक एक बड़ा बेल का फल \"धम्म\" से गिरा!", "en": "Suddenly a big bael fruit fell — thud!" },
+        { "word": "rabbit", "hi": "खरगोश डरकर भागा, \"भागो! धरती टूट रही है!\"", "en": "The hare ran in fright: \"Run! The earth is breaking!\"" },
+        {
+          "word": "deer",
+          "hi": "हिरन, बंदर और हाथी भी बिना सोचे उसके पीछे भागने लगे।",
+          "en": "A deer, a monkey and an elephant ran after him without thinking."
+        },
+        {
+          "word": "lion",
+          "hi": "तभी शेर ने सबको रोका, \"धरती कहाँ टूटी है? मुझे दिखाओ।\"",
+          "en": "Then a lion stopped them: \"Where has the earth broken? Show me.\""
+        },
+        { "word": "tree", "hi": "सब पेड़ के पास लौटे। वहाँ बस एक बेल का फल पड़ा था!", "en": "They all went back to the tree. Only a bael fruit lay there!" },
+        { "word": "heart", "hi": "सब हँसने लगे, और खरगोश शरमा गया।", "en": "Everyone laughed, and the hare felt shy." }
+      ],
+      "questions": [
+        { "hi": "पेड़ से क्या गिरा था?", "en": "What fell from the tree?", "answer": "fruit", "options": ["fruit", "stones", "bird"] },
+        { "hi": "सबको किसने रोका?", "en": "Who stopped everyone?", "answer": "lion", "options": ["lion", "elephant", "monkey"] }
+      ],
+      "moral": { "hi": "बिना जाँचे किसी बात पर भरोसा मत करो।", "en": "Don't believe something without checking." }
     }
   ],
   "levels": [
     {
       "id": "toddler",
-      "picture": "scooter",
+      "picture": "duck",
       "name": { "hi": "नन्हे", "en": "Toddler" },
       "age": "2–3",
-      "about": "Listening and first words: vehicles, animals, colours, shapes, animal sounds, counting to 5. No letters yet.",
-      "places": ["busdepot", "farm", "recycling", "airport", "fire", "police", "hospital", "construction"],
-      "letterSets": [],
-      "games": {
-        "construction": { "activities": ["dig"], "digLetters": 4 },
-        "busdepot": { "maxPassengers": 5, "pickupRounds": 4, "countRounds": 3, "letters": false },
-        "rescue": { "rounds": 4 },
-        "farm": { "rounds": 4 },
-        "recycling": { "rounds": 6 },
-        "opposites": { "rounds": 4 }
-      }
+      "about": "Listening and naming: animals and their sounds, colours, shapes, big and small, counting to 5. No letters yet."
     },
     {
       "id": "kg",
       "picture": "car",
       "name": { "hi": "बालवाटिका", "en": "Kindergarten" },
       "age": "3–6",
-      "about": "Letters and their sounds (स्वर, व्यंजन, A–Z), tracing, counting to 10, and first two- and three-letter words without matras (घर, नल, कमल).",
-      "places": ["construction", "busdepot", "fire", "police", "hospital", "farm", "railway", "recycling", "airport", "trace", "postoffice"],
-      "letterSets": ["hindiVowels", "hindiConsonants", "english"],
-      "games": { "construction": { "buildWords": ["@kg"] }, "read": { "words": ["@kg"], "modes": ["find"] }}
+      "about": "Sounds, स्वर, व्यंजन and A–Z, tracing, counting to 10, two- and three-letter words without matras. Math in English (NC kindergarten)."
     },
     {
       "id": "grade1",
-      "picture": "bus",
+      "picture": "monkey",
       "name": { "hi": "कक्षा 1", "en": "Grade 1" },
       "age": "6–7",
-      "about": "Matras (का कि की कु कू के कै को कौ कं काँ) and the barakhadi, reading two- and three-letter words with matras, matching words to pictures, and short sentences of 3–5 words.",
-      "places": ["matra", "postoffice", "construction", "metro", "library", "icecream", "railway", "trace", "fire", "police", "hospital", "busdepot"],
-      "letterSets": ["hindiVowels", "hindiConsonants", "english"],
-      "games": {
-        "construction": { "activities": ["build", "deliver"], "buildWords": ["@kg", "@grade1"], "buildRounds": 3 },
-        "read": { "words": ["@grade1"], "modes": ["find", "match"] },
-        "rescue": { "words": ["@grade1"], "cards": "text" },
-        "sentence": { "levels": ["grade1"] },
-        "story": { "levels": ["grade1"] },
-        "rhyme": { "rounds": 4 }
-      }
+      "about": "Matras and the barakhadi, words with matras, family, food and festival words, little sentences and first stories. Math in English (NC grade 1)."
     },
     {
       "id": "grade2",
-      "picture": "train",
+      "picture": "trex",
       "name": { "hi": "कक्षा 2", "en": "Grade 2" },
       "age": "7–8",
-      "about": "Half letters and conjuncts (त्त, म्म, क्ख, स्क), longer words, rhyming words, building sentences of 4–6 words, reading short stories with meaning, opposites and plurals.",
-      "places": ["library", "metro", "postoffice", "matra", "icecream", "parking", "construction", "railway"],
-      "letterSets": ["hindiConsonants", "english"],
-      "games": {
-        "construction": { "activities": ["build"], "buildWords": ["@grade1", "@grade2"], "buildRounds": 3 },
-        "read": { "words": ["@grade1", "@grade2"], "modes": ["match"] },
-        "matra": { "words": ["@grade1", "@grade2"] },
-        "sentence": { "levels": ["grade1", "grade2"], "rounds": 4 },
-        "story": { "levels": ["grade1", "grade2"] },
-        "pairs": { "kinds": ["opposite", "plural"] }
-      }
+      "about": "Half letters and र के रूप, home words, opposites, one and many, rhymes, building sentences, folktales with questions."
     },
     {
       "id": "grade3",
       "picture": "rocket",
       "name": { "hi": "कक्षा 3", "en": "Grade 3" },
       "age": "8–9",
-      "about": "Reading stories and answering questions, longer sentences, opposites (विलोम), singular and plural (वचन), male and female (लिंग).",
-      "places": ["library", "metro", "parking", "postoffice", "icecream", "matra"],
-      "letterSets": ["hindiConsonants", "english"],
-      "games": {
-        "read": { "words": ["@grade2", "@grade3"], "modes": ["match"] },
-        "matra": { "words": ["@grade1", "@grade2"] },
-        "sentence": { "levels": ["grade2", "grade3"], "rounds": 4 },
-        "story": { "levels": ["grade2", "grade3"] },
-        "pairs": { "kinds": ["opposite", "plural", "female"] }
-      }
+      "about": "Grammar starts: naming words (संज्ञा), gender (लिंग), number (वचन), same-meaning words, punctuation, space words, Panchatantra stories."
+    },
+    {
+      "id": "grade4",
+      "picture": "octopus",
+      "name": { "hi": "कक्षा 4", "en": "Grade 4" },
+      "age": "9–10",
+      "about": "Pronouns, describing and action words, past-present-future, idioms (मुहावरे), days and months, ocean words, longer folktales with a moral."
     }
-  ]
+  ],
+  "collections": {
+    "farm": {
+      "name": { "hi": "मेरा फ़ार्म", "en": "My farm" },
+      "items": ["cow", "dog", "cat", "duck", "rooster", "hen", "goat", "sheep", "horse", "ox", "rabbit", "chick", "buffalo", "donkey"]
+    },
+    "vehicles": {
+      "name": { "hi": "मेरा गैराज", "en": "My garage" },
+      "start": 2,
+      "items": [
+        "bus",
+        "car",
+        "digger",
+        "dumptruck",
+        "firetruck",
+        "crane",
+        "ambulance",
+        "policecar",
+        "tractor",
+        "mixer",
+        "train",
+        "bulldozer",
+        "garbagetruck",
+        "plane",
+        "helicopter",
+        "boat",
+        "auto",
+        "scooter",
+        "bicycle",
+        "motorbike",
+        "truck",
+        "ship",
+        "rocket",
+        "submarine",
+        "postvan",
+        "metro",
+        "icecreamvan",
+        "bookbus"
+      ]
+    },
+    "jungle": {
+      "name": { "hi": "मेरा जंगल", "en": "My jungle" },
+      "items": ["monkey", "elephant", "lion", "tiger", "deer", "giraffe", "zebra", "peacock", "parrot", "snake", "bear", "fox", "tortoise", "squirrel", "owl", "lioness"]
+    },
+    "dinos": {
+      "name": { "hi": "मेरे डायनासोर", "en": "My dinosaurs" },
+      "items": ["trex", "triceratops", "stegosaurus", "brachiosaurus", "pterodactyl", "ankylosaurus", "dinoegg", "volcano"]
+    },
+    "space": {
+      "name": { "hi": "मेरा अंतरिक्ष", "en": "My space" },
+      "items": ["rocket", "astronaut", "moon", "earth", "saturn", "mars", "comet", "satellite", "alien", "telescope", "sun"]
+    },
+    "ocean": {
+      "name": { "hi": "मेरा समुद्र", "en": "My ocean" },
+      "items": ["octopus", "crab", "turtle", "whale", "dolphin", "starfish", "jellyfish", "seahorse", "shark", "shell", "lighthouse", "fish", "ship", "submarine"]
+    },
+    "igloo": { "name": { "hi": "मेरा इग्लू", "en": "My igloo" }, "items": ["penguin", "seal", "polarbear", "igloo", "snowman", "sled", "snowflake", "fish"] },
+    "carnival": { "name": { "hi": "मेले के इनाम", "en": "Carnival prizes" }, "items": ["balloon", "kite", "drum", "ferris", "laddoo", "flag", "bell", "swing", "icecreamvan"] }
+  },
+  "worlds": [
+    {
+      "id": "farm",
+      "level": "toddler",
+      "subject": "hindi",
+      "theme": "farm",
+      "mascot": "kuku",
+      "color": "#5CB85C",
+      "collection": "farm",
+      "name": { "hi": "पशु फ़ार्म", "en": "Animal Farm" },
+      "letterSets": [],
+      "units": [
+        {
+          "id": "t-animals",
+          "title": { "hi": "जानवर दोस्त", "en": "Animal friends" },
+          "skill": "Listening",
+          "icon": "cow",
+          "lessons": [
+            { "id": "t-animals-1", "game": "farm", "icon": "cow", "title": { "hi": "कौन बोला?", "en": "Who said that?" }, "config": { "rounds": 4 } },
+            {
+              "id": "t-animals-2",
+              "game": "rescue",
+              "icon": "dog",
+              "title": { "hi": "ढूँढो", "en": "Find it" },
+              "config": { "words": ["cow", "dog", "cat", "duck", "rooster", "goat", "sheep", "horse"], "rounds": 4, "vehicle": "firetruck" }
+            },
+            {
+              "id": "t-animals-3",
+              "game": "busdepot",
+              "icon": "bus",
+              "title": { "hi": "बस में बिठाओ", "en": "Bus ride" },
+              "config": { "parts": ["pickup"], "letters": false, "pickupRounds": 4 }
+            }
+          ]
+        },
+        {
+          "id": "t-colours",
+          "title": { "hi": "रंग और आकार", "en": "Colours and shapes" },
+          "skill": "Colours",
+          "icon": "red",
+          "lessons": [
+            { "id": "t-colours-1", "game": "recycling", "icon": "red", "title": { "hi": "रंग", "en": "Colours" }, "config": { "modes": ["color"], "rounds": 5, "bins": 2 } },
+            {
+              "id": "t-colours-2",
+              "game": "recycling",
+              "icon": "shape-star",
+              "title": { "hi": "आकार", "en": "Shapes" },
+              "config": { "modes": ["shape"], "rounds": 5, "bins": 2 }
+            }
+          ]
+        },
+        {
+          "id": "t-bigsmall",
+          "title": { "hi": "बड़ा और छोटा", "en": "Big and small" },
+          "skill": "Concepts",
+          "icon": "plane",
+          "lessons": [{ "id": "t-bigsmall-1", "game": "opposites", "icon": "plane", "title": { "hi": "बड़ा-छोटा", "en": "Big, small" }, "config": { "rounds": 4 } }]
+        },
+        {
+          "id": "t-count",
+          "title": { "hi": "पाँच तक गिनो", "en": "Count to 5" },
+          "skill": "Numbers",
+          "icon": "num",
+          "lessons": [
+            {
+              "id": "t-count-1",
+              "game": "busdepot",
+              "icon": "bus",
+              "title": { "hi": "गिनो", "en": "Count" },
+              "config": { "parts": ["count"], "maxPassengers": 5, "countRounds": 4, "letters": false }
+            }
+          ]
+        },
+        {
+          "id": "t-vehicles",
+          "title": { "hi": "गाड़ियाँ", "en": "Vehicles" },
+          "skill": "Words",
+          "icon": "car",
+          "lessons": [
+            {
+              "id": "t-vehicles-1",
+              "game": "construction",
+              "icon": "digger",
+              "title": { "hi": "खोदो", "en": "Dig" },
+              "config": { "activities": ["dig"], "digLetters": 4, "digWords": ["bus", "car", "boat", "train", "plane", "truck", "tractor", "bicycle"] }
+            },
+            {
+              "id": "t-vehicles-2",
+              "game": "rescue",
+              "icon": "firetruck",
+              "title": { "hi": "गाड़ी ढूँढो", "en": "Find the vehicle" },
+              "config": { "words": ["bus", "car", "boat", "train", "plane", "truck", "tractor", "bicycle"], "rounds": 4, "vehicle": "policecar" }
+            }
+          ]
+        }
+      ],
+      "helpers": { "rescuer": "tractor" }
+    },
+    {
+      "id": "town",
+      "level": "kg",
+      "subject": "hindi",
+      "theme": "town",
+      "mascot": "gappu",
+      "color": "#6C63FF",
+      "collection": "vehicles",
+      "name": { "hi": "गाड़ी नगर", "en": "Vehicle Town" },
+      "letterSets": ["hindiVowels", "hindiConsonants", "english"],
+      "units": [
+        {
+          "id": "k-sounds",
+          "title": { "hi": "ध्वनि पहचानो", "en": "Let's hear sounds" },
+          "skill": "Phonological awareness",
+          "icon": "eye",
+          "lessons": [
+            {
+              "id": "k-sounds-1",
+              "game": "rhyme",
+              "icon": "tap",
+              "title": { "hi": "तुक मिलाओ", "en": "Rhymes" },
+              "config": {
+                "groups": [
+                  { "lang": "hi", "words": ["tap", "water", "fruit", "lotus"] },
+                  { "lang": "hi", "words": ["house", "crocodile", "peas"] },
+                  { "lang": "en", "words": ["car", "star"] },
+                  { "lang": "en", "words": ["boat", "goat"] },
+                  { "lang": "en", "words": ["house", "mouse"] }
+                ],
+                "rounds": 4
+              }
+            },
+            {
+              "id": "k-sounds-2",
+              "game": "firstsound",
+              "icon": "letter:क",
+              "title": { "hi": "पहली ध्वनि", "en": "First sounds" },
+              "config": {
+                "letters": { "sets": ["hindiConsonants"], "from": 0, "to": 33 },
+                "words": [
+                  "@kg",
+                  "@grade1",
+                  "@grade2",
+                  "cow",
+                  "dog",
+                  "cat",
+                  "duck",
+                  "lion",
+                  "monkey",
+                  "elephant",
+                  "tiger",
+                  "deer",
+                  "bus",
+                  "car",
+                  "truck",
+                  "train",
+                  "plane",
+                  "boat"
+                ]
+              }
+            },
+            {
+              "id": "k-sounds-3",
+              "game": "firstsound",
+              "icon": "letter:B",
+              "title": { "hi": "First sounds ABC", "en": "First sounds ABC" },
+              "config": {
+                "letters": { "sets": ["english"] },
+                "words": [
+                  "@kg",
+                  "@grade1",
+                  "@grade2",
+                  "cow",
+                  "dog",
+                  "cat",
+                  "duck",
+                  "lion",
+                  "monkey",
+                  "elephant",
+                  "tiger",
+                  "deer",
+                  "bus",
+                  "car",
+                  "truck",
+                  "train",
+                  "plane",
+                  "boat"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "k-vowels",
+          "title": { "hi": "स्वर सीखें", "en": "Let's learn vowels" },
+          "skill": "Phonics",
+          "icon": "letter:अ",
+          "lessons": [
+            {
+              "id": "k-vowels-1",
+              "game": "construction",
+              "icon": "digger",
+              "title": { "hi": "स्वर खोदो", "en": "Dig vowels" },
+              "config": { "activities": ["dig"], "letters": { "sets": ["hindiVowels"] } }
+            },
+            {
+              "id": "k-vowels-2",
+              "game": "railway",
+              "icon": "train",
+              "title": { "hi": "स्वर रेल", "en": "Vowel train" },
+              "config": { "letters": { "sets": ["hindiVowels"] }, "carriages": 4 }
+            },
+            {
+              "id": "k-vowels-3",
+              "game": "trace",
+              "icon": "place-trace",
+              "title": { "hi": "स्वर लिखो", "en": "Trace vowels" },
+              "config": { "letters": { "sets": ["hindiVowels"] }, "count": 3 }
+            },
+            {
+              "id": "k-vowels-4",
+              "game": "rescue",
+              "icon": "firetruck",
+              "title": { "hi": "स्वर बचाओ", "en": "Vowel rescue" },
+              "config": { "letters": { "sets": ["hindiVowels"] }, "words": ["bus", "car", "boat", "train", "plane", "truck", "tractor", "bicycle"], "vehicle": "firetruck" }
+            }
+          ]
+        },
+        {
+          "id": "k-cons1",
+          "title": { "hi": "व्यंजन क से ञ", "en": "Consonants क to ञ" },
+          "skill": "Phonics",
+          "icon": "letter:क",
+          "lessons": [
+            {
+              "id": "k-cons1-1",
+              "game": "construction",
+              "icon": "digger",
+              "title": { "hi": "खोदो", "en": "Dig" },
+              "config": { "activities": ["dig"], "letters": { "sets": ["hindiConsonants"], "from": 0, "to": 10 } }
+            },
+            {
+              "id": "k-cons1-2",
+              "game": "construction",
+              "icon": "dumptruck",
+              "title": { "hi": "ब्लॉक पहुँचाओ", "en": "Deliver" },
+              "config": { "activities": ["deliver"], "letters": { "sets": ["hindiConsonants"], "from": 0, "to": 10 } }
+            },
+            {
+              "id": "k-cons1-3",
+              "game": "trace",
+              "icon": "place-trace",
+              "title": { "hi": "लिखो", "en": "Trace" },
+              "config": { "letters": { "sets": ["hindiConsonants"], "from": 0, "to": 10 }, "count": 3 }
+            },
+            {
+              "id": "k-cons1-4",
+              "game": "railway",
+              "icon": "train",
+              "title": { "hi": "रेल", "en": "Train" },
+              "config": { "letters": { "sets": ["hindiConsonants"], "from": 0, "to": 10 }, "carriages": 4 }
+            },
+            {
+              "id": "k-cons1-5",
+              "game": "firstsound",
+              "icon": "eye",
+              "title": { "hi": "किससे शुरू?", "en": "Starts with?" },
+              "config": {
+                "letters": { "sets": ["hindiConsonants"], "from": 0, "to": 10 },
+                "words": [
+                  "@kg",
+                  "@grade1",
+                  "@grade2",
+                  "cow",
+                  "dog",
+                  "cat",
+                  "duck",
+                  "lion",
+                  "monkey",
+                  "elephant",
+                  "tiger",
+                  "deer",
+                  "bus",
+                  "car",
+                  "truck",
+                  "train",
+                  "plane",
+                  "boat"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "k-cons2",
+          "title": { "hi": "व्यंजन ट से न", "en": "Consonants ट to न" },
+          "skill": "Phonics",
+          "icon": "letter:ट",
+          "lessons": [
+            {
+              "id": "k-cons2-1",
+              "game": "construction",
+              "icon": "digger",
+              "title": { "hi": "खोदो", "en": "Dig" },
+              "config": { "activities": ["dig"], "letters": { "sets": ["hindiConsonants"], "from": 10, "to": 20 } }
+            },
+            {
+              "id": "k-cons2-2",
+              "game": "rescue",
+              "icon": "ambulance",
+              "title": { "hi": "बचाओ", "en": "Rescue" },
+              "config": {
+                "letters": { "sets": ["hindiConsonants"], "from": 10, "to": 20 },
+                "words": ["bus", "car", "boat", "train", "plane", "truck", "tractor", "bicycle"],
+                "vehicle": "ambulance"
+              }
+            },
+            {
+              "id": "k-cons2-3",
+              "game": "trace",
+              "icon": "place-trace",
+              "title": { "hi": "लिखो", "en": "Trace" },
+              "config": { "letters": { "sets": ["hindiConsonants"], "from": 10, "to": 20 }, "count": 3 }
+            },
+            {
+              "id": "k-cons2-4",
+              "game": "construction",
+              "icon": "dumptruck",
+              "title": { "hi": "ब्लॉक पहुँचाओ", "en": "Deliver" },
+              "config": { "activities": ["deliver"], "letters": { "sets": ["hindiConsonants"], "from": 10, "to": 20 } }
+            },
+            {
+              "id": "k-cons2-5",
+              "game": "firstsound",
+              "icon": "eye",
+              "title": { "hi": "किससे शुरू?", "en": "Starts with?" },
+              "config": {
+                "letters": { "sets": ["hindiConsonants"], "from": 10, "to": 20 },
+                "words": [
+                  "@kg",
+                  "@grade1",
+                  "@grade2",
+                  "cow",
+                  "dog",
+                  "cat",
+                  "duck",
+                  "lion",
+                  "monkey",
+                  "elephant",
+                  "tiger",
+                  "deer",
+                  "bus",
+                  "car",
+                  "truck",
+                  "train",
+                  "plane",
+                  "boat"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "k-cons3",
+          "title": { "hi": "व्यंजन प से ज्ञ", "en": "Consonants प to ज्ञ" },
+          "skill": "Phonics",
+          "icon": "letter:प",
+          "lessons": [
+            {
+              "id": "k-cons3-1",
+              "game": "construction",
+              "icon": "digger",
+              "title": { "hi": "खोदो", "en": "Dig" },
+              "config": { "activities": ["dig"], "letters": { "sets": ["hindiConsonants"], "from": 20, "to": 36 } }
+            },
+            {
+              "id": "k-cons3-2",
+              "game": "railway",
+              "icon": "train",
+              "title": { "hi": "रेल", "en": "Train" },
+              "config": { "letters": { "sets": ["hindiConsonants"], "from": 20, "to": 36 }, "carriages": 4 }
+            },
+            {
+              "id": "k-cons3-3",
+              "game": "trace",
+              "icon": "place-trace",
+              "title": { "hi": "लिखो", "en": "Trace" },
+              "config": { "letters": { "sets": ["hindiConsonants"], "from": 20, "to": 36 }, "count": 3 }
+            },
+            {
+              "id": "k-cons3-4",
+              "game": "rescue",
+              "icon": "policecar",
+              "title": { "hi": "बचाओ", "en": "Rescue" },
+              "config": {
+                "letters": { "sets": ["hindiConsonants"], "from": 20, "to": 36 },
+                "words": ["bus", "car", "boat", "train", "plane", "truck", "tractor", "bicycle"],
+                "vehicle": "policecar"
+              }
+            },
+            {
+              "id": "k-cons3-5",
+              "game": "firstsound",
+              "icon": "eye",
+              "title": { "hi": "किससे शुरू?", "en": "Starts with?" },
+              "config": {
+                "letters": { "sets": ["hindiConsonants"], "from": 20, "to": 33 },
+                "words": [
+                  "@kg",
+                  "@grade1",
+                  "@grade2",
+                  "cow",
+                  "dog",
+                  "cat",
+                  "duck",
+                  "lion",
+                  "monkey",
+                  "elephant",
+                  "tiger",
+                  "deer",
+                  "bus",
+                  "car",
+                  "truck",
+                  "train",
+                  "plane",
+                  "boat"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "id": "k-abc",
+          "title": { "hi": "अंग्रेज़ी ABC", "en": "English ABC" },
+          "skill": "Phonics",
+          "icon": "letter:A",
+          "lessons": [
+            {
+              "id": "k-abc-1",
+              "game": "railway",
+              "icon": "train",
+              "title": { "hi": "ABC रेल", "en": "ABC train" },
+              "config": { "letters": { "sets": ["english"] }, "carriages": 4 }
+            },
+            {
+              "id": "k-abc-2",
+              "game": "construction",
+              "icon": "digger",
+              "title": { "hi": "ABC खोदो", "en": "Dig ABC" },
+              "config": { "activities": ["dig"], "letters": { "sets": ["english"] } }
+            },
+            {
+              "id": "k-abc-3",
+              "game": "trace",
+              "icon": "place-trace",
+              "title": { "hi": "ABC लिखो", "en": "Trace ABC" },
+              "config": { "letters": { "sets": ["english"] }, "count": 3 }
+            }
+          ]
+        },
+        {
+          "id": "k-two",
+          "title": { "hi": "दो अक्षर वाले शब्द", "en": "Let's learn two-letter words" },
+          "skill": "Reading",
+          "icon": "house",
+          "lessons": [
+            {
+              "id": "k-two-1",
+              "game": "construction",
+              "icon": "crane",
+              "title": { "hi": "शब्द बनाओ", "en": "Build words" },
+              "config": { "activities": ["build"], "buildWords": ["bus", "house", "tap", "fruit", "cup", "water", "envelope"], "buildRounds": 3 }
+            },
+            {
+              "id": "k-two-2",
+              "game": "read",
+              "icon": "postvan",
+              "title": { "hi": "शब्द पढ़ो", "en": "Read words" },
+              "config": { "words": ["bus", "house", "tap", "fruit", "cup", "water", "envelope"], "modes": ["find"], "rounds": 5 }
+            }
+          ]
+        },
+        {
+          "id": "k-three",
+          "title": { "hi": "तीन अक्षर वाले शब्द", "en": "Let's learn three-letter words" },
+          "skill": "Reading",
+          "icon": "lotus",
+          "lessons": [
+            {
+              "id": "k-three-1",
+              "game": "construction",
+              "icon": "crane",
+              "title": { "hi": "शब्द बनाओ", "en": "Build words" },
+              "config": { "activities": ["build"], "buildWords": ["lotus", "pen", "button", "peas", "crocodile"], "buildRounds": 3 }
+            },
+            {
+              "id": "k-three-2",
+              "game": "read",
+              "icon": "postvan",
+              "title": { "hi": "शब्द पढ़ो", "en": "Read words" },
+              "config": { "words": ["@kg"], "modes": ["find", "match"], "rounds": 6 }
+            }
+          ]
+        },
+        {
+          "id": "k-numbers",
+          "title": { "hi": "गिनती 1 से 10", "en": "Numbers 1 to 10" },
+          "skill": "Numbers",
+          "icon": "num",
+          "lessons": [
+            { "id": "k-numbers-1", "game": "busdepot", "icon": "bus", "title": { "hi": "गिनो", "en": "Count" }, "config": { "parts": ["count"], "countRounds": 5 } },
+            {
+              "id": "k-numbers-2",
+              "game": "busdepot",
+              "icon": "bus",
+              "title": { "hi": "बस में बिठाओ", "en": "Bus ride" },
+              "config": { "parts": ["pickup"], "pickupRounds": 5 }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "igloo",
+      "level": "kg",
+      "subject": "math",
+      "lang": "en",
+      "theme": "igloo",
+      "mascot": "pip",
+      "color": "#0EA5E9",
+      "collection": "igloo",
+      "name": { "hi": "पिप का गिनती इग्लू", "en": "Pip's Number Igloo" },
+      "letterSets": [],
+      "units": [
+        {
+          "id": "km-count",
+          "title": { "hi": "गिनती", "en": "Let's count!" },
+          "skill": "Counting · NC.K.CC.4–5",
+          "icon": "penguin",
+          "lessons": [
+            { "id": "km-count-1", "game": "math", "icon": "fish", "title": { "hi": "गिनो", "en": "Count the fish" }, "config": { "skills": ["k-count"] } },
+            { "id": "km-count-2", "game": "math", "icon": "snowflake", "title": { "hi": "झट से देखो", "en": "Quick look" }, "config": { "skills": ["k-quick"] } },
+            {
+              "id": "km-count-3",
+              "game": "math",
+              "icon": "penguin",
+              "title": { "hi": "गिनो और देखो", "en": "Count and look" },
+              "config": { "skills": ["k-count", "k-quick"] }
+            }
+          ]
+        },
+        {
+          "id": "km-numbers",
+          "title": { "hi": "संख्याएँ", "en": "Let's learn numbers" },
+          "skill": "Numbers to 100 · NC.K.CC.1–3",
+          "icon": "letter:7",
+          "lessons": [
+            {
+              "id": "km-numbers-1",
+              "game": "math",
+              "icon": "letter:7",
+              "title": { "hi": "संख्या ढूँढो", "en": "Find the number" },
+              "config": { "skills": ["k-numerals"] }
+            },
+            { "id": "km-numbers-2", "game": "math", "icon": "letter:8", "title": { "hi": "आगे क्या?", "en": "What comes next?" }, "config": { "skills": ["k-next"] } },
+            { "id": "km-numbers-3", "game": "math", "icon": "letter:10", "title": { "hi": "दस-दस गिनो", "en": "Count by tens" }, "config": { "skills": ["k-tens"] } }
+          ]
+        },
+        {
+          "id": "km-compare",
+          "title": { "hi": "तुलना", "en": "Let's compare" },
+          "skill": "Compare numbers · NC.K.CC.6–7",
+          "icon": "apple",
+          "lessons": [
+            { "id": "km-compare-1", "game": "math", "icon": "apple", "title": { "hi": "ज़्यादा या कम?", "en": "More or fewer?" }, "config": { "skills": ["k-more"] } },
+            { "id": "km-compare-2", "game": "math", "icon": "letter:9", "title": { "hi": "बड़ी संख्या", "en": "Bigger number" }, "config": { "skills": ["k-compare"] } }
+          ]
+        },
+        {
+          "id": "km-add",
+          "title": { "hi": "जोड़-घटाव", "en": "Let's add and take away" },
+          "skill": "Addition and subtraction · NC.K.OA.1, 2, 5",
+          "icon": "duck",
+          "lessons": [
+            { "id": "km-add-1", "game": "math", "icon": "duck", "title": { "hi": "जोड़ की कहानियाँ", "en": "Adding stories" }, "config": { "skills": ["k-add"] } },
+            { "id": "km-add-2", "game": "math", "icon": "balloon", "title": { "hi": "घटाव की कहानियाँ", "en": "Take-away stories" }, "config": { "skills": ["k-sub"] } },
+            { "id": "km-add-3", "game": "math", "icon": "letter:+", "title": { "hi": "5 तक के जोड़", "en": "Quick facts to 5" }, "config": { "skills": ["k-facts5"] } }
+          ]
+        },
+        {
+          "id": "km-ten",
+          "title": { "hi": "दस बनाओ", "en": "Let's make 10" },
+          "skill": "Partners, 10 and teens · NC.K.OA.3–4, NBT.1",
+          "icon": "letter:10",
+          "lessons": [
+            { "id": "km-ten-1", "game": "math", "icon": "letter:5", "title": { "hi": "संख्या के साथी", "en": "Number partners" }, "config": { "skills": ["k-partner"] } },
+            { "id": "km-ten-2", "game": "math", "icon": "letter:10", "title": { "hi": "10 बनाओ", "en": "Make 10" }, "config": { "skills": ["k-make10"] } },
+            { "id": "km-ten-3", "game": "math", "icon": "letter:14", "title": { "hi": "11 से 19", "en": "Teen numbers" }, "config": { "skills": ["k-teens"] } }
+          ]
+        },
+        {
+          "id": "km-shapes",
+          "title": { "hi": "आकार", "en": "Let's find shapes" },
+          "skill": "Shapes and positions · NC.K.G.1–3",
+          "icon": "shape-triangle",
+          "lessons": [
+            { "id": "km-shapes-1", "game": "math", "icon": "chair", "title": { "hi": "कहाँ है?", "en": "Where is it?" }, "config": { "skills": ["k-position"] } },
+            { "id": "km-shapes-2", "game": "math", "icon": "shape-triangle", "title": { "hi": "आकार ढूँढो", "en": "Shape hunt" }, "config": { "skills": ["k-shapes"] } },
+            {
+              "id": "km-shapes-3",
+              "game": "math",
+              "icon": "shape-square",
+              "title": { "hi": "सपाट या ठोस?", "en": "Flat or solid?" },
+              "config": { "skills": ["k-solids"] }
+            }
+          ]
+        },
+        {
+          "id": "km-measure",
+          "title": { "hi": "नापो और छाँटो", "en": "Let's measure and sort" },
+          "skill": "Measure and sort · NC.K.MD.1–3",
+          "icon": "giraffe",
+          "lessons": [
+            {
+              "id": "km-measure-1",
+              "game": "math",
+              "icon": "giraffe",
+              "title": { "hi": "लंबा या ऊँचा?", "en": "Longer or taller?" },
+              "config": { "skills": ["k-measure"] }
+            },
+            { "id": "km-measure-2", "game": "math", "icon": "fish", "title": { "hi": "छाँटो और गिनो", "en": "Sort and count" }, "config": { "skills": ["k-sort"] } }
+          ]
+        },
+        {
+          "id": "km-party",
+          "title": { "hi": "गिनती पार्टी", "en": "Number party!" },
+          "skill": "Review · mixed practice",
+          "icon": "snowman",
+          "lessons": [
+            {
+              "id": "km-party-1",
+              "game": "math",
+              "icon": "snowman",
+              "title": { "hi": "मिला-जुला 1", "en": "Party mix 1" },
+              "config": { "skills": ["k-count", "k-add", "k-make10", "k-shapes", "k-next"], "rounds": 8 }
+            },
+            {
+              "id": "km-party-2",
+              "game": "math",
+              "icon": "igloo",
+              "title": { "hi": "मिला-जुला 2", "en": "Party mix 2" },
+              "config": { "skills": ["k-numerals", "k-compare", "k-teens", "k-sub", "k-position", "k-measure"], "rounds": 8 }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "jungle",
+      "level": "grade1",
+      "subject": "hindi",
+      "theme": "jungle",
+      "mascot": "chiku",
+      "color": "#22A05B",
+      "collection": "jungle",
+      "name": { "hi": "मस्त जंगल", "en": "Jolly Jungle" },
+      "letterSets": ["hindiVowels", "hindiConsonants", "english"],
+      "units": [
+        {
+          "id": "g1-m1",
+          "title": { "hi": "मात्राएँ: ा ि ी", "en": "Let's learn matras ा ि ी" },
+          "skill": "Phonics",
+          "icon": "mango",
+          "lessons": [
+            {
+              "id": "g1-m1-1",
+              "game": "matra",
+              "icon": "matra:peacock",
+              "title": { "hi": "बारहखड़ी", "en": "Barakhadi" },
+              "config": { "matras": ["aa", "i", "ii"], "words": ["@grade1"], "focus": ["aa", "i", "ii"], "allow": [] }
+            },
+            {
+              "id": "g1-m1-2",
+              "game": "read",
+              "icon": "card:parrot",
+              "title": { "hi": "शब्द पढ़ो", "en": "Read words" },
+              "config": { "words": ["@grade1"], "focus": ["aa", "i", "ii"], "allow": [], "modes": ["find", "match"] }
+            },
+            {
+              "id": "g1-m1-3",
+              "game": "construction",
+              "icon": "blocks:elephant",
+              "title": { "hi": "शब्द बनाओ", "en": "Build words" },
+              "config": { "activities": ["build"], "buildWords": ["@grade1"], "focus": ["aa", "i", "ii"], "allow": [], "buildRounds": 3 }
+            }
+          ]
+        },
+        {
+          "id": "g1-m2",
+          "title": { "hi": "मात्राएँ: ु ू", "en": "Let's learn matras ु ू" },
+          "skill": "Phonics",
+          "icon": "flower",
+          "lessons": [
+            {
+              "id": "g1-m2-1",
+              "game": "matra",
+              "icon": "matra:peacock",
+              "title": { "hi": "मात्रा गैराज", "en": "Matra garage" },
+              "config": { "matras": ["u", "uu", "aa", "i", "ii"], "words": ["@grade1"], "focus": ["u", "uu"], "allow": ["aa", "i", "ii"] }
+            },
+            {
+              "id": "g1-m2-2",
+              "game": "read",
+              "icon": "card:parrot",
+              "title": { "hi": "शब्द पढ़ो", "en": "Read words" },
+              "config": { "words": ["@grade1"], "focus": ["u", "uu"], "allow": ["aa", "i", "ii"], "modes": ["find", "match"] }
+            }
+          ]
+        },
+        {
+          "id": "g1-m3",
+          "title": { "hi": "मात्राएँ: े ै", "en": "Let's learn matras े ै" },
+          "skill": "Phonics",
+          "icon": "banana",
+          "lessons": [
+            {
+              "id": "g1-m3-1",
+              "game": "matra",
+              "icon": "matra:peacock",
+              "title": { "hi": "मात्रा गैराज", "en": "Matra garage" },
+              "config": { "matras": ["e", "ai", "aa", "i", "u"], "words": ["@grade1"], "focus": ["e", "ai"], "allow": ["aa", "i", "ii", "u", "uu"] }
+            },
+            {
+              "id": "g1-m3-2",
+              "game": "read",
+              "icon": "card:parrot",
+              "title": { "hi": "शब्द पढ़ो", "en": "Read words" },
+              "config": { "words": ["@grade1"], "focus": ["e", "ai"], "allow": ["aa", "i", "ii", "u", "uu"], "modes": ["find", "match"] }
+            }
+          ]
+        },
+        {
+          "id": "g1-m4",
+          "title": { "hi": "मात्राएँ: ो ौ", "en": "Let's learn matras ो ौ" },
+          "skill": "Phonics",
+          "icon": "peacock",
+          "lessons": [
+            {
+              "id": "g1-m4-1",
+              "game": "matra",
+              "icon": "matra:peacock",
+              "title": { "hi": "मात्रा गैराज", "en": "Matra garage" },
+              "config": { "matras": ["o", "au", "e", "aa", "i"], "words": ["@grade1"], "focus": ["o", "au"], "allow": ["aa", "i", "ii", "u", "uu", "e", "ai"] }
+            },
+            {
+              "id": "g1-m4-2",
+              "game": "read",
+              "icon": "card:parrot",
+              "title": { "hi": "शब्द पढ़ो", "en": "Read words" },
+              "config": { "words": ["@grade1"], "focus": ["o", "au"], "allow": ["aa", "i", "ii", "u", "uu", "e", "ai"], "modes": ["find", "match"] }
+            }
+          ]
+        },
+        {
+          "id": "g1-m5",
+          "title": { "hi": "अं और ँ", "en": "Let's learn अं and ँ" },
+          "skill": "Phonics",
+          "icon": "kite",
+          "lessons": [
+            {
+              "id": "g1-m5-1",
+              "game": "read",
+              "icon": "card:parrot",
+              "title": { "hi": "शब्द पढ़ो", "en": "Read words" },
+              "config": { "words": ["@grade1"], "focus": ["am", "an"], "allow": ["aa", "i", "ii", "u", "uu", "e", "ai", "o", "au"], "modes": ["find", "match"] }
+            },
+            {
+              "id": "g1-m5-2",
+              "game": "rescue",
+              "icon": "find:tiger",
+              "title": { "hi": "पढ़ो और बचाओ", "en": "Read and rescue" },
+              "config": { "words": ["@grade1"], "cards": "text", "vehicle": "firetruck", "letters": false }
+            }
+          ]
+        },
+        {
+          "id": "g1-family",
+          "title": { "hi": "मेरा परिवार और खाना", "en": "Let's talk about family and food" },
+          "skill": "Vocabulary",
+          "icon": "grandmother",
+          "lessons": [
+            { "id": "g1-family-1", "game": "quiz", "icon": "grandmother", "title": { "hi": "परिवार", "en": "Family" }, "config": { "bank": "g1-family", "rounds": 5 } },
+            {
+              "id": "g1-family-2",
+              "game": "read",
+              "icon": "card:parrot",
+              "title": { "hi": "परिवार के शब्द", "en": "Family words" },
+              "config": { "words": ["mother", "father", "grandfather", "grandmother", "brother", "sister"], "modes": ["find", "match"], "rounds": 5 }
+            },
+            { "id": "g1-family-3", "game": "quiz", "icon": "roti", "title": { "hi": "खाना", "en": "Food" }, "config": { "bank": "g1-food", "rounds": 5 } },
+            {
+              "id": "g1-family-4",
+              "game": "read",
+              "icon": "card:parrot",
+              "title": { "hi": "खाने के शब्द", "en": "Food words" },
+              "config": { "words": ["roti", "rice", "milk", "kheer", "mango", "banana", "apple", "tea"], "modes": ["match", "find"], "rounds": 5 }
+            }
+          ]
+        },
+        {
+          "id": "g1-fest",
+          "title": { "hi": "त्योहार और मौसम", "en": "Festivals and weather" },
+          "skill": "Vocabulary",
+          "icon": "lamp",
+          "lessons": [
+            { "id": "g1-fest-1", "game": "quiz", "icon": "lamp", "title": { "hi": "त्योहार", "en": "Festivals" }, "config": { "bank": "g1-festivals", "rounds": 5 } },
+            {
+              "id": "g1-fest-2",
+              "game": "read",
+              "icon": "card:parrot",
+              "title": { "hi": "शब्द पढ़ो", "en": "Read words" },
+              "config": { "words": ["lamp", "kite", "flag", "swing", "rangoli", "fair", "cloud", "rain", "umbrella"], "modes": ["match", "find"], "rounds": 5 }
+            }
+          ]
+        },
+        {
+          "id": "g1-bara",
+          "title": { "hi": "बारहखड़ी", "en": "Let's learn the barakhadi" },
+          "skill": "Phonics",
+          "icon": "letter:का",
+          "lessons": [
+            { "id": "g1-bara-1", "game": "matra", "icon": "matra:peacock", "title": { "hi": "बारहखड़ी", "en": "Barakhadi" }, "config": {} },
+            {
+              "id": "g1-bara-2",
+              "game": "construction",
+              "icon": "blocks:elephant",
+              "title": { "hi": "शब्द बनाओ", "en": "Build words" },
+              "config": { "activities": ["build"], "buildWords": ["@grade1"], "buildRounds": 3 }
+            }
+          ]
+        },
+        {
+          "id": "g1-rhyme",
+          "title": { "hi": "तुकबंदी", "en": "Rhyme time" },
+          "skill": "Phonological awareness",
+          "icon": "rhyme:monkey",
+          "lessons": [{ "id": "g1-rhyme-1", "game": "rhyme", "icon": "rhyme:monkey", "title": { "hi": "तुक मिलाओ", "en": "Rhymes" }, "config": { "rounds": 4 } }]
+        },
+        {
+          "id": "g1-sent",
+          "title": { "hi": "छोटे वाक्य", "en": "Let's read little sentences" },
+          "skill": "Reading",
+          "icon": "talk:parrot",
+          "lessons": [
+            {
+              "id": "g1-sent-1",
+              "game": "sentence",
+              "icon": "talk:parrot",
+              "title": { "hi": "वाक्य बनाओ", "en": "Build sentences" },
+              "config": { "levels": ["grade1"], "rounds": 3 }
+            }
+          ]
+        },
+        {
+          "id": "g1-story",
+          "title": { "hi": "कहानी का समय", "en": "Story time" },
+          "skill": "Reading",
+          "icon": "book:monkey",
+          "lessons": [{ "id": "g1-story-1", "game": "story", "icon": "book:monkey", "title": { "hi": "कहानी", "en": "Story" }, "config": { "levels": ["grade1"] } }]
+        }
+      ],
+      "helpers": { "courier": "parrot", "vendor": "bear", "lifter": "elephant", "rescuer": "tiger", "holder": "monkey", "engine": "snake" }
+    },
+    {
+      "id": "carnival",
+      "level": "grade1",
+      "subject": "math",
+      "lang": "en",
+      "theme": "carnival",
+      "mascot": "tiko",
+      "color": "#F43F5E",
+      "collection": "carnival",
+      "name": { "hi": "टीको का गणित मेला", "en": "Tiko's Number Carnival" },
+      "letterSets": [],
+      "units": [
+        {
+          "id": "g1m-count",
+          "title": { "hi": "गिनती 150 तक", "en": "Let's count to 150" },
+          "skill": "Count and read to 150 · NC.1.NBT.1",
+          "icon": "letter:150",
+          "lessons": [
+            { "id": "g1m-count-1", "game": "math", "icon": "letter:99", "title": { "hi": "आगे गिनो", "en": "Count on" }, "config": { "skills": ["g1-count150"] } },
+            {
+              "id": "g1m-count-2",
+              "game": "math",
+              "icon": "letter:105",
+              "title": { "hi": "बड़ी संख्याएँ पढ़ो", "en": "Read big numbers" },
+              "config": { "skills": ["g1-numerals"] }
+            }
+          ]
+        },
+        {
+          "id": "g1m-place",
+          "title": { "hi": "दहाई और इकाई", "en": "Let's learn tens and ones" },
+          "skill": "Place value · NC.1.NBT.2–3",
+          "icon": "letter:34",
+          "lessons": [
+            { "id": "g1m-place-1", "game": "math", "icon": "letter:34", "title": { "hi": "दहाई और इकाई", "en": "Tens and ones" }, "config": { "skills": ["g1-place"] } },
+            {
+              "id": "g1m-place-2",
+              "game": "math",
+              "icon": "letter:>",
+              "title": { "hi": "बड़ा या छोटा?", "en": "Greater or less?" },
+              "config": { "skills": ["g1-compare"] }
+            }
+          ]
+        },
+        {
+          "id": "g1m-facts",
+          "title": { "hi": "20 तक जोड़-घटाव", "en": "Let's add and subtract to 20" },
+          "skill": "Facts within 20 · NC.1.OA.2, 3, 6",
+          "icon": "letter:+",
+          "lessons": [
+            { "id": "g1m-facts-1", "game": "math", "icon": "letter:+", "title": { "hi": "दस बनाओ", "en": "Make a ten" }, "config": { "skills": ["g1-facts20"] } },
+            { "id": "g1m-facts-2", "game": "math", "icon": "letter:3+", "title": { "hi": "तीन संख्याएँ", "en": "Three numbers" }, "config": { "skills": ["g1-three"] } },
+            {
+              "id": "g1m-facts-3",
+              "game": "math",
+              "icon": "letter:?",
+              "title": { "hi": "छूटी संख्या", "en": "Missing numbers" },
+              "config": { "skills": ["g1-missing"] }
+            }
+          ]
+        },
+        {
+          "id": "g1m-story",
+          "title": { "hi": "कहानी वाले सवाल", "en": "Let's solve story problems" },
+          "skill": "Word problems and the equal sign · NC.1.OA.1, 7, 8",
+          "icon": "kite",
+          "lessons": [
+            { "id": "g1m-story-1", "game": "math", "icon": "kite", "title": { "hi": "कहानी के सवाल", "en": "Story problems" }, "config": { "skills": ["g1-story"] } },
+            { "id": "g1m-story-2", "game": "math", "icon": "letter:=", "title": { "hi": "सही या ग़लत?", "en": "True or false?" }, "config": { "skills": ["g1-equal"] } }
+          ]
+        },
+        {
+          "id": "g1m-100",
+          "title": { "hi": "100 तक", "en": "Let's add big numbers" },
+          "skill": "Add and subtract tens · NC.1.NBT.4–6",
+          "icon": "letter:+10",
+          "lessons": [
+            {
+              "id": "g1m-100-1",
+              "game": "math",
+              "icon": "letter:+10",
+              "title": { "hi": "10 ज़्यादा, 10 कम", "en": "10 more, 10 less" },
+              "config": { "skills": ["g1-tenmore"] }
+            },
+            { "id": "g1m-100-2", "game": "math", "icon": "letter:+20", "title": { "hi": "दहाई जोड़ो", "en": "Adding tens" }, "config": { "skills": ["g1-add100"] } }
+          ]
+        },
+        {
+          "id": "g1m-measure",
+          "title": { "hi": "नाप और समय", "en": "Let's measure and tell time" },
+          "skill": "Length and time · NC.1.MD.1–3",
+          "icon": "clock",
+          "lessons": [
+            {
+              "id": "g1m-measure-1",
+              "game": "math",
+              "icon": "snake",
+              "title": { "hi": "सबसे लंबा, सबसे छोटा", "en": "Longest and shortest" },
+              "config": { "skills": ["g1-length"] }
+            },
+            {
+              "id": "g1m-measure-2",
+              "game": "math",
+              "icon": "train",
+              "title": { "hi": "घनों से नापो", "en": "Measure with cubes" },
+              "config": { "skills": ["g1-units"] }
+            },
+            {
+              "id": "g1m-measure-3",
+              "game": "math",
+              "icon": "clock",
+              "title": { "hi": "कितने बजे हैं?", "en": "What time is it?" },
+              "config": { "skills": ["g1-time"] }
+            }
+          ]
+        },
+        {
+          "id": "g1m-money",
+          "title": { "hi": "सिक्के और ग्राफ़", "en": "Let's learn coins and graphs" },
+          "skill": "Money and data · NC.1.MD.4–5",
+          "icon": "coins",
+          "lessons": [
+            { "id": "g1m-money-1", "game": "math", "icon": "coins", "title": { "hi": "सिक्के", "en": "Coins" }, "config": { "skills": ["g1-coins"] } },
+            { "id": "g1m-money-2", "game": "math", "icon": "balloon", "title": { "hi": "चित्र ग्राफ़", "en": "Picture graphs" }, "config": { "skills": ["g1-graph"] } }
+          ]
+        },
+        {
+          "id": "g1m-shapes",
+          "title": { "hi": "आकार", "en": "Let's explore shapes" },
+          "skill": "Shapes and fractions · NC.1.G.1–3",
+          "icon": "shape-square",
+          "lessons": [
+            {
+              "id": "g1m-shapes-1",
+              "game": "math",
+              "icon": "shape-triangle",
+              "title": { "hi": "भुजाएँ और कोने", "en": "Sides and corners" },
+              "config": { "skills": ["g1-sides"] }
+            },
+            {
+              "id": "g1m-shapes-2",
+              "game": "math",
+              "icon": "shape-square",
+              "title": { "hi": "आकार जोड़ो", "en": "Put shapes together" },
+              "config": { "skills": ["g1-compose"] }
+            },
+            {
+              "id": "g1m-shapes-3",
+              "game": "math",
+              "icon": "roti",
+              "title": { "hi": "आधा और चौथाई", "en": "Halves and fourths" },
+              "config": { "skills": ["g1-halves"] }
+            }
+          ]
+        },
+        {
+          "id": "g1m-challenge",
+          "title": { "hi": "मेला चुनौती", "en": "Carnival challenge" },
+          "skill": "Review · mixed practice",
+          "icon": "ferris",
+          "lessons": [
+            {
+              "id": "g1m-challenge-1",
+              "game": "math",
+              "icon": "ferris",
+              "title": { "hi": "चुनौती 1", "en": "Challenge 1" },
+              "config": { "skills": ["g1-facts20", "g1-place", "g1-time", "g1-story", "g1-halves"], "rounds": 8 }
+            },
+            {
+              "id": "g1m-challenge-2",
+              "game": "math",
+              "icon": "drum",
+              "title": { "hi": "चुनौती 2", "en": "Challenge 2" },
+              "config": { "skills": ["g1-missing", "g1-compare", "g1-coins", "g1-tenmore", "g1-graph", "g1-sides"], "rounds": 8 }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dino",
+      "level": "grade2",
+      "subject": "hindi",
+      "theme": "dino",
+      "mascot": "dumdum",
+      "color": "#F28C28",
+      "collection": "dinos",
+      "name": { "hi": "डायनो घाटी", "en": "Dino Valley" },
+      "letterSets": ["hindiConsonants", "english"],
+      "units": [
+        {
+          "id": "g2-half",
+          "title": { "hi": "आधे अक्षर", "en": "Let's learn half letters" },
+          "skill": "Phonics",
+          "icon": "leaf",
+          "lessons": [
+            {
+              "id": "g2-half-1",
+              "game": "read",
+              "icon": "card:dinoegg",
+              "title": { "hi": "शब्द पढ़ो", "en": "Read words" },
+              "config": { "words": ["@grade2"], "modes": ["match", "find"] }
+            },
+            {
+              "id": "g2-half-2",
+              "game": "construction",
+              "icon": "blocks:brachiosaurus",
+              "title": { "hi": "शब्द बनाओ", "en": "Build words" },
+              "config": { "activities": ["build"], "buildWords": ["@grade2"], "buildRounds": 3 }
+            }
+          ]
+        },
+        {
+          "id": "g2-ra",
+          "title": { "hi": "र के रूप", "en": "The shapes of र" },
+          "skill": "Phonics",
+          "icon": "chair",
+          "lessons": [{ "id": "g2-ra-1", "game": "sort", "icon": "chair", "title": { "hi": "र कहाँ है?", "en": "Where is र?" }, "config": { "sort": "g2-ra", "rounds": 8 } }]
+        },
+        {
+          "id": "g2-home",
+          "title": { "hi": "मेरा घर", "en": "My home" },
+          "skill": "Vocabulary",
+          "icon": "house",
+          "lessons": [
+            {
+              "id": "g2-home-1",
+              "game": "read",
+              "icon": "card:dinoegg",
+              "title": { "hi": "घर के शब्द", "en": "Home words" },
+              "config": { "words": ["door", "window", "bed", "chair", "clock", "table", "fan", "bucket", "spoon", "tumbler"], "modes": ["match", "find"], "rounds": 6 }
+            },
+            {
+              "id": "g2-home-2",
+              "game": "construction",
+              "icon": "blocks:brachiosaurus",
+              "title": { "hi": "शब्द बनाओ", "en": "Build words" },
+              "config": { "activities": ["build"], "buildWords": ["window", "clock", "chair", "bed", "tumbler", "fan", "table"], "buildRounds": 3 }
+            }
+          ]
+        },
+        {
+          "id": "g2-opp",
+          "title": { "hi": "विलोम शब्द", "en": "Let's learn opposites" },
+          "skill": "Vocabulary",
+          "icon": "size-big",
+          "lessons": [{ "id": "g2-opp-1", "game": "pairs", "icon": "pair:stegosaurus", "title": { "hi": "उल्टा", "en": "Opposites" }, "config": { "kinds": ["opposite"] } }]
+        },
+        {
+          "id": "g2-many",
+          "title": { "hi": "एक और अनेक", "en": "One and many" },
+          "skill": "Grammar",
+          "icon": "bananas",
+          "lessons": [{ "id": "g2-many-1", "game": "pairs", "icon": "pair:stegosaurus", "title": { "hi": "एक-अनेक", "en": "One, many" }, "config": { "kinds": ["plural"] } }]
+        },
+        {
+          "id": "g2-rhyme",
+          "title": { "hi": "तुकांत शब्द", "en": "Rhyming words" },
+          "skill": "Phonological awareness",
+          "icon": "rhyme:pterodactyl",
+          "lessons": [{ "id": "g2-rhyme-1", "game": "rhyme", "icon": "rhyme:pterodactyl", "title": { "hi": "तुक मिलाओ", "en": "Rhymes" }, "config": { "rounds": 5 } }]
+        },
+        {
+          "id": "g2-sent",
+          "title": { "hi": "वाक्य बनाओ", "en": "Let's build sentences" },
+          "skill": "Writing",
+          "icon": "talk:triceratops",
+          "lessons": [
+            {
+              "id": "g2-sent-1",
+              "game": "sentence",
+              "icon": "talk:triceratops",
+              "title": { "hi": "वाक्य", "en": "Sentences" },
+              "config": { "levels": ["grade1", "grade2"], "rounds": 4 }
+            }
+          ]
+        },
+        {
+          "id": "g2-story",
+          "title": { "hi": "कहानियाँ", "en": "Stories" },
+          "skill": "Reading",
+          "icon": "book:trex",
+          "lessons": [{ "id": "g2-story-1", "game": "story", "icon": "book:trex", "title": { "hi": "कहानी", "en": "Story" }, "config": { "levels": ["grade2"] } }]
+        }
+      ],
+      "helpers": { "courier": "pterodactyl", "vendor": "triceratops", "lifter": "brachiosaurus", "engine": "stegosaurus" }
+    },
+    {
+      "id": "space",
+      "level": "grade3",
+      "subject": "hindi",
+      "theme": "space",
+      "mascot": "zoomi",
+      "color": "#6D5DF6",
+      "collection": "space",
+      "name": { "hi": "अंतरिक्ष यात्रा", "en": "Space Trip" },
+      "letterSets": ["hindiConsonants", "english"],
+      "units": [
+        {
+          "id": "g3-gender",
+          "title": { "hi": "लिंग", "en": "Let's learn gender" },
+          "skill": "Grammar",
+          "icon": "lioness",
+          "lessons": [
+            { "id": "g3-gender-1", "game": "pairs", "icon": "pair:alien", "title": { "hi": "लिंग", "en": "Gender" }, "config": { "kinds": ["female"] } },
+            { "id": "g3-gender-2", "game": "quiz", "icon": "girl", "title": { "hi": "सही शब्द", "en": "Pick the word" }, "config": { "bank": "g3-gender", "rounds": 6 } }
+          ]
+        },
+        {
+          "id": "g3-number",
+          "title": { "hi": "वचन", "en": "Let's learn singular and plural" },
+          "skill": "Grammar",
+          "icon": "books",
+          "lessons": [{ "id": "g3-number-1", "game": "pairs", "icon": "pair:alien", "title": { "hi": "वचन", "en": "Number" }, "config": { "kinds": ["plural"] } }]
+        },
+        {
+          "id": "g3-opp",
+          "title": { "hi": "विलोम", "en": "Opposites" },
+          "skill": "Vocabulary",
+          "icon": "size-small",
+          "lessons": [{ "id": "g3-opp-1", "game": "pairs", "icon": "pair:alien", "title": { "hi": "विलोम", "en": "Opposites" }, "config": { "kinds": ["opposite"] } }]
+        },
+        {
+          "id": "g3-sent",
+          "title": { "hi": "वाक्य", "en": "Sentences" },
+          "skill": "Writing",
+          "icon": "talk:astronaut",
+          "lessons": [
+            {
+              "id": "g3-sent-1",
+              "game": "sentence",
+              "icon": "talk:astronaut",
+              "title": { "hi": "वाक्य", "en": "Sentences" },
+              "config": { "levels": ["grade2", "grade3"], "rounds": 4 }
+            }
+          ]
+        },
+        {
+          "id": "g3-nouns",
+          "title": { "hi": "नाम और काम", "en": "Naming words and action words" },
+          "skill": "Grammar",
+          "icon": "book",
+          "lessons": [
+            {
+              "id": "g3-nouns-1",
+              "game": "sort",
+              "icon": "book",
+              "title": { "hi": "नाम या काम?", "en": "Name or action?" },
+              "config": { "sort": "g3-nouns", "rounds": 10 }
+            }
+          ]
+        },
+        {
+          "id": "g3-syn",
+          "title": { "hi": "पर्यायवाची शब्द", "en": "Same-meaning words" },
+          "skill": "Vocabulary",
+          "icon": "sun",
+          "lessons": [{ "id": "g3-syn-1", "game": "quiz", "icon": "sun", "title": { "hi": "दूसरा नाम", "en": "Another word" }, "config": { "bank": "g3-synonyms", "rounds": 6 } }]
+        },
+        {
+          "id": "g3-punct",
+          "title": { "hi": "विराम चिह्न", "en": "Full stop, question and wow marks" },
+          "skill": "Writing",
+          "icon": "letter:?",
+          "lessons": [
+            {
+              "id": "g3-punct-1",
+              "game": "quiz",
+              "icon": "letter:।",
+              "title": { "hi": "चिह्न लगाओ", "en": "Add the mark" },
+              "config": { "bank": "g3-punct", "rounds": 6 }
+            }
+          ]
+        },
+        {
+          "id": "g3-space",
+          "title": { "hi": "अंतरिक्ष के शब्द", "en": "Space words" },
+          "skill": "Reading",
+          "icon": "rocket",
+          "lessons": [
+            {
+              "id": "g3-space-1",
+              "game": "read",
+              "icon": "rocket",
+              "title": { "hi": "शब्द पढ़ो", "en": "Read words" },
+              "config": { "words": ["rocket", "moon", "sun", "earth", "saturn", "mars", "satellite", "telescope", "comet", "star"], "modes": ["match", "find"], "rounds": 6 }
+            }
+          ]
+        },
+        {
+          "id": "g3-story",
+          "title": { "hi": "लोककथाएँ", "en": "Folktales" },
+          "skill": "Reading",
+          "icon": "book:saturn",
+          "lessons": [{ "id": "g3-story-1", "game": "story", "icon": "book:saturn", "title": { "hi": "कहानी", "en": "Story" }, "config": { "levels": ["grade3"] } }]
+        }
+      ],
+      "helpers": { "courier": "satellite", "engine": "rocket" }
+    },
+    {
+      "id": "ocean",
+      "level": "grade4",
+      "subject": "hindi",
+      "theme": "ocean",
+      "mascot": "ollu",
+      "color": "#0EA5E9",
+      "collection": "ocean",
+      "name": { "hi": "समुद्री सफ़र", "en": "Ocean Voyage" },
+      "letterSets": ["hindiConsonants", "english"],
+      "units": [
+        {
+          "id": "g4-pron",
+          "title": { "hi": "सर्वनाम", "en": "Let's learn pronouns" },
+          "skill": "Grammar",
+          "icon": "girl",
+          "lessons": [{ "id": "g4-pron-1", "game": "quiz", "icon": "girl", "title": { "hi": "मैं, तुम, वह", "en": "I, you, she" }, "config": { "bank": "g4-pronouns", "rounds": 6 } }]
+        },
+        {
+          "id": "g4-adj",
+          "title": { "hi": "विशेषण", "en": "Let's learn describing words" },
+          "skill": "Grammar",
+          "icon": "red",
+          "lessons": [
+            {
+              "id": "g4-adj-1",
+              "game": "sort",
+              "icon": "red",
+              "title": { "hi": "कैसा या नाम?", "en": "Describe or name?" },
+              "config": { "sort": "g4-adjectives", "rounds": 9 }
+            },
+            {
+              "id": "g4-adj-2",
+              "game": "quiz",
+              "icon": "elephant",
+              "title": { "hi": "सही विशेषण", "en": "Pick the word" },
+              "config": { "bank": "g4-adjectives", "rounds": 5 }
+            }
+          ]
+        },
+        {
+          "id": "g4-verbs",
+          "title": { "hi": "क्रिया", "en": "Let's learn action words" },
+          "skill": "Grammar",
+          "icon": "bird",
+          "lessons": [{ "id": "g4-verbs-1", "game": "quiz", "icon": "bird", "title": { "hi": "काम वाले शब्द", "en": "Action words" }, "config": { "bank": "g4-verbs", "rounds": 6 } }]
+        },
+        {
+          "id": "g4-tense",
+          "title": { "hi": "काल", "en": "Past, present and future" },
+          "skill": "Grammar",
+          "icon": "clock",
+          "lessons": [{ "id": "g4-tense-1", "game": "quiz", "icon": "clock", "title": { "hi": "कब?", "en": "When?" }, "config": { "bank": "g4-tense", "rounds": 6 } }]
+        },
+        {
+          "id": "g4-idioms",
+          "title": { "hi": "मुहावरे", "en": "Let's learn idioms" },
+          "skill": "Vocabulary",
+          "icon": "eye",
+          "lessons": [{ "id": "g4-idioms-1", "game": "quiz", "icon": "eye", "title": { "hi": "मुहावरे", "en": "Idioms" }, "config": { "bank": "g4-idioms", "rounds": 5 } }]
+        },
+        {
+          "id": "g4-days",
+          "title": { "hi": "दिन और महीने", "en": "Days and months" },
+          "skill": "Vocabulary",
+          "icon": "clock",
+          "lessons": [
+            {
+              "id": "g4-days-1",
+              "game": "quiz",
+              "icon": "clock",
+              "title": { "hi": "दिन और महीने", "en": "Days and months" },
+              "config": { "bank": "g4-days", "rounds": 6 }
+            }
+          ]
+        },
+        {
+          "id": "g4-ocean",
+          "title": { "hi": "समुद्र के शब्द", "en": "Ocean words" },
+          "skill": "Reading",
+          "icon": "whale",
+          "lessons": [
+            {
+              "id": "g4-ocean-1",
+              "game": "read",
+              "icon": "whale",
+              "title": { "hi": "शब्द पढ़ो", "en": "Read words" },
+              "config": { "words": ["fish", "crab", "shark", "whale", "shell", "ship", "boat", "octopus", "turtle", "dolphin"], "modes": ["match", "find"], "rounds": 6 }
+            }
+          ]
+        },
+        {
+          "id": "g4-review",
+          "title": { "hi": "उल्टे और मिलते-जुलते शब्द", "en": "Opposites and same-meaning words" },
+          "skill": "Vocabulary",
+          "icon": "size-big",
+          "lessons": [
+            { "id": "g4-review-1", "game": "quiz", "icon": "size-big", "title": { "hi": "उल्टा", "en": "Opposites" }, "config": { "bank": "g4-review", "rounds": 6 } },
+            {
+              "id": "g4-review-2",
+              "game": "pairs",
+              "icon": "pair:crab",
+              "title": { "hi": "जोड़े", "en": "Pairs" },
+              "config": { "kinds": ["opposite", "plural", "female"] }
+            }
+          ]
+        },
+        {
+          "id": "g4-sent",
+          "title": { "hi": "लंबे वाक्य", "en": "Longer sentences" },
+          "skill": "Writing",
+          "icon": "talk:octopus",
+          "lessons": [
+            {
+              "id": "g4-sent-1",
+              "game": "sentence",
+              "icon": "talk:octopus",
+              "title": { "hi": "वाक्य बनाओ", "en": "Build sentences" },
+              "config": { "levels": ["grade3", "grade4"], "rounds": 3 }
+            }
+          ]
+        },
+        {
+          "id": "g4-story",
+          "title": { "hi": "कहानियाँ", "en": "Stories with a moral" },
+          "skill": "Reading",
+          "icon": "book:turtle",
+          "lessons": [{ "id": "g4-story-1", "game": "story", "icon": "book:turtle", "title": { "hi": "कहानी", "en": "Story" }, "config": { "levels": ["grade3", "grade4"] } }]
+        }
+      ],
+      "helpers": { "courier": "dolphin", "engine": "whale" }
+    }
+  ],
+  "mascotLines": [
+    { "hi": "हा हा! गुदगुदी होती है!", "en": "Ha ha! That tickles!", "move": "silly" },
+    { "hi": "आछू! माफ़ करना!", "en": "Achoo! Excuse me!", "move": "sneeze" },
+    { "hi": "देखो, गोल-गोल!", "en": "Look, round and round!", "move": "spin" },
+    { "hi": "चलो नाचें!", "en": "Let's dance!", "move": "dance" },
+    { "hi": "नमस्ते दोस्त!", "en": "Hello, friend!", "move": "wave" },
+    { "hi": "वाह! तुम तो कमाल हो!", "en": "Wow, you are amazing!", "move": "dance" }
+  ],
+  "quizzes": {
+    "g1-family": {
+      "title": { "hi": "मेरा परिवार", "en": "My family" },
+      "questions": [
+        { "hi": "माँ कौन हैं?", "en": "Who is माँ (mother)?", "options": ["mother", "girl", "grandmother"], "answer": "mother", "pictures": true },
+        { "hi": "पिता कौन हैं?", "en": "Who is पिता (father)?", "options": ["father", "boy", "grandfather"], "answer": "father", "pictures": true },
+        { "hi": "दादी कौन हैं?", "en": "Who is दादी (grandmother)?", "options": ["grandmother", "mother", "girl"], "answer": "grandmother", "pictures": true },
+        { "hi": "दादा कौन हैं?", "en": "Who is दादा (grandfather)?", "options": ["grandfather", "father", "boy"], "answer": "grandfather", "pictures": true },
+        { "hi": "भाई कौन है?", "en": "Who is भाई (brother)?", "options": ["boy", "girl", "father"], "answer": "boy", "pictures": true },
+        { "hi": "दीदी कौन है?", "en": "Who is दीदी (big sister)?", "options": ["girl", "boy", "grandmother"], "answer": "girl", "pictures": true }
+      ]
+    },
+    "g1-food": {
+      "title": { "hi": "खाना", "en": "Food" },
+      "questions": [
+        { "hi": "रोटी कौन सी है?", "en": "Which one is रोटी?", "options": ["roti", "rice", "milk"], "answer": "roti", "pictures": true },
+        { "hi": "चावल कौन सा है?", "en": "Which one is चावल (rice)?", "options": ["rice", "kheer", "roti"], "answer": "rice", "pictures": true },
+        { "hi": "दूध कौन सा है?", "en": "Which one is दूध (milk)?", "options": ["milk", "tea", "water"], "answer": "milk", "pictures": true },
+        { "hi": "खीर कौन सी है?", "en": "Which one is खीर?", "options": ["kheer", "rice", "tea"], "answer": "kheer", "pictures": true },
+        { "hi": "मीठा आम कौन सा है?", "en": "Which one is the sweet mango?", "options": ["mango", "potato", "carrot"], "answer": "mango", "pictures": true }
+      ]
+    },
+    "g1-festivals": {
+      "title": { "hi": "त्योहार और मौसम", "en": "Festivals and weather" },
+      "questions": [
+        { "hi": "दिवाली पर हम क्या जलाते हैं?", "en": "What do we light at Diwali?", "options": ["lamp", "kite", "flag"], "answer": "lamp", "pictures": true },
+        {
+          "hi": "मकर संक्रांति पर हम क्या उड़ाते हैं?",
+          "en": "What do we fly at Makar Sankranti?",
+          "options": ["kite", "balloon", "dove"],
+          "answer": "kite",
+          "pictures": true
+        },
+        {
+          "hi": "पंद्रह अगस्त को हम क्या फहराते हैं?",
+          "en": "What do we raise on 15 August?",
+          "options": ["flag", "kite", "umbrella"],
+          "answer": "flag",
+          "pictures": true
+        },
+        { "hi": "मेले में हम किस पर झूलते हैं?", "en": "What do we ride at the fair?", "options": ["swing", "bed", "chair"], "answer": "swing", "pictures": true },
+        {
+          "hi": "दरवाज़े के सामने रंगों से क्या बनाते हैं?",
+          "en": "What do we make with colours by the door?",
+          "options": ["rangoli", "garland", "flag"],
+          "answer": "rangoli",
+          "pictures": true
+        },
+        { "hi": "बारिश कहाँ से आती है?", "en": "Where does rain come from?", "options": ["rain", "sun", "moon"], "answer": "rain", "pictures": true },
+        {
+          "hi": "बारिश में हम क्या खोलते हैं?",
+          "en": "What do we open in the rain?",
+          "options": ["umbrella", "book", "door"],
+          "answer": "umbrella",
+          "pictures": true
+        }
+      ]
+    },
+    "g3-synonyms": {
+      "title": { "hi": "पर्यायवाची शब्द", "en": "Same-meaning words" },
+      "questions": [
+        { "hi": "'सूरज' का दूसरा नाम क्या है?", "en": "Another word for 'सूरज'?", "options": ["सूर्य", "चाँद", "तारा"], "answer": "सूर्य", "word": "sun" },
+        { "hi": "'पानी' का दूसरा नाम क्या है?", "en": "Another word for 'पानी'?", "options": ["जल", "आग", "हवा"], "answer": "जल", "word": "water" },
+        { "hi": "'पेड़' का दूसरा नाम क्या है?", "en": "Another word for 'पेड़'?", "options": ["वृक्ष", "फूल", "पत्ता"], "answer": "वृक्ष", "word": "tree" },
+        { "hi": "'फूल' का दूसरा नाम क्या है?", "en": "Another word for 'फूल'?", "options": ["पुष्प", "फल", "काँटा"], "answer": "पुष्प", "word": "flower" },
+        { "hi": "'घर' का दूसरा नाम क्या है?", "en": "Another word for 'घर'?", "options": ["मकान", "दुकान", "बाग़"], "answer": "मकान", "word": "house" },
+        { "hi": "'हाथी' का दूसरा नाम क्या है?", "en": "Another word for 'हाथी'?", "options": ["गज", "घोड़ा", "शेर"], "answer": "गज", "word": "elephant" },
+        { "hi": "'आसमान' का दूसरा नाम क्या है?", "en": "Another word for 'आसमान'?", "options": ["आकाश", "धरती", "पानी"], "answer": "आकाश", "word": "cloud" },
+        { "hi": "'चाँद' का दूसरा नाम क्या है?", "en": "Another word for 'चाँद'?", "options": ["चंद्रमा", "सूरज", "तारा"], "answer": "चंद्रमा", "word": "moon" },
+        { "hi": "'दोस्त' का दूसरा नाम क्या है?", "en": "Another word for 'दोस्त'?", "options": ["मित्र", "दुश्मन", "मेहमान"], "answer": "मित्र" },
+        { "hi": "'माँ' का दूसरा नाम क्या है?", "en": "Another word for 'माँ'?", "options": ["माता", "पिता", "दादी"], "answer": "माता", "word": "mother" },
+        { "hi": "'धरती' का दूसरा नाम क्या है?", "en": "Another word for 'धरती'?", "options": ["पृथ्वी", "आकाश", "समुद्र"], "answer": "पृथ्वी", "word": "earth" }
+      ]
+    },
+    "g3-punct": {
+      "title": { "hi": "विराम चिह्न", "en": "Punctuation" },
+      "questions": [
+        {
+          "hi": "वाक्य के अंत में कौन सा चिह्न लगेगा?",
+          "en": "Which mark ends this sentence?",
+          "options": ["?", "।", "!"],
+          "answer": "?",
+          "show": "तुम कहाँ जा रहे हो___",
+          "say": "तुम कहाँ जा रहे हो?"
+        },
+        {
+          "hi": "वाक्य के अंत में कौन सा चिह्न लगेगा?",
+          "en": "Which mark ends this sentence?",
+          "options": ["?", "।", "!"],
+          "answer": "।",
+          "show": "मैं स्कूल जाता हूँ___",
+          "say": "मैं स्कूल जाता हूँ।"
+        },
+        {
+          "hi": "वाक्य के अंत में कौन सा चिह्न लगेगा?",
+          "en": "Which mark ends this sentence?",
+          "options": ["?", "।", "!"],
+          "answer": "!",
+          "show": "वाह, कितना सुंदर फूल है___",
+          "say": "वाह, कितना सुंदर फूल है!"
+        },
+        {
+          "hi": "वाक्य के अंत में कौन सा चिह्न लगेगा?",
+          "en": "Which mark ends this sentence?",
+          "options": ["?", "।", "!"],
+          "answer": "?",
+          "show": "क्या तुमने खाना खाया___",
+          "say": "क्या तुमने खाना खाया?"
+        },
+        {
+          "hi": "वाक्य के अंत में कौन सा चिह्न लगेगा?",
+          "en": "Which mark ends this sentence?",
+          "options": ["?", "।", "!"],
+          "answer": "।",
+          "show": "आज बारिश हो रही है___",
+          "say": "आज बारिश हो रही है।"
+        },
+        {
+          "hi": "वाक्य के अंत में कौन सा चिह्न लगेगा?",
+          "en": "Which mark ends this sentence?",
+          "options": ["?", "।", "!"],
+          "answer": "!",
+          "show": "अरे, साँप___",
+          "say": "अरे, साँप!"
+        },
+        {
+          "hi": "वाक्य के अंत में कौन सा चिह्न लगेगा?",
+          "en": "Which mark ends this sentence?",
+          "options": ["?", "।", "!"],
+          "answer": "?",
+          "show": "तुम्हारा नाम क्या है___",
+          "say": "तुम्हारा नाम क्या है?"
+        },
+        {
+          "hi": "वाक्य के अंत में कौन सा चिह्न लगेगा?",
+          "en": "Which mark ends this sentence?",
+          "options": ["?", "।", "!"],
+          "answer": "।",
+          "show": "गाय दूध देती है___",
+          "say": "गाय दूध देती है।"
+        }
+      ]
+    },
+    "g3-gender": {
+      "title": { "hi": "लिंग", "en": "Gender" },
+      "questions": [
+        { "hi": "सही शब्द चुनो", "en": "Pick the right word", "options": ["खेलती", "खेलता"], "answer": "खेलती", "show": "लड़की ___ है।", "word": "girl" },
+        { "hi": "सही शब्द चुनो", "en": "Pick the right word", "options": ["गाता", "गाती"], "answer": "गाता", "show": "लड़का ___ है।", "word": "boy" },
+        { "hi": "सही शब्द चुनो", "en": "Pick the right word", "options": ["रही", "रहा"], "answer": "रही", "show": "मोरनी नाच ___ है।", "word": "peahen" },
+        { "hi": "सही शब्द चुनो", "en": "Pick the right word", "options": ["रहा", "रही"], "answer": "रहा", "show": "शेर दहाड़ ___ है।", "word": "lion" },
+        { "hi": "सही शब्द चुनो", "en": "Pick the right word", "options": ["खाती", "खाता"], "answer": "खाती", "show": "गाय घास ___ है।", "word": "cow" },
+        { "hi": "सही शब्द चुनो", "en": "Pick the right word", "options": ["दौड़ता", "दौड़ती"], "answer": "दौड़ता", "show": "घोड़ा तेज़ ___ है।", "word": "horse" },
+        { "hi": "सही शब्द चुनो", "en": "Pick the right word", "options": ["पीती", "पीता"], "answer": "पीती", "show": "बिल्ली दूध ___ है।", "word": "cat" }
+      ]
+    },
+    "g4-pronouns": {
+      "title": { "hi": "सर्वनाम", "en": "Pronouns" },
+      "questions": [
+        { "hi": "सही शब्द चुनो", "en": "Pick the right word", "options": ["मैं", "तुम", "वे"], "answer": "मैं", "show": "___ स्कूल जाता हूँ।" },
+        { "hi": "सही शब्द चुनो", "en": "Pick the right word", "options": ["तुम", "मैं", "वह"], "answer": "तुम", "show": "___ कहाँ रहते हो?" },
+        {
+          "hi": "सही शब्द चुनो",
+          "en": "Pick the right word",
+          "options": ["वह", "हम", "मैं"],
+          "answer": "वह",
+          "show": "लड़की खेल रही है। ___ खुश है।",
+          "word": "girl"
+        },
+        { "hi": "सही शब्द चुनो", "en": "Pick the right word", "options": ["हम", "वह", "मैं"], "answer": "हम", "show": "___ सब मिलकर खेलते हैं।" },
+        {
+          "hi": "सही शब्द चुनो",
+          "en": "Pick the right word",
+          "options": ["यह", "हम", "तुम"],
+          "answer": "यह",
+          "show": "यह मेरी किताब है। ___ नीली है।",
+          "word": "book"
+        },
+        { "hi": "सही शब्द चुनो", "en": "Pick the right word", "options": ["वे", "मैं", "तुम"], "answer": "वे", "show": "बच्चे बगीचे में हैं। ___ खेल रहे हैं।" }
+      ]
+    },
+    "g4-adjectives": {
+      "title": { "hi": "विशेषण", "en": "Describing words" },
+      "questions": [
+        { "hi": "सही शब्द चुनो", "en": "Pick the right word", "options": ["बड़ा", "छोटा", "पतला"], "answer": "बड़ा", "show": "___ हाथी", "word": "elephant" },
+        { "hi": "सही शब्द चुनो", "en": "Pick the right word", "options": ["मीठा", "कड़वा", "नीला"], "answer": "मीठा", "show": "___ आम", "word": "mango" },
+        { "hi": "सही शब्द चुनो", "en": "Pick the right word", "options": ["ठंडी", "गरम", "मीठी"], "answer": "ठंडी", "show": "___ बर्फ़", "word": "snowflake" },
+        { "hi": "सही शब्द चुनो", "en": "Pick the right word", "options": ["नीला", "हरा", "काला"], "answer": "नीला", "show": "___ आसमान", "word": "cloud" },
+        { "hi": "सही शब्द चुनो", "en": "Pick the right word", "options": ["छोटी", "मोटी", "लंबी"], "answer": "छोटी", "show": "___ चींटी", "word": "ant" },
+        { "hi": "सही शब्द चुनो", "en": "Pick the right word", "options": ["चमकता", "ठंडा", "गीला"], "answer": "चमकता", "show": "___ सूरज", "word": "sun" }
+      ]
+    },
+    "g4-verbs": {
+      "title": { "hi": "क्रिया", "en": "Action words" },
+      "questions": [
+        { "hi": "कौन सा शब्द काम बताता है?", "en": "Which word is an action?", "options": ["दौड़ना", "पेड़", "लाल"], "answer": "दौड़ना" },
+        { "hi": "कौन सा शब्द काम बताता है?", "en": "Which word is an action?", "options": ["गाना", "किताब", "बड़ा"], "answer": "गाना" },
+        { "hi": "कौन सा शब्द काम बताता है?", "en": "Which word is an action?", "options": ["तैरना", "मछली", "नीला"], "answer": "तैरना", "word": "fish" },
+        { "hi": "कौन सा शब्द काम बताता है?", "en": "Which word is an action?", "options": ["उड़ना", "चिड़िया", "छोटी"], "answer": "उड़ना", "word": "bird" },
+        {
+          "hi": "सही शब्द चुनो",
+          "en": "Pick the right word",
+          "options": ["उड़ा", "मीठा", "घर"],
+          "answer": "उड़ा",
+          "show": "बच्चे पतंग ___ रहे हैं।",
+          "word": "kite"
+        },
+        {
+          "hi": "सही शब्द चुनो",
+          "en": "Pick the right word",
+          "options": ["तैरती", "सुंदर", "नदी"],
+          "answer": "तैरती",
+          "show": "मछली पानी में ___ है।",
+          "word": "fish"
+        }
+      ]
+    },
+    "g4-tense": {
+      "title": { "hi": "काल", "en": "Past, present, future" },
+      "questions": [
+        {
+          "hi": "सही शब्द चुनो",
+          "en": "Pick the right word",
+          "options": ["गए", "जाएँगे", "जाते हैं"],
+          "answer": "गए",
+          "show": "पिछले साल हम समुद्र देखने ___।",
+          "word": "ship"
+        },
+        {
+          "hi": "सही शब्द चुनो",
+          "en": "Pick the right word",
+          "options": ["खा रहे", "खाएँगे", "खाया"],
+          "answer": "खा रहे",
+          "show": "अभी हम खाना ___ हैं।",
+          "word": "roti"
+        },
+        {
+          "hi": "सही शब्द चुनो",
+          "en": "Pick the right word",
+          "options": ["जाएँगे", "गए", "जा रहे थे"],
+          "answer": "जाएँगे",
+          "show": "अगले हफ़्ते हम मेला देखने ___।",
+          "word": "fair"
+        },
+        {
+          "hi": "सही शब्द चुनो",
+          "en": "Pick the right word",
+          "options": ["उड़ाई", "उड़ाएँगे", "उड़ा रहे हैं"],
+          "answer": "उड़ाई",
+          "show": "बीते रविवार हमने पतंग ___।",
+          "word": "kite"
+        },
+        { "hi": "सही शब्द चुनो", "en": "Pick the right word", "options": ["रही", "गई", "जाएगी"], "answer": "रही", "show": "अब बारिश हो ___ है।", "word": "rain" },
+        {
+          "hi": "सही शब्द चुनो",
+          "en": "Pick the right word",
+          "options": ["जाएँगे", "गए", "जाते थे"],
+          "answer": "जाएँगे",
+          "show": "अगले साल हम कक्षा पाँच में ___।",
+          "word": "school"
+        }
+      ]
+    },
+    "g4-idioms": {
+      "title": { "hi": "मुहावरे", "en": "Idioms" },
+      "questions": [
+        {
+          "hi": "'आँखों का तारा' का मतलब क्या है?",
+          "en": "What does 'आँखों का तारा' mean?",
+          "options": ["बहुत प्यारा", "बहुत गुस्सा", "बहुत थका"],
+          "answer": "बहुत प्यारा"
+        },
+        {
+          "hi": "'नौ दो ग्यारह होना' का मतलब क्या है?",
+          "en": "What does 'नौ दो ग्यारह होना' mean?",
+          "options": ["भाग जाना", "गिनती करना", "सो जाना"],
+          "answer": "भाग जाना"
+        },
+        { "hi": "'हाथ बँटाना' का मतलब क्या है?", "en": "What does 'हाथ बँटाना' mean?", "options": ["मदद करना", "हाथ धोना", "लड़ना"], "answer": "मदद करना" },
+        {
+          "hi": "'ईद का चाँद होना' का मतलब क्या है?",
+          "en": "What does 'ईद का चाँद होना' mean?",
+          "options": ["बहुत दिनों बाद दिखना", "चाँद देखना", "रोज़ मिलना"],
+          "answer": "बहुत दिनों बाद दिखना"
+        },
+        {
+          "hi": "'आसमान सिर पर उठाना' का मतलब क्या है?",
+          "en": "What does 'आसमान सिर पर उठाना' mean?",
+          "options": ["बहुत शोर करना", "ऊपर देखना", "उड़ना"],
+          "answer": "बहुत शोर करना"
+        },
+        {
+          "hi": "'मुँह में पानी आना' का मतलब क्या है?",
+          "en": "What does 'मुँह में पानी आना' mean?",
+          "options": ["खाने का मन करना", "पानी पीना", "रोना"],
+          "answer": "खाने का मन करना"
+        }
+      ]
+    },
+    "g4-days": {
+      "title": { "hi": "दिन और महीने", "en": "Days and months" },
+      "questions": [
+        { "hi": "सोमवार के बाद कौन सा दिन आता है?", "en": "Which day comes after Monday?", "options": ["मंगलवार", "रविवार", "शुक्रवार"], "answer": "मंगलवार" },
+        { "hi": "रविवार से पहले कौन सा दिन आता है?", "en": "Which day comes before Sunday?", "options": ["शनिवार", "सोमवार", "बुधवार"], "answer": "शनिवार" },
+        { "hi": "बुधवार के बाद कौन सा दिन आता है?", "en": "Which day comes after Wednesday?", "options": ["गुरुवार", "मंगलवार", "शनिवार"], "answer": "गुरुवार" },
+        { "hi": "हफ़्ते में कितने दिन होते हैं?", "en": "How many days are in a week?", "options": ["सात", "पाँच", "दस"], "answer": "सात" },
+        { "hi": "साल में कितने महीने होते हैं?", "en": "How many months are in a year?", "options": ["बारह", "सात", "दस"], "answer": "बारह" },
+        { "hi": "जनवरी के बाद कौन सा महीना आता है?", "en": "Which month comes after January?", "options": ["फ़रवरी", "मार्च", "दिसंबर"], "answer": "फ़रवरी" },
+        { "hi": "साल का आख़िरी महीना कौन सा है?", "en": "Which is the last month of the year?", "options": ["दिसंबर", "जनवरी", "जून"], "answer": "दिसंबर" }
+      ]
+    },
+    "g4-review": {
+      "title": { "hi": "उल्टे और मिलते-जुलते शब्द", "en": "Opposites and same-meaning words" },
+      "questions": [
+        { "hi": "'दिन' का उल्टा क्या है?", "en": "Opposite of 'दिन' (day)?", "options": ["रात", "सुबह", "धूप"], "answer": "रात" },
+        { "hi": "'सच' का उल्टा क्या है?", "en": "Opposite of 'सच' (truth)?", "options": ["झूठ", "सही", "बात"], "answer": "झूठ" },
+        { "hi": "'आगे' का उल्टा क्या है?", "en": "Opposite of 'आगे' (ahead)?", "options": ["पीछे", "ऊपर", "पास"], "answer": "पीछे" },
+        { "hi": "'गरम' का उल्टा क्या है?", "en": "Opposite of 'गरम' (hot)?", "options": ["ठंडा", "मीठा", "बड़ा"], "answer": "ठंडा" },
+        { "hi": "'मीठा' का उल्टा क्या है?", "en": "Opposite of 'मीठा' (sweet)?", "options": ["कड़वा", "ठंडा", "छोटा"], "answer": "कड़वा" },
+        { "hi": "'पक्षी' का दूसरा नाम क्या है?", "en": "Another word for 'पक्षी'?", "options": ["चिड़िया", "मछली", "पेड़"], "answer": "चिड़िया", "word": "bird" },
+        { "hi": "'समुद्र' का दूसरा नाम क्या है?", "en": "Another word for 'समुद्र'?", "options": ["सागर", "नदी", "तालाब"], "answer": "सागर", "word": "ship" }
+      ]
+    }
+  },
+  "sorts": {
+    "g2-ra": {
+      "prompt": { "hi": "र ऊपर है या नीचे? सही डिब्बे में डालो।", "en": "Is the र on top or at the foot? Put each word in the right box." },
+      "bins": [{ "id": "reph", "hi": "ऊपर वाला र (र्)", "en": "र on top" }, { "id": "foot", "hi": "नीचे वाला र (्र)", "en": "र at the foot" }],
+      "items": [
+        { "text": "कुर्सी", "bin": "reph", "word": "chair" },
+        { "text": "मुर्गा", "bin": "reph", "word": "rooster" },
+        { "text": "मुर्गी", "bin": "reph", "word": "hen" },
+        { "text": "बर्फ़", "bin": "reph", "word": "snowflake" },
+        { "text": "ट्रक", "bin": "foot", "word": "truck" },
+        { "text": "क्रेन", "bin": "foot", "word": "crane" },
+        { "text": "ट्रैक्टर", "bin": "foot", "word": "tractor" },
+        { "text": "ग्रह", "bin": "foot", "word": "saturn" }
+      ]
+    },
+    "g3-nouns": {
+      "prompt": { "hi": "यह नाम है या काम? सही डिब्बे में डालो।", "en": "Is it a naming word or an action word?" },
+      "bins": [{ "id": "name", "hi": "नाम (संज्ञा)", "en": "Naming word" }, { "id": "action", "hi": "काम (क्रिया)", "en": "Action word" }],
+      "items": [
+        { "text": "पेड़", "bin": "name", "word": "tree" },
+        { "text": "किताब", "bin": "name", "word": "book" },
+        { "text": "बिल्ली", "bin": "name", "word": "cat" },
+        { "text": "नदी", "bin": "name", "word": "river" },
+        { "text": "स्कूल", "bin": "name", "word": "school" },
+        { "text": "चिड़िया", "bin": "name", "word": "bird" },
+        { "text": "दौड़ना", "bin": "action" },
+        { "text": "पीना", "bin": "action" },
+        { "text": "कूदना", "bin": "action" },
+        { "text": "पढ़ना", "bin": "action" },
+        { "text": "नाचना", "bin": "action" },
+        { "text": "लिखना", "bin": "action" },
+        { "text": "हँसना", "bin": "action" }
+      ]
+    },
+    "g4-adjectives": {
+      "prompt": { "hi": "यह शब्द कैसा बताता है या नाम? सही डिब्बे में डालो।", "en": "Does the word describe, or name something?" },
+      "bins": [{ "id": "adj", "hi": "कैसा? (विशेषण)", "en": "Describing word" }, { "id": "noun", "hi": "नाम (संज्ञा)", "en": "Naming word" }],
+      "items": [
+        { "text": "लाल", "bin": "adj", "word": "red" },
+        { "text": "मीठा", "bin": "adj" },
+        { "text": "बड़ा", "bin": "adj", "word": "big" },
+        { "text": "ठंडा", "bin": "adj" },
+        { "text": "सुंदर", "bin": "adj" },
+        { "text": "छोटा", "bin": "adj", "word": "small" },
+        { "text": "आम", "bin": "noun", "word": "mango" },
+        { "text": "घर", "bin": "noun", "word": "house" },
+        { "text": "गाय", "bin": "noun", "word": "cow" },
+        { "text": "दूध", "bin": "noun", "word": "milk" },
+        { "text": "जहाज़", "bin": "noun", "word": "ship" }
+      ]
+    }
+  }
 }

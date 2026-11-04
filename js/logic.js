@@ -233,35 +233,7 @@ export function thinPoints(points, max) {
   return out;
 }
 
-// ---- Rewards ----
-
-export function nextUnlock(vehicleIds, unlocked) {
-  const have = new Set(unlocked);
-  return vehicleIds.find((id) => !have.has(id)) ?? null;
-}
-
-export function applyCompletion(progress, gameId, vehicleIds) {
-  const completed = { ...(progress.completed || {}) };
-  completed[gameId] = (completed[gameId] || 0) + 1;
-  const unlocked = (progress.unlockedVehicles || []).slice();
-  const newVehicle = nextUnlock(vehicleIds, unlocked);
-  if (newVehicle) unlocked.push(newVehicle);
-  return { progress: { ...progress, completed, unlockedVehicles: unlocked }, newVehicle };
-}
-
-// ---- Phases (levels) ----
-
-// The phase the child is in: Toddler, Kindergarten, Grade 1, 2 or 3.
-export function currentLevel(content, settings) {
-  const levels = content.levels || [];
-  return levels.find((l) => l.id === settings?.level) || levels.find((l) => l.id === 'kg') || levels[0] || null;
-}
-
-// A game's settings: content.games[game] with the current phase's overrides on top.
-export function gameConfig(content, settings, game) {
-  const level = currentLevel(content, settings);
-  return { ...(content.games?.[game] || {}), ...(level?.games?.[game] || {}) };
-}
+// ---- Words and letters for a lesson ----
 
 // ["@grade1", "bus"] -> every word whose level is grade1, then "bus". Duplicates removed.
 export function expandWords(list, content) {
@@ -273,69 +245,89 @@ export function expandWords(list, content) {
   return out;
 }
 
+// Matra lessons: words that use at least one "focus" matra and nothing beyond focus + "allow".
+// ँ counts with अं (id "am") so a lesson on अं/ँ can ask for both.
+export function wordsForMatras(words, matras, focus, allow = []) {
+  const extra = [{ id: 'an', sign: '\u0901' }];
+  const all = [...matras, ...extra];
+  const ok = new Set([...focus, ...allow]);
+  return words.filter((w) => {
+    const used = all.filter((m) => w.hi.includes(m.sign)).map((m) => m.id);
+    return used.some((id) => focus.includes(id)) && used.every((id) => ok.has(id));
+  });
+}
+
+// A game's settings: content.games[game] with the lesson's own settings on top.
+export function lessonConfig(content, lesson) {
+  return { ...(content.games?.[lesson.game] || {}), ...(lesson.config || {}) };
+}
+
 // ---- Settings ----
 
 export function defaultSettings(content) {
-  const places = {};
-  for (const p of content.places) places[p.id] = p.unlockedByDefault !== false;
-  const letterSets = {};
-  for (const s of content.letterSets) letterSets[s.id] = s.enabledByDefault !== false;
-  return { lang: 'both', level: currentLevel(content, {})?.id ?? null, onboarded: false, places, letterSets };
+  const levels = content.levels || [];
+  return {
+    lang: 'both',
+    level: (levels.find((l) => l.id === 'kg') || levels[0])?.id ?? null,
+    onboarded: false,
+    lockGrade: false,
+    unlockAll: false,
+    math: true, // English math worlds (NC standards) for Kindergarten and Grade 1
+    music: true,
+    sfx: true,
+    voice: { hi: '', en: '', rate: 0.9 },
+  };
 }
 
 export function normalizeSettings(saved, content) {
   const base = defaultSettings(content);
   if (!saved || typeof saved !== 'object') return base;
-  const out = { ...base, places: { ...base.places }, letterSets: { ...base.letterSets } };
+  const out = { ...base, voice: { ...base.voice } };
   if (LANG_MODES.includes(saved.lang)) out.lang = saved.lang;
   if ((content.levels || []).some((l) => l.id === saved.level)) out.level = saved.level;
-  if (typeof saved.onboarded === 'boolean') out.onboarded = saved.onboarded;
-  for (const id of Object.keys(out.places)) if (typeof saved.places?.[id] === 'boolean') out.places[id] = saved.places[id];
-  for (const id of Object.keys(out.letterSets)) if (typeof saved.letterSets?.[id] === 'boolean') out.letterSets[id] = saved.letterSets[id];
+  for (const k of ['onboarded', 'lockGrade', 'unlockAll', 'math', 'music', 'sfx']) if (typeof saved[k] === 'boolean') out[k] = saved[k];
+  if (saved.voice && typeof saved.voice === 'object') {
+    for (const l of ['hi', 'en']) if (typeof saved.voice[l] === 'string') out.voice[l] = saved.voice[l];
+    if (typeof saved.voice.rate === 'number' && saved.voice.rate >= 0.5 && saved.voice.rate <= 1.3) out.voice.rate = saved.voice.rate;
+  }
   return out;
 }
 
 export function defaultProgress(content) {
-  return {
-    unlockedVehicles: content.vehicles.filter((v) => v.unlockedByDefault).map((v) => v.id),
-    completed: {},
-    trainPos: {},
-    storyPos: {},
-    stats: {},
-  };
+  const collected = {};
+  for (const [id, col] of Object.entries(content.collections || {})) collected[id] = col.items.slice(0, col.start || 0);
+  return { lessons: {}, collected, days: [], trainPos: {}, storyPos: {}, stats: {} };
 }
 
 export function normalizeProgress(saved, content) {
   const base = defaultProgress(content);
   if (!saved || typeof saved !== 'object') return base;
-  const known = new Set(content.vehicles.map((v) => v.id));
-  const unlocked = new Set(base.unlockedVehicles);
-  for (const id of saved.unlockedVehicles || []) if (known.has(id)) unlocked.add(id);
   const obj = (v) => (v && typeof v === 'object' && !Array.isArray(v) ? { ...v } : {});
+  // old saves kept vehicles in unlockedVehicles
+  const oldCollected = Array.isArray(saved.unlockedVehicles) ? { vehicles: saved.unlockedVehicles } : {};
+  const savedCollected = { ...oldCollected, ...obj(saved.collected) };
+  const collected = {};
+  for (const [id, col] of Object.entries(content.collections || {})) {
+    const have = new Set([...base.collected[id], ...(Array.isArray(savedCollected[id]) ? savedCollected[id] : [])]);
+    collected[id] = col.items.filter((x) => have.has(x));
+  }
+  const lessons = {};
+  for (const [id, r] of Object.entries(obj(saved.lessons))) {
+    if (!r || typeof r !== 'object') continue;
+    lessons[id] = {
+      stars: Math.max(0, Math.min(3, r.stars | 0)),
+      plays: Math.max(0, r.plays | 0),
+      tier: Math.max(0, Math.min(2, r.tier | 0)),
+    };
+  }
   return {
-    unlockedVehicles: content.vehicles.map((v) => v.id).filter((id) => unlocked.has(id)),
-    completed: obj(saved.completed),
+    lessons,
+    collected,
+    days: Array.isArray(saved.days) ? saved.days.filter((d) => typeof d === 'string').slice(-120) : [],
     trainPos: obj(saved.trainPos),
     storyPos: obj(saved.storyPos),
     stats: obj(saved.stats),
   };
-}
-
-// Letter sets the child should see: the phase's sets, in the chosen language(s), minus any the
-// parent turned off. Toddlers get none. If the parent turned every set off, all of the phase's sets come back.
-export function activeLetterSets(content, settings) {
-  const langs = langsFor(settings.lang);
-  const level = currentLevel(content, settings);
-  const allowed = level ? content.letterSets.filter((s) => level.letterSets.includes(s.id)) : content.letterSets;
-  const inLang = allowed.filter((s) => langs.includes(s.lang));
-  const chosen = inLang.filter((s) => settings.letterSets[s.id]);
-  return chosen.length ? chosen : inLang;
-}
-
-export function activeLetters(content, settings) {
-  return activeLetterSets(content, settings).flatMap((s) =>
-    s.letters.map((l) => ({ ...l, lang: s.lang, setId: s.id })),
-  );
 }
 
 // Every file name (without extension) a family recording can use, e.g. "bus_hi", "hc-ka", "num-3_en".
@@ -348,7 +340,10 @@ export function clipKeysFor(content) {
   for (const s of content.letterSets) for (const l of s.letters) keys.push(l.id);
   for (const n of content.numbers) keys.push(`num-${n.value}_hi`, `num-${n.value}_en`);
   for (const s of content.sentences || []) keys.push(`sentence-${s.id}_hi`, `sentence-${s.id}_en`);
-  for (const st of content.stories || []) st.pages.forEach((_, i) => keys.push(`story-${st.id}-${i + 1}_hi`, `story-${st.id}-${i + 1}_en`));
+  for (const st of content.stories || []) {
+    st.pages.forEach((_, i) => keys.push(`story-${st.id}-${i + 1}_hi`, `story-${st.id}-${i + 1}_en`));
+    if (st.moral) keys.push(`story-${st.id}-moral_hi`, `story-${st.id}-moral_en`);
+  }
   for (const [k, p] of Object.entries(content.phrases)) {
     if (!p.hi.includes('{w}')) keys.push(`phrase-${k}_hi`);
     if (!p.en.includes('{w}')) keys.push(`phrase-${k}_en`);
@@ -360,17 +355,6 @@ export function clipKeysFor(content) {
 export function clipKeyFromFileName(name, validKeys) {
   const base = name.replace(/\.[^.]+$/, '').trim().toLowerCase();
   return validKeys.find((k) => k.toLowerCase() === base) ?? null;
-}
-
-// Places on the map: the phase's places, in the phase's order, minus any the parent hid.
-export function visiblePlaces(content, settings) {
-  const level = currentLevel(content, settings);
-  const byId = new Map(content.places.map((p) => [p.id, p]));
-  const ids = level ? level.places : content.places.map((p) => p.id);
-  const langs = langsFor(settings.lang);
-  // a place with "langs": ["hi"] (the matra garage) only makes sense when Hindi is on
-  const speaks = (p) => !p.langs || p.langs.some((l) => langs.includes(l));
-  return ids.map((id) => byId.get(id)).filter((p) => p && settings.places[p.id] !== false && speaks(p));
 }
 
 // ---- Matras and reading ----
@@ -436,7 +420,7 @@ export function sentenceTokens(text) {
 
 // ---- Rhymes and word pairs ----
 
-export function makeRhymeRound(groups, lang, rng = Math.random) {
+export function makeRhymeRound(groups, lang, rng = Math.random, wrong = 2) {
   const usable = groups.filter((g) => g.lang === lang && g.words.length >= 2);
   if (!usable.length) return null;
   const group = usable[Math.floor(rng() * usable.length)];
@@ -445,12 +429,13 @@ export function makeRhymeRound(groups, lang, rng = Math.random) {
     usable.filter((g) => g !== group).flatMap((g) => g.words).filter((id) => !group.words.includes(id)),
     rng,
   );
-  const distractors = [...new Set(others)].slice(0, 2);
+  const distractors = [...new Set(others)].slice(0, Math.max(1, wrong));
   return { lang, target, answer, options: shuffle([answer, ...distractors], rng) };
 }
 
 // kind: opposite (बड़ा -> छोटा), plural (केला -> केले) or female (शेर -> शेरनी).
-export function makePairRound(sets, kinds, rng = Math.random) {
+// `count` is how many cars to choose from (the answer included).
+export function makePairRound(sets, kinds, rng = Math.random, count = 3) {
   const usable = kinds.filter((k) => sets[k]?.length);
   const kind = usable[Math.floor(rng() * usable.length)];
   const pairs = sets[kind];
@@ -459,7 +444,7 @@ export function makePairRound(sets, kinds, rng = Math.random) {
   const [from, to] = flip ? [pair[1], pair[0]] : pair;
   const rest = pairs.filter((p) => p !== pair);
   const distractors =
-    kind === 'opposite' ? sample(rest.flat(), 2, rng) : [from, ...sample(rest.map((p) => p[1]), 1, rng)];
+    kind === 'opposite' ? sample(rest.flat(), Math.max(1, count - 1), rng) : [from, ...sample(rest.map((p) => p[1]), Math.max(0, count - 2), rng)];
   return { kind, from, to, options: shuffle([to, ...distractors], rng) };
 }
 
@@ -468,6 +453,7 @@ export function makePairRound(sets, kinds, rng = Math.random) {
 // A stable key for anything a child answers: words, letters, matras (or barakhadi syllables), numbers.
 export function itemKey(item) {
   if (!item || typeof item !== 'object') return null;
+  if (typeof item.skill === 'string') return `s:${item.skill}`;
   if (typeof item.char === 'string') return `l:${item.id}`;
   if (item.matra && typeof item.text === 'string') return `m:${item.matra.id}`;
   if (typeof item.sign === 'string') return `m:${item.id}`;
@@ -501,7 +487,8 @@ export function weightedSequence(pool, n, rng = Math.random, weightOf = () => 1,
   const out = [];
   for (let i = 0; i < n; i++) {
     const prev = out.length ? key(out[out.length - 1]) : undefined;
-    const options = pool.length > 1 ? pool.filter((x) => key(x) !== prev) : pool;
+    const others = pool.filter((x) => key(x) !== prev);
+    const options = others.length ? others : pool;
     const weights = options.map((x) => Math.max(0.01, weightOf(x)));
     let r = rng() * weights.reduce((a, b) => a + b, 0);
     let idx = 0;

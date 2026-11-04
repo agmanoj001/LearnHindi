@@ -10,8 +10,11 @@ export default {
     const words = ctx.words(ctx.config.words);
     const letterSeq = ctx.practice(letters, rounds);
     const wordSeq = ctx.practice(words, rounds);
-    const vehicleId = ctx.options.vehicle;
-    const vehicle = vehicleEl(ctx, vehicleId, 'rescuer');
+    // a world's own rescuer (a tiger in the jungle) wins over the lesson's vehicle
+    const rescuer = ctx.helper('rescuer', ctx.options.vehicle);
+    const vehicleId = rescuer.id;
+    const vehicle = vehicleEl(ctx, vehicleId, `rescuer${rescuer.vehicle ? '' : ' creature'}`);
+    const call = () => (rescuer.vehicle ? ctx.sfx.siren() : ctx.sfx.whoosh());
     const windows = el('div', { class: 'windows' });
     const building = el('div', { class: 'building' }, [el('div', { class: 'roof' }), windows]);
     ctx.stage.replaceChildren(building, el('div', { class: 'scene street' }, [vehicle]));
@@ -20,7 +23,7 @@ export default {
     const ok = await runRounds(ctx, rounds, async (i) => {
       const useLetter = i % 2 === 0 && letters.length >= 3;
       const target = useLetter ? letterSeq[i] : wordSeq[i];
-      const options = useLetter ? pickChoices(letters.filter((l) => l.lang === target.lang), target, 3, ctx.rng) : pickChoices(words, target, 3, ctx.rng);
+      const options = useLetter ? pickChoices(letters.filter((l) => l.lang === target.lang), target, ctx.nChoices, ctx.rng) : pickChoices(words, target, ctx.nChoices, ctx.rng);
       // From Grade 1 the windows show written words, so the child reads to find the one called.
       const readLang = ctx.settings.lang === 'en' ? 'en' : 'hi';
       const card = (o) =>
@@ -32,14 +35,14 @@ export default {
       const btns = options.map((o) => Object.assign(card(o), { item: o }));
       windows.replaceChildren(...btns);
       const prompt = async () => {
-        ctx.sfx.siren();
+        call();
         await sleep(1300);
         if (ctx.alive()) ctx.say('rescue', target);
       };
       ctx.setRepeat(prompt);
       prompt();
       const right = await choose(btns, (b) => b.item.id === target.id, { ctx, onWrong: (b) => ctx.say('thisIs', b.item) });
-      ctx.sfx.siren();
+      call();
       await flyTo(vehicle, right, { duration: 900, scale: 0.7, keep: false });
       right.classList.add('done');
       await cheer(ctx, right);

@@ -1,5 +1,5 @@
 // Offline support: cache the app shell, then serve from cache and refresh in the background.
-const VERSION = 'vt-v11';
+const VERSION = 'kkm-v3';
 const SHELL = [
   './',
   'index.html',
@@ -11,12 +11,23 @@ const SHELL = [
   'icons/icon-512.png',
   'fonts/baloo2-devanagari.woff2',
   'fonts/baloo2-latin.woff2',
+  'fonts/fredoka-latin.woff2',
   'js/app.js',
   'js/logic.js',
   'js/validate.js',
   'js/art.js',
   'js/art-kit.js',
   'js/art-words.js',
+  'js/art-creatures.js',
+  'js/art-people.js',
+  'js/art-scenes.js',
+  'js/art-math.js',
+  'js/art-icons.js',
+  'js/mathgen.js',
+  'js/curriculum.js',
+  'js/screens.js',
+  'js/parent.js',
+  'js/mascot.js',
   'js/audio.js',
   'js/storage.js',
   'js/sfx.js',
@@ -36,6 +47,10 @@ const SHELL = [
   'js/games/rhyme.js',
   'js/games/story.js',
   'js/games/pairs.js',
+  'js/games/firstsound.js',
+  'js/games/quiz.js',
+  'js/games/sort.js',
+  'js/games/math.js',
 ];
 
 self.addEventListener('install', (event) => {

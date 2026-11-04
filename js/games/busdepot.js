@@ -5,9 +5,14 @@ import { el, sleep, choose, runRounds, cheer, vehicleEl, flyTo, animate, bounce,
 
 export default {
   async start(ctx) {
-    const { pickupRounds, countRounds } = ctx.config;
+    // "parts" picks the bus ride, the counting or both
+    const parts = ctx.config.parts || ['pickup', 'count'];
+    const pickupRounds = parts.includes('pickup') ? ctx.config.pickupRounds : 0;
+    const countRounds = parts.includes('count') ? ctx.config.countRounds : 0;
     const total = pickupRounds + countRounds;
-    if ((await pickup(ctx, total)) && (await count(ctx, pickupRounds, total))) ctx.complete();
+    if (pickupRounds && !(await pickup(ctx, total))) return;
+    if (countRounds && !(await count(ctx, pickupRounds, total))) return;
+    ctx.complete();
   },
 };
 
@@ -28,7 +33,7 @@ function pickup(ctx, total) {
     async (i) => {
       const useLetter = i % 2 === 1 && ctx.config.letters !== false && letters.length >= 3;
       const target = useLetter ? letterSeq[i] : animalSeq[i];
-      const options = useLetter ? pickChoices(letters.filter((l) => l.lang === target.lang), target, 3, ctx.rng) : pickChoices(animals, target, 3, ctx.rng);
+      const options = useLetter ? pickChoices(letters.filter((l) => l.lang === target.lang), target, ctx.nChoices, ctx.rng) : pickChoices(animals, target, ctx.nChoices, ctx.rng);
       const btns = options.map((o) => Object.assign(useLetter ? ctx.letterCard(o) : ctx.wordCard(o, { showLabel: false }), { item: o }));
       stop.replaceChildren(...btns);
       ctx.sfx.toot();
@@ -66,7 +71,8 @@ function count(ctx, offset, total) {
     countRounds,
     async (i) => {
       const lang = langForRound(ctx.settings.lang, i);
-      const trip = makeCountTrip(onboard.length, maxPassengers, ctx.rng);
+      // bigger jumps on and off the bus as the level goes up
+      const trip = makeCountTrip(onboard.length, maxPassengers, ctx.rng, [2, 3, 4][ctx.tier]);
       choices.replaceChildren();
       ctx.setRepeat(() => ctx.say(trip.op === 'on' ? 'getOn' : 'getOff', null, [lang]));
       await ctx.say(trip.op === 'on' ? 'getOn' : 'getOff', null, [lang]);
@@ -89,7 +95,7 @@ function count(ctx, offset, total) {
       }
       await sleep(300);
       const answer = trip.result;
-      const btns = numberChoices(answer, maxPassengers, 3, ctx.rng).map((v) => numberCard(ctx, num(v)));
+      const btns = numberChoices(answer, maxPassengers, Math.max(3, ctx.nChoices), ctx.rng).map((v) => numberCard(ctx, num(v)));
       choices.replaceChildren(...btns);
       const prompt = () => ctx.say('howMany', null, [lang]);
       ctx.setRepeat(prompt);

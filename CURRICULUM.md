@@ -1,108 +1,209 @@
-# Curriculum: how Vehicle Town follows the Indian foundational stage
+# Curriculum and learning design
 
-Vehicle Town has five **phases**. Each one follows the targets India's school system sets for that age, and each has its own places, letters, words and game settings in [`content.json`](content.json). A grown-up picks the phase on first launch and can change it any time in parent settings.
+Khel Khel Mein has six grades, from Toddler to Grade 4. Each grade has a **Hindi world** that follows India's foundational-stage targets and the themes of the NCERT Hindi books. Kindergarten and Grade 1 also have an **English math world** that follows the North Carolina Standard Course of Study. Everything below lives in [`content.json`](content.json) (Hindi) and [`js/mathgen.js`](js/mathgen.js) (math), and the README explains how to change it.
 
 ## Sources
 
 | Source | Publisher | What it gives us |
 | --- | --- | --- |
-| **NIPUN Bharat** (National Initiative for Proficiency in Reading with Understanding and Numeracy), 2021 | Ministry of Education | The *Lakshya* (targets) for Balvatika and Grades 1–3. Balvatika: recognise letters and their sounds, and read simple words of 2–3 letters. Grade 1: read short sentences of 4–5 simple words. Grade 2: read 45–60 words a minute with meaning. Grade 3: at least 60 words a minute with meaning. Its parts of early literacy (oral language, decoding, fluency, comprehension, writing) shape the games |
-| **National Curriculum Framework for the Foundational Stage (NCF-FS)**, 2022 | NCERT | Curricular goals CG-9 (talk in two languages), CG-10 (read and write fluently in the first language) and CG-11 (begin reading and writing a second language). That's why the app works in both Hindi and English |
-| **NCERT textbooks**: *Jaadui Pitara* (Balvatika play materials), *Sarangi* (Hindi, Classes 1–2, 2023), *Veena* (Hindi, Class 3) | NCERT | Used only as a reference for scope and order. They are free to read but **not openly licensed**, so no textbook text, poems or pictures are copied. Every word list, sentence and story here is original. *The thirsty crow* is a public-domain folk tale, retold in our own words |
-| **StoryWeaver** (Pratham Books) | Pratham Books | Openly licensed (CC BY 4.0) graded readers in Hindi, levels 1–4. They are a good next step for reading together, and some could be added as app stories with attribution. See "What else could be done" in the README |
+| **NIPUN Bharat** (National Initiative for Proficiency in Reading with Understanding and Numeracy), 2021 | Ministry of Education, India | The *Lakshya* (targets). Balvatika: letters and their sounds, reading simple 2–3 letter words. Grade 1: short sentences of 4–5 simple words. Grade 2: 45–60 words a minute with meaning. Grade 3: at least 60 words a minute with meaning |
+| **National Curriculum Framework for the Foundational Stage (NCF-FS)**, 2022 | NCERT | Curricular goals CG-9 (talk in two languages), CG-10 (read and write in the first language) and CG-11 (begin a second language). That's why the Hindi worlds can run in Hindi, English or both |
+| **NCERT Hindi books**: *Sarangi* (Classes 1–2), *Veena* (Classes 3–4) | NCERT | The **themes** of each grade: family, food, festivals and the fair in Class 1; home and grandparents in Class 2; insects, the Moon mission and Panchatantra in Class 3; birds, trees, food and folktales in Class 4. They are free to read but **not openly licensed**, so nothing is copied: every word list, quiz, sentence and story here is original or a retelling of a public-domain folktale |
+| **NC Standard Course of Study, Mathematics** (adopted 2017) and the NC DPI unpacking documents for Kindergarten and Grade 1 | North Carolina Department of Public Instruction | The math standards, by code (NC.K.CC.1 … NC.1.G.3). NC differs from Common Core in places, e.g. Grade 1 counts to **150** (not 120) |
+| **Panchatantra, Jataka, Akbar–Birbal, Tenali Raman** and Aesop-style fables | Public-domain folk literature | Retold in simple Hindi for the story library |
+| **StoryWeaver** (Pratham Books) | Pratham Books | Openly licensed (CC BY 4.0) Hindi readers at levels 1–4: a good next step for reading together |
 
-> **Note:** the official PDFs (ncert.nic.in, pib.gov.in) were not reachable from the environment this was built in. The targets above come from reports and summaries that quote them, so please check the exact wording against the official documents before relying on it for school purposes.
+> **Note:** the official PDFs (ncert.nic.in, pib.gov.in, dpi.nc.gov) could not be fetched from the environment this was built in. The targets, themes and standards above come from search results and pages that quote them, so please check the exact wording against the official documents before relying on it for school purposes.
 
-## The order letters and words are taught
-
-This follows the order used across Hindi primers:
+## How the Hindi is ordered
 
 1. **स्वर** (vowels) अ आ इ ई उ ऊ ऋ ए ऐ ओ औ अं अः
-2. **व्यंजन** (consonants) क to ज्ञ, each with an example word (क … कार)
-3. **अ-कार words**: two- and three-letter words with no matra (घर, नल, जल, फल, कप, कमल, कलम, बटन, मटर, मगर)
-4. **मात्राएँ** in order: ा ि ी ु ू (ृ) े ै ो ौ ं ँ, each with at least two picture words (आम, किला, तीर, पुल, फूल, केला, पैर, मोर, कौआ, पंखा, चाँद …). ृ only appears in the barakhadi, because few picture words use it
-5. **बारहखड़ी**: one consonant with every matra (क का कि की कु कू के कै को कौ कं कः)
-6. **संयुक्त अक्षर** (half letters and conjuncts): पत्ता, चम्मच, मक्खी, स्कूल, गुब्बारा, बाल्टी, कुत्ता, बिल्ली
-7. **Sentences** (3–5 words, then 5–8), then **stories** with questions
-8. **Word knowledge**: rhymes (तुक), opposites (विलोम), singular and plural (वचन), male and female (लिंग)
+2. **व्यंजन** (consonants) क to ज्ञ in three groups, each letter with an example word (क … कार)
+3. **Sounds before letters**: rhymes and first sounds ("which picture starts with क?") alongside the letters, because phonological awareness supports phonics
+4. **अ-कार words**: two- and three-letter words with no matra (घर, नल, जल, कमल, मटर)
+5. **मात्राएँ** in pairs: ा ि ी, then ु ू, े ै, ो ौ, then अं and ँ, each with picture words (आम, किला, तीर, फूल, केला, मोर, पंखा, चाँद)
+6. **बारहखड़ी**: one consonant with every matra
+7. **संयुक्त अक्षर** (half letters and conjuncts), and the three shapes of र (र्, ्र, ृ)
+8. **Sentences** (3–5 words, then 5–8) and **stories** with questions
+9. **Grammar and word knowledge**: विलोम, वचन, लिंग, संज्ञा and क्रिया, पर्यायवाची, विराम चिह्न, सर्वनाम, विशेषण, काल, मुहावरे
 
-English runs alongside it: A–Z letter names, the English name of every picture, English rhymes (car/star, boat/goat, house/mouse, eye/fly) and English sentences in "both" mode.
+English runs alongside: A–Z, English names for every picture, English rhymes, and English sentences and story text in "both" mode.
 
-## The phases
+## Grade by grade
 
-### Phase 1: Toddler (age 2–3)
-*Foundations of oral language (NCF-FS CG-9): listening, naming, joining in.*
+### Toddler (age 2–3) · Animal Farm
+*NCF-FS CG-9: listening, naming, joining in. No letters yet.*
 
-| Goal | Where |
+| Unit | What the child does |
 | --- | --- |
-| Name vehicles and animals in Hindi and English | Every place; My Garage |
-| Animal sounds | Farm |
-| Colours and shapes | Recycling yard |
-| Big/small, up/down, fast/slow | Airport and harbour |
-| Count to 5 | Bus depot (at most 5 passengers) |
-| Listen and point ("Where is the cow?") | Fire station, police station, hospital (pictures only) |
+| Animal friends | Who said that? (animal sounds), find the animal, the bus ride |
+| Colours and shapes | Sort by colour, then by shape |
+| Big and small | Big/small, up/down, fast/slow |
+| Count to 5 | Count passengers getting on and off |
+| Vehicles | Dig up pictures, find the vehicle |
 
-No letters yet: the digger digs up pictures, and the bus picks up animals only.
+### Kindergarten / Balvatika (age 3–6) · Vehicle Town
+*NIPUN Balvatika: recognise letters and their sounds; read simple 2–3 letter words.*
 
-### Phase 2: Kindergarten / Balvatika (age 3–6)
-*NIPUN Balvatika target: recognise letters and their sounds; read simple 2–3 letter words.*
-
-| Goal | Where |
+| Unit | What the child does |
 | --- | --- |
-| Letter recognition and letter sounds: स्वर, व्यंजन, A–Z | Construction (dig, deliver), rescue, bus depot |
-| Letter order | Railway station (alphabet train, one train per set) |
-| Letter shapes | Drive the road (finger tracing) |
-| Count to 10, in both languages | Bus depot |
-| Build and read two- and three-letter words without matras: बस, घर, नल, कमल | Construction (crane), post office |
+| Let's hear sounds | Rhymes; which picture starts with this sound (Hindi and ABC) |
+| Let's learn vowels | Dig, train, trace and rescue with स्वर |
+| Consonants क to ञ, ट to न, प to ज्ञ | Dig, deliver, trace, train, rescue and first sounds for each group |
+| English ABC | ABC train, dig, trace |
+| Two- and three-letter words | Build words with the crane; read them at the post office |
+| Numbers 1 to 10 | Count passengers in Hindi and English |
 
-### Phase 3: Grade 1 (age 6–7)
-*NIPUN Grade 1 target: read short sentences of 4–5 simple words.*
+### Kindergarten · Pip's Number Igloo (math, English)
 
-| Goal | Where |
+| Unit | Standards |
 | --- | --- |
-| Every matra, and the barakhadi | Matra garage (explore a consonant, then "find की") |
-| Spot the missing matra in a word (म_र → मोर) | Matra garage |
-| Read two- and three-letter words with matras, and match words to pictures | Post office, rescue (windows show written words) |
-| Build words from syllable tiles (कि + ता + ब) | Construction (crane) |
-| Read and build 3–5 word sentences (बंदर केला खाता है।) | Metro station |
-| Rhyming words (नल / जल) | Ice-cream van |
-| Read-along picture story with questions | Library |
+| Let's count! | NC.K.CC.4–5: count to tell how many (rows, scattered, up to 20); quick looks at dot patterns and ten frames |
+| Let's learn numbers | NC.K.CC.1–3: read numbers 0–20, count on from any number, count by tens to 100 |
+| Let's compare | NC.K.CC.6–7: more, fewer or the same (the smaller group is sometimes drawn bigger); which number is bigger |
+| Let's add and take away | NC.K.OA.1, 2, 5: story problems with objects; facts within 5 |
+| Let's make 10 | NC.K.OA.3–4, NBT.1: number partners on a ten frame, how many more make 10, teen numbers as ten and some ones |
+| Let's find shapes | NC.K.G.1–3: above, below, beside, in front of, behind; name flat shapes in any size or turn; flat or solid |
+| Let's measure and sort | NC.K.MD.1–3: longer, taller, heavier (on a balance); sort a mixed group and count each kind |
+| Number party! | Mixed review of the year |
 
-### Phase 4: Grade 2 (age 7–8)
-*NIPUN Grade 2 target: read 45–60 words a minute with meaning.*
+### Grade 1 (age 6–7) · Jolly Jungle
+*NIPUN Grade 1: read short sentences of 4–5 simple words. NCERT Sarangi 1 themes: family, food, festivals, weather.*
 
-| Goal | Where |
+| Unit | What the child does |
 | --- | --- |
-| Half letters and conjuncts (त्त, म्म, क्ख, स्क, ब्ब, ल्ट) | Post office, crane, matra garage |
-| Longer sentences (4–6 words) | Metro station |
-| Read short stories with meaning and answer questions | Library |
-| Opposites, singular and plural | Parking |
-| Rhymes | Ice-cream van |
+| Let's learn matras ा ि ी · ु ू · े ै · ो ौ · अं and ँ | Barakhadi, find the syllable, put the missing matra back, read words with those matras, build words from syllables |
+| Let's talk about family and food | Who is माँ? Family and food words, with pictures |
+| Festivals and weather | Diwali lamps, Makar Sankranti kites, 15 August, the fair, rangoli, rain |
+| Let's learn the barakhadi | One consonant with every matra |
+| Rhyme time | नल / जल, car / star |
+| Let's read little sentences | Put 3–5 words in order |
+| Story time | 7 picture stories with picture questions |
 
-### Phase 5: Grade 3 (age 8–9)
-*NIPUN Grade 3 target: read at least 60 words a minute with meaning.*
+### Grade 1 · Tiko's Number Carnival (math, English)
 
-| Goal | Where |
+| Unit | Standards |
 | --- | --- |
-| Read stories of 6+ sentences and answer questions | Library (*The little boat*, *The thirsty crow*) |
-| Longer sentences (6–8 words) | Metro station |
-| विलोम, वचन, लिंग (opposites, plurals, male and female: शेर / शेरनी) | Parking |
-| Read harder words with meaning | Post office |
+| Let's count to 150 | NC.1.NBT.1: count on from any number to 150, across the hundreds; read numbers to 150 (105 is not 15) |
+| Let's learn tens and ones | NC.1.NBT.2–3: base-ten blocks, tens and ones, compare with >, = and < |
+| Let's add and subtract to 20 | NC.1.OA.2, 3, 6: make a ten on two ten frames (8 + 5 = 8 + 2 + 3), three addends, missing numbers |
+| Let's solve story problems | NC.1.OA.1, 7, 8: add to, take from, put together, compare (Pip and Tiko line up their kites); is this equation true? |
+| Let's add big numbers | NC.1.NBT.4–6: 10 more and 10 less, add tens and ones, subtract tens |
+| Let's measure and tell time | NC.1.MD.1–3: order by length, measure with cubes, tell time to the hour and half hour (the hour hand sits halfway at half past) |
+| Let's learn coins and graphs | NC.1.MD.4–5: penny, nickel, dime and quarter and their value in pennies; read picture graphs (how many, most, how many more) |
+| Let's explore shapes | NC.1.G.1–3: sides and corners, put two shapes together, halves and fourths (a half is bigger than a fourth) |
+| Carnival challenge | Mixed review of the year |
+
+### Grade 2 (age 7–8) · Dino Valley
+*NIPUN Grade 2: read 45–60 words a minute with meaning. NCERT Sarangi 2 themes: home, grandparents.*
+
+| Unit | What the child does |
+| --- | --- |
+| Let's learn half letters | Read and build words with conjuncts (पत्ता, चम्मच, स्कूल) |
+| The shapes of र | Sort words: र्, ्र or ृ? |
+| My home | Home words, read and build |
+| Opposites; One and many | Park each word next to its partner |
+| Rhyming words; Let's build sentences | Rhymes; 4–6 word sentences |
+| Stories | 8 stories: *The thirsty crow*, *The lion and the mouse*, *The tortoise and the hare*, *The cap seller and the monkeys* …, most ending with a सीख |
+
+### Grade 3 (age 8–9) · Space Trip
+*NIPUN Grade 3: read at least 60 words a minute with meaning. NCERT Veena 3 themes: insects, the Moon mission (चंद्रयान), Panchatantra, unity.*
+
+| Unit | What the child does |
+| --- | --- |
+| लिंग, वचन, विलोम | Gender, number and opposites |
+| Naming words and action words | Sort words into संज्ञा or क्रिया |
+| Same-meaning words; punctuation | पर्यायवाची; । ? ! |
+| Space words; sentences | Read space words; 6–8 word sentences |
+| Folktales | 8 stories: *The monkey and the crocodile*, *The blue jackal*, *Strength in unity*, *Zoomi goes to the Moon* … with written-answer questions and a सीख |
+
+### Grade 4 (age 9–10) · Ocean Voyage
+*NCERT Veena 4 themes: birds, garden creatures, trees, food and health, folktales.*
+
+| Unit | What the child does |
+| --- | --- |
+| सर्वनाम, विशेषण, क्रिया, काल | Pronouns, describing words (sort and quiz), verbs, past/present/future |
+| मुहावरे; days and months | Idioms and their meanings; दिन and महीने |
+| Ocean words; longer sentences | Reading and sentence building |
+| Opposites and same-meaning words | Review quiz and pairs |
+| Stories with a moral | 8 stories: *The talkative tortoise*, *Birbal's khichdi*, *Tenali Rama and the thieves*, *The golden egg*, *The talking cave* … |
+
+## Math skills
+
+Each skill makes problems at three levels: level 1 uses small numbers with objects to count, level 2 uses bigger numbers and pictorial models (ten frames, number lines, base-ten blocks), level 3 uses the biggest numbers with fewer pictures (concrete → pictorial → abstract).
+
+| Skill | Standard | What it practises | Unit |
+| --- | --- | --- | --- |
+| `k-count` | NC.K.CC.5 | Count to tell how many | Let's count!, Number party! |
+| `k-quick` | NC.K.CC.4 | Quick look: how many dots | Let's count! |
+| `k-numerals` | NC.K.CC.3 | Read numbers 0 to 20 | Let's learn numbers, Number party! |
+| `k-next` | NC.K.CC.2 | Count forward from any number | Let's learn numbers, Number party! |
+| `k-tens` | NC.K.CC.1 | Count by tens to 100 | Let's learn numbers |
+| `k-more` | NC.K.CC.6 | More, fewer or the same | Let's compare |
+| `k-compare` | NC.K.CC.7 | Compare two numbers | Let's compare, Number party! |
+| `k-add` | NC.K.OA.2 | Add with objects (story problems) | Let's add and take away, Number party! |
+| `k-sub` | NC.K.OA.2 | Take away with objects (story problems) | Let's add and take away, Number party! |
+| `k-facts5` | NC.K.OA.5 | Add and subtract within 5 | Let's add and take away |
+| `k-partner` | NC.K.OA.3 | Break apart numbers to 10 | Let's make 10 |
+| `k-make10` | NC.K.OA.4 | Make 10 | Let's make 10, Number party! |
+| `k-teens` | NC.K.NBT.1 | Teen numbers: ten and some more | Let's make 10, Number party! |
+| `k-position` | NC.K.G.1 | Positions: above, below, beside… | Let's find shapes, Number party! |
+| `k-shapes` | NC.K.G.2 | Name flat shapes | Let's find shapes, Number party! |
+| `k-solids` | NC.K.G.3 | Flat (2D) and solid (3D) shapes | Let's find shapes |
+| `k-measure` | NC.K.MD.2 | Longer, taller, heavier | Let's measure and sort, Number party! |
+| `k-sort` | NC.K.MD.3 | Sort and count groups | Let's measure and sort |
+| `g1-count150` | NC.1.NBT.1 | Count to 150 from any number | Let's count to 150 |
+| `g1-numerals` | NC.1.NBT.1 | Read numbers to 150 | Let's count to 150 |
+| `g1-place` | NC.1.NBT.2 | Tens and ones | Let's learn tens and ones, Carnival challenge |
+| `g1-compare` | NC.1.NBT.3 | Compare two-digit numbers (> = <) | Let's learn tens and ones, Carnival challenge |
+| `g1-facts20` | NC.1.OA.6 | Add and subtract within 20 | Let's add and subtract to 20, Carnival challenge |
+| `g1-story` | NC.1.OA.1 | Word problems within 20 | Let's solve story problems, Carnival challenge |
+| `g1-three` | NC.1.OA.2 | Add three numbers | Let's add and subtract to 20 |
+| `g1-missing` | NC.1.OA.8 | Find the missing number | Let's add and subtract to 20, Carnival challenge |
+| `g1-equal` | NC.1.OA.7 | True or false: the equal sign | Let's solve story problems |
+| `g1-tenmore` | NC.1.NBT.5 | 10 more and 10 less | Let's add big numbers, Carnival challenge |
+| `g1-add100` | NC.1.NBT.4 | Add and subtract tens within 100 | Let's add big numbers |
+| `g1-length` | NC.1.MD.1 | Order three things by length | Let's measure and tell time |
+| `g1-units` | NC.1.MD.2 | Measure length with cubes | Let's measure and tell time |
+| `g1-time` | NC.1.MD.3 | Tell time to the hour and half hour | Let's measure and tell time, Carnival challenge |
+| `g1-coins` | NC.1.MD.5 | Coins: penny, nickel, dime, quarter | Let's learn coins and graphs, Carnival challenge |
+| `g1-graph` | NC.1.MD.4 | Read picture graphs | Let's learn coins and graphs, Carnival challenge |
+| `g1-sides` | NC.1.G.1 | Sides and corners of shapes | Let's explore shapes, Carnival challenge |
+| `g1-halves` | NC.1.G.3 | Halves and fourths | Let's explore shapes, Carnival challenge |
+| `g1-compose` | NC.1.G.2 | Put shapes together | Let's explore shapes |
+
+**Not covered yet:** NC.K.G.4–6 (comparing, building and composing shapes with real materials), NC.K.CC.4's one-to-one counting of real objects (the app's tap-to-count is the closest), and NC.1.OA.3's properties of operations as a separate skill. These are better done with blocks, beads and paper shapes at a table.
+
+## The learning design, and the research behind it
+
+The look and flow were shaped by studying what makes the best early-learning apps work (characters you get attached to, a path of short lessons, things to collect, lots of praise), but the characters, art, names, sounds and every line of content are original.
+
+| What the research says | How the app applies it |
+| --- | --- |
+| Children learn from apps that are **active, engaged, meaningful and socially interactive**, with a clear learning goal (Hirsh-Pasek, Zosh, Golinkoff et al., 2015, *Psychological Science in the Public Interest*) | Every screen asks the child to do something; there are no ads, menus or distractions mid-lesson; words come with pictures, stories and everyday themes (family, food, festivals); each unit names its goal ("Let's make 10"); the recorder puts a family voice in the app, and the section below suggests ways to talk about it together |
+| Young children learn math faster from a **character they feel attached to** that talks to them (Calvert et al., 2019, *Child Development*) | Each world has a named guide who talks, reacts to every answer, and can be tapped for a joke; the same characters appear in stories and story problems |
+| **Scaffolding in the zone of proximal development**: tasks a little above what the child can do alone, with support that fades (Vygotsky; Wood, Bruner & Ross, 1976) | The level moves inside each lesson (two right → harder, two misses → easier); math hints give a strategy after a second miss, never the answer; tap-to-count supports counting |
+| **Concrete → pictorial → abstract** in math (Bruner) | Math levels go from objects to count, to ten frames, number lines and base-ten blocks, to numbers alone |
+| **Retrieval practice, spacing and interleaving** strengthen memory (Roediger & Karpicke, 2006; Rohrer & Taylor, 2007) | Weak words, letters, matras and math skills come up more often; review units mix skills; lessons interleave skills so the same kind rarely comes twice in a row |
+| **Phonological awareness** supports learning to read (National Reading Panel, 2000) | Rhymes and first sounds come before and alongside letters in KG |
+| Praise **effort and strategy**, not ability (Mueller & Dweck, 1998) | Feedback says what was right and how ("8 and 2 make 10, and 3 more is 13"); mistakes get a gentle wobble and a hint, never a buzzer or a lost life |
+| Remove **extraneous load** (Mayer's coherence principle) | One question per screen, big targets, spoken instructions, no timers or scores to chase |
+| **Autonomy** keeps children motivated (self-determination theory, Ryan & Deci) | Children choose any open lesson, any world and any story; collections and stars reward finishing, not speed |
 
 ## What the app does not do (and what to do instead)
 
-The app covers listening, letter and sound knowledge, decoding and short reading. The targets also need things a screen does badly. Spend a few minutes a day on these:
+A screen is good at listening, letters and sounds, decoding, and practice. These need people and paper:
 
-- **Talking**: ask about the pictures and stories ("बस कहाँ जा रही है?"). Oral language matters most in Phases 1–2.
-- **Writing with a pencil**: tracing in the app is a warm-up, not handwriting. From Grade 1, write the week's words on paper.
-- **Reading speed** (Grades 2–3): time a one-minute read-aloud of a short unseen text once a month and note the words read correctly. The app deliberately has no timers.
-- **Books**: read aloud every day. StoryWeaver's free Hindi books (levels 1–4) suit Grades 1–3.
+- **Talking**: ask about the pictures and stories ("बस कहाँ जा रही है?", "How many kites does Pip have?").
+- **Writing**: tracing in the app is a warm-up. From Grade 1, write the week's words and numbers on paper.
+- **Reading speed** (Grades 2–4): once a month, time a one-minute read-aloud of a short unseen text and note the words read correctly. The app deliberately has no timers.
+- **Hands-on math**: count real things, build with blocks, share a roti into halves and fourths, find shapes around the house, read a real clock, sort real coins.
+- **Books**: read aloud every day. StoryWeaver's free Hindi books (levels 1–4) suit Grades 1–4.
 
 ## Changing the curriculum
 
-Everything above lives in `content.json`, and the README explains how to edit it. In short:
-
-- To add a word to a phase, give it `"level": "grade1"`. Every word list that uses `"@grade1"` picks it up.
-- To move places between phases, edit the phase's `places` list.
-- To add a story, add an entry to `stories` with `level`, `pages` and `questions`.
-- `npm test` checks the phase rules: KG words have no matras, Grade 1 words have matras but no half letters, Grade 2 words have half letters, and sentences get longer from grade to grade.
+- Add a word to a grade with `"level": "grade1"`; every word list using `"@grade1"` picks it up.
+- Add or reorder units and lessons in a world's `units`.
+- Add a story to `stories`, a quiz bank to `quizzes`, or a sort to `sorts`.
+- For math, list skills in a lesson's `config.skills`, or add a new skill to `js/mathgen.js`.
+- `npm test` checks the rules: KG words have no matras, Grade 1 words have matras but no half letters, Grade 2 words have half letters, sentences get longer each grade, every math skill makes fair problems at every level, and every NC standard listed above is covered.

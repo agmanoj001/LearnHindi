@@ -11,6 +11,11 @@ export default {
     const W = ctx.word;
     const on = new Set(ctx.config.activities || ['dig', 'deliver', 'build']);
     if (!ctx.letters().length) on.delete('deliver');
+    // a lesson with one activity starts it straight away
+    if (on.size === 1) {
+      const only = [...on][0];
+      return void { dig, deliver, build }[only](ctx);
+    }
     activityMenu(ctx, [
       on.has('dig') && { word: W('digger'), go: () => dig(ctx) },
       on.has('deliver') && { word: W('dumptruck'), go: () => deliver(ctx) },
@@ -94,7 +99,7 @@ async function deliver(ctx) {
   const ok = await runRounds(ctx, targets.length, async (i) => {
     const target = targets[i];
     const same = pool.filter((l) => l.lang === target.lang);
-    const btns = pickChoices(same, target, 3, ctx.rng).map((l) => Object.assign(ctx.letterCard(l, { cls: 'block' }), { letter: l }));
+    const btns = pickChoices(same, target, ctx.nChoices, ctx.rng).map((l) => Object.assign(ctx.letterCard(l, { cls: 'block' }), { letter: l }));
     blocks.replaceChildren(...btns);
     const prompt = () => ctx.say('deliver', target);
     ctx.setRepeat(prompt);
@@ -130,10 +135,12 @@ async function build(ctx) {
     const tiles = splitTiles(w, lang);
     let state = createBuild(tiles);
 
-    const crane = vehicleEl(ctx, 'crane');
+    // the crane in Vehicle Town; an elephant or a long-necked dinosaur lifts the letters elsewhere
+    const lifter = ctx.helper('lifter', 'crane');
+    const crane = vehicleEl(ctx, lifter.id, lifter.vehicle ? '' : 'creature');
     const pic = el('button', { class: 'prompt-pic', 'aria-label': w.en, html: ctx.picture(w) });
     const slots = tiles.map((t) => el('div', { class: 'slot', lang }, [el('span', { class: 'ghost', text: t })]));
-    const ground = tileChoices(tiles, charsOf(lang), 2, ctx.rng).map((t) =>
+    const ground = tileChoices(tiles, charsOf(lang), ctx.tier + 1, ctx.rng).map((t) =>
       Object.assign(el('button', { class: 'card tile', lang, 'aria-label': t }, [el('span', { class: 'glyph', text: t })]), { tile: t }),
     );
     ctx.stage.replaceChildren(
@@ -147,13 +154,18 @@ async function build(ctx) {
     ctx.setRepeat(prompt);
     prompt();
 
+    let mistakes = 0;
     await new Promise((resolve) => {
       for (const b of ground) {
         b.addEventListener('click', async () => {
           if (state.done || b.classList.contains('used')) return;
           const r = placeTile(state, b.tile);
           ctx.sayText(b.tile, lang);
-          if (!r.ok) return void wobble(b);
+          if (!r.ok) {
+            mistakes++;
+            ctx.miss();
+            return void wobble(b);
+          }
           state = r.state;
           const slot = slots[state.placed - 1];
           b.classList.add('lifting');
@@ -168,6 +180,7 @@ async function build(ctx) {
         });
       }
     });
+    ctx.record(w, mistakes === 0);
     await sleep(400);
     await cheer(ctx, pic);
     await ctx.sayItem(w, [lang]);

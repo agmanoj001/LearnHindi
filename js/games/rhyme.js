@@ -7,13 +7,14 @@ export default {
     const groups = ctx.config.groups;
     const ok = await runRounds(ctx, ctx.config.rounds, async (i) => {
       let lang = langForRound(ctx.settings.lang, i);
-      let round = makeRhymeRound(groups, lang, ctx.rng);
+      let round = makeRhymeRound(groups, lang, ctx.rng, ctx.nChoices - 1);
       if (!round) {
         lang = lang === 'hi' ? 'en' : 'hi';
-        round = makeRhymeRound(groups, lang, ctx.rng);
+        round = makeRhymeRound(groups, lang, ctx.rng, ctx.nChoices - 1);
       }
       const target = ctx.word(round.target);
-      const van = vehicleEl(ctx, 'icecreamvan', 'rescuer');
+      const vendor = ctx.helper('vendor', 'icecreamvan');
+      const van = vehicleEl(ctx, vendor.id, `rescuer${vendor.vehicle ? '' : ' creature'}`);
       const scoop = (w, cls) => el('button', { class: `card scoop ${cls}`, 'aria-label': w.en }, [el('span', { class: 'pic', html: ctx.picture(w) }), el('span', { class: 'word-text small', lang, text: w[lang] })]);
       const big = scoop(target, 'target');
       const btns = round.options.map((id) => Object.assign(scoop(ctx.word(id), 'cone'), { item: ctx.word(id) }));

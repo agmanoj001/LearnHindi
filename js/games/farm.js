@@ -16,7 +16,7 @@ export default {
     const ok = await runRounds(ctx, rounds, async (i) => {
       const target = seq[i];
       const bySound = i % 2 === 1;
-      const btns = pickChoices(animals, target, 3, ctx.rng).map((a) => Object.assign(ctx.wordCard(a, { showLabel: false, cls: 'animal' }), { item: a }));
+      const btns = pickChoices(animals, target, ctx.nChoices, ctx.rng).map((a) => Object.assign(ctx.wordCard(a, { showLabel: false, cls: 'animal' }), { item: a }));
       field.replaceChildren(...btns);
       // The sound is spoken like a word, so a family recording named e.g. "cow-sound_hi" is used if present.
       const sound = { id: `${target.id}-sound`, hi: target.sound.hi, en: target.sound.en };

@@ -19,8 +19,9 @@ test('every picture in content.json has a built-in drawing', () => {
   assert.deepEqual(warnings, []);
 });
 
-test('every place has a game module', () => {
-  for (const p of content.places) assert.ok(existsSync(new URL(`js/games/${p.game}.js`, root)), `missing js/games/${p.game}.js`);
+test('every lesson has a game module', () => {
+  for (const w of content.worlds)
+    for (const u of w.units) for (const l of u.lessons) assert.ok(existsSync(new URL(`js/games/${l.game}.js`, root)), `missing js/games/${l.game}.js`);
 });
 
 test('every game module is a known game type', () => {
@@ -70,16 +71,16 @@ test('validator: Hindi written in Latin letters', () => {
   assert.match(errorsFor((c) => (c.words.bus.hi = 'bas')), /Devanagari/);
 });
 
-test('validator: vehicle without a word', () => {
-  assert.match(errorsFor((c) => c.vehicles.push({ id: 'spaceship' })), /"spaceship" has no matching entry/);
+test('validator: collection item without a word', () => {
+  assert.match(errorsFor((c) => c.collections.vehicles.items.push('spaceship')), /"spaceship" not found in words/);
 });
 
-test('validator: duplicate vehicle', () => {
-  assert.match(errorsFor((c) => c.vehicles.push({ id: 'bus' })), /duplicate id "bus"/);
+test('validator: duplicate lesson id', () => {
+  assert.match(errorsFor((c) => c.worlds[1].units[0].lessons.push({ ...c.worlds[0].units[0].lessons[0] })), /duplicate id/);
 });
 
 test('validator: unknown game', () => {
-  assert.match(errorsFor((c) => (c.places[0].game = 'zoo')), /unknown game "zoo"/);
+  assert.match(errorsFor((c) => (c.worlds[0].units[0].lessons[0].game = 'zoo')), /unknown game "zoo"/);
 });
 
 test('validator: syllables must spell the word', () => {
@@ -107,25 +108,28 @@ test('validator: numbers must be 1 to 10', () => {
   assert.match(errorsFor((c) => c.numbers.pop()), /numbers must list 1 to 10/);
 });
 
-test('validator: word lists in game settings must exist', () => {
-  assert.match(errorsFor((c) => c.games.rescue.words.push('dragon')), /"dragon" not found/);
+test('validator: word lists in lesson settings must exist', () => {
+  assert.match(errorsFor((c) => c.worlds[0].units[0].lessons[1].config.words.push('dragon')), /"dragon" not found/);
 });
 
 test('validator: farm animals need a sound', () => {
-  assert.match(
-    errorsFor((c) => {
-      c.places.push({ id: 'f', word: 'place-farm', game: 'farm' });
-      c.games.farm.animals.push('lion');
-    }),
-    /"lion" needs a "sound"/,
-  );
+  assert.match(errorsFor((c) => (c.worlds[0].units[0].lessons[0].config.animals = ['cow', 'dog', 'lion'])), /"lion" needs a "sound"/);
 });
 
 test('validator: a parent can add a new vehicle with only content changes', () => {
   const c = clone();
   c.words.tram = { hi: 'ट्राम', translit: 'traam', en: 'tram', picture: 'tram' };
-  c.vehicles.push({ id: 'tram' });
+  c.collections.vehicles.items.push('tram');
   const { errors, warnings } = validateContent(c, { pictureExists });
   assert.deepEqual(errors, []);
   assert.equal(warnings.length, 1, 'only a warning that the picture falls back to a badge');
+});
+
+test('validator: a lesson needs a real letter set', () => {
+  assert.match(errorsFor((c) => (c.worlds[1].units[1].lessons[0].config.letters = { sets: ['klingon'] })), /letters must be false or/);
+});
+
+test('validator: a world needs a known level and collection', () => {
+  assert.match(errorsFor((c) => (c.worlds[0].level = 'grade9')), /level "grade9" is not one of the levels/);
+  assert.match(errorsFor((c) => (c.worlds[0].collection = 'cards')), /collection "cards" is not in collections/);
 });
