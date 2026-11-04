@@ -2605,7 +2605,7 @@
             {
               "id": "ke-sight-2",
               "game": "phonics",
-              "icon": "letter:the",
+              "icon": "glasses",
               "title": { "hi": "शब्द पहचानो 2", "en": "Sight words 2" },
               "config": { "skills": ["k-sight"], "rounds": 8 }
             }
@@ -3043,7 +3043,7 @@
           "id": "ge-short",
           "title": { "hi": "छोटे स्वर", "en": "Let's learn short vowels" },
           "skill": "Short vowels · NC.1.RF.3b",
-          "icon": "letter:a e i",
+          "icon": "letter:a",
           "lessons": [{ "id": "ge-short-1", "game": "phonics", "icon": "fox", "title": { "hi": "छोटे स्वर", "en": "Short vowels" }, "config": { "skills": ["g1-short-vowels"] } }]
         },
         {
@@ -3124,7 +3124,7 @@
             {
               "id": "ge-sight-2",
               "game": "phonics",
-              "icon": "letter:said",
+              "icon": "glasses",
               "title": { "hi": "और शब्द", "en": "More tricky words" },
               "config": { "skills": ["g1-sight"], "rounds": 8 }
             }
@@ -3932,8 +3932,16 @@
           "id": "g4-syn",
           "title": { "hi": "समानार्थी शब्द", "en": "Words that mean the same" },
           "skill": "Vocabulary",
-          "icon": "eye",
-          "lessons": [{ "id": "g4-syn-1", "game": "quiz", "icon": "eye", "title": { "hi": "समानार्थी", "en": "Same meaning" }, "config": { "bank": "g4-synonyms", "rounds": 6 } }]
+          "icon": "letter:=",
+          "lessons": [
+            {
+              "id": "g4-syn-1",
+              "game": "quiz",
+              "icon": "letter:=",
+              "title": { "hi": "समानार्थी", "en": "Same meaning" },
+              "config": { "bank": "g4-synonyms", "rounds": 6 }
+            }
+          ]
         },
         {
           "id": "g4-one",
