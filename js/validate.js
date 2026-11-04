@@ -276,12 +276,13 @@ export function validateContent(c, { knownPictures = null, pictureExists = null,
         else
           s.pages.forEach((p, j) => {
             if (!hasWord(p?.word)) err(`${at}.pages[${j}].word must be a word id (its picture is shown)`);
-            if (!isStr(p?.hi) || !DEVANAGARI.test(p.hi)) err(`${at}.pages[${j}].hi must be Devanagari text`);
+            // English-only stories ("lang": "en", e.g. nursery rhymes) have no Hindi text
+            if (s.lang !== 'en' && (!isStr(p?.hi) || !DEVANAGARI.test(p.hi))) err(`${at}.pages[${j}].hi must be Devanagari text`);
             if (!isStr(p?.en)) err(`${at}.pages[${j}].en is required`);
           });
         (Array.isArray(s.questions) ? s.questions : []).forEach((q, j) => {
           const qat = `${at}.questions[${j}]`;
-          if (!hasText(q)) err(`${qat} needs "hi" and "en"`);
+          if (s.lang === 'en' ? !isStr(q?.en) : !hasText(q)) err(`${qat} needs ${s.lang === 'en' ? '"en"' : '"hi" and "en"'}`);
           // picture options are word ids; "text": true questions have short Hindi answers instead
           if (!Array.isArray(q?.options) || q.options.length < 2) err(`${qat}.options needs at least 2 ${q?.text ? 'answers' : 'word ids'}`);
           else {
@@ -293,6 +294,7 @@ export function validateContent(c, { knownPictures = null, pictureExists = null,
         });
         if (s.moral !== undefined && !hasText(s.moral)) err(`${at} (${s.id}).moral needs "hi" and "en"`);
         if (s.kind !== undefined && !['story', 'poem'].includes(s.kind)) err(`${at} (${s.id}).kind must be "story" or "poem"`);
+        if (s.lang !== undefined && !['hi', 'en'].includes(s.lang)) err(`${at} (${s.id}).lang must be "hi" or "en"`);
       });
     }
   }

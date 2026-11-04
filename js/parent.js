@@ -279,7 +279,7 @@ function recorderSection(api) {
       const shelf = content.stories.filter((s) => s.level === level);
       const stories = shelf.length ? shelf : content.stories.filter((s) => s.level === 'grade1');
       return stories.flatMap((s) => [
-        ...s.pages.map((p, i) => ({ key: `story-${s.id}-${i + 1}`, hi: p.hi, en: p.en, note: `${s.title.en} · page ${i + 1}` })),
+        ...s.pages.map((p, i) => ({ key: `story-${s.id}-${i + 1}`, hi: p.hi || p.en, en: p.en, note: `${s.title.en} · page ${i + 1}` })),
         ...(s.moral ? [{ key: `story-${s.id}-moral`, hi: s.moral.hi, en: s.moral.en, note: `${s.title.en} · moral` }] : []),
       ]);
     }

@@ -1,6 +1,7 @@
 // Library (Grade 1+): read-along picture stories, a few questions about the story and, for folktales, the moral.
 // Every word on the page can be tapped to hear it. Each visit opens the next story for the stage.
 import { sentenceTokens, shuffle } from '../logic.js';
+import { storyLang, worldStoryLang } from '../curriculum.js';
 import { el, sleep, choose, runRounds, cheer, waitTap, bounce, ICONS } from './kit.js';
 import { clips } from '../storage.js';
 
@@ -9,14 +10,16 @@ const bare = (token) => token.replace(/[।.!?,"]/g, '');
 export default {
   async start(ctx) {
     const levels = ctx.config.levels || [ctx.level.id];
-    const stories = ctx.content.stories.filter((s) => levels.includes(s.level));
+    const wanted = worldStoryLang(ctx.world);
+    const stories = ctx.content.stories.filter((s) => levels.includes(s.level) && storyLang(s) === wanted);
     const key = levels.join('+');
     const pos = ctx.progress.storyPos?.[key] ?? 0;
     // a lesson (or the library) can name the story; otherwise each visit opens the next one
     const story = ctx.config.story ? ctx.content.stories.find((s) => s.id === ctx.config.story) : stories[pos % stories.length];
     if (!ctx.config.story) ctx.saveProgress({ storyPos: { ...ctx.progress.storyPos, [key]: pos + 1 } });
 
-    const langs = ctx.langs;
+    // an English-only story (a nursery rhyme) is always read in English
+    const langs = story.lang === 'en' ? ['en'] : ctx.langs;
     const total = story.pages.length + story.questions.length;
     ctx.setProgress(0, total);
     const lines = (text) => langs.map((l) => ({ text: text[l], lang: l }));
@@ -50,7 +53,7 @@ export default {
       const textLines = langs.map((l) =>
         el(
           'p',
-          { class: `story-line ${l}`, lang: l },
+          { class: `story-line ${l}${langs.length === 1 ? ' main' : ''}`, lang: l },
           sentenceTokens(page[l]).map((t) => {
             const w = el('button', { class: 'story-word', text: t });
             w.addEventListener('click', () => {

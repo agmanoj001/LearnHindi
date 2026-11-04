@@ -1,5 +1,5 @@
 // Offline support: cache the app shell, then serve from cache and refresh in the background.
-const VERSION = 'kkm-v6';
+const VERSION = 'kkm-v7';
 const SHELL = [
   './',
   'index.html',

@@ -5,7 +5,7 @@ import { createMascot, mascotSvg, MASCOTS, MASCOT_IDS } from './mascot.js';
 import { sceneSvg } from './art-scenes.js';
 import { PLACEMENT_LEVELS, placementQuestions, placementResult } from './placement.js';
 import { picture, pictureForWord, specialVehicle } from './art.js';
-import { worldLessons, lessonRecord, isUnlocked, currentLesson, nextLesson, worldStars, hubWorlds, streak, nextCollectible, todayPlan } from './curriculum.js';
+import { worldLessons, lessonRecord, isUnlocked, currentLesson, nextLesson, worldStars, hubWorlds, streak, nextCollectible, todayPlan, storyLang, worldStoryLang } from './curriculum.js';
 
 export function backdrop(world) {
   return el('div', { class: 'backdrop', html: sceneSvg(world?.theme || 'hub') });
@@ -68,12 +68,15 @@ export function splash(api) {
           ),
         ])
       : null;
+  // the guides stand in staggered rows (5, 6, 5) like a class photo
+  const rows = [MASCOT_IDS.slice(0, 5), MASCOT_IDS.slice(5, 11), MASCOT_IDS.slice(11)];
+  let k = 0;
   const parade = el(
     'div',
     { class: 'parade' },
-    MASCOT_IDS.map((id, i) => el('div', { class: 'parade-item', style: { animationDelay: `${i * 0.12}s` }, html: mascotSvg(id) })),
+    rows.map((ids) => el('div', { class: 'parade-row' }, ids.map((id) => el('div', { class: 'parade-item', style: { animationDelay: `${k++ * 0.12}s` }, html: mascotSvg(id) })))),
   );
-  api.app.replaceChildren(el('div', { class: 'screen splash enter' }, [backdrop(null), parade, appTitle(api), who || btn]));
+  api.app.replaceChildren(el('div', { class: 'screen splash enter' }, [backdrop(null), el('div', { class: 'sunburst', 'aria-hidden': 'true' }), parade, appTitle(api), who || btn]));
 }
 
 // ---------- onboarding: who is learning ----------
@@ -154,7 +157,11 @@ export function hub(api) {
         bigName(world, world.name, 'world-name-hi'),
         el('span', { class: 'world-name-en', lang: english(world) ? 'hi' : 'en', text: english(world) ? world.name.hi : world.name.en }),
         tagChips(api, world),
-        el('span', { class: 'world-stars' }, [el('span', { class: 'star-icon', html: ICONS.star }), el('span', { text: `${st.got} / ${st.max}` })]),
+        el('span', { class: 'world-stars' }, [
+          el('span', { class: 'star-icon', html: ICONS.star }),
+          el('span', { text: `${st.got} / ${st.max}` }),
+          el('span', { class: 'world-progress', 'aria-hidden': 'true' }, [el('i', { style: { width: `${st.max ? Math.round((100 * st.got) / st.max) : 0}%` } })]),
+        ]),
       ]),
     ]);
     c.addEventListener('click', async () => {
@@ -237,6 +244,7 @@ export function world(api, w) {
       if (isCurrent) {
         currentNode = row;
         row.append(el('div', { class: 'node-guide' }, [mascot.node]));
+        row.prepend(el('span', { class: 'node-start', 'aria-hidden': 'true' }, [el('span', { html: ICONS.play }), english(w) ? el('span', { text: 'Start' }) : el('span', { lang: 'hi', text: 'चलो!' })]));
       }
       return row;
     });
@@ -260,7 +268,7 @@ export function world(api, w) {
     el('div', { class: 'world-title' }, [bigName(w, w.name, 'world-name-hi'), el('span', { class: 'world-name-en', text: [english(w) ? null : w.name.en, ...tagsOf(api, w).map((t) => t.en)].filter(Boolean).join(' · ') })]),
     el('span', { class: 'star-chip' }, [el('span', { class: 'star-icon', html: ICONS.star }), el('b', { text: String(st.got) })]),
     el('button', { class: 'round-btn small', 'aria-label': 'My collection', html: ICONS.album, onclick: () => api.go('collection', { worldId: w.id }) }),
-    w.subject === 'hindi' && api.state.content.stories.some((s) => storyLevels(api, w).includes(s.level))
+    w.subject !== 'math' && api.state.content.stories.some((s) => storyLevels(api, w).includes(s.level) && storyLang(s) === worldStoryLang(w))
       ? el('button', { class: 'round-btn small', 'aria-label': 'Story library', html: ICONS.book, onclick: () => api.go('library', { worldId: w.id }) })
       : null,
   ]);
@@ -268,12 +276,59 @@ export function world(api, w) {
   api.app.replaceChildren(
     el('div', { class: `screen world-map theme-${w.theme} enter`, style: { '--place': w.color } }, [backdrop(w), head, el('div', { class: 'path-scroll' }, [path])]),
   );
+  const walked = Math.max(0, lessons.findIndex((l) => l.id === current.id));
+  const draw = () => drawTrail(path, walked);
+  draw();
+  if (typeof ResizeObserver === 'function') new ResizeObserver(draw).observe(path);
   requestAnimationFrame(() => currentNode?.scrollIntoView({ block: 'center' }));
   const unit = w.units.find((u) => u.lessons.some((l) => l.id === current.id));
   setTimeout(() => {
     mascot.react('wave');
     api.sayLines(unit.title);
   }, 500);
+}
+
+// A winding trail through the lesson stops: solid up to the current stop, dotted after it.
+// Measured from the laid-out nodes, so it follows the snake on any screen size.
+export function trailPath(points) {
+  if (!points.length) return '';
+  const f = (n) => Math.round(n * 10) / 10;
+  let d = `M${f(points[0][0])} ${f(points[0][1])}`;
+  for (let i = 0; i < points.length - 1; i++) {
+    const [p0, p1, p2, p3] = [points[i - 1] || points[i], points[i], points[i + 1], points[i + 2] || points[i + 1]];
+    const c1 = [p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6];
+    const c2 = [p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6];
+    d += ` C${f(c1[0])} ${f(c1[1])} ${f(c2[0])} ${f(c2[1])} ${f(p2[0])} ${f(p2[1])}`;
+  }
+  return d;
+}
+
+function drawTrail(path, walked) {
+  if (!path.isConnected) return;
+  const box = path.getBoundingClientRect();
+  const scale = box.width / (path.offsetWidth || box.width) || 1; // the screen may still be zooming in
+  const points = [...path.querySelectorAll('.node')].map((n) => {
+    const r = n.getBoundingClientRect();
+    return [(r.left + r.width / 2 - box.left) / scale, (r.top + r.height / 2 - box.top) / scale];
+  });
+  path.querySelector('.trail')?.remove();
+  if (points.length < 2) return;
+  const svgNS = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(svgNS, 'svg');
+  svg.setAttribute('class', 'trail');
+  svg.setAttribute('aria-hidden', 'true');
+  svg.setAttribute('width', String(path.offsetWidth));
+  svg.setAttribute('height', String(path.offsetHeight));
+  const line = (cls, pts) => {
+    const p = document.createElementNS(svgNS, 'path');
+    p.setAttribute('class', cls);
+    p.setAttribute('d', trailPath(pts));
+    svg.append(p);
+  };
+  line('trail-road', points);
+  line('trail-ahead', points.slice(walked));
+  if (walked > 0) line('trail-walked', points.slice(0, walked + 1));
+  path.prepend(svg);
 }
 
 function storyLevels(api, w) {
@@ -312,6 +367,7 @@ export async function results(api, { world, lesson, result, collection }) {
       el('div', { class: 'confetti' }, Array.from({ length: 36 }, (_, i) => el('i', { style: { left: `${(i * 37) % 100}%`, animationDelay: `${(i % 12) * 0.1}s`, background: ['#FF5A5F', '#FFC93C', '#2EC27E', '#3D7BFF', '#A66BFF', '#FF8FB1'][i % 6] } }))),
       el('div', { class: 'result-card' }, [
         el('div', { class: 'result-mascot' }, [mascot.node]),
+        praiseRibbon(world, result.stars),
         stars,
         result.unitComplete ? el('div', { class: 'unit-complete' }, [el('span', { html: ICONS.trophy }), el('span', { text: 'Unit complete!' })]) : null,
         reward,
@@ -337,6 +393,18 @@ export async function results(api, { world, lesson, result, collection }) {
     await api.say(collection.id === 'vehicles' ? 'newVehicle' : 'newItem', item);
   } else await api.say(result.stars === 3 ? 'great' : 'yay');
   if (result.unitComplete && token === api.state.token) api.say('unitDone');
+}
+
+// A ribbon across the results card. Praise names the effort, not the child (Mueller & Dweck).
+export const PRAISE = [
+  { hi: 'अच्छी कोशिश!', en: 'Good try!' },
+  { hi: 'अच्छी कोशिश!', en: 'Good try!' },
+  { hi: 'शाबाश!', en: 'Well done!' },
+  { hi: 'शानदार!', en: 'Amazing!' },
+];
+function praiseRibbon(world, starCount) {
+  const p = PRAISE[Math.max(0, Math.min(3, starCount | 0))];
+  return el('div', { class: 'result-ribbon' }, english(world) ? [el('b', { text: p.en })] : [el('b', { lang: 'hi', text: p.hi }), el('span', { text: p.en })]);
 }
 
 // ---------- collection ----------
@@ -388,14 +456,15 @@ export function collection(api, w) {
 export function library(api, w) {
   const { content, progress } = api.state;
   const levels = storyLevels(api, w);
-  const stories = content.stories.filter((s) => levels.includes(s.level));
+  const stories = content.stories.filter((s) => levels.includes(s.level) && storyLang(s) === worldStoryLang(w));
   const books = stories.map((s) => {
     const read = lessonRecord(progress, `story:${s.id}`).stars > 0;
     const b = el('button', { class: `book ${read ? 'read' : ''} ${s.kind === 'poem' ? 'poem' : ''}`, 'aria-label': s.title.en }, [
-      s.kind === 'poem' ? el('span', { class: 'poem-ribbon', text: 'कविता · Poem' }) : null,
+      s.kind === 'poem' ? el('span', { class: 'poem-ribbon', text: s.lang === 'en' ? 'Rhyme' : 'कविता · Poem' }) : null,
       el('span', { class: 'book-cover', html: pictureForWord(api.word(s.cover)) }),
-      el('span', { class: 'book-title', lang: 'hi', text: s.title.hi }),
-      el('span', { class: 'book-title-en', text: s.title.en }),
+      // English rhymes lead with their English title
+      s.lang === 'en' ? el('span', { class: 'book-title latin', text: s.title.en }) : el('span', { class: 'book-title', lang: 'hi', text: s.title.hi }),
+      el('span', { class: 'book-title-en', lang: s.lang === 'en' ? 'hi' : 'en', text: s.lang === 'en' ? s.title.hi : s.title.en }),
       read ? el('span', { class: 'book-badge', html: ICONS.check }) : null,
     ]);
     b.addEventListener('click', () => {
@@ -412,7 +481,9 @@ export function library(api, w) {
       backdrop(w),
       el('header', { class: 'game-head' }, [
         el('button', { class: 'round-btn', 'aria-label': 'Back', html: ICONS.back, onclick: () => api.back() }),
-        el('div', { class: 'head-title' }, [el('span', { class: 'world-name-hi', lang: 'hi', text: `${guide.hi} का पुस्तकालय` }), el('span', { class: 'world-name-en', text: `${guide.en}'s library · ${stories.length} books` })]),
+        el('div', { class: 'head-title' }, english(w)
+          ? [el('span', { class: 'world-name-hi latin', text: `${guide.en}'s library` }), el('span', { class: 'world-name-en', text: `${stories.length} rhymes and stories` })]
+          : [el('span', { class: 'world-name-hi', lang: 'hi', text: `${guide.hi} का पुस्तकालय` }), el('span', { class: 'world-name-en', text: `${guide.en}'s library · ${stories.length} books` })]),
         el('span', { class: 'round-spacer' }),
       ]),
       el('main', { class: 'shelf' }, books),

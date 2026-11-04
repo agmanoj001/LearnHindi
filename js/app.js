@@ -16,7 +16,7 @@ import { findLesson, lessonRecord, lessonLetters, applyLessonResult, homeWorld, 
 import { validateContent } from './validate.js';
 import { pictureExists, picture, pictureForWord, specialVehicle } from './art.js';
 import { initAudio, play, stop, wordSegs, letterSegs, numberSegs, soundSegs, sentenceSegs, phraseSegs, setVoicePrefs } from './audio.js';
-import { KEYS, load, save, normalizeProfiles, profileKey } from './storage.js';
+import { KEYS, load, save, normalizeProfiles, profileKey, keepStorage } from './storage.js';
 import { sfx, music } from './sfx.js';
 import { el, sleep, bounce, ICONS } from './ui.js';
 import { createMascot, MASCOT_IDS } from './mascot.js';
@@ -530,5 +530,7 @@ const api = {
 if ('serviceWorker' in navigator && location.protocol !== 'file:') {
   window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
 }
+// installed on the home screen: ask to keep progress and recordings safe from clean-ups
+if (window.matchMedia?.('(display-mode: standalone)').matches || navigator.standalone) keepStorage();
 
 boot();

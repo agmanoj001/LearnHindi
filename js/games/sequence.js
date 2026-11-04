@@ -2,14 +2,15 @@
 // Retelling in sequence is a core comprehension skill (beginning, middle, end). Each card is read
 // aloud as it goes into place. Harder levels use more of the story's pages.
 import { shuffle } from '../logic.js';
+import { storyLang, worldStoryLang } from '../curriculum.js';
 import { el, sleep, runRounds, cheer, flyTo, animate, wobble, bounce } from './kit.js';
 
 export default {
   async start(ctx) {
     const levels = ctx.config.levels || [ctx.level.id];
-    const pool = ctx.config.story ? ctx.content.stories.filter((s) => s.id === ctx.config.story) : shuffle(ctx.content.stories.filter((s) => levels.includes(s.level) && s.pages.length >= 3), ctx.rng);
+    const pool = ctx.config.story ? ctx.content.stories.filter((s) => s.id === ctx.config.story) : shuffle(ctx.content.stories.filter((s) => levels.includes(s.level) && s.pages.length >= 3 && storyLang(s) === worldStoryLang(ctx.world)), ctx.rng);
     const rounds = Math.min(ctx.config.rounds || 2, pool.length * (ctx.config.story ? 2 : 1));
-    const lang = ctx.settings.lang === 'en' ? 'en' : 'hi';
+    const lang = ctx.settings.lang === 'en' || worldStoryLang(ctx.world) === 'en' ? 'en' : 'hi';
 
     const ok = await runRounds(ctx, rounds, async (i) => {
       const story = pool[i % pool.length];

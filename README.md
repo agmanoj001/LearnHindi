@@ -17,6 +17,10 @@ It's plain HTML, CSS and JavaScript with no build step, so it runs on GitHub Pag
 
 The one thing that can depend on the device is the **computer voice**. On Android the Google text-to-speech voices work offline once their voice data is installed (*Settings › System › Languages › Text-to-speech › Google › Install voice data › Hindi*). Some desktop browsers use online voices, so offline they fall back to a plainer voice or stay silent. **Family recordings made in the app always work offline**, which is another good reason to record them.
 
+On an iPhone or iPad, **add the app to the Home Screen** (Share › Add to Home Screen): Safari can clear the data of websites that haven't been opened for a while, but not of home-screen apps. Installed copies also ask the browser to keep progress and recordings safe from storage clean-ups.
+
+Thinking of rebuilding it in an app builder? [docs/PLATFORM-EVALUATION.md](docs/PLATFORM-EVALUATION.md) compares FlutterFlow, Thunkable and Appy Pie with the current web app, with offline as the deciding requirement, and explains how to put the app in Google Play and the App Store without a rewrite.
+
 [CURRICULUM.md](CURRICULUM.md) explains what each grade teaches, the sources, and the learning research behind the design.
 
 ## The worlds
@@ -40,7 +44,7 @@ The one thing that can depend on the device is the **computer voice**. On Androi
 | Grade 4 | **Himu's Story Mountain** · हिमू का कथा पर्वत | Himu the snow leopard | Hindi | Stories, Poems | Akbar–Birbal, Tenali Raman and fables with a moral, two poems, "which story teaches this?" |
 | Grade 4 | **Chintu's Word City** · चिंटू का शब्द नगर | Chintu the squirrel | Hindi | Vocabulary, Writing, Reading | मुहावरे, synonyms, one word for many, days and months, city words, longer sentences |
 
-Each world is a winding path of **units** named for what the child is learning ("Let's learn matras ा ि ी", "Let's learn magic e", "Let's make 10"). Each unit has a few **lessons**. Lessons open one after another, each earns 1–3 stars (for answers right on the first try), and each first finish (and every 3-star replay) adds something to the world's **collection**.
+Each world is a winding path of **units** named for what the child is learning ("Let's learn matras ा ि ी", "Let's learn magic e", "Let's make 10"). Each unit has a few **lessons**, joined by a trail that is gold where the child has been and dotted ahead, with a **Start** tag on the next lesson. Lessons open one after another, each earns 1–3 stars (for answers right on the first try), and each first finish (and every 3-star replay) adds something to the world's **collection**.
 
 The **home screen** shows the child's grade first, then every other world, so moving between grades is one tap. A row of **tags** at the top filters the worlds: tap *Grammar* to see every grammar world, *Stories* for every story world, and so on. Each card shows its tags too. A parent can lock the app to one grade instead.
 
@@ -48,7 +52,7 @@ The **home screen** shows the child's grade first, then every other world, so mo
 
 ### The story library
 
-Grades 1–4 have a library of **41 read-along stories and 6 poems**: Panchatantra and Jataka tales (*The lion and the mouse*, *The monkey and the crocodile*, *The blue jackal*, *The talkative tortoise*), Akbar–Birbal and Tenali Raman stories, fables and new stories starring the app's characters. Every word can be tapped to hear it, pages are read aloud in Hindi (and English in "both" mode), and each story ends with questions: pictures for the younger grades, short written answers for older ones. Folktales finish with their **सीख** (moral). The library shows the child's grade and the one before it. Every story world also has a **story order** lesson: pictures from a story, shuffled, to tap in the order things happened.
+The libraries hold **77 read-along stories and rhymes**: Panchatantra and Jataka tales (*The lion and the mouse*, *The monkey and the crocodile*, *The four friends*, *The jackal and the drum*, *The monkey and the wedge*, *The hare in the moon*), Akbar–Birbal stories (*The emperor's parrot*, *Who owns the water?*, *The shorter line*, *The cucumber in the bottle*, *Birbal counts the crows*, *Birbal's khichdi*), Tenali Raman, fables, poems, new stories starring the app's characters, **बाल गीत** for Kindergarten (मछली जल की रानी है, चंदा मामा दूर के, आलू कचालू, हाथी राजा and new ones), and classic **English nursery rhymes** in the English phonics worlds (*Twinkle, Twinkle*, *Humpty Dumpty*, *Baa, Baa, Black Sheep*, *Hickory, Dickory, Dock*, *Jack and Jill*, *Rain, Rain*, *Row Your Boat*, *Hey Diddle Diddle*), each with a rhyming-word question. Only traditional or public-domain rhymes and our own are used; film songs are left out because they are still in copyright. Every word can be tapped to hear it, pages are read aloud in Hindi (and English in "both" mode), and each story ends with questions: pictures for the younger grades, short written answers for older ones. Folktales finish with their **सीख** (moral). The library shows the child's grade and the one before it. Every story world also has a **story order** lesson: pictures from a story, shuffled, to tap in the order things happened.
 
 ### The characters
 
@@ -257,7 +261,7 @@ Each page shows its `word`'s picture. Picture questions use word ids as options;
 
 ### Stories, poems and story lessons
 
-A story with `"kind": "poem"` is shown as a poem in the library. A lesson can name one story with `{ "game": "story", "config": { "story": "lion-mouse" } }`; without `story` it opens the next story on the grade's shelf.
+A story with `"kind": "poem"` is shown as a poem (or a rhyme) in the library. `"lang": "en"` makes an English-only story (pages and questions need only `en`); English worlds show only English stories, Hindi worlds only Hindi ones. A lesson can name one story with `{ "game": "story", "config": { "story": "lion-mouse" } }`; without `story` it opens the next story on the grade's shelf.
 
 ### Phonics skills
 

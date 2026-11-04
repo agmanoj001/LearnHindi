@@ -64,3 +64,18 @@ test('the Hindi parent area translates headings, notes and numbers', () => {
   for (const [, title] of src.matchAll(/section\(\s*'([^']+)'/g)) assert.ok(translateText(title), title);
   for (const [, title] of src.matchAll(/toggle\(\s*'([^']+)'/g)) assert.ok(translateText(title), title);
 });
+
+test('English nursery rhymes live in the English worlds; Hindi worlds keep Hindi stories', async () => {
+  const { storyLang, worldStoryLang, worldLessons } = await import('../js/curriculum.js');
+  const english = content.stories.filter((s) => storyLang(s) === 'en');
+  assert.ok(english.length >= 8);
+  for (const s of english) assert.ok(s.pages.every((p) => p.en && !p.hi), s.id);
+  for (const w of content.worlds) {
+    for (const l of worldLessons(w).filter((x) => x.game === 'story' && x.config.story)) {
+      const s = content.stories.find((x) => x.id === l.config.story);
+      assert.equal(storyLang(s), worldStoryLang(w), `${w.id}: ${s.id}`);
+    }
+  }
+  // Kindergarten has a shelf of Hindi rhymes
+  assert.ok(content.stories.filter((s) => s.level === 'kg' && storyLang(s) === 'hi' && s.kind === 'poem').length >= 7);
+});
