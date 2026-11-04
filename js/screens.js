@@ -6,6 +6,7 @@ import { sceneSvg } from './art-scenes.js';
 import { PLACEMENT_LEVELS, placementQuestions, placementResult } from './placement.js';
 import { picture, pictureForWord, specialVehicle } from './art.js';
 import { worldLessons, lessonRecord, isUnlocked, currentLesson, nextLesson, worldStars, hubWorlds, streak, nextCollectible, todayPlan, storyLang, worldStoryLang } from './curriculum.js';
+import { SHOW_ICONS } from './shows.js';
 
 export function backdrop(world) {
   return el('div', { class: 'backdrop', html: sceneSvg(world?.theme || 'hub') });
@@ -175,6 +176,14 @@ export function hub(api) {
   };
 
   const gate = parentGate(api);
+  api.state.showRun = 0;
+  // Show time and Story radio: watching and listening that still teaches (good for journeys)
+  const showtime = (content.shows || []).length
+    ? el('div', { class: 'showtime-row' }, [
+        el('button', { class: 'showtime-btn tv', 'aria-label': 'Show time', onclick: () => (api.sfx.pop(), api.go('shows')) }, [el('span', { class: 'showtime-icon', html: SHOW_ICONS.tv }), el('span', { class: 'showtime-text' }, [el('b', { lang: 'hi', text: 'कार्टून' }), el('span', { text: 'Show time' })])]),
+        el('button', { class: 'showtime-btn radio', 'aria-label': 'Story radio', onclick: () => (api.sfx.pop(), api.go('radio')) }, [el('span', { class: 'showtime-icon', html: SHOW_ICONS.radio }), el('span', { class: 'showtime-text' }, [el('b', { lang: 'hi', text: 'कहानी रेडियो' }), el('span', { text: 'Story radio' })])]),
+      ])
+    : null;
   api.app.replaceChildren(
     el('div', { class: 'screen hub enter' }, [
       backdrop(null),
@@ -187,6 +196,7 @@ export function hub(api) {
       ]),
       el('div', { class: 'hub-scroll' }, [
         filter ? null : todayCard(api, todayPlan(content, progress, all.filter((w) => w.level === settings.level))),
+        filter ? null : showtime,
         usedTags.length > 1 ? el('div', { class: 'tag-filters', role: 'toolbar', 'aria-label': 'Show worlds about' }, [tagBtn(null, null), ...usedTags.map(([id, t]) => tagBtn(id, t))]) : null,
         mine.length ? el('h2', { class: 'hub-section', text: `${level(settings.level).name.en} · ${level(settings.level).name.hi}` }) : null,
         el('div', { class: 'world-cards' }, mine.map(card)),
@@ -603,6 +613,7 @@ const STEP = {
   go: { hi: 'आगे बढ़ो', en: 'Keep going', icon: 'play' },
   review: { hi: 'दोहराओ', en: 'Review', icon: 'replay' },
   story: { hi: 'कहानी', en: 'Story time', icon: 'star' },
+  watched: { hi: 'कार्टून वाला खेल', en: 'Play what you watched', icon: 'play' },
 };
 
 export function todayCard(api, steps) {

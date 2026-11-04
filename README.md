@@ -70,6 +70,15 @@ Story pages light up **word by word** as they are read (exactly, where the voice
 
 The top of the home screen shows **three steps for today**: *Keep going* (the next new lesson, in the grade's world with the least done, so subjects stay balanced), *Review* (a finished lesson that is due again) and *Story time* (a story not read yet). Each turns green once done today.
 
+### Show time and Story radio (for journeys)
+
+Two big buttons under Today's path are for times when a child would otherwise just watch something, such as a long car or train ride. Both work fully offline.
+
+- **Show time (कार्टून)**: short animated comic episodes (about 3 minutes) starring the guides. Each one quietly teaches one thing and repeats it 4–6 times inside the story: *Chiku's magic stick* (Grade 1, the ा matra: नाव, गाय, छाता, माला, तारा), *Gappu's letter bus* (Kindergarten, क ख ग घ) and *Tiko's ten balloons* (Grade 1 English math, partners of 10 and the make-10 trick). Speech bubbles light up word by word as they are spoken (like same-language subtitles), characters ask questions, and "say it with me!" pauses let the child join in. **Just watch** answers each question by itself after a few seconds, so it plays hands-free; **Play along** waits for a tap. Afterwards a recap shows the words again, with a button for the matching game; the next episode starts by itself, up to three in a row, then it suggests a stretch. An episode watched today or yesterday adds *Play what you watched* to Today's path.
+- **Story radio (कहानी रेडियो)**: the grade's stories and rhymes read aloud one after another (a rhyme after every two stories), each ending with a question to think about. The screen stays on but goes dark, which suits car rides and children who feel sick looking at a screen. Family recordings of story pages are used when there are any.
+
+Episodes are scripts in `content.json`, built from the app's own drawings, so each one is a few kilobytes instead of a video file. See [Writing an episode](#writing-an-episode).
+
 ### How lessons adapt
 
 - **Inside a lesson**, two answers right first time in a row make the next round harder, and two misses in a row make it easier. A small "Level up!" marks each step up. Harder means 3 or 4 choices instead of 2, look-alike wrong answers, bigger numbers with fewer pictures in math, a decoy word in sentence building, or words without their picture when sorting.
@@ -89,11 +98,12 @@ The top of the home screen shows **three steps for today**: *Keep going* (the ne
 - **Play time and reading support**: a *daily limit* (15–60 minutes, or none). When it's reached, the next lesson shows a break screen with an idea for off-screen play; a lesson already started is never cut off, and a grown-up can hold *+10* for ten more minutes. *Captions* show everything the app says as text. *Tell it back* lets the child record themselves retelling each story.
 - **Sound**: background music and sound effects, each on or off.
 - **Voices**: pick the Hindi and English text-to-speech voice (the best installed voice is chosen by default), set the speed, and test them.
-- **Record your voice**: record any word, letter, story page, moral or phrase right in the app. Your recording replaces the computer voice. See below.
+- **Before a trip**: a checklist to run while there is still internet: saved for offline use, on the home screen, a Hindi voice on the device, family recordings, storage kept safe, and the daily limit.
+- **Record your voice**: record any word, letter, story page, moral, episode line or phrase right in the app. Your recording replaces the computer voice. See below.
 - **Recordings from files**: load recordings made elsewhere.
 - **Special vehicle photo**: a photo from the device becomes a vehicle in Vehicle Town's garage. It is shrunk and saved only in this browser.
 - **Parent area language**: English or हिन्दी, switched at the top.
-- **Progress**: this week's minutes per day, lessons played and reviews due; **Getting better** (each lesson's first score against its latest, as a before-and-after measure); the child's **story retellings**; stars per world, a "practise together" list (words, letters, matras and math skills the child often misses) and a "doing great" list, and a reset button.
+- **Progress**: this week's minutes per day, lessons played and reviews due; Show time episodes watched; **Getting better** (each lesson's first score against its latest, as a before-and-after measure); the child's **story retellings**; stars per world, a "practise together" list (words, letters, matras and math skills the child often misses) and a "doing great" list, and a reset button.
 
 Everything stays on the device. Nothing is uploaded.
 
@@ -263,6 +273,27 @@ Each page shows its `word`'s picture. Picture questions use word ids as options;
 
 A story with `"kind": "poem"` is shown as a poem (or a rhyme) in the library. `"lang": "en"` makes an English-only story (pages and questions need only `en`); English worlds show only English stories, Hindi worlds only Hindi ones. A lesson can name one story with `{ "game": "story", "config": { "story": "lion-mouse" } }`; without `story` it opens the next story on the grade's shelf.
 
+### Writing an episode
+
+An episode in `"shows"` has an `id`, `level`, `world` (for its colour and guide), `lang` (`"hi"`, or `"en"` for English-only), a `title`, `teaches` (one line for grown-ups), an optional `lesson` to practise afterwards, a `recap` (`{"words": [...], "mark": "ा"}` or `{"lines": ["6 + 4 = 10"]}`) and `scenes`. Each scene has a background `bg` (any world theme, like `"jungle"` or `"space"`), optional `actors` already standing there (`{"chiku": 24, "kuku": 72}`, positions from 0 to 100) and a list of `beats`, played in order:
+
+| Beat | What happens |
+| --- | --- |
+| `{"narrate": true, "hi": "…", "en": "…"}` | a narrator's box at the top |
+| `{"say": "chiku", "hi": "…", "en": "…", "do": "happy"}` | a speech bubble from a guide (`do` is optional: happy, cheer, oops, silly, wave, dance, spin, sneeze) |
+| `{"enter": "kuku", "at": 72, "from": "right"}`, `{"move": "kuku", "to": 40}`, `{"exit": "kuku", "to": "left"}` | a guide walks on, across or off |
+| `{"do": "dance", "who": "kuku"}` | a guide does something |
+| `{"show": "cow", "at": 70, "from": "left"}` | a picture appears (or slides in) |
+| `{"word": "boat", "mark": "ा"}` | a big word card; syllables with the mark light up, and the word is said |
+| `{"letter": "क", "word": "dove"}` | a big letter with a picture, and the letter is said |
+| `{"build": ["न", "ा"], "hi": "…", "en": "…"}` | two pieces join into one syllable (ना) while the line is said |
+| `{"glyph": "ा"}`, `{"number": 10}`, `{"tenframe": [{"a": 6, "b": 4}]}` | a sign, a number or a ten frame |
+| `{"ask": {"hi": "…", "en": "…"}, "who": "chiku", "options": ["umbrella", "cup"], "answer": "umbrella", "then": {…}}` | a question with picture answers (`"kind": "number"` for number answers) |
+| `{"echo": {"hi": "क से कबूतर", "en": "Ka for kabootar"}}` | "say it with me!", a pause for the child, then the line again |
+| `{"clear": true}`, `{"sfx": "toot"}`, `{"wait": 800}` | clear the pictures, play a sound, pause |
+
+Every spoken line can be recorded in a family voice (Record your voice › Shows), or loaded from files named `show-<id>-<line>_hi.m4a`. The content checks name any beat that is wrong.
+
 ### Phonics skills
 
 Phonics lessons list skills from [`js/phonicsgen.js`](js/phonicsgen.js), for example `{ "game": "phonics", "config": { "skills": ["k-rhyme", "k-read-cvc"] } }`. Each skill carries its NC Reading: Foundational Skills code. Sounds are always said with a key word ("c, as in cat"), because text-to-speech can't say bare letter sounds well; you can record the real sounds in the parent area (Letters tab).
@@ -311,6 +342,7 @@ See [docs/LEARNING-REVIEW.md](docs/LEARNING-REVIEW.md) for a full review against
 3. **Openly licensed readers** from StoryWeaver (Pratham Books, CC BY 4.0), with attribution: check each book's licence page first.
 4. **Stroke-order handwriting** for Devanagari, and **math beyond Grade 1**.
 5. **A Play Store app** via a Trusted Web Activity, once tested on real phones.
+6. **More Show time episodes**, one per unit, with recorded narration for the favourites.
 
 ## Project layout
 
@@ -325,6 +357,7 @@ fonts/                Baloo 2 and Fredoka (SIL Open Font License)
 CURRICULUM.md         what each grade teaches, sources and research
 js/app.js             app start, router, lesson frame
 js/screens.js         splash, hub, world maps, results, collections, library
+js/shows.js           Show time episode player and Story radio
 js/parent.js          parent area and voice recorder
 js/curriculum.js      unlocking, stars, levels, streaks (pure, tested)
 js/logic.js           game logic (pure, tested)

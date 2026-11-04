@@ -6057,5 +6057,313 @@
     "math": { "hi": "गणित", "en": "Math", "color": "#2B2D42" },
     "counting": { "hi": "गिनती", "en": "Counting", "color": "#16A34A" },
     "shapes": { "hi": "आकार", "en": "Shapes", "color": "#0891B2" }
-  }
+  },
+  "shows": [
+    {
+      "id": "gappu-bus",
+      "level": "kg",
+      "world": "town",
+      "lang": "hi",
+      "title": { "hi": "गप्पू की अक्षर बस", "en": "Gappu's letter bus" },
+      "teaches": { "hi": "क ख ग घ: कबूतर, खरगोश, गाय, घर", "en": "क ख ग घ (ka kha ga gha): pigeon, rabbit, cow, house" },
+      "lesson": "k-cons1-5",
+      "recap": { "words": ["dove", "rabbit", "cow", "house"] },
+      "scenes": [
+        {
+          "bg": "town",
+          "beats": [
+            {
+              "narrate": true,
+              "hi": "गाड़ी नगर में सुबह हुई। पीं पीं! अक्षर बस आ गई!",
+              "en": "Morning in Vehicle Town. Beep beep! Here comes the letter bus!"
+            },
+            { "show": "bus", "at": 28, "from": "left" },
+            { "sfx": "toot" },
+            { "enter": "gappu", "at": 66, "from": "right" },
+            {
+              "say": "gappu",
+              "hi": "नमस्ते बच्चो! मैं गप्पू हूँ। आज मेरी बस में अक्षर सवारी करेंगे!",
+              "en": "Hello children! I'm Gappu. Today letters are riding on my bus!",
+              "do": "wave"
+            },
+            { "say": "gappu", "hi": "पहला स्टॉप! देखो, कौन आया?", "en": "First stop! Look, who's here?" },
+            { "letter": "क", "word": "dove", "at": 66 },
+            { "say": "gappu", "hi": "क से कबूतर! गुटर गूँ, गुटर गूँ!", "en": "Ka for kabootar, the pigeon! Gutar-goo, gutar-goo!", "do": "happy" },
+            { "echo": { "hi": "क से कबूतर", "en": "Ka for kabootar" } }
+          ]
+        },
+        {
+          "bg": "garden",
+          "actors": { "gappu": 70 },
+          "beats": [
+            { "show": "bus", "at": 28, "from": "left" },
+            { "narrate": true, "hi": "बस चली, और बगीचे में रुकी।", "en": "The bus drove off, and stopped at the garden." },
+            { "letter": "ख", "word": "rabbit", "at": 66 },
+            { "say": "gappu", "hi": "ख से खरगोश! फुदक, फुदक!", "en": "Kha for khargosh, the rabbit! Hop, hop!", "do": "cheer" },
+            { "echo": { "hi": "ख से खरगोश", "en": "Kha for khargosh" } },
+            {
+              "ask": { "hi": "खरगोश को क्या खाना पसंद है?", "en": "What does the rabbit like to eat?" },
+              "who": "gappu",
+              "options": ["carrot", "cake", "fish"],
+              "answer": "carrot",
+              "then": { "hi": "गाजर! खरगोश को गाजर पसंद है।", "en": "A carrot! The rabbit loves carrots." }
+            },
+            { "say": "gappu", "hi": "गाजर... ग! अगला अक्षर ग है!", "en": "Gaajar... ga! The next letter is ga!" }
+          ]
+        },
+        {
+          "bg": "farm",
+          "actors": { "gappu": 70 },
+          "beats": [
+            { "show": "bus", "at": 28, "from": "left" },
+            { "narrate": true, "hi": "अब बस खेत में आई। मूँ, मूँ!", "en": "Now the bus came to the farm. Moo, moo!" },
+            { "letter": "ग", "word": "cow", "at": 66 },
+            { "say": "gappu", "hi": "ग से गाय! गाय हमें दूध देती है।", "en": "Ga for gaay, the cow! The cow gives us milk." },
+            { "echo": { "hi": "ग से गाय", "en": "Ga for gaay" } },
+            {
+              "ask": { "hi": "ग से और क्या? गाजर या केला?", "en": "What else starts with ga? A carrot or a banana?" },
+              "who": "gappu",
+              "options": ["carrot", "banana"],
+              "answer": "carrot",
+              "then": { "hi": "गाजर! ग से गाजर!", "en": "Gaajar, the carrot! Ga for gaajar!" }
+            }
+          ]
+        },
+        {
+          "bg": "village",
+          "actors": { "gappu": 70 },
+          "beats": [
+            { "show": "bus", "at": 28, "from": "left" },
+            { "narrate": true, "hi": "शाम हो गई। बस घर की ओर चली।", "en": "Evening came. The bus headed home." },
+            { "letter": "घ", "word": "house", "at": 66 },
+            { "say": "gappu", "hi": "घ से घर! शाम को सब अपने घर जाते हैं।", "en": "Gha for ghar, a house! In the evening everyone goes home." },
+            { "echo": { "hi": "घ से घर", "en": "Gha for ghar" } },
+            {
+              "ask": { "hi": "घ से क्या शुरू होता है?", "en": "Which one starts with gha?" },
+              "who": "gappu",
+              "options": ["house", "cow", "dove"],
+              "answer": "house",
+              "then": { "hi": "घर! घ से घर!", "en": "Ghar, the house! Gha for ghar!" }
+            },
+            { "clear": true },
+            { "say": "gappu", "hi": "आज बस में चार अक्षर आए: क, ख, ग, घ!", "en": "Four letters rode the bus today: ka, kha, ga, gha!", "do": "dance" },
+            { "echo": { "hi": "क, ख, ग, घ", "en": "Ka, kha, ga, gha" } },
+            { "say": "gappu", "hi": "टाटा! कल फिर आना!", "en": "Bye-bye! Come again tomorrow!", "do": "wave" },
+            { "sfx": "toot" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chiku-aa",
+      "level": "grade1",
+      "world": "jungle",
+      "lang": "hi",
+      "title": { "hi": "चीकू का जादुई डंडा", "en": "Chiku's magic stick" },
+      "teaches": { "hi": "आ की मात्रा (ा): नाव, गाय, छाता, माला, तारा", "en": "The ा (aa) matra: boat, cow, umbrella, garland, star" },
+      "lesson": "g1-m1-2",
+      "recap": { "mark": "ा", "words": ["boat", "cow", "umbrella", "garland", "star"] },
+      "scenes": [
+        {
+          "bg": "jungle",
+          "beats": [
+            {
+              "narrate": true,
+              "hi": "मस्त जंगल में एक सुबह, चीकू बंदर को कुछ चमकता हुआ मिला।",
+              "en": "One morning in Jolly Jungle, Chiku the monkey found something shiny."
+            },
+            { "enter": "chiku", "at": 32 },
+            {
+              "say": "chiku",
+              "hi": "नमस्ते! मैं चीकू हूँ। देखो, मुझे एक जादुई डंडा मिला!",
+              "en": "Hello! I'm Chiku. Look, I found a magic stick!",
+              "do": "happy"
+            },
+            { "glyph": "ा", "at": 66 },
+            { "say": "chiku", "hi": "यह आ की मात्रा है। एक सीधा खड़ा डंडा।", "en": "This is the aa matra. A stick standing up straight." },
+            { "say": "chiku", "hi": "इसे किसी अक्षर के बाद लगाओ, तो अक्षर आ बोलता है!", "en": "Put it after a letter, and the letter says aa!" },
+            { "clear": true },
+            { "enter": "kuku", "at": 72, "from": "right" },
+            { "say": "kuku", "hi": "चीकू! चलो पानी में सैर करें! पर हम जाएँगे कैसे?", "en": "Chiku! Let's go for a ride on the water! But how will we go?" },
+            { "say": "chiku", "hi": "जादू देखो! यह है न।", "en": "Watch the magic! This is na." },
+            { "build": ["न", "ा"], "hi": "न के बाद आ की मात्रा... ना!", "en": "na, then the aa matra... naa!" },
+            { "word": "boat", "mark": "ा" },
+            { "say": "kuku", "hi": "वाह! ना से नाव!", "en": "Wow! Naa, for naav, a boat!", "do": "cheer" }
+          ]
+        },
+        {
+          "bg": "village",
+          "actors": { "chiku": 24, "kuku": 72 },
+          "beats": [
+            {
+              "narrate": true,
+              "hi": "चीकू और कूकू पानी की ओर चले। रास्ते में मिली एक...",
+              "en": "Chiku and Kuku set off for the water. On the way they met a..."
+            },
+            { "show": "cow", "at": 70 },
+            { "say": "kuku", "hi": "अरे, यह कौन है?", "en": "Oh, who is this?", "do": "oops" },
+            { "say": "chiku", "hi": "यह गाय है! ग के बाद खड़ा डंडा... गा... गाय!", "en": "It's a cow! ga, then the standing stick... gaa... gaay!" },
+            { "build": ["ग", "ा"], "hi": "ग के बाद आ की मात्रा... गा!", "en": "ga, then the aa matra... gaa!" },
+            { "word": "cow", "mark": "ा" },
+            { "sfx": "whoosh" },
+            { "say": "kuku", "hi": "अरे! काले बादल आ गए। बारिश होने वाली है!", "en": "Oh no! Dark clouds. It's going to rain!", "do": "oops" },
+            {
+              "ask": { "hi": "बारिश में क्या काम आएगा?", "en": "What will help in the rain?" },
+              "who": "chiku",
+              "options": ["umbrella", "cup", "cake"],
+              "answer": "umbrella",
+              "then": { "hi": "छाता! छ के बाद आ की मात्रा... छा... छाता!", "en": "An umbrella! chha, then the aa matra... chhaa... chhaataa!" }
+            },
+            { "word": "umbrella", "mark": "ा" },
+            { "say": "kuku", "hi": "छाते के नीचे हम सूखे रहेंगे!", "en": "Under the umbrella we'll stay dry!", "do": "happy" }
+          ]
+        },
+        {
+          "bg": "ocean",
+          "actors": { "chiku": 24, "kuku": 74 },
+          "beats": [
+            {
+              "narrate": true,
+              "hi": "फिर दोनों नाव में बैठे, और नाव पानी पर चल पड़ी। छप, छप!",
+              "en": "Then they both got into the boat, and off it went across the water. Splash, splash!"
+            },
+            { "show": "boat", "at": 30 },
+            { "show": "garland", "at": 70 },
+            { "say": "kuku", "hi": "चीकू, यह फूलों की माला किसकी है?", "en": "Chiku, whose flower garland is this?" },
+            { "say": "chiku", "hi": "मेरी! मैं नाव का राजा हूँ!", "en": "Mine! I'm the king of the boat!", "do": "dance" },
+            { "build": ["म", "ा"], "hi": "म के बाद आ की मात्रा... मा!", "en": "ma, then the aa matra... maa!" },
+            { "word": "garland", "mark": "ा" },
+            {
+              "ask": { "hi": "माला में आ की मात्रा कितनी बार है?", "en": "How many times is the aa matra in maalaa?" },
+              "who": "kuku",
+              "kind": "number",
+              "options": [1, 2, 3],
+              "answer": 2,
+              "then": { "hi": "दो बार! मा... ला... माला!", "en": "Two times! maa... laa... maalaa!" }
+            }
+          ]
+        },
+        {
+          "bg": "space",
+          "actors": { "chiku": 24, "kuku": 74 },
+          "beats": [
+            {
+              "narrate": true,
+              "hi": "नाव चलती रही, और रात हो गई। ऊपर कुछ चमका...",
+              "en": "The boat sailed on, and night came. Something twinkled up above..."
+            },
+            {
+              "ask": { "hi": "ऊपर क्या चमक रहा है?", "en": "What is twinkling up there?" },
+              "who": "chiku",
+              "options": ["star", "sun", "fish"],
+              "answer": "star",
+              "then": { "hi": "तारा! ता... रा... तारा! इसमें दो खड़े डंडे हैं।", "en": "A star! taa... raa... taaraa! It has two standing sticks." }
+            },
+            { "word": "star", "mark": "ा" },
+            { "say": "kuku", "hi": "आज हमने आ की मात्रा सीखी!", "en": "Today we learned the aa matra!", "do": "cheer" },
+            {
+              "say": "chiku",
+              "hi": "नाव, गाय, छाता, माला, तारा... सब में खड़ा डंडा!",
+              "en": "Boat, cow, umbrella, garland, star... they all have the standing stick!"
+            },
+            { "echo": { "hi": "आ की मात्रा, खड़ा डंडा!", "en": "The aa matra, a standing stick!" } },
+            { "say": "chiku", "hi": "फिर मिलेंगे! टाटा!", "en": "See you again! Bye-bye!", "do": "wave" },
+            { "do": "dance", "who": "kuku" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tiko-ten",
+      "level": "grade1",
+      "world": "carnival",
+      "lang": "en",
+      "title": { "hi": "टीको के दस गुब्बारे", "en": "Tiko's ten balloons" },
+      "teaches": { "en": "Partners of 10 (6 + 4, 7 + 3, 5 + 5) and the make-10 trick for adding (NC.1.OA.6)" },
+      "lesson": "g1m-facts-1",
+      "recap": { "lines": ["6 + 4 = 10", "7 + 3 = 10", "5 + 5 = 10", "9 + 3 = 10 + 2 = 12"] },
+      "scenes": [
+        {
+          "bg": "carnival",
+          "beats": [
+            { "narrate": true, "en": "It's the Number Carnival! Tiko the owl has a balloon stand." },
+            { "enter": "tiko", "at": 26 },
+            { "say": "tiko", "en": "Hoo hoo! I'm Tiko. My stand has ten spots for balloons. Ten is my lucky number!", "do": "happy" },
+            { "tenframe": [{ "a": 0 }], "at": 62 },
+            { "say": "tiko", "en": "One balloon in each box. Let's fill all ten!" },
+            { "enter": "pip", "at": 74, "from": "right" },
+            { "say": "pip", "en": "Hi Tiko! I brought six balloons!", "do": "wave" },
+            { "tenframe": [{ "a": 6 }], "at": 62 },
+            { "say": "tiko", "en": "Six balloons. How many more do we need to make ten?" },
+            {
+              "ask": { "en": "Six and how many more make ten?" },
+              "who": "tiko",
+              "kind": "number",
+              "options": [3, 4, 5],
+              "answer": 4,
+              "then": { "en": "Four! Six and four make ten." }
+            },
+            { "tenframe": [{ "a": 6, "b": 4 }], "at": 62 },
+            { "echo": { "en": "Six plus four is ten!" } }
+          ]
+        },
+        {
+          "bg": "carnival",
+          "actors": { "tiko": 26 },
+          "beats": [
+            { "enter": "buzz", "at": 74, "from": "right" },
+            { "say": "buzz", "en": "Bzzz! I have seven balloons. Can I play?", "do": "cheer" },
+            { "tenframe": [{ "a": 7 }], "at": 62 },
+            {
+              "ask": { "en": "Seven and how many more make ten?" },
+              "who": "tiko",
+              "kind": "number",
+              "options": [2, 3, 4],
+              "answer": 3,
+              "then": { "en": "Three! Seven and three make ten." }
+            },
+            { "tenframe": [{ "a": 7, "b": 3 }], "at": 62 },
+            { "echo": { "en": "Seven plus three is ten!" } },
+            { "say": "tiko", "en": "Now five balloons. Hmm..." },
+            { "tenframe": [{ "a": 5 }], "at": 62 },
+            {
+              "ask": { "en": "Five and how many more make ten?" },
+              "who": "tiko",
+              "kind": "number",
+              "options": [4, 5, 6],
+              "answer": 5,
+              "then": { "en": "Five! Five and five make ten, like the fingers on two hands." }
+            },
+            { "tenframe": [{ "a": 5, "b": 5 }], "at": 62 },
+            { "echo": { "en": "Five plus five is ten!" } }
+          ]
+        },
+        {
+          "bg": "carnival",
+          "actors": { "tiko": 26, "pip": 74 },
+          "beats": [
+            { "narrate": true, "en": "Then Pip asked a tricky one." },
+            { "say": "pip", "en": "Tiko, what is nine plus three?", "do": "oops" },
+            { "say": "tiko", "en": "Here's my ten trick! Nine needs just one more to make ten.", "do": "happy" },
+            { "tenframe": [{ "a": 9 }, { "a": 0 }], "at": 62 },
+            { "say": "tiko", "en": "So I move one of the three balloons into the ten." },
+            { "tenframe": [{ "a": 9, "b": 1 }, { "a": 2 }], "at": 62 },
+            {
+              "ask": { "en": "Ten and two more make...?" },
+              "who": "pip",
+              "kind": "number",
+              "options": [11, 12, 13],
+              "answer": 12,
+              "then": { "en": "Twelve! Nine plus three is twelve." }
+            },
+            { "echo": { "en": "Make a ten, then add the rest!" } },
+            { "clear": true },
+            { "say": "tiko", "en": "Six and four. Seven and three. Five and five. They all make ten!" },
+            { "say": "tiko", "en": "Hoo hoo! You're a ten-maker now. Bye!", "do": "dance" },
+            { "do": "wave", "who": "pip" }
+          ]
+        }
+      ]
+    }
+  ]
 }
