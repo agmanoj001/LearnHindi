@@ -1,6 +1,6 @@
 # Curriculum and learning design
 
-Khel Khel Mein has six grades, from Toddler to Grade 4, and 16 worlds: at least three in every grade from Kindergarten to Grade 4. The **Hindi worlds** follow India's foundational-stage targets and the themes of the NCERT Hindi books; from Grade 2 each grade has one world for phonics and reading, one for grammar and writing, and one for stories and poems. Kindergarten and Grade 1 also have an **English phonics world** and an **English math world**, both following the North Carolina Standard Course of Study. Every world is tagged with what it teaches. Everything below lives in [`content.json`](content.json) (Hindi), [`js/phonicsgen.js`](js/phonicsgen.js) (phonics) and [`js/mathgen.js`](js/mathgen.js) (math), and the README explains how to change it.
+Khel Khel Mein has eight grades, from Toddler to Grade 4 plus Grades 7 and 8, and 20 worlds: at least three in every grade from Kindergarten to Grade 4, and a comics world and a grammar world for each of Grades 7 and 8. The **Hindi worlds** follow India's foundational-stage targets and the themes of the NCERT Hindi books; from Grade 2 each grade has one world for phonics and reading, one for grammar and writing, and one for stories and poems. Kindergarten and Grade 1 also have an **English phonics world** and an **English math world**, both following the North Carolina Standard Course of Study. Every world is tagged with what it teaches. Everything below lives in [`content.json`](content.json) (Hindi), [`js/phonicsgen.js`](js/phonicsgen.js) (phonics) and [`js/mathgen.js`](js/mathgen.js) (math), and the README explains how to change it.
 
 ## Sources
 
@@ -13,6 +13,7 @@ Khel Khel Mein has six grades, from Toddler to Grade 4, and 16 worlds: at least 
 | **NC Standard Course of Study, English Language Arts: Reading Foundational Skills** (NC.K.RF, NC.1.RF) | North Carolina Department of Public Instruction | Print concepts, phonological awareness (rhyme, syllables, sounds) and phonics (letter sounds, short and long vowels, digraphs, blends, final -e, vowel teams, high-frequency and irregular words) for Kindergarten and Grade 1. The codes on each phonics skill follow the Common Core numbering NC adopted; check exact wording against the DPI documents |
 | **Panchatantra, Jataka, Akbar–Birbal, Tenali Raman** and Aesop-style fables | Public-domain folk literature | Retold in simple Hindi for the story library |
 | **StoryWeaver** (Pratham Books) | Pratham Books | Openly licensed (CC BY 4.0) Hindi readers at levels 1–4: a good next step for reading together |
+| **NCERT *मल्हार*** (Hindi, Classes 7 and 8, 2025–26, under NCF-SE 2023) and the CBSE Hindi grammar syllabus for Classes 7–8 | NCERT, CBSE | The grammar topics for Grades 7 and 8. *मल्हार* teaches grammar inside each chapter's exercises rather than in separate grammar chapters, so the topic list follows the standard CBSE व्याकरण syllabus for these classes as schools teach it with *मल्हार* (and earlier with *वसंत*). Every rule card, example and question is original |
 
 > **Note:** the official PDFs (ncert.nic.in, pib.gov.in, dpi.nc.gov) could not be fetched from the environment this was built in. The targets, themes and standards above come from search results and pages that quote them, so please check the exact wording against the official documents before relying on it for school purposes.
 
@@ -155,6 +156,22 @@ English runs alongside: A–Z, English names for every picture, English rhymes, 
 | --- | --- |
 | **मिष्टी की मस्ती** · Grade 7 | Ten comedies in the small town of कटहलपुर: Mishti, twelve, and her goat Bijli. Each story weaves in a value or a bit of science (honesty, evidence before blame, kite-string safety, a balanced diet, saving electricity and water, a solar cooker, staying safe at a fair, online safety for grandparents). 2–4 idioms per comic, a word list with meanings, three comprehension questions, and an idiom quiz for the whole world. |
 | **जासूस दादी** · Grade 8 | Ten fair-play mysteries solved by Dadi, a retired principal, with her granddaughter Roohi, Pappu the wrestler and Mausi the cat. Richer vocabulary (संग्रहालय, मिश्रधातु, बरामद, प्रतियोगिता …), idioms, and a stop before each reveal where the reader names the culprit and gets a hint if wrong. Two stories carry practical lessons: spotting an online scam (helpline 1930) and testing milk for adulteration. |
+
+### Grades 7 and 8 (age 12–14) · grammar (व्याकरण)
+*Twelve topics a grade, each one lesson: two to four rule cards (सीखो) with examples and tables, then eight questions (अभ्यास) that mix choosing, tapping a word in a sentence and sorting, with a "क्यों?" explanation after every answer. Every unit ends with a mixed review. Grade 7 meets most ideas for the first time; Grade 8 takes संधि, समास, उपसर्ग-प्रत्यय and वाक्य further and adds वाच्य, the fourteen काल, अलंकार and लोकोक्तियाँ.*
+
+| World | Unit | Topics |
+| --- | --- | --- |
+| **ज्ञानू का पुस्तकालय** · Grade 7 | शब्द और उसके रूप | संज्ञा and its five kinds, भाववाचक संज्ञा from other words · सर्वनाम and its six kinds, the three पुरुष, अपना · विशेषण and विशेष्य, four kinds of विशेषण, making विशेषण (धनी, भारतीय, सामाजिक) · क्रिया and धातु, सकर्मक and अकर्मक, the three काल |
+| | वाक्य की बनावट | The eight कारक and their चिह्न, करण or अपादान (the two "से") · अव्यय: क्रियाविशेषण (रीति, काल, स्थान, परिमाण), संबंधबोधक, समुच्चयबोधक, विस्मयादिबोधक · उद्देश्य and विधेय, six kinds of sentence by meaning, विराम चिह्न |
+| | शब्द बनाना | उपसर्ग and प्रत्यय (अनपढ़, लिखावट, अपमानित) · संधि: दीर्घ and गुण · समास: द्वंद्व, द्विगु, तत्पुरुष, समास-विग्रह |
+| | शब्द-भंडार और शुद्ध लेखन | तत्सम and तद्भव, पर्यायवाची, विलोम, अनेकार्थी, one word for many · correct sentences (agreement, "ने", कृपया) and common spelling mistakes (आशीर्वाद, उज्ज्वल, कवयित्री) |
+| **चतुर की शब्द-प्रयोगशाला** · Grade 8 | शब्द-रचना | रूढ़, यौगिक, योगरूढ़; तत्सम, तद्भव, देशज, विदेशज · उपसर्ग from Sanskrit, Hindi and Urdu-Persian; कृत् and तद्धित प्रत्यय · स्वर संधि (दीर्घ, गुण, वृद्धि, यण, अयादि), व्यंजन and विसर्ग संधि · all six समास, कर्मधारय or बहुव्रीहि |
+| | क्रिया, काल और वाच्य | द्विकर्मक, प्रेरणार्थक, संयुक्त and नामधातु क्रिया · the six भूतकाल, three वर्तमान and two भविष्यत् forms · कर्तृवाच्य, कर्मवाच्य, भाववाच्य and changing one into another |
+| | वाक्य | सरल, संयुक्त and मिश्र वाक्य and converting between them · eight kinds of sentence by meaning (adds संदेहवाचक and संकेतवाचक) and changing a sentence's kind |
+| | अलंकार, मुहावरे और शुद्ध लेखन | अनुप्रास, यमक, श्लेष, उपमा, रूपक with classic lines (Tulsi, Bihari, Rahim, Surdas) · मुहावरे and लोकोक्तियाँ and the difference · अशुद्धि-शोधन (मेरे को, "ने" with लाना, उपर्युक्त, अनधिकार) |
+
+> **Note:** NCERT's own pages (ncert.nic.in) and several syllabus sites could not be fetched from the environment this was built in, so the chapter lists and topics come from search results that quote the *मल्हार* books and the CBSE syllabus. Schools vary a little in what they teach in which class; a parent can play any topic from either grade.
 
 ## Phonics skills
 

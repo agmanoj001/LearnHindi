@@ -4341,7 +4341,7 @@ body.speaking .mascot .m-mouth-closed {
   margin-top: calc(clamp(64px, 16vmin, 120px) * -0.18);
 }
 .parade-item {
-  width: clamp(62px, 15vmin, 116px);
+  width: clamp(44px, min(15vmin, 12.5vw), 116px);
 }
 .splash .title,
 .splash .splash-play,
@@ -6153,4 +6153,302 @@ body:has(.game-comic) .caption-bar {
 .world-card.theme-noir .world-name-en {
   color: #fff;
   text-shadow: none;
+}
+
+/* =========================================================
+   Grammar (Grades 7 and 8): rule cards, then practice
+   ========================================================= */
+body:has(.game-grammar) .caption-bar,
+.game-grammar .mascot-corner {
+  display: none;
+}
+.game-grammar .stage {
+  display: block;
+  overflow: hidden;
+  padding: 0;
+}
+.gr-scroll {
+  height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 6px max(16px, env(safe-area-inset-left)) 40px max(16px, env(safe-area-inset-right));
+}
+.gr-card {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 18px 18px 20px;
+  border-radius: var(--radius-lg);
+  background: #fff;
+  box-shadow: var(--shadow);
+  border-top: 6px solid var(--place);
+  animation: gr-in 0.32s var(--spring) both;
+}
+@keyframes gr-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+}
+.gr-kicker {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 12px;
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: color-mix(in srgb, var(--place) 80%, #1f2340);
+}
+.gr-card h2 {
+  margin: 0 0 10px;
+  font-size: clamp(22px, 5.4vw, 30px);
+  line-height: 1.3;
+  color: var(--ink);
+}
+.gr-rule {
+  margin: 0 0 8px;
+  font-size: clamp(18px, 4.4vw, 22px);
+  line-height: 1.65;
+  color: var(--ink);
+}
+.gr-en {
+  margin: 0 0 12px;
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+.gr-card mark {
+  padding: 0 4px;
+  border-radius: 6px;
+  color: inherit;
+  background: color-mix(in srgb, var(--place) 22%, #fff);
+  box-shadow: inset 0 -2px 0 color-mix(in srgb, var(--place) 55%, transparent);
+}
+.gr-examples {
+  display: grid;
+  gap: 8px;
+  margin: 10px 0 4px;
+  padding: 0;
+  list-style: none;
+}
+.gr-examples li {
+  padding: 9px 12px;
+  border-left: 4px solid var(--place);
+  border-radius: 10px;
+  font-size: clamp(17px, 4.2vw, 20px);
+  line-height: 1.55;
+  background: var(--well);
+}
+/* a wide table scrolls inside the card, never the page */
+.gr-table-wrap {
+  margin: 10px -4px 4px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.gr-table {
+  width: 100%;
+  min-width: 300px;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: clamp(15px, 3.8vw, 18px);
+  line-height: 1.45;
+}
+.gr-table th,
+.gr-table td {
+  padding: 8px 10px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--line);
+}
+.gr-table thead th {
+  position: sticky;
+  top: 0;
+  font-size: 0.88em;
+  color: #fff;
+  background: var(--place);
+}
+.gr-table thead th:first-child {
+  border-top-left-radius: 10px;
+}
+.gr-table thead th:last-child {
+  border-top-right-radius: 10px;
+}
+.gr-table tbody th {
+  font-weight: 700;
+  white-space: nowrap;
+  color: color-mix(in srgb, var(--place) 75%, #1f2340);
+}
+.gr-table tbody tr:nth-child(even) {
+  background: color-mix(in srgb, var(--place) 6%, #fff);
+}
+.gr-next {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  margin: 16px auto 0;
+  min-width: 168px;
+  min-height: 56px;
+  padding: 8px 26px;
+  border: 0;
+  border-radius: 999px;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: #fff;
+  background: var(--place);
+  box-shadow: 0 4px 0 color-mix(in srgb, var(--place) 60%, #1f2340);
+  transition: transform 0.12s;
+}
+.gr-next:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--place) 60%, #1f2340);
+}
+.gr-next-en {
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+/* practice */
+.gr-prompt {
+  margin: 0 0 12px;
+  font-size: clamp(19px, 4.8vw, 24px);
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--ink);
+}
+.gr-sentence-text,
+.gr-sort-item {
+  margin: 0 0 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  font-size: clamp(19px, 4.8vw, 24px);
+  line-height: 1.55;
+  text-align: center;
+  background: var(--well);
+}
+.gr-sort-item {
+  font-weight: 700;
+  border: 2px dashed color-mix(in srgb, var(--place) 55%, transparent);
+}
+.gr-options {
+  display: grid;
+  gap: 10px;
+}
+.gr-options.sort-buttons {
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+}
+.gr-option,
+.gr-word {
+  min-height: 52px;
+  padding: 10px 14px;
+  border: 2px solid color-mix(in srgb, var(--place) 35%, #e3e1f2);
+  border-radius: 14px;
+  font-size: clamp(17px, 4.3vw, 20px);
+  font-weight: 600;
+  line-height: 1.45;
+  text-align: left;
+  color: var(--ink);
+  background: #fff;
+  box-shadow: 0 3px 0 #e3e1f2;
+  transition:
+    transform 0.12s,
+    background 0.2s;
+}
+.sort-buttons .gr-option {
+  text-align: center;
+}
+.gr-option:active,
+.gr-word:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #e3e1f2;
+}
+.gr-option.right,
+.gr-word.right {
+  border-color: #22c55e;
+  background: #dcfce7;
+  box-shadow: 0 3px 0 #86efac;
+}
+.gr-option:disabled:not(.right) {
+  opacity: 0.55;
+}
+.gr-sentence {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  padding: 6px 0;
+}
+.gr-word {
+  min-width: 52px;
+  padding: 8px 12px;
+  text-align: center;
+}
+.gr-bins {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+  margin-top: 14px;
+}
+.gr-bin {
+  min-height: 74px;
+  padding: 8px 10px;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--place) 8%, #fff);
+  border: 2px solid color-mix(in srgb, var(--place) 25%, transparent);
+}
+.gr-bin b {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 15px;
+  color: color-mix(in srgb, var(--place) 75%, #1f2340);
+}
+.gr-bin-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.gr-chip {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 16px;
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+  animation: gr-in 0.25s var(--spring) both;
+}
+/* why: the rule behind the answer */
+.gr-why {
+  display: none;
+  margin-top: 16px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  font-size: clamp(17px, 4.2vw, 20px);
+  line-height: 1.6;
+  background: #fff8db;
+  border: 2px solid #fde68a;
+}
+.gr-why.on {
+  display: block;
+  animation: gr-in 0.3s var(--spring) both;
+}
+.gr-why > b {
+  color: #b45309;
+}
+@media (prefers-reduced-motion: reduce) {
+  .gr-card,
+  .gr-chip,
+  .gr-why.on {
+    animation: none;
+  }
+}
+
+/* the library's bright book spines sit behind the world name: a soft halo keeps it readable */
+.world-card.theme-library .world-name-hi,
+.world-card.theme-library .world-name-en {
+  text-shadow:
+    0 0 3px #fff4e0,
+    0 0 8px #fff4e0,
+    0 0 14px #fff4e0;
 }

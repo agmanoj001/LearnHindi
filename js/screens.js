@@ -69,9 +69,11 @@ export function splash(api) {
           ),
         ])
       : null;
-  // the guides stand in staggered rows (6, 6, 6) like a class photo
-  const third = Math.floor(MASCOT_IDS.length / 3);
-  const rows = [MASCOT_IDS.slice(0, third), MASCOT_IDS.slice(third, MASCOT_IDS.length - third), MASCOT_IDS.slice(MASCOT_IDS.length - third)];
+  // the guides stand in three staggered rows like a class photo; the back and front rows take any extras (7, 6, 7)
+  const n = MASCOT_IDS.length;
+  const mid = Math.floor(n / 3);
+  const back = Math.ceil((n - mid) / 2);
+  const rows = [MASCOT_IDS.slice(0, back), MASCOT_IDS.slice(back, back + mid), MASCOT_IDS.slice(back + mid)];
   let k = 0;
   const parade = el(
     'div',

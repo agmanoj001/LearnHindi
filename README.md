@@ -1,10 +1,11 @@
 # Khel Khel Mein · खेल-खेल में
 
-*"Learning through play."* An offline web app (PWA) where children learn **Hindi** from Toddler to Grade 4, and **English phonics** and **math in English** in Kindergarten and Grade 1. There are 16 animated worlds, at least three in every grade from Kindergarten to Grade 4, each with its own guide character, a path of short lessons, stars to earn and a collection to fill. Every world is tagged with what it teaches (Phonics, Grammar, Stories, Math …).
+*"Learning through play."* An offline web app (PWA) where children learn **Hindi** from Toddler to Grade 4 (with comics and grammar for Grades 7 and 8), and **English phonics** and **math in English** in Kindergarten and Grade 1. There are 20 animated worlds, at least three in every grade from Kindergarten to Grade 4, each with its own guide character, a path of short lessons, stars to earn and a collection to fill. Every world is tagged with what it teaches (Phonics, Grammar, Stories, Math …).
 
 - **Hindi** follows India's NIPUN Bharat targets and the themes of the NCERT books (*Sarangi*, *Veena*). From Grade 2 each grade has a phonics-and-reading world, a grammar-and-writing world and a stories-and-poems world.
 - **English phonics** follows the **North Carolina Standard Course of Study, Reading: Foundational Skills** for Kindergarten and Grade 1.
 - **Math** follows the **North Carolina Standard Course of Study** for Kindergarten and Grade 1, in English only.
+- **Grades 7 and 8** have a Hindi comics world and a grammar world each; the grammar follows the व्याकरण CBSE schools teach with NCERT's *मल्हार*.
 - **Every lesson adapts** while the child plays: it gets harder after a run of right answers and easier after misses.
 
 Everything is spoken aloud, so a child doesn't need to read to play. Tap targets are big, there are no timers, and nothing can go wrong: a wrong tap is a gentle wobble and a hint. Lessons take 2–5 minutes.
@@ -44,7 +45,9 @@ Thinking of rebuilding it in an app builder? [docs/PLATFORM-EVALUATION.md](docs/
 | Grade 4 | **Himu's Story Mountain** · हिमू का कथा पर्वत | Himu the snow leopard | Hindi | Stories, Poems | Akbar–Birbal, Tenali Raman and fables with a moral, two poems, "which story teaches this?" |
 | Grade 4 | **Chintu's Word City** · चिंटू का शब्द नगर | Chintu the squirrel | Hindi | Vocabulary, Writing, Reading | मुहावरे, synonyms, one word for many, days and months, city words, longer sentences |
 | Grade 7 (12–13) | **Mishti's Mischief** · मिष्टी की मस्ती | Bijli the goat | Hindi comics | Comics, Stories, Vocabulary | Ten comedies from the small town of कटहलपुर, with idioms, word meanings, questions and an idiom quiz |
+| Grade 7 | **Gyanu's Grammar Library** · ज्ञानू का पुस्तकालय | Gyanu the tortoise | Hindi grammar | Grammar, Vocabulary, Writing | संज्ञा, सर्वनाम, विशेषण, क्रिया and काल, कारक, अव्यय, वाक्य and विराम चिह्न, उपसर्ग-प्रत्यय, संधि, समास, शब्द-भंडार, correct sentences and spelling |
 | Grade 8 (13–14) | **Detective Dadi** · जासूस दादी | Mausi the cat | Hindi comics | Comics, Stories, Vocabulary | Ten mysteries to solve: name the culprit before the reveal; richer vocabulary and idioms |
+| Grade 8 | **Chatur's Word Lab** · चतुर की शब्द-प्रयोगशाला | Chatur the fox | Hindi grammar | Grammar, Vocabulary, Writing | शब्द-भेद, उपसर्ग-प्रत्यय, the kinds of संधि and समास, क्रिया, the 14 काल, वाच्य, सरल-संयुक्त-मिश्र वाक्य, अलंकार, मुहावरे and लोकोक्तियाँ, अशुद्धि-शोधन |
 
 Each world is a winding path of **units** named for what the child is learning ("Let's learn matras ा ि ी", "Let's learn magic e", "Let's make 10"). Each unit has a few **lessons**, joined by a trail that is gold where the child has been and dotted ahead, with a **Start** tag on the next lesson. Lessons open one after another, each earns 1–3 stars (for answers right on the first try), and each first finish (and every 3-star replay) adds something to the world's **collection**.
 
@@ -80,6 +83,15 @@ For confident readers, two original comic series in Hindi, ten comics each, in t
 - **जासूस दादी** (Grade 8): Dadi, a retired school principal with an old black umbrella, solves mysteries with her granddaughter Roohi, the gentle giant Pappu and her sharp-eyed cat Mausi: a wedding necklace, a night train, a fake museum statue, a master of disguise, a haunted haveli, an online scam, a locked room, fake milk …
 
 Comics scroll panel by panel (one column on a phone, a two-column comic page on a tablet), with speech and thought bubbles, narration boxes and sound effects. **Tap a bubble** to hear it; each character has their own voice pitch. The speaker button reads the whole comic aloud. **Underlined words** show their meaning in Hindi and English. Each mystery **stops before the reveal** so the reader can name the culprit (a wrong guess gets a hint). Every comic ends with its word list and three questions, and each world has an **idiom quiz** built from its comics. Finishing a comic collects a character card.
+
+### Grammar (Grades 7 and 8)
+
+Two grammar worlds follow the व्याकरण that CBSE schools teach alongside NCERT's मल्हार textbooks: twelve topics a grade (see [CURRICULUM.md](CURRICULUM.md)). Each topic is one lesson in two parts:
+
+- **सीखो (learn)**: two to four short cards with the rule in Hindi, a line of English, examples with the key part highlighted, and a table (the kinds of संज्ञा, the eight कारक, the संधि rules…). The speaker button reads a card aloud.
+- **अभ्यास (practise)**: eight questions mixing three kinds: **choose the answer**, **tap the word** in a sentence (the विशेषण, the कर्म, the wrong word), and **sort** words into groups (तत्सम or तद्भव, करण or अपादान). After every answer a **क्यों?** box explains the rule and waits until the reader taps *आगे*, so nobody is rushed past the explanation.
+
+Each unit ends with a **mixed review** that takes questions from every topic in the unit, in turn, without the cards. The parent area lists grammar topics among the things to practise.
 
 ### Show time and Story radio (for journeys)
 
@@ -228,6 +240,8 @@ Built-in drawings are in `js/art.js`, `js/art-words.js`, `js/art-creatures.js` a
 | `math` | Math problems with pictures and models | `skills` (ids from `js/mathgen.js`), `rounds` |
 | `phonics` | English phonics: pictures to hear, words with a gap, letters to blend | `skills` (ids from `js/phonicsgen.js`), `rounds` |
 | `sequence` | Story order: tap a story's pictures in the order things happened | `levels` or `story`, `rounds` |
+| `comic` | A Hindi comic with word meanings and questions (Grades 7 and 8) | `comic` (a `comics` id) |
+| `grammar` | Rule cards, then practice with a "क्यों?" after each answer (Grades 7 and 8) | `topic` (a `grammar` id), or `topics` for a mixed review; `rounds` (default 8) |
 
 Every game also takes `choices`: how many options to show at each of the three levels, e.g. `[2, 3, 4]` (the default). `letters` can name a range: `{ "sets": ["hindiConsonants"], "from": 0, "to": 10 }`.
 
@@ -309,6 +323,18 @@ Comics live in `"comics"`. Each has an `id`, a `series` (`"mishti"` or `"dadi"`)
 - **`words`**: `{"hi": "टेढ़ी खीर", "mean": "मुहावरा: बहुत कठिन काम", "en": "a very hard task"}`. The first place each `hi` appears in the comic is underlined. Idioms start their meaning with `मुहावरा:` (or `कहावत:`), and the world's idiom quiz is built from them.
 
 A lesson opens a comic with `{"game": "comic", "config": {"comic": "m-homework"}}`. The content checks name any character, face, background or answer that is wrong.
+
+### Writing a grammar topic
+
+Grammar topics live in `"grammar"`, keyed by id: `{"level": "grade7", "title": {"hi": "संज्ञा और उसके भेद", "en": "Nouns and their kinds"}, "learn": [...], "practice": [...]}`. Put **[square brackets]** around the part to highlight; brackets are never read aloud.
+
+- A **learn card** has a `title` and any of `text`, `en`, `examples` (a list) and `table` (`{"head": ["भेद", "उदाहरण"], "rows": [["व्यक्तिवाचक", "गंगा, हिमालय"], …]}`; the first cell of each row is its heading).
+- A **question** has a `kind`, a question `q` and a `why` (the "क्यों?" explanation, with the key idea in brackets):
+  - `"mcq"`: `options` (2–4) and the `answer`, which must be one of them; an optional sentence `s` is shown above the options.
+  - `"tap"`: a sentence `s` and the `answer`, one word of it (punctuation doesn't count). The word should appear only once.
+  - `"sort"`: `bins` (2–4 group names) and `items`: `[{"text": "ताजमहल", "bin": "व्यक्तिवाचक"}, …]`.
+
+A lesson is `{"game": "grammar", "config": {"topic": "g7-sangya"}}`; a review is `{"config": {"topics": ["g7-karak", "g7-avyay"], "rounds": 10}}`. The content checks name a tap answer that isn't in its sentence, an answer that isn't an option, an item in a group that doesn't exist, a table row with the wrong number of cells, and unbalanced brackets.
 
 ### Writing an episode
 
@@ -397,6 +423,7 @@ js/screens.js         splash, hub, world maps, results, collections, library
 js/shows.js           Show time episode player and Story radio
 js/art-comic.js       comic characters (faces, poses, props) and panel backgrounds
 js/games/comic.js     the comic reader (Grades 7 and 8)
+js/games/grammar.js   grammar rule cards and practice (Grades 7 and 8)
 js/parent.js          parent area and voice recorder
 js/curriculum.js      unlocking, stars, levels, streaks (pure, tested)
 js/logic.js           game logic (pure, tested)

@@ -361,6 +361,60 @@ SCENES.noir = (id) => {
   );
 };
 
+// Grammar worlds (Grades 7 and 8)
+// Gyanu's library: tall shelves of books, a round window and letters drifting up like dust in the light
+SCENES.library = (id) => {
+  const r = rnd(41);
+  const SPINES = ['#E76F51', '#F4A261', '#2A9D8F', '#577590', '#9D4EDD', '#F9C74F', '#43AA8B', '#F94144'];
+  let books = '';
+  for (const [x0, x1] of [[0, 128], [272, 400]])
+    for (const y of [210, 330, 450, 570]) {
+      for (let x = x0 + 6; x < x1 - 14; ) {
+        const w = 10 + Math.floor(r() * 9);
+        const h = 70 + Math.floor(r() * 30);
+        books += `<rect x="${x}" y="${y + 100 - h}" width="${w}" height="${h}" rx="2" fill="${SPINES[Math.floor(r() * SPINES.length)]}"/><rect x="${x + 2}" y="${y + 112 - h}" width="${w - 4}" height="3" fill="#fff" opacity="0.5"/>`;
+        x += w + 2;
+      }
+      books += `<rect x="${x0}" y="${y + 100}" width="${x1 - x0}" height="12" fill="#8B5E3C"/>`;
+    }
+  const letters = ['क', 'ख', 'ग', 'अ', 'आ', 'ज्ञ', 'श', 'म'];
+  return (
+    sky(id, '#FFF1D6', '#F7E1C1') +
+    `<rect x="0" y="180" width="128" height="512" fill="#A47148"/><rect x="272" y="180" width="128" height="512" fill="#A47148"/>` +
+    books +
+    `<circle cx="200" cy="250" r="62" fill="#BDE8FF"/><circle cx="200" cy="250" r="62" fill="none" stroke="#8B5E3C" stroke-width="10"/><path d="M200 188 V312 M138 250 H262" stroke="#8B5E3C" stroke-width="6"/>` +
+    `<path d="M160 312 L120 690 H280 L240 312 Z" fill="#FFE8A3" opacity="0.35"/>` +
+    letters.map((ch, k) => `<text x="${150 + ((k * 37) % 100)}" y="${560 - k * 40}" font-size="${22 + (k % 3) * 6}" fill="#C08A4C" opacity="0.55" class="rise" style="--d:${9 + k}s;animation-delay:${-k * 1.3}s" text-anchor="middle">${ch}</text>`).join('') +
+    `<rect x="0" y="690" width="400" height="110" fill="#C08A4C"/><rect x="0" y="690" width="400" height="8" fill="#8B5E3C"/>` +
+    `<ellipse cx="200" cy="740" rx="120" ry="22" fill="#E76F51" opacity="0.8"/><ellipse cx="200" cy="740" rx="96" ry="15" fill="#F4A261" opacity="0.8"/>`
+  );
+};
+// Chatur's word lab: a blackboard of word sums, jars of letters and bubbles rising from flasks
+SCENES.lab = (id) => {
+  const jars = [
+    [26, 'उप', '#72EFDD'],
+    [86, 'प्र', '#FFD166'],
+    [300, 'ता', '#FF8FAB'],
+    [356, 'ई', '#BDB2FF'],
+  ];
+  return (
+    sky(id, '#E3F2FD', '#F1F7FF') +
+    `<rect x="0" y="560" width="400" height="20" fill="#B0BEC5"/>` +
+    `<rect x="110" y="170" width="180" height="120" rx="8" fill="#2F4F4F" stroke="#8B5E3C" stroke-width="8"/>` +
+    `<text x="200" y="218" font-size="24" fill="#fff" opacity="0.85" text-anchor="middle">उप + कार</text><text x="200" y="258" font-size="24" fill="#FFE58A" opacity="0.9" text-anchor="middle">= उपकार</text>` +
+    `<rect x="0" y="380" width="160" height="10" fill="#90A4AE"/><rect x="240" y="380" width="160" height="10" fill="#90A4AE"/>` +
+    jars.map(([x, t, c]) => `<rect x="${x - 20}" y="318" width="40" height="62" rx="8" fill="${c}" opacity="0.75"/><rect x="${x - 22}" y="310" width="44" height="10" rx="3" fill="#78909C"/><text x="${x}" y="358" font-size="18" fill="#2B2D42" text-anchor="middle">${t}</text>`).join('') +
+    [120, 200, 280]
+      .map(
+        (x, k) =>
+          `<path d="M${x - 10} 470 v40 l-26 50 h72 l-26 -50 v-40 z" fill="#E1F5FE" stroke="#546E7A" stroke-width="3"/><path d="M${x - 30} 548 l-6 12 h72 l-6 -12 z" fill="${['#72EFDD', '#FFD166', '#FF8FAB'][k]}"/>` +
+          [0, 1, 2].map((j) => `<circle cx="${x - 6 + j * 6}" cy="${460 - j * 12}" r="${4 + j}" fill="#fff" stroke="#90A4AE" class="rise" style="--d:${6 + j + k}s;animation-delay:${-(j + k)}s"/>`).join(''),
+      )
+      .join('') +
+    `<rect x="0" y="580" width="400" height="220" fill="#CFD8DC"/>${[0, 80, 160, 240, 320].map((x) => `<rect x="${x}" y="580" width="40" height="220" fill="#B0BEC5" opacity="0.4"/>`).join('')}`
+  );
+};
+
 export const THEMES = Object.keys(SCENES);
 
 // `crop: 'bottom'` keeps the ground in view (used by the short world cards on the hub).
