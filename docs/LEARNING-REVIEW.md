@@ -65,6 +65,8 @@ Worth adding next:
 - **Non-fiction readers** matched to NCERT themes: the water cycle, Chandrayaan, festivals across India, a day in a farmer's life.
 - **Read-along with word highlighting** for fluency; recording a family member reading each story (already possible in the parent area).
 
+Added since (Grades 7 and 8): **20 original Hindi comics** for confident readers, in two series: *मिष्टी की मस्ती* (Grade 7, small-town comedy) and *जासूस दादी* (Grade 8, fair-play mysteries). Comics suit this age well: pictures carry the context while the text stretches vocabulary, and the format invites re-reading. Each comic has idioms in context, a tap-for-meaning word list, three questions, and (for mysteries) a prediction before the reveal, which is a well-established comprehension strategy.
+
 ## 5. What to do next, in order
 
 Done since the first version of this review: placement check, before-and-after scores ("Getting better"), the parent area in Hindi, read-along word highlighting and "tell it back" recordings.

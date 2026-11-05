@@ -1,0 +1,142 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { validateContent } from '../js/validate.js';
+import { pictureExists } from '../js/art.js';
+import { MASCOT_IDS } from '../js/mascot.js';
+import { THEMES } from '../js/art-scenes.js';
+import { CAST, CAST_IDS, FACES, ARMS, BACKGROUND_IDS, castSvg, comicBg } from '../js/art-comic.js';
+import { lookOf, glossSplit, SERIES } from '../js/games/comic.js';
+import * as C from '../js/curriculum.js';
+
+const content = JSON.parse(readFileSync(new URL('../content.json', import.meta.url), 'utf8'));
+const DEVANAGARI = /[ऀ-ॿ]/;
+const comics = content.comics;
+const textOf = (cm) => cm.panels.flatMap((p) => [p.cap || '', ...(p.say || []).map((b) => b.text)]).join(' ');
+
+test('at least ten comics for each of Grade 7 and Grade 8, one series each', () => {
+  const g7 = comics.filter((c) => c.level === 'grade7');
+  const g8 = comics.filter((c) => c.level === 'grade8');
+  assert.ok(g7.length >= 10, `Grade 7: ${g7.length}`);
+  assert.ok(g8.length >= 10, `Grade 8: ${g8.length}`);
+  assert.ok(g7.every((c) => c.series === 'mishti'));
+  assert.ok(g8.every((c) => c.series === 'dadi'));
+  assert.deepEqual(Object.keys(SERIES), ['mishti', 'dadi']);
+});
+
+test('comics pass every content check, with guides and scenes checked too', () => {
+  const { errors } = validateContent(content, { pictureExists, mascots: MASCOT_IDS, themes: THEMES });
+  assert.deepEqual(errors, []);
+});
+
+test('the content checks catch mistakes in a comic', () => {
+  const bad = structuredClone(content);
+  const cm = bad.comics[0];
+  cm.panels[0].cast.push({ who: 'nobody', at: 50 }, { who: 'mishti', at: 120, face: 'furious' });
+  cm.panels[1].say.push({ who: 'ghost', text: 'बू!' });
+  cm.panels[2].bg = 'moon';
+  cm.questions[0].answer = 'something else';
+  bad.comics[10].guess.at = 99;
+  bad.worlds.find((w) => w.id === 'mishti').units[0].lessons[0].config.comic = 'no-such-comic';
+  const text = validateContent(bad, { pictureExists }).errors.join('\n');
+  for (const re of [/"nobody" is not in the cast/, /position "at" from 0 to 100/, /face "furious"/, /speaker "ghost"/, /bg "moon"/, /answer must be one of its options/, /guess.at/, /"no-such-comic" is not a comic id/]) assert.match(text, re);
+});
+
+test('a comic reads like a comic: 10–12 panels, Hindi text, nothing too long for a bubble', () => {
+  for (const cm of comics) {
+    assert.ok(cm.panels.length >= 10 && cm.panels.length <= 12, `${cm.id}: ${cm.panels.length} panels`);
+    assert.ok(DEVANAGARI.test(cm.title.hi) && cm.title.en, cm.id);
+    for (const p of cm.panels) {
+      assert.ok(p.cast.length <= 3, `${cm.id}: at most three characters in a panel`);
+      for (const b of p.say || []) assert.ok(b.text.split(/\s+/).length <= 40, `${cm.id}: "${b.text.slice(0, 30)}…" is too long for a bubble`);
+    }
+    const words = textOf(cm).split(/\s+/).length;
+    assert.ok(words >= 150 && words <= 400, `${cm.id}: ${words} words`);
+  }
+});
+
+test('every glossary word appears in its comic (so it can be tapped for its meaning), with three questions each', () => {
+  for (const cm of comics) {
+    const text = textOf(cm);
+    assert.ok(cm.words.length >= 5, `${cm.id} word list`);
+    for (const w of cm.words) {
+      assert.ok(text.includes(w.hi), `${cm.id}: "${w.hi}" is in the word list but not in the comic`);
+      assert.ok(w.mean && w.en, `${cm.id}: ${w.hi} needs a meaning in Hindi and English`);
+    }
+    assert.equal(cm.questions.length, 3, cm.id);
+    for (const q of cm.questions) assert.equal(new Set(q.options).size, q.options.length, `${cm.id}: repeated option`);
+    // idioms are what Grades 7 and 8 practise
+    assert.ok(cm.words.some((w) => /^(मुहावरा|कहावत):/.test(w.mean)), `${cm.id} teaches at least one idiom`);
+  }
+});
+
+test('every mystery stops to let the reader name the culprit before the reveal', () => {
+  for (const cm of comics.filter((c) => c.series === 'dadi')) {
+    const g = cm.guess;
+    assert.ok(g, `${cm.id} has a guess`);
+    assert.ok(g.options.includes(g.answer) && g.hint, cm.id);
+    assert.ok(g.at >= 3 && g.at <= cm.panels.length - 2, `${cm.id}: the reveal starts at panel ${g.at}`);
+  }
+});
+
+test('every character in every panel can be drawn, with each face and pose', () => {
+  for (const cm of comics)
+    for (const p of cm.panels) {
+      assert.ok(BACKGROUND_IDS.includes(p.bg) && comicBg(p.bg).includes('<svg'), `${cm.id}: ${p.bg}`);
+      for (const ch of p.cast) {
+        const look = lookOf(cm, ch.who);
+        assert.ok(look && CAST[look.look], `${cm.id}: ${ch.who}`);
+        assert.match(castSvg(look.look, { face: ch.face, arms: ch.arms, hold: ch.hold, over: look.over }), /^<svg/);
+      }
+      for (const b of p.say || []) assert.ok(lookOf(cm, b.who)?.name, `${cm.id}: ${b.who} has a name`);
+    }
+  for (const id of CAST_IDS) for (const f of FACES) for (const a of ARMS) assert.ok(castSvg(id, { face: f, arms: a }).length > 200, `${id} ${f} ${a}`);
+});
+
+test('comics read left to right: the first of two speakers stands on the left', () => {
+  for (const cm of comics)
+    for (const p of cm.panels) {
+      const speakers = [...new Set((p.say || []).map((b) => b.who))].filter((w) => p.cast.some((ch) => ch.who === w));
+      if (speakers.length !== 2) continue;
+      const [a, b] = speakers.map((w) => p.cast.find((ch) => ch.who === w).at);
+      assert.ok(a < b, `${cm.id}: ${speakers.join(' then ')}`);
+    }
+});
+
+test('word meanings are marked once each, without changing the text', () => {
+  const words = [{ hi: 'टेढ़ी खीर' }, { hi: 'सबूत' }];
+  const used = new Set();
+  const parts = glossSplit('यह तो टेढ़ी खीर है, बिना सबूत के। फिर टेढ़ी खीर!', words, used);
+  assert.equal(parts.map((x) => (typeof x === 'string' ? x : x.hi)).join(''), 'यह तो टेढ़ी खीर है, बिना सबूत के। फिर टेढ़ी खीर!');
+  assert.equal(parts.filter((x) => typeof x !== 'string').length, 2);
+  assert.deepEqual(glossSplit('सबूत', words, used), ['सबूत'], 'only the first time in a comic');
+});
+
+test('two comic worlds, one per grade, open every comic and an idiom quiz', () => {
+  for (const [id, level, n] of [
+    ['mishti', 'grade7', 10],
+    ['jasoos', 'grade8', 10],
+  ]) {
+    const w = content.worlds.find((x) => x.id === id);
+    assert.equal(w.level, level);
+    const lessons = C.worldLessons(w);
+    const linked = lessons.filter((l) => l.game === 'comic').map((l) => l.config.comic);
+    assert.equal(linked.length, n);
+    assert.deepEqual(new Set(linked), new Set(comics.filter((c) => c.level === level).map((c) => c.id)));
+    const quiz = lessons.find((l) => l.game === 'quiz');
+    const bank = content.quizzes[quiz.config.bank];
+    assert.ok(bank.questions.length >= 10, `${id}: ${bank.questions.length} idiom questions`);
+    for (const q of bank.questions) {
+      assert.ok(q.options.includes(q.answer));
+      assert.equal(new Set(q.options).size, 3, q.hi);
+    }
+    // a character card for every comic
+    assert.ok(content.collections[w.collection].items.length >= n);
+  }
+  assert.ok(content.levels.find((l) => l.id === 'grade7') && content.levels.find((l) => l.id === 'grade8'));
+});
+
+test('the idiom quizzes never give the answer away in the English line', () => {
+  for (const id of ['g7-idioms', 'g8-idioms'])
+    for (const q of content.quizzes[id].questions) assert.ok(!q.en.includes('('), `${id}: ${q.en}`);
+});

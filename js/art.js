@@ -7,6 +7,7 @@ import { CREATURES, FLOATING_CREATURES } from './art-creatures.js';
 import { PEOPLE, THINGS } from './art-people.js';
 import { ACTIVITY_ICONS } from './art-icons.js';
 import { PHONICS_ART } from './art-phonics.js';
+import { COMIC_ART } from './art-comic.js';
 
 function car(color) {
   return (
@@ -512,7 +513,7 @@ const PLACES = {
     [84, 96, 108, 120].map((y) => line(46, y, 154, y, '#B4B0FF', 3)).join(''),
 };
 
-const ALL = { ...VEHICLES, ...ANIMALS, ...CONCEPTS, ...PLACES, ...WORD_ART, ...PLACE_ART, ...CREATURES, ...PEOPLE, ...THINGS, ...PHONICS_ART };
+const ALL = { ...VEHICLES, ...ANIMALS, ...CONCEPTS, ...PLACES, ...WORD_ART, ...PLACE_ART, ...CREATURES, ...PEOPLE, ...THINGS, ...PHONICS_ART, ...COMIC_ART };
 for (const [name, fn] of Object.entries(SHAPES)) ALL[`shape-${name}`] = fn;
 ALL['place-parking'] = () => PLACE_ART['place-parking']() + parkingCars(car);
 

@@ -15,10 +15,10 @@ const world = (id) => content.worlds.find((w) => w.id === id);
 
 // ---- grades and worlds ----
 
-test('six grades, from toddler to grade 4, each with a Hindi world', () => {
+test('eight grades, from toddler to grade 4 plus the Grade 7 and 8 comics, each with a Hindi world', () => {
   assert.deepEqual(
     content.levels.map((l) => l.id),
-    ['toddler', 'kg', 'grade1', 'grade2', 'grade3', 'grade4'],
+    ['toddler', 'kg', 'grade1', 'grade2', 'grade3', 'grade4', 'grade7', 'grade8'],
   );
   for (const l of content.levels) assert.ok(content.worlds.some((w) => w.level === l.id && w.subject === 'hindi'), l.id);
 });
