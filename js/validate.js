@@ -4,7 +4,7 @@ import { PHONICS } from './phonicsgen.js';
 import { BEAT_KINDS, beatKind, tapTokens } from './logic.js';
 import { CAST, CAST_IDS, FACES, ARMS, PROPS, BACKGROUND_IDS } from './art-comic.js';
 
-export const COMIC_SERIES = ['mishti', 'dadi'];
+export const COMIC_SERIES = ['mishti', 'dadi', 'birbal', 'chippu', 'betal', 'murari'];
 // Errors stop the app from using the content; warnings are shown in parent settings.
 
 export const GAME_TYPES = [

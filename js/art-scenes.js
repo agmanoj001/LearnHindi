@@ -415,6 +415,53 @@ SCENES.lab = (id) => {
   );
 };
 
+// Comic worlds, second set (Grades 7 and 8)
+// Birbal's court: tall cusped arches, hanging lamps, a throne under a canopy and a red carpet
+SCENES.darbar = (id) => {
+  const arch = (x, w, y, h) => `<path d="M${x} ${y + h} V${y + 60} Q${x} ${y + 10} ${x + w * 0.3} ${y + 4} Q${x + w / 2} ${y - 26} ${x + w * 0.7} ${y + 4} Q${x + w} ${y + 10} ${x + w} ${y + 60} V${y + h} Z" fill="#F5C26B" stroke="#B45309" stroke-width="6"/>`;
+  return (
+    sky(id, '#FFF3D6', '#FCE7B2') +
+    [0, 134, 268].map((x) => arch(x + 12, 110, 170, 470) + `<rect x="${x - 6}" y="140" width="18" height="500" fill="#E9A84B"/>`).join('') +
+    [67, 200, 333].map((x, i) => `<g class="sway" style="--d:${5 + i}s"><line x1="${x}" y1="0" x2="${x}" y2="120" stroke="#B45309" stroke-width="3"/><path d="M${x - 16} 120 h32 l-6 22 h-20 z" fill="#FBBF24" stroke="#B45309" stroke-width="3"/><circle cx="${x}" cy="150" r="6" fill="#FFE58A" class="twinkle"/></g>`).join('') +
+    `<path d="M120 440 Q200 380 280 440 Z" fill="#DC2626" stroke="#7F1D1D" stroke-width="4"/><rect x="128" y="440" width="9" height="130" fill="#B45309"/><rect x="263" y="440" width="9" height="130" fill="#B45309"/><rect x="140" y="510" width="120" height="70" rx="14" fill="#B91C1C"/><rect x="128" y="566" width="144" height="34" rx="8" fill="#FBBF24"/><circle cx="200" cy="534" r="12" fill="#FBBF24"/>` +
+    `<rect x="0" y="640" width="400" height="160" fill="#7F1D1D"/><rect x="0" y="640" width="400" height="12" fill="#FBBF24"/><path d="M140 800 L170 652 H230 L260 800 Z" fill="#B91C1C"/>`
+  );
+};
+// Kavya's workshop: a robot blueprint, turning gears, shelves of parts and a workbench
+SCENES.gadget = (id) =>
+  sky(id, '#E0F2FE', '#F8FAFC') +
+  `<rect x="40" y="110" width="200" height="150" rx="6" fill="#1D4ED8"/><g fill="none" stroke="#BFDBFE" stroke-width="3"><rect x="105" y="130" width="70" height="52" rx="10"/><rect x="100" y="190" width="80" height="54" rx="10"/><line x1="140" y1="130" x2="140" y2="116"/><path d="M100 200 l-30 30 M180 200 l30 30"/></g>` +
+  [[310, 170, 34], [350, 230, 22], [300, 280, 18]].map(([x, y, r], i) => `<g class="sway" style="--d:${4 + i}s"><circle cx="${x}" cy="${y}" r="${r}" fill="none" stroke="#94A3B8" stroke-width="${r / 2.6}" stroke-dasharray="${r / 3} ${r / 4}"/><circle cx="${x}" cy="${y}" r="${r / 3}" fill="#94A3B8"/></g>`).join('') +
+  [380, 470].map((y) => `<rect x="20" y="${y}" width="360" height="12" fill="#8A5A44"/>` + [40, 100, 160, 220, 280, 330].map((x, k) => `<rect x="${x}" y="${y - 30 - (k % 3) * 8}" width="34" height="${30 + (k % 3) * 8}" rx="5" fill="${['#FDE68A', '#93C5FD', '#F9A8D4', '#86EFAC'][k % 4]}"/>`).join('')).join('') +
+  `<g class="twinkle"><circle cx="70" cy="560" r="10" fill="#FDE047"/></g><path d="M70 570 v20" stroke="#64748B" stroke-width="4"/>` +
+  `<rect x="0" y="620" width="400" height="24" rx="4" fill="#8A5A44"/><rect x="0" y="644" width="400" height="156" fill="#A8A29E"/><rect x="20" y="644" width="18" height="100" fill="#6D4C41"/><rect x="362" y="644" width="18" height="100" fill="#6D4C41"/>`;
+// the old peepal tree on a moonlit night, fireflies and a wisp of Betal's glow
+SCENES.peepal = (id) => {
+  const r = rnd(53);
+  return (
+    sky(id, '#0E1530', '#24305A') +
+    Array.from({ length: 34 }, () => `<circle cx="${R(r() * 400)}" cy="${R(r() * 300)}" r="${R(0.8 + r() * 1.5)}" fill="#fff" class="twinkle" style="animation-delay:${R(r() * 3)}s"/>`).join('') +
+    `<circle cx="300" cy="140" r="48" fill="#FFF7D6"/><circle cx="300" cy="140" r="80" fill="#FFF7D6" opacity="0.1"/>` +
+    `<path d="M0 640 Q120 610 260 630 T400 626 V800 H0 Z" fill="#1B2240"/>` +
+    `<path d="M110 800 Q130 620 110 480 Q96 400 40 340 M124 470 Q190 380 290 360 M114 560 Q50 520 0 530" fill="none" stroke="#3B2F2F" stroke-width="34" stroke-linecap="round"/>` +
+    `<path d="M110 800 Q130 620 110 480" fill="none" stroke="#4A3B32" stroke-width="18" stroke-linecap="round"/>` +
+    `<g fill="#1C3527">${[[30, 280, 90], [150, 250, 100], [270, 320, 80], [0, 420, 60]].map(([x, y, rr]) => `<circle cx="${x}" cy="${y}" r="${rr}"/>`).join('')}</g>` +
+    [180, 220, 250].map((x, i) => `<path d="M${x} ${372 + i * 2} V${470 + i * 20}" stroke="#2F2A28" stroke-width="3" class="sway" style="--d:${6 + i}s"/>`).join('') +
+    `<g class="puff" style="--d:7s"><ellipse cx="230" cy="520" rx="26" ry="34" fill="#E2E8F0" opacity="0.35"/></g>` +
+    Array.from({ length: 12 }, () => `<circle cx="${R(160 + r() * 230)}" cy="${R(480 + r() * 260)}" r="3" fill="#FDE68A" class="twinkle" style="animation-delay:${R(r() * 3)}s"/>`).join('')
+  );
+};
+// a village square: the big banyan with its platform, the panchayat board, a hand pump, bicycles
+SCENES.chaupal = (id) =>
+  sky(id, '#BFE6FF', '#FFF7E6') +
+  cloud(80, 120, 0.9) +
+  cloud(300, 200, 0.7) +
+  `<path d="M0 560 Q200 530 400 560 V800 H0 Z" fill="#D9B97E"/>` +
+  `<g transform="translate(150 320)"><rect x="-18" y="100" width="36" height="200" fill="#7C4A2A"/>${[-60, -30, 40, 70].map((x) => `<path d="M${x} 150 V300" stroke="#6B3F22" stroke-width="4"/>`).join('')}<circle cx="0" cy="60" r="110" fill="#3F7D3A"/><circle cx="-100" cy="110" r="70" fill="#4A8C42"/><circle cx="100" cy="100" r="74" fill="#4A8C42"/></g>` +
+  `<rect x="40" y="600" width="230" height="40" rx="4" fill="#C9A27E"/><rect x="34" y="594" width="242" height="12" rx="3" fill="#A47148"/>` +
+  `<g transform="translate(300 470)"><rect x="-6" y="0" width="8" height="150" fill="#8A5A44"/><rect x="74" y="0" width="8" height="150" fill="#8A5A44"/><rect x="-14" y="-40" width="104" height="44" rx="6" fill="#fff"/><text x="38" y="-12" text-anchor="middle" font-family="'Baloo 2', sans-serif" font-size="18" font-weight="800" fill="#B45309">पंचायत</text></g>` +
+  `<g transform="translate(330 700)"><rect x="-6" y="-70" width="14" height="70" fill="#475569"/><path d="M8 -64 l30 -14" stroke="#475569" stroke-width="7" stroke-linecap="round"/></g>`;
+
 export const THEMES = Object.keys(SCENES);
 
 // `crop: 'bottom'` keeps the ground in view (used by the short world cards on the hub).

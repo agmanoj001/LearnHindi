@@ -1,11 +1,11 @@
 # Khel Khel Mein · खेल-खेल में
 
-*"Learning through play."* An offline web app (PWA) where children learn **Hindi** from Toddler to Grade 4 (with comics and grammar for Grades 7 and 8), and **English phonics** and **math in English** in Kindergarten and Grade 1. There are 20 animated worlds, at least three in every grade from Kindergarten to Grade 4, each with its own guide character, a path of short lessons, stars to earn and a collection to fill. Every world is tagged with what it teaches (Phonics, Grammar, Stories, Math …).
+*"Learning through play."* An offline web app (PWA) where children learn **Hindi** from Toddler to Grade 4 (with comics and grammar for Grades 7 and 8), and **English phonics** and **math in English** in Kindergarten and Grade 1. There are 24 animated worlds, at least three in every grade from Kindergarten to Grade 4 and four in each of Grades 7 and 8, each with its own guide character, a path of short lessons, stars to earn and a collection to fill. Every world is tagged with what it teaches (Phonics, Grammar, Stories, Math …).
 
 - **Hindi** follows India's NIPUN Bharat targets and the themes of the NCERT books (*Sarangi*, *Veena*). From Grade 2 each grade has a phonics-and-reading world, a grammar-and-writing world and a stories-and-poems world.
 - **English phonics** follows the **North Carolina Standard Course of Study, Reading: Foundational Skills** for Kindergarten and Grade 1.
 - **Math** follows the **North Carolina Standard Course of Study** for Kindergarten and Grade 1, in English only.
-- **Grades 7 and 8** have a Hindi comics world and a grammar world each; the grammar follows the व्याकरण CBSE schools teach with NCERT's *मल्हार*.
+- **Grades 7 and 8** have three Hindi comic series and a grammar world each: sixty comics in all, from Akbar–Birbal and Vikram–Betal to a robot who takes every idiom literally. The grammar follows the व्याकरण CBSE schools teach with NCERT's *मल्हार*.
 - **Every lesson adapts** while the child plays: it gets harder after a run of right answers and easier after misses.
 
 Everything is spoken aloud, so a child doesn't need to read to play. Tap targets are big, there are no timers, and nothing can go wrong: a wrong tap is a gentle wobble and a hint. Lessons take 2–5 minutes.
@@ -45,8 +45,12 @@ Thinking of rebuilding it in an app builder? [docs/PLATFORM-EVALUATION.md](docs/
 | Grade 4 | **Himu's Story Mountain** · हिमू का कथा पर्वत | Himu the snow leopard | Hindi | Stories, Poems | Akbar–Birbal, Tenali Raman and fables with a moral, two poems, "which story teaches this?" |
 | Grade 4 | **Chintu's Word City** · चिंटू का शब्द नगर | Chintu the squirrel | Hindi | Vocabulary, Writing, Reading | मुहावरे, synonyms, one word for many, days and months, city words, longer sentences |
 | Grade 7 (12–13) | **Mishti's Mischief** · मिष्टी की मस्ती | Bijli the goat | Hindi comics | Comics, Stories, Vocabulary | Ten comedies from the small town of कटहलपुर, with idioms, word meanings, questions and an idiom quiz |
+| Grade 7 | **Birbal's Wit** · बीरबल की बुद्धि | Moru the peacock | Hindi comics | Comics, Stories, Vocabulary | Ten Akbar–Birbal tales from folk tradition; each stops so the reader can think like Birbal before the trick |
+| Grade 7 | **Chippu the Robot** · चिप्पू रोबो | Chippu the robot | Hindi comics | Comics, Vocabulary, Stories | Ten comedies about a robot who takes every मुहावरा literally; say what it really means before Kavya explains |
 | Grade 7 | **Gyanu's Grammar Library** · ज्ञानू का पुस्तकालय | Gyanu the tortoise | Hindi grammar | Grammar, Vocabulary, Writing | संज्ञा, सर्वनाम, विशेषण, क्रिया and काल, कारक, अव्यय, वाक्य and विराम चिह्न, उपसर्ग-प्रत्यय, संधि, समास, शब्द-भंडार, correct sentences and spelling |
 | Grade 8 (13–14) | **Detective Dadi** · जासूस दादी | Mausi the cat | Hindi comics | Comics, Stories, Vocabulary | Ten mysteries to solve: name the culprit before the reveal; richer vocabulary and idioms |
+| Grade 8 | **Vikram and Betal** · विक्रम और बेताल | Betal the spirit | Hindi comics | Comics, Stories, Vocabulary | Ten riddle tales from the Baital Pachisi tradition and folk logic puzzles; answer Betal's riddle before King Vikram does |
+| Grade 8 | **Master Murari** · मास्टर मुरारी | Minku the lab mouse | Hindi comics | Comics, Stories, Science, Vocabulary | Ten episodes where a retired science teacher exposes a fake magician's “miracles”: indicators, refraction, density, echoes, magnets, eclipses, static, chain scams |
 | Grade 8 | **Chatur's Word Lab** · चतुर की शब्द-प्रयोगशाला | Chatur the fox | Hindi grammar | Grammar, Vocabulary, Writing | शब्द-भेद, उपसर्ग-प्रत्यय, the kinds of संधि and समास, क्रिया, the 14 काल, वाच्य, सरल-संयुक्त-मिश्र वाक्य, अलंकार, मुहावरे and लोकोक्तियाँ, अशुद्धि-शोधन |
 
 Each world is a winding path of **units** named for what the child is learning ("Let's learn matras ा ि ी", "Let's learn magic e", "Let's make 10"). Each unit has a few **lessons**, joined by a trail that is gold where the child has been and dotted ahead, with a **Start** tag on the next lesson. Lessons open one after another, each earns 1–3 stars (for answers right on the first try), and each first finish (and every 3-star replay) adds something to the world's **collection**.
@@ -77,12 +81,16 @@ The top of the home screen shows **three steps for today**: *Keep going* (the ne
 
 ### Comics (Grades 7 and 8)
 
-For confident readers, two original comic series in Hindi, ten comics each, in the spirit of classic Indian comics:
+For confident readers, six comic series in Hindi, ten comics each, in the spirit of classic Indian comics. Four are original; two retell folk tales that belong to everyone.
 
 - **मिष्टी की मस्ती** (Grade 7): Mishti, twelve, and her goat Bijli, who eats everything, turn the small town of कटहलपुर upside down: a goat-eaten science project, the Colonel's vanishing roses, a kite fight, a power cut, a solar cooker, a lost cousin at the Dussehra fair, Grandpa's first smartphone …
+- **बीरबल की बुद्धि** (Grade 7): Akbar–Birbal tales in new words: the line made shorter without touching it, the well sold without its water, the thief's magic stick, a pot full of wisdom, sugar sorted by ants, the camel's crooked neck … (The crows and the khichdi are already in the Grade 4 story library.)
+- **चिप्पू रोबो** (Grade 7): Kavya, twelve, builds Chippu, a robot with ten thousand words and no idea what idioms mean. Told to “light lamps of ghee”, he empties the kitchen's ghee; told an exam is “riding on her head”, he tries to catch it. By the last episode he gets them right.
 - **जासूस दादी** (Grade 8): Dadi, a retired school principal with an old black umbrella, solves mysteries with her granddaughter Roohi, the gentle giant Pappu and her sharp-eyed cat Mausi: a wedding necklace, a night train, a fake museum statue, a master of disguise, a haunted haveli, an online scam, a locked room, fake milk …
+- **विक्रम और बेताल** (Grade 8): King Vikram carries Betal from the old peepal tree; each night Betal tells a tale and ends with a riddle. Classic tales (the lion-makers, the three delicate queens, the three golden statues) and folk logic puzzles (the seventeen camels, the river crossing, the two guards). In the last tale Betal reveals the trick behind it all.
+- **मास्टर मुरारी** (Grade 8): a retired science teacher on an old bicycle and his young friend Golu keep exposing Thagraj, a fake magician: a lemon that “bleeds” (turmeric and lime), a vanishing coin (refraction), floating eggs (density), a ghost in a well (echo), a spirit letter (invisible ink), a magic ring (a hidden magnet), eclipse fear, a mirage, a magic comb (static charge), and a money-doubling scam.
 
-Comics scroll panel by panel (one column on a phone, a two-column comic page on a tablet), with speech and thought bubbles, narration boxes and sound effects. **Tap a bubble** to hear it; each character has their own voice pitch. The speaker button reads the whole comic aloud. **Underlined words** show their meaning in Hindi and English. Each mystery **stops before the reveal** so the reader can name the culprit (a wrong guess gets a hint). Every comic ends with its word list and three questions, and each world has an **idiom quiz** built from its comics. Finishing a comic collects a character card.
+Comics scroll panel by panel (one column on a phone, a two-column comic page on a tablet), with speech and thought bubbles, narration boxes and sound effects. **Tap a bubble** to hear it; each character has their own voice pitch. The speaker button reads the whole comic aloud. **Underlined words** show their meaning in Hindi and English. Mysteries, Birbal's tricks, Betal's riddles, Chippu's idioms and Masterji's science all **stop before the reveal** so the reader answers first (a wrong guess gets a hint). Every comic ends with its word list and three questions, and each world has an **idiom quiz** built from its comics. Finishing a comic collects a character card.
 
 ### Grammar (Grades 7 and 8)
 
@@ -300,7 +308,7 @@ A story with `"kind": "poem"` is shown as a poem (or a rhyme) in the library. `"
 
 ### Writing a comic
 
-Comics live in `"comics"`. Each has an `id`, a `series` (`"mishti"` or `"dadi"`), a `level`, a `title`, a `blurb`, optional `parts` (one-off characters: `{"seth": {"look": "man-b", "name": "सेठ धनपतराय"}}`, with optional colour overrides), `panels`, an optional `guess`, `words` and `questions`. A panel is:
+Comics live in `"comics"`. Each has an `id`, a `series` (`"mishti"`, `"birbal"` or `"chippu"` for Grade 7; `"dadi"`, `"betal"` or `"murari"` for Grade 8), a `level`, a `title`, a `blurb`, optional `parts` (one-off characters: `{"seth": {"look": "man-b", "name": "सेठ धनपतराय"}}`, with optional colour overrides), `panels`, an optional `guess`, `words` and `questions`. A panel is:
 
 ```json
 {
@@ -315,11 +323,11 @@ Comics live in `"comics"`. Each has an `id`, a `series` (`"mishti"` or `"dadi"`)
 }
 ```
 
-- **Backgrounds** (`bg`): room, kitchen, classroom, street, bazaar, park, garden, terrace, fair, night, train, station, museum, wedding, police, haveli, ground, dairy, bank, village, school, stage, or any world scene.
-- **Characters** (`who`): mishti, bijli, buntu, colonel, mummy, papa, dadaji, laddoolal, teacher, rocky, guddu; dadi, roohi, pappu, mausi, inspector, chhedilal; and the looks man-a, man-b, man-c, man-d, man-old, guard, chef, woman-a, woman-b, boy-a, girl-a, sadhu (give these a name under `parts`). `at` is 0–100 across the panel; `flip` turns a character to face left; `hold` puts a prop in their hand (umbrella, magnifier, phone, book, stick, kite, bat, plate, lantern, rose, camera, bag, notebook, glass, laddoo).
+- **Backgrounds** (`bg`): room, kitchen, classroom, street, bazaar, park, garden, terrace, fair, night, train, station, museum, wedding, police, haveli, ground, dairy, bank, village, school, darbar (a royal court), bagh (a Mughal garden), peepal (the tree at night), jungle, river, desert, workshop, chaupal (a village square), stage, or any world scene.
+- **Characters** (`who`): mishti, bijli, buntu, colonel, mummy, papa, dadaji, laddoolal, teacher, rocky, guddu; akbar, birbal, chugal; kavya, chippu, nani, montu, chameli; dadi, roohi, pappu, mausi, inspector, chhedilal; vikram, betal; murari, golu, thagraj; and the looks man-a, man-b, man-c, man-d, man-old, guard, chef, woman-a, woman-b, boy-a, boy-b, girl-a, girl-b, sadhu, courtier, king, queen, princess, pandit, soldier, farmer (give these a name under `parts`, with any changes such as `"hat": "crown"`). `at` is 0–100 across the panel; `flip` turns a character to face left; `hold` puts a prop in their hand (umbrella, magnifier, phone, book, stick, kite, bat, plate, lantern, rose, camera, bag, notebook, glass, laddoo, sword, scroll, diya, lemon, flask, pot, mango, coins).
 - **Faces**: smile, grin, laugh, shock, angry, sad, think, sly, worried, sleep, wink, chew. **Arms**: down, point, up, hips, chin, wave.
 - **Bubbles**: `kind` is `shout`, `whisper` or `think`; plain speech without it. Put the first speaker on the left.
-- **`guess`** (mysteries): `{"at": 8, "q": "...", "options": [...], "answer": "...", "hint": "..."}`; panels from `at` on stay hidden until the reader answers.
+- **`guess`** (mysteries, riddles, “what's the science?”): `{"at": 8, "q": "...", "options": [...], "answer": "...", "hint": "..."}`; panels from `at` on stay hidden until the reader answers.
 - **`words`**: `{"hi": "टेढ़ी खीर", "mean": "मुहावरा: बहुत कठिन काम", "en": "a very hard task"}`. The first place each `hi` appears in the comic is underlined. Idioms start their meaning with `मुहावरा:` (or `कहावत:`), and the world's idiom quiz is built from them.
 
 A lesson opens a comic with `{"game": "comic", "config": {"comic": "m-homework"}}`. The content checks name any character, face, background or answer that is wrong.

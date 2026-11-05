@@ -2130,10 +2130,13 @@ svg {
   transform-origin: 50% 100%;
   animation: m-idle 3s ease-in-out infinite;
 }
-.mascot .m-lid {
+/* eyelids stay open wherever a guide is drawn (splash, world cards, profiles); the live guide also blinks */
+.m-lid {
   transform-box: fill-box;
   transform-origin: center;
   transform: scaleY(0);
+}
+.mascot .m-lid {
   animation: m-blink 4.2s infinite;
 }
 .mascot .m-mouth-open {
@@ -4341,7 +4344,7 @@ body.speaking .mascot .m-mouth-closed {
   margin-top: calc(clamp(64px, 16vmin, 120px) * -0.18);
 }
 .parade-item {
-  width: clamp(44px, min(15vmin, 12.5vw), 116px);
+  width: clamp(36px, min(14vmin, 11vw), 112px);
 }
 .splash .title,
 .splash .splash-play,
@@ -6150,7 +6153,9 @@ body:has(.game-comic) .caption-bar {
 
 /* the comic worlds' cards: dark scenery needs light text */
 .world-card.theme-noir .world-name-hi,
-.world-card.theme-noir .world-name-en {
+.world-card.theme-noir .world-name-en,
+.world-card.theme-peepal .world-name-hi,
+.world-card.theme-peepal .world-name-en {
   color: #fff;
   text-shadow: none;
 }

@@ -8,9 +8,15 @@ import { castSvg, comicBg, CAST } from '../art-comic.js';
 import { sceneSvg } from '../art-scenes.js';
 import { shuffle } from '../logic.js';
 
+// Each series has a cover pair, and (if its comics stop for a guess) the words on the guess card.
+const DETECTIVE = { badge: 'जासूसी पहेली', en: 'Your turn, detective', sub: 'आगे पढ़ने से पहले अपना अनुमान लगाओ!', right: 'शाबाश, जासूस! तुमने सही पकड़ा। अब देखो, दादी ने कैसे साबित किया...', late: 'आख़िरकार पकड़ ही लिया! अब देखो, दादी ने कैसे साबित किया...' };
 export const SERIES = {
   mishti: { hi: 'मिष्टी की मस्ती', en: "Mishti's Mischief", hero: 'mishti', sidekick: 'bijli' },
-  dadi: { hi: 'जासूस दादी', en: 'Detective Dadi', hero: 'dadi', sidekick: 'mausi' },
+  dadi: { hi: 'जासूस दादी', en: 'Detective Dadi', hero: 'dadi', sidekick: 'mausi', guess: DETECTIVE },
+  birbal: { hi: 'बीरबल की बुद्धि', en: "Birbal's Wit", hero: 'birbal', sidekick: 'akbar', guess: { badge: 'बीरबल की तरह सोचो', en: 'Think like Birbal', sub: 'आगे पढ़ने से पहले सोचो — बीरबल क्या करेगा?', right: 'वाह! बिल्कुल बीरबल जैसी सूझ-बूझ! अब देखो, बीरबल ने क्या किया...', late: 'ठीक पकड़ा! अब देखो, बीरबल ने क्या किया...' } },
+  chippu: { hi: 'चिप्पू रोबो', en: 'Chippu the Robot', hero: 'kavya', sidekick: 'chippu', guess: { badge: 'असली मतलब बताओ', en: 'What does it really mean?', sub: 'चिप्पू से पहले तुम समझ लो!', right: 'सही! अब देखो, काव्या ने चिप्पू को कैसे समझाया...', late: 'ठीक! अब देखो, काव्या ने चिप्पू को कैसे समझाया...' } },
+  betal: { hi: 'विक्रम और बेताल', en: 'Vikram and Betal', hero: 'vikram', sidekick: 'betal', guess: { badge: 'बेताल की पहेली', en: "Answer Betal's riddle", sub: 'राजा विक्रम से पहले तुम उत्तर दो!', right: 'वाह! तुमने राजा विक्रम जैसा न्याय किया। अब सुनो, विक्रम ने क्या कहा...', late: 'ठीक! अब सुनो, राजा विक्रम ने क्या कहा...' } },
+  murari: { hi: 'मास्टर मुरारी', en: 'Master Murari', hero: 'murari', sidekick: 'golu', guess: { badge: 'विज्ञान की पहेली', en: "What's the science?", sub: 'मास्टरजी के बताने से पहले तुम बताओ!', right: 'शाबाश, वैज्ञानिक! अब देखो, मास्टरजी ने कैसे साबित किया...', late: 'ठीक पकड़ा! अब देखो, मास्टरजी ने कैसे समझाया...' } },
 };
 
 const LENS = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><circle cx="10" cy="10" r="6"/><path d="M14.5 14.5 21 21"/></svg>';
@@ -225,13 +231,14 @@ export default {
 
     // ---- guess the culprit (mysteries) ----
     function guessCard() {
+      const words = series.guess || DETECTIVE;
       const opts = shuffle(guess.options, ctx.rng).map((o) => Object.assign(el('button', { class: 'comic-answer', lang: 'hi', text: o }), { option: o }));
       const hint = el('p', { class: 'guess-hint', lang: 'hi', text: `संकेत: ${guess.hint || 'कहानी फिर से ध्यान से पढ़ो।'}` });
       const verdict = el('p', { class: 'guess-verdict', lang: 'hi' });
       const card = el('section', { class: 'comic-guess' }, [
-        el('div', { class: 'guess-badge' }, [el('span', { html: LENS }), el('b', { lang: 'hi', text: 'जासूसी पहेली' }), el('span', { text: 'Your turn, detective' })]),
+        el('div', { class: 'guess-badge' }, [el('span', { html: LENS }), el('b', { lang: 'hi', text: words.badge }), el('span', { text: words.en })]),
         el('p', { class: 'guess-q', lang: 'hi', text: guess.q }),
-        el('p', { class: 'guess-sub', lang: 'hi', text: 'आगे पढ़ने से पहले अपना अनुमान लगाओ!' }),
+        el('p', { class: 'guess-sub', lang: 'hi', text: words.sub }),
         el('div', { class: 'comic-answers' }, opts),
         hint,
         verdict,
@@ -241,7 +248,7 @@ export default {
         answered++;
         progress();
         await cheer(ctx, right);
-        verdict.textContent = right.firstTry ? 'शाबाश, जासूस! तुमने सही पकड़ा। अब देखो, दादी ने कैसे साबित किया...' : 'आख़िरकार पकड़ ही लिया! अब देखो, दादी ने कैसे साबित किया...';
+        verdict.textContent = right.firstTry ? words.right : words.late;
         verdict.classList.add('on');
         for (const o of opts) o.disabled = true;
         await sleep(700);
