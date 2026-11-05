@@ -14,14 +14,14 @@ const DEVANAGARI = /[ऀ-ॿ]/;
 const comics = content.comics;
 const textOf = (cm) => cm.panels.flatMap((p) => [p.cap || '', ...(p.say || []).map((b) => b.text)]).join(' ');
 
-// three series a grade: ten short comics each to start, and then the longer ones
-const GRADE_SERIES = { grade7: ['mishti', 'birbal', 'chippu'], grade8: ['dadi', 'betal', 'murari'] };
+// the series in each grade: short comics to start, and then the longer ones
+const GRADE_SERIES = { grade7: ['mishti', 'rimjhim', 'birbal', 'chippu'], grade8: ['dadi', 'betal', 'murari'] };
 // series whose comics stop for the reader's answer before the reveal
 const GUESS_SERIES = ['dadi', 'birbal', 'chippu', 'betal', 'murari'];
 // the world for each series
-const SERIES_WORLD = { mishti: 'mishti', dadi: 'jasoos', birbal: 'birbal', chippu: 'chippu', betal: 'betal', murari: 'murari' };
+const SERIES_WORLD = { mishti: 'mishti', rimjhim: 'rimjhim', dadi: 'jasoos', birbal: 'birbal', chippu: 'chippu', betal: 'betal', murari: 'murari' };
 
-test('fifty comics for each of Grade 7 and Grade 8, in three series of sixteen or more', () => {
+test('fifty comics or more in each of Grade 7 and Grade 8, every series sixteen or more', () => {
   for (const [level, series] of Object.entries(GRADE_SERIES)) {
     const list = comics.filter((c) => c.level === level);
     assert.ok(list.length >= 50, `${level}: ${list.length}`);
@@ -161,6 +161,6 @@ test('a comic world for each series opens every comic of the series and an idiom
 });
 
 test('the idiom quizzes never give the answer away in the English line', () => {
-  for (const id of ['g7-idioms', 'g8-idioms', 'b-idioms', 'ch-idioms', 'bt-idioms', 'mu-idioms'])
+  for (const id of ['g7-idioms', 'g8-idioms', 'b-idioms', 'ch-idioms', 'bt-idioms', 'mu-idioms', 'rj-idioms'])
     for (const q of content.quizzes[id].questions) assert.ok(!q.en.includes('('), `${id}: ${q.en}`);
 });

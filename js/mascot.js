@@ -462,6 +462,23 @@ add(
     `<circle cx="60" cy="60" r="4" fill="#F472B6"/><path d="M48 60 l-16 -3 M48 63 l-16 3 M72 60 l16 -3 M72 63 l16 3" stroke="#2B2D42" stroke-width="1.2"/>` +
     mouth(60, 66, 8),
 );
+// Biscuit, Rimjhim's puppy: floppy ears, a red collar with a bell, and a tail that never stops
+add(
+  'biscuit',
+  'बिस्कुट',
+  'Biscuit',
+  1.6,
+  `<path class="m-tail" d="M82 96 Q104 92 102 70" fill="none" stroke="#E9B872" stroke-width="8" stroke-linecap="round"/>` +
+    `<g class="m-arm-l"><ellipse cx="46" cy="104" rx="8" ry="9" fill="#FFF7E6"/></g><g class="m-arm-r"><ellipse cx="74" cy="104" rx="8" ry="9" fill="#FFF7E6"/></g>` +
+    `<ellipse cx="60" cy="92" rx="26" ry="20" fill="#E9B872"/><ellipse cx="60" cy="98" rx="13" ry="10" fill="#FFF7E6"/>` +
+    `<path d="M30 32 Q14 36 18 66 Q24 76 32 66 Q32 50 38 40 Z" fill="#B7793E"/><path d="M90 32 Q106 36 102 66 Q96 76 88 66 Q88 50 82 40 Z" fill="#B7793E"/>` +
+    `<circle cx="60" cy="50" r="28" fill="#E9B872"/><ellipse cx="60" cy="64" rx="15" ry="11" fill="#FFF7E6"/>` +
+    eye(49, 46, 6, '#E9B872') +
+    eye(71, 46, 6, '#E9B872') +
+    `<ellipse cx="60" cy="59" rx="6" ry="4.4" fill="#2B2D42"/>` +
+    mouth(60, 66, 10) +
+    `<rect x="40" y="74" width="40" height="7" rx="3.5" fill="#E63946"/><circle cx="60" cy="84" r="4" fill="#FFD43B" stroke="#2B2D42" stroke-width="1.2"/>`,
+);
 
 export const MASCOT_IDS = Object.keys(MASCOTS);
 

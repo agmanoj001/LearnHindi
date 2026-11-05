@@ -462,6 +462,23 @@ SCENES.chaupal = (id) =>
   `<g transform="translate(300 470)"><rect x="-6" y="0" width="8" height="150" fill="#8A5A44"/><rect x="74" y="0" width="8" height="150" fill="#8A5A44"/><rect x="-14" y="-40" width="104" height="44" rx="6" fill="#fff"/><text x="38" y="-12" text-anchor="middle" font-family="'Baloo 2', sans-serif" font-size="18" font-weight="800" fill="#B45309">पंचायत</text></g>` +
   `<g transform="translate(330 700)"><rect x="-6" y="-70" width="14" height="70" fill="#475569"/><path d="M8 -64 l30 -14" stroke="#475569" stroke-width="7" stroke-linecap="round"/></g>`;
 
+// a city housing colony: apartment blocks with balconies, washing lines and kites, a water tank,
+// bougainvillea at the gate, and a chalk-drawn cricket wicket in the courtyard
+SCENES.colony = (id) =>
+  sky(id, '#BDE3FF', '#FFF6E5') +
+  cloud(90, 110, 0.8) +
+  cloud(300, 170, 0.6) +
+  [[10, 300, '#FDE68A', 150], [150, 240, '#FBCFE8', 110], [270, 320, '#BAE6FD', 130]].map(([x, y, col, w]) =>
+    `<rect x="${x}" y="${y}" width="${w}" height="${640 - y}" fill="${col}"/>` +
+    [0, 1, 2, 3, 4].filter((k) => y + 30 + k * 70 < 600).map((k) => `<rect x="${x + 14}" y="${y + 30 + k * 70}" width="${w * 0.3}" height="36" rx="3" fill="#93C5FD"/><rect x="${x + w * 0.55}" y="${y + 30 + k * 70}" width="${w * 0.3}" height="36" rx="3" fill="#93C5FD"/><rect x="${x + 8}" y="${y + 66 + k * 70}" width="${w - 16}" height="7" fill="#94A3B8"/>`).join('')
+  ).join('') +
+  `<rect x="300" y="270" width="64" height="40" rx="6" fill="#334155"/><rect x="306" y="262" width="52" height="10" rx="3" fill="#475569"/>` +
+  `<path d="M160 300 Q205 318 250 300" fill="none" stroke="#475569" stroke-width="2"/>${[170, 192, 214, 234].map((x, i) => `<rect x="${x}" y="306" width="14" height="20" rx="2" fill="${['#F43F5E', '#FACC15', '#22C55E', '#38BDF8'][i]}" class="sway" style="--d:${4 + i}s"/>`).join('')}` +
+  `<g class="drift" style="--d:40s"><path d="M60 170 l18 -22 l18 22 l-18 22 z" fill="#F43F5E"/><path d="M78 192 q-8 30 6 60" fill="none" stroke="#475569" stroke-width="1.4"/></g>` +
+  `<path d="M0 640 H400 V800 H0 Z" fill="#D6D3D1"/><rect x="0" y="632" width="400" height="10" fill="#A8A29E"/>` +
+  `<g>${[[30, 600], [56, 580], [80, 606], [44, 624]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="24" fill="#E879F9"/>`).join('')}<rect x="50" y="620" width="10" height="30" fill="#8A5A44"/></g>` +
+  `<g fill="#FFFFFF">${[300, 318, 336].map((x) => `<rect x="${x}" y="680" width="6" height="60"/>`).join('')}<rect x="296" y="676" width="46" height="5"/></g>`;
+
 export const THEMES = Object.keys(SCENES);
 
 // `crop: 'bottom'` keeps the ground in view (used by the short world cards on the hub).
