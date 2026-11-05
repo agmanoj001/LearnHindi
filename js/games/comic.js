@@ -12,6 +12,7 @@ import { shuffle } from '../logic.js';
 const DETECTIVE = { badge: 'जासूसी पहेली', en: 'Your turn, detective', sub: 'आगे पढ़ने से पहले अपना अनुमान लगाओ!', right: 'शाबाश, जासूस! तुमने सही पकड़ा। अब देखो, दादी ने कैसे साबित किया...', late: 'आख़िरकार पकड़ ही लिया! अब देखो, दादी ने कैसे साबित किया...' };
 export const SERIES = {
   mishti: { hi: 'मिष्टी की मस्ती', en: "Mishti's Mischief", hero: 'mishti', sidekick: 'bijli' },
+  rimjhim: { hi: 'रिमझिम का धमाल', en: "Rimjhim's Rumpus", hero: 'rimjhim', sidekick: 'biscuit' },
   dadi: { hi: 'जासूस दादी', en: 'Detective Dadi', hero: 'dadi', sidekick: 'mausi', guess: DETECTIVE },
   birbal: { hi: 'बीरबल की बुद्धि', en: "Birbal's Wit", hero: 'birbal', sidekick: 'akbar', guess: { badge: 'बीरबल की तरह सोचो', en: 'Think like Birbal', sub: 'आगे पढ़ने से पहले सोचो — बीरबल क्या करेगा?', right: 'वाह! बिल्कुल बीरबल जैसी सूझ-बूझ! अब देखो, बीरबल ने क्या किया...', late: 'ठीक पकड़ा! अब देखो, बीरबल ने क्या किया...' } },
   chippu: { hi: 'चिप्पू रोबो', en: 'Chippu the Robot', hero: 'kavya', sidekick: 'chippu', guess: { badge: 'असली मतलब बताओ', en: 'What does it really mean?', sub: 'चिप्पू से पहले तुम समझ लो!', right: 'सही! अब देखो, काव्या ने चिप्पू को कैसे समझाया...', late: 'ठीक! अब देखो, काव्या ने चिप्पू को कैसे समझाया...' } },
