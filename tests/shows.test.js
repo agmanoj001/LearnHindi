@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { showLines, showOrder, nextShow, radioPlaylist, radioSteps, markClusters, speakMath, withBase, beatKind, AUTOPLAY_MAX, ASK_WAIT_MS } from '../js/shows.js';
+import { showLines, showOrder, nextShow, radioPlaylist, radioSteps, comicRadioSteps, markClusters, speakMath, withBase, beatKind, AUTOPLAY_MAX, ASK_WAIT_MS } from '../js/shows.js';
 import { validateContent } from '../js/validate.js';
 import { pictureExists } from '../js/art.js';
 import { MASCOT_IDS } from '../js/mascot.js';
@@ -98,7 +98,9 @@ test('Story radio: this grade and the one below, a rhyme after every two stories
   assert.ok(list.every((s) => ['kg', 'grade1'].includes(s.level)));
   assert.notEqual(list[0].kind, 'poem');
   assert.equal(list[2].kind, 'poem');
-  assert.equal(radioPlaylist(content, 'toddler').every((s) => s.level === 'toddler'), true);
+  // Toddler has no stories of its own, so it hears Kindergarten's rhymes and stories
+  const toddler = radioPlaylist(content, 'toddler');
+  assert.ok(toddler.length > 5 && toddler.every((s) => s.level === 'kg'));
   const story = content.stories.find((s) => s.id === list[0].id);
   const steps = radioSteps(story, ['hi', 'en'], content.words);
   const said = steps.flatMap((s) => s.say || []);
@@ -107,6 +109,31 @@ test('Story radio: this grade and the one below, a rhyme after every two stories
   assert.ok(steps.some((s) => s.show === 'think'), 'ends with a question to think about');
   const english = content.stories.find((s) => s.lang === 'en');
   assert.ok(radioSteps(english, ['hi', 'en'], content.words).flatMap((s) => s.say || []).every((x) => x.lang === 'en'), 'English rhymes stay English');
+});
+
+test('Story radio in Grades 7 and 8 plays the comics as radio plays, so it is never empty', () => {
+  for (const level of ['grade7', 'grade8']) {
+    const list = radioPlaylist(content, level);
+    const mine = content.comics.filter((c) => c.level === level);
+    assert.ok(list.length > mine.length, `${level}: ${list.length} to play`);
+    // this grade's comics first, taking turns between the series
+    assert.deepEqual(new Set(list.slice(0, mine.length).map((c) => c.id)), new Set(mine.map((c) => c.id)));
+    assert.notEqual(list[0].series, list[1].series);
+  }
+  // every grade with anything to read has something on the radio
+  for (const l of content.levels) assert.ok(radioPlaylist(content, l.id).length > 0, l.id);
+  // a mystery: narrator, characters in their own voices, a think before the reveal, a question at the end
+  const comic = content.comics.find((c) => c.id === 'd-necklace');
+  const steps = comicRadioSteps(comic);
+  const said = steps.flatMap((s) => s.say || []);
+  assert.ok(said.every((x) => x.lang === 'hi' && x.text));
+  assert.ok(said.some((x) => x.text === comic.panels[0].cap), 'captions are narrated');
+  assert.ok(new Set(said.filter((x) => x.pitch).map((x) => x.pitch)).size > 1, 'characters sound different');
+  assert.ok(said.some((x) => x.text.startsWith('पहलवान पप्पू: ')), 'the speaker is named');
+  const think = steps.findIndex((s) => s.show === 'think');
+  const reveal = steps.findIndex((s) => s.show === 'page' && s.page === comic.guess.at);
+  assert.ok(think > 0 && think < reveal && steps[think].say[0].text.includes(comic.guess.q), 'stops to think before the reveal');
+  assert.ok(steps.some((s) => s.show === 'answer'), 'ends with a question and its answer');
 });
 
 test('progress and settings keep Show time data; bad data is dropped', () => {
