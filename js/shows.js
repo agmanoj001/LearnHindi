@@ -10,6 +10,7 @@ import { mathModel } from './art-math.js';
 import { play, stop as stopSpeech } from './audio.js';
 import { langsFor, BEAT_KINDS, beatKind, showLines } from './logic.js';
 import { isoDay } from './curriculum.js';
+import { lookOf, SERIES } from './games/comic.js';
 
 // ---------- pure helpers (tested in tests/shows.test.js) ----------
 
@@ -42,6 +43,9 @@ export const markClusters = (text, mark) => clusters(text).map((t) => ({ text: t
 export const speakMath = (t) => t.replace(/\+/g, ' plus ').replace(/=/g, ' is ').replace(/\s+/g, ' ').trim();
 
 // Story radio: this grade's and the grade below's stories and rhymes, a rhyme after every two stories.
+// Grades 7 and 8 read comics instead of picture stories, so there the radio plays the comics as radio
+// plays: this grade's first (taking turns between the series), then the grade below's. A grade with
+// nothing of its own or below (Toddler) gets the next grade's.
 export function radioPlaylist(content, level) {
   const order = (content.levels || []).map((l) => l.id);
   const i = order.indexOf(level);
@@ -51,11 +55,56 @@ export function radioPlaylist(content, level) {
   const stories = all.filter((s) => s.kind !== 'poem').sort((a, b) => mine(a) - mine(b));
   const poems = all.filter((s) => s.kind === 'poem').sort((a, b) => mine(a) - mine(b));
   const out = [];
+  for (const lv of [level, ...levels.filter((l) => l !== level).reverse()]) out.push(...takeTurns((content.comics || []).filter((c) => c.level === lv)));
   while (stories.length || poems.length) {
     out.push(...stories.splice(0, 2));
     if (poems.length) out.push(poems.shift());
   }
+  // nothing at this grade or below (the youngest grade): play the next grade's rhymes and stories
+  if (!out.length && i >= 0 && i + 1 < order.length) return radioPlaylist(content, order[i + 1]);
   return out;
+}
+
+// one comic from each series in turn, keeping each series in its own order
+function takeTurns(comics) {
+  const bySeries = new Map();
+  for (const c of comics) bySeries.set(c.series, [...(bySeries.get(c.series) || []), c]);
+  const queues = [...bySeries.values()];
+  const out = [];
+  while (queues.some((q) => q.length)) for (const q of queues) if (q.length) out.push(q.shift());
+  return out;
+}
+
+// What the radio says for a comic: the series and title, then every panel. A caption or sound is read by
+// the narrator; each character speaks in their own voice pitch, named whenever the speaker changes. A
+// mystery or riddle stops for a "think" before its reveal, and the comic ends with one of its questions.
+export function comicRadioSteps(comic) {
+  const series = SERIES[comic.series];
+  const narrator = (text) => ({ text, lang: 'hi' });
+  const steps = [{ sfx: 'jingle' }, { pause: 700 }];
+  steps.push({ show: 'title', say: [narrator(`अब सुनो रेडियो-नाटक${series ? `, ${series.hi}` : ''}: ${comic.title.hi}`)] });
+  let last = null;
+  comic.panels.forEach((p, n) => {
+    if (comic.guess && n === comic.guess.at) {
+      steps.push({ pause: 600 }, { show: 'think', say: [narrator(`सोचो: ${comic.guess.q}`)] }, { pause: 5000, show: 'think' });
+      last = null;
+    }
+    const say = [];
+    if (p.cap) say.push(narrator(p.cap)), (last = null);
+    if (p.sfx) say.push(narrator(p.sfx));
+    for (const b of p.say || []) {
+      const look = lookOf(comic, b.who);
+      const name = look?.name || '';
+      const lead = b.kind === 'think' ? `${name} ने मन में सोचा: ` : b.kind === 'whisper' ? `${name}, धीरे से: ` : b.who !== last ? `${name}: ` : '';
+      say.push({ text: lead + b.text, lang: 'hi', pitch: look?.pitch ?? 1 });
+      last = b.who;
+    }
+    if (say.length) steps.push({ pause: 350 }, { show: 'page', page: n, say });
+  });
+  const q = (comic.questions || [])[0];
+  if (q) steps.push({ pause: 600 }, { show: 'think', say: [narrator(`सोचो: ${q.q}`)] }, { pause: 3500, show: 'think' }, { show: 'answer', say: [narrator(`जवाब: ${q.answer}`)] });
+  steps.push({ pause: 1800 });
+  return steps;
 }
 
 // What the radio says for one story: a jingle, the title, every page, the moral, then a "think" question.
@@ -706,8 +755,10 @@ export async function radio(api) {
   const showStory = (story) => {
     const lead = story.lang === 'en' ? story.title.en : story.title.hi;
     title.replaceChildren(el('b', { lang: story.lang === 'en' ? 'en' : 'hi', text: lead }), story.lang === 'en' ? '' : el('span', { text: story.title.en }));
-    cover.innerHTML = picture(api.word(story.cover)?.picture || story.cover);
-    status.textContent = `${story.kind === 'poem' ? 'Rhyme' : 'Story'} ${index + 1} of ${list.length}`;
+    // a comic's cover is its series' hero
+    const coverId = story.panels ? `comic-${SERIES[story.series]?.hero}` : story.cover;
+    cover.innerHTML = picture(api.word(coverId)?.picture || coverId);
+    status.textContent = `${story.panels ? 'Comic' : story.kind === 'poem' ? 'Rhyme' : 'Story'} ${index + 1} of ${list.length}`;
   };
 
   // leaving the radio (even while paused) lets the screen sleep again
@@ -730,7 +781,7 @@ export async function radio(api) {
       const story = list[index];
       api.state.radioAt = story.id;
       showStory(story);
-      const steps = radioSteps(story, langs, content.words);
+      const steps = story.panels ? comicRadioSteps(story) : radioSteps(story, langs, content.words);
       let step = 0;
       while (step < steps.length && alive()) {
         await untilResumed();
