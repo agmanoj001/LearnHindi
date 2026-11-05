@@ -358,6 +358,43 @@ add(
     `<circle cx="60" cy="74" r="3.5" fill="#FFD43B"/>`,
 );
 
+// Gyanu, the patient tortoise in round glasses who looks after the Grade 7 grammar library
+add(
+  'gyanu',
+  'ज्ञानू',
+  'Gyanu',
+  0.85,
+  `<g class="m-arm-l"><ellipse cx="30" cy="102" rx="11" ry="8" fill="#7DBE6A"/></g><g class="m-arm-r"><ellipse cx="90" cy="102" rx="11" ry="8" fill="#7DBE6A"/></g>` +
+    `<path d="M22 100 Q22 62 60 60 Q98 62 98 100 Z" fill="#3F8F5A"/><path d="M22 100 H98" stroke="#2F6E45" stroke-width="5" stroke-linecap="round"/>` +
+    [[42, 82], [60, 74], [78, 82], [51, 94], [69, 94]].map(([x, y]) => `<path d="M${x - 8} ${y} l4 -7 h8 l4 7 l-4 7 h-8 z" fill="#5FAF6E" stroke="#2F6E45" stroke-width="1.5"/>`).join('') +
+    `<circle cx="60" cy="40" r="25" fill="#8ACB74"/>` +
+    eye(50, 40, 6.5, '#8ACB74') +
+    eye(70, 40, 6.5, '#8ACB74') +
+    `<circle cx="50" cy="40" r="10" fill="none" stroke="#7F5539" stroke-width="2.6"/><circle cx="70" cy="40" r="10" fill="none" stroke="#7F5539" stroke-width="2.6"/>` +
+    cheeks(40, 80, 52) +
+    mouth(60, 54, 9) +
+    `<g transform="translate(60 106)"><path d="M-16 -9 Q-8 -12 0 -8 Q8 -12 16 -9 V5 Q8 2 0 6 Q-8 2 -16 5 Z" fill="#FFF3B0" stroke="#E76F51" stroke-width="2"/><path d="M0 -8 V6" stroke="#E76F51" stroke-width="1.6"/></g>`,
+);
+// Chatur, the quick fox in goggles who runs the Grade 8 word lab
+add(
+  'chatur',
+  'चतुर',
+  'Chatur',
+  1.2,
+  `<path class="m-tail" d="M78 106 Q114 104 108 70 Q104 56 94 62 Q100 84 76 94 Z" fill="#F08A3C"/><path d="M104 66 Q104 56 94 62 Q98 68 100 74 Z" fill="#FFF7EC"/>` +
+    `<g class="m-arm-l"><ellipse cx="42" cy="92" rx="7" ry="11" fill="#E0762B"/></g>` +
+    `<g class="m-arm-r"><ellipse cx="78" cy="92" rx="7" ry="11" fill="#E0762B"/><path d="M80 74 h10 v6 l5 14 h-20 l5 -14 z" fill="#BDE8FF" stroke="#2B2D42" stroke-width="1.6"/><rect x="77" y="86" width="16" height="7" fill="#72EFDD" opacity="0.9"/></g>` +
+    `<ellipse cx="60" cy="96" rx="22" ry="18" fill="#F08A3C"/><ellipse cx="60" cy="100" rx="12" ry="12" fill="#FFF7EC"/>` +
+    `<path d="M36 34 L32 6 L54 22 Z" fill="#F08A3C"/><path d="M84 34 L88 6 L66 22 Z" fill="#F08A3C"/><path d="M38 28 L36 14 L48 22 Z" fill="#2B2D42"/><path d="M82 28 L84 14 L72 22 Z" fill="#2B2D42"/>` +
+    `<path d="M32 40 Q34 18 60 18 Q86 18 88 40 Q86 62 60 74 Q34 62 32 40 Z" fill="#F08A3C"/>` +
+    `<path d="M40 50 Q60 46 80 50 Q74 66 60 72 Q46 66 40 50 Z" fill="#FFF7EC"/>` +
+    `<rect x="36" y="22" width="48" height="9" rx="4.5" fill="#577590"/><circle cx="48" cy="26" r="6" fill="#BDE8FF" stroke="#577590" stroke-width="2"/><circle cx="72" cy="26" r="6" fill="#BDE8FF" stroke="#577590" stroke-width="2"/>` +
+    eye(50, 42, 6.5, '#F08A3C') +
+    eye(70, 42, 6.5, '#F08A3C') +
+    `<ellipse cx="60" cy="56" rx="4.5" ry="3.4" fill="#2B2D42"/>` +
+    mouth(60, 62, 9),
+);
+
 export const MASCOT_IDS = Object.keys(MASCOTS);
 
 export function mascotSvg(id) {

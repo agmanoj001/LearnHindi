@@ -1,7 +1,7 @@
 // Validates content.json. Pure function: used by the app at startup and by tests.
 import { SKILLS } from './mathgen.js';
 import { PHONICS } from './phonicsgen.js';
-import { BEAT_KINDS, beatKind } from './logic.js';
+import { BEAT_KINDS, beatKind, tapTokens } from './logic.js';
 import { CAST, CAST_IDS, FACES, ARMS, PROPS, BACKGROUND_IDS } from './art-comic.js';
 
 export const COMIC_SERIES = ['mishti', 'dadi'];
@@ -29,7 +29,9 @@ export const GAME_TYPES = [
   'phonics',
   'sequence',
   'comic',
+  'grammar',
 ];
+export const GRAMMAR_KINDS = ['mcq', 'tap', 'sort'];
 export const OPPOSITE_KINDS = ['size', 'height', 'speed'];
 export const PAIR_KINDS = ['opposite', 'plural', 'female'];
 export const READ_MODES = ['find', 'match'];
@@ -578,6 +580,16 @@ export function validateContent(c, { knownPictures = null, pictureExists = null,
           const lv = cfg.levels || [w.level];
           if (lesson.game === 'sentence' && !(c.sentences || []).some((st) => lv.includes(st.level))) err(`${lat} (${lesson.id}): no sentences for levels ${lv.join(', ')}`);
           if (lesson.game === 'comic' && !(c.comics || []).some((cm) => cm.id === cfg.comic)) err(`${lat} (${lesson.id}).config.comic "${cfg.comic}" is not a comic id`);
+          if (lesson.game === 'grammar') {
+            const ids = cfg.topics ?? [cfg.topic];
+            if (!Array.isArray(ids) || !ids.length) err(`${lat} (${lesson.id}).config.topics must list grammar topic ids`);
+            else
+              for (const t of ids) {
+                if (!isObj(c.grammar?.[t])) err(`${lat} (${lesson.id}): "${t}" is not a grammar topic`);
+                else if (c.grammar[t].level !== w.level) warn(`${lat} (${lesson.id}): topic "${t}" is for ${c.grammar[t].level}, the world is ${w.level}`);
+              }
+            if (cfg.rounds !== undefined && !isPosInt(cfg.rounds)) err(`${lat} (${lesson.id}).config.rounds must be a whole number above 0`);
+          }
           if ((lesson.game === 'story' || lesson.game === 'sequence') && !cfg.story && !(c.stories || []).some((st) => lv.includes(st.level))) err(`${lat} (${lesson.id}): no stories for levels ${lv.join(', ')}`);
           if (['railway', 'trace'].includes(lesson.game) && !cfg.letters && !w.letterSets.length) err(`${lat} (${lesson.id}) needs letters`);
           if (['matra', 'read', 'construction'].includes(lesson.game) && cfg.focus) {
@@ -738,6 +750,83 @@ export function validateContent(c, { knownPictures = null, pictureExists = null,
           });
       });
     }
+  }
+
+  // Grammar (Grades 7 and 8; see README › Writing a grammar topic). [square brackets] mark what to highlight.
+  if (c.grammar !== undefined) {
+    if (!isObj(c.grammar)) err('grammar must be an object of topics');
+    else
+      for (const [id, t] of Object.entries(c.grammar)) {
+        const at = `grammar.${id}`;
+        if (!ID.test(id)) err(`${at}: id must be lowercase letters, numbers and -`);
+        if (!isObj(t)) {
+          err(`${at} must be an object`);
+          continue;
+        }
+        if (!levelIds.has(t.level)) err(`${at}: level "${t.level}" is not one of the levels`);
+        if (!hasText(t.title) || !DEVANAGARI.test(t.title.hi)) err(`${at}.title needs "hi" (Devanagari) and "en"`);
+        // text that is shown: a string with balanced [marks]
+        const text = (v, where, { hindi = true } = {}) => {
+          if (!isStr(v)) return err(`${where} must be text`);
+          if (hindi && !DEVANAGARI.test(v)) err(`${where} should be Hindi: "${v.slice(0, 30)}"`);
+          if (!/^[^[\]]*(\[[^[\]]+\][^[\]]*)*$/.test(v)) err(`${where}: unbalanced [ ] in "${v.slice(0, 40)}"`);
+        };
+        if (!Array.isArray(t.learn)) err(`${at}.learn must be a list of cards`);
+        else
+          t.learn.forEach((card, k) => {
+            const cat = `${at}.learn[${k}]`;
+            if (!isObj(card)) return err(`${cat} must be an object`);
+            text(card.title, `${cat}.title`);
+            if (card.text !== undefined) text(card.text, `${cat}.text`);
+            if (card.en !== undefined && !isStr(card.en)) err(`${cat}.en must be text`);
+            if (card.text === undefined && card.table === undefined && card.examples === undefined) err(`${cat} needs text, a table or examples`);
+            if (card.examples !== undefined) {
+              if (!Array.isArray(card.examples) || !card.examples.length) err(`${cat}.examples must be a list`);
+              else card.examples.forEach((x, j) => text(x, `${cat}.examples[${j}]`));
+            }
+            if (card.table !== undefined) {
+              const tb = card.table;
+              if (!isObj(tb) || !Array.isArray(tb.rows) || !tb.rows.length) return err(`${cat}.table needs rows`);
+              const width = tb.head ? tb.head.length : tb.rows[0]?.length;
+              if (tb.head !== undefined && (!Array.isArray(tb.head) || !tb.head.every((h) => typeof h === 'string'))) err(`${cat}.table.head must be a list of text (a corner cell may be empty)`);
+              tb.rows.forEach((row, j) => {
+                if (!Array.isArray(row) || !row.every(isStr)) return err(`${cat}.table.rows[${j}] must be a list of text`);
+                if (row.length !== width) err(`${cat}.table.rows[${j}] has ${row.length} cells, the table has ${width} columns`);
+                row.forEach((cell, n) => text(cell, `${cat}.table.rows[${j}][${n}]`, { hindi: false }));
+              });
+            }
+          });
+        if (!Array.isArray(t.practice) || t.practice.length < 6) {
+          err(`${at}.practice needs at least 6 questions`);
+          continue;
+        }
+        t.practice.forEach((q, k) => {
+          const qat = `${at}.practice[${k}]`;
+          if (!isObj(q)) return err(`${qat} must be an object`);
+          if (!GRAMMAR_KINDS.includes(q.kind)) return err(`${qat}.kind must be one of ${GRAMMAR_KINDS.join(', ')}`);
+          text(q.q, `${qat}.q`);
+          text(q.why, `${qat}.why (the "क्यों?" explanation)`);
+          if (q.kind === 'mcq') {
+            if (q.s !== undefined) text(q.s, `${qat}.s`);
+            if (!Array.isArray(q.options) || q.options.length < 2 || q.options.length > 4) return err(`${qat}.options needs 2 to 4 choices`);
+            q.options.forEach((o, j) => text(o, `${qat}.options[${j}]`, { hindi: false }));
+            if (new Set(q.options).size !== q.options.length) err(`${qat}: repeated option`);
+            if (!q.options.includes(q.answer)) err(`${qat}.answer must be one of its options`);
+          }
+          if (q.kind === 'tap') {
+            if (!isStr(q.s)) return err(`${qat}.s must be the sentence to tap in`);
+            if (/[[\]]/.test(q.s)) err(`${qat}.s: no [ ] marks in a tap sentence (it would give the answer away)`);
+            if (!tapTokens(q.s).some((w) => w.core === q.answer)) err(`${qat}.answer "${q.answer}" is not a word in "${q.s}"`);
+          }
+          if (q.kind === 'sort') {
+            if (!Array.isArray(q.bins) || q.bins.length < 2 || q.bins.length > 4 || !q.bins.every(isStr)) return err(`${qat}.bins needs 2 to 4 group names`);
+            if (new Set(q.bins).size !== q.bins.length) err(`${qat}: repeated group`);
+            if (!Array.isArray(q.items) || q.items.length < 3) return err(`${qat}.items needs at least 3 things to sort`);
+            q.items.forEach((x, j) => (!isStr(x?.text) || !q.bins.includes(x?.bin)) && err(`${qat}.items[${j}] needs "text" and a "bin" that is one of its groups`));
+            for (const b of q.bins) if (!q.items.some((x) => x?.bin === b)) warn(`${qat}: nothing goes in "${b}"`);
+          }
+        });
+      }
   }
 
   return { errors, warnings };

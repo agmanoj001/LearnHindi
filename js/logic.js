@@ -499,9 +499,25 @@ export function makePairRound(sets, kinds, rng = Math.random, count = 3) {
 // ---- Learning stats and adaptive practice ----
 
 // A stable key for anything a child answers: words, letters, matras (or barakhadi syllables), numbers.
+// Grammar text: "[मीरा] दिल्ली में रहती है।" marks the part a card or question highlights.
+export const markParts = (text) =>
+  String(text)
+    .split(/(\[[^\]]+\])/)
+    .filter(Boolean)
+    .map((p) => (p.startsWith('[') && p.endsWith(']') ? { mark: p.slice(1, -1) } : p));
+export const unmark = (text) => String(text).replace(/[[\]]/g, '');
+// A sentence as tappable words: punctuation stays with the word but doesn't count when matching.
+const WORD_EDGE = /^[“”"'‘’(]+|[।,!?;:“”"'‘’()]+$/g;
+export const tapTokens = (sentence) =>
+  String(sentence)
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((t) => ({ text: t, core: t.replace(WORD_EDGE, '') }));
+
 export function itemKey(item) {
   if (!item || typeof item !== 'object') return null;
   if (typeof item.skill === 'string') return `s:${item.skill}`;
+  if (typeof item.grammar === 'string') return `g:${item.grammar}`;
   if (typeof item.char === 'string') return `l:${item.id}`;
   if (item.matra && typeof item.text === 'string') return `m:${item.matra.id}`;
   if (typeof item.sign === 'string') return `m:${item.id}`;

@@ -158,6 +158,7 @@ export function showParent(api) {
     if (kind === 'w') return api.word(id) ? `${api.word(id).hi} · ${api.word(id).en}` : id;
     if (kind === 'l') return content.letterSets.flatMap((x) => x.letters).find((l) => l.id === id)?.char ?? id;
     if (kind === 's') return MATH_SKILLS[id] ? skillName(id) : phonicsName(id);
+    if (kind === 'g') return content.grammar?.[id] ? `${content.grammar[id].title.hi} · ${content.grammar[id].title.en}` : id;
     if (kind === 'm') {
       const m = content.matras.find((x) => x.id === id);
       return m ? `क${m.sign} (${m.vowel})` : id;
