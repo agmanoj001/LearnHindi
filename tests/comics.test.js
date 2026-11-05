@@ -14,20 +14,21 @@ const DEVANAGARI = /[ऀ-ॿ]/;
 const comics = content.comics;
 const textOf = (cm) => cm.panels.flatMap((p) => [p.cap || '', ...(p.say || []).map((b) => b.text)]).join(' ');
 
-// three series a grade, ten comics each
+// three series a grade: ten short comics each to start, and then the longer ones
 const GRADE_SERIES = { grade7: ['mishti', 'birbal', 'chippu'], grade8: ['dadi', 'betal', 'murari'] };
 // series whose comics stop for the reader's answer before the reveal
 const GUESS_SERIES = ['dadi', 'birbal', 'chippu', 'betal', 'murari'];
 // the world for each series
 const SERIES_WORLD = { mishti: 'mishti', dadi: 'jasoos', birbal: 'birbal', chippu: 'chippu', betal: 'betal', murari: 'murari' };
 
-test('thirty comics for each of Grade 7 and Grade 8, in three series of ten', () => {
+test('fifty comics for each of Grade 7 and Grade 8, in three series of sixteen or more', () => {
   for (const [level, series] of Object.entries(GRADE_SERIES)) {
     const list = comics.filter((c) => c.level === level);
-    assert.ok(list.length >= 30, `${level}: ${list.length}`);
+    assert.ok(list.length >= 50, `${level}: ${list.length}`);
     assert.deepEqual([...new Set(list.map((c) => c.series))].sort(), [...series].sort(), level);
-    for (const s of series) assert.ok(list.filter((c) => c.series === s).length >= 10, `${s}: ten comics`);
+    for (const s of series) assert.ok(list.filter((c) => c.series === s).length >= 16, `${s}: sixteen comics`);
   }
+  assert.equal(new Set(comics.map((c) => c.id)).size, comics.length, 'comic ids are unique');
   assert.deepEqual(Object.keys(SERIES).sort(), Object.values(GRADE_SERIES).flat().sort());
   for (const s of GUESS_SERIES) assert.ok(SERIES[s].guess?.badge && SERIES[s].guess.right, `${s} has words for its guess card`);
 });
@@ -50,17 +51,30 @@ test('the content checks catch mistakes in a comic', () => {
   for (const re of [/"nobody" is not in the cast/, /position "at" from 0 to 100/, /face "furious"/, /speaker "ghost"/, /bg "moon"/, /answer must be one of its options/, /guess.at/, /"no-such-comic" is not a comic id/]) assert.match(text, re);
 });
 
-test('a comic reads like a comic: 10–12 panels, Hindi text, nothing too long for a bubble', () => {
+test('a comic reads like a comic: 10–20 panels, Hindi text, nothing too long for a bubble', () => {
   for (const cm of comics) {
-    assert.ok(cm.panels.length >= 10 && cm.panels.length <= 12, `${cm.id}: ${cm.panels.length} panels`);
+    assert.ok(cm.panels.length >= 10 && cm.panels.length <= 20, `${cm.id}: ${cm.panels.length} panels`);
     assert.ok(DEVANAGARI.test(cm.title.hi) && cm.title.en, cm.id);
     for (const p of cm.panels) {
       assert.ok(p.cast.length <= 3, `${cm.id}: at most three characters in a panel`);
       for (const b of p.say || []) assert.ok(b.text.split(/\s+/).length <= 40, `${cm.id}: "${b.text.slice(0, 30)}…" is too long for a bubble`);
     }
     const words = textOf(cm).split(/\s+/).length;
-    assert.ok(words >= 150 && words <= 400, `${cm.id}: ${words} words`);
+    assert.ok(words >= 150 && words <= 900, `${cm.id}: ${words} words`);
   }
+});
+
+test('twenty longer comics a grade: 16 panels or more and at least 500 words', () => {
+  const long = (cm) => cm.panels.length >= 16 && textOf(cm).split(/\s+/).length >= 500;
+  for (const level of Object.keys(GRADE_SERIES)) {
+    const list = comics.filter((c) => c.level === level && long(c));
+    assert.ok(list.length >= 20, `${level}: ${list.length} long comics`);
+    for (const s of GRADE_SERIES[level]) assert.ok(list.some((c) => c.series === s), `${s} has long comics`);
+  }
+});
+
+test('every panel has something to read: a caption or a speech bubble', () => {
+  for (const cm of comics) for (const [i, p] of cm.panels.entries()) assert.ok(p.cap || p.say?.length, `${cm.id}: panel ${i + 1}`);
 });
 
 test('every glossary word appears in its comic (so it can be tapped for its meaning), with three questions each', () => {
@@ -84,6 +98,9 @@ test('every mystery, riddle and trick stops for the reader to answer before the 
     assert.ok(g, `${cm.id} has a guess`);
     assert.ok(g.options.includes(g.answer) && g.hint, cm.id);
     assert.ok(g.at >= 3 && g.at <= cm.panels.length - 2, `${cm.id}: the reveal starts at panel ${g.at}`);
+    // a word to tap before the guess, so the reader meets the glossary before answering
+    const before = cm.panels.slice(0, g.at).flatMap((p) => [p.cap || '', ...(p.say || []).map((b) => b.text)]).join(' ');
+    assert.ok(cm.words.some((w) => before.includes(w.hi)), `${cm.id}: a glossary word before the guess`);
   }
 });
 

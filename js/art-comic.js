@@ -13,7 +13,7 @@ const ln = (x1, y1, x2, y2, color = INK, w = 2.4) => `<line x1="${x1}" y1="${y1}
 const limb = (d, color, w = 9) => `<path d="${d}" fill="none" stroke="${INK}" stroke-width="${w + 4.4}" stroke-linecap="round" stroke-linejoin="round"/><path d="${d}" fill="none" stroke="${color}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round"/>`;
 
 export const FACES = ['smile', 'grin', 'laugh', 'shock', 'angry', 'sad', 'think', 'sly', 'worried', 'sleep', 'wink', 'chew'];
-export const PROPS = ['umbrella', 'magnifier', 'phone', 'book', 'stick', 'kite', 'bat', 'plate', 'lantern', 'rose', 'camera', 'bag', 'notebook', 'glass', 'laddoo', 'sword', 'scroll', 'diya', 'lemon', 'flask', 'pot', 'mango', 'coins'];
+export const PROPS = ['umbrella', 'magnifier', 'phone', 'book', 'stick', 'kite', 'bat', 'plate', 'lantern', 'rose', 'camera', 'bag', 'notebook', 'glass', 'laddoo', 'sword', 'scroll', 'diya', 'lemon', 'flask', 'pot', 'mango', 'coins', 'candle', 'trophy', 'mirror', 'apple'];
 export const ARMS = ['down', 'point', 'up', 'hips', 'chin', 'wave'];
 
 // ---------- people ----------
@@ -243,6 +243,14 @@ function prop(name, [x, y]) {
       return e(x + 1, y - 4, 7, 10, '#FBBF24', `stroke="${INK}" stroke-width="1.8"`) + p(`M${x + 2} ${y - 14} q6 -6 10 -2 q-5 4 -10 2 z`, '#22C55E', `stroke="${INK}" stroke-width="1.2"`);
     case 'coins':
       return [0, 1, 2].map((k) => e(x, y + 4 - k * 5, 10, 3.5, '#FBBF24', `stroke="${INK}" stroke-width="1.6"`)).join('');
+    case 'candle':
+      return r(x - 4, y - 20, 8, 22, '#FFFBEB', 2, `stroke="${INK}" stroke-width="1.6"`) + p(`M${x} ${y - 21} q4 -6 0 -12 q-4 6 0 12 z`, '#FBBF24', `stroke="#F97316" stroke-width="1.2"`);
+    case 'trophy':
+      return p(`M${x - 10} ${y - 24} H${x + 10} Q${x + 10} ${y - 8} ${x} ${y - 6} Q${x - 10} ${y - 8} ${x - 10} ${y - 24} Z`, '#FBBF24', `stroke="${INK}" stroke-width="1.8"`) + r(x - 2, y - 7, 4, 7, '#FBBF24', 0, `stroke="${INK}" stroke-width="1.4"`) + r(x - 8, y, 16, 5, '#B45309', 1, `stroke="${INK}" stroke-width="1.4"`);
+    case 'mirror':
+      return e(x, y - 14, 9, 12, '#BFE6FF', `stroke="#B45309" stroke-width="3"`) + ln(x, y - 2, x, y + 8, '#B45309', 3) + p(`M${x - 4} ${y - 20} q3 -3 6 -2`, 'none', `stroke="#fff" stroke-width="2" fill="none"`);
+    case 'apple':
+      return c(x, y - 5, 8, '#EF4444', `stroke="${INK}" stroke-width="1.8"`) + p(`M${x} ${y - 13} q2 -5 6 -6`, 'none', `stroke="#7C4A2A" stroke-width="2" fill="none"`) + e(x + 4, y - 15, 3, 1.6, '#22C55E', '');
     default:
       return '';
   }
@@ -563,6 +571,7 @@ export const CAST = {
   soldier: { pitch: 0.8, skin: SK.tan, hair: 'short', hairColor: '#111827', moustache: 'handlebar', hat: 'pagdi', hatColor: '#B91C1C', topKind: 'coat', top: '#7F1D1D', sleeves: 'long', lower: 'pajama', bottom: '#F1F5F9', hold: 'sword' },
   farmer: { pitch: 0.85, skin: SK.deep, hair: 'short', hairColor: '#111827', moustache: 'thick', hat: 'saffa', hatColor: '#FFFFFF', topKind: 'kurta', top: '#F8FAFC', sleeves: 'long', lower: 'dhoti', bottom: '#F8FAFC', shoes: '#8A5A44' },
   'boy-b': { pitch: 1.3, kid: true, skin: SK.deep, hair: 'curly', hairColor: '#111827', top: '#FBBF24', lower: 'shorts', bottom: '#166534' },
+  doctor: { pitch: 0.95, skin: SK.light, hair: 'short', hairColor: '#2B2D42', glasses: true, topKind: 'coat', top: '#F8FAFC', sleeves: 'long', lower: 'pants', bottom: '#475569', hold: 'notebook' },
   'girl-b': { pitch: 1.35, kid: true, skin: SK.mid, hair: 'braids', hairColor: '#111827', ribbon: '#3D7BFF', top: '#22C55E', lower: 'skirt', bottom: '#F97316' },
 };
 export const CAST_IDS = Object.keys(CAST);
@@ -609,6 +618,7 @@ const floor = (y, fill) => `<rect x="0" y="${y}" width="400" height="${300 - y}"
 const n = (x, y, w, h, fill, rx = 0) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${rx}" fill="${fill}"/>`;
 const sign = (x, y, w, text, bg = '#FFD43B', fg = '#7C2D12', size = 15) => n(x, y, w, 26, bg, 4) + `<text x="${x + w / 2}" y="${y + 18}" text-anchor="middle" font-family="'Baloo 2', sans-serif" font-weight="800" font-size="${size}" fill="${fg}">${text}</text>`;
 const windowFrame = (x, y, w, h, glass = '#BFE6FF') => n(x - 5, y - 5, w + 10, h + 10, '#8A5A44', 4) + n(x, y, w, h, glass, 2) + `<line x1="${x + w / 2}" y1="${y}" x2="${x + w / 2}" y2="${y + h}" stroke="#8A5A44" stroke-width="4"/><line x1="${x}" y1="${y + h / 2}" x2="${x + w}" y2="${y + h / 2}" stroke="#8A5A44" stroke-width="4"/>`;
+const cloudBg = (x, y) => `<g transform="translate(${x} ${y})"><ellipse cx="0" cy="8" rx="34" ry="12" fill="#fff" opacity="0.9"/><circle cx="-12" cy="0" r="14" fill="#fff" opacity="0.9"/><circle cx="10" cy="-4" r="17" fill="#fff" opacity="0.9"/></g>`;
 const tree = (x, y, s = 1) => `<g transform="translate(${x} ${y}) scale(${s})"><rect x="-6" y="0" width="12" height="60" fill="#8A5A44"/><circle cx="0" cy="-10" r="34" fill="#4CAF50"/><circle cx="-22" cy="8" r="22" fill="#43A047"/><circle cx="22" cy="6" r="24" fill="#66BB6A"/></g>`;
 const house = (x, w, h, col, roof = '#B45309') => n(x, 300 - 90 - h, w, h + 90, col) + n(x - 4, 300 - 96 - h, w + 8, 10, roof) + n(x + w * 0.2, 300 - 70 - h, w * 0.25, 30, '#BFE6FF', 3) + n(x + w * 0.58, 300 - 70 - h, w * 0.25, 30, '#BFE6FF', 3) + n(x + w * 0.1, 300 - 112, w * 0.8, 6, '#8A5A44') + [0, 1, 2, 3, 4].map((i) => n(x + w * 0.12 + i * w * 0.18, 300 - 112, 3, 18, '#8A5A44')).join('');
 
@@ -691,6 +701,32 @@ export const BACKGROUNDS = {
     n(40, 186, 150, 22, '#C9A27E', 3) + n(36, 182, 158, 8, '#A47148', 2) +
     sign(240, 60, 130, 'ग्राम पंचायत', '#fff', '#B45309', 15) + n(300, 86, 6, 110, '#8A5A44') + n(250, 86, 6, 110, '#8A5A44') +
     `<g transform="translate(350 200)"><rect x="-4" y="-50" width="10" height="50" fill="#475569"/><path d="M6 -46 l20 -10" stroke="#475569" stroke-width="5" stroke-linecap="round"/><path d="M-4 -40 h-14 v6 h14" fill="#475569"/></g>`,
+  // ---- longer comics ----
+  // an old hill fort: battlements, a big gate and a flag
+  fort: () =>
+    sky('#BDE3FF', '#FFF6E5') + `<path d="M0 200 Q120 150 240 180 T400 160 V300 H0 Z" fill="#B7C98A"/>` +
+    n(40, 70, 320, 150, '#C79A5B') + Array.from({ length: 11 }, (_, i) => n(40 + i * 30, 56, 18, 16, '#C79A5B')).join('') +
+    [60, 300].map((x) => n(x, 40, 50, 180, '#B8874A') + Array.from({ length: 3 }, (_, i) => n(x + i * 18, 28, 12, 14, '#B8874A')).join('')).join('') +
+    `<path d="M170 220 V140 Q200 104 230 140 V220 Z" fill="#5B3A1E"/><path d="M200 108 V128" stroke="#3F2A14" stroke-width="3"/>` +
+    [90, 140, 260, 310].map((x) => n(x, 110, 12, 22, '#6B4A2A', 6)).join('') +
+    `<line x1="85" y1="40" x2="85" y2="0" stroke="#3F2A14" stroke-width="3"/><path d="M87 2 h30 l-8 8 l8 8 h-30 z" fill="#FF9933"/>` + floor(220, '#D9C08F'),
+  // a library: tall shelves, a reading table and a quiet sign
+  library: () =>
+    plain('#F5EBDD') + floor(230, '#B08860') +
+    [10, 270].map((x) => n(x, 20, 120, 210, '#8A5A44') + [40, 90, 140, 190].map((y) => n(x + 6, y - 36, 108, 36, '#F5EBDD') + Array.from({ length: 9 }, (_, k) => n(x + 8 + k * 12, y - 34 + (k % 3) * 3, 10, 34 - (k % 3) * 3, ['#E76F51', '#2A9D8F', '#577590', '#F4A261', '#9D4EDD'][k % 5])).join('') + n(x, y, 120, 6, '#6D4C41')).join('')).join('') +
+    sign(150, 30, 100, 'शांति रखें', '#fff', '#7C2D12', 14) + n(140, 170, 120, 14, '#8A5A44', 3) + n(150, 184, 8, 46, '#6D4C41') + n(242, 184, 8, 46, '#6D4C41') + n(176, 150, 26, 20, '#FDE68A', 2),
+  // a hill station: pine-covered hills, a winding road, clouds below the peaks
+  hills: () =>
+    sky('#A7D8FF', '#EAF6FF') + `<path d="M0 170 L80 70 L150 150 L230 50 L320 140 L400 90 V300 H0 Z" fill="#7BA387"/><path d="M200 74 L230 50 L262 82 L246 78 L230 90 L214 78 Z" fill="#fff"/>` +
+    `<path d="M0 210 Q100 170 200 200 T400 190 V300 H0 Z" fill="#4E8B5F"/>` +
+    Array.from({ length: 9 }, (_, i) => `<path d="M${20 + i * 45} ${230 - (i % 2) * 14} l12 -34 l12 34 z" fill="#2F6B45"/>`).join('') +
+    `<path d="M150 300 Q190 260 170 230 Q150 210 210 200" fill="none" stroke="#C9B48A" stroke-width="16"/>` + cloudBg(60, 120) + cloudBg(320, 100),
+  // a clinic: a bed, a curtain, a chart and a cross
+  clinic: () =>
+    plain('#EAF6F4') + floor(230, '#BFD7D2') + n(30, 30, 80, 60, '#fff', 4) + `<path d="M62 44 h16 v12 h12 v16 h-12 v12 h-16 v-12 h-12 v-16 h12 z" fill="#E63946"/>` +
+    n(150, 20, 10, 200, '#A3C4BC') + `<path d="M160 30 Q190 120 160 210 H230 Q210 120 230 30 Z" fill="#CDE7E1"/>` +
+    n(250, 150, 140, 30, '#fff', 6) + n(250, 140, 40, 16, '#DCEFF5', 6) + n(254, 180, 8, 50, '#94A3B8') + n(378, 180, 8, 50, '#94A3B8') +
+    n(300, 40, 60, 74, '#fff', 3) + [54, 66, 78, 90].map((y) => ln(308, y, 352, y, '#94A3B8', 2)).join(''),
   stage: () => plain('#3B0764') + `<path d="M0 0 H400 V30 Q300 60 200 30 Q100 60 0 30 Z" fill="#B91C1C"/>` + n(0, 0, 40, 300, '#991B1B') + n(360, 0, 40, 300, '#991B1B') + `<path d="M120 0 L80 230 H320 L280 0 Z" fill="#FDE68A" opacity="0.18"/>` + floor(225, '#92400E'),
 };
 export const BACKGROUND_IDS = Object.keys(BACKGROUNDS);
