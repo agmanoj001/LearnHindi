@@ -14,14 +14,22 @@ const DEVANAGARI = /[ऀ-ॿ]/;
 const comics = content.comics;
 const textOf = (cm) => cm.panels.flatMap((p) => [p.cap || '', ...(p.say || []).map((b) => b.text)]).join(' ');
 
-test('at least ten comics for each of Grade 7 and Grade 8, one series each', () => {
-  const g7 = comics.filter((c) => c.level === 'grade7');
-  const g8 = comics.filter((c) => c.level === 'grade8');
-  assert.ok(g7.length >= 10, `Grade 7: ${g7.length}`);
-  assert.ok(g8.length >= 10, `Grade 8: ${g8.length}`);
-  assert.ok(g7.every((c) => c.series === 'mishti'));
-  assert.ok(g8.every((c) => c.series === 'dadi'));
-  assert.deepEqual(Object.keys(SERIES), ['mishti', 'dadi']);
+// three series a grade, ten comics each
+const GRADE_SERIES = { grade7: ['mishti', 'birbal', 'chippu'], grade8: ['dadi', 'betal', 'murari'] };
+// series whose comics stop for the reader's answer before the reveal
+const GUESS_SERIES = ['dadi', 'birbal', 'chippu', 'betal', 'murari'];
+// the world for each series
+const SERIES_WORLD = { mishti: 'mishti', dadi: 'jasoos', birbal: 'birbal', chippu: 'chippu', betal: 'betal', murari: 'murari' };
+
+test('thirty comics for each of Grade 7 and Grade 8, in three series of ten', () => {
+  for (const [level, series] of Object.entries(GRADE_SERIES)) {
+    const list = comics.filter((c) => c.level === level);
+    assert.ok(list.length >= 30, `${level}: ${list.length}`);
+    assert.deepEqual([...new Set(list.map((c) => c.series))].sort(), [...series].sort(), level);
+    for (const s of series) assert.ok(list.filter((c) => c.series === s).length >= 10, `${s}: ten comics`);
+  }
+  assert.deepEqual(Object.keys(SERIES).sort(), Object.values(GRADE_SERIES).flat().sort());
+  for (const s of GUESS_SERIES) assert.ok(SERIES[s].guess?.badge && SERIES[s].guess.right, `${s} has words for its guess card`);
 });
 
 test('comics pass every content check, with guides and scenes checked too', () => {
@@ -70,8 +78,8 @@ test('every glossary word appears in its comic (so it can be tapped for its mean
   }
 });
 
-test('every mystery stops to let the reader name the culprit before the reveal', () => {
-  for (const cm of comics.filter((c) => c.series === 'dadi')) {
+test('every mystery, riddle and trick stops for the reader to answer before the reveal', () => {
+  for (const cm of comics.filter((c) => GUESS_SERIES.includes(c.series))) {
     const g = cm.guess;
     assert.ok(g, `${cm.id} has a guess`);
     assert.ok(g.options.includes(g.answer) && g.hint, cm.id);
@@ -112,17 +120,16 @@ test('word meanings are marked once each, without changing the text', () => {
   assert.deepEqual(glossSplit('सबूत', words, used), ['सबूत'], 'only the first time in a comic');
 });
 
-test('two comic worlds, one per grade, open every comic and an idiom quiz', () => {
-  for (const [id, level, n] of [
-    ['mishti', 'grade7', 10],
-    ['jasoos', 'grade8', 10],
-  ]) {
+test('a comic world for each series opens every comic of the series and an idiom quiz', () => {
+  for (const [series, id] of Object.entries(SERIES_WORLD)) {
     const w = content.worlds.find((x) => x.id === id);
-    assert.equal(w.level, level);
+    const mine = comics.filter((c) => c.series === series);
+    const n = mine.length;
+    assert.equal(w.level, mine[0].level);
     const lessons = C.worldLessons(w);
     const linked = lessons.filter((l) => l.game === 'comic').map((l) => l.config.comic);
     assert.equal(linked.length, n);
-    assert.deepEqual(new Set(linked), new Set(comics.filter((c) => c.level === level).map((c) => c.id)));
+    assert.deepEqual(new Set(linked), new Set(mine.map((c) => c.id)));
     const quiz = lessons.find((l) => l.game === 'quiz');
     const bank = content.quizzes[quiz.config.bank];
     assert.ok(bank.questions.length >= 10, `${id}: ${bank.questions.length} idiom questions`);
@@ -137,6 +144,6 @@ test('two comic worlds, one per grade, open every comic and an idiom quiz', () =
 });
 
 test('the idiom quizzes never give the answer away in the English line', () => {
-  for (const id of ['g7-idioms', 'g8-idioms'])
+  for (const id of ['g7-idioms', 'g8-idioms', 'b-idioms', 'ch-idioms', 'bt-idioms', 'mu-idioms'])
     for (const q of content.quizzes[id].questions) assert.ok(!q.en.includes('('), `${id}: ${q.en}`);
 });

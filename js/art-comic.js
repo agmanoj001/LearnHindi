@@ -13,7 +13,7 @@ const ln = (x1, y1, x2, y2, color = INK, w = 2.4) => `<line x1="${x1}" y1="${y1}
 const limb = (d, color, w = 9) => `<path d="${d}" fill="none" stroke="${INK}" stroke-width="${w + 4.4}" stroke-linecap="round" stroke-linejoin="round"/><path d="${d}" fill="none" stroke="${color}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round"/>`;
 
 export const FACES = ['smile', 'grin', 'laugh', 'shock', 'angry', 'sad', 'think', 'sly', 'worried', 'sleep', 'wink', 'chew'];
-export const PROPS = ['umbrella', 'magnifier', 'phone', 'book', 'stick', 'kite', 'bat', 'plate', 'lantern', 'rose', 'camera', 'bag', 'notebook', 'glass', 'laddoo'];
+export const PROPS = ['umbrella', 'magnifier', 'phone', 'book', 'stick', 'kite', 'bat', 'plate', 'lantern', 'rose', 'camera', 'bag', 'notebook', 'glass', 'laddoo', 'sword', 'scroll', 'diya', 'lemon', 'flask', 'pot', 'mango', 'coins'];
 export const ARMS = ['down', 'point', 'up', 'hips', 'chin', 'wave'];
 
 // ---------- people ----------
@@ -130,6 +130,39 @@ function hat(o, hx, hy, hr) {
       return p(`M${hx - hr - 2} ${hy - 6} Q${hx - hr} ${hy - hr - 12} ${hx} ${hy - hr - 12} Q${hx + hr} ${hy - hr - 12} ${hx + hr + 2} ${hy - 6} Q${hx} ${hy - 12} ${hx - hr - 2} ${hy - 6} Z`, o.hatColor || '#FF9F1C') + p(`M${hx + hr - 2} ${hy - 10} q10 4 6 18`, 'none', `stroke="${o.hatColor || '#FF9F1C'}" stroke-width="5" stroke-linecap="round"`);
     case 'chef':
       return r(hx - 14, hy - hr - 16, 28, 14, '#fff', 4) + c(hx - 9, hy - hr - 18, 8, '#fff') + c(hx + 2, hy - hr - 22, 9, '#fff') + c(hx + 11, hy - hr - 17, 7, '#fff');
+    // a royal turban with a jewel and a plume
+    case 'mughal': {
+      const col = o.hatColor || '#FFF3B0';
+      return (
+        p(`M${hx - hr - 3} ${hy - 4} Q${hx - hr - 7} ${hy - hr - 16} ${hx} ${hy - hr - 17} Q${hx + hr + 7} ${hy - hr - 16} ${hx + hr + 3} ${hy - 4} Q${hx} ${hy - 13} ${hx - hr - 3} ${hy - 4} Z`, col) +
+        `<path d="M${hx - hr - 1} ${hy - 12} Q${hx} ${hy - 26} ${hx + hr + 1} ${hy - 12} M${hx - hr + 2} ${hy - 22} Q${hx} ${hy - 36} ${hx + hr - 2} ${hy - 22}" fill="none" stroke="rgba(43,45,66,0.35)" stroke-width="2"/>` +
+        p(`M${hx + 1} ${hy - hr - 8} q7 -20 -1 -32 q12 10 7 32 z`, '#fff', `stroke="${INK}" stroke-width="1.8"`) +
+        c(hx + 1, hy - hr - 6, 5, '#E63946', `stroke="${INK}" stroke-width="1.8"`) +
+        c(hx + 1, hy - hr - 6, 1.8, '#fff', '')
+      );
+    }
+    // a wrapped turban with folds
+    case 'pagdi': {
+      const col = o.hatColor || '#F97316';
+      return (
+        p(`M${hx - hr - 2} ${hy - 4} Q${hx - hr - 5} ${hy - hr - 12} ${hx} ${hy - hr - 13} Q${hx + hr + 5} ${hy - hr - 12} ${hx + hr + 2} ${hy - 4} Q${hx} ${hy - 12} ${hx - hr - 2} ${hy - 4} Z`, col) +
+        `<path d="M${hx - hr} ${hy - 10} L${hx + 8} ${hy - hr - 10} M${hx - hr + 6} ${hy - 4} L${hx + hr - 2} ${hy - hr - 4}" fill="none" stroke="rgba(43,45,66,0.35)" stroke-width="2.4"/>` +
+        c(hx - 2, hy - hr - 4, 3.4, '#FFD43B', `stroke="${INK}" stroke-width="1.6"`)
+      );
+    }
+    case 'crown':
+    case 'tiara': {
+      const t = o.hat === 'tiara' ? 0.55 : 1;
+      const top = hy - hr - 2 - 14 * t;
+      return (
+        p(`M${hx - hr + 3} ${hy - 12} L${hx - hr + 1} ${top + 4} L${hx - 11} ${top + 12 * t} L${hx - 5} ${top - 4 * t} L${hx} ${top + 10 * t} L${hx + 5} ${top - 4 * t} L${hx + 11} ${top + 12 * t} L${hx + hr - 1} ${top + 4} L${hx + hr - 3} ${hy - 12} Q${hx} ${hy - 18} ${hx - hr + 3} ${hy - 12} Z`, '#FBBF24') +
+        c(hx, hy - 15, 3.2, '#E63946', `stroke="${INK}" stroke-width="1.4"`) +
+        c(hx - 12, hy - 14, 2.4, '#3D7BFF', '') +
+        c(hx + 12, hy - 14, 2.4, '#2EC27E', '')
+      );
+    }
+    case 'tophat':
+      return r(hx - hr - 6, hy - 14, hr * 2 + 12, 7, '#1F2340', 3) + r(hx - 15, hy - hr - 30, 30, hr + 18, '#1F2340', 3) + r(hx - 15, hy - 22, 30, 6, o.hatColor || '#E63946', 0, '');
     default:
       return '';
   }
@@ -194,6 +227,22 @@ function prop(name, [x, y]) {
       return p(`M${x - 6} ${y - 12} H${x + 6} L${x + 4} ${y + 6} H${x - 4} Z`, '#FFFFFF') + r(x - 5, y - 4, 10, 8, '#F1F5F9', 1, '');
     case 'laddoo':
       return c(x, y - 4, 7, '#FFB703');
+    case 'sword':
+      return p(`M${x - 2.5} ${y - 6} L${x - 2.5} ${y - 52} L${x} ${y - 60} L${x + 2.5} ${y - 52} L${x + 2.5} ${y - 6} Z`, '#E5E7EB', `stroke="${INK}" stroke-width="1.8"`) + r(x - 9, y - 8, 18, 5, '#FBBF24', 2, `stroke="${INK}" stroke-width="1.6"`) + r(x - 2.5, y - 3, 5, 10, '#7C2D12', 1, `stroke="${INK}" stroke-width="1.4"`);
+    case 'scroll':
+      return r(x - 11, y - 14, 22, 26, '#FFF3C4', 2, `stroke="${INK}" stroke-width="1.8"`) + e(x, y - 14, 13, 3.5, '#E9C46A', `stroke="${INK}" stroke-width="1.6"`) + e(x, y + 12, 13, 3.5, '#E9C46A', `stroke="${INK}" stroke-width="1.6"`) + ln(x - 6, y - 5, x + 6, y - 5, '#9AA3B5', 1.4) + ln(x - 6, y + 1, x + 5, y + 1, '#9AA3B5', 1.4);
+    case 'diya':
+      return p(`M${x - 13} ${y - 4} Q${x} ${y + 12} ${x + 13} ${y - 4} Z`, '#C2410C', `stroke="${INK}" stroke-width="1.8"`) + p(`M${x + 4} ${y - 5} q3 -8 0 -15 q-6 7 0 15 z`, '#FBBF24', `stroke="#F97316" stroke-width="1.2"`);
+    case 'lemon':
+      return c(x, y - 4, 8, '#FDE047', `stroke="${INK}" stroke-width="1.8"`) + c(x, y - 4, 5, '#FEF9C3', '') + ln(x - 4, y - 4, x + 4, y - 4, '#EAB308', 1.2) + ln(x, y - 8, x, y, '#EAB308', 1.2);
+    case 'flask':
+      return p(`M${x - 4} ${y - 22} V${y - 10} L${x - 13} ${y + 6} H${x + 13} L${x + 4} ${y - 10} V${y - 22} Z`, '#E0F2FE', `stroke="${INK}" stroke-width="1.8"`) + p(`M${x - 9} ${y - 1} L${x - 12} ${y + 5} H${x + 12} L${x + 9} ${y - 1} Z`, '#F472B6', '');
+    case 'pot':
+      return c(x, y, 13, '#C2410C', `stroke="${INK}" stroke-width="1.8"`) + r(x - 7, y - 18, 14, 7, '#C2410C', 2, `stroke="${INK}" stroke-width="1.6"`) + ln(x - 10, y - 3, x + 10, y - 3, '#FDBA74', 2);
+    case 'mango':
+      return e(x + 1, y - 4, 7, 10, '#FBBF24', `stroke="${INK}" stroke-width="1.8"`) + p(`M${x + 2} ${y - 14} q6 -6 10 -2 q-5 4 -10 2 z`, '#22C55E', `stroke="${INK}" stroke-width="1.2"`);
+    case 'coins':
+      return [0, 1, 2].map((k) => e(x, y + 4 - k * 5, 10, 3.5, '#FBBF24', `stroke="${INK}" stroke-width="1.6"`)).join('');
     default:
       return '';
   }
@@ -217,8 +266,9 @@ function figure(o, { face: f = 'smile', arms = 'down' } = {}) {
   const sleeve = o.sleeves === 'long' ? top : o.sleeves === 'none' ? skin : top;
   let s = '';
 
-  // ---- behind: hair, umbrella held behind
+  // ---- behind: hair, a royal or magician's cape
   s += hairBack(o, hx, hy, hr);
+  if (o.cape) s += p(`M${hx - shW - 2} ${shY + 2} L${hx - shW - 18} 184 Q${hx} 190 ${hx + shW + 18} 184 L${hx + shW + 2} ${shY + 2} Z`, o.cape);
 
   // ---- legs and lower clothes
   const legL = `M${hx - 10} ${waist} V188`;
@@ -289,6 +339,7 @@ function figure(o, { face: f = 'smile', arms = 'down' } = {}) {
   if (o.pallu) s += p(`M${hx - shW} ${shY + 2} L${hx - shW + 10} ${shY - 2} L${hx + shW + 4} ${waist - 4} L${hx + shW - 6} ${waist + 6} Z`, o.pallu);
   if (o.shawl) s += p(`M${hx - shW - 3} ${shY + 2} Q${hx} ${shY + 18} ${hx + shW + 3} ${shY + 2} L${hx + shW + 6} ${shY + 34} Q${hx} ${shY + 44} ${hx - shW - 6} ${shY + 34} Z`, o.shawl);
   if (o.medal) s += c(hx - 9, shY + 16, 4, '#FFD43B') + r(hx - 11, shY + 6, 4, 6, '#E63946', 0, '');
+  if (o.pearls) s += Array.from({ length: 9 }, (_, i) => { const a = Math.PI * (i / 8); return c((hx - 13 * Math.cos(a)).toFixed(1), (shY + 3 + 11 * Math.sin(a)).toFixed(1), 2.4, '#FFFBEB', `stroke="${INK}" stroke-width="1"`); }).join('');
   if (o.camera) s += `<path d="M${hx - 12} ${shY - 2} L${hx} ${shY + 20} L${hx + 12} ${shY - 2}" fill="none" stroke="${INK}" stroke-width="1.8"/>` + prop('camera', [hx, shY + 26]);
   s += arm([sh[1], sh[2]], pts[1], 'r');
 
@@ -365,6 +416,83 @@ function cat({ face: f = 'smile' } = {}) {
   return s;
 }
 
+// Chippu, Kavya's home-made robot: a screen for a face, an antenna and very literal ideas
+const LED = '#5EEAD4';
+function screenFace(f) {
+  const st = `fill="none" stroke="${LED}" stroke-width="3" stroke-linecap="round"`;
+  const eye = (x) => {
+    if (f === 'laugh' || f === 'grin') return `<path d="M${x - 5} 76 q5 -7 10 0" ${st}/>`;
+    if (f === 'sleep') return `<path d="M${x - 5} 75 h10" ${st}/>`;
+    if (f === 'wink' && x > 60) return `<path d="M${x - 5} 75 h10" ${st}/>`;
+    if (f === 'shock') return `<circle cx="${x}" cy="74" r="5.5" ${st}/>`;
+    return `<rect x="${x - 3}" y="69" width="6" height="10" rx="3" fill="${LED}"/>`;
+  };
+  let m = `<path d="M52 84 q8 6 16 0" ${st}/>`;
+  if (f === 'grin' || f === 'laugh') m = `<path d="M50 83 q10 10 20 0 z" fill="${LED}"/>`;
+  if (f === 'shock') m = `<circle cx="60" cy="86" r="3.5" ${st}/>`;
+  if (f === 'sad' || f === 'worried') m = `<path d="M52 88 q8 -6 16 0" ${st}/>`;
+  if (f === 'angry') m = `<path d="M52 87 h16" ${st}/>`;
+  if (f === 'think') m = `<path d="M54 86 h8" ${st}/><text x="74" y="70" font-size="12" font-weight="800" fill="${LED}">?</text>`;
+  if (f === 'chew') m = `<path d="M50 86 q3 -4 6 0 q3 4 6 0 q3 -4 6 0" ${st}/>`;
+  if (f === 'sly') m = `<path d="M52 86 q9 3 16 -3" ${st}/>`;
+  let brows = '';
+  if (f === 'angry') brows = `<path d="M44 66 l10 3 M76 66 l-10 3" ${st}/>`;
+  if (f === 'worried' || f === 'sad') brows = `<path d="M45 68 l9 -3 M75 68 l-9 -3" ${st}/>`;
+  return brows + eye(48) + eye(72) + m + (f === 'sleep' ? `<text x="78" y="64" font-size="11" font-weight="800" fill="${LED}">z</text>` : '');
+}
+function robot({ face: f = 'smile', arms = 'down', hold } = {}) {
+  let s = `<ellipse cx="60" cy="194" rx="30" ry="4" fill="#1E1B4B" opacity="0.12"/>`;
+  // legs and feet
+  s += limb('M48 168 V184', '#94A3B8', 8) + limb('M72 168 V184', '#94A3B8', 8) + r(36, 183, 22, 10, '#475569', 5) + r(62, 183, 22, 10, '#475569', 5);
+  // arms
+  const hands = {
+    down: [[22, 162], [98, 162]],
+    point: [[22, 162], [114, 108]],
+    up: [[16, 84], [104, 84]],
+    hips: [[34, 150], [86, 150]],
+    chin: [[22, 162], [70, 102]],
+    wave: [[22, 162], [106, 86]],
+  }[arms] || [[22, 162], [98, 162]];
+  const arm = ([sx, sy], [hx2, hy2]) => limb(`M${sx} ${sy} Q${(sx + hx2) / 2 + (hx2 < 60 ? -10 : 10)} ${(sy + hy2) / 2} ${hx2} ${hy2}`, '#94A3B8', 7) + c(hx2, hy2, 6.5, '#64748B');
+  s += arm([34, 124], hands[0]);
+  // body
+  s += r(32, 108, 56, 64, '#38BDF8', 14) + r(42, 120, 36, 30, '#E0F2FE', 6) + `<path d="M46 136 l6 -6 l6 10 l6 -14 l6 10 l4 0" fill="none" stroke="#E63946" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>` + c(48, 160, 3.4, '#FBBF24') + c(60, 160, 3.4, '#22C55E') + c(72, 160, 3.4, '#E63946');
+  s += arm([86, 124], hands[1]);
+  if (hold) s += prop(hold, hands[1]);
+  // neck, head, antenna
+  s += r(52, 98, 16, 12, '#94A3B8', 3) + ln(60, 50, 60, 34, INK, 3) + c(60, 31, 5, '#E63946');
+  s += c(26, 76, 6, '#94A3B8') + c(94, 76, 6, '#94A3B8');
+  s += r(28, 50, 64, 52, '#E2E8F0', 14) + r(36, 58, 48, 36, '#1E293B', 9);
+  s += screenFace(f);
+  return s;
+}
+
+// Betal, the riddling spirit of the old peepal tree: wild white hair, glowing eyes, and no feet at all
+function ghost({ face: f = 'smile', arms = 'down', hold } = {}) {
+  const skin = '#CBD5E1';
+  let s = `<ellipse cx="60" cy="194" rx="22" ry="3.5" fill="#1E1B4B" opacity="0.1"/>`;
+  // a wispy tail instead of legs
+  s += p('M38 104 Q28 140 40 166 Q48 186 64 182 Q76 179 70 168 Q86 174 92 156 Q100 128 82 104 Z', '#E2E8F0');
+  s += `<path d="M46 150 q8 10 18 4 M54 168 q6 4 12 0" fill="none" stroke="#94A3B8" stroke-width="2" stroke-linecap="round"/>`;
+  const pts = armPoints(arms, [40, 80, 106], false);
+  const arm = ([sx, sy], [[ex, ey], [hx2, hy2]], right) => limb(`M${sx} ${sy} L${ex} ${ey} L${hx2} ${Math.min(hy2, 150)}`, skin, 6.5) + c(hx2, Math.min(hy2, 150), 4.5, skin) + (right && hold ? prop(hold, [hx2, Math.min(hy2, 150)]) : '');
+  s += arm([40, 108], pts[0], false);
+  // body: a ragged shroud
+  s += p('M38 98 Q60 90 82 98 L86 132 L78 126 L72 136 L64 128 L56 138 L48 128 L40 134 Z', '#F1F5F9');
+  s += arm([80, 108], pts[1], true);
+  // flame-like white hair behind the head
+  s += p('M30 62 Q14 30 40 28 Q34 8 56 16 Q62 0 74 14 Q92 6 88 30 Q108 34 92 64 Q98 46 82 40 Q60 30 38 40 Q24 46 30 62 Z', '#F8FAFC');
+  // pointy ears and the head
+  s += p('M34 56 L22 44 L36 66 Z', skin) + p('M86 56 L98 44 L84 66 Z', skin);
+  s += r(54, 86, 12, 12, skin, 3);
+  s += c(60, 60, 26, skin);
+  // glowing eyes behind the usual face
+  s += c(51, 61, 7.5, '#FDE68A', '') + c(69, 61, 7.5, '#FDE68A', '');
+  s += face(60, 60, f, { kid: false });
+  s += `<path d="M53 77 l2 4 l2 -4 M63 77 l2 4 l2 -4" fill="#fff" stroke="${INK}" stroke-width="1.2" stroke-linejoin="round"/>`;
+  return s;
+}
+
 // ---------- the cast ----------
 // Mishti series (Grade 7) and Jasoos Dadi series (Grade 8), plus a few look-presets for one-off parts.
 const SK = { light: '#F2C29A', mid: '#E0A774', tan: '#C98D5A', deep: '#9C6644' };
@@ -404,15 +532,48 @@ export const CAST = {
   'boy-a': { pitch: 1.35, kid: true, skin: SK.mid, hair: 'short', hairColor: '#111827', top: '#22C55E', lower: 'shorts', bottom: '#1F2937' },
   'girl-a': { pitch: 1.4, kid: true, skin: SK.tan, hair: 'ponytail', hairColor: '#111827', band: '#22C55E', top: '#F472B6', lower: 'frock' },
   sadhu: { pitch: 0.9, skin: SK.mid, hair: 'long', hairColor: '#4B5563', beard: 'white', tilak: true, topKind: 'kurta', top: '#F97316', sleeves: 'long', lower: 'dhoti', bottom: '#F97316', shoes: '#111827' },
+
+  // ---- बीरबल की बुद्धि (Grade 7): Akbar–Birbal tales, retold from folk tradition ----
+  akbar: { name: { hi: 'बादशाह अकबर', en: 'Emperor Akbar' }, pitch: 0.8, skin: SK.light, hair: 'neat', hairColor: '#2B2D42', moustache: 'thick', hat: 'mughal', hatColor: '#FFF3B0', topKind: 'coat', top: '#7C3AED', sleeves: 'long', lower: 'pajama', bottom: '#FDE68A', pearls: true, shoes: '#B45309' },
+  birbal: { name: { hi: 'बीरबल', en: 'Birbal' }, pitch: 1.0, skin: SK.mid, hair: 'neat', hairColor: '#2B2D42', moustache: 'thin', tilak: true, hat: 'pagdi', hatColor: '#F97316', topKind: 'coat', top: '#FDE68A', sleeves: 'long', lower: 'pajama', bottom: '#FFFFFF', shoes: '#B45309' },
+  chugal: { name: { hi: 'दरबारी चुगलचंद', en: 'Chugalchand, a jealous courtier' }, pitch: 0.9, build: 'round', skin: SK.tan, hair: 'bald', hairColor: '#2B2D42', moustache: 'handlebar', hat: 'pagdi', hatColor: '#16A34A', topKind: 'coat', top: '#0EA5E9', sleeves: 'long', lower: 'pajama', bottom: '#E5E7EB', shoes: '#7C2D12' },
+
+  // ---- चिप्पू रोबो (Grade 7): Kavya's robot takes every idiom literally ----
+  kavya: { name: { hi: 'काव्या', en: 'Kavya' }, pitch: 1.35, kid: true, skin: SK.tan, hair: 'curly', hairColor: '#2B2D42', top: '#14B8A6', emblem: 'stripe', lower: 'pants', bottom: '#6366F1', shoes: '#F59E0B' },
+  chippu: { name: { hi: 'चिप्पू', en: 'Chippu the robot' }, pitch: 1.6, animal: 'robot' },
+  nani: { name: { hi: 'नानी', en: "Kavya's grandmother" }, pitch: 1.0, skin: SK.mid, hair: 'bun', hairColor: '#F1F1EE', earrings: true, bindi: true, topKind: 'blouse', top: '#F472B6', lower: 'sari', bottom: '#FBCFE8', pallu: '#EC4899', border: '#FBBF24', shoes: '#8A5A44' },
+  montu: { name: { hi: 'मोंटू', en: "Montu, Kavya's little brother" }, pitch: 1.55, kid: true, skin: SK.tan, hair: 'spiky', hairColor: '#2B2D42', top: '#EF4444', lower: 'shorts', bottom: '#1D4ED8', shoes: '#F8FAFC' },
+  chameli: { name: { hi: 'चमेली आंटी', en: 'Chameli Aunty next door' }, pitch: 1.15, skin: SK.light, hair: 'bun', hairColor: '#3B2F2F', bindi: true, earrings: true, topKind: 'kurta', top: '#FACC15', sleeves: 'long', lower: 'pants', bottom: '#FEF08A', hold: 'phone', shoes: '#BE185D' },
+
+  // ---- विक्रम और बेताल (Grade 8): riddle tales, retold from the Baital Pachisi tradition ----
+  vikram: { name: { hi: 'राजा विक्रम', en: 'King Vikram' }, pitch: 0.85, skin: SK.mid, hair: 'neat', hairColor: '#2B2D42', moustache: 'thick', hat: 'crown', cape: '#B91C1C', topKind: 'coat', top: '#FBBF24', sleeves: 'long', lower: 'dhoti', bottom: '#FEF3C7', pearls: true, hold: 'sword', shoes: '#7C2D12' },
+  betal: { name: { hi: 'बेताल', en: 'Betal' }, pitch: 0.7, animal: 'ghost' },
+
+  // ---- मास्टर मुरारी (Grade 8): a retired science teacher against fake miracles ----
+  murari: { name: { hi: 'मास्टर मुरारी', en: 'Master Murari' }, pitch: 0.85, skin: SK.mid, hair: 'crew', hairColor: '#D1D5DB', glasses: true, moustache: 'thick', moColor: '#D1D5DB', topKind: 'coat', top: '#0F766E', sleeves: 'long', lower: 'pajama', bottom: '#F8FAFC', hold: 'flask', shoes: '#7C2D12' },
+  golu: { name: { hi: 'गोलू', en: 'Golu' }, pitch: 1.4, kid: true, skin: SK.mid, hair: 'short', hairColor: '#2B2D42', hat: 'cap', hatColor: '#F97316', top: '#3B82F6', emblem: 'stripe', lower: 'shorts', bottom: '#475569', shoes: '#E63946' },
+  thagraj: { name: { hi: 'जादूगर ठगराज', en: 'Thagraj the fake magician' }, pitch: 0.95, skin: SK.light, hair: 'neat', hairColor: '#111827', moustache: 'handlebar', hat: 'tophat', hatColor: '#FBBF24', cape: '#4C1D95', topKind: 'coat', top: '#7C3AED', sleeves: 'long', lower: 'pants', bottom: '#1F2937', shoes: '#111827' },
+
+  // more look-presets for one-off parts in the new series
+  courtier: { pitch: 0.9, skin: SK.light, hair: 'neat', hairColor: '#2B2D42', moustache: 'thin', hat: 'pagdi', hatColor: '#DC2626', topKind: 'coat', top: '#14B8A6', sleeves: 'long', lower: 'pajama', bottom: '#F1F5F9' },
+  king: { pitch: 0.8, skin: SK.light, hair: 'neat', hairColor: '#4B5563', moustache: 'walrus', moColor: '#E5E7EB', hat: 'crown', cape: '#1D4ED8', topKind: 'coat', top: '#FDE68A', sleeves: 'long', lower: 'pajama', bottom: '#FFFFFF', pearls: true },
+  queen: { pitch: 1.1, skin: SK.mid, hair: 'long', hairColor: '#2B2D42', hat: 'tiara', bindi: true, earrings: true, pearls: true, topKind: 'blouse', top: '#DB2777', lower: 'sari', bottom: '#FBCFE8', pallu: '#BE185D', border: '#FBBF24' },
+  princess: { pitch: 1.3, skin: SK.light, hair: 'long', hairColor: '#3B2F2F', hat: 'tiara', earrings: true, topKind: 'blouse', top: '#A855F7', lower: 'long-skirt', bottom: '#E9D5FF', border: '#FBBF24' },
+  pandit: { pitch: 0.85, skin: SK.mid, hair: 'bald', hairColor: '#4B5563', tilak: true, topKind: 'kurta', top: '#FEF3C7', sleeves: 'long', lower: 'dhoti', bottom: '#FFFFFF', hold: 'book', shoes: '#8A5A44' },
+  soldier: { pitch: 0.8, skin: SK.tan, hair: 'short', hairColor: '#111827', moustache: 'handlebar', hat: 'pagdi', hatColor: '#B91C1C', topKind: 'coat', top: '#7F1D1D', sleeves: 'long', lower: 'pajama', bottom: '#F1F5F9', hold: 'sword' },
+  farmer: { pitch: 0.85, skin: SK.deep, hair: 'short', hairColor: '#111827', moustache: 'thick', hat: 'saffa', hatColor: '#FFFFFF', topKind: 'kurta', top: '#F8FAFC', sleeves: 'long', lower: 'dhoti', bottom: '#F8FAFC', shoes: '#8A5A44' },
+  'boy-b': { pitch: 1.3, kid: true, skin: SK.deep, hair: 'curly', hairColor: '#111827', top: '#FBBF24', lower: 'shorts', bottom: '#166534' },
+  'girl-b': { pitch: 1.35, kid: true, skin: SK.mid, hair: 'braids', hairColor: '#111827', ribbon: '#3D7BFF', top: '#22C55E', lower: 'skirt', bottom: '#F97316' },
 };
 export const CAST_IDS = Object.keys(CAST);
+const CREATURES = { goat, cat, robot, ghost };
 
 // One character, as an SVG string in a 120 x 200 box (feet at the bottom). `who` may be a cast id
 // or a look-preset; `as` dresses someone in another look (a disguise) while keeping their name.
 export function castSvg(who, { face: f = 'smile', arms = 'down', hold, scale, over } = {}) {
   const o = CAST[who] && over ? { ...CAST[who], ...over } : CAST[who];
   if (!o) return '';
-  if (o.animal) return `<svg viewBox="0 0 120 200" aria-hidden="true">${o.animal === 'goat' ? goat({ face: f }) : cat({ face: f })}</svg>`;
+  if (o.animal) return `<svg viewBox="0 0 120 200" aria-hidden="true">${CREATURES[o.animal]({ face: f, arms, hold })}</svg>`;
   const k = scale ?? (o.kid ? 0.8 : o.build === 'big' ? 1 : 0.9);
   const body = figure(hold ? { ...o, hold } : o, { face: f, arms });
   const shadow = `<ellipse cx="60" cy="194" rx="${o.build === 'big' ? 34 : 26}" ry="4" fill="#1E1B4B" opacity="0.12"/>`;
@@ -421,12 +582,14 @@ export function castSvg(who, { face: f = 'smile', arms = 'down', hold, scale, ov
 
 // For the picture library (200 x 140): head and shoulders, so characters work as icons and stickers.
 export const COMIC_ART = Object.fromEntries(
-  ['mishti', 'bijli', 'buntu', 'colonel', 'laddoolal', 'rocky', 'dadaji', 'teacher', 'mummy', 'papa', 'dadi', 'roohi', 'pappu', 'mausi', 'inspector', 'chhedilal'].map((id) => [
+  ['mishti', 'bijli', 'buntu', 'colonel', 'laddoolal', 'rocky', 'dadaji', 'teacher', 'mummy', 'papa', 'dadi', 'roohi', 'pappu', 'mausi', 'inspector', 'chhedilal', 'akbar', 'birbal', 'chugal', 'kavya', 'chippu', 'nani', 'montu', 'chameli', 'vikram', 'betal', 'murari', 'golu', 'thagraj'].map((id) => [
     `comic-${id}`,
     () => {
       const o = CAST[id];
       if (o.animal === 'goat') return `<g transform="translate(46 -150) scale(1.45)">${goat({ face: 'grin' })}</g>`;
       if (o.animal === 'cat') return `<g transform="translate(20 -152) scale(1.4)">${cat({ face: 'smile' })}</g>`;
+      if (o.animal === 'robot') return `<g transform="translate(22 -14) scale(1.3)">${robot({ face: 'grin', arms: 'wave' })}</g>`;
+      if (o.animal === 'ghost') return `<g transform="translate(30 2) scale(1.15)">${ghost({ face: 'grin', arms: 'up' })}</g>`;
       return `<g transform="translate(40 ${o.kid ? -14 : -4}) scale(1)">${figure(o, { face: 'smile', arms: 'down' })}</g>`;
     },
   ]),
@@ -471,6 +634,63 @@ export const BACKGROUNDS = {
   bank: () => plain('#EEF2FF') + floor(230, '#CBD5E1') + n(0, 120, 400, 110, '#6366F1') + n(0, 110, 400, 14, '#4338CA') + [40, 160, 280].map((x) => n(x, 40, 80, 70, '#C7D2FE', 2) + `<line x1="${x}" y1="40" x2="${x}" y2="110" stroke="#4338CA" stroke-width="3"/><line x1="${x + 80}" y1="40" x2="${x + 80}" y2="110" stroke="#4338CA" stroke-width="3"/>`).join('') + sign(130, 10, 140, 'नगर बैंक', '#fff', '#4338CA', 15),
   village: () => sky('#BFE6FF', '#F3FBE8') + `<circle cx="320" cy="60" r="26" fill="#FFE27A"/>` + `<path d="M0 200 Q100 170 200 200 T400 200 V300 H0 Z" fill="#A9D96A"/>` + [[40, 120], [250, 110]].map(([x, y]) => `<g transform="translate(${x} ${y})"><rect x="0" y="40" width="90" height="60" fill="#E9C9A0"/><path d="M-12 44 L45 0 L102 44 Z" fill="#B07A35"/><rect x="34" y="62" width="22" height="38" fill="#8A5A44"/></g>`).join('') + tree(200, 170, 0.7),
   school: () => sky('#CFEFFF', '#FFF8EA') + n(40, 70, 320, 150, '#F4A261') + n(30, 60, 340, 16, '#B5651D') + [70, 140, 240, 310].map((x) => n(x, 100, 40, 34, '#BFE6FF', 3)).join('') + n(180, 150, 40, 70, '#8A5A44', 2) + sign(130, 26, 140, 'सरकारी स्कूल', '#fff', '#B5651D', 14) + floor(220, '#D4B483'),
+  // ---- the new series ----
+  // a royal court: cusped arches, a raised throne under a canopy, hanging lamps, a red carpet
+  darbar: () =>
+    plain('#FCE7B2') +
+    [0, 100, 200, 300].map((x) => `<path d="M${x + 8} 200 V96 Q${x + 8} 60 ${x + 30} 54 Q${x + 50} 30 ${x + 70} 54 Q${x + 92} 60 ${x + 92} 96 V200 Z" fill="#F5C26B" stroke="#B45309" stroke-width="5"/>` + n(x - 4, 40, 14, 170, '#E9A84B') + n(x - 8, 34, 22, 10, '#B45309', 2)).join('') +
+    `<path d="M150 70 Q200 34 250 70 Z" fill="#DC2626" stroke="#7F1D1D" stroke-width="3"/>` + n(156, 70, 6, 80, '#B45309') + n(238, 70, 6, 80, '#B45309') + n(160, 120, 80, 50, '#B91C1C', 10) + n(152, 150, 96, 22, '#FBBF24', 6) + `<circle cx="200" cy="132" r="9" fill="#FBBF24"/>` +
+    [60, 340].map((x) => `<line x1="${x}" y1="0" x2="${x}" y2="34" stroke="#B45309" stroke-width="2"/><path d="M${x - 10} 34 h20 l-4 14 h-12 z" fill="#FBBF24" stroke="#B45309" stroke-width="2"/>`).join('') +
+    floor(200, '#7F1D1D') + n(0, 200, 400, 8, '#FBBF24') + `<path d="M140 300 L170 208 H230 L260 300 Z" fill="#B91C1C"/><path d="M150 300 L176 214 M250 300 L224 214" stroke="#FBBF24" stroke-width="3"/>`,
+  // a Mughal garden: a water channel with fountains between cypress trees, a pavilion behind
+  bagh: () =>
+    sky('#BFE6FF', '#FFF7E6') +
+    `<g transform="translate(200 120)"><path d="M-50 0 V-30 Q-50 -60 0 -70 Q50 -60 50 -30 V0 Z" fill="#FFFBEB" stroke="#D6B98C" stroke-width="4"/><path d="M-14 0 V-26 Q0 -44 14 -26 V0 Z" fill="#D6B98C"/><circle cx="0" cy="-76" r="5" fill="#FBBF24"/></g>` +
+    floor(150, '#86C46B') + [40, 110, 290, 360].map((x) => `<path d="M${x} 210 Q${x - 18} 160 ${x} 96 Q${x + 18} 160 ${x} 210 Z" fill="#166534"/>`).join('') +
+    `<path d="M170 300 L190 150 H210 L230 300 Z" fill="#7DD3FC"/><path d="M180 260 L194 160 M220 260 L206 160" stroke="#E0F2FE" stroke-width="2"/>` +
+    [180, 230].map((y) => `<path d="M200 ${y} q-8 -18 0 -30 q8 12 0 30" fill="#E0F2FE" opacity="0.9"/>`).join('') +
+    Array.from({ length: 10 }, (_, i) => `<circle cx="${(i < 5 ? 30 : 240) + (i % 5) * 32}" cy="${250 + (i % 2) * 14}" r="7" fill="${['#F472B6', '#FBBF24', '#E63946'][i % 3]}"/>`).join(''),
+  // the old peepal tree at night, where Betal hangs upside down
+  peepal: () =>
+    plain('#18213F') + `<circle cx="330" cy="54" r="30" fill="#FFF7D6"/><circle cx="330" cy="54" r="46" fill="#FFF7D6" opacity="0.12"/>` +
+    Array.from({ length: 16 }, (_, i) => `<circle cx="${(i * 67) % 400}" cy="${10 + ((i * 29) % 100)}" r="1.4" fill="#fff"/>`).join('') +
+    `<path d="M0 240 Q120 220 240 236 T400 232 V300 H0 Z" fill="#232B4A"/>` +
+    `<path d="M70 300 Q86 220 72 160 Q60 120 30 100 M86 160 Q120 120 170 110 M78 190 Q40 170 0 176" fill="none" stroke="#3B2F2F" stroke-width="22" stroke-linecap="round"/>` +
+    `<path d="M70 300 Q86 220 72 160 Q60 120 30 100" fill="none" stroke="#4A3B32" stroke-width="12" stroke-linecap="round"/>` +
+    `<g fill="#1F3B2C">${[[20, 70, 50], [90, 60, 60], [160, 90, 46], [0, 140, 40]].map(([x, y, r]) => `<circle cx="${x}" cy="${y}" r="${r}"/>`).join('')}</g>` +
+    [120, 150, 175].map((x, i) => `<path d="M${x} ${112 + i * 2} V${170 + i * 14}" stroke="#2F2A28" stroke-width="2"/>`).join('') +
+    Array.from({ length: 7 }, (_, i) => `<circle cx="${210 + i * 26}" cy="${170 + (i % 3) * 20}" r="2.4" fill="#FDE68A" opacity="0.8"/>`).join(''),
+  // a forest by day
+  jungle: () =>
+    sky('#C7F0D8', '#F0FFF4') + [[0, 150, '#2F855A'], [-40, 175, '#276749']].map(([dx, y, col]) => `<path d="M${dx} ${y} Q60 ${y - 40} 120 ${y} T240 ${y} T360 ${y} T480 ${y} V300 H${dx} Z" fill="${col}"/>`).join('') +
+    tree(40, 120, 1.2) + tree(360, 110, 1.3) + tree(300, 140, 0.8) + floor(230, '#5B8C3A') + `<path d="M150 300 Q180 260 230 230 H260 Q220 262 210 300 Z" fill="#C8A96E"/>` +
+    [20, 90, 330, 380].map((x) => `<path d="M${x} 240 q-10 -16 0 -30 q10 14 0 30 M${x + 8} 242 q4 -18 16 -22" fill="none" stroke="#2F6B2F" stroke-width="3"/>`).join(''),
+  // a river bank with a little boat
+  river: () =>
+    sky('#BDE3FF', '#F2FAFF') + `<path d="M0 120 Q100 100 200 116 T400 110 V140 H0 Z" fill="#7CB342"/>` +
+    n(0, 136, 400, 74, '#4FA3E0') + [150, 172, 194].map((y, i) => `<path d="M${20 + i * 40} ${y} q15 -6 30 0 M${200 + i * 30} ${y + 6} q15 -6 30 0" fill="none" stroke="#E0F2FE" stroke-width="2.4" stroke-linecap="round"/>`).join('') +
+    `<path d="M250 160 h80 l-12 16 h-56 z" fill="#8A5A44" stroke="${INK}" stroke-width="2"/><line x1="290" y1="160" x2="290" y2="120" stroke="${INK}" stroke-width="2"/><path d="M292 122 l22 30 h-22 z" fill="#FFF7E6" stroke="${INK}" stroke-width="1.6"/>` +
+    floor(206, '#D9C08F') + [10, 50, 360].map((x) => `<path d="M${x} 214 q-4 -24 2 -40 M${x + 8} 214 q2 -20 10 -32" fill="none" stroke="#5B8C3A" stroke-width="3"/>`).join(''),
+  // desert dunes and a khejri tree
+  desert: () =>
+    sky('#FFD9A0', '#FFF4DE') + `<circle cx="80" cy="60" r="28" fill="#FFE27A"/>` +
+    `<path d="M0 170 Q100 120 210 160 T400 140 V300 H0 Z" fill="#F2C27B"/><path d="M0 220 Q140 170 260 210 T400 200 V300 H0 Z" fill="#E8B05E"/>` +
+    `<g transform="translate(320 150)"><path d="M0 70 Q-4 30 4 0" stroke="#7C4A2A" stroke-width="7" fill="none"/><path d="M4 10 Q-30 -6 -38 6 M4 4 Q30 -16 40 -2" stroke="#7C4A2A" stroke-width="4" fill="none"/><ellipse cx="2" cy="-10" rx="40" ry="16" fill="#7A9A3A"/></g>`,
+  // a workshop: a pegboard of tools, gears, jars and flasks, a bench
+  workshop: () =>
+    plain('#E8EEF6') + floor(222, '#A8A29E') + n(20, 30, 170, 110, '#D6B98C', 4) +
+    Array.from({ length: 24 }, (_, i) => `<circle cx="${34 + (i % 8) * 20}" cy="${44 + Math.floor(i / 8) * 30}" r="1.8" fill="#8A6A3F"/>`).join('') +
+    `<path d="M40 60 l18 40 M44 60 h10" stroke="${INK}" stroke-width="5" stroke-linecap="round"/><circle cx="110" cy="80" r="18" fill="none" stroke="#64748B" stroke-width="8" stroke-dasharray="7 5"/><rect x="146" y="56" width="10" height="46" rx="3" fill="#E63946"/>` +
+    n(230, 40, 150, 10, '#8A5A44') + n(230, 100, 150, 10, '#8A5A44') + [[244, 14, '#FDE68A'], [280, 20, '#93C5FD'], [320, 16, '#F9A8D4'], [356, 18, '#86EFAC']].map(([x, h, col]) => n(x, 40 - h - 6, 18, h + 6, col, 3) + n(x, 100 - h - 10, 18, h + 10, col, 3)).join('') +
+    n(0, 170, 400, 16, '#8A5A44', 2) + n(10, 186, 12, 40, '#6D4C41') + n(378, 186, 12, 40, '#6D4C41') +
+    `<g transform="translate(320 150)"><path d="M-4 -24 V-12 L-14 6 H14 L4 -12 V-24 Z" fill="#E0F2FE" stroke="${INK}" stroke-width="2"/><path d="M-10 0 L-12 4 H12 L10 0 Z" fill="#22C55E"/></g>`,
+  // a village square: a banyan tree with a platform, a hand pump, the panchayat board
+  chaupal: () =>
+    sky('#C9EBFF', '#FFF8E8') + `<path d="M0 190 Q200 176 400 190 V300 H0 Z" fill="#D9B97E"/>` +
+    `<g transform="translate(110 70)"><rect x="-10" y="40" width="20" height="90" fill="#7C4A2A"/><path d="M-30 60 V130 M30 66 V130" stroke="#6B3F22" stroke-width="3"/><circle cx="0" cy="20" r="56" fill="#3F7D3A"/><circle cx="-50" cy="40" r="34" fill="#4A8C42"/><circle cx="52" cy="38" r="36" fill="#4A8C42"/></g>` +
+    n(40, 186, 150, 22, '#C9A27E', 3) + n(36, 182, 158, 8, '#A47148', 2) +
+    sign(240, 60, 130, 'ग्राम पंचायत', '#fff', '#B45309', 15) + n(300, 86, 6, 110, '#8A5A44') + n(250, 86, 6, 110, '#8A5A44') +
+    `<g transform="translate(350 200)"><rect x="-4" y="-50" width="10" height="50" fill="#475569"/><path d="M6 -46 l20 -10" stroke="#475569" stroke-width="5" stroke-linecap="round"/><path d="M-4 -40 h-14 v6 h14" fill="#475569"/></g>`,
   stage: () => plain('#3B0764') + `<path d="M0 0 H400 V30 Q300 60 200 30 Q100 60 0 30 Z" fill="#B91C1C"/>` + n(0, 0, 40, 300, '#991B1B') + n(360, 0, 40, 300, '#991B1B') + `<path d="M120 0 L80 230 H320 L280 0 Z" fill="#FDE68A" opacity="0.18"/>` + floor(225, '#92400E'),
 };
 export const BACKGROUND_IDS = Object.keys(BACKGROUNDS);

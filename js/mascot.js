@@ -395,6 +395,74 @@ add(
     mouth(60, 62, 9),
 );
 
+// Moru, the proud peacock who struts about Birbal's court
+add(
+  'moru',
+  'मोरू',
+  'Moru',
+  1.25,
+  `<g class="m-tail">${[-60, -40, -20, 0, 20, 40, 60].map((a) => `<g transform="rotate(${a} 60 96)"><path d="M60 96 Q50 50 60 14 Q70 50 60 96 Z" fill="#0F9D8A"/><circle cx="60" cy="24" r="8" fill="#14B8A6"/><circle cx="60" cy="24" r="4.5" fill="#1D4ED8"/><circle cx="60" cy="24" r="2" fill="#FBBF24"/></g>`).join('')}</g>` +
+    `<g class="m-arm-l"><ellipse cx="44" cy="92" rx="8" ry="14" fill="#1E40AF"/></g><g class="m-arm-r"><ellipse cx="76" cy="92" rx="8" ry="14" fill="#1E40AF"/></g>` +
+    `<ellipse cx="60" cy="96" rx="18" ry="20" fill="#2563EB"/><path d="M54 116 v-6 M66 116 v-6" stroke="#B45309" stroke-width="3"/>` +
+    `<path d="M52 82 Q50 60 60 46 Q70 60 68 82 Z" fill="#2563EB"/>` +
+    `<circle cx="60" cy="44" r="16" fill="#2563EB"/>${[-8, 0, 8].map((dx) => `<path d="M${60 + dx} 30 l${dx / 3} -12" stroke="#1E3A8A" stroke-width="1.6"/><circle cx="${60 + dx * 1.33}" cy="17" r="3" fill="#14B8A6"/>`).join('')}` +
+    eye(54, 43, 5, '#2563EB') +
+    eye(66, 43, 5, '#2563EB') +
+    `<path d="M57 50 L60 58 L63 50 Z" fill="#FBBF24" stroke="#B45309" stroke-width="1"/>` +
+    mouth(60, 52, 6),
+);
+// Chippu, Kavya's literal-minded robot (in the comics he turns every idiom into a job)
+add(
+  'chippu',
+  'चिप्पू',
+  'Chippu',
+  1.6,
+  `<g class="m-arm-l"><path d="M34 86 Q20 92 18 104" fill="none" stroke="#94A3B8" stroke-width="7" stroke-linecap="round"/><circle cx="18" cy="106" r="6" fill="#64748B"/></g>` +
+    `<g class="m-arm-r"><path d="M86 86 Q100 92 102 104" fill="none" stroke="#94A3B8" stroke-width="7" stroke-linecap="round"/><circle cx="102" cy="106" r="6" fill="#64748B"/></g>` +
+    `<rect x="34" y="76" width="52" height="38" rx="12" fill="#38BDF8"/><rect x="44" y="84" width="32" height="18" rx="5" fill="#E0F2FE"/><path d="M48 94 l5 -5 l5 8 l5 -10 l5 7" fill="none" stroke="#E63946" stroke-width="2" stroke-linejoin="round"/>` +
+    `<line x1="60" y1="18" x2="60" y2="8" stroke="#2B2D42" stroke-width="3"/><circle class="m-pupil" cx="60" cy="6" r="4.5" fill="#E63946"/>` +
+    `<circle cx="22" cy="44" r="6" fill="#94A3B8"/><circle cx="98" cy="44" r="6" fill="#94A3B8"/>` +
+    `<rect x="24" y="18" width="72" height="54" rx="15" fill="#E2E8F0"/><rect x="32" y="26" width="56" height="38" rx="10" fill="#1E293B"/>` +
+    `<g class="m-eye"><rect x="44" y="36" width="7" height="11" rx="3.5" fill="#5EEAD4"/><rect class="m-lid" x="43" y="34" width="9" height="15" rx="4" fill="#1E293B"/></g>` +
+    `<g class="m-eye"><rect x="69" y="36" width="7" height="11" rx="3.5" fill="#5EEAD4"/><rect class="m-lid" x="68" y="34" width="9" height="15" rx="4" fill="#1E293B"/></g>` +
+    `<path class="m-mouth-closed" d="M52 54 q8 6 16 0" fill="none" stroke="#5EEAD4" stroke-width="3" stroke-linecap="round"/>` +
+    `<g class="m-mouth-open"><path d="M50 52 q10 10 20 0 z" fill="#5EEAD4"/></g>`,
+);
+// Betal, the riddling spirit of the old peepal tree: a little spooky, mostly cheeky
+add(
+  'betal',
+  'बेताल',
+  'Betal',
+  0.75,
+  `<path class="m-tail" d="M40 78 Q34 100 44 110 Q54 118 62 110 Q70 116 78 108 Q90 96 80 78 Z" fill="#E2E8F0"/>` +
+    `<g class="m-arm-l"><path d="M40 80 Q24 82 18 70" fill="none" stroke="#CBD5E1" stroke-width="6" stroke-linecap="round"/></g>` +
+    `<g class="m-arm-r"><path d="M80 80 Q96 82 102 70" fill="none" stroke="#CBD5E1" stroke-width="6" stroke-linecap="round"/></g>` +
+    `<path d="M26 50 Q12 22 34 20 Q30 4 50 10 Q58 -2 70 10 Q88 2 86 22 Q106 26 94 52 Q96 36 82 32 Q60 24 40 32 Q28 36 26 50 Z" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>` +
+    `<path d="M32 46 L20 36 L34 58 Z M88 46 L100 36 L86 58 Z" fill="#CBD5E1"/>` +
+    `<circle cx="60" cy="52" r="26" fill="#CBD5E1"/>` +
+    `<circle cx="50" cy="50" r="9" fill="#FDE68A"/><circle cx="70" cy="50" r="9" fill="#FDE68A"/>` +
+    eye(50, 50, 6, '#CBD5E1') +
+    eye(70, 50, 6, '#CBD5E1') +
+    mouth(60, 64, 12) +
+    `<path class="m-mouth-closed" d="M55 66 l2 4 l2 -4 M61 66 l2 4 l2 -4" fill="#fff" stroke="#2B2D42" stroke-width="1"/>`,
+);
+// Minku, the lab mouse in Master Murari's science room
+add(
+  'minku',
+  'मिंकू',
+  'Minku',
+  1.45,
+  `<path class="m-tail" d="M78 104 Q108 108 104 86 Q100 74 110 70" fill="none" stroke="#F9A8D4" stroke-width="4" stroke-linecap="round"/>` +
+    `<g class="m-arm-l"><ellipse cx="44" cy="90" rx="6" ry="9" fill="#C7CED9"/></g><g class="m-arm-r"><ellipse cx="76" cy="90" rx="6" ry="9" fill="#C7CED9"/><path d="M80 74 h8 v5 l5 12 h-18 l5 -12 z" fill="#E0F2FE" stroke="#2B2D42" stroke-width="1.4"/><rect x="76" y="84" width="14" height="6" fill="#F472B6"/></g>` +
+    `<ellipse cx="60" cy="96" rx="22" ry="18" fill="#D7DEE8"/><path d="M42 86 Q60 120 78 86 L74 112 H46 Z" fill="#FFFFFF" opacity="0.95"/>` +
+    `<circle cx="34" cy="30" r="17" fill="#C7CED9"/><circle cx="34" cy="30" r="10" fill="#F9A8D4"/><circle cx="86" cy="30" r="17" fill="#C7CED9"/><circle cx="86" cy="30" r="10" fill="#F9A8D4"/>` +
+    `<ellipse cx="60" cy="50" rx="26" ry="24" fill="#D7DEE8"/>` +
+    eye(50, 47, 6, '#D7DEE8') +
+    eye(70, 47, 6, '#D7DEE8') +
+    `<circle cx="60" cy="60" r="4" fill="#F472B6"/><path d="M48 60 l-16 -3 M48 63 l-16 3 M72 60 l16 -3 M72 63 l16 3" stroke="#2B2D42" stroke-width="1.2"/>` +
+    mouth(60, 66, 8),
+);
+
 export const MASCOT_IDS = Object.keys(MASCOTS);
 
 export function mascotSvg(id) {
