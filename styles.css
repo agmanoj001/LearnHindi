@@ -5277,7 +5277,8 @@ body.speaking .show-screen .show-actor:not(.talking) .m-mouth-closed {
 }
 /* the screen's own text is the caption here */
 body:has(.show-screen) .caption-bar,
-body:has(.radio-screen) .caption-bar {
+body:has(.radio-screen) .caption-bar,
+body:has(.game-comic) .caption-bar {
   display: none;
 }
 
@@ -5647,4 +5648,509 @@ body:has(.radio-screen) .caption-bar {
 }
 .watched-list li span {
   color: var(--muted);
+}
+
+/* =========================================================
+   Comics (Grades 7 and 8)
+   ========================================================= */
+.game-comic {
+  padding-bottom: 0;
+  background:
+    radial-gradient(circle, rgba(43, 45, 66, 0.07) 1.2px, transparent 1.3px) 0 0 / 14px 14px,
+    #fff8e7;
+}
+.game-comic > .backdrop,
+.game-comic .mascot-corner {
+  display: none;
+}
+.game-comic .stage {
+  display: block;
+  overflow: hidden;
+  padding: 0;
+}
+.comic-book {
+  position: relative;
+  height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 6px 2px 60px;
+  scroll-padding-top: 12px;
+}
+.comic-book > * {
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* cover */
+.comic-cover {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 16px;
+  padding: 16px 18px 0;
+  border: 3px solid #1f2340;
+  border-radius: 10px;
+  text-align: center;
+  color: #fff;
+  background:
+    repeating-conic-gradient(from 0deg at 50% 70%, rgba(255, 255, 255, 0.12) 0 10deg, transparent 10deg 20deg),
+    var(--place);
+  box-shadow: 5px 5px 0 #1f2340;
+}
+.comic-logo {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4px 16px;
+  border: 3px solid #1f2340;
+  border-radius: 8px;
+  color: #1f2340;
+  background: #ffd43b;
+  transform: rotate(-2deg);
+  box-shadow: 3px 3px 0 #1f2340;
+}
+.comic-logo b {
+  font-size: 22px;
+  line-height: 1.1;
+}
+.comic-logo span {
+  font: 700 12px 'Fredoka', var(--font);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.comic-cover h1 {
+  margin: 12px 0 0;
+  font-size: clamp(30px, 7vw, 46px);
+  line-height: 1.15;
+  text-shadow:
+    3px 3px 0 #1f2340,
+    -1px -1px 0 #1f2340,
+    1px -1px 0 #1f2340,
+    -1px 1px 0 #1f2340;
+}
+.comic-title-en {
+  margin: 2px 0 0;
+  font: 700 15px 'Fredoka', var(--font);
+  opacity: 0.92;
+}
+.comic-blurb {
+  max-width: 520px;
+  margin: 10px auto 0;
+  padding: 8px 12px;
+  border: 2px solid #1f2340;
+  border-radius: 6px;
+  font-size: 17px;
+  line-height: 1.5;
+  color: #1f2340;
+  background: #fff6c9;
+}
+.comic-cover-cast {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  height: 170px;
+  margin-top: 6px;
+}
+.comic-cover-char {
+  width: 110px;
+  height: 100%;
+}
+.comic-cover-char svg,
+.comic-char svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.comic-howto {
+  margin: 0 -18px;
+  padding: 6px 12px;
+  font: 600 12px 'Fredoka', var(--font);
+  color: #1f2340;
+  background: rgba(255, 255, 255, 0.85);
+}
+
+/* panels: one column on phones, a comic page of two columns on wider screens */
+.comic-pages {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+@media (min-width: 720px) {
+  .comic-pages {
+    grid-template-columns: 1fr 1fr;
+  }
+  .comic-panel.wide {
+    grid-column: span 2;
+  }
+}
+.comic-pages.locked {
+  display: none;
+}
+.comic-panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
+  margin: 0;
+  overflow: hidden;
+  border: 3px solid #1f2340;
+  border-radius: 6px;
+  background: #fff;
+  box-shadow: 4px 4px 0 #1f2340;
+}
+.comic-bg {
+  position: absolute;
+  inset: 0;
+}
+.comic-bg svg {
+  width: 100%;
+  height: 100%;
+}
+.comic-panel.dark .comic-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 18, 45, 0.6);
+}
+.comic-top {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px 8px 0;
+}
+.comic-cap {
+  align-self: flex-start;
+  max-width: 94%;
+  padding: 5px 10px;
+  border: 2px solid #1f2340;
+  border-radius: 3px;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.45;
+  color: #1f2340;
+  background: #ffe680;
+  box-shadow: 2px 2px 0 rgba(31, 35, 64, 0.35);
+}
+.comic-bubbles {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 10px 12px;
+  padding-bottom: 18px;
+}
+.comic-bubble {
+  position: relative;
+  flex: 1 1 150px;
+  max-width: 100%;
+  padding: 7px 12px;
+  border: 2.5px solid #1f2340;
+  border-radius: 20px;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: #1f2340;
+  background: #fff;
+  cursor: pointer;
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s;
+}
+.comic-bubble::after {
+  content: '';
+  position: absolute;
+  left: var(--tail, 30px);
+  bottom: -13px;
+  width: 18px;
+  height: 18px;
+  margin-left: -9px;
+  border-right: 2.5px solid #1f2340;
+  border-bottom: 2.5px solid #1f2340;
+  background: inherit;
+  transform: skewX(18deg) rotate(45deg);
+}
+.comic-bubble.tail-left::after {
+  transform: skewX(-18deg) rotate(45deg);
+}
+.comic-bubble.off-panel::after {
+  display: none;
+}
+.comic-bubble.shout {
+  border-width: 3.5px;
+  border-radius: 6px;
+  font-weight: 800;
+  background: #fff;
+  box-shadow: 0 0 0 4px #ffd43b;
+}
+.comic-bubble.whisper {
+  border-style: dashed;
+  font-weight: 500;
+}
+.comic-bubble.think {
+  border-radius: 40px;
+  font-style: normal;
+  background: #f4f4fb;
+}
+.comic-bubble.think::after {
+  width: 12px;
+  height: 12px;
+  bottom: -18px;
+  border: 2.5px solid #1f2340;
+  border-radius: 50%;
+  transform: none;
+  box-shadow: 9px 10px 0 -3px #f4f4fb, 9px 10px 0 -0.5px #1f2340;
+}
+.comic-bubble.reading,
+.comic-cap.reading {
+  transform: scale(1.02);
+  box-shadow: 0 0 0 4px var(--place);
+}
+.comic-stage {
+  position: relative;
+  z-index: 1;
+  height: clamp(140px, 38vw, 190px);
+  margin-top: auto;
+}
+@media (min-width: 720px) {
+  .comic-stage {
+    height: 180px;
+  }
+}
+.comic-char {
+  position: absolute;
+  bottom: 4px;
+  width: 60%;
+  max-width: 128px;
+  height: 100%;
+  transform: translateX(-50%);
+}
+.comic-char.flip svg {
+  transform: scaleX(-1);
+}
+.comic-prop {
+  position: absolute;
+  bottom: 10px;
+  width: 26%;
+  max-width: 120px;
+  aspect-ratio: 200 / 140;
+  transform: translateX(-50%);
+}
+.comic-prop svg {
+  width: 100%;
+  height: 100%;
+}
+.comic-sfx {
+  position: absolute;
+  z-index: 3;
+  right: 8px;
+  top: 8px;
+  padding: 0 4px;
+  font-size: clamp(24px, 6vw, 32px);
+  font-weight: 800;
+  line-height: 1.1;
+  color: #ffd43b;
+  -webkit-text-stroke: 1.6px #1f2340;
+  paint-order: stroke fill;
+  text-shadow: 3px 3px 0 #e63946;
+  transform: rotate(-8deg);
+}
+
+/* words with a meaning */
+.gloss {
+  border-bottom: 2px dotted var(--place);
+  cursor: help;
+}
+.gloss-pop {
+  position: absolute;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 260px;
+  padding: 8px 12px;
+  border: 2.5px solid #1f2340;
+  border-radius: 10px;
+  color: #1f2340;
+  background: #fff;
+  box-shadow: 4px 4px 0 #1f2340;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-4px);
+  transition:
+    opacity 0.15s,
+    transform 0.15s;
+}
+.gloss-pop.on {
+  opacity: 1;
+  transform: none;
+}
+.gloss-pop b {
+  font-size: 18px;
+}
+.gloss-pop span {
+  font-size: 15px;
+  line-height: 1.4;
+}
+.gloss-pop small {
+  font: 600 13px 'Fredoka', var(--font);
+  color: var(--muted);
+}
+
+/* guess the culprit */
+.comic-guess,
+.comic-words,
+.comic-quiz {
+  margin-bottom: 16px;
+  padding: 14px 16px;
+  border: 3px solid #1f2340;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 4px 4px 0 #1f2340;
+}
+.comic-guess {
+  background:
+    radial-gradient(circle, rgba(255, 255, 255, 0.08) 1.2px, transparent 1.3px) 0 0 / 12px 12px,
+    #1e2a4a;
+  color: #fff;
+}
+.guess-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 12px 3px 8px;
+  border-radius: 999px;
+  color: #1f2340;
+  background: #ffd43b;
+}
+.guess-badge span:first-child svg {
+  width: 20px;
+  height: 20px;
+}
+.guess-badge span:last-child {
+  font: 700 12px 'Fredoka', var(--font);
+}
+.guess-q,
+.quiz-q {
+  margin: 10px 0 4px;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+.guess-sub {
+  margin: 0 0 10px;
+  font-size: 14px;
+  opacity: 0.85;
+}
+.comic-answers {
+  display: grid;
+  gap: 8px;
+  margin-top: 8px;
+}
+.comic-answer {
+  padding: 10px 14px;
+  border: 2.5px solid #1f2340;
+  border-radius: 12px;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: left;
+  color: #1f2340;
+  background: #fff;
+  box-shadow: 3px 3px 0 #1f2340;
+  transition: transform 0.12s;
+}
+.comic-answer:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 #1f2340;
+}
+.comic-answer.right {
+  background: #bbf7d0;
+  box-shadow:
+    3px 3px 0 #1f2340,
+    0 0 0 4px #22c55e;
+}
+.comic-answer:disabled {
+  opacity: 0.75;
+}
+.comic-answer.right:disabled {
+  opacity: 1;
+}
+.guess-hint,
+.guess-verdict {
+  display: none;
+  margin: 10px 0 0;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 16px;
+  line-height: 1.45;
+}
+.guess-hint.on,
+.guess-verdict.on {
+  display: block;
+}
+.guess-hint {
+  color: #1f2340;
+  background: #fff6c9;
+}
+.guess-verdict {
+  color: #1f2340;
+  background: #bbf7d0;
+}
+
+/* words and questions */
+.comic-words h2,
+.comic-quiz h2 {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0 0 8px;
+  font-size: 22px;
+}
+.comic-words h2 small,
+.comic-quiz h2 small {
+  font: 600 13px 'Fredoka', var(--font);
+  color: var(--muted);
+}
+.comic-words ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.comic-words li {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 10px;
+  border: 2px solid #e2e4ee;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.comic-words li b {
+  font-size: 18px;
+  color: var(--place);
+}
+.comic-words li span {
+  font-size: 15px;
+  line-height: 1.4;
+}
+.comic-words li small {
+  font: 600 12px 'Fredoka', var(--font);
+  color: var(--muted);
+}
+.comic-quiz:empty {
+  display: none;
+}
+.game-comic.reading-aloud .round-btn.speak {
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--place) 35%, transparent);
+}
+
+/* the comic worlds' cards: dark scenery needs light text */
+.world-card.theme-noir .world-name-hi,
+.world-card.theme-noir .world-name-en {
+  color: #fff;
+  text-shadow: none;
 }

@@ -2,6 +2,9 @@
 import { SKILLS } from './mathgen.js';
 import { PHONICS } from './phonicsgen.js';
 import { BEAT_KINDS, beatKind } from './logic.js';
+import { CAST, CAST_IDS, FACES, ARMS, PROPS, BACKGROUND_IDS } from './art-comic.js';
+
+export const COMIC_SERIES = ['mishti', 'dadi'];
 // Errors stop the app from using the content; warnings are shown in parent settings.
 
 export const GAME_TYPES = [
@@ -25,6 +28,7 @@ export const GAME_TYPES = [
   'math',
   'phonics',
   'sequence',
+  'comic',
 ];
 export const OPPOSITE_KINDS = ['size', 'height', 'speed'];
 export const PAIR_KINDS = ['opposite', 'plural', 'female'];
@@ -573,6 +577,7 @@ export function validateContent(c, { knownPictures = null, pictureExists = null,
           // reading games need something to read at this level
           const lv = cfg.levels || [w.level];
           if (lesson.game === 'sentence' && !(c.sentences || []).some((st) => lv.includes(st.level))) err(`${lat} (${lesson.id}): no sentences for levels ${lv.join(', ')}`);
+          if (lesson.game === 'comic' && !(c.comics || []).some((cm) => cm.id === cfg.comic)) err(`${lat} (${lesson.id}).config.comic "${cfg.comic}" is not a comic id`);
           if ((lesson.game === 'story' || lesson.game === 'sequence') && !cfg.story && !(c.stories || []).some((st) => lv.includes(st.level))) err(`${lat} (${lesson.id}): no stories for levels ${lv.join(', ')}`);
           if (['railway', 'trace'].includes(lesson.game) && !cfg.letters && !w.letterSets.length) err(`${lat} (${lesson.id}) needs letters`);
           if (['matra', 'read', 'construction'].includes(lesson.game) && cfg.focus) {
@@ -671,6 +676,66 @@ export function validateContent(c, { knownPictures = null, pictureExists = null,
             if (kind === 'wait' && !(typeof b.wait === 'number' && b.wait > 0 && b.wait <= 10000)) err(`${bat}.wait must be milliseconds (up to 10000)`);
           });
         });
+      });
+    }
+  }
+
+  // Comics (Grades 7 and 8; see README › Writing a comic)
+  if (c.comics !== undefined) {
+    if (!Array.isArray(c.comics)) err('comics must be a list');
+    else {
+      const seen = new Set();
+      c.comics.forEach((cm, i) => {
+        const at = `comics[${i}]`;
+        if (!isObj(cm) || !isStr(cm.id) || !ID.test(cm.id)) return err(`${at} needs an id (lowercase letters, numbers and -)`);
+        if (seen.has(cm.id)) err(`comics: duplicate id "${cm.id}"`);
+        seen.add(cm.id);
+        const cat = `${at} (${cm.id})`;
+        if (!COMIC_SERIES.includes(cm.series)) err(`${cat}.series must be one of ${COMIC_SERIES.join(', ')}`);
+        if (!levelIds.has(cm.level)) err(`${cat}: level "${cm.level}" is not one of the levels`);
+        if (!hasText(cm.title)) err(`${cat}.title needs "hi" and "en"`);
+        const parts = isObj(cm.parts) ? cm.parts : {};
+        for (const [id, part] of Object.entries(parts)) {
+          if (!isObj(part) || !CAST[part.look]) err(`${cat}.parts.${id}.look must be one of the comic looks (${CAST_IDS.join(', ')})`);
+          if (!isStr(part?.name)) err(`${cat}.parts.${id} needs a "name"`);
+        }
+        const known = (who) => !!CAST[who] || who in parts;
+        if (!Array.isArray(cm.panels) || cm.panels.length < 4) return err(`${cat} needs at least 4 panels`);
+        cm.panels.forEach((p, j) => {
+          const pat = `${cat}.panels[${j}]`;
+          if (!isObj(p)) return err(`${pat} must be an object`);
+          if (!BACKGROUND_IDS.includes(p.bg) && !(themes || []).includes(p.bg)) err(`${pat}.bg "${p.bg}" is not a comic background (${BACKGROUND_IDS.join(', ')})`);
+          if (!Array.isArray(p.cast)) err(`${pat}.cast must be a list`);
+          for (const ch of p.cast || []) {
+            if (!known(ch?.who)) err(`${pat}: "${ch?.who}" is not in the cast or this comic's parts`);
+            if (!(typeof ch?.at === 'number' && ch.at >= 0 && ch.at <= 100)) err(`${pat}: ${ch?.who} needs a position "at" from 0 to 100`);
+            if (ch?.face !== undefined && !FACES.includes(ch.face)) err(`${pat}: face "${ch.face}" must be one of ${FACES.join(', ')}`);
+            if (ch?.arms !== undefined && !ARMS.includes(ch.arms)) err(`${pat}: arms "${ch.arms}" must be one of ${ARMS.join(', ')}`);
+            if (ch?.hold !== undefined && !PROPS.includes(ch.hold)) err(`${pat}: hold "${ch.hold}" must be one of ${PROPS.join(', ')}`);
+          }
+          if (p.cap !== undefined && (!isStr(p.cap) || !DEVANAGARI.test(p.cap))) err(`${pat}.cap must be Hindi text`);
+          for (const b of p.say || []) {
+            if (!known(b?.who)) err(`${pat}: speaker "${b?.who}" is not in the cast or this comic's parts`);
+            if (!isStr(b?.text) || !DEVANAGARI.test(b.text)) err(`${pat}: what ${b?.who} says must be Hindi text`);
+            if (b?.kind !== undefined && !['shout', 'whisper', 'think'].includes(b.kind)) err(`${pat}: bubble kind must be shout, whisper or think`);
+          }
+          if (!p.cap && !(p.say || []).length) err(`${pat} needs a caption or a speech bubble`);
+          if (p.prop !== undefined && !hasWord(p.prop?.word)) err(`${pat}.prop: word "${p.prop?.word}" not found`);
+        });
+        if (cm.guess !== undefined) {
+          const g = cm.guess;
+          if (!isObj(g) || !Number.isInteger(g.at) || g.at < 1 || g.at >= cm.panels.length) err(`${cat}.guess.at must be the panel the reveal starts at`);
+          if (!isStr(g?.q)) err(`${cat}.guess needs a question "q"`);
+          if (!Array.isArray(g?.options) || g.options.length < 2 || !g.options.includes(g.answer)) err(`${cat}.guess.answer must be one of its options`);
+        }
+        if (!Array.isArray(cm.words) || !cm.words.length) err(`${cat} needs a word list ("words")`);
+        else cm.words.forEach((w, j) => (!isStr(w?.hi) || !isStr(w?.mean)) && err(`${cat}.words[${j}] needs "hi" and "mean"`));
+        if (!Array.isArray(cm.questions) || !cm.questions.length) err(`${cat} needs questions`);
+        else
+          cm.questions.forEach((q, j) => {
+            if (!isStr(q?.q)) err(`${cat}.questions[${j}] needs "q"`);
+            if (!Array.isArray(q?.options) || q.options.length < 2 || !q.options.includes(q.answer)) err(`${cat}.questions[${j}].answer must be one of its options`);
+          });
       });
     }
   }

@@ -305,7 +305,27 @@
     "jar": { "hi": "मर्तबान", "translit": "martbaan", "en": "jar", "picture": "jar" },
     "coat": { "hi": "कोट", "translit": "kot", "en": "coat", "picture": "coat" },
     "log": { "hi": "लट्ठा", "translit": "lattha", "en": "log", "picture": "log" },
-    "raincloud": { "hi": "काले बादल", "translit": "kaale baadal", "en": "rain clouds", "picture": "raincloud" }
+    "raincloud": { "hi": "काले बादल", "translit": "kaale baadal", "en": "rain clouds", "picture": "raincloud" },
+    "comic-mishti": { "hi": "मिष्टी", "translit": "mishti", "en": "Mishti", "picture": "comic-mishti" },
+    "comic-bijli": { "hi": "बिजली", "translit": "bijli", "en": "Bijli the goat", "picture": "comic-bijli" },
+    "comic-buntu": { "hi": "बंटू", "translit": "buntu", "en": "Buntu", "picture": "comic-buntu" },
+    "comic-colonel": { "hi": "कर्नल कड़कसिंह", "translit": "karnal kadak singh", "en": "Colonel Kadak Singh", "picture": "comic-colonel" },
+    "comic-laddoolal": { "hi": "लड्डू लाल", "translit": "laddoo laal", "en": "Laddoo Lal", "picture": "comic-laddoolal" },
+    "comic-rocky": { "hi": "रॉकी", "translit": "rocky", "en": "Rocky", "picture": "comic-rocky" },
+    "comic-dadaji": { "hi": "दादाजी", "translit": "daadaaji", "en": "Grandpa", "picture": "comic-dadaji" },
+    "comic-teacher": { "hi": "शुक्ला मैडम", "translit": "shukla madam", "en": "Mrs Shukla", "picture": "comic-teacher" },
+    "comic-mummy": { "hi": "मम्मी", "translit": "mummy", "en": "Mishti's mother", "picture": "comic-mummy" },
+    "comic-papa": { "hi": "पापा", "translit": "papa", "en": "Mishti's father", "picture": "comic-papa" },
+    "comic-dadi": { "hi": "दादी", "translit": "daadi", "en": "Dadi", "picture": "comic-dadi" },
+    "comic-roohi": { "hi": "रूही", "translit": "roohi", "en": "Roohi", "picture": "comic-roohi" },
+    "comic-pappu": { "hi": "पहलवान पप्पू", "translit": "pehelvaan pappu", "en": "Pappu the wrestler", "picture": "comic-pappu" },
+    "comic-mausi": { "hi": "मौसी", "translit": "mausi", "en": "Mausi the cat", "picture": "comic-mausi" },
+    "comic-inspector": { "hi": "इंस्पेक्टर ढीलाराम", "translit": "inspector dheelaaraam", "en": "Inspector Dheelaram", "picture": "comic-inspector" },
+    "comic-chhedilal": { "hi": "छलिया छेदीलाल", "translit": "chhaliya chhedilaal", "en": "Chhedilal", "picture": "comic-chhedilal" },
+    "comic-clue-lens": { "hi": "आवर्धक लेंस", "translit": "aavardhak lens", "en": "magnifying glass", "picture": "comic-clue-lens" },
+    "comic-clue-print": { "hi": "उँगलियों के निशान", "translit": "ungliyon ke nishaan", "en": "fingerprint", "picture": "comic-clue-print" },
+    "comic-clue-steps": { "hi": "पैरों के निशान", "translit": "pairon ke nishaan", "en": "footprints", "picture": "comic-clue-steps" },
+    "comic-clue-key": { "hi": "चाबी", "translit": "chaabi", "en": "key", "picture": "comic-clue-key" }
   },
   "sentences": [
     { "id": "bus-here", "about": "bus", "hi": "बस आई!", "translit": "bas aai", "en": "The bus is here!", "level": "grade2" },
@@ -2818,6 +2838,20 @@
       "name": { "hi": "कक्षा 4", "en": "Grade 4" },
       "age": "9–10",
       "about": "Three Hindi worlds: grammar (सर्वनाम, विशेषण, काल), stories and poems with a moral, and words and writing in the city (idioms, synonyms, one word for many)."
+    },
+    {
+      "id": "grade7",
+      "picture": "comic-mishti",
+      "name": { "hi": "कक्षा 7", "en": "Grade 7" },
+      "age": "12–13",
+      "about": "Hindi comics for confident readers: मिष्टी की मस्ती, ten funny stories from a small town, with idioms, word meanings and questions."
+    },
+    {
+      "id": "grade8",
+      "picture": "comic-dadi",
+      "name": { "hi": "कक्षा 8", "en": "Grade 8" },
+      "age": "13–14",
+      "about": "Hindi comics for confident readers: जासूस दादी, ten mysteries to solve, with richer vocabulary, idioms and a chance to name the culprit before the reveal."
     }
   ],
   "collections": {
@@ -2884,7 +2918,39 @@
     "palace": { "name": { "hi": "महल की शान", "en": "Palace treasures" }, "items": ["elephant", "peacock", "king", "minister", "garland", "swan", "horse", "rangoli"] },
     "village": { "name": { "hi": "गाँव के साथी", "en": "Village friends" }, "items": ["cow", "ox", "hen", "chick", "goat", "buffalo", "well", "field"] },
     "mountain": { "name": { "hi": "पहाड़ के ख़ज़ाने", "en": "Mountain treasures" }, "items": ["sheep", "deer", "bird", "cloud", "river", "flower", "snowman", "tree"] },
-    "city": { "name": { "hi": "शहर की सैर", "en": "City sights" }, "items": ["school", "bridge", "metro", "auto", "scooter", "clock", "umbrella", "glasses"] }
+    "city": { "name": { "hi": "शहर की सैर", "en": "City sights" }, "items": ["school", "bridge", "metro", "auto", "scooter", "clock", "umbrella", "glasses"] },
+    "mishti": {
+      "name": { "hi": "कटहलपुर के किरदार", "en": "The Katahalpur gang" },
+      "start": 1,
+      "items": [
+        "comic-mishti",
+        "comic-bijli",
+        "comic-buntu",
+        "comic-colonel",
+        "comic-laddoolal",
+        "comic-rocky",
+        "comic-dadaji",
+        "comic-teacher",
+        "comic-mummy",
+        "comic-papa"
+      ]
+    },
+    "jasoos": {
+      "name": { "hi": "जासूस की फ़ाइल", "en": "The detective's file" },
+      "start": 1,
+      "items": [
+        "comic-dadi",
+        "comic-roohi",
+        "comic-pappu",
+        "comic-mausi",
+        "comic-inspector",
+        "comic-chhedilal",
+        "comic-clue-lens",
+        "comic-clue-print",
+        "comic-clue-steps",
+        "comic-clue-key"
+      ]
+    }
   },
   "worlds": [
     {
@@ -5328,6 +5394,232 @@
         }
       ],
       "helpers": { "courier": "scooter", "engine": "metro" }
+    },
+    {
+      "id": "mishti",
+      "level": "grade7",
+      "subject": "hindi",
+      "theme": "kasba",
+      "mascot": "bijli",
+      "color": "#F97316",
+      "collection": "mishti",
+      "tags": ["comics", "stories", "vocabulary"],
+      "name": { "hi": "मिष्टी की मस्ती", "en": "Mishti's Mischief" },
+      "letterSets": [],
+      "units": [
+        {
+          "id": "g7-ghar",
+          "title": { "hi": "घर और मोहल्ले की मस्ती", "en": "Trouble at home and next door" },
+          "skill": "Comics",
+          "icon": "comic-bijli",
+          "lessons": [
+            {
+              "id": "c-m-homework",
+              "game": "comic",
+              "icon": "comic-bijli",
+              "title": { "hi": "बिजली ने खाया होमवर्क", "en": "The goat ate my homework" },
+              "config": { "comic": "m-homework" }
+            },
+            {
+              "id": "c-m-roses",
+              "game": "comic",
+              "icon": "comic-colonel",
+              "title": { "hi": "कर्नल साहब के गुलाब", "en": "The Colonel's roses" },
+              "config": { "comic": "m-roses" }
+            },
+            { "id": "c-m-kite", "game": "comic", "icon": "comic-rocky", "title": { "hi": "पतंग का पेच", "en": "The kite fight" }, "config": { "comic": "m-kite" } },
+            {
+              "id": "c-m-diet",
+              "game": "comic",
+              "icon": "comic-buntu",
+              "title": { "hi": "बंटू का डाइट प्लान", "en": "Buntu's diet plan" },
+              "config": { "comic": "m-diet" }
+            }
+          ]
+        },
+        {
+          "id": "g7-school",
+          "title": { "hi": "बत्ती, विज्ञान और पानी", "en": "Power cuts, science and water" },
+          "skill": "Comics",
+          "icon": "comic-teacher",
+          "lessons": [
+            {
+              "id": "c-m-powercut",
+              "game": "comic",
+              "icon": "comic-papa",
+              "title": { "hi": "बिजली गई, बिजली आई!", "en": "The lights went out — Bijli came in!" },
+              "config": { "comic": "m-powercut" }
+            },
+            {
+              "id": "c-m-solar",
+              "game": "comic",
+              "icon": "comic-teacher",
+              "title": { "hi": "धूप वाला चूल्हा", "en": "The sunshine stove" },
+              "config": { "comic": "m-solar" }
+            },
+            {
+              "id": "c-m-water",
+              "game": "comic",
+              "icon": "comic-mummy",
+              "title": { "hi": "पानी बचाओ सेना", "en": "The Save-Water Army" },
+              "config": { "comic": "m-water" }
+            }
+          ]
+        },
+        {
+          "id": "g7-kasba",
+          "title": { "hi": "कटहलपुर के कारनामे", "en": "Adventures in Katahalpur" },
+          "skill": "Comics",
+          "icon": "comic-mishti",
+          "lessons": [
+            { "id": "c-m-fair", "game": "comic", "icon": "comic-mishti", "title": { "hi": "मेले में गुम", "en": "Lost at the fair" }, "config": { "comic": "m-fair" } },
+            {
+              "id": "c-m-phone",
+              "game": "comic",
+              "icon": "comic-dadaji",
+              "title": { "hi": "दादाजी का स्मार्टफ़ोन", "en": "Grandpa's smartphone" },
+              "config": { "comic": "m-phone" }
+            },
+            {
+              "id": "c-m-hero",
+              "game": "comic",
+              "icon": "comic-laddoolal",
+              "title": { "hi": "बिजली बनी हीरो", "en": "Bijli the hero" },
+              "config": { "comic": "m-hero" }
+            }
+          ]
+        },
+        {
+          "id": "g7-muhavare",
+          "title": { "hi": "मुहावरों की मस्ती", "en": "Idioms from the comics" },
+          "skill": "Vocabulary",
+          "icon": "comic-buntu",
+          "lessons": [{ "id": "g7-idioms-1", "game": "quiz", "icon": "comic-buntu", "title": { "hi": "मुहावरे", "en": "Idioms" }, "config": { "bank": "g7-idioms", "rounds": 6 } }]
+        }
+      ]
+    },
+    {
+      "id": "jasoos",
+      "level": "grade8",
+      "subject": "hindi",
+      "theme": "noir",
+      "mascot": "mausi",
+      "color": "#4F46E5",
+      "collection": "jasoos",
+      "tags": ["comics", "stories", "vocabulary"],
+      "name": { "hi": "जासूस दादी", "en": "Detective Dadi" },
+      "letterSets": [],
+      "units": [
+        {
+          "id": "g8-pehle",
+          "title": { "hi": "पहले मामले", "en": "The first cases" },
+          "skill": "Comics",
+          "icon": "comic-dadi",
+          "lessons": [
+            {
+              "id": "c-d-necklace",
+              "game": "comic",
+              "icon": "comic-dadi",
+              "title": { "hi": "शादी में ग़ायब हार", "en": "The missing wedding necklace" },
+              "config": { "comic": "d-necklace" }
+            },
+            {
+              "id": "c-d-train",
+              "game": "comic",
+              "icon": "comic-roohi",
+              "title": { "hi": "बर्थ नंबर तेरह", "en": "Berth number thirteen" },
+              "config": { "comic": "d-train" }
+            },
+            {
+              "id": "c-d-museum",
+              "game": "comic",
+              "icon": "comic-clue-lens",
+              "title": { "hi": "संग्रहालय की नक़ली मूर्ति", "en": "The fake statue" },
+              "config": { "comic": "d-museum" }
+            },
+            {
+              "id": "c-d-sadhu",
+              "game": "comic",
+              "icon": "comic-chhedilal",
+              "title": { "hi": "छलिया का भेस", "en": "The master of disguise" },
+              "config": { "comic": "d-sadhu" }
+            }
+          ]
+        },
+        {
+          "id": "g8-raaz",
+          "title": { "hi": "भूत, क्रिकेट और ठग", "en": "Ghosts, cricket and con men" },
+          "skill": "Comics",
+          "icon": "comic-pappu",
+          "lessons": [
+            {
+              "id": "c-d-haveli",
+              "game": "comic",
+              "icon": "comic-pappu",
+              "title": { "hi": "हवेली का भूत", "en": "The ghost of the haveli" },
+              "config": { "comic": "d-haveli" }
+            },
+            {
+              "id": "c-d-cricket",
+              "game": "comic",
+              "icon": "comic-clue-steps",
+              "title": { "hi": "ट्रॉफ़ी कहाँ गई?", "en": "Where did the trophy go?" },
+              "config": { "comic": "d-cricket" }
+            },
+            {
+              "id": "c-d-scam",
+              "game": "comic",
+              "icon": "comic-roohi",
+              "title": { "hi": "रूही और ऑनलाइन ठग", "en": "Roohi and the online swindler" },
+              "config": { "comic": "d-scam" }
+            }
+          ]
+        },
+        {
+          "id": "g8-chhalia",
+          "title": { "hi": "छलिया का आख़िरी दाँव", "en": "Chhedilal's last trick" },
+          "skill": "Comics",
+          "icon": "comic-mausi",
+          "lessons": [
+            {
+              "id": "c-d-locked",
+              "game": "comic",
+              "icon": "comic-clue-key",
+              "title": { "hi": "बंद कमरे का रहस्य", "en": "The locked-room mystery" },
+              "config": { "comic": "d-locked" }
+            },
+            {
+              "id": "c-d-milk",
+              "game": "comic",
+              "icon": "comic-clue-print",
+              "title": { "hi": "पप्पू और नक़ली दूध", "en": "Pappu and the fake milk" },
+              "config": { "comic": "d-milk" }
+            },
+            {
+              "id": "c-d-umbrella",
+              "game": "comic",
+              "icon": "comic-mausi",
+              "title": { "hi": "दादी की छतरी", "en": "Dadi's umbrella" },
+              "config": { "comic": "d-umbrella" }
+            }
+          ]
+        },
+        {
+          "id": "g8-muhavare",
+          "title": { "hi": "मुहावरों की तहक़ीक़ात", "en": "Idioms from the cases" },
+          "skill": "Vocabulary",
+          "icon": "comic-inspector",
+          "lessons": [
+            {
+              "id": "g8-idioms-1",
+              "game": "quiz",
+              "icon": "comic-inspector",
+              "title": { "hi": "मुहावरे", "en": "Idioms" },
+              "config": { "bank": "g8-idioms", "rounds": 6 }
+            }
+          ]
+        }
+      ]
     }
   ],
   "mascotLines": [
@@ -5935,6 +6227,214 @@
           "options": ["डरपोक खरगोश", "बातूनी कछुआ", "सोने का अंडा"]
         }
       ]
+    },
+    "g7-idioms": {
+      "title": { "hi": "कॉमिक्स के मुहावरे", "en": "Idioms from the comics" },
+      "questions": [
+        {
+          "hi": "'झूठ के पाँव नहीं होते' का मतलब क्या है?",
+          "en": "What does 'झूठ के पाँव नहीं होते' mean?",
+          "options": ["झूठ ज़्यादा देर टिकता नहीं", "बिना आवाज़ किए, चुपके से", "किसी को ज़रा भी पता न चलना"],
+          "answer": "झूठ ज़्यादा देर टिकता नहीं"
+        },
+        {
+          "hi": "'गले न उतरना' का मतलब क्या है?",
+          "en": "What does 'गले न उतरना' mean?",
+          "options": ["बात पर विश्वास न होना", "बुरी तरह हरा देना", "खाने का बहुत मन होना"],
+          "answer": "बात पर विश्वास न होना"
+        },
+        {
+          "hi": "'टेढ़ी खीर' का मतलब क्या है?",
+          "en": "What does 'टेढ़ी खीर' mean?",
+          "options": ["बहुत कठिन काम", "बहुत दुबला-पतला हो जाना", "बिजली चली जाना"],
+          "answer": "बहुत कठिन काम"
+        },
+        {
+          "hi": "'दबे पाँव' का मतलब क्या है?",
+          "en": "What does 'दबे पाँव' mean?",
+          "options": ["बिना आवाज़ किए, चुपके से", "बहुत भूख लगना", "कुछ न करना, बेकार बैठे रहना"],
+          "answer": "बिना आवाज़ किए, चुपके से"
+        },
+        {
+          "hi": "'छक्के छुड़ाना' का मतलब क्या है?",
+          "en": "What does 'छक्के छुड़ाना' mean?",
+          "options": ["बुरी तरह हरा देना", "किसी को ज़रा भी पता न चलना", "समझदारी की, सही"],
+          "answer": "बुरी तरह हरा देना"
+        },
+        {
+          "hi": "'सूखकर काँटा होना' का मतलब क्या है?",
+          "en": "What does 'सूखकर काँटा होना' mean?",
+          "options": ["बहुत दुबला-पतला हो जाना", "खाने का बहुत मन होना", "बहुत आसान काम"],
+          "answer": "बहुत दुबला-पतला हो जाना"
+        },
+        {
+          "hi": "'पेट में चूहे दौड़ना' का मतलब क्या है?",
+          "en": "What does 'पेट में चूहे दौड़ना' mean?",
+          "options": ["बहुत भूख लगना", "बिजली चली जाना", "बहुत जल्दी, एक क्षण में"],
+          "answer": "बहुत भूख लगना"
+        },
+        {
+          "hi": "'कानों-कान ख़बर न होना' का मतलब क्या है?",
+          "en": "What does 'कानों-कान ख़बर न होना' mean?",
+          "options": ["किसी को ज़रा भी पता न चलना", "कुछ न करना, बेकार बैठे रहना", "जिसे अनुभव न हो"],
+          "answer": "किसी को ज़रा भी पता न चलना"
+        },
+        {
+          "hi": "'मुँह में पानी आना' का मतलब क्या है?",
+          "en": "What does 'मुँह में पानी आना' mean?",
+          "options": ["खाने का बहुत मन होना", "समझदारी की, सही", "जिसके गुण बाद में पता चलें"],
+          "answer": "खाने का बहुत मन होना"
+        },
+        {
+          "hi": "'बत्ती गुल होना' का मतलब क्या है?",
+          "en": "What does 'बत्ती गुल होना' mean?",
+          "options": ["बिजली चली जाना", "बहुत आसान काम", "चुराकर भाग जाना"],
+          "answer": "बिजली चली जाना"
+        },
+        {
+          "hi": "'हाथ पर हाथ धरे बैठना' का मतलब क्या है?",
+          "en": "What does 'हाथ पर हाथ धरे बैठना' mean?",
+          "options": ["कुछ न करना, बेकार बैठे रहना", "बहुत जल्दी, एक क्षण में", "झूठ ज़्यादा देर टिकता नहीं"],
+          "answer": "कुछ न करना, बेकार बैठे रहना"
+        },
+        {
+          "hi": "'पते की बात' का मतलब क्या है?",
+          "en": "What does 'पते की बात' mean?",
+          "options": ["समझदारी की, सही", "जिसे अनुभव न हो", "बात पर विश्वास न होना"],
+          "answer": "समझदारी की, सही"
+        },
+        {
+          "hi": "'बच्चों का खेल' का मतलब क्या है?",
+          "en": "What does 'बच्चों का खेल' mean?",
+          "options": ["बहुत आसान काम", "जिसके गुण बाद में पता चलें", "बहुत कठिन काम"],
+          "answer": "बहुत आसान काम"
+        },
+        {
+          "hi": "'पलक झपकते' का मतलब क्या है?",
+          "en": "What does 'पलक झपकते' mean?",
+          "options": ["बहुत जल्दी, एक क्षण में", "चुराकर भाग जाना", "बिना आवाज़ किए, चुपके से"],
+          "answer": "बहुत जल्दी, एक क्षण में"
+        },
+        {
+          "hi": "'कच्चा खिलाड़ी' का मतलब क्या है?",
+          "en": "What does 'कच्चा खिलाड़ी' mean?",
+          "options": ["जिसे अनुभव न हो", "झूठ ज़्यादा देर टिकता नहीं", "बुरी तरह हरा देना"],
+          "answer": "जिसे अनुभव न हो"
+        },
+        {
+          "hi": "'छुपा रुस्तम' का मतलब क्या है?",
+          "en": "What does 'छुपा रुस्तम' mean?",
+          "options": ["जिसके गुण बाद में पता चलें", "बात पर विश्वास न होना", "बहुत दुबला-पतला हो जाना"],
+          "answer": "जिसके गुण बाद में पता चलें"
+        },
+        {
+          "hi": "'ले उड़ना' का मतलब क्या है?",
+          "en": "What does 'ले उड़ना' mean?",
+          "options": ["चुराकर भाग जाना", "बहुत कठिन काम", "बहुत भूख लगना"],
+          "answer": "चुराकर भाग जाना"
+        }
+      ]
+    },
+    "g8-idioms": {
+      "title": { "hi": "कॉमिक्स के मुहावरे", "en": "Idioms from the comics" },
+      "questions": [
+        {
+          "hi": "'देखते ही बनना' का मतलब क्या है?",
+          "en": "What does 'देखते ही बनना' mean?",
+          "options": ["शोभा बहुत अधिक होना", "बेजोड़, सबसे अच्छा होना", "बहुत कम क़ीमत"],
+          "answer": "शोभा बहुत अधिक होना"
+        },
+        {
+          "hi": "'रंगे हाथों पकड़ना' का मतलब क्या है?",
+          "en": "What does 'रंगे हाथों पकड़ना' mean?",
+          "options": ["अपराध करते हुए पकड़ा जाना", "जेल जाना", "चोरी के लिए घर में घुसना"],
+          "answer": "अपराध करते हुए पकड़ा जाना"
+        },
+        {
+          "hi": "'बिन बुलाए मेहमान' का मतलब क्या है?",
+          "en": "What does 'बिन बुलाए मेहमान' mean?",
+          "options": ["जो बिना बुलाए आ जाए", "धोखा देना", "बेकार, जिसका कोई मूल्य न हो"],
+          "answer": "जो बिना बुलाए आ जाए"
+        },
+        {
+          "hi": "'जवाब न होना' का मतलब क्या है?",
+          "en": "What does 'जवाब न होना' mean?",
+          "options": ["बेजोड़, सबसे अच्छा होना", "किसी का दिया खाना, उसका वफ़ादार होना", "बहुत कठिन काम"],
+          "answer": "बेजोड़, सबसे अच्छा होना"
+        },
+        {
+          "hi": "'जेल की हवा खाना' का मतलब क्या है?",
+          "en": "What does 'जेल की हवा खाना' mean?",
+          "options": ["जेल जाना", "बहुत कम क़ीमत", "लापरवाही से नुक़सान होता है"],
+          "answer": "जेल जाना"
+        },
+        {
+          "hi": "'आँखों में धूल झोंकना' का मतलब क्या है?",
+          "en": "What does 'आँखों में धूल झोंकना' mean?",
+          "options": ["धोखा देना", "चोरी के लिए घर में घुसना", "किसी और के दोष की सज़ा पाने वाला"],
+          "answer": "धोखा देना"
+        },
+        {
+          "hi": "'नमक खाना' का मतलब क्या है?",
+          "en": "What does 'नमक खाना' mean?",
+          "options": ["किसी का दिया खाना, उसका वफ़ादार होना", "बेकार, जिसका कोई मूल्य न हो", "कुछ गड़बड़ होने का शक"],
+          "answer": "किसी का दिया खाना, उसका वफ़ादार होना"
+        },
+        {
+          "hi": "'औने-पौने दाम' का मतलब क्या है?",
+          "en": "What does 'औने-पौने दाम' mean?",
+          "options": ["बहुत कम क़ीमत", "बहुत कठिन काम", "ग़ुस्सा या ख़ुशी बहुत बढ़ जाना"],
+          "answer": "बहुत कम क़ीमत"
+        },
+        {
+          "hi": "'सेंध लगाना' का मतलब क्या है?",
+          "en": "What does 'सेंध लगाना' mean?",
+          "options": ["चोरी के लिए घर में घुसना", "लापरवाही से नुक़सान होता है", "इतनी कड़ी सुरक्षा कि कोई अंदर न आ सके"],
+          "answer": "चोरी के लिए घर में घुसना"
+        },
+        {
+          "hi": "'किस काम का' का मतलब क्या है?",
+          "en": "What does 'किस काम का' mean?",
+          "options": ["बेकार, जिसका कोई मूल्य न हो", "किसी और के दोष की सज़ा पाने वाला", "शोभा बहुत अधिक होना"],
+          "answer": "बेकार, जिसका कोई मूल्य न हो"
+        },
+        {
+          "hi": "'टेढ़ी खीर' का मतलब क्या है?",
+          "en": "What does 'टेढ़ी खीर' mean?",
+          "options": ["बहुत कठिन काम", "कुछ गड़बड़ होने का शक", "अपराध करते हुए पकड़ा जाना"],
+          "answer": "बहुत कठिन काम"
+        },
+        {
+          "hi": "'सावधानी हटी, दुर्घटना घटी' का मतलब क्या है?",
+          "en": "What does 'सावधानी हटी, दुर्घटना घटी' mean?",
+          "options": ["लापरवाही से नुक़सान होता है", "ग़ुस्सा या ख़ुशी बहुत बढ़ जाना", "जो बिना बुलाए आ जाए"],
+          "answer": "लापरवाही से नुक़सान होता है"
+        },
+        {
+          "hi": "'बलि का बकरा बनना' का मतलब क्या है?",
+          "en": "What does 'बलि का बकरा बनना' mean?",
+          "options": ["किसी और के दोष की सज़ा पाने वाला", "इतनी कड़ी सुरक्षा कि कोई अंदर न आ सके", "बेजोड़, सबसे अच्छा होना"],
+          "answer": "किसी और के दोष की सज़ा पाने वाला"
+        },
+        {
+          "hi": "'दाल में कुछ काला होना' का मतलब क्या है?",
+          "en": "What does 'दाल में कुछ काला होना' mean?",
+          "options": ["कुछ गड़बड़ होने का शक", "शोभा बहुत अधिक होना", "जेल जाना"],
+          "answer": "कुछ गड़बड़ होने का शक"
+        },
+        {
+          "hi": "'सातवें आसमान पर होना' का मतलब क्या है?",
+          "en": "What does 'सातवें आसमान पर होना' mean?",
+          "options": ["ग़ुस्सा या ख़ुशी बहुत बढ़ जाना", "अपराध करते हुए पकड़ा जाना", "धोखा देना"],
+          "answer": "ग़ुस्सा या ख़ुशी बहुत बढ़ जाना"
+        },
+        {
+          "hi": "'परिंदा भी पर नहीं मार सकता' का मतलब क्या है?",
+          "en": "What does 'परिंदा भी पर नहीं मार सकता' mean?",
+          "options": ["इतनी कड़ी सुरक्षा कि कोई अंदर न आ सके", "जो बिना बुलाए आ जाए", "किसी का दिया खाना, उसका वफ़ादार होना"],
+          "answer": "इतनी कड़ी सुरक्षा कि कोई अंदर न आ सके"
+        }
+      ]
     }
   },
   "sorts": {
@@ -6056,7 +6556,8 @@
     "english": { "hi": "अंग्रेज़ी", "en": "English", "color": "#1D4ED8" },
     "math": { "hi": "गणित", "en": "Math", "color": "#2B2D42" },
     "counting": { "hi": "गिनती", "en": "Counting", "color": "#16A34A" },
-    "shapes": { "hi": "आकार", "en": "Shapes", "color": "#0891B2" }
+    "shapes": { "hi": "आकार", "en": "Shapes", "color": "#0891B2" },
+    "comics": { "hi": "कॉमिक्स", "en": "Comics", "color": "#F97316" }
   },
   "shows": [
     {
@@ -6362,6 +6863,2372 @@
             { "say": "tiko", "en": "Hoo hoo! You're a ten-maker now. Bye!", "do": "dance" },
             { "do": "wave", "who": "pip" }
           ]
+        }
+      ]
+    }
+  ],
+  "comics": [
+    {
+      "series": "mishti",
+      "level": "grade7",
+      "id": "m-homework",
+      "title": { "hi": "बिजली ने खाया होमवर्क", "en": "The goat ate my homework" },
+      "blurb": "बीस पन्नों की मेहनत, एक भूखी बकरी — और एक टीचर जो बहाने नहीं सुनतीं!",
+      "panels": [
+        {
+          "bg": "room",
+          "cast": [{ "who": "mishti", "at": 35, "face": "grin", "arms": "up" }, { "who": "bijli", "at": 76 }],
+          "cap": "कटहलपुर कस्बे की एक सुबह। मिष्टी ने रात भर जागकर विज्ञान की परियोजना पूरी की थी।",
+          "say": [{ "who": "mishti", "text": "पूरे बीस पन्ने! आज तो शुक्ला मैडम भी मान जाएँगी कि मिष्टी किसी से कम नहीं।" }]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "mishti", "at": 28, "face": "shock", "arms": "up" }, { "who": "bijli", "at": 72, "face": "chew" }],
+          "say": [{ "who": "mishti", "text": "बिजलीऽऽ! तूने मेरी परियोजना को नाश्ता समझ लिया?", "kind": "shout" }, { "who": "bijli", "text": "मैं-मैं!" }],
+          "sfx": "कुतर-कुतर!"
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "mummy", "at": 30, "arms": "hips" }, { "who": "mishti", "at": 72, "face": "sad" }],
+          "say": [
+            { "who": "mummy", "text": "अब रोने-धोने से क्या होगा? स्कूल का समय हो गया है, जल्दी चलो।" },
+            { "who": "mishti", "text": "मम्मी, मैडम कभी नहीं मानेंगी कि बकरी होमवर्क खा गई। पूरी क्लास हँसेगी!" }
+          ]
+        },
+        {
+          "bg": "street",
+          "cast": [{ "who": "buntu", "at": 28, "face": "sly" }, { "who": "mishti", "at": 72, "face": "think", "arms": "chin" }],
+          "say": [
+            { "who": "buntu", "text": "कोई बहाना बना दे — कह देना कि कॉपी घर पर भूल गई।", "kind": "whisper" },
+            { "who": "mishti", "text": "नहीं बंटू। झूठ के पाँव नहीं होते — आज नहीं तो कल पकड़ा जाता है। मैं सच ही बताऊँगी।" }
+          ]
+        },
+        {
+          "bg": "classroom",
+          "cast": [{ "who": "teacher", "at": 30, "face": "angry", "arms": "hips" }, { "who": "mishti", "at": 72, "face": "worried" }],
+          "say": [{ "who": "teacher", "text": "मिष्टी, तुम्हारी परियोजना कहाँ है?" }, { "who": "mishti", "text": "मैडम... वो... मेरी बकरी बिजली उसे खा गई।" }]
+        },
+        {
+          "bg": "classroom",
+          "cast": [{ "who": "rocky", "at": 28, "face": "laugh", "arms": "point" }, { "who": "buntu", "at": 74, "face": "worried" }],
+          "say": [{ "who": "rocky", "text": "बकरी? हा हा! अगली बार कहना कि हाथी सूँड़ में दबाकर ले गया!" }],
+          "sfx": "हा हा हा!"
+        },
+        {
+          "bg": "classroom",
+          "cast": [{ "who": "teacher", "at": 30, "face": "think", "arms": "chin" }, { "who": "mishti", "at": 74, "face": "sad" }],
+          "say": [
+            { "who": "teacher", "text": "मिष्टी, यह कहानी कुछ गले नहीं उतरती। कल तक नई परियोजना लाओ, वरना शून्य अंक।" },
+            { "who": "mishti", "text": "एक रात में बीस पन्ने? यह तो टेढ़ी खीर है!", "kind": "think" }
+          ]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "mishti", "at": 40, "face": "think", "arms": "chin" }, { "who": "bijli", "at": 80, "face": "sleep" }],
+          "cap": "उस रात मिष्टी ने हार नहीं मानी।",
+          "say": [{ "who": "mishti", "text": "मिल गया! नया विषय होगा — “बकरी क्या-क्या खाती है?” बिजली, तू ही मेरी प्रयोगशाला है!" }],
+          "dark": true
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "mishti", "at": 30, "face": "grin", "hold": "notebook" }, { "who": "bijli", "at": 72, "face": "chew" }],
+          "cap": "मिष्टी ने बिजली के सामने तरह-तरह की चीज़ें रखीं और सब कुछ लिखती गई।",
+          "say": [{ "who": "mishti", "text": "गाजर — हाँ। पत्ते — हाँ। अख़बार — हाँ! प्लास्टिक — नहीं, उससे पेट ख़राब होता है।" }],
+          "prop": { "word": "carrot", "at": 50 }
+        },
+        {
+          "bg": "classroom",
+          "cast": [{ "who": "teacher", "at": 26, "face": "shock", "arms": "up" }, { "who": "mishti", "at": 60, "face": "grin" }, { "who": "bijli", "at": 86 }],
+          "say": [{ "who": "teacher", "text": "अरे! तुम बकरी को स्कूल ले आईं?" }, { "who": "mishti", "text": "जी मैडम, सबूत के साथ! आज की परियोजना जीती-जागती है।" }],
+          "sfx": "मैं-मैं!"
+        },
+        {
+          "bg": "classroom",
+          "cast": [{ "who": "teacher", "at": 56, "face": "laugh" }, { "who": "rocky", "at": 24, "face": "shock", "arms": "up" }, { "who": "bijli", "at": 84, "face": "chew" }],
+          "say": [
+            { "who": "rocky", "text": "मैडम! आपकी हाज़िरी की कॉपी!", "kind": "shout" },
+            { "who": "teacher", "text": "हा हा! अब तो मानना ही पड़ेगा कि यह बकरी सचमुच कॉपियाँ खाती है!" }
+          ],
+          "sfx": "कुतर-कुतर!"
+        },
+        {
+          "bg": "classroom",
+          "cast": [{ "who": "teacher", "at": 30, "face": "smile" }, { "who": "mishti", "at": 70, "face": "laugh" }],
+          "cap": "उस दिन मिष्टी को दस में से दस अंक मिले — सच बोलने के लिए भी, और मेहनत के लिए भी।",
+          "say": [{ "who": "teacher", "text": "शाबाश मिष्टी! तुमने मुसीबत को मौक़े में बदल दिया।" }],
+          "wide": true
+        }
+      ],
+      "words": [
+        { "hi": "परियोजना", "mean": "किसी विषय पर किया गया विस्तृत काम", "en": "project" },
+        { "hi": "झूठ के पाँव नहीं होते", "mean": "कहावत: झूठ ज़्यादा देर टिकता नहीं", "en": "lies do not last" },
+        { "hi": "गले नहीं उतरती", "mean": "मुहावरा: बात पर विश्वास न होना (गले न उतरना)", "en": "hard to believe" },
+        { "hi": "टेढ़ी खीर", "mean": "मुहावरा: बहुत कठिन काम", "en": "a very hard task" },
+        { "hi": "प्रयोगशाला", "mean": "वह जगह जहाँ प्रयोग किए जाते हैं", "en": "laboratory" },
+        { "hi": "सबूत", "mean": "प्रमाण", "en": "proof" },
+        { "hi": "जीती-जागती", "mean": "सचमुच की, ज़िंदा", "en": "real, living" }
+      ],
+      "questions": [
+        {
+          "q": "मिष्टी ने बंटू की सलाह क्यों नहीं मानी?",
+          "options": ["वह झूठ नहीं बोलना चाहती थी", "उसे बंटू पर ग़ुस्सा था", "उसे मैडम से बिल्कुल डर नहीं लगता था"],
+          "answer": "वह झूठ नहीं बोलना चाहती थी"
+        },
+        {
+          "q": "मिष्टी की नई परियोजना का विषय क्या था?",
+          "options": ["बकरी क्या-क्या खाती है", "पौधे कैसे बढ़ते हैं", "पानी का चक्र"],
+          "answer": "बकरी क्या-क्या खाती है"
+        },
+        { "q": "“टेढ़ी खीर” का अर्थ क्या है?", "options": ["बहुत कठिन काम", "मीठा पकवान", "टेढ़ा रास्ता"], "answer": "बहुत कठिन काम" }
+      ]
+    },
+    {
+      "series": "mishti",
+      "level": "grade7",
+      "id": "m-roses",
+      "title": { "hi": "कर्नल साहब के गुलाब", "en": "The Colonel's roses" },
+      "blurb": "पुष्प प्रदर्शनी से तीन दिन पहले कर्नल साहब के गुलाब कुतरे गए। शक बिजली पर — पर असली चोर कौन?",
+      "panels": [
+        {
+          "bg": "garden",
+          "cast": [{ "who": "colonel", "at": 40, "face": "grin", "arms": "hips" }],
+          "cap": "कटहलपुर की पुष्प प्रदर्शनी में बस तीन दिन बाकी थे। कर्नल कड़कसिंह के गुलाब पूरे कस्बे में मशहूर थे।",
+          "say": [{ "who": "colonel", "text": "इस बार भी पहला इनाम हमारा! अनुशासन से उगाए हैं ये गुलाब — रोज़ सुबह ठीक छह बजे पानी!" }]
+        },
+        {
+          "bg": "garden",
+          "cast": [{ "who": "colonel", "at": 40, "face": "shock", "arms": "up" }],
+          "cap": "अगली सुबह...",
+          "say": [{ "who": "colonel", "text": "मेरे गुलाब! किसने कुतर डाले?", "kind": "shout" }],
+          "sfx": "हाय!"
+        },
+        {
+          "bg": "street",
+          "cast": [{ "who": "colonel", "at": 26, "face": "angry", "arms": "point" }, { "who": "mishti", "at": 62, "face": "worried" }, { "who": "bijli", "at": 88 }],
+          "say": [
+            { "who": "colonel", "text": "मिष्टी! यह तुम्हारी बकरी की करतूत है। कस्बे की हर चीज़ यही चट करती है!" },
+            { "who": "mishti", "text": "कर्नल अंकल, बिजली रात को घर में बँधी रहती है। बिना सबूत किसी पर इल्ज़ाम लगाना ठीक नहीं।" }
+          ]
+        },
+        {
+          "bg": "street",
+          "cast": [{ "who": "colonel", "at": 32, "face": "angry", "arms": "hips" }, { "who": "mishti", "at": 72, "face": "think", "arms": "chin" }],
+          "say": [
+            { "who": "colonel", "text": "ठीक है! कल सुबह तक चोर नहीं पकड़ा गया, तो तुम्हारी बकरी की शिकायत नगरपालिका से करूँगा।" },
+            { "who": "mishti", "text": "अब तो बिजली की इज़्ज़त का सवाल है!", "kind": "think" }
+          ]
+        },
+        {
+          "bg": "garden",
+          "cast": [{ "who": "mishti", "at": 70, "face": "grin" }, { "who": "buntu", "at": 30, "face": "worried" }],
+          "cap": "उस शाम मिष्टी और बंटू आटे का डिब्बा लेकर पहुँचे।",
+          "say": [
+            { "who": "buntu", "text": "आटा? यहाँ रोटी बनाएगी क्या?" },
+            { "who": "mishti", "text": "नहीं बुद्धू! गुलाबों के चारों ओर आटा बिछाएँगे। जो भी आएगा, उसके पैरों के निशान छप जाएँगे।" }
+          ]
+        },
+        {
+          "bg": "garden",
+          "cast": [{ "who": "colonel", "at": 56, "face": "shock" }, { "who": "mishti", "at": 24, "face": "think", "arms": "point" }, { "who": "buntu", "at": 84 }],
+          "cap": "अगली सुबह, आटे पर अजीब-से निशान थे।",
+          "say": [
+            { "who": "mishti", "text": "देखिए! ये बकरी के खुर के निशान नहीं हैं। गोल-गोल पंजे हैं, और बीच में किसी चीज़ के घिसटने की लकीर।" },
+            { "who": "colonel", "text": "हम्म... इतना छोटा चोर?" }
+          ]
+        },
+        {
+          "bg": "garden",
+          "cast": [{ "who": "mishti", "at": 30, "arms": "point" }, { "who": "colonel", "at": 72, "face": "think", "arms": "chin" }],
+          "say": [{ "who": "mishti", "text": "निशान आपकी झाड़ियों की तरफ़ जा रहे हैं, अंकल। चलिए, पीछा करते हैं — पर दबे पाँव!", "kind": "whisper" }]
+        },
+        {
+          "bg": "garden",
+          "cast": [{ "who": "colonel", "at": 26, "face": "shock", "arms": "up" }, { "who": "mishti", "at": 58, "face": "laugh" }],
+          "say": [
+            { "who": "colonel", "text": "टैंक! मेरा अपना कछुआ?!", "kind": "shout" },
+            { "who": "mishti", "text": "जी हाँ! कछुए फूल बड़े चाव से खाते हैं। रात को धीरे-धीरे आता था और गुलाबों की दावत उड़ाता था।" }
+          ],
+          "sfx": "चप-चप",
+          "prop": { "word": "tortoise", "at": 84 }
+        },
+        {
+          "bg": "garden",
+          "cast": [{ "who": "colonel", "at": 32, "face": "sad" }, { "who": "mishti", "at": 70, "face": "smile" }],
+          "say": [
+            { "who": "colonel", "text": "मैंने बेचारी बकरी पर बेवजह शक किया। माफ़ करना, बेटी।" },
+            { "who": "mishti", "text": "कोई बात नहीं, अंकल। बस अगली बार पहले सबूत देखिएगा, फिर फ़ैसला।" }
+          ]
+        },
+        {
+          "bg": "garden",
+          "cast": [{ "who": "colonel", "at": 30, "face": "shock" }, { "who": "bijli", "at": 72, "face": "chew" }],
+          "cap": "और बिजली? उसने कर्नल साहब का अख़बार चबाकर अपना बदला ले लिया!",
+          "say": [{ "who": "colonel", "text": "अरे! मेरा अख़बार! ...ख़ैर, इतना तो बनता है।" }],
+          "sfx": "कुतर-कुतर!"
+        },
+        {
+          "bg": "fair",
+          "cast": [{ "who": "colonel", "at": 26, "face": "laugh", "arms": "up" }, { "who": "mishti", "at": 58, "face": "grin" }, { "who": "bijli", "at": 86, "face": "grin" }],
+          "cap": "प्रदर्शनी के दिन...",
+          "say": [{ "who": "colonel", "text": "पहला इनाम फिर हमारा! और इनाम का आधा हिस्सा जासूस मिष्टी का, जिसने असली चोर पकड़ा!" }],
+          "wide": true
+        }
+      ],
+      "words": [
+        { "hi": "पुष्प प्रदर्शनी", "mean": "फूलों की प्रदर्शनी", "en": "flower show" },
+        { "hi": "अनुशासन", "mean": "नियम से चलना", "en": "discipline" },
+        { "hi": "करतूत", "mean": "बुरा काम", "en": "misdeed" },
+        { "hi": "चट करती", "mean": "सब कुछ खा जाना (चट करना)", "en": "eats up everything" },
+        { "hi": "इल्ज़ाम", "mean": "दोष लगाना, आरोप", "en": "accusation" },
+        { "hi": "दबे पाँव", "mean": "मुहावरा: बिना आवाज़ किए, चुपके से (दबे पाँव)", "en": "on tiptoe" },
+        { "hi": "बड़े चाव से", "mean": "बहुत शौक़ से", "en": "with great relish" },
+        { "hi": "बेवजह", "mean": "बिना किसी कारण", "en": "for no reason" }
+      ],
+      "questions": [
+        {
+          "q": "मिष्टी ने गुलाबों के चारों ओर आटा क्यों बिछाया?",
+          "options": ["चोर के पैरों के निशान देखने के लिए", "गुलाबों को खाद देने के लिए", "बिजली को खिलाने के लिए"],
+          "answer": "चोर के पैरों के निशान देखने के लिए"
+        },
+        { "q": "गुलाब असल में कौन खा रहा था?", "options": ["कर्नल का कछुआ टैंक", "बकरी बिजली", "बंटू"], "answer": "कर्नल का कछुआ टैंक" },
+        {
+          "q": "इस कहानी से क्या सीख मिलती है?",
+          "options": ["बिना सबूत किसी पर शक नहीं करना चाहिए", "गुलाब नहीं उगाने चाहिए", "जानवर नहीं पालने चाहिए"],
+          "answer": "बिना सबूत किसी पर शक नहीं करना चाहिए"
+        }
+      ]
+    },
+    {
+      "series": "mishti",
+      "level": "grade7",
+      "id": "m-kite",
+      "title": { "hi": "पतंग का पेच", "en": "The kite fight" },
+      "blurb": "मकर संक्रांति, रंग-बिरंगा आसमान और रॉकी का ख़तरनाक माँझा। जीत किसकी होगी — ज़ोर की या दिमाग़ की?",
+      "panels": [
+        {
+          "bg": "terrace",
+          "cast": [{ "who": "mishti", "at": 34, "face": "grin", "arms": "point", "hold": "kite" }, { "who": "buntu", "at": 74, "face": "laugh" }],
+          "cap": "मकर संक्रांति का दिन। कटहलपुर का आसमान रंग-बिरंगी पतंगों से भरा था।",
+          "say": [{ "who": "mishti", "text": "बंटू, चरखी कसकर पकड़ना! आज “मिष्टी एक्सप्रेस” सबके छक्के छुड़ा देगी!" }]
+        },
+        {
+          "bg": "terrace",
+          "cast": [{ "who": "rocky", "at": 60, "face": "sly", "arms": "hips" }],
+          "cap": "पड़ोस की छत पर रॉकी अपनी महँगी पतंग लिए खड़ा था।",
+          "say": [{ "who": "rocky", "text": "हुँह! मेरे पास चाइनीज़ माँझा है — काँच वाला। एक झटके में तुम्हारी पतंग ग़ायब!" }]
+        },
+        {
+          "bg": "terrace",
+          "cast": [{ "who": "mishti", "at": 32, "face": "angry" }, { "who": "buntu", "at": 72, "face": "worried" }],
+          "say": [
+            { "who": "mishti", "text": "चाइनीज़ माँझा? उससे पक्षियों के पंख कट जाते हैं, और सड़क पर स्कूटर वालों के गले भी! उस पर तो प्रतिबंध है।" },
+            { "who": "buntu", "text": "पर उसके आगे हमारा सूती धागा टिकेगा कैसे?" }
+          ]
+        },
+        {
+          "bg": "terrace",
+          "cast": [{ "who": "mishti", "at": 44, "face": "think", "arms": "chin" }],
+          "say": [{ "who": "mishti", "text": "दादाजी कहते हैं — पेच धागे से नहीं, दिमाग़ से लड़ा जाता है। हवा की दिशा देखो, ढील दो, फिर खींचो।", "kind": "think" }]
+        },
+        {
+          "bg": "terrace",
+          "cast": [{ "who": "mishti", "at": 72, "arms": "point", "flip": true }, { "who": "buntu", "at": 30, "face": "shock" }],
+          "cap": "पेच लगा! रॉकी ज़ोर-ज़ोर से डोर खींचने लगा, पर मिष्टी ढील देती गई।",
+          "say": [
+            { "who": "buntu", "text": "मिष्टी, खींच! वरना कट जाएगी!", "kind": "shout" },
+            { "who": "mishti", "text": "धीरज रख! खींचने वाले का धागा ही गरम होकर कटता है।" }
+          ],
+          "sfx": "सर्र्र!"
+        },
+        {
+          "bg": "terrace",
+          "cast": [{ "who": "rocky", "at": 44, "face": "shock", "arms": "up" }],
+          "say": [{ "who": "rocky", "text": "नहीं! मेरी पतंग!", "kind": "shout" }],
+          "sfx": "वो काटा!"
+        },
+        {
+          "bg": "street",
+          "cast": [{ "who": "mishti", "at": 28, "face": "worried" }, { "who": "rocky", "at": 64, "face": "sad" }],
+          "cap": "रॉकी की कटी पतंग का काँच-माँझा नीम के पेड़ में उलझ गया... और उसमें एक कबूतर फँस गया!",
+          "say": [{ "who": "mishti", "text": "देखा रॉकी, तुम्हारे माँझे का नतीजा? बेचारा कबूतर!" }],
+          "prop": { "word": "dove", "at": 88 }
+        },
+        {
+          "bg": "street",
+          "cast": [{ "who": "dadaji", "at": 24 }, { "who": "mishti", "at": 54, "face": "worried" }, { "who": "rocky", "at": 82, "face": "sad" }],
+          "say": [{ "who": "dadaji", "text": "घबराओ मत। मैं सीढ़ी लाता हूँ। धीरे-धीरे धागा काटेंगे, ताकि इसके पंखों को चोट न लगे।" }]
+        },
+        {
+          "bg": "street",
+          "cast": [{ "who": "rocky", "at": 30, "face": "sad" }, { "who": "mishti", "at": 66, "face": "smile" }],
+          "cap": "कबूतर आज़ाद होकर फुर्र से उड़ गया।",
+          "say": [
+            { "who": "rocky", "text": "मुझे माफ़ कर दो। मुझे नहीं पता था कि यह माँझा इतना ख़तरनाक है।" },
+            { "who": "mishti", "text": "अब पता चल गया न? चलो, बचा हुआ माँझा कूड़े में नहीं, नगरपालिका के संग्रह-केंद्र में जमा करते हैं।" }
+          ]
+        },
+        {
+          "bg": "terrace",
+          "cast": [{ "who": "mishti", "at": 24, "face": "grin" }, { "who": "rocky", "at": 52, "face": "grin" }, { "who": "buntu", "at": 80, "face": "laugh", "hold": "laddoo" }],
+          "cap": "शाम तक तीनों ने मिलकर सूती धागे से पतंग उड़ाई।",
+          "say": [{ "who": "rocky", "text": "जीत का असली मज़ा तो ईमानदारी से खेलने में है!" }, { "who": "buntu", "text": "और तिल के लड्डू खाने में!" }],
+          "wide": true
+        }
+      ],
+      "words": [
+        { "hi": "चरखी", "mean": "जिस पर पतंग की डोर लपेटी जाती है", "en": "kite spool" },
+        { "hi": "छक्के छुड़ा", "mean": "मुहावरा: बुरी तरह हरा देना (छक्के छुड़ाना)", "en": "to beat badly" },
+        { "hi": "प्रतिबंध", "mean": "रोक, मनाही", "en": "ban" },
+        { "hi": "पेच", "mean": "पतंगों की आपस में लड़ाई", "en": "kite fight" },
+        { "hi": "ढील", "mean": "डोर को ढीला छोड़ना", "en": "slack" },
+        { "hi": "धीरज", "mean": "धैर्य", "en": "patience" },
+        { "hi": "संग्रह-केंद्र", "mean": "चीज़ें इकट्ठी करने की जगह", "en": "collection centre" }
+      ],
+      "questions": [
+        {
+          "q": "मिष्टी ने चाइनीज़ माँझे का विरोध क्यों किया?",
+          "options": ["उससे पक्षी और लोग घायल होते हैं", "वह बहुत महँगा होता है", "वह जल्दी टूट जाता है"],
+          "answer": "उससे पक्षी और लोग घायल होते हैं"
+        },
+        { "q": "मिष्टी ने पेच कैसे जीता?", "options": ["ढील देकर, धीरज से", "ज़ोर से खींचकर", "रॉकी का धागा चुराकर"], "answer": "ढील देकर, धीरज से" },
+        { "q": "“छक्के छुड़ाना” का अर्थ क्या है?", "options": ["बुरी तरह हरा देना", "क्रिकेट खेलना", "छह चीज़ें छोड़ना"], "answer": "बुरी तरह हरा देना" }
+      ]
+    },
+    {
+      "series": "mishti",
+      "level": "grade7",
+      "id": "m-diet",
+      "title": { "hi": "बंटू का डाइट प्लान", "en": "Buntu's diet plan" },
+      "blurb": "डॉक्टर ने कहा — न समोसा, न जलेबी! पर बंटू के बस्ते से समोसे की ख़ुशबू क्यों आती है?",
+      "panels": [
+        {
+          "bg": "kitchen",
+          "cast": [{ "who": "buntuma", "at": 30, "arms": "hips" }, { "who": "buntu", "at": 72, "face": "sad" }],
+          "say": [
+            { "who": "buntuma", "text": "आज से न समोसा, न जलेबी! डॉक्टर ने कहा है — रोज़ फल, सब्ज़ी और एक घंटा खेलकूद।" },
+            { "who": "buntu", "text": "मम्मी, बिना जलेबी के तो मैं सूखकर काँटा हो जाऊँगा!" }
+          ]
+        },
+        {
+          "bg": "street",
+          "cast": [{ "who": "mishti", "at": 30, "face": "laugh" }, { "who": "buntu", "at": 70, "face": "sad" }],
+          "say": [
+            { "who": "mishti", "text": "सूखकर काँटा? तू तो बस थोड़ा-सा गोल-मटोल है।" },
+            { "who": "buntu", "text": "हँस ले। पर मेरे पेट में तो अभी से चूहे दौड़ रहे हैं!" }
+          ]
+        },
+        {
+          "bg": "bazaar",
+          "cast": [{ "who": "laddoolal", "at": 72, "face": "grin", "hold": "plate" }, { "who": "buntu", "at": 30, "face": "sly" }],
+          "cap": "पर बंटू ने चुपके से एक योजना बनाई...",
+          "say": [
+            { "who": "buntu", "text": "लड्डू चाचा, रोज़ दो समोसे मेरे बस्ते में डाल देना। मम्मी को कानों-कान ख़बर न हो।", "kind": "whisper" },
+            { "who": "laddoolal", "text": "हें हें... ग्राहक तो भगवान होता है, बेटा!" }
+          ]
+        },
+        {
+          "bg": "school",
+          "cast": [{ "who": "mishti", "at": 34, "face": "think", "arms": "chin" }, { "who": "buntu", "at": 74, "face": "grin", "hold": "bag" }],
+          "say": [{ "who": "mishti", "text": "आजकल बंटू खेल के मैदान में आता ही नहीं। और उसके बस्ते से समोसे की ख़ुशबू क्यों आती है?", "kind": "think" }]
+        },
+        {
+          "bg": "ground",
+          "cast": [{ "who": "bijli", "at": 24, "face": "chew" }, { "who": "buntu", "at": 64, "face": "shock", "arms": "up" }],
+          "say": [{ "who": "buntu", "text": "बिजली! मेरा समोसा छोड़!", "kind": "shout" }],
+          "sfx": "छीना-झपटी!"
+        },
+        {
+          "bg": "ground",
+          "cast": [{ "who": "mishti", "at": 30, "arms": "hips" }, { "who": "buntu", "at": 70, "face": "worried" }],
+          "say": [
+            {
+              "who": "mishti",
+              "text": "तो यह है तुम्हारा डाइट प्लान! बंटू, मम्मी तुम्हारी भलाई के लिए कह रही हैं। धोखा देकर तुम अपना ही नुक़सान कर रहे हो।"
+            }
+          ]
+        },
+        {
+          "bg": "ground",
+          "cast": [{ "who": "buntu", "at": 32, "face": "sad" }, { "who": "mishti", "at": 72, "face": "think", "arms": "chin" }],
+          "say": [
+            { "who": "buntu", "text": "पर फल-सब्ज़ी में मज़ा ही नहीं आता, और दौड़ने से साँस फूल जाती है।" },
+            { "who": "mishti", "text": "तो चलो, इन्हें मज़ेदार बनाते हैं!" }
+          ]
+        },
+        {
+          "bg": "kitchen",
+          "cast": [{ "who": "mishti", "at": 30, "face": "grin" }, { "who": "buntu", "at": 72, "face": "shock" }],
+          "cap": "मिष्टी ने बनाई “इंद्रधनुष थाली” — लाल टमाटर, नारंगी गाजर, हरी मटर, पीला भुट्टा और बैंगनी चुकंदर।",
+          "say": [{ "who": "buntu", "text": "अरे! यह तो देखने में ही इतनी रंगीन है कि मुँह में पानी आ गया!" }]
+        },
+        {
+          "bg": "park",
+          "cast": [{ "who": "mishti", "at": 22, "arms": "point" }, { "who": "buntu", "at": 52, "face": "grin" }, { "who": "bijli", "at": 84 }],
+          "cap": "और खेल के लिए — “बकरी दौड़”!",
+          "say": [{ "who": "mishti", "text": "जो बिजली को पकड़ेगा, उसे इनाम में आम का शेक!" }],
+          "sfx": "मैं-मैं!"
+        },
+        {
+          "bg": "park",
+          "cast": [{ "who": "buntu", "at": 50, "face": "laugh", "arms": "up" }],
+          "cap": "एक महीने बाद...",
+          "say": [{ "who": "buntu", "text": "देखो! अब मैं पूरे मैदान के दो चक्कर दौड़ लेता हूँ, और साँस भी नहीं फूलती!" }]
+        },
+        {
+          "bg": "bazaar",
+          "cast": [{ "who": "laddoolal", "at": 24, "face": "smile" }, { "who": "buntu", "at": 54, "face": "grin" }, { "who": "mishti", "at": 82, "face": "laugh" }],
+          "say": [
+            { "who": "laddoolal", "text": "बंटू बेटा, आज समोसा?" },
+            { "who": "buntu", "text": "आज नहीं चाचा! हफ़्ते में एक बार — बस रविवार को। संतुलन ही असली डाइट है!" }
+          ],
+          "wide": true
+        }
+      ],
+      "parts": { "buntuma": { "look": "woman-b", "name": "बंटू की मम्मी" } },
+      "words": [
+        { "hi": "सूखकर काँटा", "mean": "मुहावरा: बहुत दुबला-पतला हो जाना (सूखकर काँटा होना)", "en": "to become skin and bones" },
+        { "hi": "पेट में तो अभी से चूहे दौड़ रहे", "mean": "मुहावरा: बहुत भूख लगना (पेट में चूहे दौड़ना)", "en": "very hungry" },
+        { "hi": "कानों-कान ख़बर न हो", "mean": "मुहावरा: किसी को ज़रा भी पता न चलना (कानों-कान ख़बर न होना)", "en": "not a soul should know" },
+        { "hi": "भलाई", "mean": "अच्छाई, हित", "en": "good, welfare" },
+        { "hi": "मुँह में पानी आ गया", "mean": "मुहावरा: खाने का बहुत मन होना (मुँह में पानी आना)", "en": "mouth watering" },
+        { "hi": "संतुलन", "mean": "हर चीज़ सही मात्रा में", "en": "balance" }
+      ],
+      "questions": [
+        {
+          "q": "बंटू समोसे कैसे मँगवाता था?",
+          "options": ["लड्डू लाल से बस्ते में डलवाकर", "मम्मी से माँगकर", "मिष्टी से छीनकर"],
+          "answer": "लड्डू लाल से बस्ते में डलवाकर"
+        },
+        {
+          "q": "मिष्टी ने बंटू की मदद कैसे की?",
+          "options": ["खाने और खेल को मज़ेदार बनाकर", "मम्मी से उसकी शिकायत करके", "उसे रोज़ समोसे देकर"],
+          "answer": "खाने और खेल को मज़ेदार बनाकर"
+        },
+        { "q": "“पेट में चूहे दौड़ना” का अर्थ क्या है?", "options": ["बहुत भूख लगना", "पेट में दर्द होना", "चूहों से डर लगना"], "answer": "बहुत भूख लगना" }
+      ]
+    },
+    {
+      "series": "mishti",
+      "level": "grade7",
+      "id": "m-powercut",
+      "title": { "hi": "बिजली गई, बिजली आई!", "en": "The lights went out — Bijli came in!" },
+      "blurb": "परीक्षा से पहले की रात बत्ती गुल। पर इस घर में “बिजली” कहते ही एक बकरी दौड़ी चली आती है!",
+      "panels": [
+        {
+          "bg": "room",
+          "cast": [{ "who": "mishti", "at": 36, "face": "think", "hold": "book" }, { "who": "bijli", "at": 76, "face": "sleep" }],
+          "cap": "परीक्षा से पहले की रात। मिष्टी गणित पढ़ रही थी।",
+          "say": [{ "who": "mishti", "text": "अरे! बत्ती गुल — बिजली चली गई!" }],
+          "sfx": "खट्!"
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "mishti", "at": 30, "face": "shock" }, { "who": "bijli", "at": 72, "face": "shock" }],
+          "cap": "पर बिजली (बकरी) तो यहीं थी — उसे लगा, किसी ने उसका नाम पुकारा!",
+          "say": [{ "who": "bijli", "text": "मैं-मैं?" }],
+          "dark": true
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "papa", "at": 30, "face": "smile", "hold": "lantern" }, { "who": "mishti", "at": 72, "face": "worried" }],
+          "say": [{ "who": "papa", "text": "घबराओ मत। लालटेन जला देता हूँ।" }, { "who": "mishti", "text": "पापा, बिजली कब आएगी?" }],
+          "dark": true
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "papa", "at": 28, "face": "laugh" }, { "who": "bijli", "at": 68, "face": "grin" }],
+          "cap": "बिजली (बकरी) तुरंत दौड़ी आई — “बिजली आएगी” जो सुन लिया था!",
+          "say": [{ "who": "papa", "text": "हा हा! बिजली तो आ गई — पर तारों वाली नहीं, चार टाँगों वाली!" }],
+          "sfx": "टप-टप-टप",
+          "dark": true
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "dadaji", "at": 30, "face": "smile" }, { "who": "mishti", "at": 72, "face": "think", "arms": "chin" }],
+          "say": [
+            { "who": "dadaji", "text": "जानती हो मिष्टी, जब मैं तुम्हारी उम्र का था, हमारे गाँव में बिजली थी ही नहीं। हम ढिबरी की रोशनी में पढ़ते थे।" },
+            { "who": "mishti", "text": "सच, दादाजी? फिर पंखा, फ़्रिज, टीवी?" }
+          ],
+          "dark": true
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "dadaji", "at": 30, "face": "smile" }, { "who": "mishti", "at": 72 }],
+          "say": [{ "who": "dadaji", "text": "हाथ का पंखा, मिट्टी का घड़ा, और रेडियो पर समाचार। चीज़ें कम थीं, पर बर्बादी भी कम थी।" }],
+          "dark": true
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "mishti", "at": 44, "face": "think" }],
+          "say": [{ "who": "mishti", "text": "और हम तो ख़ाली कमरों में भी बत्ती जलाकर छोड़ देते हैं...", "kind": "think" }],
+          "dark": true
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "mishti", "at": 30, "face": "grin", "arms": "up" }, { "who": "bijli", "at": 72, "face": "shock" }],
+          "cap": "आधे घंटे बाद...",
+          "say": [{ "who": "mishti", "text": "बिजली आ गई!", "kind": "shout" }, { "who": "bijli", "text": "मैं-मैं!" }],
+          "sfx": "भक्!"
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "mummy", "at": 24, "face": "laugh" }, { "who": "papa", "at": 52, "face": "laugh" }, { "who": "mishti", "at": 80, "face": "laugh" }],
+          "say": [
+            { "who": "mummy", "text": "इस घर में “बिजली” कहना ही मुश्किल हो गया है!" },
+            { "who": "mishti", "text": "तो आज से बत्ती वाली बिजली को “विद्युत” कहेंगे — बकरी को उलझन नहीं होगी!" }
+          ]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "mishti", "at": 36, "arms": "point" }, { "who": "bijli", "at": 78, "face": "chew" }],
+          "cap": "अगले दिन मिष्टी ने घर में “विद्युत बचाओ” के नियम चिपका दिए।",
+          "say": [{ "who": "mishti", "text": "नियम एक: कमरे से निकलो तो बत्ती बंद। नियम दो: दिन में खिड़की खोलो। नियम तीन: ...बिजली, पोस्टर मत खा!" }],
+          "sfx": "कुतर-कुतर!"
+        },
+        {
+          "bg": "classroom",
+          "cast": [{ "who": "teacher", "at": 30, "face": "smile" }, { "who": "mishti", "at": 70, "face": "grin" }],
+          "cap": "और गणित की परीक्षा?",
+          "say": [{ "who": "teacher", "text": "सौ में से अट्ठानवे! लालटेन की रोशनी में पढ़ाई का कमाल!" }],
+          "wide": true
+        }
+      ],
+      "words": [
+        { "hi": "बत्ती गुल", "mean": "मुहावरा: बिजली चली जाना (बत्ती गुल होना)", "en": "power cut" },
+        { "hi": "लालटेन", "mean": "मिट्टी के तेल से जलने वाला लैंप", "en": "lantern" },
+        { "hi": "ढिबरी", "mean": "मिट्टी के तेल का छोटा-सा दीया", "en": "small oil lamp" },
+        { "hi": "बर्बादी", "mean": "बेकार में नष्ट करना", "en": "waste" },
+        { "hi": "विद्युत", "mean": "बिजली (शुद्ध हिंदी शब्द)", "en": "electricity" },
+        { "hi": "उलझन", "mean": "भ्रम, परेशानी", "en": "confusion" }
+      ],
+      "questions": [
+        {
+          "q": "बकरी बार-बार क्यों दौड़ी आती थी?",
+          "options": ["उसे लगा कोई उसका नाम पुकार रहा है", "उसे अँधेरे से डर लगता था", "उसे भूख लगी थी"],
+          "answer": "उसे लगा कोई उसका नाम पुकार रहा है"
+        },
+        { "q": "दादाजी बचपन में किसकी रोशनी में पढ़ते थे?", "options": ["ढिबरी", "बल्ब", "टॉर्च"], "answer": "ढिबरी" },
+        { "q": "“विद्युत” किस शब्द का पर्यायवाची है?", "options": ["बिजली", "पानी", "हवा"], "answer": "बिजली" }
+      ]
+    },
+    {
+      "series": "mishti",
+      "level": "grade7",
+      "id": "m-solar",
+      "title": { "hi": "धूप वाला चूल्हा", "en": "The sunshine stove" },
+      "blurb": "विज्ञान मेले के लिए मिष्टी का सौर कुकर — गत्ता, पन्नी, शीशा... और एक भूखी बकरी!",
+      "panels": [
+        {
+          "bg": "school",
+          "cast": [{ "who": "teacher", "at": 30, "face": "smile" }, { "who": "mishti", "at": 70, "face": "grin", "arms": "up" }],
+          "cap": "कटहलपुर के सरकारी स्कूल में विज्ञान मेला!",
+          "say": [{ "who": "teacher", "text": "इस साल का विषय है — “सूरज की ऊर्जा”।" }, { "who": "mishti", "text": "मैं सौर कुकर बनाऊँगी, जिसमें धूप से खाना पकेगा!" }]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "mishti", "at": 70, "face": "think", "arms": "chin" }, { "who": "buntu", "at": 30, "face": "laugh" }],
+          "say": [
+            { "who": "buntu", "text": "धूप से खाना? धूप से तो बस कपड़े सूखते हैं!" },
+            { "who": "mishti", "text": "देखते जाओ। चाहिए — गत्ते का डिब्बा, एल्युमिनियम की पन्नी, काला रंग और एक शीशा।" }
+          ]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "mishti", "at": 32, "face": "grin", "arms": "point" }, { "who": "buntu", "at": 72, "face": "shock" }],
+          "cap": "दोनों ने डिब्बे के अंदर पन्नी चिपकाई, बर्तन को काला रंगा और ऊपर शीशा लगाया।",
+          "say": [{ "who": "mishti", "text": "पन्नी धूप को अंदर की ओर मोड़ती है, काला रंग गरमी सोखता है, और शीशा गरमी को बाहर नहीं जाने देता।" }]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "bijli", "at": 38, "face": "chew" }, { "who": "mishti", "at": 78, "face": "shock", "arms": "up" }],
+          "say": [{ "who": "mishti", "text": "बिजलीऽऽ! गत्ता नहीं!", "kind": "shout" }],
+          "sfx": "कुतर-कुतर!"
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "mishti", "at": 72, "face": "sad" }, { "who": "buntu", "at": 32, "face": "worried" }],
+          "say": [
+            { "who": "buntu", "text": "डिब्बे का एक कोना ग़ायब! और मेला कल है!" },
+            { "who": "mishti", "text": "हाथ पर हाथ धरे बैठने से कुछ नहीं होगा! कोई और रास्ता ज़रूर होगा...", "kind": "think" }
+          ]
+        },
+        {
+          "bg": "kitchen",
+          "cast": [{ "who": "mishti", "at": 32, "face": "think", "arms": "point" }, { "who": "mummy", "at": 72, "face": "smile" }],
+          "say": [
+            { "who": "mishti", "text": "मम्मी, पुराना स्टील का डिब्बा और वह टूटा आईना मिल सकता है?" },
+            { "who": "mummy", "text": "वाह री जुगाड़ू! ले, पर काँच को सँभालकर पकड़ना।" }
+          ]
+        },
+        {
+          "bg": "school",
+          "cast": [
+            { "who": "mishti", "at": 86, "face": "grin", "arms": "point", "flip": true },
+            { "who": "teacher", "at": 56, "face": "think" },
+            { "who": "rocky", "at": 26, "face": "sly" }
+          ],
+          "cap": "मेले के दिन...",
+          "say": [
+            { "who": "rocky", "text": "मेरा रोबोट तो बटन दबाते ही नाचता है! तुम्हारा डिब्बा क्या करेगा — सोएगा?" },
+            { "who": "mishti", "text": "दोपहर तक सब्र करो।" }
+          ]
+        },
+        {
+          "bg": "school",
+          "cast": [{ "who": "mishti", "at": 32, "face": "laugh" }, { "who": "teacher", "at": 70, "face": "shock", "arms": "up" }],
+          "cap": "दोपहर हुई। मिष्टी ने ढक्कन खोला...",
+          "say": [{ "who": "teacher", "text": "अरे! देखो, कैसी भाप उठ रही है — खिचड़ी पक गई! बिना गैस, बिना बिजली!" }],
+          "sfx": "भाप!"
+        },
+        {
+          "bg": "school",
+          "cast": [{ "who": "rocky", "at": 32, "face": "sad" }, { "who": "mishti", "at": 70, "face": "smile" }],
+          "say": [{ "who": "rocky", "text": "मेरे रोबोट की बैटरी ख़त्म हो गई..." }, { "who": "mishti", "text": "सूरज की बैटरी कभी ख़त्म नहीं होती!" }],
+          "sfx": "चूँ..."
+        },
+        {
+          "bg": "school",
+          "cast": [{ "who": "teacher", "at": 26, "face": "smile" }, { "who": "mishti", "at": 56, "face": "grin" }, { "who": "bijli", "at": 84, "face": "chew" }],
+          "cap": "मिष्टी को दूसरा इनाम मिला।",
+          "say": [
+            { "who": "teacher", "text": "पहला इनाम मिल जाता, अगर कुकर का एक कोना कम खाया हुआ होता!" },
+            { "who": "mishti", "text": "उस कोने का इनाम तो बिजली को मिलना चाहिए!" }
+          ],
+          "wide": true
+        }
+      ],
+      "words": [
+        { "hi": "ऊर्जा", "mean": "काम करने की शक्ति", "en": "energy" },
+        { "hi": "सौर", "mean": "सूरज से जुड़ा हुआ", "en": "solar" },
+        { "hi": "सोखता", "mean": "अपने अंदर खींच लेना (सोखना)", "en": "absorbs" },
+        { "hi": "जुगाड़ू", "mean": "कम चीज़ों से रास्ता निकालने वाला", "en": "resourceful" },
+        { "hi": "हाथ पर हाथ धरे", "mean": "मुहावरा: कुछ न करना, बेकार बैठे रहना (हाथ पर हाथ धरे बैठना)", "en": "to sit idle" },
+        { "hi": "सब्र", "mean": "धीरज", "en": "patience" },
+        { "hi": "भाप", "mean": "गरम पानी से उठने वाली गैस", "en": "steam" }
+      ],
+      "questions": [
+        {
+          "q": "सौर कुकर के बर्तन पर काला रंग क्यों लगाया गया?",
+          "options": ["गरमी सोखने के लिए", "सुंदर दिखने के लिए", "धूप रोकने के लिए"],
+          "answer": "गरमी सोखने के लिए"
+        },
+        {
+          "q": "गत्ते का डिब्बा ख़राब होने पर मिष्टी ने क्या किया?",
+          "options": ["स्टील के डिब्बे और आईने से नया जुगाड़ बनाया", "मेले में न जाने का फ़ैसला किया", "रॉकी से रोबोट माँगा"],
+          "answer": "स्टील के डिब्बे और आईने से नया जुगाड़ बनाया"
+        },
+        { "q": "“ऊर्जा” का अर्थ क्या है?", "options": ["काम करने की शक्ति", "ठंडक", "आवाज़"], "answer": "काम करने की शक्ति" }
+      ]
+    },
+    {
+      "series": "mishti",
+      "level": "grade7",
+      "id": "m-water",
+      "title": { "hi": "पानी बचाओ सेना", "en": "The Save-Water Army" },
+      "blurb": "नलों में पानी आधा घंटा, और कर्नल साहब की गाड़ी रोज़ पाइप से धुलती है! मिष्टी ने बनाई एक सेना।",
+      "panels": [
+        {
+          "bg": "street",
+          "cast": [{ "who": "mishti", "at": 34, "face": "worried" }, { "who": "mummy", "at": 72, "face": "worried" }],
+          "cap": "गर्मी का मौसम। कटहलपुर में पानी की भारी किल्लत थी।",
+          "say": [{ "who": "mummy", "text": "नल में आज भी सिर्फ़ आधा घंटा पानी आया। कल का क्या होगा?" }]
+        },
+        {
+          "bg": "garden",
+          "cast": [{ "who": "colonel", "at": 36, "face": "grin" }, { "who": "mishti", "at": 74, "face": "shock" }],
+          "cap": "पर कर्नल साहब...",
+          "say": [
+            { "who": "colonel", "text": "गाड़ी चमचमानी चाहिए! पाइप से धुलाई — रोज़ की आदत है।" },
+            { "who": "mishti", "text": "पचास बाल्टी पानी, एक गाड़ी के लिए?", "kind": "think" }
+          ],
+          "sfx": "छपाक!"
+        },
+        {
+          "bg": "street",
+          "cast": [{ "who": "mishti", "at": 26, "arms": "point" }, { "who": "buntu", "at": 56, "face": "shock" }, { "who": "guddu", "at": 84, "face": "laugh" }],
+          "say": [
+            { "who": "mishti", "text": "आज से हम हैं — “पानी बचाओ सेना”! जहाँ पानी बहेगा, वहाँ हम पहुँचेंगे।" },
+            { "who": "buntu", "text": "हमारी वर्दी? हमारा हथियार?" },
+            { "who": "mishti", "text": "बाल्टी और सीटी!" }
+          ]
+        },
+        {
+          "bg": "bazaar",
+          "cast": [{ "who": "laddoolal", "at": 70, "face": "shock" }, { "who": "guddu", "at": 30, "face": "laugh", "arms": "point" }],
+          "say": [
+            { "who": "guddu", "text": "चाचा! आपका नल टपक रहा है — दिन भर में दस बाल्टी बेकार!", "kind": "shout" },
+            { "who": "laddoolal", "text": "अरे बाप रे! अभी प्लंबर बुलाता हूँ।" }
+          ],
+          "sfx": "पीं-पीं!"
+        },
+        {
+          "bg": "garden",
+          "cast": [{ "who": "colonel", "at": 30, "face": "angry" }, { "who": "mishti", "at": 72, "arms": "hips" }],
+          "say": [
+            { "who": "colonel", "text": "हमें सिखाओगी? हमने सरहद पर देश की रक्षा की है!" },
+            { "who": "mishti", "text": "तो अब पानी की रक्षा कीजिए, अंकल! एक बाल्टी और एक कपड़ा काफ़ी है।" }
+          ],
+          "sfx": "पीं!"
+        },
+        {
+          "bg": "garden",
+          "cast": [{ "who": "colonel", "at": 44, "face": "think", "arms": "chin" }],
+          "say": [{ "who": "colonel", "text": "बात तो पते की कहती है लड़की...", "kind": "think" }]
+        },
+        {
+          "bg": "classroom",
+          "cast": [{ "who": "teacher", "at": 30, "arms": "point" }, { "who": "mishti", "at": 72, "face": "think", "arms": "chin" }],
+          "say": [
+            { "who": "teacher", "text": "पुराने ज़माने में लोग बारिश का पानी कुओं, बावड़ियों और तालाबों में जमा करते थे। इसे “वर्षा जल संचयन” कहते हैं।" },
+            { "who": "mishti", "text": "क्या हम अपने मोहल्ले में भी ऐसा कर सकते हैं?" }
+          ]
+        },
+        {
+          "bg": "terrace",
+          "cast": [{ "who": "mishti", "at": 30, "face": "grin", "arms": "point" }, { "who": "colonel", "at": 70, "face": "grin", "arms": "hips" }],
+          "cap": "मिष्टी ने छतों के पाइपों को एक पुराने टैंक से जोड़ने का नक़्शा बनाया।",
+          "say": [{ "who": "colonel", "text": "इंजीनियरिंग तो हमारा शौक़ है! सेना में हमने नदी पर पुल बनाए हैं — यह तो बच्चों का खेल है!" }]
+        },
+        {
+          "bg": "terrace",
+          "cast": [{ "who": "mishti", "at": 28, "face": "laugh", "arms": "up" }, { "who": "colonel", "at": 58, "face": "laugh" }, { "who": "bijli", "at": 86, "face": "shock" }],
+          "cap": "और फिर झमाझम बरसात आई...",
+          "say": [{ "who": "mishti", "text": "देखो! टैंक भर रहा है!", "kind": "shout" }, { "who": "bijli", "text": "मैं-मैं!" }],
+          "sfx": "झमाझम!"
+        },
+        {
+          "bg": "street",
+          "cast": [{ "who": "colonel", "at": 26, "face": "grin" }, { "who": "mishti", "at": 56, "face": "grin" }, { "who": "buntu", "at": 84, "face": "laugh" }],
+          "cap": "अगली गर्मी में उस मोहल्ले में पानी की कमी नहीं हुई।",
+          "say": [
+            { "who": "colonel", "text": "सेना का नया जनरल — मिष्टी!" },
+            { "who": "mishti", "text": "और आपकी गाड़ी की धुलाई?" },
+            { "who": "colonel", "text": "बाल्टी से, जनरल साहिबा!" }
+          ],
+          "wide": true
+        }
+      ],
+      "words": [
+        { "hi": "किल्लत", "mean": "कमी", "en": "shortage" },
+        { "hi": "सरहद", "mean": "देश की सीमा", "en": "border" },
+        { "hi": "पते की", "mean": "मुहावरा: समझदारी की, सही (पते की बात)", "en": "sensible" },
+        { "hi": "बावड़ियों", "mean": "सीढ़ियों वाले पुराने कुएँ (बावड़ी)", "en": "stepwells" },
+        { "hi": "वर्षा जल संचयन", "mean": "बारिश के पानी को इकट्ठा करना", "en": "rainwater harvesting" },
+        { "hi": "बच्चों का खेल", "mean": "मुहावरा: बहुत आसान काम", "en": "child's play" },
+        { "hi": "झमाझम", "mean": "तेज़ बारिश की आवाज़", "en": "pouring rain" }
+      ],
+      "questions": [
+        { "q": "“पानी बचाओ सेना” के हथियार क्या थे?", "options": ["बाल्टी और सीटी", "पिचकारी और गुब्बारे", "डंडा और ढाल"], "answer": "बाल्टी और सीटी" },
+        {
+          "q": "“वर्षा जल संचयन” का अर्थ क्या है?",
+          "options": ["बारिश का पानी इकट्ठा करना", "नदी में नहाना", "पानी बेचना"],
+          "answer": "बारिश का पानी इकट्ठा करना"
+        },
+        { "q": "कहानी के अंत में कर्नल साहब गाड़ी कैसे धोते हैं?", "options": ["बाल्टी से", "पाइप से", "बिल्कुल नहीं धोते"], "answer": "बाल्टी से" }
+      ]
+    },
+    {
+      "series": "mishti",
+      "level": "grade7",
+      "id": "m-fair",
+      "title": { "hi": "मेले में गुम", "en": "Lost at the fair" },
+      "blurb": "दशहरे का मेला, जलेबी की ख़ुशबू... और पलक झपकते ही गुड्डू ग़ायब! मिष्टी अब क्या करेगी?",
+      "panels": [
+        {
+          "bg": "fair",
+          "cast": [{ "who": "mummy", "at": 22 }, { "who": "mishti", "at": 52, "face": "grin" }, { "who": "guddu", "at": 80, "face": "laugh" }],
+          "cap": "दशहरे का मेला! मिष्टी को अपने छोटे चचेरे भाई गुड्डू का ध्यान रखना था।",
+          "say": [{ "who": "mummy", "text": "मिष्टी, गुड्डू का हाथ एक पल के लिए भी मत छोड़ना!" }, { "who": "mishti", "text": "चिंता मत करो, मम्मी!" }]
+        },
+        {
+          "bg": "fair",
+          "cast": [{ "who": "mishti", "at": 40, "face": "grin" }, { "who": "guddu", "at": 76 }],
+          "say": [{ "who": "mishti", "text": "अहा, गरमा-गरम जलेबी! एक मिनट रुकना, गुड्डू..." }],
+          "sfx": "छन्न!"
+        },
+        {
+          "bg": "fair",
+          "cast": [{ "who": "mishti", "at": 50, "face": "shock", "arms": "up" }],
+          "cap": "पलक झपकते ही गुड्डू भीड़ में ग़ायब हो चुका था।",
+          "say": [{ "who": "mishti", "text": "गुड्डू? गुड्डू!", "kind": "shout" }]
+        },
+        {
+          "bg": "fair",
+          "cast": [{ "who": "mishti", "at": 44, "face": "think", "arms": "chin" }],
+          "say": [
+            {
+              "who": "mishti",
+              "text": "घबराने से काम नहीं चलेगा। शांत दिमाग़ से सोचो, मिष्टी! उसने नारंगी टी-शर्ट और नीली निकर पहनी है... और उसे ग़ुब्बारे सबसे ज़्यादा पसंद हैं।",
+              "kind": "think"
+            }
+          ]
+        },
+        {
+          "bg": "fair",
+          "cast": [{ "who": "mishti", "at": 30, "face": "worried", "arms": "point" }, { "who": "police", "at": 70 }],
+          "say": [
+            { "who": "mishti", "text": "अंकल, मेरा भाई खो गया है — पाँच साल का, नारंगी टी-शर्ट, नीली निकर, छोटे बाल।" },
+            { "who": "police", "text": "शाबाश बेटी, तुमने बिल्कुल सही जानकारी दी है! चलो, घोषणा-केंद्र चलते हैं।" }
+          ]
+        },
+        {
+          "bg": "fair",
+          "cast": [{ "who": "police", "at": 40, "arms": "up" }],
+          "say": [{ "who": "police", "text": "ध्यान दीजिए! पाँच साल का बच्चा, नाम गुड्डू, नारंगी टी-शर्ट। जिसे भी मिले, घोषणा-केंद्र पर ले आए।", "kind": "shout" }],
+          "sfx": "घोषणा!"
+        },
+        {
+          "bg": "fair",
+          "cast": [{ "who": "mishti", "at": 30, "face": "shock" }, { "who": "bijli", "at": 70, "face": "sly" }],
+          "cap": "तभी भीड़ में से कोई जाना-पहचाना चेहरा निकला...",
+          "say": [{ "who": "mishti", "text": "बिजली? तू यहाँ कैसे? ...क्या तुझे गुड्डू की ख़ुशबू आ रही है?" }, { "who": "bijli", "text": "मैं-मैं!" }]
+        },
+        {
+          "bg": "fair",
+          "cast": [{ "who": "bijli", "at": 28, "face": "grin" }, { "who": "guddu", "at": 68, "face": "sad" }],
+          "cap": "बिजली सीधे ग़ुब्बारे वाले के पास पहुँची — और वहाँ, ग़ुब्बारों के नीचे सुबकता गुड्डू बैठा था!",
+          "say": [{ "who": "guddu", "text": "दीदी! मैं लाल ग़ुब्बारे के पीछे-पीछे चला आया था..." }],
+          "prop": { "word": "balloon", "at": 86 }
+        },
+        {
+          "bg": "fair",
+          "cast": [{ "who": "mishti", "at": 36, "face": "laugh" }, { "who": "guddu", "at": 66, "face": "smile" }],
+          "say": [
+            { "who": "mishti", "text": "गुड्डू! अब पक्का याद कर लो — कभी खो जाओ तो वहीं रुकना, और किसी पुलिस वाले या दुकानदार को मम्मी का नंबर बताना।" },
+            { "who": "guddu", "text": "नौ-आठ-सात... पक्का याद है!" }
+          ]
+        },
+        {
+          "bg": "fair",
+          "cast": [{ "who": "mummy", "at": 24, "face": "laugh" }, { "who": "mishti", "at": 54, "face": "grin" }, { "who": "guddu", "at": 82, "face": "laugh" }],
+          "cap": "रावण-दहन के समय...",
+          "say": [{ "who": "mummy", "text": "आज तो बुराई पर अच्छाई की जीत दो बार हुई — एक रावण पर, और एक मुसीबत पर!" }],
+          "sfx": "धूम-धड़ाम!",
+          "wide": true
+        }
+      ],
+      "parts": { "police": { "look": "guard", "name": "मेला पुलिस" } },
+      "words": [
+        { "hi": "चचेरे भाई", "mean": "चाचा का बेटा", "en": "cousin" },
+        { "hi": "पलक झपकते", "mean": "मुहावरा: बहुत जल्दी, एक क्षण में", "en": "in the blink of an eye" },
+        { "hi": "घोषणा", "mean": "सबको ऊँची आवाज़ में बताना", "en": "announcement" },
+        { "hi": "जाना-पहचाना", "mean": "जिसे हम जानते हों", "en": "familiar" },
+        { "hi": "सुबकता", "mean": "धीरे-धीरे सिसककर रोना (सुबकना)", "en": "sobbing" },
+        { "hi": "रावण-दहन", "mean": "दशहरे पर रावण का पुतला जलाना", "en": "burning the Ravan effigy" }
+      ],
+      "questions": [
+        {
+          "q": "गुड्डू के खोने पर मिष्टी ने क्या किया?",
+          "options": ["शांत रहकर सोचा और पुलिस को सही जानकारी दी", "रोते हुए घर चली गई", "जलेबी खाती रही"],
+          "answer": "शांत रहकर सोचा और पुलिस को सही जानकारी दी"
+        },
+        { "q": "गुड्डू कहाँ मिला?", "options": ["ग़ुब्बारे वाले के पास", "झूले पर", "जलेबी की दुकान पर"], "answer": "ग़ुब्बारे वाले के पास" },
+        { "q": "“पलक झपकते” का अर्थ क्या है?", "options": ["बहुत जल्दी", "आँख में दर्द", "धीरे-धीरे"], "answer": "बहुत जल्दी" }
+      ]
+    },
+    {
+      "series": "mishti",
+      "level": "grade7",
+      "id": "m-phone",
+      "title": { "hi": "दादाजी का स्मार्टफ़ोन", "en": "Grandpa's smartphone" },
+      "blurb": "दादाजी को मिला नया फ़ोन, और मिष्टी बनी उनकी गुरु! पर गुरु-शिष्य का खेल कब उलट गया?",
+      "panels": [
+        {
+          "bg": "room",
+          "cast": [{ "who": "dadaji", "at": 30, "face": "shock", "hold": "phone" }, { "who": "papa", "at": 70, "face": "grin" }],
+          "cap": "दादाजी के जन्मदिन पर पापा ने उन्हें स्मार्टफ़ोन दिया।",
+          "say": [{ "who": "dadaji", "text": "इतना पतला? इसमें बटन कहाँ हैं? हमारे ज़माने में तो फ़ोन घुमाकर नंबर लगता था!" }]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "mishti", "at": 30, "face": "grin" }, { "who": "dadaji", "at": 70, "face": "think", "hold": "phone" }],
+          "say": [{ "who": "mishti", "text": "दादाजी, मैं आपकी गुरु बनूँगी! पहला पाठ — स्क्रीन पर उँगली धीरे से फिसलाइए।" }]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "dadaji", "at": 50, "face": "shock", "arms": "up" }],
+          "say": [{ "who": "dadaji", "text": "अरे! यह गाना कहाँ से बजने लगा? बंद करो इसे!", "kind": "shout" }],
+          "sfx": "ढम-ढम-ढम!"
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "dadaji", "at": 36, "face": "grin", "hold": "phone" }, { "who": "mishti", "at": 76, "face": "laugh" }],
+          "cap": "वीडियो कॉल पर...",
+          "say": [
+            { "who": "dadaji", "text": "हलो, कमला बहन? मुझे तो दिख रहा है... छत का पंखा!", "kind": "shout" },
+            { "who": "mishti", "text": "दादाजी, फ़ोन उल्टा पकड़ा है!" }
+          ]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "papa", "at": 30, "face": "shock", "hold": "phone" }, { "who": "mummy", "at": 70, "face": "laugh" }],
+          "cap": "अगले दिन, परिवार के ग्रुप में...",
+          "say": [{ "who": "papa", "text": "बाबूजी ने सुबह-सुबह एक सौ बीस फूलों वाले “सुप्रभात” भेज दिए!" }]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "mishti", "at": 32, "arms": "hips" }, { "who": "dadaji", "at": 72, "face": "think" }],
+          "say": [
+            { "who": "mishti", "text": "दादाजी, अब सबसे ज़रूरी पाठ: कोई अनजान आदमी फ़ोन पर ओटीपी या बैंक की बात पूछे, तो कभी मत बताना।" },
+            { "who": "dadaji", "text": "अच्छा? यह तो बड़े काम की बात है।" }
+          ]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "dadaji", "at": 44, "face": "sly", "hold": "phone" }],
+          "cap": "उसी शाम...",
+          "say": [{ "who": "dadaji", "text": "“आपकी लॉटरी लगी है, ओटीपी बताइए”... हुँह! ठग कहीं का! मैं मिष्टी गुरु का शिष्य हूँ, कोई कच्चा खिलाड़ी नहीं!" }],
+          "sfx": "कट!"
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "dadaji", "at": 30, "face": "grin", "arms": "point" }, { "who": "mishti", "at": 70, "face": "shock" }],
+          "say": [{ "who": "dadaji", "text": "अब मेरी बारी गुरु बनने की। यह है शतरंज — फ़ोन वाला नहीं, लकड़ी वाला!" }]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "mishti", "at": 70, "face": "think", "arms": "chin" }, { "who": "dadaji", "at": 30, "face": "laugh" }],
+          "cap": "हफ़्ते भर बाद...",
+          "say": [{ "who": "dadaji", "text": "शह और मात! मिष्टी गुरु, आज फिर हार गईं!" }, { "who": "mishti", "text": "दादाजी, आप तो छुपे रुस्तम निकले!" }]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "dadaji", "at": 34, "face": "grin" }, { "who": "mishti", "at": 72, "face": "laugh" }],
+          "cap": "अब हर शाम एक घंटा फ़ोन की पढ़ाई होती है, और एक घंटा शतरंज।",
+          "say": [{ "who": "dadaji", "text": "सीखने की कोई उम्र नहीं होती, बिटिया।" }, { "who": "mishti", "text": "और सिखाने की भी नहीं!" }],
+          "wide": true
+        }
+      ],
+      "words": [
+        { "hi": "ज़माने", "mean": "समय, युग (ज़माना)", "en": "times, era" },
+        { "hi": "शिष्य", "mean": "चेला, सीखने वाला", "en": "disciple, student" },
+        { "hi": "अनजान", "mean": "जिसे हम न जानते हों", "en": "stranger" },
+        { "hi": "ठग", "mean": "धोखा देकर लूटने वाला", "en": "swindler" },
+        { "hi": "कच्चा खिलाड़ी", "mean": "मुहावरा: जिसे अनुभव न हो", "en": "novice" },
+        { "hi": "शह और मात", "mean": "शतरंज में हार की स्थिति", "en": "checkmate" },
+        { "hi": "छुपे रुस्तम", "mean": "मुहावरा: जिसके गुण बाद में पता चलें (छुपा रुस्तम)", "en": "a dark horse" }
+      ],
+      "questions": [
+        {
+          "q": "मिष्टी ने दादाजी को कौन-सी ज़रूरी सुरक्षा बात सिखाई?",
+          "options": ["किसी अनजान को ओटीपी न बताना", "रात को फ़ोन चार्ज करना", "रोज़ सुप्रभात भेजना"],
+          "answer": "किसी अनजान को ओटीपी न बताना"
+        },
+        { "q": "दादाजी ने मिष्टी को क्या सिखाया?", "options": ["शतरंज", "खाना बनाना", "साइकिल चलाना"], "answer": "शतरंज" },
+        {
+          "q": "“छुपा रुस्तम” किसे कहते हैं?",
+          "options": ["जिसके गुण बाद में पता चलें", "जो छिपकर बैठा रहे", "पहलवान को"],
+          "answer": "जिसके गुण बाद में पता चलें"
+        }
+      ]
+    },
+    {
+      "series": "mishti",
+      "level": "grade7",
+      "id": "m-hero",
+      "title": { "hi": "बिजली बनी हीरो", "en": "Bijli the hero" },
+      "blurb": "आधी रात, कर्नल साहब का स्कूटर और एक चोर। पर चोर को क्या पता था कि कोई और भी जाग रहा है!",
+      "panels": [
+        {
+          "bg": "night",
+          "cast": [{ "who": "chor", "at": 44, "face": "sly" }],
+          "cap": "आधी रात। कटहलपुर गहरी नींद में सो रहा था।",
+          "say": [{ "who": "chor", "text": "कर्नल का पुराना स्कूटर — आज इसे ले उड़ता हूँ।", "kind": "whisper" }]
+        },
+        {
+          "bg": "night",
+          "cast": [{ "who": "bijli", "at": 30, "face": "shock" }, { "who": "chor", "at": 72 }],
+          "cap": "पर कोई और भी जाग रहा था...",
+          "say": [{ "who": "bijli", "text": "मैं?" }]
+        },
+        {
+          "bg": "night",
+          "cast": [{ "who": "bijli", "at": 36, "face": "sly" }, { "who": "chor", "at": 74, "face": "shock", "arms": "up" }],
+          "cap": "बिजली ने पूरी ताक़त से सींग मारा!",
+          "say": [{ "who": "chor", "text": "हाय! यह कौन-सी बला है?", "kind": "shout" }],
+          "sfx": "धड़ाम!"
+        },
+        {
+          "bg": "night",
+          "cast": [{ "who": "mishti", "at": 30, "face": "shock" }, { "who": "colonel", "at": 70, "face": "angry", "hold": "stick" }],
+          "say": [{ "who": "mishti", "text": "बिजली इतनी ज़ोर से क्यों चिल्ला रही है?" }, { "who": "colonel", "text": "चोर! पकड़ो!", "kind": "shout" }],
+          "sfx": "मैं-मैं-मैं!"
+        },
+        {
+          "bg": "night",
+          "cast": [{ "who": "chor", "at": 38, "face": "worried" }, { "who": "bijli", "at": 74, "face": "chew" }],
+          "cap": "चोर भागा, पर बिजली ने उसकी कमीज़ का कोना दबोच लिया — और चबा डाला!",
+          "say": [{ "who": "chor", "text": "छोड़! मेरी नई कमीज़!" }],
+          "sfx": "चर्र!"
+        },
+        {
+          "bg": "night",
+          "cast": [{ "who": "colonel", "at": 30, "face": "grin", "arms": "point" }, { "who": "chor", "at": 70, "face": "sad", "arms": "up" }],
+          "say": [{ "who": "colonel", "text": "हैंड्स अप! सेना से रिटायर हुए हैं, फुर्ती से नहीं!" }]
+        },
+        {
+          "bg": "police",
+          "cast": [{ "who": "colonel", "at": 30, "face": "grin" }, { "who": "havaldar", "at": 70 }],
+          "say": [
+            {
+              "who": "havaldar",
+              "text": "यह वही चोर है जिसने पूरे इलाक़े में स्कूटर चुराए थे। इसकी फटी कमीज़ का टुकड़ा, जो बकरी के मुँह में था, सबसे बड़ा सबूत बन गया!"
+            }
+          ]
+        },
+        {
+          "bg": "street",
+          "cast": [{ "who": "colonel", "at": 28, "face": "laugh" }, { "who": "mishti", "at": 58, "face": "grin" }, { "who": "bijli", "at": 86, "face": "grin" }],
+          "cap": "अगली सुबह...",
+          "say": [
+            { "who": "colonel", "text": "बकरी जी, आज से आप हमारे बग़ीचे में जब चाहें आ सकती हैं।" },
+            { "who": "mishti", "text": "सुना बिजली? बग़ीचे में सिर्फ़ घास — गुलाब नहीं!" }
+          ]
+        },
+        {
+          "bg": "street",
+          "cast": [{ "who": "colonel", "at": 34, "face": "grin", "arms": "hips" }, { "who": "bijli", "at": 74, "face": "smile" }],
+          "cap": "कर्नल साहब ने बिजली के गले में एक तमग़ा पहनाया — “कटहलपुर की वीर पहरेदार”।",
+          "say": [{ "who": "colonel", "text": "हमारी पलटन में होती, तो जनरल बन जाती!" }]
+        },
+        {
+          "bg": "street",
+          "cast": [{ "who": "mishti", "at": 22, "face": "laugh" }, { "who": "buntu", "at": 50, "face": "laugh", "arms": "up" }, { "who": "colonel", "at": 78, "face": "laugh" }],
+          "cap": "...और वह तमग़ा? बिजली ने उसका रिबन भी चबा डाला!",
+          "say": [{ "who": "buntu", "text": "जय हो वीर बिजली की!" }],
+          "sfx": "कुतर-कुतर!",
+          "wide": true
+        }
+      ],
+      "parts": { "chor": { "look": "man-d", "name": "चोर", "sunglasses": true }, "havaldar": { "look": "guard", "name": "हवलदार" } },
+      "words": [
+        { "hi": "ले उड़ता", "mean": "मुहावरा: चुराकर भाग जाना (ले उड़ना)", "en": "to make off with" },
+        { "hi": "बला", "mean": "मुसीबत, आफ़त", "en": "menace, trouble" },
+        { "hi": "दबोच", "mean": "कसकर पकड़ लेना (दबोचना)", "en": "to grab" },
+        { "hi": "फुर्ती", "mean": "तेज़ी, चुस्ती", "en": "agility" },
+        { "hi": "तमग़ा", "mean": "पदक, मेडल", "en": "medal" },
+        { "hi": "पलटन", "mean": "सैनिकों का दल", "en": "platoon" },
+        { "hi": "वीर", "mean": "बहादुर", "en": "brave" }
+      ],
+      "questions": [
+        {
+          "q": "चोर को पकड़वाने में सबसे बड़ा सबूत क्या बना?",
+          "options": ["उसकी फटी कमीज़ का टुकड़ा", "कर्नल का स्कूटर", "उसकी टोपी"],
+          "answer": "उसकी फटी कमीज़ का टुकड़ा"
+        },
+        { "q": "कर्नल साहब ने बिजली को क्या इनाम दिया?", "options": ["तमग़ा", "गुलाब", "लड्डू"], "answer": "तमग़ा" },
+        { "q": "“फुर्ती” का अर्थ क्या है?", "options": ["तेज़ी, चुस्ती", "थकान", "डर"], "answer": "तेज़ी, चुस्ती" }
+      ]
+    },
+    {
+      "series": "dadi",
+      "level": "grade8",
+      "id": "d-necklace",
+      "title": { "hi": "शादी में ग़ायब हार", "en": "The missing wedding necklace" },
+      "blurb": "सेठ धनपतराय की बेटी की शादी में दुल्हन का हीरों का हार ग़ायब! शक तीन लोगों पर है — और सुराग़ छोटी-छोटी बातों में।",
+      "parts": {
+        "seth": { "look": "man-b", "name": "सेठ धनपतराय" },
+        "photographer": { "look": "man-c", "name": "फ़ोटोग्राफ़र" },
+        "halwai": { "look": "chef", "name": "हलवाई" },
+        "cousin": { "look": "man-a", "name": "दुल्हन का चचेरा भाई" }
+      },
+      "panels": [
+        {
+          "bg": "wedding",
+          "cast": [{ "who": "dadi", "at": 82, "face": "smile" }, { "who": "roohi", "at": 52, "face": "grin" }, { "who": "pappu", "at": 22, "face": "laugh" }],
+          "cap": "शहर के मशहूर सेठ धनपतराय की बेटी की शादी। रौनक़ देखते ही बनती थी।",
+          "say": [
+            { "who": "pappu", "text": "दादी, यहाँ तो छत्तीस तरह की मिठाइयाँ हैं! आज मेरी कसरत की छुट्टी!" },
+            { "who": "dadi", "text": "पप्पू, इतना खाओगे तो अखाड़े में तुम नहीं, तुम्हारा पेट लड़ेगा।" }
+          ]
+        },
+        {
+          "bg": "wedding",
+          "cast": [{ "who": "seth", "at": 44, "face": "shock", "arms": "up" }],
+          "say": [{ "who": "seth", "text": "दुल्हन का हीरों का हार ग़ायब! अभी-अभी तो मख़मल की गद्दी पर रखा था!", "kind": "shout" }],
+          "sfx": "हाय राम!"
+        },
+        {
+          "bg": "wedding",
+          "cast": [{ "who": "inspector", "at": 32, "arms": "hips" }, { "who": "seth", "at": 74, "face": "worried" }],
+          "say": [
+            { "who": "inspector", "text": "कोई बाहर नहीं जाएगा! इंस्पेक्टर ढीलाराम इस मामले को सँभालेगा... बस ज़रा यह रसमलाई ख़त्म कर लूँ।" },
+            { "who": "seth", "text": "इंस्पेक्टर साहब, पचास लाख का हार है!" }
+          ]
+        },
+        {
+          "bg": "wedding",
+          "cast": [{ "who": "photographer", "at": 18 }, { "who": "halwai", "at": 50 }, { "who": "cousin", "at": 82, "face": "worried" }],
+          "cap": "शक तीन लोगों पर था, जो उस समय गद्दी वाली मेज़ के पास थे।",
+          "say": [
+            { "who": "photographer", "text": "मैं तो फ़ोटो खींच रहा था।" },
+            { "who": "halwai", "text": "मैं केसरिया हलवा परोस रहा था।" },
+            { "who": "cousin", "text": "मैं... मैं तो फ़ोन पर बात कर रहा था, बस!" }
+          ],
+          "wide": true
+        },
+        {
+          "bg": "wedding",
+          "cast": [{ "who": "dadi", "at": 32, "face": "think", "arms": "chin" }, { "who": "roohi", "at": 72 }],
+          "say": [
+            { "who": "dadi", "text": "रूही, ग़ौर करो — हलवाई के हाथ घी और केसर से पीले हैं। अगर उसने हार उठाया होता, तो सफ़ेद मख़मल पर पीले निशान होते।" },
+            { "who": "roohi", "text": "पर मख़मल तो बिल्कुल साफ़ है, दादी!" }
+          ]
+        },
+        {
+          "bg": "wedding",
+          "cast": [{ "who": "dadi", "at": 34, "face": "sly" }, { "who": "cousin", "at": 74, "face": "worried" }],
+          "say": [
+            {
+              "who": "dadi",
+              "text": "और ये महाशय कहते हैं कि फ़ोन पर बात कर रहे थे। पर इनके फ़ोन की बैटरी तो सुबह से ख़त्म है — सबसे चार्जर माँगते फिर रहे थे।"
+            },
+            { "who": "cousin", "text": "जी... वो... मैं बस घबरा गया था। असल में मैं मिठाई चुराकर खा रहा था!" }
+          ]
+        },
+        {
+          "bg": "wedding",
+          "cast": [{ "who": "mausi", "at": 28, "face": "sly" }, { "who": "photographer", "at": 68, "face": "worried" }],
+          "cap": "तभी मौसी फ़ोटोग्राफ़र के कैमरा-बैग पर बार-बार पंजे मारने लगी।",
+          "say": [{ "who": "photographer", "text": "हटो! भगाओ इस बिल्ली को!", "kind": "shout" }],
+          "sfx": "म्याऊँ!"
+        },
+        {
+          "bg": "wedding",
+          "cast": [{ "who": "dadi", "at": 32, "face": "sly", "arms": "point" }, { "who": "photographer", "at": 72, "face": "worried" }],
+          "say": [
+            {
+              "who": "dadi",
+              "text": "एक बात बताइए, फ़ोटोग्राफ़र साहब — शादी में फ़ोटो खींचने वाले के कैमरे का ढक्कन तीन घंटे से बंद क्यों है? और बैग इतना प्यारा क्यों है कि आप उसे एक पल को भी नीचे नहीं रखते?"
+            }
+          ]
+        },
+        {
+          "bg": "wedding",
+          "cast": [{ "who": "pappu", "at": 38, "face": "grin" }, { "who": "photographer", "at": 76, "face": "shock", "arms": "up" }],
+          "cap": "बैग खुला... और लेंस के डिब्बे में से हीरों का हार चमक उठा!",
+          "say": [{ "who": "pappu", "text": "लाइए, बैग मैं उठा देता हूँ — मेरे लिए तो यह फूल जैसा हल्का है!" }],
+          "sfx": "धप्प!"
+        },
+        {
+          "bg": "wedding",
+          "cast": [{ "who": "inspector", "at": 70, "face": "grin" }, { "who": "photographer", "at": 30, "face": "sad" }],
+          "say": [
+            { "who": "photographer", "text": "मुझ पर बहुत कर्ज़ था... लालच में आ गया।" },
+            { "who": "inspector", "text": "रंगे हाथों पकड़े गए, जनाब! चलिए, थाने।" }
+          ]
+        },
+        {
+          "bg": "wedding",
+          "cast": [{ "who": "dadi", "at": 82, "face": "smile" }, { "who": "roohi", "at": 54, "face": "grin" }, { "who": "seth", "at": 26, "face": "laugh" }],
+          "say": [
+            { "who": "seth", "text": "दादी जी, आपने तो कमाल कर दिया!" },
+            { "who": "dadi", "text": "कमाल नहीं, सेठ जी — बस आँखें खुली रखीं। सच्चाई अक्सर छोटी-छोटी बातों में छिपी होती है।" }
+          ],
+          "wide": true
+        }
+      ],
+      "guess": {
+        "at": 8,
+        "q": "तुम्हारा क्या ख़याल है — हार किसने चुराया?",
+        "options": ["फ़ोटोग्राफ़र ने", "हलवाई ने", "दुल्हन के चचेरे भाई ने"],
+        "answer": "फ़ोटोग्राफ़र ने",
+        "hint": "किसके कैमरे का ढक्कन बंद था, और कौन अपना बैग नीचे नहीं रखता था?"
+      },
+      "words": [
+        { "hi": "रौनक़ देखते ही बनती थी", "mean": "मुहावरा: शोभा बहुत अधिक होना (देखते ही बनना)", "en": "it was a dazzling sight" },
+        { "hi": "मख़मल", "mean": "एक मुलायम, चमकदार कपड़ा", "en": "velvet" },
+        { "hi": "मामले", "mean": "घटना की जाँच (मामला)", "en": "case" },
+        { "hi": "ग़ौर करो", "mean": "ध्यान से देखो", "en": "notice" },
+        { "hi": "महाशय", "mean": "सज्जन, श्रीमान", "en": "gentleman" },
+        { "hi": "लालच", "mean": "बहुत ज़्यादा पाने की इच्छा", "en": "greed" },
+        { "hi": "रंगे हाथों पकड़े", "mean": "मुहावरा: अपराध करते हुए पकड़ा जाना (रंगे हाथों पकड़ना)", "en": "caught red-handed" }
+      ],
+      "questions": [
+        {
+          "q": "दादी को हलवाई पर शक क्यों नहीं हुआ?",
+          "options": ["सफ़ेद मख़मल पर पीले निशान नहीं थे", "वह बहुत अच्छा हलवा बनाता था", "वह दादी का रिश्तेदार था"],
+          "answer": "सफ़ेद मख़मल पर पीले निशान नहीं थे"
+        },
+        {
+          "q": "चचेरा भाई असल में क्या कर रहा था?",
+          "options": ["चुपके से मिठाई खा रहा था", "फ़ोन पर बात कर रहा था", "फ़ोटो खींच रहा था"],
+          "answer": "चुपके से मिठाई खा रहा था"
+        },
+        {
+          "q": "“रंगे हाथों पकड़ना” का अर्थ क्या है?",
+          "options": ["अपराध करते समय पकड़ना", "हाथों में रंग लगाना", "होली खेलना"],
+          "answer": "अपराध करते समय पकड़ना"
+        }
+      ]
+    },
+    {
+      "series": "dadi",
+      "level": "grade8",
+      "id": "d-train",
+      "title": { "hi": "बर्थ नंबर तेरह", "en": "Berth number thirteen" },
+      "blurb": "रात की ट्रेन, चाँदी के गिलासों से भरा बैग, और एक सज्जन जो रात भर “सोते” रहे। सफ़र में भी दादी को आराम कहाँ!",
+      "parts": {
+        "mehta": { "look": "woman-a", "name": "श्रीमती मेहता" },
+        "vyapari": { "look": "man-d", "name": "सूट वाले सज्जन" },
+        "tt": { "look": "guard", "name": "टीटी साहब", "top": "#1F2937", "bottom": "#1F2937", "hatColor": "#1F2937" }
+      },
+      "panels": [
+        {
+          "bg": "station",
+          "cast": [
+            { "who": "dadi", "at": 80, "face": "smile" },
+            { "who": "roohi", "at": 52, "face": "grin", "hold": "phone" },
+            { "who": "pappu", "at": 24, "face": "grin", "hold": "bag" }
+          ],
+          "cap": "दादी, रूही और पप्पू रात की गाड़ी से दिल्ली जा रहे थे।",
+          "say": [
+            { "who": "pappu", "text": "इस बार कोई रहस्य नहीं, दादी — बस आराम!" },
+            { "who": "dadi", "text": "रहस्य बुलाने से नहीं आते, पप्पू। वे तो बिन बुलाए मेहमान हैं।" }
+          ]
+        },
+        {
+          "bg": "train",
+          "cast": [{ "who": "dadi", "at": 20 }, { "who": "mehta", "at": 52, "face": "smile" }, { "who": "vyapari", "at": 84, "face": "smile" }],
+          "cap": "डिब्बे में उनके साथ थीं श्रीमती मेहता, और सूट-बूट वाले एक सज्जन।",
+          "say": [
+            { "who": "mehta", "text": "मैं अपने पोते के लिए चाँदी के गिलास ले जा रही हूँ — उसका पहला जन्मदिन है!" },
+            { "who": "vyapari", "text": "बहुत ख़ूब! मैं व्यापारी हूँ। बहुत घूमता हूँ, पर आज तो जल्दी सो जाऊँगा।" }
+          ]
+        },
+        {
+          "bg": "train",
+          "cast": [{ "who": "roohi", "at": 24, "face": "laugh" }, { "who": "pappu", "at": 64, "face": "sleep" }],
+          "cap": "रात हुई। सब सो गए।",
+          "say": [{ "who": "roohi", "text": "पप्पू भैया के खर्राटों से तो इंजन भी शरमा जाए!", "kind": "whisper" }],
+          "sfx": "खर्र-खर्र!",
+          "dark": true
+        },
+        {
+          "bg": "train",
+          "cast": [{ "who": "mehta", "at": 44, "face": "shock", "arms": "up" }],
+          "cap": "सुबह...",
+          "say": [{ "who": "mehta", "text": "मेरे चाँदी के गिलास! पूरा बैग ग़ायब है!", "kind": "shout" }],
+          "sfx": "हाय!"
+        },
+        {
+          "bg": "train",
+          "cast": [{ "who": "vyapari", "at": 32, "face": "smile" }, { "who": "dadi", "at": 72, "face": "think" }],
+          "say": [{ "who": "vyapari", "text": "बड़ा अफ़सोस हुआ। रात को कोई मुसाफ़िर उतरा होगा और ले गया होगा। मैं तो दस बजे सोया था और सुबह सात बजे आँख खुली।" }]
+        },
+        {
+          "bg": "train",
+          "cast": [{ "who": "dadi", "at": 30, "face": "think", "arms": "chin" }, { "who": "roohi", "at": 70, "hold": "phone" }],
+          "say": [
+            { "who": "dadi", "text": "रूही, ट्रेन रात को कहाँ-कहाँ रुकी थी?" },
+            { "who": "roohi", "text": "ऐप के हिसाब से — रात में सिर्फ़ एक स्टेशन, कोटा, दो बजे। वहाँ गाड़ी पाँच मिनट रुकी थी।" }
+          ]
+        },
+        {
+          "bg": "train",
+          "cast": [{ "who": "vyapari", "at": 34, "face": "smile", "hold": "glass" }, { "who": "dadi", "at": 74, "face": "sly" }],
+          "say": [
+            { "who": "vyapari", "text": "उफ़, कल रात कितनी ठंड थी! पर कोटा स्टेशन की गरमा-गरम अदरक वाली चाय का जवाब नहीं!" },
+            { "who": "dadi", "text": "अच्छा? जो दस बजे से सुबह सात बजे तक सोता रहा, उसे रात दो बजे कोटा की चाय का स्वाद कैसे मालूम?", "kind": "think" }
+          ]
+        },
+        {
+          "bg": "train",
+          "cast": [{ "who": "pappu", "at": 36, "face": "think" }, { "who": "dadi", "at": 74, "arms": "point", "flip": true }],
+          "say": [{ "who": "dadi", "text": "पप्पू, ज़रा ऊपर वाली बर्थ के पीछे देखो — जहाँ कंबल रखे हैं।" }]
+        },
+        {
+          "bg": "train",
+          "cast": [{ "who": "pappu", "at": 36, "face": "grin", "arms": "up" }, { "who": "vyapari", "at": 76, "face": "shock" }],
+          "cap": "उसने सोचा था कि दिल्ली में उतरते समय चुपचाप बैग ले जाएगा।",
+          "say": [{ "who": "pappu", "text": "यह रहा बैग! कंबलों के पीछे ठूँसा हुआ।" }],
+          "sfx": "मिल गया!"
+        },
+        {
+          "bg": "train",
+          "cast": [{ "who": "vyapari", "at": 72, "face": "sad" }, { "who": "tt", "at": 32, "face": "angry" }],
+          "say": [
+            { "who": "tt", "text": "आप तो पिछले महीने भी इसी ट्रेन में पकड़े गए थे! नाम बदल-बदलकर सफ़र करते हैं?" },
+            { "who": "vyapari", "text": "बस... एक कप चाय ने फँसा दिया।" }
+          ]
+        },
+        {
+          "bg": "train",
+          "cast": [{ "who": "mehta", "at": 26, "face": "laugh" }, { "who": "dadi", "at": 56, "face": "smile" }, { "who": "roohi", "at": 84, "face": "grin" }],
+          "say": [
+            { "who": "mehta", "text": "आपका यह एहसान कैसे चुकाऊँ, बहन जी?" },
+            { "who": "dadi", "text": "पोते के जन्मदिन पर इन गिलासों में उसे दूध पिलाइए — बस।" },
+            { "who": "roohi", "text": "दादी, आपको तो ट्रेन में भी चैन नहीं!" }
+          ],
+          "wide": true
+        }
+      ],
+      "guess": {
+        "at": 7,
+        "q": "बैग किसने चुराया होगा?",
+        "options": ["सूट वाले सज्जन ने — वे रात को जागे थे, फिर भी कहा कि सोते रहे", "कोटा में उतरे किसी मुसाफ़िर ने", "श्रीमती मेहता ने ख़ुद छिपाया"],
+        "answer": "सूट वाले सज्जन ने — वे रात को जागे थे, फिर भी कहा कि सोते रहे",
+        "hint": "किसकी बात में झूठ पकड़ा गया? रात दो बजे की चाय याद करो।"
+      },
+      "words": [
+        { "hi": "बिन बुलाए मेहमान", "mean": "मुहावरा: जो बिना बुलाए आ जाए", "en": "uninvited guest" },
+        { "hi": "सज्जन", "mean": "भला आदमी", "en": "gentleman" },
+        { "hi": "अफ़सोस", "mean": "दुख, खेद", "en": "regret" },
+        { "hi": "मुसाफ़िर", "mean": "यात्री", "en": "traveller" },
+        { "hi": "का जवाब नहीं", "mean": "मुहावरा: बेजोड़, सबसे अच्छा होना (जवाब न होना)", "en": "is unbeatable" },
+        { "hi": "ठूँसा", "mean": "जबरदस्ती भरा हुआ (ठूँसना)", "en": "stuffed" },
+        { "hi": "एहसान", "mean": "भलाई, उपकार", "en": "favour" }
+      ],
+      "questions": [
+        {
+          "q": "दादी ने सूट वाले सज्जन का झूठ कैसे पकड़ा?",
+          "options": ["रात भर “सोने” वाले को रात दो बजे की चाय का स्वाद पता था", "उनके पास टिकट नहीं था", "उनकी मूँछ नक़ली थी"],
+          "answer": "रात भर “सोने” वाले को रात दो बजे की चाय का स्वाद पता था"
+        },
+        {
+          "q": "बैग कहाँ छिपाया गया था?",
+          "options": ["ऊपर की बर्थ के पीछे कंबलों में", "कोटा स्टेशन पर", "पप्पू के बैग में"],
+          "answer": "ऊपर की बर्थ के पीछे कंबलों में"
+        },
+        {
+          "q": "“एहसान चुकाना” का अर्थ क्या है?",
+          "options": ["किसी की भलाई का बदला भलाई से देना", "कर्ज़ लेना", "शिकायत करना"],
+          "answer": "किसी की भलाई का बदला भलाई से देना"
+        }
+      ]
+    },
+    {
+      "series": "dadi",
+      "level": "grade8",
+      "id": "d-museum",
+      "title": { "hi": "संग्रहालय की नक़ली मूर्ति", "en": "The fake statue" },
+      "blurb": "हज़ार साल पुरानी काँसे की नटराज मूर्ति रातोंरात नक़ली हो गई! चाबियाँ तीन लोगों के पास थीं।",
+      "parts": {
+        "sarla": { "look": "woman-b", "name": "डॉ. सरला", "glasses": true },
+        "ramdeen": { "look": "guard", "name": "चौकीदार रामदीन" },
+        "vinod": { "look": "man-a", "name": "सहायक विनोद" },
+        "lata": { "look": "woman-a", "name": "सफ़ाईकर्मी लता", "top": "#22C55E" }
+      },
+      "panels": [
+        {
+          "bg": "museum",
+          "cast": [{ "who": "dadi", "at": 30, "face": "smile" }, { "who": "sarla", "at": 70, "face": "worried" }],
+          "cap": "शहर के संग्रहालय की निदेशक डॉ. सरला, दादी की कॉलेज की सहेली थीं।",
+          "say": [{ "who": "sarla", "text": "कमला, एक अजीब बात है। हमारी हज़ार साल पुरानी नटराज की मूर्ति... मुझे लगता है, नक़ली है।" }]
+        },
+        {
+          "bg": "museum",
+          "cast": [{ "who": "dadi", "at": 32, "face": "think", "hold": "magnifier" }, { "who": "roohi", "at": 72, "face": "shock" }],
+          "say": [{ "who": "dadi", "text": "नक़ली? देखने में तो हूबहू वैसी ही है।" }, { "who": "roohi", "text": "असली और नक़ली में फ़र्क़ कैसे पता चलेगा?" }]
+        },
+        {
+          "bg": "museum",
+          "cast": [{ "who": "sarla", "at": 30, "arms": "point" }, { "who": "dadi", "at": 70, "face": "think", "arms": "chin" }],
+          "say": [{ "who": "sarla", "text": "असली मूर्ति काँसे की है — भारी और ठंडी। यह हल्की है, किसी मिश्रधातु की। किसी ने रात में बदल दी।" }]
+        },
+        {
+          "bg": "museum",
+          "cast": [{ "who": "ramdeen", "at": 18 }, { "who": "vinod", "at": 50, "face": "smile" }, { "who": "lata", "at": 82 }],
+          "cap": "उस रात संग्रहालय की चाबियाँ तीन लोगों के पास थीं।",
+          "say": [
+            { "who": "ramdeen", "text": "मैं रात भर गेट पर बैठा था, साहब।" },
+            { "who": "vinod", "text": "मैं तो शाम छह बजे घर चला गया था।" },
+            { "who": "lata", "text": "मैं सुबह आठ बजे आई।" }
+          ],
+          "wide": true
+        },
+        {
+          "bg": "museum",
+          "cast": [{ "who": "dadi", "at": 72, "face": "think" }, { "who": "roohi", "at": 32, "hold": "phone" }],
+          "say": [
+            { "who": "roohi", "text": "दादी, सीसीटीवी में रात ग्यारह से बारह बजे तक कुछ नहीं — कैमरा बंद था!" },
+            { "who": "dadi", "text": "कैमरा बंद करने के लिए उसका पासवर्ड चाहिए। वह किस-किस को पता है, सरला?" }
+          ]
+        },
+        {
+          "bg": "museum",
+          "cast": [{ "who": "sarla", "at": 34, "face": "think" }, { "who": "dadi", "at": 72, "face": "sly" }],
+          "say": [{ "who": "sarla", "text": "सिर्फ़ मुझे और विनोद को।" }]
+        },
+        {
+          "bg": "museum",
+          "cast": [{ "who": "dadi", "at": 30, "arms": "point" }, { "who": "pappu", "at": 70, "face": "grin", "arms": "up" }],
+          "say": [{ "who": "dadi", "text": "पप्पू, ज़रा मूर्ति का चबूतरा खिसकाओ।" }, { "who": "pappu", "text": "यह लीजिए! चबूतरा क्या, पूरा कमरा खिसका दूँ?" }],
+          "sfx": "घर्र!"
+        },
+        {
+          "bg": "museum",
+          "cast": [{ "who": "dadi", "at": 74, "face": "sly", "hold": "magnifier" }, { "who": "roohi", "at": 36, "face": "shock" }],
+          "cap": "चबूतरे के नीचे धूल पर ताज़ा निशान थे — और एक मुड़ा हुआ काग़ज़।",
+          "say": [
+            { "who": "roohi", "text": "यह तो रेलवे का टिकट है! कल रात 11:40 की ट्रेन, जयपुर के लिए!" },
+            { "who": "dadi", "text": "जो शाम छह बजे घर चला गया हो, उसका टिकट आधी रात को यहाँ कैसे गिरा?" }
+          ]
+        },
+        {
+          "bg": "museum",
+          "cast": [{ "who": "vinod", "at": 36, "face": "worried" }, { "who": "dadi", "at": 74, "arms": "point", "flip": true }],
+          "say": [
+            { "who": "vinod", "text": "मैंने कहा न, मैं छह बजे घर चला गया था!" },
+            { "who": "dadi", "text": "तो विनोद जी, आपके जूतों पर लगी चबूतरे की यही सफ़ेद धूल, और कैमरे का पासवर्ड — इनका क्या कहना है?" }
+          ]
+        },
+        {
+          "bg": "station",
+          "cast": [{ "who": "inspector", "at": 32, "face": "grin" }, { "who": "vinod", "at": 72, "face": "sad" }],
+          "cap": "पुलिस ने जयपुर जाने वाली ट्रेन से असली मूर्ति बरामद कर ली।",
+          "say": [{ "who": "inspector", "text": "विदेश में बेचने का इरादा था? अब कुछ साल जेल की हवा खाओ!" }]
+        },
+        {
+          "bg": "museum",
+          "cast": [{ "who": "sarla", "at": 24, "face": "laugh" }, { "who": "dadi", "at": 54, "face": "smile" }, { "who": "roohi", "at": 82, "face": "grin" }],
+          "say": [
+            { "who": "sarla", "text": "कमला, तुम आज भी उतनी ही तेज़ हो जितनी कॉलेज में थीं।" },
+            { "who": "dadi", "text": "दिमाग़ को भी कसरत चाहिए, सरला — और पहेलियाँ उसकी कसरत हैं।" }
+          ],
+          "wide": true
+        }
+      ],
+      "guess": {
+        "at": 8,
+        "q": "मूर्ति किसने बदली?",
+        "options": ["सहायक विनोद ने", "चौकीदार रामदीन ने", "सफ़ाईकर्मी लता ने"],
+        "answer": "सहायक विनोद ने",
+        "hint": "कैमरे का पासवर्ड किसे पता था? और कौन कहता है कि वह शाम छह बजे घर चला गया?"
+      },
+      "words": [
+        { "hi": "संग्रहालय", "mean": "पुरानी और क़ीमती चीज़ों को दिखाने की जगह", "en": "museum" },
+        { "hi": "निदेशक", "mean": "किसी संस्था का प्रमुख", "en": "director" },
+        { "hi": "हूबहू", "mean": "बिल्कुल वैसा ही", "en": "exactly alike" },
+        { "hi": "मिश्रधातु", "mean": "दो या अधिक धातुओं का मेल", "en": "alloy" },
+        { "hi": "चबूतरा", "mean": "ऊँचा बना चौकोर स्थान", "en": "platform, pedestal" },
+        { "hi": "बरामद", "mean": "चोरी की चीज़ वापस मिलना (बरामद करना)", "en": "recovered" },
+        { "hi": "जेल की हवा खाओ", "mean": "मुहावरा: जेल जाना (जेल की हवा खाना)", "en": "go to jail" }
+      ],
+      "questions": [
+        {
+          "q": "डॉ. सरला को मूर्ति नक़ली क्यों लगी?",
+          "options": ["वह हल्की थी, जबकि असली काँसे की मूर्ति भारी होती है", "उसका रंग गुलाबी था", "उसकी नाक टूटी थी"],
+          "answer": "वह हल्की थी, जबकि असली काँसे की मूर्ति भारी होती है"
+        },
+        {
+          "q": "विनोद के ख़िलाफ़ कौन-से सबूत मिले?",
+          "options": ["आधी रात का ट्रेन टिकट, जूतों पर धूल और कैमरे का पासवर्ड", "उसकी आवाज़ की रिकॉर्डिंग", "उसकी उँगलियों पर रंग"],
+          "answer": "आधी रात का ट्रेन टिकट, जूतों पर धूल और कैमरे का पासवर्ड"
+        },
+        { "q": "“जेल की हवा खाना” का अर्थ क्या है?", "options": ["जेल जाना", "बाहर घूमना", "ताज़ी हवा लेना"], "answer": "जेल जाना" }
+      ]
+    },
+    {
+      "series": "dadi",
+      "level": "grade8",
+      "id": "d-sadhu",
+      "title": { "hi": "छलिया का भेस", "en": "The master of disguise" },
+      "blurb": "दिनदहाड़े बैंक से पाँच लाख ग़ायब — और आख़िरी बार देखे गए एक साधु बाबा। पर मंदिर के बाहर तो तीन बाबा बैठे हैं!",
+      "parts": {
+        "manager": { "look": "man-a", "name": "बैंक मैनेजर" },
+        "giridhar": { "look": "man-old", "name": "बाबा गिरिधर" },
+        "harihar": { "look": "sadhu", "name": "बाबा हरिहर", "top": "#FDBA74", "bottom": "#FDBA74", "shoes": "#E0A774" },
+        "bholenath": { "look": "sadhu", "name": "बाबा भोलेनाथ", "top": "#EA580C", "bottom": "#EA580C", "shoes": "#7C2D12" }
+      },
+      "panels": [
+        {
+          "bg": "bank",
+          "cast": [{ "who": "inspector", "at": 72, "face": "worried" }, { "who": "manager", "at": 32, "face": "sad" }],
+          "cap": "नगर बैंक में दिनदहाड़े चोरी! तिजोरी से पाँच लाख रुपये ग़ायब।",
+          "say": [
+            { "who": "manager", "text": "सुबह एक साधु बाबा आए थे, आशीर्वाद देने। उनके जाने के बाद ही तिजोरी ख़ाली मिली।" },
+            { "who": "inspector", "text": "साधु बाबा? हम्म... मामला गंभीर है।" }
+          ]
+        },
+        {
+          "bg": "police",
+          "cast": [{ "who": "inspector", "at": 30, "face": "worried" }, { "who": "dadi", "at": 70, "face": "think" }],
+          "say": [
+            { "who": "inspector", "text": "दादी जी, यह चोर तो हमारी आँखों में धूल झोंक गया! शहर के मंदिर के बाहर दस साधु बैठते हैं — किस-किस को पकड़ूँ?" },
+            { "who": "dadi", "text": "किसी को नहीं — पहले सोचो, फिर पकड़ो। मैनेजर ने बाबा के बारे में और क्या बताया?" }
+          ]
+        },
+        {
+          "bg": "bank",
+          "cast": [{ "who": "manager", "at": 34, "face": "think", "arms": "chin" }, { "who": "dadi", "at": 74 }],
+          "say": [{ "who": "manager", "text": "लंबी सफ़ेद दाढ़ी, गेरुआ कपड़े, और... हाँ! उन्होंने बाएँ हाथ से आशीर्वाद दिया था। और उनके जूते बड़े चमकदार थे।" }]
+        },
+        {
+          "bg": "police",
+          "cast": [{ "who": "dadi", "at": 72, "face": "sly" }, { "who": "roohi", "at": 32, "hold": "phone" }],
+          "say": [
+            { "who": "roohi", "text": "दादी, पुलिस की फ़ाइल में लिखा है — छलिया छेदीलाल, भेस बदलने में माहिर, और... बाएँ हाथ से काम करता है!" },
+            { "who": "dadi", "text": "और विदेशी जूतों का शौक़ीन। पुरानी आदतें आसानी से नहीं छूटतीं।" }
+          ]
+        },
+        {
+          "bg": "street",
+          "cast": [{ "who": "giridhar", "at": 18, "face": "smile" }, { "who": "harihar", "at": 50, "face": "smile" }, { "who": "bholenath", "at": 82, "face": "smile" }],
+          "cap": "मंदिर के बाहर तीन बाबा बैठे थे। दादी बारी-बारी से तीनों के पास गईं।",
+          "say": [{ "who": "harihar", "text": "हरि ओम!" }],
+          "wide": true
+        },
+        {
+          "bg": "street",
+          "cast": [{ "who": "giridhar", "at": 32, "face": "smile", "arms": "wave" }, { "who": "dadi", "at": 72, "face": "think" }],
+          "cap": "बाबा गिरिधर ने दाहिने हाथ से आशीर्वाद दिया। पैरों में घिसी हुई चप्पलें थीं।",
+          "say": [{ "who": "giridhar", "text": "सुखी रहो, बेटी।" }]
+        },
+        {
+          "bg": "street",
+          "cast": [{ "who": "harihar", "at": 32, "face": "smile" }, { "who": "dadi", "at": 72, "face": "think" }],
+          "cap": "बाबा हरिहर नंगे पाँव थे। उन्होंने दोनों हाथ जोड़े—",
+          "say": [{ "who": "harihar", "text": "भगवान भला करे, माई।" }]
+        },
+        {
+          "bg": "street",
+          "cast": [{ "who": "bholenath", "at": 32, "face": "sly", "arms": "wave", "flip": true }, { "who": "dadi", "at": 72, "face": "sly" }],
+          "cap": "बाबा भोलेनाथ ने झट से बायाँ हाथ उठाया... और उनके गेरुए चोले के नीचे से चमक रहे थे इटली के चमड़े के जूते!",
+          "say": [{ "who": "bholenath", "text": "सदा सुखी रहो, माई!" }, { "who": "dadi", "text": "मिल गया!", "kind": "think" }]
+        },
+        {
+          "bg": "street",
+          "cast": [{ "who": "dadi", "at": 24, "arms": "point" }, { "who": "bholenath", "at": 54, "face": "shock" }, { "who": "pappu", "at": 84, "face": "grin" }],
+          "say": [{ "who": "dadi", "text": "पप्पू! बाबा जी की दाढ़ी ज़रा प्यार से खींचना!" }, { "who": "pappu", "text": "जो हुक्म, दादी!" }],
+          "sfx": "धर-पकड़!"
+        },
+        {
+          "bg": "street",
+          "cast": [{ "who": "chhedilal", "at": 38, "face": "angry" }, { "who": "pappu", "at": 76, "face": "grin" }],
+          "cap": "नक़ली दाढ़ी पप्पू के हाथ में थी, और सामने खड़ा था — छलिया छेदीलाल!",
+          "say": [{ "who": "chhedilal", "text": "हुँह! इस बार बच गईं, बुढ़िया! अगली बार नहीं!", "kind": "shout" }]
+        },
+        {
+          "bg": "police",
+          "cast": [{ "who": "inspector", "at": 26, "face": "grin" }, { "who": "dadi", "at": 56, "face": "smile" }, { "who": "roohi", "at": 84, "face": "laugh" }],
+          "cap": "चोरी के पाँच लाख रुपये उसकी झोली से बरामद हुए।",
+          "say": [
+            { "who": "inspector", "text": "दादी जी, आपके रहते तो हमें बस हथकड़ी लगानी पड़ती है!" },
+            { "who": "dadi", "text": "भेस बदला जा सकता है, इंस्पेक्टर साहब — आदतें नहीं।" }
+          ],
+          "wide": true
+        }
+      ],
+      "guess": {
+        "at": 8,
+        "q": "बैंक का चोर कौन है?",
+        "options": ["बाबा भोलेनाथ", "बाबा गिरिधर", "बाबा हरिहर"],
+        "answer": "बाबा भोलेनाथ",
+        "hint": "चोर बाएँ हाथ से काम करता है और महँगे जूतों का शौक़ीन है।"
+      },
+      "words": [
+        { "hi": "दिनदहाड़े", "mean": "दिन के उजाले में, सबके सामने", "en": "in broad daylight" },
+        { "hi": "तिजोरी", "mean": "पैसे रखने की मज़बूत अलमारी", "en": "safe, vault" },
+        { "hi": "आँखों में धूल झोंक", "mean": "मुहावरा: धोखा देना (आँखों में धूल झोंकना)", "en": "to fool someone" },
+        { "hi": "गेरुआ", "mean": "केसरिया-भूरा रंग, जो साधु पहनते हैं", "en": "saffron-coloured" },
+        { "hi": "भेस", "mean": "रूप बदलने के कपड़े", "en": "disguise" },
+        { "hi": "माहिर", "mean": "कुशल, उस्ताद", "en": "expert" },
+        { "hi": "बारी-बारी से", "mean": "एक के बाद एक", "en": "one by one" },
+        { "hi": "हथकड़ी", "mean": "अपराधी के हाथ बाँधने की ज़ंजीर", "en": "handcuffs" }
+      ],
+      "questions": [
+        {
+          "q": "दादी ने चोर को किन दो आदतों से पहचाना?",
+          "options": ["बाएँ हाथ से आशीर्वाद और महँगे जूते", "लंबी दाढ़ी और गेरुए कपड़े", "ज़ोर से बोलना और गाना"],
+          "answer": "बाएँ हाथ से आशीर्वाद और महँगे जूते"
+        },
+        {
+          "q": "“दिनदहाड़े” का अर्थ क्या है?",
+          "options": ["दिन के उजाले में, सबके सामने", "रात के अँधेरे में", "दहाड़ते हुए"],
+          "answer": "दिन के उजाले में, सबके सामने"
+        },
+        {
+          "q": "“भेस बदला जा सकता है, आदतें नहीं” का मतलब है—",
+          "options": ["इंसान की पुरानी आदतें आसानी से नहीं छिपतीं", "भेस बदलना ग़लत है", "आदतें रोज़ बदलती हैं"],
+          "answer": "इंसान की पुरानी आदतें आसानी से नहीं छिपतीं"
+        }
+      ]
+    },
+    {
+      "series": "dadi",
+      "level": "grade8",
+      "id": "d-haveli",
+      "title": { "hi": "हवेली का भूत", "en": "The ghost of the haveli" },
+      "blurb": "सौ साल पुराना ग्रामोफ़ोन ग़ायब, और रात को हवेली में अपने-आप बजता गाना। सचमुच भूत, या किसी की चाल?",
+      "parts": {
+        "thakur": { "look": "man-old", "name": "ठाकुर साहब", "hat": "saffa", "hatColor": "#DC2626" },
+        "hariya": { "look": "man-b", "name": "पुराना नौकर हरिया" },
+        "ranjeet": { "look": "man-d", "name": "भतीजा रंजीत" }
+      },
+      "panels": [
+        {
+          "bg": "haveli",
+          "cast": [{ "who": "thakur", "at": 34, "face": "sad" }, { "who": "dadi", "at": 74, "face": "think" }],
+          "cap": "पुरानी हवेली में ठाकुर साहब का सौ साल पुराना ग्रामोफ़ोन चोरी हो गया।",
+          "say": [{ "who": "thakur", "text": "दादी जी, वह ग्रामोफ़ोन मेरे दादाजी की निशानी था। अब लोग कह रहे हैं — हवेली में भूत है!" }]
+        },
+        {
+          "bg": "haveli",
+          "cast": [{ "who": "roohi", "at": 70, "face": "laugh" }, { "who": "pappu", "at": 32, "face": "shock" }],
+          "say": [
+            { "who": "pappu", "text": "भ... भूत? दादी, मैं अखाड़े में शेर से लड़ लूँ, पर भूत से नहीं!" },
+            { "who": "roohi", "text": "पप्पू भैया, भूत-वूत कुछ नहीं होता!" }
+          ]
+        },
+        {
+          "bg": "haveli",
+          "cast": [{ "who": "hariya", "at": 72, "face": "sad" }, { "who": "thakur", "at": 32, "face": "angry" }],
+          "say": [
+            { "who": "thakur", "text": "हरिया चालीस साल से यहाँ है। पर तहख़ाने की चाबी इसी के पास रहती है।" },
+            { "who": "hariya", "text": "मालिक, मैंने इस हवेली का नमक खाया है। मैं ऐसा कभी नहीं कर सकता।" }
+          ]
+        },
+        {
+          "bg": "haveli",
+          "cast": [{ "who": "ranjeet", "at": 34, "face": "smile" }, { "who": "dadi", "at": 74, "face": "think", "arms": "chin" }],
+          "say": [
+            {
+              "who": "ranjeet",
+              "text": "चाचाजी, हरिया बूढ़ा हो गया है, भुलक्कड़ भी। मैं तो कहता हूँ, यह हवेली बेच दीजिए। यहाँ भूत रहते हैं — सब जानते हैं!"
+            }
+          ]
+        },
+        {
+          "bg": "haveli",
+          "cast": [{ "who": "pappu", "at": 38, "face": "shock", "arms": "up" }, { "who": "roohi", "at": 74, "face": "worried" }],
+          "cap": "उस रात...",
+          "say": [{ "who": "pappu", "text": "क... कोई गाना गा रहा है! भूत!", "kind": "shout" }, { "who": "roohi", "text": "यह तो ग्रामोफ़ोन की आवाज़ है!" }],
+          "sfx": "चूँ... चर्र... ♪",
+          "dark": true
+        },
+        {
+          "bg": "haveli",
+          "cast": [{ "who": "dadi", "at": 34, "face": "sly", "hold": "lantern" }, { "who": "mausi", "at": 74, "face": "sly" }],
+          "say": [
+            {
+              "who": "dadi",
+              "text": "भूत नहीं, पप्पू। आवाज़ ऊपर वाले बंद कमरे से आ रही है। और उस कमरे की चाबी हरिया के पास नहीं, ठाकुर साहब की दराज़ में रहती है।"
+            }
+          ],
+          "dark": true
+        },
+        {
+          "bg": "haveli",
+          "cast": [{ "who": "mausi", "at": 30, "face": "sly" }, { "who": "dadi", "at": 70, "face": "think", "hold": "lantern" }],
+          "cap": "सीढ़ियों पर मौसी कुछ सूँघ रही थी — कीचड़ वाले जूतों के ताज़ा निशान, और एक बुझी हुई सिगरेट।",
+          "say": [{ "who": "dadi", "text": "हरिया तो सिगरेट पीता ही नहीं। पर कल रंजीत जी के हाथ में यही विदेशी ब्रांड था।" }],
+          "sfx": "म्याऊँ!",
+          "dark": true
+        },
+        {
+          "bg": "haveli",
+          "cast": [{ "who": "dadi", "at": 32, "arms": "point" }, { "who": "ranjeet", "at": 72, "face": "worried" }],
+          "say": [
+            {
+              "who": "dadi",
+              "text": "रंजीत जी, आप चाहते थे कि लोग भूत से डरें, ठाकुर साहब हवेली औने-पौने दाम में बेच दें — और ख़रीदने वाला आपका ही साथी हो। है न?"
+            }
+          ]
+        },
+        {
+          "bg": "haveli",
+          "cast": [{ "who": "ranjeet", "at": 32, "face": "sad" }, { "who": "thakur", "at": 72, "face": "angry" }],
+          "say": [
+            { "who": "ranjeet", "text": "मुझे माफ़ कर दीजिए, चाचाजी... मुझ पर बहुत कर्ज़ था।" },
+            { "who": "thakur", "text": "अपने ही घर में सेंध लगाई? और बेचारे हरिया पर इल्ज़ाम आने दिया!" }
+          ]
+        },
+        {
+          "bg": "haveli",
+          "cast": [{ "who": "thakur", "at": 24, "face": "smile" }, { "who": "hariya", "at": 54, "face": "laugh" }, { "who": "dadi", "at": 84, "face": "smile" }],
+          "cap": "ग्रामोफ़ोन फिर बजा — इस बार पूरी हवेली के सामने।",
+          "say": [
+            { "who": "thakur", "text": "हरिया, मुझे माफ़ करना। तुम पर शक करना मेरी सबसे बड़ी भूल थी।" },
+            { "who": "hariya", "text": "मालिक, आपका भरोसा लौट आया — यही बहुत है।" }
+          ],
+          "sfx": "♪ ♫"
+        },
+        {
+          "bg": "haveli",
+          "cast": [{ "who": "pappu", "at": 34, "face": "grin", "arms": "hips" }, { "who": "roohi", "at": 72, "face": "laugh" }],
+          "say": [
+            { "who": "pappu", "text": "देखा? मैं तो पहले से जानता था, भूत-वूत कुछ नहीं होता!" },
+            { "who": "roohi", "text": "हाँ, हाँ — इसीलिए कल रात दादी के पीछे छिपे थे!" }
+          ],
+          "wide": true
+        }
+      ],
+      "guess": {
+        "at": 7,
+        "q": "ग्रामोफ़ोन किसने छिपाया, और क्यों?",
+        "options": ["भतीजे रंजीत ने, ताकि भूत के डर से हवेली सस्ते में बिक जाए", "हरिया ने, उसे बेचने के लिए", "सचमुच किसी भूत ने"],
+        "answer": "भतीजे रंजीत ने, ताकि भूत के डर से हवेली सस्ते में बिक जाए",
+        "hint": "भूत की अफ़वाह से किसका फ़ायदा था? और सिगरेट किसकी थी?"
+      },
+      "words": [
+        { "hi": "निशानी", "mean": "याद के रूप में रखी चीज़", "en": "keepsake" },
+        { "hi": "तहख़ाने", "mean": "ज़मीन के नीचे बना कमरा (तहख़ाना)", "en": "basement, cellar" },
+        { "hi": "नमक खाया", "mean": "मुहावरा: किसी का दिया खाना, उसका वफ़ादार होना (नमक खाना)", "en": "to owe loyalty" },
+        { "hi": "भुलक्कड़", "mean": "जो बातें भूल जाता हो", "en": "forgetful" },
+        { "hi": "दराज़", "mean": "मेज़ का खिसकने वाला ख़ाना", "en": "drawer" },
+        { "hi": "औने-पौने दाम", "mean": "मुहावरा: बहुत कम क़ीमत (औने-पौने दाम)", "en": "dirt cheap" },
+        { "hi": "सेंध लगाई", "mean": "मुहावरा: चोरी के लिए घर में घुसना (सेंध लगाना)", "en": "broke in" }
+      ],
+      "questions": [
+        {
+          "q": "दादी ने भूत की बात पर विश्वास क्यों नहीं किया?",
+          "options": ["आवाज़ बंद कमरे के ग्रामोफ़ोन की थी और सीढ़ियों पर ताज़ा निशान थे", "उन्हें अँधेरे से डर नहीं लगता", "पप्पू ने भूत को पकड़ लिया था"],
+          "answer": "आवाज़ बंद कमरे के ग्रामोफ़ोन की थी और सीढ़ियों पर ताज़ा निशान थे"
+        },
+        {
+          "q": "रंजीत ने भूत की अफ़वाह क्यों फैलाई?",
+          "options": ["ताकि हवेली सस्ते में बिक जाए", "मज़ाक करने के लिए", "हरिया को नौकरी से निकलवाने के लिए"],
+          "answer": "ताकि हवेली सस्ते में बिक जाए"
+        },
+        {
+          "q": "“किसी का नमक खाना” का अर्थ क्या है?",
+          "options": ["किसी के प्रति वफ़ादार होना", "नमकीन खाना", "बहुत भूख लगना"],
+          "answer": "किसी के प्रति वफ़ादार होना"
+        }
+      ]
+    },
+    {
+      "series": "dadi",
+      "level": "grade8",
+      "id": "d-cricket",
+      "title": { "hi": "ट्रॉफ़ी कहाँ गई?", "en": "Where did the trophy go?" },
+      "blurb": "स्कूलों का क्रिकेट फ़ाइनल, और मैच से पहले ट्रॉफ़ी ग़ायब! रूही की टीम पर इल्ज़ाम — पर घास में छिपे हैं सुराग़।",
+      "parts": {
+        "coach": { "look": "man-a", "name": "कोच शर्मा", "top": "#2563EB" },
+        "arjun": { "look": "boy-a", "name": "अर्जुन", "top": "#EF4444" },
+        "bansi": { "look": "man-b", "name": "ग्राउंड्समैन बंसी" },
+        "tipu": { "look": "boy-a", "name": "पानी वाला टीपू", "top": "#FACC15" }
+      },
+      "panels": [
+        {
+          "bg": "ground",
+          "cast": [{ "who": "roohi", "at": 34, "face": "grin", "hold": "bat" }, { "who": "dadi", "at": 74, "face": "smile" }],
+          "cap": "स्कूलों के बीच क्रिकेट का फ़ाइनल! रूही अपनी टीम की कप्तान थी।",
+          "say": [{ "who": "roohi", "text": "दादी, आज तो ट्रॉफ़ी हमारी!" }, { "who": "dadi", "text": "जीत-हार से ज़्यादा ज़रूरी है खेल-भावना, बिटिया।" }]
+        },
+        {
+          "bg": "ground",
+          "cast": [{ "who": "coach", "at": 44, "face": "shock", "arms": "up" }],
+          "say": [{ "who": "coach", "text": "ट्रॉफ़ी ग़ायब! मैच से पहले तो मंडप में मेज़ पर रखी थी!", "kind": "shout" }],
+          "sfx": "हैं?!"
+        },
+        {
+          "bg": "ground",
+          "cast": [{ "who": "arjun", "at": 32, "face": "angry", "arms": "point" }, { "who": "roohi", "at": 72, "face": "angry" }],
+          "say": [
+            { "who": "arjun", "text": "हमें पता है — तुम्हारी टीम ने छिपाई है! हारने के डर से!" },
+            { "who": "roohi", "text": "बिना सबूत इल्ज़ाम मत लगाओ, अर्जुन!" }
+          ]
+        },
+        {
+          "bg": "ground",
+          "cast": [{ "who": "dadi", "at": 32, "face": "think", "arms": "chin" }, { "who": "coach", "at": 72 }],
+          "say": [
+            { "who": "dadi", "text": "मैच से पहले मंडप के पास कौन-कौन था?" },
+            { "who": "coach", "text": "ग्राउंड्समैन बंसी, जो सुबह से घास काट रहा था; अर्जुन; और पानी लाने वाला लड़का, टीपू।" }
+          ]
+        },
+        {
+          "bg": "ground",
+          "cast": [{ "who": "bansi", "at": 32, "face": "smile" }, { "who": "tipu", "at": 72 }],
+          "say": [
+            { "who": "bansi", "text": "मैं तो मशीन से घास काट रहा था, साहब। मेरे रबर के जूते देखिए — घास से भरे हैं।" },
+            { "who": "tipu", "text": "मैं बस पानी की बोतलें रख रहा था।" }
+          ]
+        },
+        {
+          "bg": "ground",
+          "cast": [{ "who": "dadi", "at": 34, "face": "sly", "hold": "magnifier" }, { "who": "roohi", "at": 74, "face": "shock" }],
+          "cap": "दादी ने मंडप के फ़र्श को ग़ौर से देखा।",
+          "say": [
+            {
+              "who": "dadi",
+              "text": "यहाँ गीली घास के तिनके हैं, और जूतों के निशान — छोटे-छोटे गोल छेदों वाले। ऐसे निशान रबर के जूतों के नहीं, स्पाइक वाले क्रिकेट जूतों के होते हैं।"
+            }
+          ]
+        },
+        {
+          "bg": "ground",
+          "cast": [{ "who": "tipu", "at": 72, "face": "worried" }, { "who": "dadi", "at": 32, "face": "think" }],
+          "say": [
+            { "who": "dadi", "text": "टीपू बेटा, तुम मंडप में थे, पर तुम्हारे पैरों पर घास क्यों नहीं लगी?" },
+            { "who": "tipu", "text": "मैं तो नंगे पाँव था, दादी। मैं पक्की पगडंडी से आया था।" }
+          ]
+        },
+        {
+          "bg": "ground",
+          "cast": [{ "who": "arjun", "at": 34, "face": "worried" }, { "who": "dadi", "at": 72, "arms": "point", "flip": true }],
+          "say": [{ "who": "dadi", "text": "और अर्जुन, तुम्हारे स्पाइक वाले जूतों पर गीली घास के तिनके हैं। तुम्हारी किट-बैग इतनी फूली हुई क्यों है?" }]
+        },
+        {
+          "bg": "ground",
+          "cast": [{ "who": "arjun", "at": 32, "face": "sad" }, { "who": "roohi", "at": 72, "face": "think" }],
+          "say": [
+            { "who": "arjun", "text": "मैं डर गया था कि हम हार जाएँगे... सोचा, ट्रॉफ़ी छिपाकर तुम्हारी टीम पर इल्ज़ाम लगा दूँगा, तो वह अयोग्य हो जाएगी।" },
+            { "who": "roohi", "text": "ऐसी जीत किस काम की, अर्जुन?" }
+          ]
+        },
+        {
+          "bg": "ground",
+          "cast": [{ "who": "roohi", "at": 32, "face": "smile" }, { "who": "arjun", "at": 72, "face": "grin" }],
+          "cap": "मैच हुआ। रूही की टीम आख़िरी गेंद पर दो रन से हार गई।",
+          "say": [{ "who": "roohi", "text": "बधाई हो, अर्जुन! तुम सचमुच अच्छा खेले।" }, { "who": "arjun", "text": "और ईमानदारी में तो तुम जीत गईं, रूही।" }]
+        },
+        {
+          "bg": "ground",
+          "cast": [{ "who": "coach", "at": 24, "face": "smile" }, { "who": "roohi", "at": 54, "face": "laugh", "arms": "up" }, { "who": "dadi", "at": 84, "face": "smile" }],
+          "cap": "पुरस्कार समारोह में एक नया पुरस्कार घोषित हुआ — “खेल-भावना ट्रॉफ़ी”।",
+          "say": [{ "who": "coach", "text": "और यह जाती है — रूही की टीम को!" }, { "who": "dadi", "text": "देखा? असली ट्रॉफ़ी यही है।" }],
+          "wide": true
+        }
+      ],
+      "guess": {
+        "at": 7,
+        "q": "ट्रॉफ़ी किसने छिपाई?",
+        "options": ["अर्जुन ने", "ग्राउंड्समैन बंसी ने", "पानी वाले टीपू ने"],
+        "answer": "अर्जुन ने",
+        "hint": "मंडप में स्पाइक वाले जूतों के निशान थे। ऐसे जूते कौन पहनता है?"
+      },
+      "words": [
+        { "hi": "खेल-भावना", "mean": "ईमानदारी और सम्मान से खेलने की भावना", "en": "sportsmanship" },
+        { "hi": "मंडप", "mean": "छायादार ढाँचा, पैवेलियन", "en": "pavilion" },
+        { "hi": "तिनके", "mean": "घास या भूसे के पतले टुकड़े (तिनका)", "en": "blades of grass" },
+        { "hi": "पगडंडी", "mean": "पतला रास्ता", "en": "footpath" },
+        { "hi": "अयोग्य", "mean": "जो योग्य न हो, खेल से बाहर", "en": "disqualified" },
+        { "hi": "किस काम की", "mean": "मुहावरा: बेकार, जिसका कोई मूल्य न हो (किस काम का)", "en": "worthless" },
+        { "hi": "समारोह", "mean": "उत्सव, कार्यक्रम", "en": "ceremony" }
+      ],
+      "questions": [
+        {
+          "q": "दादी ने ग्राउंड्समैन बंसी को निर्दोष क्यों माना?",
+          "options": ["वह रबर के जूते पहनता था, जबकि निशान स्पाइक वाले जूतों के थे", "वह बहुत बूढ़ा था", "वह मैच देख रहा था"],
+          "answer": "वह रबर के जूते पहनता था, जबकि निशान स्पाइक वाले जूतों के थे"
+        },
+        {
+          "q": "अर्जुन ने ट्रॉफ़ी क्यों छिपाई?",
+          "options": ["रूही की टीम को अयोग्य करवाने के लिए", "उसे ट्रॉफ़ी बेचनी थी", "मज़ाक में"],
+          "answer": "रूही की टीम को अयोग्य करवाने के लिए"
+        },
+        {
+          "q": "“खेल-भावना” का अर्थ क्या है?",
+          "options": ["जीत-हार में ईमानदारी और सम्मान से खेलना", "बहुत ज़्यादा खेलना", "खेल से डरना"],
+          "answer": "जीत-हार में ईमानदारी और सम्मान से खेलना"
+        }
+      ]
+    },
+    {
+      "series": "dadi",
+      "level": "grade8",
+      "id": "d-scam",
+      "title": { "hi": "रूही और ऑनलाइन ठग", "en": "Roohi and the online swindler" },
+      "blurb": "“बधाई! आपने लैपटॉप जीता है!” — रूही के फ़ोन पर आया संदेश। पर इनाम बिना खेले कैसे मिला?",
+      "parts": { "thug": { "look": "man-d", "name": "ठग", "sunglasses": true, "top": "#0F172A" } },
+      "panels": [
+        {
+          "bg": "room",
+          "cast": [{ "who": "roohi", "at": 34, "face": "shock", "hold": "phone" }, { "who": "mausi", "at": 76 }],
+          "cap": "एक शाम रूही के फ़ोन पर एक संदेश आया...",
+          "say": [{ "who": "roohi", "text": "“बधाई! आपने नया लैपटॉप जीता है! बस 499 रुपये डिलीवरी फ़ीस भरें और यह लिंक खोलें।” वाह!" }]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "dadi", "at": 72, "face": "think" }, { "who": "roohi", "at": 32, "face": "grin", "hold": "phone" }],
+          "say": [
+            { "who": "roohi", "text": "दादी, मैंने लैपटॉप जीता है! बस पापा का कार्ड नंबर और ओटीपी डालना है।" },
+            { "who": "dadi", "text": "ज़रा रुको। तुमने किसी प्रतियोगिता में भाग लिया था?" }
+          ]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "roohi", "at": 44, "face": "think", "arms": "chin" }],
+          "say": [{ "who": "roohi", "text": "नहीं तो... फिर मैं जीती कैसे?", "kind": "think" }]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "dadi", "at": 32, "arms": "point" }, { "who": "roohi", "at": 72, "face": "worried" }],
+          "say": [
+            {
+              "who": "dadi",
+              "text": "जो इनाम बिना खेले मिले, वह इनाम नहीं, जाल होता है। लिंक का पता देखो — कंपनी के नाम में एक अक्षर ग़लत है। और असली कंपनियाँ या बैंक कभी ओटीपी नहीं माँगते।"
+            }
+          ]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "roohi", "at": 32, "face": "worried" }, { "who": "dadi", "at": 72, "face": "smile" }],
+          "say": [
+            { "who": "roohi", "text": "पर मेरी सहेली मीनू ने तो पैसे भर दिए! उसकी मम्मी के खाते से पंद्रह हज़ार कट गए!" },
+            { "who": "dadi", "text": "तो देर किस बात की? साइबर हेल्पलाइन 1930 पर तुरंत फ़ोन करो, और बैंक को भी ख़बर दो।" }
+          ]
+        },
+        {
+          "bg": "police",
+          "cast": [{ "who": "inspector", "at": 32, "face": "think" }, { "who": "roohi", "at": 72, "hold": "phone" }],
+          "cap": "साइबर थाने में...",
+          "say": [
+            { "who": "inspector", "text": "ये ठग दूर बैठकर फ़ोन से काम करते हैं। इन्हें पकड़ना टेढ़ी खीर है।" },
+            { "who": "roohi", "text": "तो हम उन्हें बातों में फँसाकर बुला सकते हैं!" }
+          ]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "roohi", "at": 30, "face": "sly", "hold": "phone" }, { "who": "dadi", "at": 70, "face": "sly" }],
+          "cap": "दादी और रूही ने ठग को जवाब भेजा...",
+          "say": [{ "who": "roohi", "text": "“अंकल, मेरी दादी आपको फ़ीस नक़द देना चाहती हैं। वे फ़ोन चलाना नहीं जानतीं। कहाँ मिलें?”" }]
+        },
+        {
+          "bg": "bazaar",
+          "cast": [{ "who": "thug", "at": 34, "face": "sly" }, { "who": "dadi", "at": 72, "face": "smile" }],
+          "cap": "अगले दिन, बाज़ार में...",
+          "say": [
+            { "who": "thug", "text": "माताजी, लाइए पैसे, और अपना फ़ोन भी दीजिए — ओटीपी चाहिए।" },
+            { "who": "dadi", "text": "ओटीपी तो नहीं मिलेगा, बेटा — हथकड़ी ज़रूर मिलेगी।" }
+          ]
+        },
+        {
+          "bg": "bazaar",
+          "cast": [{ "who": "pappu", "at": 36, "face": "grin", "arms": "up" }, { "who": "thug", "at": 74, "face": "shock", "arms": "up" }],
+          "cap": "पास ही सादी वर्दी में खड़े इंस्पेक्टर ढीलाराम ने हथकड़ी पहना दी।",
+          "say": [{ "who": "pappu", "text": "भागने की सोचना भी मत, भाई साहब!" }],
+          "sfx": "धर दबोचा!"
+        },
+        {
+          "bg": "police",
+          "cast": [{ "who": "inspector", "at": 30, "face": "grin" }, { "who": "roohi", "at": 70, "face": "grin" }],
+          "cap": "ठग के फ़ोन से सैकड़ों लोगों से ठगी के सबूत मिले। मीनू की मम्मी के पैसे भी लौट आए।",
+          "say": [{ "who": "inspector", "text": "रूही बेटी, तुम तो साइबर जासूस बन गईं!" }]
+        },
+        {
+          "bg": "school",
+          "cast": [{ "who": "roohi", "at": 34, "face": "smile", "arms": "point" }, { "who": "dadi", "at": 72, "face": "smile" }],
+          "cap": "रूही ने अपने स्कूल के लिए एक पोस्टर बनाया:",
+          "say": [
+            {
+              "who": "roohi",
+              "text": "एक — अनजान लिंक मत खोलो। दो — ओटीपी और पासवर्ड किसी को मत बताओ। तीन — ठगी हो, तो 1930 पर फ़ोन करो। चार — शक हो, तो बड़ों से पूछो!"
+            },
+            { "who": "dadi", "text": "शाबाश! याद रखो — सावधानी हटी, दुर्घटना घटी।" }
+          ],
+          "wide": true
+        }
+      ],
+      "guess": {
+        "at": 3,
+        "q": "तुम रूही की जगह होते, तो क्या करते?",
+        "options": ["लिंक बंद करके बड़ों को बताते", "जल्दी से ओटीपी डाल देते", "सहेलियों को भी लिंक भेज देते"],
+        "answer": "लिंक बंद करके बड़ों को बताते",
+        "hint": "क्या रूही ने किसी प्रतियोगिता में भाग लिया था? कोई असली कंपनी ओटीपी माँगती है?"
+      },
+      "words": [
+        { "hi": "संदेश", "mean": "ख़बर, मैसेज", "en": "message" },
+        { "hi": "प्रतियोगिता", "mean": "मुक़ाबला", "en": "competition" },
+        { "hi": "जाल", "mean": "फँसाने का तरीक़ा, धोखा", "en": "trap" },
+        { "hi": "टेढ़ी खीर", "mean": "मुहावरा: बहुत कठिन काम", "en": "a very hard task" },
+        { "hi": "सादी वर्दी", "mean": "बिना पुलिस की वर्दी के, आम कपड़ों में", "en": "plain clothes" },
+        { "hi": "ठगी", "mean": "धोखाधड़ी", "en": "fraud" },
+        { "hi": "सावधानी हटी, दुर्घटना घटी", "mean": "कहावत: लापरवाही से नुक़सान होता है", "en": "carelessness causes accidents" }
+      ],
+      "questions": [
+        {
+          "q": "दादी ने संदेश को धोखा कैसे पहचाना?",
+          "options": ["रूही ने कोई प्रतियोगिता नहीं खेली थी, लिंक में ग़लत अक्षर था और ओटीपी माँगा गया", "संदेश अंग्रेज़ी में था", "लैपटॉप बहुत महँगा था"],
+          "answer": "रूही ने कोई प्रतियोगिता नहीं खेली थी, लिंक में ग़लत अक्षर था और ओटीपी माँगा गया"
+        },
+        { "q": "ऑनलाइन ठगी होने पर किस नंबर पर फ़ोन करना चाहिए?", "options": ["1930", "108", "139"], "answer": "1930" },
+        { "q": "यहाँ “जाल” शब्द का अर्थ है—", "options": ["धोखे का फंदा", "मछली पकड़ने का जाल", "मकड़ी का जाला"], "answer": "धोखे का फंदा" }
+      ]
+    },
+    {
+      "series": "dadi",
+      "level": "grade8",
+      "id": "d-locked",
+      "title": { "hi": "बंद कमरे का रहस्य", "en": "The locked-room mystery" },
+      "blurb": "दरवाज़ा अंदर से बंद, खिड़की पर लोहे की जाली — फिर भी जौहरी मोतीलाल का नीलम ग़ायब! क्या कौआ चोर है?",
+      "parts": { "motilal": { "look": "man-b", "name": "जौहरी मोतीलाल", "glasses": true }, "sonu": { "look": "man-a", "name": "मोतीलाल का बेटा सोनू", "top": "#14B8A6" } },
+      "panels": [
+        {
+          "bg": "room",
+          "cast": [{ "who": "motilal", "at": 34, "face": "worried" }, { "who": "dadi", "at": 74, "face": "think" }],
+          "cap": "जौहरी मोतीलाल के घर से एक क़ीमती नीलम ग़ायब हुआ — एक ऐसे कमरे से, जो अंदर से बंद था!",
+          "say": [{ "who": "motilal", "text": "दरवाज़ा अंदर से बंद, खिड़की पर लोहे की जाली! नीलम क्या हवा में उड़ गया?" }]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "inspector", "at": 32, "face": "think", "arms": "chin" }, { "who": "pappu", "at": 72, "face": "shock" }],
+          "say": [
+            { "who": "inspector", "text": "हमने ताला तोड़ा, कमरा ख़ाली था। ज़रूर कोई जादूगर है!" },
+            { "who": "pappu", "text": "या कोई भूत, जो दीवार से निकल जाता है!" }
+          ]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "sonu", "at": 34, "face": "smile" }, { "who": "dadi", "at": 74, "face": "think" }],
+          "say": [{ "who": "sonu", "text": "मुझे तो लगता है, खिड़की की जाली के छेद से कोई कौआ घुसकर ले गया होगा। कौए चमकती चीज़ें चुराते हैं ना!" }]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "dadi", "at": 34, "face": "think", "hold": "magnifier" }, { "who": "roohi", "at": 72 }],
+          "cap": "दादी कमरे का कोना-कोना देख रही थीं।",
+          "say": [
+            { "who": "dadi", "text": "खिड़की की जाली में सचमुच एक छोटा-सा छेद है — बस इतना कि कोई छोटा पंछी आ-जा सके।" },
+            { "who": "roohi", "text": "पर इतने छोटे छेद से इंसान का हाथ भी नहीं जा सकता, दादी!" }
+          ]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "mausi", "at": 36, "face": "sly" }, { "who": "dadi", "at": 74 }],
+          "cap": "मौसी खिड़की के बाहर लगे नीम के पेड़ की ओर देखकर ग़ुर्रा रही थी।",
+          "say": [{ "who": "dadi", "text": "पेड़ पर कुछ है, पप्पू। ज़रा देखना।" }],
+          "sfx": "म्याऊँ!"
+        },
+        {
+          "bg": "garden",
+          "cast": [{ "who": "pappu", "at": 40, "face": "shock", "arms": "up" }],
+          "say": [{ "who": "pappu", "text": "दादी! पेड़ पर एक घोंसला है — और उसमें चमकती चीज़ें! चम्मच, चाबी, बोतल का ढक्कन...", "kind": "shout" }],
+          "prop": { "word": "crow", "at": 78 }
+        },
+        {
+          "bg": "garden",
+          "cast": [{ "who": "dadi", "at": 72, "face": "smile" }, { "who": "roohi", "at": 32, "face": "shock" }],
+          "say": [
+            { "who": "roohi", "text": "तो सोनू भैया ठीक कह रहे थे — कौआ!" },
+            { "who": "dadi", "text": "कौए चमकती चीज़ें जमा करते हैं, यह सच है। पर नीलम घोंसले में नहीं है — इसका मतलब कहानी में अभी एक मोड़ बाकी है।" }
+          ]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "dadi", "at": 34, "face": "think", "arms": "chin" }, { "who": "sonu", "at": 74, "face": "worried" }],
+          "say": [
+            {
+              "who": "dadi",
+              "text": "जाली का वह छेद तो मैंने अभी-अभी, बहुत ध्यान से देखने पर ढूँढा। फिर सोनू को पहले से कैसे पता था कि जाली में छेद है?",
+              "kind": "think"
+            }
+          ]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "dadi", "at": 30, "arms": "point" }, { "who": "sonu", "at": 70, "face": "worried" }],
+          "say": [
+            { "who": "dadi", "text": "और तुम्हारी जेब से झाँकती यह लंबी चिमटी और मोम — इनका क्या काम?" },
+            { "who": "sonu", "text": "व... वो तो... मेरे शौक़ के लिए..." }
+          ]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "sonu", "at": 32, "face": "sad" }, { "who": "motilal", "at": 72, "face": "angry" }],
+          "cap": "सोनू ने रात में बाहर से, मोम लगी चिमटी को छेद में डालकर नीलम खींच लिया था, और शक कौए पर डालने के लिए घोंसले में कुछ चमकीली चीज़ें रख दी थीं।",
+          "say": [{ "who": "sonu", "text": "पापा, मुझे नई मोटरसाइकिल चाहिए थी..." }, { "who": "motilal", "text": "अपने ही घर में चोरी!" }]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "motilal", "at": 72, "face": "sad" }, { "who": "dadi", "at": 34, "face": "smile" }],
+          "say": [
+            { "who": "dadi", "text": "मोतीलाल जी, बच्चों से खुलकर बात कीजिए। ज़रूरतें दबाने से ग़लत रास्ते पनपते हैं।" },
+            { "who": "motilal", "text": "आप ठीक कहती हैं, दादी जी।" }
+          ]
+        },
+        {
+          "bg": "garden",
+          "cast": [{ "who": "pappu", "at": 28, "face": "laugh" }, { "who": "roohi", "at": 58, "face": "laugh" }, { "who": "mausi", "at": 86, "face": "sly" }],
+          "say": [{ "who": "pappu", "text": "बेचारा कौआ! बलि का बकरा बन गया — मुफ़्त में बदनाम हुआ!" }, { "who": "roohi", "text": "पर चम्मच तो उसने सचमुच चुराए थे!" }],
+          "prop": { "word": "crow", "at": 80 },
+          "wide": true
+        }
+      ],
+      "guess": {
+        "at": 8,
+        "q": "नीलम असल में किसने लिया?",
+        "options": ["मोतीलाल के बेटे सोनू ने", "कौए ने", "इंस्पेक्टर ढीलाराम ने"],
+        "answer": "मोतीलाल के बेटे सोनू ने",
+        "hint": "जाली के छेद की बात किसने कही — दादी के खिड़की जाँचने से पहले या बाद में?"
+      },
+      "words": [
+        { "hi": "जौहरी", "mean": "गहने और रत्न बेचने वाला", "en": "jeweller" },
+        { "hi": "नीलम", "mean": "नीले रंग का क़ीमती रत्न", "en": "sapphire" },
+        { "hi": "कोना-कोना", "mean": "हर जगह", "en": "every corner" },
+        { "hi": "मोड़", "mean": "कहानी में अचानक बदलाव", "en": "twist" },
+        { "hi": "चिमटी", "mean": "छोटी चीज़ें पकड़ने का औज़ार", "en": "tweezers" },
+        { "hi": "पनपते", "mean": "बढ़ना, फलना-फूलना (पनपना)", "en": "grow, thrive" },
+        { "hi": "बलि का बकरा", "mean": "मुहावरा: किसी और के दोष की सज़ा पाने वाला (बलि का बकरा बनना)", "en": "scapegoat" },
+        { "hi": "बदनाम", "mean": "जिसका नाम ख़राब हो जाए", "en": "defamed" }
+      ],
+      "questions": [
+        {
+          "q": "दादी को सोनू पर शक क्यों हुआ?",
+          "options": ["दादी के खिड़की जाँचने से पहले ही उसने जाली के छेद की बात कह दी थी", "वह कौए से डरता था", "उसके पास नीलम की दुकान थी"],
+          "answer": "दादी के खिड़की जाँचने से पहले ही उसने जाली के छेद की बात कह दी थी"
+        },
+        {
+          "q": "सोनू ने नीलम कैसे निकाला?",
+          "options": ["मोम लगी चिमटी को जाली के छेद से डालकर", "दरवाज़ा तोड़कर", "कौए को सिखाकर"],
+          "answer": "मोम लगी चिमटी को जाली के छेद से डालकर"
+        },
+        { "q": "“बदनाम होना” का अर्थ क्या है?", "options": ["नाम ख़राब होना", "नाम बदलना", "मशहूर होना"], "answer": "नाम ख़राब होना" }
+      ]
+    },
+    {
+      "series": "dadi",
+      "level": "grade8",
+      "id": "d-milk",
+      "title": { "hi": "पप्पू और नक़ली दूध", "en": "Pappu and the fake milk" },
+      "blurb": "अखाड़े का शेर पप्पू आजकल थका-थका रहता है, और मोहल्ले के बच्चे बीमार हैं। दाल में कुछ काला है — या दूध में?",
+      "parts": { "gopal": { "look": "man-b", "name": "डेयरी वाला गोपाल", "top": "#F7F7F2" }, "naukar": { "look": "man-a", "name": "नौकर" } },
+      "panels": [
+        {
+          "bg": "dairy",
+          "cast": [{ "who": "pappu", "at": 36, "face": "grin", "hold": "glass" }, { "who": "gopal", "at": 74, "face": "smile" }],
+          "cap": "पहलवान पप्पू रोज़ पाँच लीटर दूध पीता था — “शुद्ध दूध डेयरी” से।",
+          "say": [
+            { "who": "pappu", "text": "गोपाल भाई, तुम्हारा दूध पीकर ही तो मैं अखाड़े का शेर हूँ!" },
+            { "who": "gopal", "text": "हें हें, शुद्ध है, पप्पू भाई — एकदम शुद्ध!" }
+          ]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "pappu", "at": 34, "face": "sad" }, { "who": "dadi", "at": 74, "face": "worried" }],
+          "cap": "पर कुछ दिनों से...",
+          "say": [{ "who": "pappu", "text": "दादी, पेट में दर्द रहता है, और कसरत में दम नहीं लगता। मोहल्ले के बच्चे भी बीमार पड़ रहे हैं।" }]
+        },
+        {
+          "bg": "kitchen",
+          "cast": [{ "who": "dadi", "at": 32, "face": "think", "arms": "chin" }, { "who": "roohi", "at": 72, "face": "shock" }],
+          "say": [{ "who": "dadi", "text": "जब सब एक ही चीज़ खाएँ और सब बीमार पड़ें, तो दाल में कुछ काला ज़रूर है। रूही, आज विज्ञान का प्रयोग करते हैं!" }]
+        },
+        {
+          "bg": "kitchen",
+          "cast": [{ "who": "roohi", "at": 32, "face": "shock", "hold": "glass" }, { "who": "dadi", "at": 72, "arms": "point", "flip": true }],
+          "cap": "प्रयोग एक: थोड़े दूध में बराबर पानी मिलाकर ज़ोर से हिलाया...",
+          "say": [
+            { "who": "roohi", "text": "इतना झाग! शुद्ध दूध में तो हल्का-सा झाग बनता है, जो जल्दी बैठ जाता है।" },
+            { "who": "dadi", "text": "यानी इसमें डिटर्जेंट मिला है, ताकि दूध गाढ़ा और झागदार लगे।" }
+          ],
+          "sfx": "झाग!"
+        },
+        {
+          "bg": "kitchen",
+          "cast": [{ "who": "roohi", "at": 34, "face": "shock" }, { "who": "dadi", "at": 72, "face": "think" }],
+          "cap": "प्रयोग दो: दूध की कुछ बूँदों में आयोडीन टिंचर की दो बूँदें...",
+          "say": [{ "who": "roohi", "text": "दूध नीला पड़ गया!", "kind": "shout" }]
+        },
+        {
+          "bg": "kitchen",
+          "cast": [{ "who": "dadi", "at": 32, "arms": "point" }, { "who": "roohi", "at": 72, "face": "think" }],
+          "say": [
+            {
+              "who": "dadi",
+              "text": "आयोडीन स्टार्च के साथ नीला-काला रंग देता है। यानी इसमें आटे या अरारोट जैसी चीज़ मिली है — दूध को गाढ़ा दिखाने का पुराना धोखा।"
+            }
+          ]
+        },
+        {
+          "bg": "dairy",
+          "cast": [{ "who": "gopal", "at": 34, "face": "sly" }, { "who": "naukar", "at": 72 }],
+          "cap": "उसी रात, डेयरी के पीछे...",
+          "say": [
+            {
+              "who": "gopal",
+              "text": "दस लीटर दूध में दस लीटर पानी, दो चम्मच डिटर्जेंट और एक कटोरी अरारोट। बस, बीस लीटर “शुद्ध” दूध तैयार!",
+              "kind": "whisper"
+            }
+          ],
+          "dark": true
+        },
+        {
+          "bg": "dairy",
+          "cast": [{ "who": "roohi", "at": 34, "face": "sly", "hold": "phone" }, { "who": "mausi", "at": 72, "face": "sly" }],
+          "say": [{ "who": "roohi", "text": "सब रिकॉर्ड हो रहा है...", "kind": "whisper" }],
+          "sfx": "क्लिक!",
+          "dark": true
+        },
+        {
+          "bg": "dairy",
+          "cast": [{ "who": "inspector", "at": 30, "face": "angry" }, { "who": "gopal", "at": 70, "face": "shock", "arms": "up" }],
+          "cap": "अगली सुबह, खाद्य विभाग की टीम के साथ...",
+          "say": [
+            { "who": "inspector", "text": "गोपाल, तुम्हारे दूध के नमूने जाँच में फ़ेल हो गए हैं!" },
+            { "who": "gopal", "text": "झूठ! मेरे ख़िलाफ़ कोई सबूत नहीं है!" }
+          ]
+        },
+        {
+          "bg": "dairy",
+          "cast": [{ "who": "roohi", "at": 32, "face": "sly", "hold": "phone" }, { "who": "gopal", "at": 72, "face": "worried" }],
+          "say": [{ "who": "roohi", "text": "सबूत यह रहा — आपका “शुद्ध” नुस्ख़ा, आपकी अपनी आवाज़ में!" }]
+        },
+        {
+          "bg": "dairy",
+          "cast": [{ "who": "pappu", "at": 38, "face": "angry", "arms": "hips" }, { "who": "gopal", "at": 76, "face": "worried" }],
+          "say": [{ "who": "pappu", "text": "बच्चों की सेहत से खिलवाड़? आज तो मेरा ग़ुस्सा सातवें आसमान पर है!", "kind": "shout" }]
+        },
+        {
+          "bg": "dairy",
+          "cast": [{ "who": "dadi", "at": 56, "face": "smile" }, { "who": "pappu", "at": 26, "face": "grin", "hold": "glass" }, { "who": "roohi", "at": 84, "face": "grin" }],
+          "cap": "डेयरी पर ताला लग गया। मोहल्ले वालों ने मिलकर गाँव के एक ईमानदार किसान से दूध लेना शुरू किया।",
+          "say": [
+            { "who": "pappu", "text": "आह! असली दूध का स्वाद ही अलग है!" },
+            { "who": "dadi", "text": "याद रखो — मिलावट दिखे, तो चुप मत रहो। हमारी चुप्पी ही मिलावटख़ोरों की ताक़त है।" }
+          ],
+          "wide": true
+        }
+      ],
+      "guess": {
+        "at": 5,
+        "q": "आयोडीन डालने पर दूध नीला हो गया। इसका क्या मतलब है?",
+        "options": ["दूध में स्टार्च मिला है", "दूध में सिर्फ़ पानी मिला है", "दूध बहुत ठंडा है"],
+        "answer": "दूध में स्टार्च मिला है",
+        "hint": "आयोडीन किस चीज़ के साथ नीला-काला रंग देता है?"
+      },
+      "words": [
+        { "hi": "शुद्ध", "mean": "बिना मिलावट का", "en": "pure" },
+        { "hi": "दाल में कुछ काला", "mean": "मुहावरा: कुछ गड़बड़ होने का शक (दाल में कुछ काला होना)", "en": "something fishy" },
+        { "hi": "प्रयोग", "mean": "जाँचने के लिए किया गया काम", "en": "experiment" },
+        { "hi": "झाग", "mean": "बुलबुलों की परत", "en": "foam" },
+        { "hi": "नमूने", "mean": "जाँच के लिए लिया गया थोड़ा हिस्सा (नमूना)", "en": "samples" },
+        { "hi": "नुस्ख़ा", "mean": "कोई चीज़ बनाने का तरीक़ा", "en": "recipe" },
+        { "hi": "सातवें आसमान पर", "mean": "मुहावरा: ग़ुस्सा या ख़ुशी बहुत बढ़ जाना (सातवें आसमान पर होना)", "en": "sky-high" },
+        { "hi": "मिलावट", "mean": "शुद्ध चीज़ में दूसरी चीज़ मिलाना", "en": "adulteration" }
+      ],
+      "questions": [
+        {
+          "q": "झाग वाले प्रयोग से क्या पता चला?",
+          "options": ["दूध में डिटर्जेंट मिला है", "दूध में चीनी है", "दूध एकदम ताज़ा है"],
+          "answer": "दूध में डिटर्जेंट मिला है"
+        },
+        {
+          "q": "रूही ने गोपाल के ख़िलाफ़ सबूत कैसे जुटाया?",
+          "options": ["उसकी बात फ़ोन में रिकॉर्ड करके", "दूध की बोतल चुराकर", "डेयरी का ताला तोड़कर"],
+          "answer": "उसकी बात फ़ोन में रिकॉर्ड करके"
+        },
+        {
+          "q": "“दाल में कुछ काला होना” का अर्थ क्या है?",
+          "options": ["कुछ गड़बड़ होने का शक", "दाल जल जाना", "काली दाल पकाना"],
+          "answer": "कुछ गड़बड़ होने का शक"
+        }
+      ]
+    },
+    {
+      "series": "dadi",
+      "level": "grade8",
+      "id": "d-umbrella",
+      "title": { "hi": "दादी की छतरी", "en": "Dadi's umbrella" },
+      "blurb": "दिवाली की रात, संग्रहालय में सोने का मुकुट — और जेल से भागा छलिया छेदीलाल। इस बार वह इंस्पेक्टर बनकर आया है!",
+      "parts": { "nakli": { "look": "inspector", "name": "इंस्पेक्टर ढीलाराम" }, "chaukidar": { "look": "guard", "name": "चौकीदार" } },
+      "panels": [
+        {
+          "bg": "museum",
+          "cast": [{ "who": "inspector", "at": 34, "face": "grin", "arms": "hips" }, { "who": "dadi", "at": 74, "face": "smile" }],
+          "cap": "दिवाली की रात। संग्रहालय में “स्वर्ण-मुकुट” की प्रदर्शनी थी। सुरक्षा की ज़िम्मेदारी — इंस्पेक्टर ढीलाराम की।",
+          "say": [{ "who": "inspector", "text": "दादी जी, आज यहाँ परिंदा भी पर नहीं मार सकता!" }]
+        },
+        {
+          "bg": "museum",
+          "cast": [{ "who": "mausi", "at": 30, "face": "smile" }, { "who": "inspector", "at": 70, "face": "shock" }],
+          "say": [{ "who": "inspector", "text": "आक्छीं! दादी जी, इस बिल्ली को दूर रखिए — मुझे बिल्लियों से एलर्जी है! आक्छीं!", "kind": "shout" }],
+          "sfx": "आक्छीं!"
+        },
+        {
+          "bg": "night",
+          "cast": [{ "who": "chhedilal", "at": 42, "face": "sly" }],
+          "cap": "उधर, शहर के बाहर...",
+          "say": [{ "who": "chhedilal", "text": "जेल की दीवारें छेदीलाल को नहीं रोक सकतीं! आज मुकुट मेरा — और वह भी ढीलाराम बनकर!", "kind": "think" }]
+        },
+        {
+          "bg": "museum",
+          "cast": [{ "who": "inspector", "at": 36, "face": "shock", "hold": "phone" }, { "who": "dadi", "at": 76, "face": "think", "arms": "chin" }],
+          "cap": "आधी रात को...",
+          "say": [
+            { "who": "inspector", "text": "क्या? थाने में आग? मैं अभी आया!" },
+            { "who": "dadi", "text": "दिवाली की आधी रात, और अचानक थाने में आग? कुछ गड़बड़ है...", "kind": "think" }
+          ]
+        },
+        {
+          "bg": "museum",
+          "cast": [{ "who": "nakli", "at": 36, "face": "grin" }, { "who": "chaukidar", "at": 74 }],
+          "cap": "दस मिनट बाद, “इंस्पेक्टर ढीलाराम” लौट आए।",
+          "say": [{ "who": "nakli", "text": "सब ठीक है! अब मुकुट को थाने की तिजोरी में ले जाता हूँ — ऊपर से आदेश है।" }, { "who": "chaukidar", "text": "जी साहब!" }]
+        },
+        {
+          "bg": "museum",
+          "cast": [{ "who": "mausi", "at": 36, "face": "smile" }, { "who": "nakli", "at": 72, "face": "smile" }],
+          "cap": "मौसी इंस्पेक्टर के पैरों से लिपट गई। उन्होंने प्यार से उसे गोद में उठा लिया।",
+          "say": [{ "who": "nakli", "text": "अरे वाह, कितनी प्यारी बिल्ली है!" }]
+        },
+        {
+          "bg": "museum",
+          "cast": [{ "who": "dadi", "at": 72, "face": "sly" }, { "who": "roohi", "at": 34, "face": "shock" }],
+          "say": [
+            { "who": "roohi", "text": "दादी! इंस्पेक्टर अंकल ने मौसी को गोद में उठाया, और एक भी छींक नहीं आई!" },
+            { "who": "dadi", "text": "और जो थाने से दस मिनट में लौट आए, जबकि थाना आधे घंटे दूर है..." }
+          ]
+        },
+        {
+          "bg": "museum",
+          "cast": [{ "who": "dadi", "at": 30, "arms": "point" }, { "who": "nakli", "at": 70, "face": "shock" }],
+          "say": [{ "who": "dadi", "text": "इंस्पेक्टर साहब, आपकी एलर्जी कब से ठीक हो गई? मुकुट नीचे रखिए — छेदीलाल!", "kind": "shout" }],
+          "sfx": "खट्!"
+        },
+        {
+          "bg": "museum",
+          "cast": [{ "who": "chhedilal", "at": 38, "face": "angry" }, { "who": "pappu", "at": 76, "face": "grin", "arms": "up" }],
+          "cap": "छेदीलाल भागा, पर दादी की छतरी का मुड़ा हुआ हत्था उसके पैर में अटका — और सामने खड़ा था पहलवान पप्पू!",
+          "say": [{ "who": "pappu", "text": "कहाँ चले, छलिया जी? दंगल तो अभी शुरू हुआ है!" }],
+          "sfx": "धड़ाम!"
+        },
+        {
+          "bg": "museum",
+          "cast": [{ "who": "inspector", "at": 32, "face": "angry" }, { "who": "chhedilal", "at": 72, "face": "sad" }],
+          "say": [{ "who": "inspector", "text": "थाने में कोई आग नहीं थी! यह सब तुम्हारी चाल थी!" }, { "who": "chhedilal", "text": "हर बार... हर बार यह बुढ़िया!" }]
+        },
+        {
+          "bg": "museum",
+          "cast": [{ "who": "dadi", "at": 56, "face": "smile" }, { "who": "inspector", "at": 26, "face": "laugh" }, { "who": "mausi", "at": 84 }],
+          "cap": "मुकुट सुरक्षित था। और असली इंस्पेक्टर को छींक आते ही सबको यक़ीन हो गया कि वे असली हैं!",
+          "say": [
+            { "who": "inspector", "text": "आक्छीं! दादी जी, आपकी बिल्ली ने आज शहर का मुकुट बचा लिया!" },
+            { "who": "dadi", "text": "और आपकी छींक ने, इंस्पेक्टर साहब! कभी-कभी कमज़ोरी भी पहचान बन जाती है।" }
+          ],
+          "sfx": "आक्छीं!"
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "dadi", "at": 54, "face": "laugh" }, { "who": "roohi", "at": 24, "face": "grin" }, { "who": "pappu", "at": 82, "face": "laugh" }],
+          "cap": "दिवाली की जगमग में...",
+          "say": [{ "who": "roohi", "text": "दादी, अगला केस कब?" }, { "who": "dadi", "text": "जब भी कोई सच छिपाने की कोशिश करेगा, बिटिया!" }],
+          "wide": true
+        }
+      ],
+      "guess": {
+        "at": 7,
+        "q": "यह “इंस्पेक्टर” असल में कौन है?",
+        "options": ["भेस बदलकर आया छलिया छेदीलाल", "असली इंस्पेक्टर ढीलाराम", "संग्रहालय का चौकीदार"],
+        "answer": "भेस बदलकर आया छलिया छेदीलाल",
+        "hint": "असली इंस्पेक्टर को बिल्लियों से क्या होता है? और थाना कितनी दूर है?"
+      },
+      "words": [
+        { "hi": "प्रदर्शनी", "mean": "चीज़ें दिखाने का आयोजन", "en": "exhibition" },
+        { "hi": "परिंदा भी पर नहीं मार सकता", "mean": "मुहावरा: इतनी कड़ी सुरक्षा कि कोई अंदर न आ सके", "en": "not even a bird can get in" },
+        { "hi": "आदेश", "mean": "हुक्म", "en": "order" },
+        { "hi": "हत्था", "mean": "पकड़ने का हिस्सा", "en": "handle" },
+        { "hi": "दंगल", "mean": "कुश्ती का मुक़ाबला", "en": "wrestling match" },
+        { "hi": "चाल", "mean": "चालाकी, धोखे की योजना", "en": "trick" },
+        { "hi": "यक़ीन", "mean": "पक्का विश्वास", "en": "certainty" }
+      ],
+      "questions": [
+        {
+          "q": "दादी ने नक़ली इंस्पेक्टर को कैसे पहचाना?",
+          "options": ["बिल्ली को गोद में लेने पर उसे छींक नहीं आई, और वह बहुत जल्दी लौट आया", "उसकी मूँछ गिर गई", "वह मिठाई खा रहा था"],
+          "answer": "बिल्ली को गोद में लेने पर उसे छींक नहीं आई, और वह बहुत जल्दी लौट आया"
+        },
+        {
+          "q": "छेदीलाल ने असली इंस्पेक्टर को कैसे हटाया?",
+          "options": ["थाने में आग की झूठी ख़बर देकर", "उन्हें कमरे में बंद करके", "उन्हें रसमलाई खिलाकर"],
+          "answer": "थाने में आग की झूठी ख़बर देकर"
+        },
+        {
+          "q": "“परिंदा भी पर नहीं मार सकता” का अर्थ क्या है?",
+          "options": ["सुरक्षा इतनी कड़ी है कि कोई अंदर नहीं आ सकता", "पक्षी उड़ नहीं सकते", "बहुत ठंड है"],
+          "answer": "सुरक्षा इतनी कड़ी है कि कोई अंदर नहीं आ सकता"
         }
       ]
     }

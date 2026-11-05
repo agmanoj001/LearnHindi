@@ -318,6 +318,46 @@ add(
     `<rect class="m-mouth-closed" x="57" y="61" width="6" height="5" rx="1" fill="#fff"/>`,
 );
 
+// Bijli, Mishti's goat from the Grade 7 comics: eats everything, especially homework
+add(
+  'bijli',
+  'बिजली',
+  'Bijli',
+  1.5,
+  `<path class="m-tail" d="M84 92 q12 -6 8 -16" fill="none" stroke="#2B2D42" stroke-width="4" stroke-linecap="round"/>` +
+    `<ellipse cx="60" cy="96" rx="26" ry="17" fill="#F4F1EA"/><path d="M66 84 q12 -2 14 8 q-8 6 -16 2 z" fill="#3B4252"/>` +
+    `<rect x="44" y="104" width="8" height="12" rx="3" fill="#E7E2D6"/><rect x="68" y="104" width="8" height="12" rx="3" fill="#E7E2D6"/>` +
+    `<path d="M42 30 Q34 12 46 8 Q42 20 48 30 Z" fill="#C9B79C"/><path d="M78 30 Q86 12 74 8 Q78 20 72 30 Z" fill="#C9B79C"/>` +
+    `<g class="m-arm-l"><ellipse cx="28" cy="46" rx="14" ry="7" fill="#F4F1EA" transform="rotate(20 28 46)"/></g>` +
+    `<g class="m-arm-r"><ellipse cx="92" cy="46" rx="14" ry="7" fill="#F4F1EA" transform="rotate(-20 92 46)"/></g>` +
+    `<path d="M40 40 Q60 22 80 40 Q86 60 74 74 Q60 84 46 74 Q34 60 40 40 Z" fill="#F4F1EA"/>` +
+    `<path d="M54 76 L58 92 L62 76 Z" fill="#C9B79C"/>` +
+    eye(51, 50, 6.5, '#F4F1EA') +
+    eye(69, 50, 6.5, '#F4F1EA') +
+    `<ellipse cx="60" cy="66" rx="9" ry="6" fill="#FFB4C2"/>` +
+    mouth(60, 70, 10) +
+    `<rect x="54" y="84" width="12" height="8" rx="2" fill="#FF5A5F"/><circle cx="60" cy="96" r="4" fill="#FFD43B"/>`,
+);
+// Mausi, Detective Dadi's sharp-eyed cat from the Grade 8 comics
+add(
+  'mausi',
+  'मौसी',
+  'Mausi',
+  1.4,
+  `<path class="m-tail" d="M80 104 Q104 100 98 74" fill="none" stroke="#7B8494" stroke-width="7" stroke-linecap="round"/>` +
+    `<path d="M40 112 Q34 84 48 72 H72 Q86 84 80 112 Z" fill="#9AA3B5"/><path d="M52 112 Q50 92 60 86 Q70 92 68 112 Z" fill="#E5E7EB"/>` +
+    `<g class="m-arm-l"><path d="M34 34 L38 6 L54 24 Z" fill="#9AA3B5"/></g>` +
+    `<g class="m-arm-r"><path d="M86 34 L82 6 L66 24 Z" fill="#9AA3B5"/></g>` +
+    `<circle cx="60" cy="44" r="27" fill="#9AA3B5"/>` +
+    `<path d="M50 20 v8 M60 18 v9 M70 20 v8" stroke="#6B7280" stroke-width="3" stroke-linecap="round"/>` +
+    eye(49, 44, 7, '#9AA3B5') +
+    eye(71, 44, 7, '#9AA3B5') +
+    `<path d="M56 54 h8 l-4 4 z" fill="#FF8FA3"/>` +
+    mouth(60, 60, 9) +
+    `<path d="M44 56 l-16 -3 M44 60 l-16 3 M76 56 l16 -3 M76 60 l16 3" stroke="#2B2D42" stroke-width="1.6"/>` +
+    `<circle cx="60" cy="74" r="3.5" fill="#FFD43B"/>`,
+);
+
 export const MASCOT_IDS = Object.keys(MASCOTS);
 
 export function mascotSvg(id) {

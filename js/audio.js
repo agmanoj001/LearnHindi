@@ -99,7 +99,7 @@ async function playSegment(seg, mine) {
     failedFiles.add(seg.file);
   }
   if (mine !== token) return;
-  await speak(seg.text, seg.lang);
+  await speak(seg.text, seg.lang, seg.pitch);
 }
 
 function wait(ms) {
@@ -147,7 +147,8 @@ function pickVoice(lang) {
   return list.find((v) => v.name === prefs[lang]) || list[0];
 }
 
-function speak(text, lang) {
+// `pitch` lets comic characters sound different from each other (a goat squeaks, a wrestler booms)
+function speak(text, lang, pitch = 1.05) {
   return new Promise((resolve) => {
     if (!text || !('speechSynthesis' in window)) return resolve();
     const u = new SpeechSynthesisUtterance(text);
@@ -155,7 +156,7 @@ function speak(text, lang) {
     const voice = pickVoice(lang);
     if (voice) u.voice = voice;
     u.rate = prefs.rate || 0.9;
-    u.pitch = 1.05;
+    u.pitch = Math.max(0.5, Math.min(2, pitch));
     let done = false;
     const finish = () => {
       if (!done) {

@@ -1,5 +1,5 @@
 // Offline support: cache the app shell, then serve from cache and refresh in the background.
-const VERSION = 'kkm-v10';
+const VERSION = 'kkm-v11';
 const SHELL = [
   './',
   'index.html',
@@ -30,6 +30,7 @@ const SHELL = [
   'js/curriculum.js',
   'js/screens.js',
   'js/shows.js',
+  'js/art-comic.js',
   'js/parent.js',
   'js/parent-hi.js',
   'js/mascot.js',
@@ -37,6 +38,7 @@ const SHELL = [
   'js/storage.js',
   'js/sfx.js',
   'js/ui.js',
+  'js/games/comic.js',
   'js/games/kit.js',
   'js/games/construction.js',
   'js/games/busdepot.js',

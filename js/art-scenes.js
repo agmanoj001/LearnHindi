@@ -308,6 +308,59 @@ const SCENES = {
   },
 };
 
+// Comic worlds (Grades 7 and 8)
+// Katahalpur, Mishti's small town: painted houses with balconies, a jackfruit tree and wires overhead
+SCENES.kasba = (id) => {
+  const houses = [
+    [0, 360, 96, '#F9C74F', '#E76F51'],
+    [96, 300, 104, '#90BE6D', '#577590'],
+    [200, 340, 96, '#F8961E', '#9D4EDD'],
+    [296, 280, 104, '#4CC9F0', '#F72585'],
+  ];
+  return (
+    sky(id, '#FFD9A8', '#FFF4E0') +
+    `<circle cx="300" cy="120" r="40" fill="#FFB703" opacity="0.85"/>` +
+    cloud(80, 140, 0.8) +
+    houses
+      .map(
+        ([x, y, w, c, door]) =>
+          `<rect x="${x}" y="${y}" width="${w}" height="${640 - y}" fill="${c}"/><rect x="${x - 4}" y="${y - 10}" width="${w + 8}" height="12" fill="#7F5539"/>` +
+          [0, 1].map((k) => `<rect x="${x + 14 + k * 44}" y="${y + 30}" width="26" height="34" rx="13" fill="#FFF3B0"/>`).join('') +
+          `<rect x="${x + 8}" y="${y + 92}" width="${w - 16}" height="8" fill="#7F5539"/>` +
+          [0, 1, 2, 3, 4].map((k) => `<rect x="${x + 12 + k * ((w - 24) / 4)}" y="${y + 100}" width="3" height="22" fill="#7F5539"/>`).join('') +
+          `<rect x="${x + w / 2 - 14}" y="${590}" width="28" height="50" rx="12" fill="${door}"/>`,
+      )
+      .join('') +
+    `<path d="M0 250 Q200 300 400 240" fill="none" stroke="#2B2D42" stroke-width="2"/><path d="M0 270 Q200 320 400 262" fill="none" stroke="#2B2D42" stroke-width="2"/>` +
+    `<rect x="190" y="230" width="8" height="410" fill="#6B7280"/>` +
+    `<g class="sway"><path d="M60 300 L60 250 L92 262 L60 274" fill="#FF9F1C"/></g>` +
+    `<g transform="translate(340 560)"><rect x="-8" y="0" width="16" height="80" fill="#7F5539"/><circle cx="0" cy="-16" r="46" fill="#3A9D4A"/><circle cx="-30" cy="6" r="28" fill="#2F855A"/><ellipse cx="-14" cy="14" rx="9" ry="13" fill="#B5C33F"/><ellipse cx="16" cy="6" rx="9" ry="13" fill="#B5C33F"/></g>` +
+    `<rect x="0" y="640" width="400" height="160" fill="#C9A27E"/><rect x="0" y="640" width="400" height="10" fill="#A47148"/>`
+  );
+};
+// Detective Dadi's city at night: a moon, lit windows and a street lamp
+SCENES.noir = (id) => {
+  const r = rnd(29);
+  const towers = [
+    [0, 330, 80, '#24325E'],
+    [80, 260, 70, '#2C3E73'],
+    [150, 360, 90, '#233057'],
+    [240, 240, 80, '#30437C'],
+    [320, 310, 80, '#26365F'],
+  ];
+  let w = '';
+  for (const [x, y, wd] of towers) for (let yy = y + 18; yy < 620; yy += 30) for (let xx = x + 10; xx < x + wd - 14; xx += 20) if (r() < 0.4) w += `<rect x="${xx}" y="${yy}" width="11" height="16" rx="2" fill="#FFE58A" class="${r() < 0.25 ? 'twinkle' : ''}"/>`;
+  return (
+    sky(id, '#0F1A3A', '#2A3B6E') +
+    Array.from({ length: 30 }, () => `<circle cx="${R(r() * 400)}" cy="${R(r() * 260)}" r="${R(0.8 + r() * 1.6)}" fill="#fff" class="twinkle" style="animation-delay:${R(r() * 3)}s"/>`).join('') +
+    `<circle cx="300" cy="130" r="44" fill="#FFF3B0"/><circle cx="282" cy="118" r="42" fill="#0F1A3A" opacity="0.92"/>` +
+    towers.map(([x, y, wd, c]) => `<rect x="${x}" y="${y}" width="${wd}" height="${640 - y}" fill="${c}"/>`).join('') +
+    w +
+    `<path d="M70 640 L40 800 H180 L120 640 Z" fill="#FFE58A" opacity="0.14"/><rect x="88" y="480" width="8" height="160" fill="#6B7280"/><path d="M76 480 h32 l-6 14 h-20 z" fill="#FFE58A"/>` +
+    `<rect x="0" y="640" width="400" height="160" fill="#1F2440"/><path d="M0 700 H400" stroke="#FFD43B" stroke-width="4" stroke-dasharray="26 22"/>`
+  );
+};
+
 export const THEMES = Object.keys(SCENES);
 
 // `crop: 'bottom'` keeps the ground in view (used by the short world cards on the hub).

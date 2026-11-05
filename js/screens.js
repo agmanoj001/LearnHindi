@@ -69,8 +69,9 @@ export function splash(api) {
           ),
         ])
       : null;
-  // the guides stand in staggered rows (5, 6, 5) like a class photo
-  const rows = [MASCOT_IDS.slice(0, 5), MASCOT_IDS.slice(5, 11), MASCOT_IDS.slice(11)];
+  // the guides stand in staggered rows (6, 6, 6) like a class photo
+  const third = Math.floor(MASCOT_IDS.length / 3);
+  const rows = [MASCOT_IDS.slice(0, third), MASCOT_IDS.slice(third, MASCOT_IDS.length - third), MASCOT_IDS.slice(MASCOT_IDS.length - third)];
   let k = 0;
   const parade = el(
     'div',
@@ -277,7 +278,7 @@ export function world(api, w) {
     el('div', { class: 'world-title' }, [bigName(w, w.name, 'world-name-hi'), el('span', { class: 'world-name-en', text: [english(w) ? null : w.name.en, ...tagsOf(api, w).map((t) => t.en)].filter(Boolean).join(' · ') })]),
     el('span', { class: 'star-chip' }, [el('span', { class: 'star-icon', html: ICONS.star }), el('b', { text: String(st.got) })]),
     el('button', { class: 'round-btn small', 'aria-label': 'My collection', html: ICONS.album, onclick: () => api.go('collection', { worldId: w.id }) }),
-    w.subject !== 'math' && api.state.content.stories.some((s) => storyLevels(api, w).includes(s.level) && storyLang(s) === worldStoryLang(w))
+    w.subject !== 'math' && !(w.tags || []).includes('comics') && api.state.content.stories.some((s) => storyLevels(api, w).includes(s.level) && storyLang(s) === worldStoryLang(w))
       ? el('button', { class: 'round-btn small', 'aria-label': 'Story library', html: ICONS.book, onclick: () => api.go('library', { worldId: w.id }) })
       : null,
   ]);

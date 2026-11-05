@@ -148,6 +148,14 @@ English runs alongside: A–Z, English names for every picture, English rhymes, 
 | **Himu's Story Mountain** · Stories, Poems | One lesson for each tale (*The talkative tortoise*, *Birbal's khichdi*, *Tenali Rama and the thieves*, *The golden egg* …), two poems (किसान, पहाड़ों पर), "which story teaches this?" |
 | **Chintu's Word City** · Vocabulary, Writing, Reading | मुहावरे, समानार्थी शब्द, one word for many (अध्यापक, दर्ज़ी, माली …), days and months, city words, longer sentences |
 
+### Grades 7 and 8 (age 12–14) · comics for confident readers
+*For children who already read Hindi fluently. Reading level in line with NCERT Vasant 2 and 3: longer sentences, everyday Urdu-Hindi vocabulary, तत्सम words and idioms in context. The comics are original; they are in the spirit of classic Indian comics but borrow no characters.*
+
+| World | What it practises |
+| --- | --- |
+| **मिष्टी की मस्ती** · Grade 7 | Ten comedies in the small town of कटहलपुर: Mishti, twelve, and her goat Bijli. Each story weaves in a value or a bit of science (honesty, evidence before blame, kite-string safety, a balanced diet, saving electricity and water, a solar cooker, staying safe at a fair, online safety for grandparents). 2–4 idioms per comic, a word list with meanings, three comprehension questions, and an idiom quiz for the whole world. |
+| **जासूस दादी** · Grade 8 | Ten fair-play mysteries solved by Dadi, a retired principal, with her granddaughter Roohi, Pappu the wrestler and Mausi the cat. Richer vocabulary (संग्रहालय, मिश्रधातु, बरामद, प्रतियोगिता …), idioms, and a stop before each reveal where the reader names the culprit and gets a hint if wrong. Two stories carry practical lessons: spotting an online scam (helpline 1930) and testing milk for adulteration. |
+
 ## Phonics skills
 
 Sounds are always said with a key word ("c, as in cat"): text-to-speech can't say bare phonemes well, and parents can record real letter sounds in the app.

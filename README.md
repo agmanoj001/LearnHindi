@@ -43,6 +43,8 @@ Thinking of rebuilding it in an app builder? [docs/PLATFORM-EVALUATION.md](docs/
 | Grade 4 (9–10) | **Ocean Voyage** · समुद्री सफ़र | Ollu the octopus | Hindi | Grammar, Vocabulary | सर्वनाम, विशेषण, क्रिया, काल, opposites and same-meaning words, ocean words |
 | Grade 4 | **Himu's Story Mountain** · हिमू का कथा पर्वत | Himu the snow leopard | Hindi | Stories, Poems | Akbar–Birbal, Tenali Raman and fables with a moral, two poems, "which story teaches this?" |
 | Grade 4 | **Chintu's Word City** · चिंटू का शब्द नगर | Chintu the squirrel | Hindi | Vocabulary, Writing, Reading | मुहावरे, synonyms, one word for many, days and months, city words, longer sentences |
+| Grade 7 (12–13) | **Mishti's Mischief** · मिष्टी की मस्ती | Bijli the goat | Hindi comics | Comics, Stories, Vocabulary | Ten comedies from the small town of कटहलपुर, with idioms, word meanings, questions and an idiom quiz |
+| Grade 8 (13–14) | **Detective Dadi** · जासूस दादी | Mausi the cat | Hindi comics | Comics, Stories, Vocabulary | Ten mysteries to solve: name the culprit before the reveal; richer vocabulary and idioms |
 
 Each world is a winding path of **units** named for what the child is learning ("Let's learn matras ा ि ी", "Let's learn magic e", "Let's make 10"). Each unit has a few **lessons**, joined by a trail that is gold where the child has been and dotted ahead, with a **Start** tag on the next lesson. Lessons open one after another, each earns 1–3 stars (for answers right on the first try), and each first finish (and every 3-star replay) adds something to the world's **collection**.
 
@@ -69,6 +71,15 @@ Story pages light up **word by word** as they are read (exactly, where the voice
 ### Today's path
 
 The top of the home screen shows **three steps for today**: *Keep going* (the next new lesson, in the grade's world with the least done, so subjects stay balanced), *Review* (a finished lesson that is due again) and *Story time* (a story not read yet). Each turns green once done today.
+
+### Comics (Grades 7 and 8)
+
+For confident readers, two original comic series in Hindi, ten comics each, in the spirit of classic Indian comics:
+
+- **मिष्टी की मस्ती** (Grade 7): Mishti, twelve, and her goat Bijli, who eats everything, turn the small town of कटहलपुर upside down: a goat-eaten science project, the Colonel's vanishing roses, a kite fight, a power cut, a solar cooker, a lost cousin at the Dussehra fair, Grandpa's first smartphone …
+- **जासूस दादी** (Grade 8): Dadi, a retired school principal with an old black umbrella, solves mysteries with her granddaughter Roohi, the gentle giant Pappu and her sharp-eyed cat Mausi: a wedding necklace, a night train, a fake museum statue, a master of disguise, a haunted haveli, an online scam, a locked room, fake milk …
+
+Comics scroll panel by panel (one column on a phone, a two-column comic page on a tablet), with speech and thought bubbles, narration boxes and sound effects. **Tap a bubble** to hear it; each character has their own voice pitch. The speaker button reads the whole comic aloud. **Underlined words** show their meaning in Hindi and English. Each mystery **stops before the reveal** so the reader can name the culprit (a wrong guess gets a hint). Every comic ends with its word list and three questions, and each world has an **idiom quiz** built from its comics. Finishing a comic collects a character card.
 
 ### Show time and Story radio (for journeys)
 
@@ -273,6 +284,32 @@ Each page shows its `word`'s picture. Picture questions use word ids as options;
 
 A story with `"kind": "poem"` is shown as a poem (or a rhyme) in the library. `"lang": "en"` makes an English-only story (pages and questions need only `en`); English worlds show only English stories, Hindi worlds only Hindi ones. A lesson can name one story with `{ "game": "story", "config": { "story": "lion-mouse" } }`; without `story` it opens the next story on the grade's shelf.
 
+### Writing a comic
+
+Comics live in `"comics"`. Each has an `id`, a `series` (`"mishti"` or `"dadi"`), a `level`, a `title`, a `blurb`, optional `parts` (one-off characters: `{"seth": {"look": "man-b", "name": "सेठ धनपतराय"}}`, with optional colour overrides), `panels`, an optional `guess`, `words` and `questions`. A panel is:
+
+```json
+{
+  "bg": "classroom",
+  "cast": [{ "who": "teacher", "at": 30, "face": "angry", "arms": "hips" }, { "who": "mishti", "at": 72, "face": "worried" }],
+  "cap": "अगली सुबह...",
+  "say": [{ "who": "teacher", "text": "मिष्टी, तुम्हारी परियोजना कहाँ है?" }, { "who": "mishti", "text": "मैडम... वो...", "kind": "whisper" }],
+  "sfx": "धड़ाम!",
+  "prop": { "word": "tortoise", "at": 84 },
+  "wide": true,
+  "dark": true
+}
+```
+
+- **Backgrounds** (`bg`): room, kitchen, classroom, street, bazaar, park, garden, terrace, fair, night, train, station, museum, wedding, police, haveli, ground, dairy, bank, village, school, stage, or any world scene.
+- **Characters** (`who`): mishti, bijli, buntu, colonel, mummy, papa, dadaji, laddoolal, teacher, rocky, guddu; dadi, roohi, pappu, mausi, inspector, chhedilal; and the looks man-a, man-b, man-c, man-d, man-old, guard, chef, woman-a, woman-b, boy-a, girl-a, sadhu (give these a name under `parts`). `at` is 0–100 across the panel; `flip` turns a character to face left; `hold` puts a prop in their hand (umbrella, magnifier, phone, book, stick, kite, bat, plate, lantern, rose, camera, bag, notebook, glass, laddoo).
+- **Faces**: smile, grin, laugh, shock, angry, sad, think, sly, worried, sleep, wink, chew. **Arms**: down, point, up, hips, chin, wave.
+- **Bubbles**: `kind` is `shout`, `whisper` or `think`; plain speech without it. Put the first speaker on the left.
+- **`guess`** (mysteries): `{"at": 8, "q": "...", "options": [...], "answer": "...", "hint": "..."}`; panels from `at` on stay hidden until the reader answers.
+- **`words`**: `{"hi": "टेढ़ी खीर", "mean": "मुहावरा: बहुत कठिन काम", "en": "a very hard task"}`. The first place each `hi` appears in the comic is underlined. Idioms start their meaning with `मुहावरा:` (or `कहावत:`), and the world's idiom quiz is built from them.
+
+A lesson opens a comic with `{"game": "comic", "config": {"comic": "m-homework"}}`. The content checks name any character, face, background or answer that is wrong.
+
 ### Writing an episode
 
 An episode in `"shows"` has an `id`, `level`, `world` (for its colour and guide), `lang` (`"hi"`, or `"en"` for English-only), a `title`, `teaches` (one line for grown-ups), an optional `lesson` to practise afterwards, a `recap` (`{"words": [...], "mark": "ा"}` or `{"lines": ["6 + 4 = 10"]}`) and `scenes`. Each scene has a background `bg` (any world theme, like `"jungle"` or `"space"`), optional `actors` already standing there (`{"chiku": 24, "kuku": 72}`, positions from 0 to 100) and a list of `beats`, played in order:
@@ -358,6 +395,8 @@ CURRICULUM.md         what each grade teaches, sources and research
 js/app.js             app start, router, lesson frame
 js/screens.js         splash, hub, world maps, results, collections, library
 js/shows.js           Show time episode player and Story radio
+js/art-comic.js       comic characters (faces, poses, props) and panel backgrounds
+js/games/comic.js     the comic reader (Grades 7 and 8)
 js/parent.js          parent area and voice recorder
 js/curriculum.js      unlocking, stars, levels, streaks (pure, tested)
 js/logic.js           game logic (pure, tested)
