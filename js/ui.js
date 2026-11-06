@@ -48,6 +48,8 @@ const icon = (body, fill = false) =>
 export const ICONS = {
   home: icon('<path d="M3.5 10.6 12 3.5l8.5 7.1"/><path d="M5.5 9.2V19a1.5 1.5 0 0 0 1.5 1.5h3V15h4v5.5h3a1.5 1.5 0 0 0 1.5-1.5V9.2"/>'),
   speaker: icon('<path d="M11 5.5 6.5 9H4v6h2.5l4.5 3.5z" fill="currentColor"/><path d="M15.5 9a4.5 4.5 0 0 1 0 6"/><path d="M18.5 6a8.5 8.5 0 0 1 0 12"/>'),
+  music: icon('<path d="M9 18V6l11-2v12"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/>'),
+  musicOff: icon('<path d="M9 18V6l11-2v12"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/><path d="M3 3l18 18"/>'),
   gear: icon('<path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2.2"/><circle cx="9" cy="17" r="2.2"/>'),
   play: icon('<path d="M8 5.2v13.6a1 1 0 0 0 1.5.86l11-6.8a1 1 0 0 0 0-1.72l-11-6.8A1 1 0 0 0 8 5.2z" fill="currentColor"/>'),
   check: icon('<path d="M5 12.5l4.5 4.5L19 7.5"/>'),

@@ -1,5 +1,5 @@
 // Offline support: cache the app shell, then serve from cache and refresh in the background.
-const VERSION = 'kkm-v16';
+const VERSION = 'kkm-v17';
 const SHELL = [
   './',
   'index.html',
@@ -64,7 +64,13 @@ const SHELL = [
 ];
 
 self.addEventListener('install', (event) => {
-  event.waitUntil(caches.open(VERSION).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting()));
+  // `reload` skips the browser's HTTP cache, so a new version never mixes in a minutes-old copy of a file
+  event.waitUntil(
+    caches
+      .open(VERSION)
+      .then((c) => c.addAll(SHELL.map((url) => new Request(url, { cache: 'reload' }))))
+      .then(() => self.skipWaiting()),
+  );
 });
 
 self.addEventListener('activate', (event) => {

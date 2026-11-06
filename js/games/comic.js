@@ -68,6 +68,8 @@ export default {
     const total = comic.panels.length + questions.length + (guess ? 1 : 0);
     const seen = new Set();
     let answered = 0;
+    // set by the mystery card: reopened after solving it, show the answer and open the rest
+    let solveQuietly = () => {};
     const progress = () => ctx.setProgress(seen.size + answered, total);
     progress();
 
@@ -161,7 +163,49 @@ export default {
       book.append(guessCard(), rest);
     }
     book.append(end, pop);
-    ctx.stage.replaceChildren(book);
+
+    // ---- bigger text, remembered for next time ----
+    const sizeBtn = el('button', { class: 'comic-size', 'aria-label': 'Bigger text', html: '<span lang="hi">अ</span><b>+</b>' });
+    const applySize = () => {
+      const big = !!ctx.settings.bigText;
+      book.classList.toggle('big-text', big);
+      sizeBtn.classList.toggle('on', big);
+      sizeBtn.setAttribute('aria-pressed', String(big));
+      requestAnimationFrame(() => aimTails());
+    };
+    sizeBtn.addEventListener('click', () => {
+      ctx.setSetting?.('bigText', !ctx.settings.bigText);
+      ctx.sfx.pop?.();
+      applySize();
+    });
+
+    // ---- where this comic was left last time ----
+    const savedPos = ctx.progress.comicPos?.[comic.id];
+    let furthest = savedPos?.panel ?? -1;
+    let solved = !!savedPos?.solved;
+    let saveTimer = 0;
+    const savePos = () => {
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(() => ctx.alive() && ctx.saveProgress({ comicPos: { ...ctx.progress.comicPos, [comic.id]: { panel: Math.max(0, furthest), solved } } }), 500);
+    };
+    if (savedPos && savedPos.panel >= 2 && savedPos.panel < panels.length - 1) {
+      const from = savedPos.panel;
+      const resume = el('div', { class: 'comic-resume' }, [
+        el('button', {
+          class: 'comic-resume-btn',
+          onclick: () => {
+            resume.remove();
+            if (solved && guess) solveQuietly();
+            panels[from].scrollIntoView({ behavior: 'smooth', block: 'start' });
+          },
+        }, [el('b', { lang: 'hi', text: `पैनल ${from + 1} से आगे पढ़ो` }), el('small', { text: `Continue from panel ${from + 1}` })]),
+        el('button', { class: 'comic-resume-btn ghost', onclick: () => resume.remove() }, [el('b', { lang: 'hi', text: 'शुरू से' }), el('small', { text: 'From the start' })]),
+      ]);
+      cover.append(resume);
+    }
+
+    ctx.stage.replaceChildren(book, sizeBtn);
+    applySize();
     book.addEventListener('scroll', () => pop.classList.remove('on'), { passive: true });
     book.addEventListener('click', (e) => !e.target.closest('.gloss') && pop.classList.remove('on'));
 
@@ -195,6 +239,7 @@ export default {
             if (e.isIntersecting) {
               seen.add(e.target.dataset.i);
               io.unobserve(e.target);
+              if (+e.target.dataset.i > furthest) (furthest = +e.target.dataset.i), savePos();
             }
           progress();
         },
@@ -244,7 +289,22 @@ export default {
         hint,
         verdict,
       ]);
+      // reopened after solving it last time: show the answer and open the rest, without asking again
+      solveQuietly = () => {
+        if (!rest.classList.contains('locked')) return;
+        opts.find((o) => o.option === guess.answer)?.classList.add('right');
+        for (const o of opts) o.disabled = true;
+        verdict.textContent = 'पिछली बार तुमने यह पहेली सुलझा ली थी! · You solved this last time.';
+        verdict.classList.add('on');
+        answered++;
+        progress();
+        rest.classList.remove('locked');
+        requestAnimationFrame(aimTails);
+      };
       choose(opts, (b) => b.option === guess.answer, { ctx, onWrong: () => (hint.classList.add('on'), ctx.sfx.boing()) }).then(async (right) => {
+        if (!rest.classList.contains('locked')) return;
+        solved = true;
+        savePos();
         right.classList.add('right');
         answered++;
         progress();
@@ -302,6 +362,10 @@ export default {
       await cheer(ctx, right);
       await sleep(700);
     }
+    // finished: next time it opens at the cover
+    clearTimeout(saveTimer);
+    const { [comic.id]: _done, ...others } = ctx.progress.comicPos || {};
+    ctx.saveProgress({ comicPos: others });
     ctx.complete();
   },
 };

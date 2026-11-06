@@ -7,6 +7,8 @@ import { PLACEMENT_LEVELS, placementQuestions, placementResult } from './placeme
 import { picture, pictureForWord, specialVehicle } from './art.js';
 import { worldLessons, lessonRecord, isUnlocked, currentLesson, nextLesson, worldStars, hubWorlds, streak, nextCollectible, todayPlan, storyLang, worldStoryLang } from './curriculum.js';
 import { SHOW_ICONS } from './shows.js';
+import { voicesReady, hasVoice } from './audio.js';
+import { deviceKind, VOICE_SETUP, readable } from './logic.js';
 
 export function backdrop(world) {
   return el('div', { class: 'backdrop', html: sceneSvg(world?.theme || 'hub') });
@@ -27,7 +29,7 @@ function subjectName(world) {
 
 // What a world teaches, from content.json "tags": Phonics, Grammar, Stories, Math …
 const tagsOf = (api, w) => (w.tags || []).map((id) => ({ id, ...(api.state.content.tags?.[id] || { hi: id, en: id }) }));
-const tagChips = (api, w) => el('span', { class: 'tag-chips' }, tagsOf(api, w).map((t) => el('span', { class: 'tag-chip', style: { '--tag': t.color || '#6C63FF' }, text: t.en })));
+const tagChips = (api, w) => el('span', { class: 'tag-chips' }, tagsOf(api, w).map((t) => el('span', { class: 'tag-chip', style: { '--tag': readable(t.color || '#6C63FF') }, text: t.en })));
 
 // Tap a mascot and it does something silly.
 export function mascotJoke(api, mascot) {
@@ -77,7 +79,7 @@ export function splash(api) {
   let k = 0;
   const parade = el(
     'div',
-    { class: 'parade' },
+    { class: 'parade', style: { '--per-row': String(Math.max(...rows.map((r) => r.length))) } },
     rows.map((ids) => el('div', { class: 'parade-row' }, ids.map((id) => el('div', { class: 'parade-item', style: { animationDelay: `${k++ * 0.12}s` }, html: mascotSvg(id) })))),
   );
   api.app.replaceChildren(el('div', { class: 'screen splash enter' }, [backdrop(null), el('div', { class: 'sunburst', 'aria-hidden': 'true' }), parade, appTitle(api), who || btn]));
@@ -138,7 +140,7 @@ export function hub(api) {
   const tagBtn = (id, t) =>
     el('button', {
       class: `tag-filter${(filter || null) === id ? ' on' : ''}`,
-      style: { '--tag': t?.color || '#6C63FF' },
+      style: { '--tag': readable(t?.color || '#6C63FF') },
       text: t ? t.en : 'All',
       onclick: () => {
         api.sfx.pop();
@@ -180,6 +182,8 @@ export function hub(api) {
 
   const gate = parentGate(api);
   api.state.showRun = 0;
+  const voiceTip = el('div', { class: 'voice-tip-slot' });
+  checkHindiVoice(api, voiceTip);
   // Show time and Story radio: watching and listening that still teaches (good for journeys)
   const showtime = (content.shows || []).length
     ? el('div', { class: 'showtime-row' }, [
@@ -194,11 +198,13 @@ export function hub(api) {
         appTitle(api),
         el('div', { class: 'head-right' }, [
           days ? el('span', { class: 'streak-chip', 'aria-label': `${days} day streak` }, [el('span', { class: 'sun-icon', html: ICONS.sun }), el('b', { text: String(days) })]) : null,
+          musicToggle(api),
           gate,
         ]),
       ]),
       el('div', { class: 'hub-scroll' }, [
         filter ? null : todayCard(api, todayPlan(content, progress, all.filter((w) => w.level === settings.level))),
+        filter ? null : voiceTip,
         filter ? null : showtime,
         usedTags.length > 1 ? el('div', { class: 'tag-filters', role: 'toolbar', 'aria-label': 'Show worlds about' }, [tagBtn(null, null), ...usedTags.map(([id, t]) => tagBtn(id, t))]) : null,
         mine.length ? el('h2', { class: 'hub-section', text: `${level(settings.level).name.en} · ${level(settings.level).name.hi}` }) : null,
@@ -208,6 +214,69 @@ export function hub(api) {
       ]),
     ]),
   );
+}
+
+// ---------- music on or off, one tap from the home screen (a car ride, a quiet room) ----------
+function musicToggle(api) {
+  const s = api.state.settings;
+  const btn = el('button', { class: 'music-toggle' });
+  const draw = () => {
+    btn.innerHTML = s.music ? ICONS.music : ICONS.musicOff;
+    btn.classList.toggle('off', !s.music);
+    btn.setAttribute('aria-pressed', String(s.music));
+    btn.setAttribute('aria-label', s.music ? 'Music on' : 'Music off');
+  };
+  btn.addEventListener('click', () => {
+    s.music = !s.music;
+    api.persistSettings();
+    api.music.setEnabled(s.music);
+    api.sfx.pop();
+    draw();
+  });
+  draw();
+  return btn;
+}
+
+// ---------- no Hindi voice on this device ----------
+// The app speaks with the device's own voices. Without a Hindi one, Hindi is silent or garbled, so tell the
+// grown-ups how to add it on this kind of device (or to record their own voice), until they hide the tip.
+const TIP_KEY = 'vt.voiceTipHidden';
+async function checkHindiVoice(api, slot) {
+  if (api.state.settings.lang === 'en') return;
+  let hidden = false;
+  try {
+    hidden = localStorage.getItem(TIP_KEY) === '1';
+  } catch {}
+  if (hidden || !(await voicesReady()) || hasVoice('hi') || !slot.isConnected) return;
+  const help = VOICE_SETUP[deviceKind(navigator.userAgent, navigator.maxTouchPoints || 0)];
+  const status = el('p', { class: 'voice-tip-status', role: 'status' });
+  const card = el('section', { class: 'voice-tip' }, [
+    el('div', { class: 'voice-tip-head' }, [el('b', { lang: 'hi', text: 'यह डिवाइस अभी हिंदी नहीं बोल पाता' }), el('span', { text: `This ${help.device} has no Hindi voice yet` })]),
+    el('p', { class: 'voice-tip-steps', text: help.steps }),
+    el('p', { class: 'voice-tip-note', text: 'Or record your own voice: Grown-ups › Record your voice. Your recordings are used instead.' }),
+    status,
+    el('div', { class: 'voice-tip-actions' }, [
+      el('button', {
+        class: 'voice-tip-btn',
+        text: 'Check again',
+        onclick: async () => {
+          if (hasVoice('hi')) return card.remove();
+          status.textContent = 'Still no Hindi voice. After installing it, close and reopen the app.';
+        },
+      }),
+      el('button', {
+        class: 'voice-tip-btn ghost',
+        text: 'Hide',
+        onclick: () => {
+          try {
+            localStorage.setItem(TIP_KEY, '1');
+          } catch {}
+          card.remove();
+        },
+      }),
+    ]),
+  ]);
+  slot.replaceChildren(card);
 }
 
 // ---------- a world's path map ----------

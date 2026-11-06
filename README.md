@@ -14,7 +14,7 @@ It's plain HTML, CSS and JavaScript with no build step, so it runs on GitHub Pag
 
 ### Does it work without internet?
 
-**Yes, after the first visit.** The first time the app is opened online, it saves all its files on the device (the pages, every picture, the fonts and the lessons: about 55 files). After that it opens and plays with no internet at all: every lesson, story, game, recording and setting works offline, and progress is saved on the device. Updates download in the background the next time it is online.
+**Yes, after the first visit.** The first time the app is opened online, it saves all its files on the device (the pages, every picture, the fonts and the lessons: about 55 files). After that it opens and plays with no internet at all: every lesson, story, game, recording and setting works offline, and progress is saved on the device. Updates download in the background the next time it is online; when a new version is ready, a small bar on the home screen offers to refresh (never in the middle of a lesson).
 
 The one thing that can depend on the device is the **computer voice**. On Android the Google text-to-speech voices work offline once their voice data is installed (*Settings › System › Languages › Text-to-speech › Google › Install voice data › Hindi*). Some desktop browsers use online voices, so offline they fall back to a plainer voice or stay silent. **Family recordings made in the app always work offline**, which is another good reason to record them.
 
@@ -92,7 +92,7 @@ For confident readers, seven comic series in Hindi, 120 comics in all, in the sp
 - **विक्रम और बेताल** (Grade 8): King Vikram carries Betal from the old peepal tree; each night Betal tells a tale and ends with a riddle. Classic tales (the lion-makers, the three delicate queens, the three golden statues) and folk logic puzzles (the seventeen camels, the river crossing, the two guards). In the last tale Betal reveals the trick behind it all. In season two the two are friends, and Vikram visits the peepal to keep playing their old game: the apples at three gates (work backwards), the purse of a hundred coins, the seven-link chain, the slowest race, four litres from five and three, and tops or bottoms.
 - **मास्टर मुरारी** (Grade 8): a retired science teacher on an old bicycle and his young friend Golu keep exposing Thagraj, a fake magician: a lemon that “bleeds” (turmeric and lime), a vanishing coin (refraction), floating eggs (density), a ghost in a well (echo), a spirit letter (invisible ink), a magic ring (a hidden magnet), eclipse fear, a mirage, a magic comb (static charge), and a money-doubling scam. In season two Thagraj is back: a candle that makes water climb (air pressure), dancing raisins (carbon dioxide), a “rainbow stone” (a prism), a mosquito amulet (where mosquitoes breed, and see a doctor for fever), a bed of nails (pressure = force ÷ area), iron turned to “gold” (displacement and rusting), and a snake stone (what really to do for a snakebite: keep still and get to hospital for antivenom).
 
-Comics scroll panel by panel (one column on a phone, a two-column comic page on a tablet), with speech and thought bubbles, narration boxes and sound effects. **Tap a bubble** to hear it; each character has their own voice pitch. The speaker button reads the whole comic aloud. **Underlined words** show their meaning in Hindi and English. Mysteries, Birbal's tricks, Betal's riddles, Chippu's idioms and Masterji's science all **stop before the reveal** so the reader answers first (a wrong guess gets a hint). Every comic ends with its word list and three questions, and each world has an **idiom quiz** built from its comics. Finishing a comic collects a character card.
+Comics scroll panel by panel (one column on a phone, a two-column comic page on a tablet), with speech and thought bubbles, narration boxes and sound effects. A comic left half-read opens with **“Continue from panel 13”** (a mystery already solved stays solved), and the **अ+** button makes the text bigger and remembers it. **Tap a bubble** to hear it; each character has their own voice pitch. The speaker button reads the whole comic aloud. **Underlined words** show their meaning in Hindi and English. Mysteries, Birbal's tricks, Betal's riddles, Chippu's idioms and Masterji's science all **stop before the reveal** so the reader answers first (a wrong guess gets a hint). Every comic ends with its word list and three questions, and each world has an **idiom quiz** built from its comics. Finishing a comic collects a character card.
 
 ### Grammar (Grades 7 and 8)
 
@@ -129,7 +129,7 @@ Episodes are scripts in `content.json`, built from the app's own drawings, so ea
 - **Navigation**: *Stay in this grade* shows only this grade's worlds on the home screen. *Unlock every lesson* opens the whole path. *Math worlds* shows or hides the English math worlds.
 - **Language** (Hindi worlds): Hindi, English, or both. In "both", words are said in Hindi then English, and some rounds alternate languages. Math worlds are always in English.
 - **Play time and reading support**: a *daily limit* (15–60 minutes, or none). When it's reached, the next lesson shows a break screen with an idea for off-screen play; a lesson already started is never cut off, and a grown-up can hold *+10* for ten more minutes. *Captions* show everything the app says as text. *Tell it back* lets the child record themselves retelling each story.
-- **Sound**: background music and sound effects, each on or off.
+- **Sound**: background music and sound effects, each on or off. Music can also be switched off with the ♪ button on the home screen (handy in a car or a quiet room). Each world has its own tune, built from a four-chord progression: its opening phrase stays the same so the world sounds like itself, and the answering phrases change each time round, so it never loops every few seconds. In lessons the music plays quieter and all but stops while anything is said, so children hear the sounds they are learning.
 - **Voices**: pick the Hindi and English text-to-speech voice (the best installed voice is chosen by default), set the speed, and test them.
 - **Before a trip**: a checklist to run while there is still internet: saved for offline use, on the home screen, a Hindi voice on the device, family recordings, storage kept safe, and the daily limit.
 - **Record your voice**: record any word, letter, story page, moral, episode line or phrase right in the app. Your recording replaces the computer voice. See below.
@@ -147,6 +147,8 @@ For everything the app says, it uses, in order:
 1. **A recording on this device** (made in the app or loaded from files). Kept in the browser's IndexedDB, never uploaded.
 2. **A file in `audio/`** named in `content.json` (`"audio": { "hi": "bus_hi.mp3" }`).
 3. **The browser's text-to-speech**, using the best Hindi (`hi-IN`) and English voices installed.
+
+If the device has no Hindi voice, the home screen shows a card with the steps for that kind of device (Android, iPhone and iPad, Windows, Mac or Chromebook) until a grown-up hides it, and the parent area's trip checklist repeats them.
 
 `audio/` is in `.gitignore` on purpose, so family voices never end up in this public repo (and aren't on the GitHub Pages site either). On GitHub Pages, use option 1.
 
@@ -219,7 +221,7 @@ Built-in drawings are in `js/art.js`, `js/art-words.js`, `js/art-creatures.js` a
 
 - `subject` is `hindi`, `english` or `math`. English and math worlds need `"lang": "en"`.
 - `tags` lists what the world teaches, from the `"tags"` table (`{ "grammar": { "hi": "व्याकरण", "en": "Grammar", "color": "#E11D48" } }`). They show on the world's card and power the filter on the home screen.
-- `theme` picks the animated scene and music: `farm, town, jungle, dino, space, ocean, igloo, carnival, garden, castle, desert, forest, palace, village, mountain, city` (`js/art-scenes.js`).
+- `theme` picks the animated scene and music: `farm, town, jungle, dino, space, ocean, igloo, carnival, garden, castle, desert, forest, palace, village, mountain, city`, and for Grades 7 and 8 `kasba, colony, noir, library, lab, darbar, gadget, peepal, chaupal` (`js/art-scenes.js`; each has a music style in `js/sfx.js`).
 - `mascot`: `kuku, gappu, chiku, dumdum, zoomi, ollu, pip, tiko, buzz, kiki, ooty, bholu, mitthu, gauri, himu, chintu` (`js/mascot.js`).
 - `collection` is an id from `"collections"`: `{ "name": {…}, "items": [word ids], "start": 2 }` (`start` = how many are owned from the beginning).
 - `icon` is a picture id, `letter:क` for a big letter or number, `num`, or an **activity icon** that puts a world's creature into the activity: `book:` (story), `talk:` (sentences), `pair:` (word pairs), `card:` (reading words), `blocks:` (building words), `matra:`, `rhyme:` or `find:` followed by a picture id, e.g. `book:turtle`. Each Hindi grade uses its own creatures, so no two grades share an icon.

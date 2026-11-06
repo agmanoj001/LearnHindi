@@ -41,6 +41,17 @@ export function refreshClipKeys(keys) {
   clipKeys = new Set(keys);
 }
 
+// Voices load a moment after the page does; wait for them (or give up quietly after a while).
+export function voicesReady(timeout = 2500) {
+  if (!('speechSynthesis' in window)) return Promise.resolve(false);
+  if (speechSynthesis.getVoices().length) return Promise.resolve(true);
+  return new Promise((resolve) => {
+    const done = () => resolve(speechSynthesis.getVoices().length > 0);
+    speechSynthesis.addEventListener?.('voiceschanged', done, { once: true });
+    setTimeout(done, timeout);
+  });
+}
+
 export function hasVoice(lang) {
   if (!('speechSynthesis' in window)) return false;
   const want = TTS_LANG[lang].toLowerCase();
