@@ -1,6 +1,6 @@
 // Screens outside a lesson: splash, onboarding, the world hub, a world's path map,
 // results, the sticker collection and the story library.
-import { el, sleep, bounce, animate, ICONS } from './ui.js';
+import { el, sleep, bounce, animate, sparkleAt, ICONS } from './ui.js';
 import { createMascot, mascotSvg, MASCOTS, MASCOT_IDS } from './mascot.js';
 import { sceneSvg } from './art-scenes.js';
 import { PLACEMENT_LEVELS, placementQuestions, placementResult } from './placement.js';
@@ -197,7 +197,6 @@ export function hub(api) {
       el('header', { class: 'hub-head' }, [
         appTitle(api),
         el('div', { class: 'head-right' }, [
-          days ? el('span', { class: 'streak-chip', 'aria-label': `${days} day streak` }, [el('span', { class: 'sun-icon', html: ICONS.sun }), el('b', { text: String(days) })]) : null,
           musicToggle(api),
           gate,
         ]),
@@ -346,7 +345,11 @@ export function world(api, w) {
 
   const head = el('header', { class: 'world-head' }, [
     el('button', { class: 'round-btn', 'aria-label': 'All worlds', html: ICONS.back, onclick: () => api.back() }),
-    el('div', { class: 'world-title' }, [bigName(w, w.name, 'world-name-hi'), el('span', { class: 'world-name-en', text: [english(w) ? null : w.name.en, ...tagsOf(api, w).map((t) => t.en)].filter(Boolean).join(' · ') })]),
+    el('div', { class: 'world-title' }, [
+      bigName(w, w.name, 'world-name-hi'),
+      el('span', { class: 'world-name-en', text: [english(w) ? null : w.name.en, ...tagsOf(api, w).map((t) => t.en)].filter(Boolean).join(' · ') }),
+      el('span', { class: 'title-stars', 'aria-label': `${st.got} of ${st.max} stars` }, [el('span', { class: 'star-icon', html: ICONS.star }), el('b', { text: `${st.got} / ${st.max}` })]),
+    ]),
     el('span', { class: 'star-chip' }, [el('span', { class: 'star-icon', html: ICONS.star }), el('b', { text: String(st.got) })]),
     el('button', { class: 'round-btn small', 'aria-label': 'My collection', html: ICONS.album, onclick: () => api.go('collection', { worldId: w.id }) }),
     w.subject !== 'math' && !(w.tags || []).includes('comics') && api.state.content.stories.some((s) => storyLevels(api, w).includes(s.level) && storyLang(s) === worldStoryLang(w))
@@ -420,7 +423,7 @@ function storyLevels(api, w) {
 
 // ---------- results ----------
 
-export async function results(api, { world, lesson, result, collection }) {
+export async function results(api, { world, lesson, result, collection, session }) {
   const mascot = createMascot(world.mascot, { size: 'large', onTap: () => mascotJoke(api, mascot) });
   const stars = el(
     'div',
@@ -446,10 +449,16 @@ export async function results(api, { world, lesson, result, collection }) {
       backdrop(world),
       el('div', { class: 'burst' }),
       el('div', { class: 'confetti' }, Array.from({ length: 36 }, (_, i) => el('i', { style: { left: `${(i * 37) % 100}%`, animationDelay: `${(i % 12) * 0.1}s`, background: ['#FF5A5F', '#FFC93C', '#2EC27E', '#3D7BFF', '#A66BFF', '#FF8FB1'][i % 6] } }))),
-      el('div', { class: 'result-card' }, [
+      el('div', { class: `result-card${result.stars === 3 ? ' perfect' : ''}` }, [
         el('div', { class: 'result-mascot' }, [mascot.node]),
         praiseRibbon(world, result.stars),
         stars,
+        session?.answered
+          ? el('div', { class: 'result-stats' }, [
+              el('span', { class: 'stat-chip' }, [el('span', { class: 'stat-icon', html: ICONS.check }), el('b', { text: `${session.firstTry} / ${session.answered}` }), el('span', { text: 'right first time' })]),
+              (session.best || 0) >= 3 ? el('span', { class: 'stat-chip gold' }, [el('span', { class: 'stat-icon', html: ICONS.sparkle }), el('b', { text: String(session.best) }), el('span', { text: 'in a row' })]) : null,
+            ])
+          : null,
         result.unitComplete ? el('div', { class: 'unit-complete' }, [el('span', { html: ICONS.trophy }), el('span', { text: 'Unit complete!' })]) : null,
         reward,
         btns,
@@ -463,6 +472,7 @@ export async function results(api, { world, lesson, result, collection }) {
     await sleep(380);
     if (token !== api.state.token) return;
     stars.children[i].classList.add('on');
+    sparkleAt(stars.children[i], { count: 8, colors: ['#FFC93C', '#FFE27A', '#FFFFFF', '#FF9F43'] });
     api.sfx.star(i);
   }
   await sleep(300);
@@ -691,8 +701,23 @@ const STEP = {
 export function todayCard(api, steps) {
   if (!steps.length) return null;
   const done = steps.filter((s) => s.done).length;
+  // the guide of the next thing to do greets the child by name; the ring fills as the day's path is walked
+  const next = steps.find((s) => !s.done) || steps[0];
+  const guide = createMascot(next.world.mascot, { size: 'small', onTap: () => mascotJoke(api, guide) });
+  const { list = [], current } = api.state.profiles || {};
+  const name = list.find((p) => p.id === current)?.name?.trim();
+  const days = streak(api.state.progress.days, Date.now());
+  const allDone = done >= steps.length;
   return el('section', { class: 'today', 'aria-label': "Today's path" }, [
-    el('div', { class: 'today-head' }, [el('b', { lang: 'hi', text: 'आज का सफ़र' }), el('span', { text: `Today · ${done} / ${steps.length}` })]),
+    el('div', { class: 'today-hero' }, [
+      el('span', { class: 'hero-guide' }, [guide.node]),
+      el('span', { class: 'hero-text' }, [
+        el('b', { lang: 'hi', text: name ? `नमस्ते, ${name}!` : 'नमस्ते!' }),
+        el('span', { class: 'hero-sub' }, allDone ? [el('span', { lang: 'hi', text: 'आज का सफ़र पूरा!' }), el('span', { text: ' · All done for today!' })] : [el('span', { lang: 'hi', text: 'आज का सफ़र' }), el('span', { text: " · Today's path" })]),
+        days > 1 ? el('span', { class: 'hero-streak', 'aria-label': `${days} day streak` }, [el('span', { class: 'sun-icon', html: ICONS.sun }), el('span', { text: `${days} days in a row` })]) : null,
+      ]),
+      el('span', { class: `goal-ring${allDone ? ' full' : ''}`, style: { '--p': String(done / steps.length) }, role: 'img', 'aria-label': `${done} of ${steps.length} done today` }, [allDone ? el('span', { class: 'ring-check', html: ICONS.check }) : el('b', { text: `${done}/${steps.length}` })]),
+    ]),
     el(
       'div',
       { class: 'today-steps' },

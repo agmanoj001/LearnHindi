@@ -5,7 +5,7 @@ import { storyLang, worldStoryLang } from '../curriculum.js';
 import { el, sleep, choose, runRounds, cheer, waitTap, bounce, ICONS } from './kit.js';
 import { clips } from '../storage.js';
 
-const bare = (token) => token.replace(/[।.!?,"]/g, '');
+const bare = (token) => token.replace(/[।.!?,"“”‘’]/g, '');
 
 export default {
   async start(ctx) {
@@ -65,7 +65,8 @@ export default {
         ),
       );
       const next = el('button', { class: 'round-btn big go next-page', 'aria-label': 'Next', html: ICONS.next });
-      const card = el('div', { class: 'story-page' }, [el('div', { class: 'pic', html: ctx.picture(ctx.word(page.word)) }), ...textLines]);
+      const dots = el('div', { class: 'page-dots', 'aria-label': `Page ${n} of ${story.pages.length}` }, story.pages.map((_, k) => el('i', { class: k < i ? 'done' : k === i ? 'now' : '' })));
+      const card = el('div', { class: 'story-page' }, [dots, el('div', { class: 'pic', html: ctx.picture(ctx.word(page.word)) }), el('div', { class: 'story-text' }, textLines)]);
       ctx.stage.replaceChildren(card, next);
       const read = async () => {
         card.classList.add('reading');

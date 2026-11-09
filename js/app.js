@@ -11,6 +11,8 @@ import {
   recordAnswer,
   practiceWeight,
   weightedSequence,
+  COMBO_MILESTONES,
+  comboText,
 } from './logic.js';
 import { findLesson, lessonRecord, lessonLetters, applyLessonResult, adaptTier, addPlayTime, isoDay } from './curriculum.js';
 import { validateContent } from './validate.js';
@@ -388,6 +390,14 @@ function startLesson({ lessonId, worldId, storyId }) {
     screen.append(badge);
     setTimeout(() => badge.remove(), 1900);
   };
+  // several right first time in a row: a quick cheer for keeping at it
+  const comboCheer = (n) => {
+    sfx.sparkle();
+    mascot.react('dance');
+    const badge = el('div', { class: 'level-up combo' }, [el('span', { class: 'combo-flame', html: ICONS.sparkle }), el('span', { text: comboText(n, state.lang) })]);
+    screen.append(badge);
+    setTimeout(() => badge.remove(), 1900);
+  };
 
   const lessonWords = (ids) => {
     let list = expandWords(ids, state.content).map(word);
@@ -477,8 +487,11 @@ function startLesson({ lessonId, worldId, storyId }) {
       session.answered++;
       if (firstTry) session.firstTry++;
       mascot.react(firstTry ? 'happy' : 'cheer');
+      session.combo = firstTry ? (session.combo || 0) + 1 : 0;
+      session.best = Math.max(session.best || 0, session.combo);
       live = adaptTier(live, firstTry);
       if (live.changed > 0) levelUp();
+      else if (COMBO_MILESTONES.includes(session.combo)) comboCheer(session.combo);
       const key = itemKey(item);
       if (!key) return;
       state.progress = { ...state.progress, stats: recordAnswer(state.progress.stats, key, firstTry) };
@@ -507,7 +520,7 @@ function startLesson({ lessonId, worldId, storyId }) {
       const result = applyLessonResult(state.progress, { world, lesson, collection, firstTry: session.firstTry, answered: session.answered, tier: live.tier });
       state.progress = result.progress;
       persistProgress();
-      screens.results(api, { world, lesson, result, collection });
+      screens.results(api, { world, lesson, result, collection, session });
     },
   };
   import(`./games/${lesson.game}.js`).then((mod) => {

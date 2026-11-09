@@ -2,7 +2,8 @@
 import { el, wobble, bounce, sleep } from '../ui.js';
 
 export { el, sleep, wobble, bounce };
-export { flyTo, animate, ICONS } from '../ui.js';
+export { flyTo, animate, ICONS, sparkleAt } from '../ui.js';
+import { sparkleAt } from '../ui.js';
 
 // Resolves with the correct button once it is tapped. Other taps call onWrong (gentle feedback only).
 // With `ctx`, the answer is recorded for the parent's progress view (right on the first tap or not).
@@ -22,6 +23,9 @@ export function choose(buttons, isRight, { ctx, onRight, onWrong } = {}) {
         } else {
           misses++;
           wobble(b);
+          // a brief red edge, so the "no" is seen as well as felt
+          b.classList.add('wrong');
+          setTimeout(() => b.classList.remove('wrong'), 480);
           ctx?.sfx.haptic?.([18, 60, 18]);
           onWrong?.(b);
         }
@@ -52,7 +56,14 @@ export async function runRounds(ctx, count, playRound, { offset = 0, total = cou
 export async function cheer(ctx, node) {
   ctx.sfx.chime();
   ctx.sfx.haptic?.(14);
-  if (node) bounce(node);
+  if (node) {
+    bounce(node);
+    sparkleAt(node);
+    // a green ring that grows out of the card
+    const ring = el('i', { class: 'cheer-ring', 'aria-hidden': 'true' });
+    node.append(ring);
+    setTimeout(() => ring.remove(), 700);
+  }
   await sleep(250);
 }
 
