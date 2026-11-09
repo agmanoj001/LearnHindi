@@ -6,6 +6,7 @@ import { skillName, SKILLS as MATH_SKILLS } from './mathgen.js';
 import { phonicsName } from './phonicsgen.js';
 import { worldStars, worldLessons, lessonRecord, weekSummary, dueReviews, learningGains } from './curriculum.js';
 import { refreshClipKeys, voicesFor, setVoicePrefs, hasVoice, play } from './audio.js';
+import { deviceKind, VOICE_SETUP } from './logic.js';
 import { KEYS, save, clips, resizeImage, addProfile, removeProfile, MAX_PROFILES } from './storage.js';
 import { MASCOTS, MASCOT_IDS, mascotSvg } from './mascot.js';
 import { specialVehicle } from './art.js';
@@ -73,6 +74,7 @@ export function showParent(api) {
       'select',
       {
         class: 'select',
+        'aria-label': `${label} voice`,
         onchange: (e) => {
           s.voice[lang] = e.target.value;
           setVoicePrefs(s.voice);
@@ -104,7 +106,7 @@ export function showParent(api) {
   const voiceNote = el('p', {
     class: 'note',
     text: missing.length
-      ? `This device has no ${missing.map((l) => (l === 'hi' ? 'Hindi' : 'English')).join(' or ')} voice. On Android: Settings › System › Languages › Text-to-speech › Google › Install voice data.`
+      ? `This device has no ${missing.map((l) => (l === 'hi' ? 'Hindi' : 'English')).join(' or ')} voice. ${voiceSteps()}`
       : 'Computer voices can sound robotic. The best fix is to record your own voice below: it is used instead, word by word.',
   });
 
@@ -400,7 +402,7 @@ function tripSection(api) {
     list.replaceChildren(
       row(cached, cached ? 'Saved for offline use' : 'Not saved for offline use yet', cached ? 'Every lesson, story, episode and picture is on this device.' : 'Open the app once with internet and reload the page; it then saves itself on this device.'),
       row(installed, installed ? 'On the home screen' : 'Not on the home screen', installed ? 'It opens like an app, without the browser.' : 'Browser menu › Add to Home screen (or Install app). On iPhone and iPad this also stops Safari clearing its data.'),
-      row(hasVoice('hi'), hasVoice('hi') ? 'Hindi voice found' : 'No Hindi voice on this device', 'On Android, make sure it works offline: Settings › System › Languages › Text-to-speech › Google › Install voice data › Hindi.'),
+      row(hasVoice('hi'), hasVoice('hi') ? 'Hindi voice found' : 'No Hindi voice on this device', hasVoice('hi') ? 'On Android, make sure it works offline: Settings › System › Languages › Text-to-speech › Google › Install voice data › Hindi.' : voiceSteps()),
       row(recordings > 0 ? true : null, `${recordings} family recording(s)`, 'Recorded voices always work offline. Record a few words or episode lines under Record your voice.'),
       row(kept, kept ? 'Storage kept safe' : 'Storage may be cleared', kept ? 'The browser will not delete progress or recordings to free space.' : 'Installing the app on the home screen usually fixes this.'),
       row(null, limit ? `Daily limit: ${limit} minutes` : 'Daily limit: none', 'For a long journey you can change it under Play time. Story radio keeps the screen dark, which helps with car sickness; headphones with a volume limit are kind to small ears.'),
@@ -514,4 +516,10 @@ function parentLangSwitch(api) {
       ]),
     ),
   );
+}
+
+// how to add a voice on this kind of device
+function voiceSteps() {
+  const help = VOICE_SETUP[deviceKind(navigator.userAgent, navigator.maxTouchPoints || 0)];
+  return `On ${help.device}: ${help.steps}`;
 }

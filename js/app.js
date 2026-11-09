@@ -166,6 +166,12 @@ function render(route) {
   state.token++;
   stop();
   state.depth = route.depth || 0;
+  state.route = route.name;
+  // quieter music in lessons and shows, where children need to hear every sound
+  music.setMood(route.name === 'lesson' || route.name === 'show' ? 'lesson' : 'free');
+  // the "new version" bar only lives on calm screens; it comes back on the next calm one
+  if (!CALM_ROUTES.includes(route.name)) document.querySelector('.update-bar')?.remove();
+  else queueMicrotask(offerUpdate);
   const p = route.params || {};
   const world = p.worldId ? worldById(p.worldId) : null;
   if (world) enterWorld(world);
@@ -357,7 +363,7 @@ function startLesson({ lessonId, worldId, storyId }) {
 
   const fill = el('div', { class: 'progress-fill' });
   const rider = el('div', { class: 'progress-rider', html: picture(word(collection.items[0])?.picture || 'car') });
-  const progressBar = el('div', { class: 'progress', role: 'progressbar', 'aria-valuemin': 0 }, [
+  const progressBar = el('div', { class: 'progress', role: 'progressbar', 'aria-label': 'Lesson progress', 'aria-valuemin': 0 }, [
     el('div', { class: 'progress-track' }, [fill, rider]),
     el('span', { class: 'progress-flag', html: ICONS.flag }),
   ]);
@@ -489,6 +495,12 @@ function startLesson({ lessonId, worldId, storyId }) {
       ctx.progress = state.progress;
       persistProgress();
     },
+    // a reading preference a game can change (e.g. bigger text in the comics)
+    setSetting(key, value) {
+      state.settings[key] = value;
+      ctx.settings[key] = value;
+      persistSettings();
+    },
     complete() {
       if (!ctx.alive()) return;
       state.token++;
@@ -539,7 +551,36 @@ const api = {
 // ---------- offline ----------
 
 if ('serviceWorker' in navigator && location.protocol !== 'file:') {
-  window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+  window.addEventListener('load', () =>
+    navigator.serviceWorker
+      .register('sw.js')
+      .then((reg) => {
+        // an app on the home screen can stay open for days: look for a new version whenever it comes back
+        document.addEventListener('visibilitychange', () => document.visibilityState === 'visible' && reg.update().catch(() => {}));
+      })
+      .catch(() => {}),
+  );
+  // a new version has taken over (not the very first install): offer a refresh at a calm moment
+  const hadController = !!navigator.serviceWorker.controller;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!hadController) return;
+    state.updateReady = true;
+    offerUpdate();
+  });
+}
+
+// ---------- a new version is ready ----------
+
+// Never in the middle of a lesson, a show or the radio: only on the home screen, a map or a collection.
+const CALM_ROUTES = ['hub', 'world', 'collection', 'library', 'shows'];
+function offerUpdate() {
+  if (!state.updateReady || !CALM_ROUTES.includes(state.route) || document.querySelector('.update-bar')) return;
+  const bar = el('div', { class: 'update-bar', role: 'status' }, [
+    el('span', { class: 'update-text' }, [el('b', { lang: 'hi', text: 'कुछ नया आया है!' }), el('span', { text: 'A new version is ready.' })]),
+    el('button', { class: 'update-btn', onclick: () => location.reload() }, [el('span', { lang: 'hi', text: 'ताज़ा करें' }), el('small', { text: 'Refresh' })]),
+    el('button', { class: 'update-close', 'aria-label': 'Later', onclick: () => bar.remove() }, ['×']),
+  ]);
+  document.body.append(bar);
 }
 // installed on the home screen: ask to keep progress and recordings safe from clean-ups
 if (window.matchMedia?.('(display-mode: standalone)').matches || navigator.standalone) keepStorage();

@@ -216,54 +216,126 @@ export const sfx = {
 };
 
 // ---------- background music ----------
-// A short generative loop per world: pentatonic melody on an instrument that suits the world,
-// soft bass, light shaker. Quiet by default and ducked under speech.
+// A gentle tune per world, written on the fly over a four-chord progression: a melody that leans on the
+// chord's notes, a soft pad and bass, and a light shaker. The opening phrase belongs to the world (the
+// same every visit, so a world sounds like itself); the answering phrases change every time round, so it
+// doesn't loop every few seconds. In lessons it plays quieter and all but stops under speech, so children
+// hear the sounds they are learning.
 
+// root (MIDI), scale (semitones), tempo, instrument; `prog` is the chord roots, `hats: false` drops the shaker
 const STYLES = {
   hub: { root: 60, scale: [0, 2, 4, 7, 9], bpm: 96, inst: 'kalimba' },
   farm: { root: 62, scale: [0, 2, 4, 7, 9], bpm: 100, inst: 'marimba' },
   town: { root: 60, scale: [0, 2, 4, 7, 9], bpm: 108, inst: 'kalimba' },
   jungle: { root: 57, scale: [0, 3, 5, 7, 10], bpm: 104, inst: 'marimba' },
   dino: { root: 55, scale: [0, 2, 4, 7, 9], bpm: 92, inst: 'marimba' },
-  space: { root: 64, scale: [0, 2, 4, 7, 11], bpm: 80, inst: 'bell' },
+  space: { root: 64, scale: [0, 2, 4, 7, 11], bpm: 80, inst: 'bell', hats: false },
   ocean: { root: 59, scale: [0, 2, 4, 7, 9], bpm: 84, inst: 'kalimba' },
   igloo: { root: 67, scale: [0, 2, 4, 7, 9], bpm: 96, inst: 'bell' },
   carnival: { root: 65, scale: [0, 2, 4, 7, 9], bpm: 118, inst: 'marimba' },
   garden: { root: 64, scale: [0, 2, 4, 7, 9], bpm: 104, inst: 'kalimba' },
   castle: { root: 62, scale: [0, 2, 4, 5, 7, 9], bpm: 100, inst: 'bell' },
-  desert: { root: 57, scale: [0, 1, 4, 5, 7, 8], bpm: 96, inst: 'marimba' },
+  desert: { root: 57, scale: [0, 1, 4, 5, 7, 8], bpm: 96, inst: 'marimba', prog: [0, 1, 5, 0] },
   forest: { root: 55, scale: [0, 2, 4, 7, 9], bpm: 84, inst: 'kalimba' },
-  palace: { root: 60, scale: [0, 1, 4, 5, 7, 8, 11], bpm: 88, inst: 'bell' },
+  palace: { root: 60, scale: [0, 1, 4, 5, 7, 8, 11], bpm: 88, inst: 'bell', prog: [0, 1, 5, 7] },
   village: { root: 62, scale: [0, 2, 4, 7, 9], bpm: 98, inst: 'marimba' },
-  mountain: { root: 59, scale: [0, 2, 5, 7, 9], bpm: 80, inst: 'bell' },
+  mountain: { root: 59, scale: [0, 2, 5, 7, 9], bpm: 80, inst: 'bell', hats: false },
   city: { root: 65, scale: [0, 2, 4, 7, 11], bpm: 112, inst: 'kalimba' },
+  // the Grade 7 and 8 worlds: comics and grammar
+  kasba: { root: 62, scale: [0, 2, 4, 7, 9], bpm: 106, inst: 'marimba' },
+  colony: { root: 64, scale: [0, 2, 4, 7, 9], bpm: 110, inst: 'kalimba' },
+  noir: { root: 57, scale: [0, 3, 5, 7, 10], bpm: 74, inst: 'bell', hats: false, prog: [0, 8, 5, 7] },
+  library: { root: 60, scale: [0, 2, 4, 7, 9], bpm: 70, inst: 'bell', hats: false },
+  lab: { root: 62, scale: [0, 2, 4, 7, 9], bpm: 74, inst: 'kalimba', hats: false },
+  darbar: { root: 60, scale: [0, 1, 4, 5, 7, 8, 11], bpm: 84, inst: 'bell', prog: [0, 1, 5, 7] },
+  gadget: { root: 65, scale: [0, 2, 4, 7, 9], bpm: 114, inst: 'kalimba' },
+  peepal: { root: 55, scale: [0, 1, 5, 7, 8], bpm: 70, inst: 'bell', hats: false, prog: [0, 8, 5, 7] },
+  chaupal: { root: 62, scale: [0, 2, 4, 7, 9], bpm: 96, inst: 'marimba' },
 };
+export const MUSIC_STYLES = Object.keys(STYLES);
+
+const seeded = (seed) => {
+  let s = seed % 233280;
+  return () => (s = (s * 9301 + 49297) % 233280) / 233280;
+};
+// major scales go I–vi–IV–V; minor-sounding ones i–VI–iv–v
+export const progOf = (style) => style.prog || (style.scale.includes(4) ? [0, 9, 5, 7] : [0, 8, 5, 7]);
+
+// the scale's notes (MIDI) from the root up to a tenth above
+function melodyNotes(style) {
+  const out = [];
+  for (let o = 0; o <= 1; o++) for (const d of style.scale) if (12 * o + d <= 16) out.push(style.root + 12 * o + d);
+  return out;
+}
+
+// A four-bar phrase of eighth notes (32 steps; null is a rest). Bar starts and middles land on a note of
+// the bar's chord; the steps between wander up or down the scale; the phrase ends on the home note.
+export function makePhrase(style, seed, density = 0.68) {
+  const r = seeded(seed);
+  const notes = melodyNotes(style);
+  const prog = progOf(style);
+  const third = style.scale.includes(4) ? 4 : 3;
+  const out = [];
+  let at = Math.floor(notes.length / 2);
+  for (let bar = 0; bar < 4; bar++) {
+    const chord = [0, third, 7].map((x) => (((prog[bar] + x) % 12) + 12) % 12);
+    for (let i = 0; i < 8; i++) {
+      const strong = i === 0 || i === 4;
+      if (r() > (strong ? 0.94 : density)) {
+        out.push(null);
+        continue;
+      }
+      if (strong) {
+        // the nearest chord note
+        const isChord = (k) => k >= 0 && k < notes.length && chord.includes((notes[k] - style.root) % 12);
+        for (let d = 0; d < notes.length; d++) {
+          const k = [at - d, at + d].find(isChord);
+          if (k !== undefined) {
+            at = k;
+            break;
+          }
+        }
+      } else at = Math.max(0, Math.min(notes.length - 1, at + Math.round((r() - 0.5) * 3)));
+      out.push(notes[at]);
+    }
+  }
+  out[30] = style.root + (r() < 0.5 ? 12 : 0);
+  out[31] = null;
+  return out;
+}
+
+// One time round: the world's own phrase, its echo with a new ending, a new answering phrase, the
+// world's phrase again. 16 bars, about half a minute; the next time round brings new answers.
+export function songRound(style, theme, round) {
+  const id = [...String(theme)].reduce((a, ch) => a * 31 + ch.charCodeAt(0), 7);
+  const a = makePhrase(style, id);
+  const echo = [...a.slice(0, 24), ...makePhrase(style, id + 97 * (round + 1)).slice(24)];
+  const answer = makePhrase(style, id + 7919 * (round + 1), 0.55);
+  return [...a, ...echo, ...answer, ...a];
+}
 
 let theme = null;
 let timer = 0;
 let step = 0;
+let round = 0;
 let nextTime = 0;
-let pattern = [];
+let song = [];
+let mood = 'free';
 
-function makePattern(style, seed) {
-  let s = seed;
-  const r = () => ((s = (s * 9301 + 49297) % 233280) / 233280);
-  const out = [];
-  let deg = 2;
-  for (let i = 0; i < 32; i++) {
-    if (r() < 0.32) {
-      out.push(null);
-      continue;
-    }
-    deg = Math.max(0, Math.min(style.scale.length * 2 - 1, deg + Math.round((r() - 0.5) * 3)));
-    out.push(deg);
-  }
-  return out;
-}
-
-function noteOf(style, deg) {
-  const oct = Math.floor(deg / style.scale.length);
-  return midi(style.root + 12 * oct + style.scale[deg % style.scale.length]);
+// a soft held chord tone, fading in and out
+function pad(freq, at, dur, vol) {
+  const c = ctx;
+  const t = c.currentTime + at;
+  const o = c.createOscillator();
+  const g = c.createGain();
+  o.type = 'triangle';
+  o.frequency.value = freq;
+  g.gain.setValueAtTime(0.0001, t);
+  g.gain.linearRampToValueAtTime(vol, t + Math.min(0.6, dur / 3));
+  g.gain.linearRampToValueAtTime(0.0001, t + dur);
+  o.connect(g).connect(musicBus);
+  o.start(t);
+  o.stop(t + dur + 0.05);
 }
 
 function schedule() {
@@ -271,21 +343,46 @@ function schedule() {
   if (!c || !theme) return;
   const style = STYLES[theme] || STYLES.hub;
   const spb = 60 / style.bpm / 2; // eighth notes
+  const prog = progOf(style);
+  const third = style.scale.includes(4) ? 4 : 3;
   while (nextTime < c.currentTime + 0.25) {
-    const at = nextTime - c.currentTime;
-    const deg = pattern[step % pattern.length];
-    if (deg != null) {
-      const f = noteOf(style, deg);
-      if (style.inst === 'bell') bell(f, at, { dur: 1.4, vol: 0.06, ratio: 2, index: 1.2, bus: musicBus });
-      else if (style.inst === 'marimba') marimba(f, at, { vol: 0.09, bus: musicBus });
-      else kalimba(f, at, { vol: 0.08, bus: musicBus });
+    if (step >= song.length) {
+      round++;
+      song = songRound(style, theme, round);
+      step = 0;
     }
-    if (step % 8 === 0) tone(midi(style.root - 12 + (step % 32 < 16 ? 0 : 7)), at, spb * 7, { vol: 0.05, bus: musicBus });
-    if (step % 2 === 1) noise(at, 0.05, { from: 6000, to: 9000, vol: 0.012, type: 'highpass', bus: musicBus });
+    const at = Math.max(0, nextTime - c.currentTime);
+    const note = song[step];
+    if (note != null) {
+      const f = midi(note);
+      if (style.inst === 'bell') bell(f, at, { dur: 1.4, vol: 0.055, ratio: 2, index: 1.2, bus: musicBus });
+      else if (style.inst === 'marimba') marimba(f, at, { vol: 0.085, bus: musicBus });
+      else kalimba(f, at, { vol: 0.075, bus: musicBus });
+    }
+    if (step % 8 === 0) {
+      const chord = style.root - 12 + prog[(step / 8) % 4];
+      tone(midi(chord - 12), at, spb * 7.5, { vol: 0.05, bus: musicBus });
+      pad(midi(chord + third), at, spb * 8, 0.014);
+      pad(midi(chord + 7), at, spb * 8, 0.012);
+    }
+    if (style.hats !== false && step % 2 === 1) noise(at, 0.05, { from: 6000, to: 9000, vol: 0.01, type: 'highpass', bus: musicBus });
     step++;
     nextTime += spb;
   }
 }
+
+// how loud the music sits: quieter in lessons, and nearly silent under speech there
+export function musicLevel(m, speaking) {
+  const base = m === 'lesson' ? MUSIC_LEVEL * 0.55 : MUSIC_LEVEL;
+  return speaking ? base * (m === 'lesson' ? 0.08 : 0.25) : base;
+}
+let speakingNow = false;
+const setLevel = (ramp = 0.15) => {
+  if (!ctx || !musicBus) return;
+  const t = ctx.currentTime;
+  musicBus.gain.cancelScheduledValues(t);
+  musicBus.gain.setTargetAtTime(musicLevel(mood, speakingNow), t, ramp);
+};
 
 export const music = {
   enabled: true,
@@ -301,9 +398,14 @@ export const music = {
     timer = 0;
     if (!this.enabled || !this.unlocked || !ac()) return;
     const style = STYLES[theme] || STYLES.hub;
-    pattern = makePattern(style, [...String(theme)].reduce((a, ch) => a + ch.charCodeAt(0), 7));
+    round = 0;
+    song = songRound(style, theme, round);
     step = 0;
     nextTime = ctx.currentTime + 0.1;
+    // fade in rather than start at full level
+    musicBus.gain.cancelScheduledValues(ctx.currentTime);
+    musicBus.gain.setValueAtTime(0.0001, ctx.currentTime);
+    setLevel(0.8);
     timer = setInterval(schedule, 90);
   },
   stop() {
@@ -315,14 +417,18 @@ export const music = {
     if (!v) this.stop();
     else if (theme) this.play(theme, true);
   },
+  // 'lesson' (quieter, for listening) or 'free' (home screen, maps)
+  setMood(m) {
+    if (m === mood) return;
+    mood = m;
+    setLevel(0.6);
+  },
 };
 
 // Duck the music while anything is being said.
 if (typeof window !== 'undefined') {
   window.addEventListener('vt-speaking', (e) => {
-    if (!ctx || !musicBus) return;
-    const t = ctx.currentTime;
-    musicBus.gain.cancelScheduledValues(t);
-    musicBus.gain.setTargetAtTime(e.detail ? MUSIC_LEVEL * 0.25 : MUSIC_LEVEL, t, 0.15);
+    speakingNow = !!e.detail;
+    setLevel();
   });
 }

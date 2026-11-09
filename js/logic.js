@@ -73,6 +73,43 @@ export function langsFor(mode) {
   return ['hi', 'en'];
 }
 
+// A colour dark enough for white text on it (and for it as text on white): WCAG AA, contrast 4.5:1.
+const lum = (hex) => {
+  const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255).map((c) => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4));
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+};
+export const contrastWithWhite = (hex) => 1.05 / (lum(hex) + 0.05);
+export function readable(hex) {
+  if (!/^#[0-9a-f]{6}$/i.test(hex)) return hex;
+  let [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16));
+  let out = hex;
+  while (contrastWithWhite(out) < 4.5) {
+    [r, g, b] = [r, g, b].map((c) => Math.floor(c * 0.92));
+    out = '#' + [r, g, b].map((c) => c.toString(16).padStart(2, '0')).join('');
+  }
+  return out;
+}
+
+// Which device this is, for help with its text-to-speech settings.
+export function deviceKind(ua = '', touchPoints = 0) {
+  if (/iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && touchPoints > 1)) return 'ios';
+  if (/Android/.test(ua)) return 'android';
+  if (/CrOS/.test(ua)) return 'chromeos';
+  if (/Windows/.test(ua)) return 'windows';
+  if (/Macintosh/.test(ua)) return 'mac';
+  return 'other';
+}
+
+// How to add a Hindi voice on each kind of device (the app speaks with the device's own voices).
+export const VOICE_SETUP = {
+  ios: { device: 'iPhone or iPad', steps: 'Settings › Accessibility › Spoken Content › Voices › Hindi › download Lekha. Then close and reopen the app.' },
+  android: { device: 'Android', steps: 'Settings › System › Languages › Text-to-speech output › Speech Services by Google › ⚙ › Install voice data › Hindi (हिन्दी). Then close and reopen the app.' },
+  chromeos: { device: 'Chromebook', steps: 'Settings › Accessibility › Text-to-speech › Speech engines and voices › add Hindi. Then reload the app.' },
+  windows: { device: 'Windows', steps: 'Settings › Time & language › Speech › Manage voices › Add voices › Hindi. Then restart the browser. Microsoft Edge also has natural Hindi voices built in.' },
+  mac: { device: 'Mac', steps: 'System Settings › Accessibility › Spoken Content › System voice › Manage Voices › Hindi › Lekha. Then restart the browser.' },
+  other: { device: 'this device', steps: 'Open the app in Chrome or Edge, or add a Hindi voice in the device’s text-to-speech settings.' },
+};
+
 // In "both" mode, games that show one script per round alternate between them.
 export function langForRound(mode, roundIndex) {
   const langs = langsFor(mode);
@@ -282,6 +319,7 @@ export function defaultSettings(content) {
     dailyLimit: 0, // minutes of play a day before a break screen (0 = no limit)
     music: true,
     sfx: true,
+    bigText: false, // larger text in the comics
     voice: { hi: '', en: '', rate: 0.9 },
   };
 }
@@ -295,7 +333,7 @@ export function normalizeSettings(saved, content) {
   if (DAILY_LIMITS.includes(saved.dailyLimit)) out.dailyLimit = saved.dailyLimit;
   if (saved.parentLang === 'hi' || saved.parentLang === 'en') out.parentLang = saved.parentLang;
   if (saved.showMode === 'watch' || saved.showMode === 'play') out.showMode = saved.showMode;
-  for (const k of ['onboarded', 'lockGrade', 'unlockAll', 'math', 'captions', 'retell', 'music', 'sfx']) if (typeof saved[k] === 'boolean') out[k] = saved[k];
+  for (const k of ['onboarded', 'lockGrade', 'unlockAll', 'math', 'captions', 'retell', 'music', 'sfx', 'bigText']) if (typeof saved[k] === 'boolean') out[k] = saved[k];
   if (saved.voice && typeof saved.voice === 'object') {
     for (const l of ['hi', 'en']) if (typeof saved.voice[l] === 'string') out.voice[l] = saved.voice[l];
     if (typeof saved.voice.rate === 'number' && saved.voice.rate >= 0.5 && saved.voice.rate <= 1.3) out.voice.rate = saved.voice.rate;
@@ -306,7 +344,7 @@ export function normalizeSettings(saved, content) {
 export function defaultProgress(content) {
   const collected = {};
   for (const [id, col] of Object.entries(content.collections || {})) collected[id] = col.items.slice(0, col.start || 0);
-  return { lessons: {}, collected, days: [], trainPos: {}, storyPos: {}, stats: {}, time: {}, shows: {} };
+  return { lessons: {}, collected, days: [], trainPos: {}, storyPos: {}, comicPos: {}, stats: {}, time: {}, shows: {} };
 }
 
 export function normalizeProgress(saved, content) {
@@ -344,6 +382,12 @@ export function normalizeProgress(saved, content) {
     days: Array.isArray(saved.days) ? saved.days.filter((d) => typeof d === 'string').slice(-120) : [],
     trainPos: obj(saved.trainPos),
     storyPos: obj(saved.storyPos),
+    // where each long comic was left: the furthest panel read, and whether its mystery was solved
+    comicPos: Object.fromEntries(
+      Object.entries(obj(saved.comicPos))
+        .filter(([, r]) => r && typeof r === 'object' && Number.isInteger(r.panel) && r.panel >= 0)
+        .map(([id, r]) => [id, { panel: Math.min(r.panel, 99), solved: r.solved === true }]),
+    ),
     stats: obj(saved.stats),
     time,
     shows: Object.fromEntries(
