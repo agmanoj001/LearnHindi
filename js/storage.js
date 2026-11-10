@@ -125,3 +125,47 @@ export function resizeImage(file, size = 320) {
     img.src = url;
   });
 }
+
+// ---- backup: progress, settings and children in one small file the family keeps ----
+// The app lives offline on one device, so a lost phone or a cleared browser would lose every star. A
+// backup file holds the settings, progress and children (not the photo or the voice recordings, which
+// are big and personal); restoring it on any device brings them back. Nothing leaves the device unless
+// the grown-up moves the file.
+export const BACKUP_APP = 'khel-khel-mein';
+const BACKUP_KEY = /^vt\.(settings|progress)(:p\d+)?$|^vt\.profiles$/;
+
+export function makeBackup(read, keys, now = new Date()) {
+  const data = {};
+  for (const k of keys) if (BACKUP_KEY.test(k)) {
+    const v = read(k);
+    if (v && typeof v === 'object') data[k] = v;
+  }
+  return { app: BACKUP_APP, version: 1, savedAt: now.toISOString(), data };
+}
+
+// The entries a backup would restore, or an error message if it isn't one of ours.
+export function readBackup(backup) {
+  if (!backup || typeof backup !== 'object' || backup.app !== BACKUP_APP) return { error: 'This is not a Khel Khel Mein backup file.' };
+  if (backup.version !== 1 || !backup.data || typeof backup.data !== 'object') return { error: 'This backup is from a newer version of the app.' };
+  const entries = Object.entries(backup.data).filter(([k, v]) => BACKUP_KEY.test(k) && v && typeof v === 'object' && !Array.isArray(v));
+  if (!entries.some(([k]) => k.startsWith('vt.progress'))) return { error: 'This backup has no progress in it.' };
+  return { entries, savedAt: typeof backup.savedAt === 'string' ? backup.savedAt : null };
+}
+
+export function localKeys() {
+  try {
+    return Array.from({ length: localStorage.length }, (_, i) => localStorage.key(i)).filter(Boolean);
+  } catch {
+    return [];
+  }
+}
+
+// Are the app's offline files and saves kept even when space runs low? If not, ask (from the grown-ups'
+// area, since some browsers show a prompt). Installed apps ask on their own at start (see keepStorage).
+export async function keepOffline() {
+  try {
+    return (await navigator.storage?.persisted?.()) || !!(await keepStorage());
+  } catch {
+    return false;
+  }
+}

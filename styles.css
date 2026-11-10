@@ -7441,6 +7441,14 @@ body:has(.game-grammar) .caption-bar,
   top: -1px;
   background: radial-gradient(circle at 20px 18px, rgba(255, 255, 255, 0.55) 3px, transparent 4px) 0 0 / 40px 18px repeat-x;
 }
+.scene.sky-snow {
+  --ground: #f4f8ff;
+  background: linear-gradient(180deg, #a9c8ec 0%, #e3eefb 100%);
+}
+.scene.sky-snow .scene-ground {
+  height: 24%;
+  box-shadow: 0 -3px 0 #d7e4f5 inset;
+}
 .scene.sky-home {
   --ground: #deb184;
   background: linear-gradient(180deg, #fff0d9 0%, #ffe3bf 100%);
@@ -7931,6 +7939,18 @@ body:has(.game-grammar) .caption-bar,
     transform: translate(-14cqh, 135cqh);
   }
 }
+/* snow drifts down */
+.fx-snow i {
+  top: -8%;
+  width: calc(2.6cqh * var(--s));
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 3px rgba(120, 150, 190, 0.5);
+}
+.scene.play .fx-snow i {
+  animation: leaf-fall 5s linear infinite calc(var(--d) * -3);
+}
 /* a splash: drops thrown up from the middle */
 .fx-splash i {
   left: calc(38% + var(--r) * 24%);
@@ -8263,4 +8283,75 @@ body:has(.game-grammar) .caption-bar,
   .scene .fx:not(.fx-stars):not(.fx-lamps):not(.fx-glow) {
     display: none;
   }
+}
+
+/* ---------- story reader: read it myself, key words, swipe ---------- */
+.self-read {
+  --c1: #fff8e6;
+  --c2: #ffeec2;
+  --edge: #e9cf8a;
+  height: auto;
+  min-height: 60px;
+  padding: 8px 20px 8px 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--ink);
+}
+.self-read .self-icon {
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  border-radius: 50%;
+  background: #ffc93c;
+  color: #6b4a00;
+  display: grid;
+  place-items: center;
+}
+.self-read .self-icon svg {
+  width: 24px;
+  height: 24px;
+}
+.self-read .self-label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.15;
+}
+.self-read b {
+  font-size: 20px;
+}
+.self-read small {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 700;
+}
+/* the word that names the picture: a dotted line under it, in the world's colour */
+.story-word.key {
+  text-decoration: underline dotted;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 0.22em;
+  text-decoration-color: color-mix(in srgb, var(--place, #6c63ff) 75%, white);
+}
+.story-page {
+  touch-action: pan-y;
+}
+/* reading it myself: a small badge says so */
+.story-page.self::after {
+  content: 'अपने आप · On my own';
+  position: absolute;
+  top: -12px;
+  right: 18px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: #ffc93c;
+  color: #4a3300;
+  font-size: 12px;
+  font-weight: 800;
+}
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 8px 0;
 }

@@ -43,6 +43,7 @@ export const MOVES = {
 // effects: how many bits each draws, whether they sit behind the picture, and the sound
 export const FX = {
   rain: { n: 18, sound: 'rain' },
+  snow: { n: 16 },
   splash: { n: 10, sound: 'splash' },
   sparkles: { n: 12, sound: 'sparkle' },
   stars: { n: 14, back: true },
@@ -62,7 +63,7 @@ export const FX = {
 // the sound effects a scene may play (all in sfx.js)
 export const SOUNDS = ['whoosh', 'vroom', 'toot', 'boing', 'jingle', 'thud', 'sparkle', 'chime', 'cheer', 'rain', 'splash', 'pop', 'sneeze', 'siren'];
 
-export const SKIES = ['day', 'night', 'dawn', 'rain', 'sky', 'field', 'river', 'sea', 'underwater', 'home'];
+export const SKIES = ['day', 'night', 'dawn', 'rain', 'sky', 'field', 'river', 'sea', 'underwater', 'snow', 'home'];
 
 const fxList = (act) => [].concat(act.fx ?? []);
 

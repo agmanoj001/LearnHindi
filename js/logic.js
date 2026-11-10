@@ -619,3 +619,20 @@ export function practiceReport(stats, { minSeen = 3 } = {}) {
     answered: rows.reduce((n, r) => n + r.seen, 0),
   };
 }
+
+// Does a word in a story line name the page's picture? Hindi words are compared by their stem, so
+// चूहा, चूहे and चूहों all match; English as the word or its plain plural (star, stars; not start).
+const hiStem = (w) => w.replace(/[ऀ-ःऺ-ॏॢॣ]+$/u, '');
+export function isKeyToken(token, word, lang) {
+  const t = token.replace(/[।.!?,"“”‘’:;—-]/g, '');
+  if (!t || !word) return false;
+  if (lang === 'en') {
+    const w = (word.en || '').toLowerCase().split(' ').pop();
+    if (w.length < 3) return false;
+    const lt = t.toLowerCase();
+    return [w, `${w}s`, `${w}es`, `${w}'s`, `${w}’s`].includes(lt);
+  }
+  const parts = (word.hi || '').split(' ').map(hiStem).filter((s) => [...s].length >= 2);
+  const ts = hiStem(t);
+  return parts.some((s) => ts === s || (t.startsWith(s) && [...t].length - [...s].length <= 4));
+}

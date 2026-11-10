@@ -3,7 +3,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { deviceKind, VOICE_SETUP, readable, contrastWithWhite, normalizeSettings, normalizeProgress, COMBO_MILESTONES, comboText } from '../js/logic.js';
+import { deviceKind, VOICE_SETUP, readable, contrastWithWhite, normalizeSettings, normalizeProgress, COMBO_MILESTONES, comboText, isKeyToken } from '../js/logic.js';
+import { makeBackup, readBackup, BACKUP_APP } from '../js/storage.js';
 import { pictureExists } from '../js/art.js';
 import { worldLessons } from '../js/curriculum.js';
 import { makePhrase, songRound, progOf, musicLevel, MUSIC_STYLES, sfx } from '../js/sfx.js';
@@ -137,9 +138,10 @@ test('each new story has its own lesson: Vehicle Town for Kindergarten, the Joll
 
 // ---------- stories that move: a little scene on every Toddler and Kindergarten page ----------
 
-test('every Toddler and Kindergarten page moves with the story, and no two pages in a row look the same', () => {
-  const young = content.stories.filter((s) => s.level === 'toddler' || s.level === 'kg');
-  assert.ok(young.length >= 25);
+test('every page from Toddler to Grade 2 moves with the story, and no two pages in a row look the same', () => {
+  // Toddler to Grade 2: every story page is a scene
+  const young = content.stories.filter((s) => ['toddler', 'kg', 'grade1', 'grade2'].includes(s.level));
+  assert.ok(young.length >= 65);
   const has = (id) => id in content.words;
   for (const s of young) {
     for (const [i, p] of s.pages.entries()) {
@@ -205,4 +207,45 @@ test('Toddlers have tiny moving stories on the farm: a few words a page, picture
     assert.equal(s.questions.length, 2);
     for (const q of s.questions) assert.ok(!q.text && q.options.includes(q.answer) && q.options.every((o) => pictureExists(content.words[o]?.picture)), s.id);
   }
+});
+
+test('the word that names the picture is found in the line, in Hindi and English', () => {
+  const w = (id) => content.words[id];
+  assert.ok(isKeyToken('चूहे', w('mouse'), 'hi'));
+  assert.ok(isKeyToken('चूहों', w('mouse'), 'hi'));
+  assert.ok(isKeyToken('बकरियाँ', w('goat'), 'hi'));
+  assert.ok(isKeyToken('शेर', w('lion'), 'hi'));
+  assert.ok(!isKeyToken('जंगल', w('lion'), 'hi'));
+  assert.ok(isKeyToken('lion', w('lion'), 'en'));
+  assert.ok(isKeyToken('stars,', w('star'), 'en'));
+  assert.ok(!isKeyToken('start', w('star'), 'en'));
+  assert.ok(!isKeyToken('catch', w('cat'), 'en'));
+  // most Grade 1 and 2 pages mark their key word, so the child can link it to the picture
+  const pages = content.stories.filter((s) => ['grade1', 'grade2'].includes(s.level) && s.lang !== 'en').flatMap((s) => s.pages);
+  const marked = pages.filter((p) => p.hi.split(/\s+/).some((t) => isKeyToken(t, content.words[p.word], 'hi')));
+  assert.ok(marked.length / pages.length > 0.6, `${marked.length} of ${pages.length}`);
+});
+
+test('a backup holds settings, progress and children, and restores only those', () => {
+  const store = {
+    'vt.settings': { level: 'grade2' },
+    'vt.progress': { stars: { a: 3 } },
+    'vt.progress:p2': { stars: { b: 1 } },
+    'vt.profiles': { list: [], current: 'p1' },
+    'vt.special': { photo: 'data:image/jpeg;base64,AAAA' },
+    other: { x: 1 },
+  };
+  const b = makeBackup((k) => store[k], Object.keys(store), new Date('2026-01-02T03:04:05Z'));
+  assert.equal(b.app, BACKUP_APP);
+  assert.equal(b.savedAt, '2026-01-02T03:04:05.000Z');
+  assert.deepEqual(Object.keys(b.data).sort(), ['vt.profiles', 'vt.progress', 'vt.progress:p2', 'vt.settings']);
+  const r = readBackup(JSON.parse(JSON.stringify(b)));
+  assert.equal(r.entries.length, 4);
+  // someone else's file, a newer format, sneaky keys, or nothing to restore
+  assert.ok(readBackup({ app: 'other', version: 1, data: {} }).error);
+  assert.ok(readBackup({ app: BACKUP_APP, version: 2, data: {} }).error);
+  assert.ok(readBackup(null).error);
+  assert.ok(readBackup({ app: BACKUP_APP, version: 1, data: { 'vt.settings': {} } }).error);
+  const sneaky = readBackup({ app: BACKUP_APP, version: 1, data: { 'vt.progress': {}, 'vt.special': { photo: 'x' }, evil: {}, 'vt.progress:p9x': {} } });
+  assert.deepEqual(sneaky.entries.map(([k]) => k), ['vt.progress']);
 });

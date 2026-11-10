@@ -1,6 +1,6 @@
 // Library (Grade 1+): read-along picture stories, a few questions about the story and, for folktales, the moral.
 // Every word on the page can be tapped to hear it. Each visit opens the next story for the stage.
-import { sentenceTokens, shuffle } from '../logic.js';
+import { sentenceTokens, shuffle, isKeyToken } from '../logic.js';
 import { storyLang, worldStoryLang } from '../curriculum.js';
 import { el, sleep, choose, runRounds, cheer, waitTap, bounce, ICONS } from './kit.js';
 import { clips } from '../storage.js';
@@ -28,13 +28,23 @@ export default {
 
     // ---- cover ----
     const coverWord = ctx.word(story.cover);
-    const play = el('button', { class: 'round-btn big go', 'aria-label': 'Start', html: ICONS.play });
+    const play = el('button', { class: 'round-btn big go', 'aria-label': 'Read it to me', html: ICONS.play });
+    // From Grade 1 a child can choose to read it themselves: no reading aloud unless they ask (the speaker
+    // button, or tapping a word), so they practise reading and listen only for help.
+    const canReadSelf = !['toddler', 'kg'].includes(story.level);
+    const mine = canReadSelf
+      ? el('button', { class: 'bubble self-read', 'aria-label': 'I will read it myself' }, [
+          el('span', { class: 'self-icon', html: ICONS.book }),
+          el('span', { class: 'self-label' }, [el('b', { lang: 'hi', text: 'मैं ख़ुद पढ़ूँ' }), el('small', { text: "I'll read it" })]),
+        ])
+      : null;
     ctx.stage.replaceChildren(
       el('div', { class: 'story-cover' }, [
         el('div', { class: 'pic', html: ctx.picture(coverWord) }),
         ...lines(story.title).map((t) => el('div', { class: `story-title ${t.lang}`, lang: t.lang, text: t.text })),
       ]),
       play,
+      ...(mine ? [mine] : []),
     );
     // the intro stops for good once the child taps play (it used to talk over the first page)
     let onCover = true;
@@ -44,22 +54,33 @@ export default {
     };
     ctx.setRepeat(intro);
     intro();
-    await waitTap(play);
+    const selfRead = (await Promise.race([waitTap(play), ...(mine ? [waitTap(mine)] : [])])) === mine;
     onCover = false;
+    ctx.stop?.();
 
     // ---- pages ----
     for (const [i, page] of story.pages.entries()) {
       if (!ctx.alive()) return;
       const n = i + 1;
+      const pageWord = ctx.word(page.word);
+      // a page with an "act" is a little moving scene that follows the story; tapping it plays it again
+      const pic = page.act ? stageScene(ctx, page) : el('div', { class: 'pic', html: ctx.picture(pageWord) });
       const textLines = langs.map((l) =>
         el(
           'p',
           { class: `story-line ${l}${langs.length === 1 ? ' main' : ''}`, lang: l },
           sentenceTokens(page[l]).map((t) => {
-            const w = el('button', { class: 'story-word', text: t });
+            // the word that names the picture is marked; tapping it says the word in every language and
+            // plays the picture, so the word and the thing it names go together
+            const key = isKeyToken(t, pageWord, l);
+            const w = el('button', { class: `story-word${key ? ' key' : ''}`, text: t });
             w.addEventListener('click', () => {
               bounce(w);
-              ctx.sayText(bare(t), l);
+              if (key) {
+                ctx.sayItem(pageWord);
+                if (pic.play) pic.play();
+                else bounce(pic);
+              } else ctx.sayText(bare(t), l);
             });
             return w;
           }),
@@ -67,10 +88,9 @@ export default {
       );
       const next = el('button', { class: 'round-btn big go next-page', 'aria-label': 'Next', html: ICONS.next });
       const dots = el('div', { class: 'page-dots', 'aria-label': `Page ${n} of ${story.pages.length}` }, story.pages.map((_, k) => el('i', { class: k < i ? 'done' : k === i ? 'now' : '' })));
-      // a page with an "act" is a little moving scene that follows the story; tapping it plays it again
-      const pic = page.act ? stageScene(ctx, page) : el('div', { class: 'pic', html: ctx.picture(ctx.word(page.word)) });
-      const card = el('div', { class: 'story-page' }, [dots, pic, el('div', { class: 'story-text' }, textLines)]);
+      const card = el('div', { class: `story-page${selfRead ? ' self' : ''}` }, [dots, pic, el('div', { class: 'story-text' }, textLines)]);
       ctx.stage.replaceChildren(card, next);
+      swipeToTurn(card, next);
       if (page.act) await pic.play();
       if (!ctx.alive()) return;
       const read = async () => {
@@ -82,8 +102,11 @@ export default {
         next.classList.add('ready');
       };
       ctx.setRepeat(read);
-      read();
+      // reading it themselves: the page waits quietly; the speaker button reads it if they want help
+      if (selfRead) next.classList.add('ready');
+      else read();
       await waitTap(next);
+      ctx.stop?.();
       ctx.sfx.pop();
       ctx.setProgress(n, total);
     }
@@ -151,6 +174,24 @@ export default {
     ctx.complete();
   },
 };
+
+// Swipe a page to the left to turn it, like a book (a tap on a word still works).
+function swipeToTurn(card, next) {
+  let x0 = null;
+  let y0 = 0;
+  card.addEventListener('pointerdown', (e) => {
+    x0 = e.clientX;
+    y0 = e.clientY;
+  });
+  card.addEventListener('pointerup', (e) => {
+    if (x0 == null) return;
+    const dx = e.clientX - x0;
+    const dy = e.clientY - y0;
+    x0 = null;
+    if (dx < -60 && Math.abs(dy) < Math.abs(dx) * 0.6) next.click();
+  });
+  card.addEventListener('pointercancel', () => (x0 = null));
+}
 
 // A page's moving scene. play() starts it (again) with its sound, and waits a moment so the sound
 // is heard before the reading starts.
