@@ -43,6 +43,9 @@ English runs alongside: A–Z, English names for every picture, English rhymes, 
 | Big and small | Big/small, up/down, fast/slow |
 | Count to 5 | Count passengers getting on and off |
 | Vehicles | Dig up pictures, find the vehicle |
+| Little stories | Six tiny stories to listen to (a chick finds its mother, rain and a frog, a butterfly, bedtime, a little fish, an elephant's bath): three or four pages of two to four words, a picture that moves on every page, and two picture questions |
+
+Every Toddler and Kindergarten story page is a small moving scene that follows the words (the picture walks in, flies, jumps, falls, sleeps; rain, lamps, bubbles or hearts around it), so a two- or three-year-old sees what they hear. The scenes stand still for anyone who has asked their device for reduced motion.
 
 ### Kindergarten / Balvatika (age 3–6) · Vehicle Town (Hindi)
 *NIPUN Balvatika: recognise letters and their sounds; read simple 2–3 letter words.*

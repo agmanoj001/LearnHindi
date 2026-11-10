@@ -212,6 +212,15 @@ export const sfx = {
     noise(0, 0.6, { from: 200, to: 600, vol: 0.05, type: 'lowpass' });
   }),
   thud: on(() => (tone(120, 0, 0.18, { to: 50, vol: 0.1 }), noise(0, 0.12, { from: 300, to: 120, vol: 0.08, type: 'lowpass' }))),
+  // a quick patter of rain, and a splash into a puddle (for the story scenes)
+  rain: on(() => {
+    noise(0, 1.4, { from: 2500, to: 1800, q: 0.4, vol: 0.05, type: 'highpass' });
+    [0.1, 0.35, 0.5, 0.8, 1.05].forEach((at, i) => tone(1800 + i * 240, at, 0.04, { to: 900, vol: 0.03 }));
+  }),
+  splash: on(() => {
+    noise(0, 0.35, { from: 800, to: 3000, q: 0.7, vol: 0.12 });
+    tone(300, 0, 0.15, { to: 900, vol: 0.05 });
+  }),
   toot: on(() => (tone(440, 0, 0.3, { type: 'square', vol: 0.04 }), tone(440, 0.4, 0.5, { type: 'square', vol: 0.04 }))),
 };
 

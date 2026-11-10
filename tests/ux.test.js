@@ -6,7 +6,8 @@ import { readFileSync } from 'node:fs';
 import { deviceKind, VOICE_SETUP, readable, contrastWithWhite, normalizeSettings, normalizeProgress, COMBO_MILESTONES, comboText } from '../js/logic.js';
 import { pictureExists } from '../js/art.js';
 import { worldLessons } from '../js/curriculum.js';
-import { makePhrase, songRound, progOf, musicLevel, MUSIC_STYLES } from '../js/sfx.js';
+import { makePhrase, songRound, progOf, musicLevel, MUSIC_STYLES, sfx } from '../js/sfx.js';
+import { MOVES, FX, SKIES, SOUNDS, sceneHtml, sceneClass, sceneSound, actProblems } from '../js/scene.js';
 
 const content = JSON.parse(readFileSync(new URL('../content.json', import.meta.url), 'utf8'));
 
@@ -131,5 +132,77 @@ test('each new story has its own lesson: Vehicle Town for Kindergarten, the Joll
     const w = content.worlds.find((x) => x.id === worldId);
     const linked = worldLessons(w).filter((l) => l.game === 'story').map((l) => l.config.story);
     for (const id of ids) assert.ok(linked.includes(id), `${worldId} opens ${id}`);
+  }
+});
+
+// ---------- stories that move: a little scene on every Toddler and Kindergarten page ----------
+
+test('every Toddler and Kindergarten page moves with the story, and no two pages in a row look the same', () => {
+  const young = content.stories.filter((s) => s.level === 'toddler' || s.level === 'kg');
+  assert.ok(young.length >= 25);
+  const has = (id) => id in content.words;
+  for (const s of young) {
+    for (const [i, p] of s.pages.entries()) {
+      assert.ok(p.act, `${s.id} page ${i + 1} has a scene`);
+      assert.deepEqual(actProblems(p.act, has), [], `${s.id} page ${i + 1}`);
+      if (i) assert.notDeepEqual(p.act, s.pages[i - 1].act, `${s.id} page ${i + 1} changes the scene`);
+    }
+    // a story is not one move over and over
+    assert.ok(new Set(s.pages.map((p) => p.act.move)).size >= Math.min(3, s.pages.length), `${s.id} uses different moves`);
+  }
+});
+
+test('the scene builder: backdrop, picture, partner and effects; every move, effect and sky has its CSS', () => {
+  const art = (id) => `<svg data-id="${id}"></svg>`;
+  const html = sceneHtml({ move: 'approach', with: 'hen', fx: ['hearts', 'stars'], sky: 'night' }, 'chick', art);
+  assert.match(html, /class="actor partner"><div class="body"><svg data-id="hen">/);
+  assert.match(html, /class="actor main"><div class="body"><svg data-id="chick">/);
+  assert.equal((html.match(/<i /g) || []).length, FX.hearts.n + FX.stars.n);
+  assert.ok(html.indexOf('fx-stars') < html.indexOf('actor main'), 'stars sit behind the picture');
+  assert.ok(html.indexOf('fx-hearts') > html.indexOf('actor main'), 'hearts float in front');
+  assert.equal(sceneClass({ move: 'jump', fx: 'splash', sky: 'rain' }), 'scene sky-rain mv-jump has-splash');
+  assert.equal(sceneClass({}), 'scene sky-day mv-enter');
+  // the sound: its own, else the move's, else the effect's
+  assert.equal(sceneSound({ move: 'jump', sound: 'sneeze' }), 'sneeze');
+  assert.equal(sceneSound({ move: 'fall' }), 'thud');
+  assert.equal(sceneSound({ move: 'float', fx: ['stars', 'rain'] }), 'rain');
+  assert.equal(sceneSound({ move: 'sleep' }), null);
+  for (const s of SOUNDS) assert.equal(typeof sfx[s], 'function', `sfx.${s}`);
+  const css = readFileSync(new URL('../styles.css', import.meta.url), 'utf8');
+  for (const m of Object.keys(MOVES)) if (m !== 'enter') assert.ok(css.includes(`.mv-${m} `), `CSS for move ${m}`);
+  for (const f of Object.keys(FX)) assert.ok(css.includes(`.fx-${f} `), `CSS for fx ${f}`);
+  for (const k of SKIES) assert.ok(css.includes(`.sky-${k}`), `CSS for sky ${k}`);
+  assert.match(css, /prefers-reduced-motion: reduce\)\s*\{\s*\.scene \*/, 'scenes stand still for reduced motion');
+});
+
+test('a scene that names a missing move, effect, sky or partner is caught', () => {
+  const has = (id) => id === 'hen';
+  assert.deepEqual(actProblems({ move: 'jump' }, has), []);
+  assert.equal(actProblems({ move: 'moonwalk' }, has).length, 1);
+  assert.equal(actProblems({ fx: 'fireworks' }, has).length, 1);
+  assert.equal(actProblems({ fx: ['rain', 'rain'] }, has).length, 1);
+  assert.equal(actProblems({ fx: ['rain', 'splash', 'stars'] }, has).length, 1);
+  assert.equal(actProblems({ sky: 'mars' }, has).length, 1);
+  assert.equal(actProblems({ move: 'bump' }, has).length, 1, 'bump needs a partner');
+  assert.equal(actProblems({ with: 'dragon' }, has).length, 1);
+  assert.equal(actProblems({ sound: 'kaboom' }, has).length, 1);
+  assert.equal(actProblems({ colour: 'red' }, has).length, 1);
+  assert.equal(actProblems('jump', has).length, 1);
+});
+
+test('Toddlers have tiny moving stories on the farm: a few words a page, picture questions', () => {
+  const tiny = content.stories.filter((s) => s.level === 'toddler');
+  assert.ok(tiny.length >= 6);
+  const farm = content.worlds.find((w) => w.id === 'farm');
+  const linked = worldLessons(farm).filter((l) => l.game === 'story').map((l) => l.config.story);
+  for (const s of tiny) {
+    assert.ok(linked.includes(s.id), `the farm opens ${s.id}`);
+    assert.ok(s.pages.length >= 3 && s.pages.length <= 4, s.id);
+    for (const p of s.pages) {
+      assert.ok(words(p.hi) <= 5, `${s.id}: "${p.hi}" is short enough for a toddler`);
+      assert.ok(pictureExists(content.words[p.word]?.picture), `${s.id}: ${p.word}`);
+    }
+    assert.equal(s.questions.length, 2);
+    for (const q of s.questions) assert.ok(!q.text && q.options.includes(q.answer) && q.options.every((o) => pictureExists(content.words[o]?.picture)), s.id);
   }
 });

@@ -98,9 +98,14 @@ test('Story radio: this grade and the one below, a rhyme after every two stories
   assert.ok(list.every((s) => ['kg', 'grade1'].includes(s.level)));
   assert.notEqual(list[0].kind, 'poem');
   assert.equal(list[2].kind, 'poem');
-  // Toddler has no stories of its own, so it hears Kindergarten's rhymes and stories
+  // Toddlers hear their own little stories first (with Kindergarten's rhymes between), then Kindergarten's stories
   const toddler = radioPlaylist(content, 'toddler');
-  assert.ok(toddler.length > 5 && toddler.every((s) => s.level === 'kg'));
+  assert.ok(toddler.every((s) => ['toddler', 'kg'].includes(s.level)));
+  assert.equal(toddler[0].level, 'toddler');
+  const tales = toddler.filter((s) => s.kind !== 'poem');
+  const firstKg = tales.findIndex((s) => s.level === 'kg');
+  assert.ok(firstKg >= 4 && tales.slice(firstKg).every((s) => s.level === 'kg'));
+  assert.equal(toddler[2].kind, 'poem');
   const story = content.stories.find((s) => s.id === list[0].id);
   const steps = radioSteps(story, ['hi', 'en'], content.words);
   const said = steps.flatMap((s) => s.say || []);

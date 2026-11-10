@@ -4,6 +4,7 @@ import { sentenceTokens, shuffle } from '../logic.js';
 import { storyLang, worldStoryLang } from '../curriculum.js';
 import { el, sleep, choose, runRounds, cheer, waitTap, bounce, ICONS } from './kit.js';
 import { clips } from '../storage.js';
+import { sceneHtml, sceneClass, sceneSound } from '../scene.js';
 
 const bare = (token) => token.replace(/[।.!?,"“”‘’]/g, '');
 
@@ -66,8 +67,12 @@ export default {
       );
       const next = el('button', { class: 'round-btn big go next-page', 'aria-label': 'Next', html: ICONS.next });
       const dots = el('div', { class: 'page-dots', 'aria-label': `Page ${n} of ${story.pages.length}` }, story.pages.map((_, k) => el('i', { class: k < i ? 'done' : k === i ? 'now' : '' })));
-      const card = el('div', { class: 'story-page' }, [dots, el('div', { class: 'pic', html: ctx.picture(ctx.word(page.word)) }), el('div', { class: 'story-text' }, textLines)]);
+      // a page with an "act" is a little moving scene that follows the story; tapping it plays it again
+      const pic = page.act ? stageScene(ctx, page) : el('div', { class: 'pic', html: ctx.picture(ctx.word(page.word)) });
+      const card = el('div', { class: 'story-page' }, [dots, pic, el('div', { class: 'story-text' }, textLines)]);
       ctx.stage.replaceChildren(card, next);
+      if (page.act) await pic.play();
+      if (!ctx.alive()) return;
       const read = async () => {
         card.classList.add('reading');
         const stopHighlight = readAlong(textLines, page, langs, ctx.settings.voice?.rate || 0.9);
@@ -146,6 +151,28 @@ export default {
     ctx.complete();
   },
 };
+
+// A page's moving scene. play() starts it (again) with its sound, and waits a moment so the sound
+// is heard before the reading starts.
+function stageScene(ctx, page) {
+  const scene = el('button', {
+    class: `pic ${sceneClass(page.act)}`,
+    'aria-label': 'Play the picture again',
+    html: sceneHtml(page.act, page.word, (id) => ctx.picture(ctx.word(id))),
+  });
+  const sound = sceneSound(page.act);
+  scene.play = async () => {
+    scene.classList.remove('play');
+    void scene.offsetWidth; // restart the CSS animations
+    scene.classList.add('play');
+    if (sound && ctx.sfx[sound]) {
+      ctx.sfx[sound]();
+      await sleep(350);
+    }
+  };
+  scene.addEventListener('click', () => scene.play());
+  return scene;
+}
 
 // Read-along: light up each word as it is spoken. Voices that report word boundaries drive it
 // exactly; otherwise (and for family recordings) the timing is estimated from word length.
