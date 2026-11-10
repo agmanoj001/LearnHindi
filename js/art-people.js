@@ -49,6 +49,12 @@ const axe = (x, y, blade = '#A0A7B4') => line(x, y, x + 6, y - 46, '#8A5A44', 6)
 
 const bigAxe = (blade) => line(64, 128, 120, 22, '#8A5A44', 10) + path('M110 30 Q150 10 168 46 Q150 60 120 54 Z', blade) + path('M116 40 Q140 30 152 46', 'none', stroke('#fff', 3));
 
+// bits the story characters share: a bow in the left hand, a tilak, a flower garland
+const bow = (x) => path(`M${x} 48 Q${x - 30} 86 ${x} 124`, 'none', stroke('#8A5A44', 5)) + line(x, 48, x, 124, '#F3F4F8', 2);
+const tilak = () => path('M100 20 L97 31 L103 31 Z', '#E2583E');
+const garland = (color) => [-14, -8, 0, 8, 14].map((dx) => circ(100 + dx, 60 + (dx === 0 ? 10 : Math.abs(dx) < 10 ? 7 : 2), 3, color)).join('');
+
+
 export const PEOPLE = {
   boy: () => person({ kid: true, top: '#FF7A59', bottom: '#3D7BFF', skin: SKIN[1] }),
   girl: () => person({ kid: true, style: 'long', top: '#A66BFF', dress: true, skin: SKIN[1] }),
@@ -64,6 +70,35 @@ export const PEOPLE = {
     ['#FF5A5F', '#FFC93C', '#2EC27E', '#3D7BFF'].map((c, i) => path(`M82 ${12 - i * 7} Q100 ${-2 - i * 7} 118 ${12 - i * 7} Z`, c)).join(''),
   minister: () => person({ top: '#FFF1A6', bottom: '#F3F4F8', mustache: true, hat: 'turban', skin: SKIN[1] }),
   thief: () => person({ top: '#5B6478', bottom: '#2B2D42', hat: 'mask', skin: SKIN[1], prop: path('M128 96 Q150 84 156 104 Q146 118 130 110 Z', '#A47864') }),
+  // ---------- story characters: the Ramayana, Krishna and Ganesh (gentle, picture-book style) ----------
+  ram: () => person({ skin: '#8EC5E8', top: '#F7C948', bottom: '#F7C948', hat: 'crown', skin2: null, prop: bow(66) }) + tilak() + garland('#FFB4C2'),
+  sita: () => person({ skin: SKIN[0], style: 'long', dress: true, top: '#E2583E', bottom: '#E2583E', bindi: true, hat: 'crown' }) + path('M80 60 Q100 108 120 60', 'none', stroke('#FFC93C', 3)) + circ(134, 94, 7, '#FF8FB1') + circ(134, 94, 3, '#FFC93C') + garland('#FFF1A6'),
+  lakshman: () => person({ skin: SKIN[0], top: '#2EC27E', bottom: '#2EC27E', hat: 'crown', prop: bow(66) }) + tilak(),
+  hanuman: () =>
+    path('M120 112 Q160 118 158 84 Q156 66 170 62', 'none', stroke('#E9A05A', 8)) +
+    rect(82, 100, 15, 30, '#E2583E', 6) + rect(103, 100, 15, 30, '#E2583E', 6) +
+    rect(76, 56, 48, 50, '#E9A05A', 14) + path('M76 86 H124 V106 H76 Z', '#E2583E') +
+    path('M78 66 Q60 70 56 50', 'none', stroke('#E9A05A', 10)) + path('M122 66 Q138 80 134 96', 'none', stroke('#E9A05A', 10)) + circ(134, 98, 6, '#E9A05A') +
+    line(56, 48, 44, 16, '#8A5A44', 5) + circ(42, 12, 12, '#FFC93C') + circ(42, 12, 5, '#E8A51C') + circ(56, 48, 6, '#E9A05A') +
+    circ(78, 36, 7, '#E9A05A') + circ(122, 36, 7, '#E9A05A') + circ(100, 36, 22, '#E9A05A') + ell(100, 44, 14, 11, '#F6D7B0') + eye(92, 32, 3.4) + eye(108, 32, 3.4) + path('M94 46 Q100 51 106 46', 'none', stroke('#8A3B2E', 2.4)) +
+    path('M82 18 L80 6 L90 12 L100 2 L110 12 L120 6 L118 18 Z', '#FFC93C') + garland('#FF8FB1'),
+  ravan: () =>
+    [[-52, 40], [-32, 28], [32, 28], [52, 40]].map(([dx, y]) => circ(100 + dx, y, 11, SKIN[1]) + path(`M${100 + dx - 8} ${y - 8} L${100 + dx - 9} ${y - 18} L${100 + dx} ${y - 12} L${100 + dx + 9} ${y - 18} L${100 + dx + 8} ${y - 8} Z`, '#FFC93C') + eye(100 + dx - 4, y, 2) + eye(100 + dx + 4, y, 2)).join('') +
+    person({ skin: SKIN[1], top: '#5B2A86', bottom: '#2B2D42', mustache: '#1F1F2E', hat: 'crown' }) +
+    path('M86 24 L96 28 M114 24 L104 28', 'none', stroke(INK, 2.4)),
+  krishna: () =>
+    person({ skin: '#5B8DEF', top: '#FFC93C', bottom: '#FFC93C' }) +
+    path('M108 14 Q116 -2 126 4', 'none', stroke('#2EC27E', 4)) + ell(126, 4, 7, 9, '#1F9D63') + circ(126, 4, 3.5, '#3D7BFF') + circ(126, 4, 1.5, '#FFC93C') +
+    line(60, 96, 140, 74, '#8A5A44', 5) + [78, 94, 110, 124].map((x, i) => circ(x, 91 - i * 4.4, 1.6, '#2B2D42')).join('') + garland('#FF8FB1') + tilak(),
+  ganesh: () =>
+    ell(160, 122, 14, 8, '#9AA3B5') + circ(172, 116, 7, '#9AA3B5') + circ(176, 110, 3, '#F9A8D4') + eye(174, 115, 1.5) + path('M146 122 Q136 128 134 118', 'none', stroke('#9AA3B5', 2)) +
+    rect(80, 104, 16, 26, '#E2583E', 6) + rect(104, 104, 16, 26, '#E2583E', 6) +
+    ell(100, 84, 34, 30, '#F0B7A4') + path('M66 92 Q100 118 134 92 L134 108 H66 Z', '#E2583E') + path('M74 70 Q100 56 126 70', 'none', stroke('#FFC93C', 4)) +
+    path('M70 70 Q50 80 54 96', 'none', stroke('#F0B7A4', 10)) + circ(54, 98, 7, '#FFB52E') + path('M130 70 Q150 80 146 96', 'none', stroke('#F0B7A4', 10)) + circ(146, 98, 6, '#F0B7A4') +
+    ell(70, 40, 16, 20, '#F0B7A4') + ell(130, 40, 16, 20, '#F0B7A4') + ell(70, 40, 9, 13, '#F7D1C4') + ell(130, 40, 9, 13, '#F7D1C4') +
+    circ(100, 40, 24, '#F0B7A4') + path('M90 50 L84 60 L94 55 Z M110 50 L116 60 L106 55 Z', '#FFFFFF') + path('M100 48 Q100 76 116 84 Q128 88 128 76', 'none', stroke('#DE9A84', 12)) + path('M100 48 Q100 76 116 84 Q128 88 128 76', 'none', stroke('#E9AC98', 7)) + eye(91, 36, 3.4) + eye(109, 36, 3.4) +
+    path('M86 20 L84 8 L94 14 L100 4 L106 14 L116 8 L114 20 Z', '#FFC93C') + tilak(),
+  tailor: () => person({ top: '#2EC27E', bottom: '#2B2D42', glasses: true, skin: SKIN[1], prop: path('M82 56 Q82 90 78 100 M118 56 Q118 90 122 100', 'none', stroke('#FFC93C', 4)) }) + line(134, 96, 150, 76, '#94A3B8', 4) + line(134, 96, 152, 88, '#94A3B8', 4) + circ(130, 100, 5, 'none', stroke('#94A3B8', 3)) + circ(136, 104, 5, 'none', stroke('#94A3B8', 3)),
 };
 
 export const THINGS = {
@@ -144,4 +179,15 @@ export const THINGS = {
   bluejackal: () => THINGS.jackal().replace(/#B9927F/g, '#3D7BFF').replace(/#A47864/g, '#2F5BD3').replace(/#E9DCD3/g, '#9CC2FF'),
   cookingpot: () => path('M80 112 L70 128 M120 112 L130 128 M100 112 V128', 'none', stroke('#8A5A44', 6)) + path('M84 114 Q100 96 116 114 Z', '#FF7A3D') + path('M90 112 Q100 102 110 112 Z', '#FFC93C') + path('M46 50 H154 Q150 98 100 100 Q50 98 46 50 Z', '#94A3B8') + ell(100, 50, 54, 10, '#64748B') + path('M84 40 Q78 24 86 10 M110 40 Q104 24 112 10', 'none', stroke('#E3E6ED', 4)),
   field: () => rect(0, 30, 200, 110, '#A6E07A', 12) + [44, 70, 96, 122].map((y) => path(`M0 ${y} Q100 ${y - 10} 200 ${y}`, 'none', stroke('#7DC85B', 6))).join('') + [30, 70, 110, 150].map((x) => path(`M${x} 40 v-14 M${x - 6} 30 l6 -6 l6 6`, 'none', stroke('#F5B82E', 3))).join(''),
+  // ---------- things from the story shelf: Ramayana, Krishna, folk tales ----------
+  bow: () => path('M60 14 Q10 70 60 126', 'none', stroke('#8A5A44', 7)) + line(60, 14, 60, 126, '#F3F4F8', 2.5) + line(60, 70, 178, 70, '#C98B3E', 4) + path('M192 70 L172 60 L177 70 L172 80 Z', '#94A3B8') + path('M62 70 L78 60 L72 70 L78 80 Z', '#E2583E'),
+  butter: () => path('M44 60 Q36 120 100 124 Q164 120 156 60 Z', '#C97B4A') + ell(100, 60, 56, 12, '#A85E33') + path('M52 58 Q70 36 100 40 Q130 36 148 58 Q130 66 100 64 Q70 66 52 58 Z', '#FFFBEA') + ell(84, 46, 10, 6, '#fff') + path('M148 58 Q160 72 150 86 Q140 72 148 58 Z', '#FFFBEA'),
+  salt: () => path('M56 50 Q50 120 100 124 Q150 120 144 50 Q130 40 100 42 Q70 40 56 50 Z', '#E8DCC4') + ell(100, 48, 36, 10, '#D6C7AA') + path('M100 42 L100 24', 'none', stroke('#8A5A44', 4)) + path('M70 80 Q100 70 130 80 L130 100 Q100 110 70 100 Z', '#fff') + [82, 100, 118].map((x) => circ(x, 90, 3, '#3D7BFF')).join('') + [34, 48, 152, 166].map((x, i) => circ(x, 124 - (i % 2) * 6, 3.5, '#fff')).join(''),
+  needle: () => line(40, 118, 152, 24, '#C4C9D4', 7) + line(152, 24, 166, 12, '#C4C9D4', 4) + ell(58, 103, 8, 4.5, '#2B2D42', 'transform="rotate(-40 58 103)"') + path('M60 106 Q30 130 18 104 Q20 78 58 96', 'none', stroke('#E2583E', 3)),
+  wind: () => circ(60, 60, 30, '#DCEFFF') + circ(44, 72, 22, '#DCEFFF') + circ(80, 76, 24, '#DCEFFF') + eye(50, 56, 3.6) + eye(70, 56, 3.6) + ell(62, 74, 6, 7, '#8FB8DE') + path('M104 54 Q140 40 150 64 Q156 80 140 78 M104 76 Q160 66 176 92 Q184 110 164 108 M98 98 Q136 92 146 112', 'none', stroke('#8FB8DE', 5)),
+  mountain: () => path('M0 128 L60 40 L92 82 L120 28 L200 128 Z', '#6B7FB5') + path('M60 40 L48 58 L58 56 L68 62 L76 56 Z', '#fff') + path('M120 28 L104 52 L116 48 L124 56 L134 50 Z', '#fff') + path('M0 128 Q60 108 120 118 Q170 124 200 128 Z', '#5BB45E') + circ(170, 26, 12, '#FFE27A'),
+  sea: () => rect(4, 56, 192, 80, '#5DADE2', 16) + [66, 84, 102, 120].map((y, i) => path(`M${-20 + i * 10} ${y} Q${20 + i * 10} ${y - 12} ${60 + i * 10} ${y} T${140 + i * 10} ${y} T${220 + i * 10} ${y}`, 'none', stroke(i % 2 ? '#8FD0F5' : '#3D8FD1', 5))).join('') + circ(160, 28, 16, '#FFE27A') + path('M20 36 Q34 28 48 36 M60 20 Q72 12 84 20', 'none', stroke('#fff', 3)),
+  stone: () => ell(100, 124, 70, 6, '#E3E6ED') + ell(64, 104, 26, 18, '#9AA3B5') + ell(124, 100, 34, 22, '#B3BAC9') + ell(96, 78, 18, 13, '#8893A8') + ell(56, 98, 8, 5, '#C4CAD6') + ell(114, 92, 10, 6, '#D0D5E0'),
+  ring: () => circ(100, 82, 38, 'none', stroke('#FFC93C', 12)) + circ(100, 82, 38, 'none', stroke('#E8A51C', 3)) + path('M100 24 L116 40 L100 56 L84 40 Z', '#FF5A5F') + path('M100 24 L108 40 L100 56 Z', '#FF8A8E') + path('M84 40 L100 44 L116 40', 'none', stroke('#fff', 2)),
+  cotton: () => path('M40 70 Q30 110 70 118 Q100 128 130 118 Q170 110 160 70 Q150 50 120 52 Q100 36 80 52 Q50 50 40 70 Z', '#E9DCC4') + [[70, 72], [100, 60], [130, 72], [84, 92], [116, 92]].map(([x, y]) => circ(x, y, 18, '#fff')).join('') + [[70, 72], [100, 60], [130, 72]].map(([x, y]) => circ(x - 5, y - 5, 6, '#F6F7FB')).join(''),
 };

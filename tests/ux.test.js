@@ -3,7 +3,9 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { deviceKind, VOICE_SETUP, readable, contrastWithWhite, normalizeSettings, normalizeProgress } from '../js/logic.js';
+import { deviceKind, VOICE_SETUP, readable, contrastWithWhite, normalizeSettings, normalizeProgress, COMBO_MILESTONES, comboText } from '../js/logic.js';
+import { pictureExists } from '../js/art.js';
+import { worldLessons } from '../js/curriculum.js';
 import { makePhrase, songRound, progOf, musicLevel, MUSIC_STYLES } from '../js/sfx.js';
 
 const content = JSON.parse(readFileSync(new URL('../content.json', import.meta.url), 'utf8'));
@@ -72,4 +74,62 @@ test('comics remember where they were left, and the bigger-text choice is kept',
   assert.deepEqual(normalizeProgress(null, content).comicPos, {});
   assert.equal(normalizeSettings({ bigText: true }, content).bigText, true);
   assert.equal(normalizeSettings({ bigText: 'yes' }, content).bigText, false);
+});
+
+test('answers right first time in a row earn a cheer at 3, 5, 8 and 12', () => {
+  assert.deepEqual(COMBO_MILESTONES, [3, 5, 8, 12]);
+  assert.equal(comboText(3, 'en'), '3 in a row!');
+  assert.match(comboText(5, 'hi'), /लगातार 5/);
+  assert.match(comboText(8, 'both'), /8 in a row.*लगातार 8/);
+});
+
+// ---------- first stories for Kindergarten and Grade 1 ----------
+
+const words = (t) => t.trim().split(/\s+/).length;
+const KG_STORIES = ['hanuman-suraj', 'gilhari-setu', 'ram-diwali', 'makhan-chor', 'ganesh-chakkar', 'do-bakriyan', 'suraj-hawa', 'haathi-chinti'];
+const G1_STORIES = ['ram-dhanush', 'sone-ka-hiran', 'hanuman-lanka', 'sanjeevani', 'govardhan', 'lomdi-kauwa', 'billi-bandar', 'namak-gadha', 'haathi-darzi'];
+const story = (id) => content.stories.find((s) => s.id === id);
+
+test('Kindergarten and Grade 1 have easy stories from the Ramayana, Krishna, Ganesh and folk tales', () => {
+  for (const [level, ids, maxWords] of [['kg', KG_STORIES, 9], ['grade1', G1_STORIES, 11]]) {
+    for (const id of ids) {
+      const s = story(id);
+      assert.ok(s, id);
+      assert.equal(s.level, level, id);
+      assert.notEqual(s.kind, 'poem', id);
+      // short enough for the grade: a few pages, a line or two on each
+      assert.ok(s.pages.length >= 5 && s.pages.length <= 7, `${id}: ${s.pages.length} pages`);
+      for (const p of s.pages) {
+        assert.ok(words(p.hi) <= maxWords, `${id}: "${p.hi}" is too long for ${level}`);
+        assert.ok(p.en, id);
+        assert.ok(pictureExists(content.words[p.word]?.picture), `${id}: ${p.word} can be drawn`);
+      }
+      // two picture questions (no reading needed to answer) and a gentle lesson
+      assert.equal(s.questions.length, 2, id);
+      for (const q of s.questions) {
+        assert.ok(!q.text, `${id}: picture answers only`);
+        assert.equal(new Set(q.options).size, 3, `${id}: three different options`);
+        assert.ok(q.options.includes(q.answer), id);
+      }
+      assert.ok(s.moral?.hi && s.moral.en, `${id} ends with a lesson`);
+    }
+  }
+  // Kindergarten had only rhymes before
+  assert.ok(content.stories.filter((s) => s.level === 'kg' && s.kind !== 'poem' && s.lang !== 'en').length >= 8);
+});
+
+test('the story characters are picture words that can be drawn', () => {
+  for (const id of ['ram', 'sita', 'lakshman', 'hanuman', 'ravan', 'krishna', 'ganesh', 'golden-deer', 'donkey', 'tailor', 'bow', 'butter', 'mountain', 'sea', 'ring']) {
+    const w = content.words[id];
+    assert.ok(w?.hi && w.en, id);
+    assert.ok(pictureExists(w.picture), `${id} has a drawing`);
+  }
+});
+
+test('each new story has its own lesson: Vehicle Town for Kindergarten, the Jolly Jungle for Grade 1', () => {
+  for (const [worldId, ids] of [['town', KG_STORIES], ['jungle', G1_STORIES]]) {
+    const w = content.worlds.find((x) => x.id === worldId);
+    const linked = worldLessons(w).filter((l) => l.game === 'story').map((l) => l.config.story);
+    for (const id of ids) assert.ok(linked.includes(id), `${worldId} opens ${id}`);
+  }
 });

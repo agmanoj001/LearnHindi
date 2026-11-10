@@ -54,6 +54,8 @@ English runs alongside: A–Z, English names for every picture, English rhymes, 
 | Consonants क to ञ, ट to न, प to ज्ञ | Dig, deliver, trace, train, rescue and first sounds for each group |
 | Two- and three-letter words | Build words with the crane; read them at the post office |
 | Numbers 1 to 10 | Count passengers in Hindi and English |
+| Rhyme time | Seven बाल गीत to listen to and join in |
+| First stories | Eight listen-along stories of 5–7 pages, one short line a page: *Hanuman and the sun*, *The little squirrel* (the Ramayana's bridge), *The night of lamps* (why Diwali), *The butter thief* (Krishna), *Ganesh goes round*, *Two goats*, *The sun and the wind*, *The elephant and the ant*. Two picture questions each (no reading needed) and a one-line सीख |
 
 ### Kindergarten · Pip's Number Igloo (math, English)
 
@@ -80,6 +82,8 @@ English runs alongside: A–Z, English names for every picture, English rhymes, 
 | Rhyme time | नल / जल, car / star |
 | Let's read little sentences | Put 3–5 words in order |
 | Story time | 7 picture stories with picture questions |
+| Tales from the Ramayana | *Ram and the bow*, *The golden deer*, *Hanuman's great leap*, *Hanuman brings the mountain*: 6–7 pages, one or two short sentences a page, told gently for six-year-olds (no battle scenes) |
+| Folk tales | *The Govardhan hill* (Krishna), *The fox and the crow*, *Two cats and a monkey*, *The donkey and the salt*, *The elephant and the tailor*, each ending with its सीख |
 
 ### Grade 1 · Tiko's Number Carnival (math, English)
 

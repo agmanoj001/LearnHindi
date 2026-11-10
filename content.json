@@ -346,7 +346,26 @@
     "comic-rpapa": { "hi": "रिमझिम के पापा", "translit": "rimjhim ke papa", "en": "Rimjhim's father", "picture": "comic-rpapa" },
     "comic-amma": { "hi": "दादी अम्मा", "translit": "daadi amma", "en": "Dadi Amma", "picture": "comic-amma" },
     "comic-sunny": { "hi": "सनी", "translit": "sunny", "en": "Sunny", "picture": "comic-sunny" },
-    "comic-biscuit": { "hi": "बिस्कुट", "translit": "biskut", "en": "Biscuit the puppy", "picture": "comic-biscuit" }
+    "comic-biscuit": { "hi": "बिस्कुट", "translit": "biskut", "en": "Biscuit the puppy", "picture": "comic-biscuit" },
+    "ram": { "hi": "राम", "translit": "raam", "en": "Ram", "picture": "ram" },
+    "sita": { "hi": "सीता", "translit": "seeta", "en": "Sita", "picture": "sita" },
+    "lakshman": { "hi": "लक्ष्मण", "translit": "lakshman", "en": "Lakshman", "picture": "lakshman" },
+    "hanuman": { "hi": "हनुमान", "translit": "hanumaan", "en": "Hanuman", "picture": "hanuman" },
+    "ravan": { "hi": "रावण", "translit": "raavan", "en": "Ravan", "picture": "ravan" },
+    "krishna": { "hi": "कृष्ण", "translit": "krishn", "en": "Krishna", "picture": "krishna" },
+    "ganesh": { "hi": "गणेश", "translit": "ganesh", "en": "Ganesh", "picture": "ganesh" },
+    "tailor": { "hi": "दर्ज़ी", "translit": "darzee", "en": "tailor", "picture": "tailor" },
+    "bow": { "hi": "धनुष", "translit": "dhanush", "en": "bow", "picture": "bow" },
+    "butter": { "hi": "माखन", "translit": "maakhan", "en": "butter", "picture": "butter" },
+    "salt": { "hi": "नमक", "translit": "namak", "en": "salt", "picture": "salt" },
+    "needle": { "hi": "सुई", "translit": "suee", "en": "needle", "picture": "needle" },
+    "wind": { "hi": "हवा", "translit": "hawa", "en": "wind", "picture": "wind" },
+    "mountain": { "hi": "पहाड़", "translit": "pahaad", "en": "mountain", "picture": "mountain" },
+    "sea": { "hi": "समुद्र", "translit": "samudra", "en": "sea", "picture": "sea" },
+    "stone": { "hi": "पत्थर", "translit": "patthar", "en": "stone", "picture": "stone" },
+    "ring": { "hi": "अँगूठी", "translit": "angoothee", "en": "ring", "picture": "ring" },
+    "cotton": { "hi": "रुई", "translit": "ruee", "en": "cotton", "picture": "cotton" },
+    "golden-deer": { "hi": "सोने का हिरण", "translit": "sone ka hiran", "en": "golden deer", "picture": "golden-deer" }
   },
   "sentences": [
     { "id": "bus-here", "about": "bus", "hi": "बस आई!", "translit": "bas aai", "en": "The bus is here!", "level": "grade2" },
@@ -932,6 +951,159 @@
       ]
     },
     {
+      "id": "hanuman-suraj",
+      "level": "kg",
+      "title": { "hi": "हनुमान और सूरज", "en": "Hanuman and the sun" },
+      "cover": "hanuman",
+      "pages": [
+        { "word": "hanuman", "hi": "यह नन्हा हनुमान है।", "en": "This is little Hanuman." },
+        { "word": "sun", "hi": "सुबह लाल सूरज निकला।", "en": "In the morning the red sun came up." },
+        { "word": "mango", "hi": "हनुमान बोला, “यह बड़ा आम है!”", "en": "Hanuman said, “That is a big mango!”" },
+        { "word": "hanuman", "hi": "हनुमान उड़कर सूरज के पास गया।", "en": "Hanuman flew up to the sun." },
+        { "word": "sun", "hi": "सूरज बोला, “मैं फल नहीं, सूरज हूँ!”", "en": "The sun said, “I am not a fruit, I am the sun!”" },
+        { "word": "hanuman", "hi": "हनुमान हँसा और घर लौट आया।", "en": "Hanuman laughed and came home." }
+      ],
+      "questions": [
+        { "hi": "हनुमान ने सूरज को क्या समझा?", "en": "What did Hanuman think the sun was?", "answer": "mango", "options": ["mango", "banana", "apple"] },
+        { "hi": "कौन उड़कर सूरज के पास गया?", "en": "Who flew up to the sun?", "answer": "hanuman", "options": ["hanuman", "monkey", "bird"] }
+      ],
+      "moral": { "hi": "हर गोल चीज़ फल नहीं होती!", "en": "Not every round thing is a fruit!" }
+    },
+    {
+      "id": "gilhari-setu",
+      "level": "kg",
+      "title": { "hi": "नन्ही गिलहरी", "en": "The little squirrel" },
+      "cover": "squirrel",
+      "pages": [
+        { "word": "sea", "hi": "सामने बड़ा समुद्र था।", "en": "A big sea lay ahead." },
+        { "word": "monkey", "hi": "बंदर पुल बना रहे थे।", "en": "The monkeys were building a bridge." },
+        { "word": "stone", "hi": "वे बड़े-बड़े पत्थर लाए।", "en": "They brought big stones." },
+        { "word": "squirrel", "hi": "नन्ही गिलहरी छोटे कंकड़ लाई।", "en": "A little squirrel brought tiny pebbles." },
+        { "word": "monkey", "hi": "बंदर हँसे, “तुम छोटी हो!”", "en": "The monkeys laughed, “You are so small!”" },
+        { "word": "ram", "hi": "राम बोले, “छोटी मदद भी बड़ी है।”", "en": "Ram said, “Small help is big help too.”" },
+        { "word": "squirrel", "hi": "राम ने उसे सहलाया। तीन धारियाँ बन गईं!", "en": "Ram stroked her back. Three stripes appeared!" }
+      ],
+      "questions": [
+        { "hi": "गिलहरी क्या लाई?", "en": "What did the squirrel bring?", "answer": "stone", "options": ["stone", "banana", "flower"] },
+        { "hi": "पुल कौन बना रहे थे?", "en": "Who was building the bridge?", "answer": "monkey", "options": ["monkey", "elephant", "cow"] }
+      ],
+      "moral": { "hi": "छोटी मदद भी बड़ी होती है।", "en": "Even small help is big help." }
+    },
+    {
+      "id": "ram-diwali",
+      "level": "kg",
+      "title": { "hi": "दीयों की रात", "en": "The night of lamps" },
+      "cover": "lamp",
+      "pages": [
+        { "word": "ram", "hi": "राम चौदह साल बाद घर लौटे।", "en": "Ram came home after fourteen years." },
+        { "word": "sita", "hi": "साथ में सीता और लक्ष्मण भी थे।", "en": "Sita and Lakshman came home too." },
+        { "word": "house", "hi": "सबने घर साफ़ किए।", "en": "Everyone cleaned their homes." },
+        { "word": "lamp", "hi": "हर घर में दीये जले।", "en": "Lamps were lit in every home." },
+        { "word": "laddoo", "hi": "सबने मिठाई बाँटी।", "en": "Everyone shared sweets." },
+        { "word": "lamp", "hi": "यही रात दिवाली बनी!", "en": "That night became Diwali!" }
+      ],
+      "questions": [
+        { "hi": "घरों में क्या जले?", "en": "What was lit in the homes?", "answer": "lamp", "options": ["lamp", "kite", "balloon"] },
+        { "hi": "कौन घर लौटे?", "en": "Who came home?", "answer": "ram", "options": ["ram", "king", "farmer"] }
+      ],
+      "moral": { "hi": "अँधेरे में एक दीया भी बहुत है।", "en": "Even one lamp is a lot in the dark." }
+    },
+    {
+      "id": "makhan-chor",
+      "level": "kg",
+      "title": { "hi": "माखन चोर", "en": "The butter thief" },
+      "cover": "krishna",
+      "pages": [
+        { "word": "krishna", "hi": "छोटे कृष्ण को माखन बहुत पसंद था।", "en": "Little Krishna loved butter." },
+        { "word": "mother", "hi": "माँ ने माखन ऊपर टाँग दिया।", "en": "Mother hung the butter up high." },
+        { "word": "butter", "hi": "कृष्ण बोले, “माखन तो चाहिए!”", "en": "Krishna said, “But I want butter!”" },
+        { "word": "boy", "hi": "दोस्त आए। एक के ऊपर एक चढ़े।", "en": "Friends came. They climbed on each other." },
+        { "word": "butter", "hi": "कृष्ण ने माखन खा लिया!", "en": "Krishna ate the butter!" },
+        { "word": "mother", "hi": "माँ हँसीं, “मेरा माखन चोर!”", "en": "Mother laughed, “My little butter thief!”" }
+      ],
+      "questions": [
+        { "hi": "कृष्ण को क्या पसंद था?", "en": "What did Krishna love?", "answer": "butter", "options": ["butter", "roti", "rice"] },
+        { "hi": "माखन किसने ऊपर टाँगा?", "en": "Who hung the butter up high?", "answer": "mother", "options": ["mother", "father", "grandmother"] }
+      ],
+      "moral": { "hi": "दोस्त मिलकर हर काम कर लेते हैं।", "en": "Friends together can do anything." }
+    },
+    {
+      "id": "ganesh-chakkar",
+      "level": "kg",
+      "title": { "hi": "गणेश जी का चक्कर", "en": "Ganesh goes round" },
+      "cover": "ganesh",
+      "pages": [
+        { "word": "ganesh", "hi": "गणेश और उनके भाई में दौड़ थी।", "en": "Ganesh and his brother had a race." },
+        { "word": "mother", "hi": "माँ बोलीं, “दुनिया का चक्कर लगाओ।”", "en": "Mother said, “Go round the whole world.”" },
+        { "word": "peacock", "hi": "भाई मोर पर उड़ गए।", "en": "Brother flew off on his peacock." },
+        { "word": "mouse", "hi": "गणेश का चूहा बहुत छोटा था।", "en": "Ganesh’s mouse was very small." },
+        { "word": "ganesh", "hi": "गणेश ने माँ-पिता का चक्कर लगाया।", "en": "Ganesh went round his mother and father." },
+        { "word": "ganesh", "hi": "“आप ही मेरी दुनिया हैं!” गणेश जीत गए।", "en": "“You are my whole world!” Ganesh won." }
+      ],
+      "questions": [
+        { "hi": "गणेश की सवारी कौन है?", "en": "Who does Ganesh ride?", "answer": "mouse", "options": ["mouse", "peacock", "horse"] },
+        { "hi": "भाई किस पर उड़े?", "en": "What did brother fly on?", "answer": "peacock", "options": ["peacock", "bird", "kite"] }
+      ],
+      "moral": { "hi": "माता-पिता ही हमारी दुनिया हैं।", "en": "Our parents are our whole world." }
+    },
+    {
+      "id": "do-bakriyan",
+      "level": "kg",
+      "title": { "hi": "दो बकरियाँ", "en": "Two goats" },
+      "cover": "goat",
+      "pages": [
+        { "word": "bridge", "hi": "एक पतला पुल था।", "en": "There was a narrow bridge." },
+        { "word": "goat", "hi": "एक बकरी इधर से आई।", "en": "One goat came from this side." },
+        { "word": "goat", "hi": "दूसरी बकरी उधर से आई।", "en": "Another goat came from that side." },
+        { "word": "goat", "hi": "“तुम हटो!” “नहीं, तुम हटो!”", "en": "“You move!” “No, you move!”" },
+        { "word": "river", "hi": "छपाक! दोनों नदी में गिरीं।", "en": "Splash! Both fell in the river." },
+        { "word": "goat", "hi": "दो और बकरियाँ आईं। एक बैठी, दूसरी पार गई।", "en": "Two more goats came. One sat down, the other stepped over." }
+      ],
+      "questions": [
+        { "hi": "बकरियाँ कहाँ गिरीं?", "en": "Where did the goats fall?", "answer": "river", "options": ["river", "house", "tree"] },
+        { "hi": "पुल पर कौन था?", "en": "Who was on the bridge?", "answer": "goat", "options": ["goat", "cow", "dog"] }
+      ],
+      "moral": { "hi": "थोड़ा झुकने से रास्ता बनता है।", "en": "Giving way a little makes the way." }
+    },
+    {
+      "id": "suraj-hawa",
+      "level": "kg",
+      "title": { "hi": "सूरज और हवा", "en": "The sun and the wind" },
+      "cover": "sun",
+      "pages": [
+        { "word": "wind", "hi": "हवा बोली, “मैं सबसे ताक़तवर हूँ!”", "en": "The wind said, “I am the strongest!”" },
+        { "word": "sun", "hi": "सूरज बोला, “देखें, कौन जीतता है।”", "en": "The sun said, “Let us see who wins.”" },
+        { "word": "farmer", "hi": "एक किसान कोट पहनकर जा रहा था।", "en": "A farmer was walking by in his coat." },
+        { "word": "wind", "hi": "हवा ज़ोर से चली। किसान ने कोट कसकर पकड़ा।", "en": "The wind blew hard. The farmer held his coat tight." },
+        { "word": "sun", "hi": "सूरज धीरे से चमका। गरमी हुई।", "en": "The sun shone gently. It grew warm." },
+        { "word": "coat", "hi": "किसान ने कोट उतार दिया। सूरज जीता!", "en": "The farmer took off his coat. The sun won!" }
+      ],
+      "questions": [
+        { "hi": "कौन जीता?", "en": "Who won?", "answer": "sun", "options": ["sun", "wind", "cloud"] },
+        { "hi": "किसान ने क्या उतारा?", "en": "What did the farmer take off?", "answer": "coat", "options": ["coat", "bag", "umbrella"] }
+      ],
+      "moral": { "hi": "प्यार से काम बनता है, ज़ोर से नहीं।", "en": "Gentleness works better than force." }
+    },
+    {
+      "id": "haathi-chinti",
+      "level": "kg",
+      "title": { "hi": "हाथी और चींटी", "en": "The elephant and the ant" },
+      "cover": "elephant",
+      "pages": [
+        { "word": "elephant", "hi": "एक घमंडी हाथी था।", "en": "There was a proud elephant." },
+        { "word": "ant", "hi": "वह चींटियों पर पानी फेंकता था।", "en": "He sprayed water on the ants." },
+        { "word": "ant", "hi": "एक चींटी बोली, “यह ठीक नहीं!”", "en": "One ant said, “That is not right!”" },
+        { "word": "elephant", "hi": "चींटी हाथी की सूँड़ में चढ़ गई।", "en": "The ant climbed into the elephant’s trunk." },
+        { "word": "elephant", "hi": "हाथी चिल्लाया, “माफ़ करो!”", "en": "The elephant cried, “Sorry!”" },
+        { "word": "ant", "hi": "अब हाथी और चींटी दोस्त हैं।", "en": "Now the elephant and the ant are friends." }
+      ],
+      "questions": [
+        { "hi": "कौन घमंडी था?", "en": "Who was proud?", "answer": "elephant", "options": ["elephant", "ant", "monkey"] },
+        { "hi": "हाथी किस पर पानी फेंकता था?", "en": "Who did the elephant spray water on?", "answer": "ant", "options": ["ant", "monkey", "cat"] }
+      ],
+      "moral": { "hi": "किसी को छोटा मत समझो।", "en": "Never look down on anyone small." }
+    },
+    {
       "id": "red-bus",
       "level": "grade1",
       "title": { "hi": "लाल बस", "en": "The red bus" },
@@ -1206,6 +1378,187 @@
         { "en": "Who jumped over the moon?", "answer": "cow", "options": ["cow", "cat", "dog"] },
         { "en": "Which word rhymes with moon?", "answer": "spoon", "options": ["spoon", "cat", "dog"] }
       ]
+    },
+    {
+      "id": "ram-dhanush",
+      "level": "grade1",
+      "title": { "hi": "राम और धनुष", "en": "Ram and the bow" },
+      "cover": "bow",
+      "pages": [
+        { "word": "king", "hi": "राजा जनक की बेटी थी सीता।", "en": "King Janak had a daughter, Sita." },
+        { "word": "bow", "hi": "राजा के पास एक भारी धनुष था।", "en": "The king had a very heavy bow." },
+        { "word": "king", "hi": "राजा बोले, “जो धनुष उठाएगा, सीता की शादी उसी से होगी।”", "en": "The king said, “Whoever lifts the bow will marry Sita.”" },
+        { "word": "crown", "hi": "बहुत राजा आए। कोई धनुष हिला भी न सका।", "en": "Many kings came. None could even move the bow." },
+        { "word": "ram", "hi": "फिर राम आए। उन्होंने धनुष आराम से उठाया।", "en": "Then Ram came. He lifted the bow with ease." },
+        { "word": "bow", "hi": "टंकार! धनुष टूट गया।", "en": "Twang! The bow broke." },
+        { "word": "sita", "hi": "सीता ने राम को माला पहनाई।", "en": "Sita put a garland on Ram." }
+      ],
+      "questions": [
+        { "hi": "धनुष किसने उठाया?", "en": "Who lifted the bow?", "answer": "ram", "options": ["ram", "lakshman", "king"] },
+        { "hi": "सीता ने राम को क्या पहनाया?", "en": "What did Sita put on Ram?", "answer": "garland", "options": ["garland", "crown", "ring"] }
+      ],
+      "moral": { "hi": "असली ताक़त दिखावे में नहीं होती।", "en": "True strength does not show off." }
+    },
+    {
+      "id": "sone-ka-hiran",
+      "level": "grade1",
+      "title": { "hi": "सोने का हिरण", "en": "The golden deer" },
+      "cover": "golden-deer",
+      "pages": [
+        { "word": "tree", "hi": "राम, सीता और लक्ष्मण जंगल में रहते थे।", "en": "Ram, Sita and Lakshman lived in the forest." },
+        { "word": "golden-deer", "hi": "एक दिन सोने का हिरण आया।", "en": "One day a golden deer came." },
+        { "word": "sita", "hi": "सीता बोलीं, “कितना सुंदर! इसे पकड़ो।”", "en": "Sita said, “How lovely! Please catch it.”" },
+        { "word": "ram", "hi": "राम हिरण के पीछे गए।", "en": "Ram went after the deer." },
+        { "word": "ravan", "hi": "वह हिरण रावण की चाल थी!", "en": "The deer was Ravan’s trick!" },
+        { "word": "ravan", "hi": "रावण सीता को ले गया।", "en": "Ravan took Sita away." },
+        { "word": "ram", "hi": "राम उदास हुए। वे सीता को ढूँढने निकले।", "en": "Ram was sad. He set out to find Sita." }
+      ],
+      "questions": [
+        { "hi": "हिरण किसकी चाल थी?", "en": "Whose trick was the deer?", "answer": "ravan", "options": ["ravan", "hanuman", "king"] },
+        { "hi": "कौन आया था?", "en": "Who had come?", "answer": "golden-deer", "options": ["golden-deer", "goat", "cow"] }
+      ],
+      "moral": { "hi": "हर चमकती चीज़ सच्ची नहीं होती।", "en": "Not everything that shines is true." }
+    },
+    {
+      "id": "hanuman-lanka",
+      "level": "grade1",
+      "title": { "hi": "हनुमान की छलाँग", "en": "Hanuman’s great leap" },
+      "cover": "hanuman",
+      "pages": [
+        { "word": "hanuman", "hi": "हनुमान राम के सच्चे दोस्त थे।", "en": "Hanuman was Ram’s true friend." },
+        { "word": "sea", "hi": "सीता समुद्र के पार लंका में थीं।", "en": "Sita was across the sea, in Lanka." },
+        { "word": "hanuman", "hi": "हनुमान ने लंबी छलाँग लगाई!", "en": "Hanuman took a giant leap!" },
+        { "word": "tree", "hi": "सीता एक पेड़ के नीचे उदास बैठी थीं।", "en": "Sita sat sadly under a tree." },
+        { "word": "ring", "hi": "हनुमान ने उन्हें राम की अँगूठी दी।", "en": "Hanuman gave her Ram’s ring." },
+        { "word": "sita", "hi": "सीता मुस्कुराईं, “राम आएँगे!”", "en": "Sita smiled, “Ram will come!”" }
+      ],
+      "questions": [
+        { "hi": "हनुमान ने सीता को क्या दिया?", "en": "What did Hanuman give Sita?", "answer": "ring", "options": ["ring", "flower", "mango"] },
+        { "hi": "हनुमान ने क्या पार किया?", "en": "What did Hanuman cross?", "answer": "sea", "options": ["sea", "river", "mountain"] }
+      ],
+      "moral": { "hi": "सच्चा दोस्त हर मुश्किल पार कर लेता है।", "en": "A true friend crosses every hurdle." }
+    },
+    {
+      "id": "sanjeevani",
+      "level": "grade1",
+      "title": { "hi": "हनुमान लाए पहाड़", "en": "Hanuman brings the mountain" },
+      "cover": "mountain",
+      "pages": [
+        { "word": "lakshman", "hi": "लड़ाई में लक्ष्मण को चोट लगी।", "en": "In the battle Lakshman was hurt." },
+        { "word": "ram", "hi": "राम रो पड़े, “मेरा भाई!”", "en": "Ram wept, “My brother!”" },
+        { "word": "mountain", "hi": "वैद्य बोले, “पहाड़ पर एक बूटी है। वही बचाएगी।”", "en": "The healer said, “A herb on the mountain will save him.”" },
+        { "word": "hanuman", "hi": "हनुमान उड़कर पहाड़ पर पहुँचे।", "en": "Hanuman flew to the mountain." },
+        { "word": "leaf", "hi": "बहुत पौधे थे। बूटी कौन-सी?", "en": "So many plants. Which one was the herb?" },
+        { "word": "mountain", "hi": "हनुमान पूरा पहाड़ ही उठा लाए!", "en": "Hanuman lifted the whole mountain!" },
+        { "word": "lakshman", "hi": "लक्ष्मण ठीक हो गए। सब खुश!", "en": "Lakshman was well again. Everyone cheered!" }
+      ],
+      "questions": [
+        { "hi": "हनुमान क्या उठा लाए?", "en": "What did Hanuman bring?", "answer": "mountain", "options": ["mountain", "stone", "tree"] },
+        { "hi": "किसे चोट लगी थी?", "en": "Who was hurt?", "answer": "lakshman", "options": ["lakshman", "ram", "hanuman"] }
+      ],
+      "moral": { "hi": "जब रास्ता न दिखे, तब भी हिम्मत मत छोड़ो।", "en": "When you cannot see the way, do not give up." }
+    },
+    {
+      "id": "govardhan",
+      "level": "grade1",
+      "title": { "hi": "गोवर्धन पर्वत", "en": "The Govardhan hill" },
+      "cover": "krishna",
+      "pages": [
+        { "word": "cloud", "hi": "गाँव पर काले बादल छा गए।", "en": "Dark clouds covered the village." },
+        { "word": "rain", "hi": "ज़ोर की बारिश होने लगी। सब डर गए।", "en": "Heavy rain began. Everyone was scared." },
+        { "word": "cow", "hi": "गायें भीग रही थीं।", "en": "The cows were getting soaked." },
+        { "word": "krishna", "hi": "कृष्ण ने गोवर्धन पहाड़ उठा लिया!", "en": "Krishna lifted up the Govardhan hill!" },
+        { "word": "mountain", "hi": "सब पहाड़ के नीचे आ गए।", "en": "Everyone came under the hill." },
+        { "word": "sun", "hi": "सात दिन बाद बारिश रुकी। सूरज निकला।", "en": "After seven days the rain stopped. The sun came out." }
+      ],
+      "questions": [
+        { "hi": "कृष्ण ने क्या उठाया?", "en": "What did Krishna lift?", "answer": "mountain", "options": ["mountain", "house", "tree"] },
+        { "hi": "बारिश में कौन भीग रही थीं?", "en": "Who was getting soaked in the rain?", "answer": "cow", "options": ["cow", "goat", "cat"] }
+      ],
+      "moral": { "hi": "मुसीबत में सबका साथ दो।", "en": "In trouble, stand by everyone." }
+    },
+    {
+      "id": "lomdi-kauwa",
+      "level": "grade1",
+      "title": { "hi": "लोमड़ी और कौआ", "en": "The fox and the crow" },
+      "cover": "fox",
+      "pages": [
+        { "word": "crow", "hi": "कौए को रोटी का टुकड़ा मिला।", "en": "A crow found a piece of roti." },
+        { "word": "tree", "hi": "वह पेड़ पर जा बैठा।", "en": "He sat on a tree." },
+        { "word": "fox", "hi": "नीचे से लोमड़ी ने देखा।", "en": "A fox saw him from below." },
+        { "word": "fox", "hi": "लोमड़ी बोली, “वाह! तुम्हारी आवाज़ कितनी मीठी होगी!”", "en": "The fox said, “Oh! Your voice must be so sweet!”" },
+        { "word": "crow", "hi": "कौए ने गाया, “काँव!” रोटी गिर गई।", "en": "The crow sang, “Caw!” The roti fell." },
+        { "word": "roti", "hi": "लोमड़ी रोटी लेकर भाग गई।", "en": "The fox ran away with the roti." }
+      ],
+      "questions": [
+        { "hi": "कौए के पास क्या था?", "en": "What did the crow have?", "answer": "roti", "options": ["roti", "banana", "laddoo"] },
+        { "hi": "रोटी किसने खाई?", "en": "Who ate the roti?", "answer": "fox", "options": ["fox", "crow", "cat"] }
+      ],
+      "moral": { "hi": "झूठी तारीफ़ से सावधान रहो।", "en": "Beware of false praise." }
+    },
+    {
+      "id": "billi-bandar",
+      "level": "grade1",
+      "title": { "hi": "दो बिल्लियाँ और बंदर", "en": "Two cats and a monkey" },
+      "cover": "monkey",
+      "pages": [
+        { "word": "cat", "hi": "दो बिल्लियों को एक रोटी मिली।", "en": "Two cats found one roti." },
+        { "word": "cat", "hi": "“मेरी!” “नहीं, मेरी!” दोनों लड़ने लगीं।", "en": "“Mine!” “No, mine!” They began to fight." },
+        { "word": "monkey", "hi": "एक बंदर आया। “मैं बराबर बाँट दूँ?”", "en": "A monkey came. “Shall I share it equally?”" },
+        { "word": "roti", "hi": "बंदर ने रोटी तोड़ी। एक टुकड़ा बड़ा था।", "en": "The monkey broke the roti. One piece was bigger." },
+        { "word": "monkey", "hi": "बंदर ने बड़ा टुकड़ा खा लिया। अब दूसरा बड़ा हो गया!", "en": "The monkey ate the bigger piece. Now the other was bigger!" },
+        { "word": "monkey", "hi": "खाते-खाते बंदर ने पूरी रोटी खा ली।", "en": "Bite by bite, the monkey ate it all." },
+        { "word": "cat", "hi": "बिल्लियाँ देखती रह गईं।", "en": "The cats could only watch." }
+      ],
+      "questions": [
+        { "hi": "रोटी किसने खाई?", "en": "Who ate the roti?", "answer": "monkey", "options": ["monkey", "cat", "dog"] },
+        { "hi": "रोटी किसे मिली थी?", "en": "Who had found the roti?", "answer": "cat", "options": ["cat", "monkey", "fox"] }
+      ],
+      "moral": { "hi": "आपस में लड़ोगे, तो कोई तीसरा फ़ायदा उठाएगा।", "en": "Fight each other, and a third one gains." }
+    },
+    {
+      "id": "namak-gadha",
+      "level": "grade1",
+      "title": { "hi": "नमक वाला गधा", "en": "The donkey and the salt" },
+      "cover": "donkey",
+      "pages": [
+        { "word": "donkey", "hi": "एक गधा नमक की बोरी ले जा रहा था।", "en": "A donkey was carrying a sack of salt." },
+        { "word": "river", "hi": "रास्ते में नदी थी। गधा फिसल गया।", "en": "There was a river on the way. The donkey slipped." },
+        { "word": "salt", "hi": "नमक पानी में घुल गया। बोरी हल्की हो गई!", "en": "The salt melted in the water. The sack got light!" },
+        { "word": "donkey", "hi": "अगले दिन गधा जान-बूझकर गिरा।", "en": "The next day the donkey fell on purpose." },
+        { "word": "cotton", "hi": "मालिक समझ गया। उसने गधे पर रुई की बोरी लादी।", "en": "The owner understood. He loaded a sack of cotton." },
+        { "word": "river", "hi": "गधा फिर गिरा। रुई भीगकर भारी हो गई!", "en": "The donkey fell again. The wet cotton got heavy!" },
+        { "word": "donkey", "hi": "गधे ने फिर कभी चालाकी नहीं की।", "en": "The donkey never tried that trick again." }
+      ],
+      "questions": [
+        { "hi": "पहले दिन बोरी में क्या था?", "en": "What was in the sack on the first day?", "answer": "salt", "options": ["salt", "cotton", "rice"] },
+        { "hi": "भीगकर क्या भारी हुआ?", "en": "What got heavy when wet?", "answer": "cotton", "options": ["cotton", "salt", "roti"] }
+      ],
+      "moral": { "hi": "चालाकी ज़्यादा दिन नहीं चलती।", "en": "Tricks do not work for long." }
+    },
+    {
+      "id": "haathi-darzi",
+      "level": "grade1",
+      "title": { "hi": "हाथी और दर्ज़ी", "en": "The elephant and the tailor" },
+      "cover": "tailor",
+      "pages": [
+        { "word": "elephant", "hi": "एक हाथी रोज़ नदी पर जाता था।", "en": "An elephant went to the river every day." },
+        { "word": "tailor", "hi": "रास्ते में एक दर्ज़ी की दुकान थी।", "en": "A tailor’s shop was on the way." },
+        { "word": "banana", "hi": "दर्ज़ी रोज़ हाथी को केला देता था।", "en": "The tailor gave the elephant a banana every day." },
+        { "word": "needle", "hi": "एक दिन दर्ज़ी ने सूँड़ में सुई चुभो दी!", "en": "One day the tailor pricked his trunk with a needle!" },
+        {
+          "word": "water",
+          "hi": "हाथी चुपचाप नदी गया। सूँड़ में कीचड़ वाला पानी भरा।",
+          "en": "The elephant quietly went to the river and filled his trunk with muddy water."
+        },
+        { "word": "tailor", "hi": "छप! हाथी ने दुकान पर पानी फेंक दिया।", "en": "Splash! He sprayed the whole shop." },
+        { "word": "elephant", "hi": "दर्ज़ी ने माफ़ी माँगी। फिर दोनों दोस्त बने।", "en": "The tailor said sorry. Then they were friends again." }
+      ],
+      "questions": [
+        { "hi": "दर्ज़ी रोज़ क्या देता था?", "en": "What did the tailor give every day?", "answer": "banana", "options": ["banana", "mango", "roti"] },
+        { "hi": "दर्ज़ी ने किससे चुभोया?", "en": "What did the tailor prick with?", "answer": "needle", "options": ["needle", "stone", "bow"] }
+      ],
+      "moral": { "hi": "जैसा करोगे, वैसा भरोगे।", "en": "What you do comes back to you." }
     },
     {
       "id": "bear-bicycle",
@@ -3590,6 +3943,46 @@
               "config": { "story": "rhyme-barish" }
             }
           ]
+        },
+        {
+          "id": "k-kahani",
+          "title": { "hi": "पहली कहानियाँ", "en": "First stories" },
+          "skill": "Listening · Stories",
+          "icon": "hanuman",
+          "lessons": [
+            {
+              "id": "k-kahani-1",
+              "game": "story",
+              "icon": "hanuman",
+              "title": { "hi": "हनुमान और सूरज", "en": "Hanuman and the sun" },
+              "config": { "story": "hanuman-suraj" }
+            },
+            {
+              "id": "k-kahani-2",
+              "game": "story",
+              "icon": "squirrel",
+              "title": { "hi": "नन्ही गिलहरी", "en": "The little squirrel" },
+              "config": { "story": "gilhari-setu" }
+            },
+            { "id": "k-kahani-3", "game": "story", "icon": "lamp", "title": { "hi": "दीयों की रात", "en": "The night of lamps" }, "config": { "story": "ram-diwali" } },
+            { "id": "k-kahani-4", "game": "story", "icon": "krishna", "title": { "hi": "माखन चोर", "en": "The butter thief" }, "config": { "story": "makhan-chor" } },
+            {
+              "id": "k-kahani-5",
+              "game": "story",
+              "icon": "ganesh",
+              "title": { "hi": "गणेश जी का चक्कर", "en": "Ganesh goes round" },
+              "config": { "story": "ganesh-chakkar" }
+            },
+            { "id": "k-kahani-6", "game": "story", "icon": "goat", "title": { "hi": "दो बकरियाँ", "en": "Two goats" }, "config": { "story": "do-bakriyan" } },
+            { "id": "k-kahani-7", "game": "story", "icon": "sun", "title": { "hi": "सूरज और हवा", "en": "The sun and the wind" }, "config": { "story": "suraj-hawa" } },
+            {
+              "id": "k-kahani-8",
+              "game": "story",
+              "icon": "elephant",
+              "title": { "hi": "हाथी और चींटी", "en": "The elephant and the ant" },
+              "config": { "story": "haathi-chinti" }
+            }
+          ]
         }
       ],
       "tags": ["letters", "phonics", "reading"]
@@ -4177,6 +4570,67 @@
               "config": { "story": "gappu-balloon" }
             },
             { "id": "g1-guides-2", "game": "story", "icon": "penguin", "title": { "hi": "पिप का स्नोमैन", "en": "Pip’s snowman" }, "config": { "story": "pip-snowman" } }
+          ]
+        },
+        {
+          "id": "g1-ramayan",
+          "title": { "hi": "रामायण की कहानियाँ", "en": "Tales from the Ramayana" },
+          "skill": "Reading · Stories",
+          "icon": "ram",
+          "lessons": [
+            { "id": "g1-ramayan-1", "game": "story", "icon": "bow", "title": { "hi": "राम और धनुष", "en": "Ram and the bow" }, "config": { "story": "ram-dhanush" } },
+            {
+              "id": "g1-ramayan-2",
+              "game": "story",
+              "icon": "golden-deer",
+              "title": { "hi": "सोने का हिरण", "en": "The golden deer" },
+              "config": { "story": "sone-ka-hiran" }
+            },
+            {
+              "id": "g1-ramayan-3",
+              "game": "story",
+              "icon": "hanuman",
+              "title": { "hi": "हनुमान की छलाँग", "en": "Hanuman’s great leap" },
+              "config": { "story": "hanuman-lanka" }
+            },
+            {
+              "id": "g1-ramayan-4",
+              "game": "story",
+              "icon": "mountain",
+              "title": { "hi": "हनुमान लाए पहाड़", "en": "Hanuman brings the mountain" },
+              "config": { "story": "sanjeevani" }
+            }
+          ]
+        },
+        {
+          "id": "g1-lok",
+          "title": { "hi": "लोक कथाएँ", "en": "Folk tales" },
+          "skill": "Reading · Stories",
+          "icon": "fox",
+          "lessons": [
+            { "id": "g1-lok-1", "game": "story", "icon": "krishna", "title": { "hi": "गोवर्धन पर्वत", "en": "The Govardhan hill" }, "config": { "story": "govardhan" } },
+            { "id": "g1-lok-2", "game": "story", "icon": "fox", "title": { "hi": "लोमड़ी और कौआ", "en": "The fox and the crow" }, "config": { "story": "lomdi-kauwa" } },
+            {
+              "id": "g1-lok-3",
+              "game": "story",
+              "icon": "monkey",
+              "title": { "hi": "दो बिल्लियाँ और बंदर", "en": "Two cats and a monkey" },
+              "config": { "story": "billi-bandar" }
+            },
+            {
+              "id": "g1-lok-4",
+              "game": "story",
+              "icon": "donkey",
+              "title": { "hi": "नमक वाला गधा", "en": "The donkey and the salt" },
+              "config": { "story": "namak-gadha" }
+            },
+            {
+              "id": "g1-lok-5",
+              "game": "story",
+              "icon": "tailor",
+              "title": { "hi": "हाथी और दर्ज़ी", "en": "The elephant and the tailor" },
+              "config": { "story": "haathi-darzi" }
+            }
           ]
         }
       ],

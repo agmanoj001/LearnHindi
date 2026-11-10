@@ -90,6 +90,10 @@ export function readable(hex) {
   return out;
 }
 
+// Right-first-time answers in a row that earn a little "3 in a row!" cheer inside a lesson.
+export const COMBO_MILESTONES = [3, 5, 8, 12];
+export const comboText = (n, lang) => ({ hi: `लगातार ${n} सही!`, en: `${n} in a row!`, both: `${n} in a row! · लगातार ${n}!` })[lang] || `${n} in a row!`;
+
 // Which device this is, for help with its text-to-speech settings.
 export function deviceKind(ua = '', touchPoints = 0) {
   if (/iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && touchPoints > 1)) return 'ios';

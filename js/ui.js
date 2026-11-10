@@ -29,6 +29,35 @@ export const wobble = (node) =>
 export const bounce = (node) =>
   animate(node, [{ transform: 'scale(1)' }, { transform: 'scale(1.18)' }, { transform: 'scale(1)' }], { duration: 450 });
 
+// A little burst of sparkles over a node (a right answer, a lit star). Nothing with reduced motion.
+export function sparkleAt(node, { count = 10, colors = ['#FFC93C', '#2EC27E', '#6C63FF', '#FF5A5F', '#3D7BFF', '#FF8FB1'] } = {}) {
+  if (!node?.getBoundingClientRect || typeof document === 'undefined') return;
+  if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
+  const b = node.getBoundingClientRect();
+  if (!b.width) return;
+  const cx = b.left + b.width / 2;
+  const cy = b.top + b.height / 2;
+  const reach = Math.max(b.width, b.height) * 0.45 + 26;
+  for (let i = 0; i < count; i++) {
+    const s = document.createElement('i');
+    const size = 6 + Math.random() * 8;
+    s.className = `spark${i % 3 ? '' : ' square'}`;
+    s.style.cssText = `left:${cx - size / 2}px;top:${cy - size / 2}px;width:${size}px;height:${size}px;background:${colors[i % colors.length]}`;
+    document.body.append(s);
+    const a = (i / count) * Math.PI * 2 + Math.random() * 0.6;
+    const d = reach + Math.random() * 40;
+    const run = s.animate?.(
+      [
+        { transform: 'translate(0, 0) scale(0.5) rotate(0deg)', opacity: 1 },
+        { transform: `translate(${(Math.cos(a) * d).toFixed(1)}px, ${(Math.sin(a) * d - 24).toFixed(1)}px) scale(1) rotate(${200 + Math.random() * 160}deg)`, opacity: 0 },
+      ],
+      { duration: 600 + Math.random() * 300, easing: 'cubic-bezier(0.2, 0.8, 0.3, 1)' },
+    );
+    if (run) run.onfinish = () => s.remove();
+    setTimeout(() => s.remove(), 1200);
+  }
+}
+
 // Move `node` visually on top of `target` (both stay in place in the DOM).
 export function flyTo(node, target, { duration = 700, scale = 1, keep = true } = {}) {
   const a = node.getBoundingClientRect();

@@ -422,4 +422,31 @@ export const CREATURES = {
     path('M30 80 Q16 72 22 60', 'none', stroke('#8A5A44', 4)),
   snowflake: () =>
     [0, 60, 120].map((a) => `<g transform="rotate(${a} 100 70)">${line(100, 20, 100, 120, '#7DD3FC', 7)}${path('M100 36 l-12 -12 M100 36 l12 -12 M100 104 l-12 12 M100 104 l12 12', 'none', stroke('#7DD3FC', 6))}</g>`).join('') + circ(100, 70, 8, '#CFEFFF'),
+  // the golden deer from the Ramayana: the plain deer dressed in gold, with a sparkle
+  'golden-deer': () =>
+    quad({
+      body: '#F5B82E',
+      legW: 8,
+      legH: 40,
+      legY: 90,
+      rx: 50,
+      ry: 24,
+      extras: [72, 92, 112, 84, 104].map((x, i) => circ(x, 74 + (i % 2) * 10, 3.5, '#FFF7D6')).join(''),
+      head: path('M136 70 Q140 52 150 40', 'none', stroke('#F5B82E', 14)) + ell(156, 40, 13, 16, '#F5B82E') + ell(162, 50, 9, 7, '#FFE9B0'),
+      face: path('M150 26 L144 10 M144 14 L136 8 M162 26 L168 10 M168 14 L176 8', 'none', stroke('#C98B3E', 4)) + ell(140, 32, 8, 4, '#F5B82E') + eye(158, 38, 4),
+    }) +
+    path('M30 30 l3 8 8 3 -8 3 -3 8 -3 -8 -8 -3 8 -3 z', '#fff') +
+    path('M52 14 l2 5 5 2 -5 2 -2 5 -2 -5 -5 -2 5 -2 z', '#FFF7D6'),
+  donkey: () =>
+    quad({
+      body: '#A3A9B8',
+      legW: 10,
+      legH: 38,
+      legY: 92,
+      rx: 50,
+      ry: 26,
+      extras: ell(100, 90, 26, 14, '#D8DCE6'),
+      head: path('M136 70 Q142 52 150 44', 'none', stroke('#A3A9B8', 16)) + path('M138 46 Q150 36 160 46', 'none', stroke('#5B6478', 6)) + ell(158, 46, 15, 19, '#A3A9B8') + ell(164, 58, 10, 8, '#D8DCE6') + path('M148 30 L142 4 L156 26 Z M168 30 L176 4 L162 26 Z', '#A3A9B8') + path('M149 24 L146 12 L153 23 Z M167 24 L170 12 L163 23 Z', '#F9A8D4'),
+      face: eye(160, 42, 4) + circ(166, 60, 1.6, '#2B2D42') + circ(161, 61, 1.6, '#2B2D42'),
+    }),
 };
