@@ -7,11 +7,11 @@ import { phonicsName } from './phonicsgen.js';
 import { worldStars, worldLessons, lessonRecord, weekSummary, dueReviews, learningGains } from './curriculum.js';
 import { refreshClipKeys, voicesFor, setVoicePrefs, hasVoice, play } from './audio.js';
 import { deviceKind, VOICE_SETUP } from './logic.js';
-import { KEYS, save, clips, resizeImage, addProfile, removeProfile, MAX_PROFILES } from './storage.js';
+import { KEYS, save, load, clips, resizeImage, addProfile, removeProfile, MAX_PROFILES, makeBackup, readBackup, localKeys, keepOffline } from './storage.js';
 import { MASCOTS, MASCOT_IDS, mascotSvg } from './mascot.js';
 import { specialVehicle } from './art.js';
 import { levelCard } from './screens.js';
-import { translateParent } from './parent-hi.js';
+import { translateParent, translateText } from './parent-hi.js';
 
 // the parent area in Hindi when a grown-up picks it
 const localize = (api, root) => api.state.settings.parentLang === 'hi' && translateParent(root);
@@ -226,6 +226,7 @@ export function showParent(api) {
         ),
       ),
       tripSection(api),
+      backupSection(api),
       section(
         'Sound',
         toggle('Music', s.music, (v) => ((s.music = v), persist(), api.music.setEnabled(v))),
@@ -414,6 +415,53 @@ function tripSection(api) {
 }
 
 // Siblings each get their own grade, settings and progress. A nickname is optional and stays on this device.
+// Save the stars somewhere safe, and bring them back on a new phone or after the browser was cleared.
+function backupSection(api) {
+  const status = el('p', { class: 'note', text: 'Checking whether this device keeps the app…' });
+  keepOffline().then((kept) => {
+    const text = kept
+      ? 'This device keeps the app and its saves, even when space runs low.'
+      : 'This browser may clear the app’s saves if the device runs low on space. Installing the app (Add to Home Screen) and keeping a backup protects them.';
+    status.textContent = (api.state.settings.parentLang === 'hi' && translateText(text)) || text;
+  });
+  const download = () => {
+    const backup = makeBackup(load, localKeys());
+    const blob = new Blob([JSON.stringify(backup)], { type: 'application/json' });
+    const a = el('a', { href: URL.createObjectURL(blob), download: `khel-khel-mein-backup-${backup.savedAt.slice(0, 10)}.json` });
+    document.body.append(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  };
+  const file = el('input', {
+    type: 'file',
+    accept: 'application/json,.json',
+    class: 'visually-hidden',
+    onchange: async (e) => {
+      const f = e.target.files?.[0];
+      if (!f) return;
+      let parsed = null;
+      try {
+        parsed = JSON.parse(await f.text());
+      } catch {
+        /* not JSON */
+      }
+      const r = readBackup(parsed);
+      if (r.error) return alert(r.error);
+      const when = r.savedAt ? ` from ${new Date(r.savedAt).toLocaleDateString()}` : '';
+      if (!confirm(`Restore the backup${when}? The stars and settings on this device will be replaced.`)) return;
+      for (const [k, v] of r.entries) save(k, v);
+      location.reload();
+    },
+  });
+  return el('section', {}, [
+    el('h2', { text: 'Backup' }),
+    el('p', { class: 'note', text: 'Everything is saved on this device only. Keep a backup file (stars, settings and children; not the photo or voice recordings) to move to a new device or recover after the browser is cleared.' }),
+    el('div', { class: 'btn-row' }, [el('button', { class: 'btn', text: 'Save a backup file', onclick: download }), el('button', { class: 'btn', text: 'Restore from a file', onclick: () => file.click() }), file]),
+    status,
+  ]);
+}
+
 function childrenSection(api) {
   const profiles = api.state.profiles;
   const rows = profiles.list.map((p, i) => {

@@ -94,7 +94,7 @@
     "square": { "hi": "चौकोर", "translit": "chaukor", "en": "square", "picture": "shape-square" },
     "triangle": { "hi": "तिकोना", "translit": "tikona", "en": "triangle", "picture": "shape-triangle" },
     "star": { "hi": "तारा", "translit": "taara", "en": "star", "picture": "shape-star", "level": "grade1", "syllables": ["ता", "रा"], "color": "#FFC83D" },
-    "heart": { "hi": "दिल", "translit": "dil", "en": "heart", "picture": "shape-heart", "level": "grade1", "syllables": ["दि", "ल"] },
+    "heart": { "hi": "दिल", "translit": "dil", "en": "heart", "picture": "shape-heart", "level": "grade1", "syllables": ["दि", "ल"], "color": "#FF5A7A" },
     "big": { "hi": "बड़ा", "translit": "bada", "en": "big", "picture": "size-big", "level": "grade3", "syllables": ["ब", "ड़ा"] },
     "small": { "hi": "छोटा", "translit": "chhota", "en": "small", "picture": "size-small", "level": "grade3", "syllables": ["छो", "टा"] },
     "up": { "hi": "ऊपर", "translit": "oopar", "en": "up", "picture": "dir-up", "level": "grade3", "syllables": ["ऊ", "प", "र"] },
@@ -749,15 +749,123 @@
   ],
   "stories": [
     {
+      "id": "t-chooza",
+      "level": "toddler",
+      "title": { "hi": "चूज़ा और माँ", "en": "The chick and its mother" },
+      "cover": "chick",
+      "pages": [
+        { "word": "chick", "hi": "चूँ-चूँ! चूज़ा आया।", "en": "Cheep cheep! Here comes the chick.", "act": { "move": "enter", "sky": "field" } },
+        { "word": "chick", "hi": "चूज़ा कूदा, फुदक-फुदक!", "en": "The chick hops, hop hop!", "act": { "move": "jump", "sky": "field" } },
+        { "word": "hen", "hi": "मुर्गी माँ आई।", "en": "Mother hen comes.", "act": { "move": "enter-right", "sky": "field" } },
+        {
+          "word": "chick",
+          "hi": "चूज़ा माँ के पास!",
+          "en": "The chick is with its mother!",
+          "act": { "move": "approach", "with": "hen", "fx": "hearts", "sky": "field" }
+        }
+      ],
+      "questions": [
+        { "hi": "चूज़े की माँ कौन है?", "en": "Who is the chick's mother?", "answer": "hen", "options": ["hen", "cat", "cow"] },
+        { "hi": "कौन कूदा?", "en": "Who hopped?", "answer": "chick", "options": ["chick", "elephant", "cow"] }
+      ],
+      "moral": { "hi": "माँ की गोद सबसे प्यारी।", "en": "Mother's lap is the best place." }
+    },
+    {
+      "id": "t-barish",
+      "level": "toddler",
+      "title": { "hi": "बारिश आई", "en": "Here comes the rain" },
+      "cover": "raincloud",
+      "pages": [
+        { "word": "cloud", "hi": "बादल आए।", "en": "The clouds come.", "act": { "move": "enter-right", "sky": "sky" } },
+        { "word": "rain", "hi": "टप-टप बारिश!", "en": "Pitter-patter, rain!", "act": { "move": "float", "fx": "rain", "sky": "rain" } },
+        { "word": "frog", "hi": "मेंढक कूदा, छपाक!", "en": "The frog jumps, splash!", "act": { "move": "jump", "fx": ["rain", "splash"], "sky": "rain" } },
+        { "word": "sun", "hi": "सूरज निकला।", "en": "Out comes the sun.", "act": { "move": "peek", "fx": "glow", "sky": "dawn" } }
+      ],
+      "questions": [
+        { "hi": "कौन कूदा?", "en": "Who jumped?", "answer": "frog", "options": ["frog", "cow", "cat"] },
+        { "hi": "बारिश के बाद कौन निकला?", "en": "What came out after the rain?", "answer": "sun", "options": ["sun", "fish", "boat"] }
+      ]
+    },
+    {
+      "id": "t-titli",
+      "level": "toddler",
+      "title": { "hi": "तितली उड़ी", "en": "Fly, butterfly" },
+      "cover": "butterfly",
+      "pages": [
+        { "word": "butterfly", "hi": "तितली उड़ी।", "en": "The butterfly flies.", "act": { "move": "fly-across", "fx": "sparkles", "sky": "sky" } },
+        { "word": "flower", "hi": "फूल पर बैठी।", "en": "It sits on a flower.", "act": { "move": "sway", "with": "butterfly", "sky": "field" } },
+        { "word": "bee", "hi": "मधुमक्खी आई, भूँ-भूँ!", "en": "A bee comes, buzz buzz!", "act": { "move": "fly-across", "fx": "music", "sky": "field" } },
+        { "word": "butterfly", "hi": "सब मिलकर खेले।", "en": "They all play together.", "act": { "move": "orbit", "with": "flower", "fx": "hearts", "sky": "field" } }
+      ],
+      "questions": [
+        { "hi": "कौन उड़ी?", "en": "Who flew?", "answer": "butterfly", "options": ["butterfly", "cow", "boat"] },
+        { "hi": "तितली कहाँ बैठी?", "en": "Where did the butterfly sit?", "answer": "flower", "options": ["flower", "water", "cat"] }
+      ]
+    },
+    {
+      "id": "t-raat",
+      "level": "toddler",
+      "title": { "hi": "रात हुई", "en": "Night time" },
+      "cover": "moon",
+      "pages": [
+        { "word": "moon", "hi": "चाँद निकला।", "en": "The moon comes up.", "act": { "move": "peek", "fx": "stars", "sky": "night" } },
+        { "word": "star", "hi": "तारे चमके।", "en": "The stars twinkle.", "act": { "move": "grow", "fx": ["stars", "sparkles"], "sky": "night" } },
+        { "word": "cat", "hi": "बिल्ली सो गई।", "en": "The cat falls asleep.", "act": { "move": "sleep", "fx": "zzz", "sky": "night" } },
+        { "word": "bed", "hi": "अब हम भी सोएँ।", "en": "Now we sleep too.", "act": { "move": "sleep", "fx": ["zzz", "stars"], "sky": "night" } }
+      ],
+      "questions": [
+        { "hi": "कौन सो गई?", "en": "Who fell asleep?", "answer": "cat", "options": ["cat", "fish", "bird"] },
+        { "hi": "रात को क्या चमका?", "en": "What twinkled at night?", "answer": "star", "options": ["star", "banana", "cow"] }
+      ],
+      "moral": { "hi": "रात को सोना अच्छा है।", "en": "Sleeping at night is good." }
+    },
+    {
+      "id": "t-machhli",
+      "level": "toddler",
+      "title": { "hi": "छोटी मछली", "en": "Little fish" },
+      "cover": "fish",
+      "pages": [
+        { "word": "fish", "hi": "छोटी मछली तैरी।", "en": "The little fish swims.", "act": { "move": "swim", "fx": "bubbles", "sky": "underwater" } },
+        { "word": "duck", "hi": "बत्तख आई, क्वैक!", "en": "A duck comes, quack!", "act": { "move": "float", "sky": "river" } },
+        { "word": "boat", "hi": "नाव चली।", "en": "A boat sails by.", "act": { "move": "enter", "fx": "wind", "sky": "river" } },
+        { "word": "fish", "hi": "मछली ने कहा, टाटा!", "en": "The fish says, bye-bye!", "act": { "move": "jump", "fx": "splash", "sky": "river" } }
+      ],
+      "questions": [
+        { "hi": "पानी में कौन तैरी?", "en": "Who swims in the water?", "answer": "fish", "options": ["fish", "cat", "cow"] },
+        { "hi": "क्वैक किसने कहा?", "en": "Who said quack?", "answer": "duck", "options": ["duck", "dog", "elephant"] }
+      ]
+    },
+    {
+      "id": "t-haathi",
+      "level": "toddler",
+      "title": { "hi": "हाथी नहाया", "en": "Elephant bath time" },
+      "cover": "elephant",
+      "pages": [
+        { "word": "elephant", "hi": "हाथी आया, धम-धम!", "en": "Here comes the elephant, thump thump!", "act": { "move": "walk", "sky": "field", "sound": "thud" } },
+        { "word": "water", "hi": "ठंडा-ठंडा पानी।", "en": "Cool, cool water.", "act": { "move": "float", "fx": "bubbles", "sky": "river" } },
+        {
+          "word": "elephant",
+          "hi": "हाथी ने पानी उछाला!",
+          "en": "The elephant splashes water!",
+          "act": { "move": "shake", "fx": "splash", "sky": "river", "sound": "splash" }
+        },
+        { "word": "elephant", "hi": "हाथी खुश हुआ।", "en": "The elephant is happy.", "act": { "move": "dance", "fx": "hearts", "sky": "field" } }
+      ],
+      "questions": [
+        { "hi": "पानी किसने उछाला?", "en": "Who splashed the water?", "answer": "elephant", "options": ["elephant", "chick", "star"] },
+        { "hi": "ठंडा क्या था?", "en": "What was cool?", "answer": "water", "options": ["water", "sun", "cat"] }
+      ]
+    },
+    {
       "id": "rhyme-machhli",
       "level": "kg",
       "title": { "hi": "मछली जल की रानी है", "en": "The fish is the queen of the water" },
       "cover": "fish",
       "pages": [
-        { "word": "fish", "hi": "मछली जल की रानी है,", "en": "The fish is the queen of the water," },
-        { "word": "water", "hi": "जीवन उसका पानी है।", "en": "water is her life." },
-        { "word": "fish", "hi": "हाथ लगाओ, डर जाएगी,", "en": "Touch her and she gets scared," },
-        { "word": "river", "hi": "बाहर निकालो, मर जाएगी।", "en": "take her out and she can’t live." }
+        { "word": "fish", "hi": "मछली जल की रानी है,", "en": "The fish is the queen of the water,", "act": { "move": "swim", "fx": "bubbles", "sky": "underwater" } },
+        { "word": "water", "hi": "जीवन उसका पानी है।", "en": "water is her life.", "act": { "move": "float", "fx": "bubbles", "sky": "underwater" } },
+        { "word": "fish", "hi": "हाथ लगाओ, डर जाएगी,", "en": "Touch her and she gets scared,", "act": { "move": "shake", "sky": "underwater" } },
+        { "word": "river", "hi": "बाहर निकालो, मर जाएगी।", "en": "take her out and she can’t live.", "act": { "move": "float", "with": "fish", "sky": "river" } }
       ],
       "questions": [
         { "hi": "जल की रानी कौन है?", "en": "Who is the queen of the water?", "answer": "fish", "options": ["fish", "duck", "frog"] },
@@ -771,10 +879,15 @@
       "title": { "hi": "चंदा मामा दूर के", "en": "Uncle Moon, far away" },
       "cover": "moon",
       "pages": [
-        { "word": "moon", "hi": "चंदा मामा दूर के,", "en": "Uncle Moon, far away," },
-        { "word": "laddoo", "hi": "पुए पकाए बूर के।", "en": "cooked sweet puas today." },
-        { "word": "roti", "hi": "आप खाएँ थाली में,", "en": "He eats from a big plate," },
-        { "word": "cup", "hi": "मुन्ने को दें प्याली में।", "en": "and gives the baby a little cup." }
+        { "word": "moon", "hi": "चंदा मामा दूर के,", "en": "Uncle Moon, far away,", "act": { "move": "float", "fx": "stars", "sky": "night" } },
+        { "word": "laddoo", "hi": "पुए पकाए बूर के।", "en": "cooked sweet puas today.", "act": { "move": "grow", "fx": "steam", "sky": "home" } },
+        { "word": "roti", "hi": "आप खाएँ थाली में,", "en": "He eats from a big plate,", "act": { "move": "spin", "with": "moon", "fx": "stars", "sky": "night" } },
+        {
+          "word": "cup",
+          "hi": "मुन्ने को दें प्याली में।",
+          "en": "and gives the baby a little cup.",
+          "act": { "move": "enter-right", "with": "boy", "fx": "hearts", "sky": "home" }
+        }
       ],
       "questions": [
         { "hi": "चंदा मामा कौन हैं?", "en": "Who is Uncle Moon?", "answer": "moon", "options": ["moon", "sun", "tree"] },
@@ -788,10 +901,25 @@
       "title": { "hi": "आलू कचालू", "en": "Aloo Kachaloo" },
       "cover": "potato",
       "pages": [
-        { "word": "potato", "hi": "आलू कचालू, बेटा कहाँ गए थे?", "en": "Aloo Kachaloo, where did you go?" },
-        { "word": "monkey", "hi": "बंदर की झोपड़ी में सो रहे थे।", "en": "I was sleeping in the monkey’s hut." },
-        { "word": "monkey", "hi": "बंदर ने लात मारी, रो रहे थे।", "en": "The monkey kicked me, and I cried." },
-        { "word": "coins", "hi": "मम्मी ने पैसे दिए, हँस रहे थे।", "en": "Mummy gave me coins, and I laughed." }
+        { "word": "potato", "hi": "आलू कचालू, बेटा कहाँ गए थे?", "en": "Aloo Kachaloo, where did you go?", "act": { "move": "roll", "sky": "field" } },
+        {
+          "word": "monkey",
+          "hi": "बंदर की झोपड़ी में सो रहे थे।",
+          "en": "I was sleeping in the monkey’s hut.",
+          "act": { "move": "sleep", "fx": "zzz", "sky": "night" }
+        },
+        {
+          "word": "monkey",
+          "hi": "बंदर ने लात मारी, रो रहे थे।",
+          "en": "The monkey kicked me, and I cried.",
+          "act": { "move": "bump", "with": "potato", "sky": "field" }
+        },
+        {
+          "word": "coins",
+          "hi": "मम्मी ने पैसे दिए, हँस रहे थे।",
+          "en": "Mummy gave me coins, and I laughed.",
+          "act": { "move": "grow", "fx": "sparkles", "sky": "home" }
+        }
       ],
       "questions": [
         {
@@ -810,10 +938,15 @@
       "title": { "hi": "हाथी राजा", "en": "King Elephant" },
       "cover": "elephant",
       "pages": [
-        { "word": "elephant", "hi": "हाथी राजा, कहाँ चले?", "en": "King Elephant, where are you going?" },
-        { "word": "elephant", "hi": "सूँड़ हिलाकर कहाँ चले?", "en": "Swinging your trunk, where are you going?" },
-        { "word": "house", "hi": "मेरे घर भी आओ ना,", "en": "Come to my house too," },
-        { "word": "roti", "hi": "हलवा-पूरी खाओ ना!", "en": "and eat some halwa-puri!" }
+        { "word": "elephant", "hi": "हाथी राजा, कहाँ चले?", "en": "King Elephant, where are you going?", "act": { "move": "walk", "sky": "field", "sound": "thud" } },
+        {
+          "word": "elephant",
+          "hi": "सूँड़ हिलाकर कहाँ चले?",
+          "en": "Swinging your trunk, where are you going?",
+          "act": { "move": "sway", "fx": "music", "sky": "field" }
+        },
+        { "word": "house", "hi": "मेरे घर भी आओ ना,", "en": "Come to my house too,", "act": { "move": "grow", "with": "elephant", "fx": "hearts", "sky": "field" } },
+        { "word": "roti", "hi": "हलवा-पूरी खाओ ना!", "en": "and eat some halwa-puri!", "act": { "move": "roll", "with": "elephant", "fx": "steam", "sky": "home" } }
       ],
       "questions": [
         { "hi": "सूँड़ किसकी है?", "en": "Who has a trunk?", "answer": "elephant", "options": ["elephant", "horse", "camel"] },
@@ -833,10 +966,20 @@
       "title": { "hi": "रेल चली", "en": "The train goes" },
       "cover": "train",
       "pages": [
-        { "word": "train", "hi": "छुक-छुक करती रेल चली,", "en": "Chug-chug goes the train," },
-        { "word": "whistle", "hi": "सीटी बजाती रेल चली।", "en": "whistle blowing, off it goes." },
-        { "word": "field", "hi": "खेत भागे, पेड़ भागे,", "en": "Fields rush by, trees rush by," },
-        { "word": "boy", "hi": "हम सब बैठे सबसे आगे!", "en": "and we sit right at the front!" }
+        {
+          "word": "train",
+          "hi": "छुक-छुक करती रेल चली,",
+          "en": "Chug-chug goes the train,",
+          "act": { "move": "drive", "fx": "steam", "sky": "field", "sound": "toot" }
+        },
+        {
+          "word": "whistle",
+          "hi": "सीटी बजाती रेल चली।",
+          "en": "whistle blowing, off it goes.",
+          "act": { "move": "shake", "fx": "music", "sky": "field", "sound": "toot" }
+        },
+        { "word": "field", "hi": "खेत भागे, पेड़ भागे,", "en": "Fields rush by, trees rush by,", "act": { "move": "enter-right", "fx": "wind", "sky": "day" } },
+        { "word": "boy", "hi": "हम सब बैठे सबसे आगे!", "en": "and we sit right at the front!", "act": { "move": "dance", "with": "train", "sky": "field" } }
       ],
       "questions": [
         { "hi": "छुक-छुक कौन करती है?", "en": "What goes chug-chug?", "answer": "train", "options": ["train", "bus", "boat"] },
@@ -850,10 +993,10 @@
       "title": { "hi": "गोल-गोल रोटी", "en": "Round, round roti" },
       "cover": "roti",
       "pages": [
-        { "word": "roti", "hi": "गोल-गोल रोटी, माँ ने बनाई,", "en": "Round, round roti, Mum made it," },
-        { "word": "roti", "hi": "गरम-गरम थाली में आई।", "en": "hot, hot on the plate it came." },
-        { "word": "kheer", "hi": "साथ में मीठी खीर भी आई,", "en": "Sweet kheer came along too," },
-        { "word": "grandmother", "hi": "सबने मिलकर दावत उड़ाई!", "en": "and we all had a feast!" }
+        { "word": "roti", "hi": "गोल-गोल रोटी, माँ ने बनाई,", "en": "Round, round roti, Mum made it,", "act": { "move": "spin", "with": "mother", "sky": "home" } },
+        { "word": "roti", "hi": "गरम-गरम थाली में आई।", "en": "hot, hot on the plate it came.", "act": { "move": "float", "fx": "steam", "sky": "home" } },
+        { "word": "kheer", "hi": "साथ में मीठी खीर भी आई,", "en": "Sweet kheer came along too,", "act": { "move": "grow", "fx": "sparkles", "sky": "home" } },
+        { "word": "grandmother", "hi": "सबने मिलकर दावत उड़ाई!", "en": "and we all had a feast!", "act": { "move": "dance", "fx": "confetti", "sky": "home" } }
       ],
       "questions": [
         { "hi": "माँ ने गोल-गोल क्या बनाया?", "en": "What round thing did Mum make?", "answer": "roti", "options": ["roti", "kite", "drum"] },
@@ -867,10 +1010,20 @@
       "title": { "hi": "बारिश आई", "en": "Here comes the rain" },
       "cover": "raincloud",
       "pages": [
-        { "word": "raincloud", "hi": "छम-छम-छम बारिश आई,", "en": "Splash, splash, the rain came down," },
-        { "word": "umbrella", "hi": "छाता लेकर मुन्नी आई।", "en": "little Munni came with her umbrella." },
-        { "word": "boat", "hi": "काग़ज़ की नाव बनाई,", "en": "She made a paper boat," },
-        { "word": "frog", "hi": "मेंढक ने भी ताल मिलाई!", "en": "and the frog joined in the beat!" }
+        { "word": "raincloud", "hi": "छम-छम-छम बारिश आई,", "en": "Splash, splash, the rain came down,", "act": { "move": "float", "fx": "rain", "sky": "rain" } },
+        {
+          "word": "umbrella",
+          "hi": "छाता लेकर मुन्नी आई।",
+          "en": "little Munni came with her umbrella.",
+          "act": { "move": "walk", "with": "girl", "fx": "rain", "sky": "rain" }
+        },
+        { "word": "boat", "hi": "काग़ज़ की नाव बनाई,", "en": "She made a paper boat,", "act": { "move": "float", "fx": "rain", "sky": "river" } },
+        {
+          "word": "frog",
+          "hi": "मेंढक ने भी ताल मिलाई!",
+          "en": "and the frog joined in the beat!",
+          "act": { "move": "jump", "fx": ["rain", "splash"], "sky": "rain" }
+        }
       ],
       "questions": [
         { "hi": "मुन्नी क्या लेकर आई?", "en": "What did Munni bring?", "answer": "umbrella", "options": ["umbrella", "kite", "bag"] },
@@ -886,10 +1039,10 @@
       "title": { "hi": "चमको चमको छोटे तारे", "en": "Twinkle, Twinkle, Little Star" },
       "cover": "star",
       "pages": [
-        { "word": "star", "en": "Twinkle, twinkle, little star," },
-        { "word": "star", "en": "How I wonder what you are!" },
-        { "word": "earth", "en": "Up above the world so high," },
-        { "word": "moon", "en": "Like a diamond in the sky." }
+        { "word": "star", "en": "Twinkle, twinkle, little star,", "act": { "move": "grow", "fx": "stars", "sky": "night" } },
+        { "word": "star", "en": "How I wonder what you are!", "act": { "move": "float", "fx": ["stars", "sparkles"], "sky": "night" } },
+        { "word": "earth", "en": "Up above the world so high,", "act": { "move": "spin", "with": "star", "fx": "stars", "sky": "night" } },
+        { "word": "moon", "en": "Like a diamond in the sky.", "act": { "move": "float", "with": "star", "fx": "sparkles", "sky": "night" } }
       ],
       "questions": [
         { "en": "What twinkles in the sky?", "answer": "star", "options": ["star", "sun", "kite"] },
@@ -904,10 +1057,10 @@
       "title": { "hi": "हम्प्टी डम्प्टी", "en": "Humpty Dumpty" },
       "cover": "dinoegg",
       "pages": [
-        { "word": "dinoegg", "en": "Humpty Dumpty sat on a wall," },
-        { "word": "dinoegg", "en": "Humpty Dumpty had a great fall." },
-        { "word": "horse", "en": "All the king’s horses and all the king’s men" },
-        { "word": "king", "en": "Couldn’t put Humpty together again." }
+        { "word": "dinoegg", "en": "Humpty Dumpty sat on a wall,", "act": { "move": "sway", "sky": "field" } },
+        { "word": "dinoegg", "en": "Humpty Dumpty had a great fall.", "act": { "move": "fall", "fx": "dust", "sky": "field" } },
+        { "word": "horse", "en": "All the king’s horses and all the king’s men", "act": { "move": "run", "fx": "dust", "sky": "field" } },
+        { "word": "king", "en": "Couldn’t put Humpty together again.", "act": { "move": "talk", "with": "dinoegg", "sky": "field" } }
       ],
       "questions": [
         { "en": "Humpty Dumpty is an egg. Which one is Humpty?", "answer": "dinoegg", "options": ["dinoegg", "horse", "king"] },
@@ -922,10 +1075,10 @@
       "title": { "hi": "बा बा ब्लैक शीप", "en": "Baa, Baa, Black Sheep" },
       "cover": "sheep",
       "pages": [
-        { "word": "sheep", "en": "Baa, baa, black sheep, have you any wool?" },
-        { "word": "sheep", "en": "Yes sir, yes sir, three bags full!" },
-        { "word": "bag", "en": "One for the master, one for the dame," },
-        { "word": "boy", "en": "And one for the little boy who lives down the lane." }
+        { "word": "sheep", "en": "Baa, baa, black sheep, have you any wool?", "act": { "move": "walk", "sky": "field" } },
+        { "word": "sheep", "en": "Yes sir, yes sir, three bags full!", "act": { "move": "dance", "fx": "sparkles", "sky": "field" } },
+        { "word": "bag", "en": "One for the master, one for the dame,", "act": { "move": "fall", "sky": "home" } },
+        { "word": "boy", "en": "And one for the little boy who lives down the lane.", "act": { "move": "enter", "with": "bag", "fx": "hearts", "sky": "field" } }
       ],
       "questions": [
         { "en": "Who has wool?", "answer": "sheep", "options": ["sheep", "cow", "dog"] },
@@ -940,10 +1093,10 @@
       "title": { "hi": "हिकरी डिकरी डॉक", "en": "Hickory, Dickory, Dock" },
       "cover": "clock",
       "pages": [
-        { "word": "mouse", "en": "Hickory, dickory, dock," },
-        { "word": "clock", "en": "The mouse ran up the clock." },
-        { "word": "clock", "en": "The clock struck one, the mouse ran down," },
-        { "word": "mouse", "en": "Hickory, dickory, dock." }
+        { "word": "mouse", "en": "Hickory, dickory, dock,", "act": { "move": "run", "fx": "dust", "sky": "home" } },
+        { "word": "mouse", "en": "The mouse ran up the clock.", "act": { "move": "climb", "with": "clock", "sky": "home" } },
+        { "word": "mouse", "en": "The clock struck one, the mouse ran down,", "act": { "move": "fall", "with": "clock", "sky": "home", "sound": "chime" } },
+        { "word": "mouse", "en": "Hickory, dickory, dock.", "act": { "move": "run", "fx": "dust", "sky": "home" } }
       ],
       "questions": [
         { "en": "Who ran up the clock?", "answer": "mouse", "options": ["mouse", "cat", "dog"] },
@@ -956,12 +1109,32 @@
       "title": { "hi": "हनुमान और सूरज", "en": "Hanuman and the sun" },
       "cover": "hanuman",
       "pages": [
-        { "word": "hanuman", "hi": "यह नन्हा हनुमान है।", "en": "This is little Hanuman." },
-        { "word": "sun", "hi": "सुबह लाल सूरज निकला।", "en": "In the morning the red sun came up." },
-        { "word": "mango", "hi": "हनुमान बोला, “यह बड़ा आम है!”", "en": "Hanuman said, “That is a big mango!”" },
-        { "word": "hanuman", "hi": "हनुमान उड़कर सूरज के पास गया।", "en": "Hanuman flew up to the sun." },
-        { "word": "sun", "hi": "सूरज बोला, “मैं फल नहीं, सूरज हूँ!”", "en": "The sun said, “I am not a fruit, I am the sun!”" },
-        { "word": "hanuman", "hi": "हनुमान हँसा और घर लौट आया।", "en": "Hanuman laughed and came home." }
+        { "word": "hanuman", "hi": "यह नन्हा हनुमान है।", "en": "This is little Hanuman.", "act": { "move": "jump", "sky": "dawn" } },
+        { "word": "sun", "hi": "सुबह लाल सूरज निकला।", "en": "In the morning the red sun came up.", "act": { "move": "peek", "fx": "glow", "sky": "dawn" } },
+        {
+          "word": "mango",
+          "hi": "हनुमान बोला, “यह बड़ा आम है!”",
+          "en": "Hanuman said, “That is a big mango!”",
+          "act": { "move": "grow", "with": "hanuman", "fx": "sparkles", "sky": "dawn" }
+        },
+        {
+          "word": "hanuman",
+          "hi": "हनुमान उड़कर सूरज के पास गया।",
+          "en": "Hanuman flew up to the sun.",
+          "act": { "move": "fly-up", "with": "sun", "fx": "wind", "sky": "sky" }
+        },
+        {
+          "word": "sun",
+          "hi": "सूरज बोला, “मैं फल नहीं, सूरज हूँ!”",
+          "en": "The sun said, “I am not a fruit, I am the sun!”",
+          "act": { "move": "talk", "with": "hanuman", "fx": "glow", "sky": "sky" }
+        },
+        {
+          "word": "hanuman",
+          "hi": "हनुमान हँसा और घर लौट आया।",
+          "en": "Hanuman laughed and came home.",
+          "act": { "move": "enter", "with": "house", "fx": "hearts", "sky": "field" }
+        }
       ],
       "questions": [
         { "hi": "हनुमान ने सूरज को क्या समझा?", "en": "What did Hanuman think the sun was?", "answer": "mango", "options": ["mango", "banana", "apple"] },
@@ -975,13 +1148,33 @@
       "title": { "hi": "नन्ही गिलहरी", "en": "The little squirrel" },
       "cover": "squirrel",
       "pages": [
-        { "word": "sea", "hi": "सामने बड़ा समुद्र था।", "en": "A big sea lay ahead." },
-        { "word": "monkey", "hi": "बंदर पुल बना रहे थे।", "en": "The monkeys were building a bridge." },
-        { "word": "stone", "hi": "वे बड़े-बड़े पत्थर लाए।", "en": "They brought big stones." },
-        { "word": "squirrel", "hi": "नन्ही गिलहरी छोटे कंकड़ लाई।", "en": "A little squirrel brought tiny pebbles." },
-        { "word": "monkey", "hi": "बंदर हँसे, “तुम छोटी हो!”", "en": "The monkeys laughed, “You are so small!”" },
-        { "word": "ram", "hi": "राम बोले, “छोटी मदद भी बड़ी है।”", "en": "Ram said, “Small help is big help too.”" },
-        { "word": "squirrel", "hi": "राम ने उसे सहलाया। तीन धारियाँ बन गईं!", "en": "Ram stroked her back. Three stripes appeared!" }
+        { "word": "sea", "hi": "सामने बड़ा समुद्र था।", "en": "A big sea lay ahead.", "act": { "move": "float", "fx": "wind", "sky": "sea" } },
+        { "word": "monkey", "hi": "बंदर पुल बना रहे थे।", "en": "The monkeys were building a bridge.", "act": { "move": "jump", "with": "bridge", "sky": "field" } },
+        { "word": "stone", "hi": "वे बड़े-बड़े पत्थर लाए।", "en": "They brought big stones.", "act": { "move": "fall", "fx": "splash", "sky": "sea" } },
+        {
+          "word": "squirrel",
+          "hi": "नन्ही गिलहरी छोटे कंकड़ लाई।",
+          "en": "A little squirrel brought tiny pebbles.",
+          "act": { "move": "run", "with": "stone", "fx": "dust", "sky": "field" }
+        },
+        {
+          "word": "monkey",
+          "hi": "बंदर हँसे, “तुम छोटी हो!”",
+          "en": "The monkeys laughed, “You are so small!”",
+          "act": { "move": "talk", "with": "squirrel", "sky": "field" }
+        },
+        {
+          "word": "ram",
+          "hi": "राम बोले, “छोटी मदद भी बड़ी है।”",
+          "en": "Ram said, “Small help is big help too.”",
+          "act": { "move": "talk", "with": "squirrel", "fx": "glow", "sky": "dawn" }
+        },
+        {
+          "word": "squirrel",
+          "hi": "राम ने उसे सहलाया। तीन धारियाँ बन गईं!",
+          "en": "Ram stroked her back. Three stripes appeared!",
+          "act": { "move": "grow", "with": "ram", "fx": "sparkles", "sky": "dawn" }
+        }
       ],
       "questions": [
         { "hi": "गिलहरी क्या लाई?", "en": "What did the squirrel bring?", "answer": "stone", "options": ["stone", "banana", "flower"] },
@@ -995,12 +1188,22 @@
       "title": { "hi": "दीयों की रात", "en": "The night of lamps" },
       "cover": "lamp",
       "pages": [
-        { "word": "ram", "hi": "राम चौदह साल बाद घर लौटे।", "en": "Ram came home after fourteen years." },
-        { "word": "sita", "hi": "साथ में सीता और लक्ष्मण भी थे।", "en": "Sita and Lakshman came home too." },
-        { "word": "house", "hi": "सबने घर साफ़ किए।", "en": "Everyone cleaned their homes." },
-        { "word": "lamp", "hi": "हर घर में दीये जले।", "en": "Lamps were lit in every home." },
-        { "word": "laddoo", "hi": "सबने मिठाई बाँटी।", "en": "Everyone shared sweets." },
-        { "word": "lamp", "hi": "यही रात दिवाली बनी!", "en": "That night became Diwali!" }
+        { "word": "ram", "hi": "राम चौदह साल बाद घर लौटे।", "en": "Ram came home after fourteen years.", "act": { "move": "walk", "with": "house", "sky": "dawn" } },
+        {
+          "word": "sita",
+          "hi": "साथ में सीता और लक्ष्मण भी थे।",
+          "en": "Sita and Lakshman came home too.",
+          "act": { "move": "approach", "with": "lakshman", "sky": "dawn" }
+        },
+        { "word": "house", "hi": "सबने घर साफ़ किए।", "en": "Everyone cleaned their homes.", "act": { "move": "grow", "fx": "sparkles", "sky": "day" } },
+        { "word": "lamp", "hi": "हर घर में दीये जले।", "en": "Lamps were lit in every home.", "act": { "move": "grow", "fx": "lamps", "sky": "night" } },
+        { "word": "laddoo", "hi": "सबने मिठाई बाँटी।", "en": "Everyone shared sweets.", "act": { "move": "roll", "with": "sita", "fx": "hearts", "sky": "home" } },
+        {
+          "word": "lamp",
+          "hi": "यही रात दिवाली बनी!",
+          "en": "That night became Diwali!",
+          "act": { "move": "float", "fx": ["lamps", "sparkles"], "sky": "night", "sound": "cheer" }
+        }
       ],
       "questions": [
         { "hi": "घरों में क्या जले?", "en": "What was lit in the homes?", "answer": "lamp", "options": ["lamp", "kite", "balloon"] },
@@ -1014,12 +1217,37 @@
       "title": { "hi": "माखन चोर", "en": "The butter thief" },
       "cover": "krishna",
       "pages": [
-        { "word": "krishna", "hi": "छोटे कृष्ण को माखन बहुत पसंद था।", "en": "Little Krishna loved butter." },
-        { "word": "mother", "hi": "माँ ने माखन ऊपर टाँग दिया।", "en": "Mother hung the butter up high." },
-        { "word": "butter", "hi": "कृष्ण बोले, “माखन तो चाहिए!”", "en": "Krishna said, “But I want butter!”" },
-        { "word": "boy", "hi": "दोस्त आए। एक के ऊपर एक चढ़े।", "en": "Friends came. They climbed on each other." },
-        { "word": "butter", "hi": "कृष्ण ने माखन खा लिया!", "en": "Krishna ate the butter!" },
-        { "word": "mother", "hi": "माँ हँसीं, “मेरा माखन चोर!”", "en": "Mother laughed, “My little butter thief!”" }
+        {
+          "word": "krishna",
+          "hi": "छोटे कृष्ण को माखन बहुत पसंद था।",
+          "en": "Little Krishna loved butter.",
+          "act": { "move": "dance", "fx": "music", "sky": "home" }
+        },
+        { "word": "butter", "hi": "माँ ने माखन ऊपर टाँग दिया।", "en": "Mother hung the butter up high.", "act": { "move": "lift", "with": "mother", "sky": "home" } },
+        {
+          "word": "butter",
+          "hi": "कृष्ण बोले, “माखन तो चाहिए!”",
+          "en": "Krishna said, “But I want butter!”",
+          "act": { "move": "lift", "with": "krishna", "fx": "hearts", "sky": "home" }
+        },
+        {
+          "word": "boy",
+          "hi": "दोस्त आए। एक के ऊपर एक चढ़े।",
+          "en": "Friends came. They climbed on each other.",
+          "act": { "move": "climb", "with": "boy", "sky": "home" }
+        },
+        {
+          "word": "butter",
+          "hi": "कृष्ण ने माखन खा लिया!",
+          "en": "Krishna ate the butter!",
+          "act": { "move": "shrink", "with": "krishna", "fx": "sparkles", "sky": "home" }
+        },
+        {
+          "word": "mother",
+          "hi": "माँ हँसीं, “मेरा माखन चोर!”",
+          "en": "Mother laughed, “My little butter thief!”",
+          "act": { "move": "talk", "with": "krishna", "fx": "hearts", "sky": "home" }
+        }
       ],
       "questions": [
         { "hi": "कृष्ण को क्या पसंद था?", "en": "What did Krishna love?", "answer": "butter", "options": ["butter", "roti", "rice"] },
@@ -1033,12 +1261,37 @@
       "title": { "hi": "गणेश जी का चक्कर", "en": "Ganesh goes round" },
       "cover": "ganesh",
       "pages": [
-        { "word": "ganesh", "hi": "गणेश और उनके भाई में दौड़ थी।", "en": "Ganesh and his brother had a race." },
-        { "word": "mother", "hi": "माँ बोलीं, “दुनिया का चक्कर लगाओ।”", "en": "Mother said, “Go round the whole world.”" },
-        { "word": "peacock", "hi": "भाई मोर पर उड़ गए।", "en": "Brother flew off on his peacock." },
-        { "word": "mouse", "hi": "गणेश का चूहा बहुत छोटा था।", "en": "Ganesh’s mouse was very small." },
-        { "word": "ganesh", "hi": "गणेश ने माँ-पिता का चक्कर लगाया।", "en": "Ganesh went round his mother and father." },
-        { "word": "ganesh", "hi": "“आप ही मेरी दुनिया हैं!” गणेश जीत गए।", "en": "“You are my whole world!” Ganesh won." }
+        {
+          "word": "ganesh",
+          "hi": "गणेश और उनके भाई में दौड़ थी।",
+          "en": "Ganesh and his brother had a race.",
+          "act": { "move": "run", "fx": "dust", "sky": "field" }
+        },
+        {
+          "word": "mother",
+          "hi": "माँ बोलीं, “दुनिया का चक्कर लगाओ।”",
+          "en": "Mother said, “Go round the whole world.”",
+          "act": { "move": "talk", "with": "earth", "sky": "dawn" }
+        },
+        { "word": "peacock", "hi": "भाई मोर पर उड़ गए।", "en": "Brother flew off on his peacock.", "act": { "move": "fly-across", "fx": "wind", "sky": "sky" } },
+        {
+          "word": "mouse",
+          "hi": "गणेश का चूहा बहुत छोटा था।",
+          "en": "Ganesh’s mouse was very small.",
+          "act": { "move": "scurry", "with": "peacock", "sky": "field" }
+        },
+        {
+          "word": "ganesh",
+          "hi": "गणेश ने माँ-पिता का चक्कर लगाया।",
+          "en": "Ganesh went round his mother and father.",
+          "act": { "move": "orbit", "with": "mother", "fx": "sparkles", "sky": "dawn" }
+        },
+        {
+          "word": "ganesh",
+          "hi": "“आप ही मेरी दुनिया हैं!” गणेश जीत गए।",
+          "en": "“You are my whole world!” Ganesh won.",
+          "act": { "move": "dance", "fx": "confetti", "sky": "dawn" }
+        }
       ],
       "questions": [
         { "hi": "गणेश की सवारी कौन है?", "en": "Who does Ganesh ride?", "answer": "mouse", "options": ["mouse", "peacock", "horse"] },
@@ -1052,12 +1305,22 @@
       "title": { "hi": "दो बकरियाँ", "en": "Two goats" },
       "cover": "goat",
       "pages": [
-        { "word": "bridge", "hi": "एक पतला पुल था।", "en": "There was a narrow bridge." },
-        { "word": "goat", "hi": "एक बकरी इधर से आई।", "en": "One goat came from this side." },
-        { "word": "goat", "hi": "दूसरी बकरी उधर से आई।", "en": "Another goat came from that side." },
-        { "word": "goat", "hi": "“तुम हटो!” “नहीं, तुम हटो!”", "en": "“You move!” “No, you move!”" },
-        { "word": "river", "hi": "छपाक! दोनों नदी में गिरीं।", "en": "Splash! Both fell in the river." },
-        { "word": "goat", "hi": "दो और बकरियाँ आईं। एक बैठी, दूसरी पार गई।", "en": "Two more goats came. One sat down, the other stepped over." }
+        { "word": "bridge", "hi": "एक पतला पुल था।", "en": "There was a narrow bridge.", "act": { "move": "sway", "sky": "river" } },
+        { "word": "goat", "hi": "एक बकरी इधर से आई।", "en": "One goat came from this side.", "act": { "move": "enter", "with": "bridge", "sky": "field" } },
+        { "word": "goat", "hi": "दूसरी बकरी उधर से आई।", "en": "Another goat came from that side.", "act": { "move": "enter-right", "sky": "field" } },
+        { "word": "goat", "hi": "“तुम हटो!” “नहीं, तुम हटो!”", "en": "“You move!” “No, you move!”", "act": { "move": "bump", "with": "goat", "sky": "field" } },
+        {
+          "word": "goat",
+          "hi": "छपाक! दोनों नदी में गिरीं।",
+          "en": "Splash! Both fell in the river.",
+          "act": { "move": "fall", "with": "goat", "fx": "splash", "sky": "sea", "sound": "splash" }
+        },
+        {
+          "word": "goat",
+          "hi": "दो और बकरियाँ आईं। एक बैठी, दूसरी पार गई।",
+          "en": "Two more goats came. One sat down, the other stepped over.",
+          "act": { "move": "approach", "with": "goat", "fx": "hearts", "sky": "field" }
+        }
       ],
       "questions": [
         { "hi": "बकरियाँ कहाँ गिरीं?", "en": "Where did the goats fall?", "answer": "river", "options": ["river", "house", "tree"] },
@@ -1071,12 +1334,37 @@
       "title": { "hi": "सूरज और हवा", "en": "The sun and the wind" },
       "cover": "sun",
       "pages": [
-        { "word": "wind", "hi": "हवा बोली, “मैं सबसे ताक़तवर हूँ!”", "en": "The wind said, “I am the strongest!”" },
-        { "word": "sun", "hi": "सूरज बोला, “देखें, कौन जीतता है।”", "en": "The sun said, “Let us see who wins.”" },
-        { "word": "farmer", "hi": "एक किसान कोट पहनकर जा रहा था।", "en": "A farmer was walking by in his coat." },
-        { "word": "wind", "hi": "हवा ज़ोर से चली। किसान ने कोट कसकर पकड़ा।", "en": "The wind blew hard. The farmer held his coat tight." },
-        { "word": "sun", "hi": "सूरज धीरे से चमका। गरमी हुई।", "en": "The sun shone gently. It grew warm." },
-        { "word": "coat", "hi": "किसान ने कोट उतार दिया। सूरज जीता!", "en": "The farmer took off his coat. The sun won!" }
+        {
+          "word": "wind",
+          "hi": "हवा बोली, “मैं सबसे ताक़तवर हूँ!”",
+          "en": "The wind said, “I am the strongest!”",
+          "act": { "move": "shake", "fx": "wind", "sky": "sky" }
+        },
+        {
+          "word": "sun",
+          "hi": "सूरज बोला, “देखें, कौन जीतता है।”",
+          "en": "The sun said, “Let us see who wins.”",
+          "act": { "move": "peek", "fx": "glow", "sky": "sky" }
+        },
+        { "word": "farmer", "hi": "एक किसान कोट पहनकर जा रहा था।", "en": "A farmer was walking by in his coat.", "act": { "move": "walk", "sky": "field" } },
+        {
+          "word": "wind",
+          "hi": "हवा ज़ोर से चली। किसान ने कोट कसकर पकड़ा।",
+          "en": "The wind blew hard. The farmer held his coat tight.",
+          "act": { "move": "shake", "with": "farmer", "fx": ["wind", "leaves"], "sky": "rain" }
+        },
+        {
+          "word": "sun",
+          "hi": "सूरज धीरे से चमका। गरमी हुई।",
+          "en": "The sun shone gently. It grew warm.",
+          "act": { "move": "grow", "with": "farmer", "fx": "glow", "sky": "dawn" }
+        },
+        {
+          "word": "coat",
+          "hi": "किसान ने कोट उतार दिया। सूरज जीता!",
+          "en": "The farmer took off his coat. The sun won!",
+          "act": { "move": "fall", "with": "sun", "fx": "sparkles", "sky": "dawn" }
+        }
       ],
       "questions": [
         { "hi": "कौन जीता?", "en": "Who won?", "answer": "sun", "options": ["sun", "wind", "cloud"] },
@@ -1090,12 +1378,27 @@
       "title": { "hi": "हाथी और चींटी", "en": "The elephant and the ant" },
       "cover": "elephant",
       "pages": [
-        { "word": "elephant", "hi": "एक घमंडी हाथी था।", "en": "There was a proud elephant." },
-        { "word": "ant", "hi": "वह चींटियों पर पानी फेंकता था।", "en": "He sprayed water on the ants." },
-        { "word": "ant", "hi": "एक चींटी बोली, “यह ठीक नहीं!”", "en": "One ant said, “That is not right!”" },
-        { "word": "elephant", "hi": "चींटी हाथी की सूँड़ में चढ़ गई।", "en": "The ant climbed into the elephant’s trunk." },
-        { "word": "elephant", "hi": "हाथी चिल्लाया, “माफ़ करो!”", "en": "The elephant cried, “Sorry!”" },
-        { "word": "ant", "hi": "अब हाथी और चींटी दोस्त हैं।", "en": "Now the elephant and the ant are friends." }
+        { "word": "elephant", "hi": "एक घमंडी हाथी था।", "en": "There was a proud elephant.", "act": { "move": "walk", "sky": "field", "sound": "thud" } },
+        {
+          "word": "ant",
+          "hi": "वह चींटियों पर पानी फेंकता था।",
+          "en": "He sprayed water on the ants.",
+          "act": { "move": "shake", "with": "elephant", "fx": "splash", "sky": "field", "sound": "splash" }
+        },
+        { "word": "ant", "hi": "एक चींटी बोली, “यह ठीक नहीं!”", "en": "One ant said, “That is not right!”", "act": { "move": "jump", "sky": "field" } },
+        {
+          "word": "elephant",
+          "hi": "चींटी हाथी की सूँड़ में चढ़ गई।",
+          "en": "The ant climbed into the elephant’s trunk.",
+          "act": { "move": "shake", "with": "ant", "sky": "field", "sound": "sneeze" }
+        },
+        { "word": "elephant", "hi": "हाथी चिल्लाया, “माफ़ करो!”", "en": "The elephant cried, “Sorry!”", "act": { "move": "talk", "with": "ant", "sky": "field" } },
+        {
+          "word": "ant",
+          "hi": "अब हाथी और चींटी दोस्त हैं।",
+          "en": "Now the elephant and the ant are friends.",
+          "act": { "move": "approach", "with": "elephant", "fx": "hearts", "sky": "field" }
+        }
       ],
       "questions": [
         { "hi": "कौन घमंडी था?", "en": "Who was proud?", "answer": "elephant", "options": ["elephant", "ant", "monkey"] },
@@ -1109,11 +1412,16 @@
       "title": { "hi": "लाल बस", "en": "The red bus" },
       "cover": "bus",
       "pages": [
-        { "word": "bus", "hi": "यह लाल बस है।", "en": "This is a red bus." },
-        { "word": "cow", "hi": "बस में गाय है।", "en": "A cow is on the bus." },
-        { "word": "monkey", "hi": "बस में बंदर है।", "en": "A monkey is on the bus." },
-        { "word": "banana", "hi": "बंदर केला खाता है।", "en": "The monkey eats a banana." },
-        { "word": "bus", "hi": "बस चली, पों पों!", "en": "The bus goes, beep beep!" }
+        { "word": "bus", "hi": "यह लाल बस है।", "en": "This is a red bus.", "act": { "move": "drive", "sky": "field", "fx": "dust", "sound": "toot" } },
+        { "word": "cow", "hi": "बस में गाय है।", "en": "A cow is on the bus.", "act": { "move": "enter", "sky": "field", "with": "bus" } },
+        { "word": "monkey", "hi": "बस में बंदर है।", "en": "A monkey is on the bus.", "act": { "move": "jump", "sky": "field", "with": "bus" } },
+        {
+          "word": "banana",
+          "hi": "बंदर केला खाता है।",
+          "en": "The monkey eats a banana.",
+          "act": { "move": "shrink", "sky": "field", "with": "monkey", "fx": "sparkles" }
+        },
+        { "word": "bus", "hi": "बस चली, पों पों!", "en": "The bus goes, beep beep!", "act": { "move": "drive", "sky": "field", "fx": "wind", "sound": "toot" } }
       ],
       "questions": [
         { "hi": "बंदर क्या खाता है?", "en": "What does the monkey eat?", "answer": "banana", "options": ["banana", "mango", "carrot"] },
@@ -1126,11 +1434,36 @@
       "title": { "hi": "चीकू और केला", "en": "Chiku and the banana" },
       "cover": "monkey",
       "pages": [
-        { "word": "monkey", "hi": "यह चीकू है। चीकू एक बंदर है।", "en": "This is Chiku. Chiku is a monkey." },
-        { "word": "banana", "hi": "पेड़ पर एक पीला केला है।", "en": "There is a yellow banana on the tree." },
-        { "word": "monkey", "hi": "चीकू कूदा, पर केला बहुत ऊपर था।", "en": "Chiku jumped, but the banana was too high." },
-        { "word": "elephant", "hi": "हाथी आया। उसने सूँड़ से केला तोड़ा।", "en": "Elephant came. He picked the banana with his trunk." },
-        { "word": "heart", "hi": "चीकू और हाथी ने केला बाँटकर खाया।", "en": "Chiku and Elephant shared the banana." }
+        {
+          "word": "monkey",
+          "hi": "यह चीकू है। चीकू एक बंदर है।",
+          "en": "This is Chiku. Chiku is a monkey.",
+          "act": { "move": "enter", "sky": "field", "fx": "leaves" }
+        },
+        {
+          "word": "banana",
+          "hi": "पेड़ पर एक पीला केला है।",
+          "en": "There is a yellow banana on the tree.",
+          "act": { "move": "lift", "sky": "field", "with": "tree" }
+        },
+        {
+          "word": "monkey",
+          "hi": "चीकू कूदा, पर केला बहुत ऊपर था।",
+          "en": "Chiku jumped, but the banana was too high.",
+          "act": { "move": "jump", "sky": "field", "with": "banana" }
+        },
+        {
+          "word": "elephant",
+          "hi": "हाथी आया। उसने सूँड़ से केला तोड़ा।",
+          "en": "Elephant came. He picked the banana with his trunk.",
+          "act": { "move": "walk", "sky": "field", "with": "banana", "sound": "thud" }
+        },
+        {
+          "word": "heart",
+          "hi": "चीकू और हाथी ने केला बाँटकर खाया।",
+          "en": "Chiku and Elephant shared the banana.",
+          "act": { "move": "grow", "sky": "field", "fx": "hearts" }
+        }
       ],
       "questions": [
         { "hi": "पेड़ पर क्या था?", "en": "What was on the tree?", "answer": "banana", "options": ["banana", "apple", "mango"] },
@@ -1143,11 +1476,16 @@
       "title": { "hi": "मोर का नाच", "en": "The peacock's dance" },
       "cover": "peacock",
       "pages": [
-        { "word": "cloud", "hi": "आसमान में काले बादल आए।", "en": "Dark clouds came into the sky." },
-        { "word": "rain", "hi": "टप टप बारिश होने लगी।", "en": "Pitter-patter, it began to rain." },
-        { "word": "peacock", "hi": "मोर ने अपने रंग-बिरंगे पंख खोले।", "en": "The peacock opened its colourful feathers." },
-        { "word": "peacock", "hi": "मोर छम छम नाचने लगा।", "en": "The peacock began to dance." },
-        { "word": "girl", "hi": "सब बच्चे ताली बजाने लगे।", "en": "All the children clapped." }
+        { "word": "cloud", "hi": "आसमान में काले बादल आए।", "en": "Dark clouds came into the sky.", "act": { "move": "enter-right", "sky": "rain" } },
+        { "word": "rain", "hi": "टप टप बारिश होने लगी।", "en": "Pitter-patter, it began to rain.", "act": { "move": "float", "sky": "rain", "fx": "rain" } },
+        {
+          "word": "peacock",
+          "hi": "मोर ने अपने रंग-बिरंगे पंख खोले।",
+          "en": "The peacock opened its colourful feathers.",
+          "act": { "move": "grow", "sky": "rain", "fx": "sparkles" }
+        },
+        { "word": "peacock", "hi": "मोर छम छम नाचने लगा।", "en": "The peacock began to dance.", "act": { "move": "dance", "sky": "rain", "fx": ["rain", "music"] } },
+        { "word": "girl", "hi": "सब बच्चे ताली बजाने लगे।", "en": "All the children clapped.", "act": { "move": "jump", "sky": "field", "fx": "confetti" } }
       ],
       "questions": [
         { "hi": "बारिश से पहले आसमान में क्या आया?", "en": "What came into the sky before the rain?", "answer": "cloud", "options": ["cloud", "sun", "kite"] },
@@ -1160,11 +1498,26 @@
       "title": { "hi": "छोटी चींटी", "en": "The little ant" },
       "cover": "ant",
       "pages": [
-        { "word": "ant", "hi": "एक छोटी चींटी थी।", "en": "There was a little ant." },
-        { "word": "rice", "hi": "उसे चावल का एक दाना मिला।", "en": "She found a grain of rice." },
-        { "word": "ant", "hi": "दाना भारी था। चींटी थक गई।", "en": "The grain was heavy. The ant got tired." },
-        { "word": "ant", "hi": "उसकी सहेलियाँ आईं। सबने मिलकर दाना उठाया।", "en": "Her friends came. Together they lifted the grain." },
-        { "word": "house", "hi": "दाना घर पहुँच गया। मिलकर काम आसान है!", "en": "The grain got home. Working together is easy!" }
+        { "word": "ant", "hi": "एक छोटी चींटी थी।", "en": "There was a little ant.", "act": { "move": "scurry", "sky": "field" } },
+        { "word": "rice", "hi": "उसे चावल का एक दाना मिला।", "en": "She found a grain of rice.", "act": { "move": "grow", "sky": "field", "with": "ant" } },
+        {
+          "word": "ant",
+          "hi": "दाना भारी था। चींटी थक गई।",
+          "en": "The grain was heavy. The ant got tired.",
+          "act": { "move": "shake", "sky": "field", "with": "rice" }
+        },
+        {
+          "word": "ant",
+          "hi": "उसकी सहेलियाँ आईं। सबने मिलकर दाना उठाया।",
+          "en": "Her friends came. Together they lifted the grain.",
+          "act": { "move": "approach", "sky": "field", "with": "ant", "fx": "hearts" }
+        },
+        {
+          "word": "house",
+          "hi": "दाना घर पहुँच गया। मिलकर काम आसान है!",
+          "en": "The grain got home. Working together is easy!",
+          "act": { "move": "grow", "sky": "field", "fx": "confetti" }
+        }
       ],
       "questions": [
         { "hi": "चींटी को क्या मिला?", "en": "What did the ant find?", "answer": "rice", "options": ["rice", "roti", "apple"] },
@@ -1177,11 +1530,16 @@
       "title": { "hi": "चूहा और बिल्ली", "en": "The mouse and the cat" },
       "cover": "mouse",
       "pages": [
-        { "word": "mouse", "hi": "एक छोटा चूहा था।", "en": "There was a little mouse." },
-        { "word": "roti", "hi": "उसे रोटी का एक टुकड़ा दिखा।", "en": "He saw a piece of roti." },
-        { "word": "cat", "hi": "तभी म्याऊँ करती बिल्ली आई!", "en": "Just then a cat came — meow!" },
-        { "word": "mouse", "hi": "चूहा भागा और अपने बिल में छिप गया।", "en": "The mouse ran and hid in his hole." },
-        { "word": "cat", "hi": "बिल्ली देखती रह गई। चूहा बच गया!", "en": "The cat just stared. The mouse was safe!" }
+        { "word": "mouse", "hi": "एक छोटा चूहा था।", "en": "There was a little mouse.", "act": { "move": "scurry", "sky": "home" } },
+        { "word": "roti", "hi": "उसे रोटी का एक टुकड़ा दिखा।", "en": "He saw a piece of roti.", "act": { "move": "roll", "sky": "home", "with": "mouse" } },
+        { "word": "cat", "hi": "तभी म्याऊँ करती बिल्ली आई!", "en": "Just then a cat came — meow!", "act": { "move": "enter-right", "sky": "home" } },
+        {
+          "word": "mouse",
+          "hi": "चूहा भागा और अपने बिल में छिप गया।",
+          "en": "The mouse ran and hid in his hole.",
+          "act": { "move": "run", "sky": "home", "fx": "dust" }
+        },
+        { "word": "cat", "hi": "बिल्ली देखती रह गई। चूहा बच गया!", "en": "The cat just stared. The mouse was safe!", "act": { "move": "sway", "sky": "home" } }
       ],
       "questions": [
         { "hi": "चूहे को क्या दिखा?", "en": "What did the mouse see?", "answer": "roti", "options": ["roti", "milk", "mango"] },
@@ -1194,11 +1552,16 @@
       "title": { "hi": "पतंग उड़ी", "en": "Up goes the kite" },
       "cover": "kite",
       "pages": [
-        { "word": "sun", "hi": "आज धूप खिली है।", "en": "Today the sun is shining." },
-        { "word": "sister", "hi": "दीदी लाल पतंग लाई।", "en": "Big sister brought a red kite." },
-        { "word": "kite", "hi": "हवा चली, पतंग ऊपर उड़ी।", "en": "The wind blew, and the kite flew up." },
-        { "word": "bird", "hi": "पतंग चिड़ियों के पास पहुँच गई।", "en": "The kite reached the birds." },
-        { "word": "brother", "hi": "भाई बोला, \"वाह! कितनी ऊँची!\"", "en": "Brother said, \"Wow! So high!\"" }
+        { "word": "sun", "hi": "आज धूप खिली है।", "en": "Today the sun is shining.", "act": { "move": "peek", "sky": "dawn", "fx": "glow" } },
+        { "word": "sister", "hi": "दीदी लाल पतंग लाई।", "en": "Big sister brought a red kite.", "act": { "move": "enter", "sky": "field", "with": "kite" } },
+        { "word": "kite", "hi": "हवा चली, पतंग ऊपर उड़ी।", "en": "The wind blew, and the kite flew up.", "act": { "move": "fly-up", "sky": "sky", "fx": "wind" } },
+        { "word": "bird", "hi": "पतंग चिड़ियों के पास पहुँच गई।", "en": "The kite reached the birds.", "act": { "move": "fly-across", "sky": "sky", "with": "kite" } },
+        {
+          "word": "brother",
+          "hi": "भाई बोला, \"वाह! कितनी ऊँची!\"",
+          "en": "Brother said, \"Wow! So high!\"",
+          "act": { "move": "jump", "sky": "field", "with": "kite", "fx": "sparkles" }
+        }
       ],
       "questions": [
         { "hi": "पतंग कौन लाया?", "en": "Who brought the kite?", "answer": "sister", "options": ["sister", "mother", "grandfather"] },
@@ -1211,11 +1574,16 @@
       "title": { "hi": "दादी की खीर", "en": "Grandma's kheer" },
       "cover": "grandmother",
       "pages": [
-        { "word": "grandmother", "hi": "आज दादी खीर बना रही हैं।", "en": "Today Grandma is making kheer." },
-        { "word": "milk", "hi": "दादी ने दूध उबाला।", "en": "Grandma boiled the milk." },
-        { "word": "rice", "hi": "फिर उसमें चावल और चीनी डाली।", "en": "Then she added rice and sugar." },
-        { "word": "kheer", "hi": "खीर की मीठी खुशबू आई।", "en": "A sweet smell came from the kheer." },
-        { "word": "boy", "hi": "सबने मिलकर खीर खाई। वाह, कितनी मीठी!", "en": "Everyone ate kheer together. So sweet!" }
+        { "word": "grandmother", "hi": "आज दादी खीर बना रही हैं।", "en": "Today Grandma is making kheer.", "act": { "move": "enter", "sky": "home" } },
+        { "word": "milk", "hi": "दादी ने दूध उबाला।", "en": "Grandma boiled the milk.", "act": { "move": "shake", "sky": "home", "fx": "steam" } },
+        { "word": "rice", "hi": "फिर उसमें चावल और चीनी डाली।", "en": "Then she added rice and sugar.", "act": { "move": "fall", "sky": "home", "with": "milk" } },
+        { "word": "kheer", "hi": "खीर की मीठी खुशबू आई।", "en": "A sweet smell came from the kheer.", "act": { "move": "float", "sky": "home", "fx": "steam" } },
+        {
+          "word": "boy",
+          "hi": "सबने मिलकर खीर खाई। वाह, कितनी मीठी!",
+          "en": "Everyone ate kheer together. So sweet!",
+          "act": { "move": "dance", "sky": "home", "with": "kheer", "fx": "hearts" }
+        }
       ],
       "questions": [
         { "hi": "खीर कौन बना रहा था?", "en": "Who was making the kheer?", "answer": "grandmother", "options": ["grandmother", "father", "boy"] },
@@ -1228,11 +1596,16 @@
       "title": { "hi": "टिंकू की छलाँग", "en": "Tinku's big jump" },
       "cover": "frog",
       "pages": [
-        { "word": "frog", "hi": "यह मेंढक है। उसका नाम टिंकू है।", "en": "This is a frog. His name is Tinku." },
-        { "word": "river", "hi": "टिंकू नदी के पास रहता है।", "en": "Tinku lives near the river." },
-        { "word": "leaf", "hi": "वह एक बड़े पत्ते पर बैठता है।", "en": "He sits on a big leaf." },
-        { "word": "fish", "hi": "मछली बोली, \"टिंकू, कूदो!\"", "en": "The fish said, \"Tinku, jump!\"" },
-        { "word": "frog", "hi": "टिंकू ने बड़ी छलाँग लगाई। छपाक!", "en": "Tinku took a big jump. Splash!" }
+        { "word": "frog", "hi": "यह मेंढक है। उसका नाम टिंकू है।", "en": "This is a frog. His name is Tinku.", "act": { "move": "jump", "sky": "river" } },
+        { "word": "river", "hi": "टिंकू नदी के पास रहता है।", "en": "Tinku lives near the river.", "act": { "move": "grow", "sky": "field", "with": "frog" } },
+        { "word": "leaf", "hi": "वह एक बड़े पत्ते पर बैठता है।", "en": "He sits on a big leaf.", "act": { "move": "float", "sky": "river", "with": "frog" } },
+        {
+          "word": "fish",
+          "hi": "मछली बोली, \"टिंकू, कूदो!\"",
+          "en": "The fish said, \"Tinku, jump!\"",
+          "act": { "move": "swim", "sky": "underwater", "fx": "bubbles" }
+        },
+        { "word": "frog", "hi": "टिंकू ने बड़ी छलाँग लगाई। छपाक!", "en": "Tinku took a big jump. Splash!", "act": { "move": "jump", "sky": "sea", "fx": "splash" } }
       ],
       "questions": [
         { "hi": "टिंकू कौन है?", "en": "Who is Tinku?", "answer": "frog", "options": ["frog", "fish", "duck"] },
@@ -1245,11 +1618,31 @@
       "title": { "hi": "चूज़ा खो गया", "en": "The lost chick" },
       "cover": "chick",
       "pages": [
-        { "word": "chick", "hi": "एक छोटा चूज़ा खो गया।", "en": "A little chick was lost." },
-        { "word": "duck", "hi": "उसने बत्तख से पूछा, \"मेरी माँ कहाँ है?\"", "en": "He asked the duck, \"Where is my mother?\"" },
-        { "word": "cow", "hi": "गाय बोली, \"मैं तुम्हारी माँ नहीं हूँ।\"", "en": "The cow said, \"I am not your mother.\"" },
-        { "word": "dog", "hi": "कुत्ता बोला, \"चलो, मिलकर ढूँढते हैं।\"", "en": "The dog said, \"Come, let’s look together.\"" },
-        { "word": "hen", "hi": "मुर्गी आई। \"माँ!\" चूज़ा ख़ुश हो गया।", "en": "The hen came. \"Mother!\" The chick was happy." }
+        { "word": "chick", "hi": "एक छोटा चूज़ा खो गया।", "en": "A little chick was lost.", "act": { "move": "shake", "sky": "field" } },
+        {
+          "word": "duck",
+          "hi": "उसने बत्तख से पूछा, \"मेरी माँ कहाँ है?\"",
+          "en": "He asked the duck, \"Where is my mother?\"",
+          "act": { "move": "float", "sky": "river", "with": "chick" }
+        },
+        {
+          "word": "cow",
+          "hi": "गाय बोली, \"मैं तुम्हारी माँ नहीं हूँ।\"",
+          "en": "The cow said, \"I am not your mother.\"",
+          "act": { "move": "talk", "sky": "field", "with": "chick" }
+        },
+        {
+          "word": "dog",
+          "hi": "कुत्ता बोला, \"चलो, मिलकर ढूँढते हैं।\"",
+          "en": "The dog said, \"Come, let’s look together.\"",
+          "act": { "move": "walk", "sky": "field", "with": "chick" }
+        },
+        {
+          "word": "hen",
+          "hi": "मुर्गी आई। \"माँ!\" चूज़ा ख़ुश हो गया।",
+          "en": "The hen came. \"Mother!\" The chick was happy.",
+          "act": { "move": "approach", "sky": "field", "with": "chick", "fx": "hearts" }
+        }
       ],
       "questions": [
         { "hi": "चूज़े की माँ कौन है?", "en": "Who is the chick’s mother?", "answer": "hen", "options": ["hen", "cow", "duck"] },
@@ -1262,11 +1655,21 @@
       "title": { "hi": "बारिश का दिन", "en": "A rainy day" },
       "cover": "umbrella",
       "pages": [
-        { "word": "raincloud", "hi": "आसमान में काले बादल आए।", "en": "Dark clouds came into the sky." },
-        { "word": "umbrella", "hi": "रिया ने अपना लाल छाता लिया।", "en": "Riya took her red umbrella." },
-        { "word": "girl", "hi": "रिया बारिश में नाची।", "en": "Riya danced in the rain." },
-        { "word": "frog", "hi": "मेंढक भी टर्र-टर्र गाने लगे।", "en": "The frogs began to sing, croak-croak." },
-        { "word": "boat", "hi": "रिया ने काग़ज़ की नाव बनाई।", "en": "Riya made a paper boat." }
+        { "word": "raincloud", "hi": "आसमान में काले बादल आए।", "en": "Dark clouds came into the sky.", "act": { "move": "enter-right", "sky": "rain" } },
+        {
+          "word": "umbrella",
+          "hi": "रिया ने अपना लाल छाता लिया।",
+          "en": "Riya took her red umbrella.",
+          "act": { "move": "grow", "sky": "rain", "with": "girl", "fx": "rain" }
+        },
+        { "word": "girl", "hi": "रिया बारिश में नाची।", "en": "Riya danced in the rain.", "act": { "move": "dance", "sky": "rain", "fx": "rain" } },
+        {
+          "word": "frog",
+          "hi": "मेंढक भी टर्र-टर्र गाने लगे।",
+          "en": "The frogs began to sing, croak-croak.",
+          "act": { "move": "jump", "sky": "rain", "fx": ["rain", "music"] }
+        },
+        { "word": "boat", "hi": "रिया ने काग़ज़ की नाव बनाई।", "en": "Riya made a paper boat.", "act": { "move": "float", "sky": "river", "fx": "rain" } }
       ],
       "questions": [
         { "hi": "रिया ने क्या लिया?", "en": "What did Riya take?", "answer": "umbrella", "options": ["umbrella", "kite", "bag"] },
@@ -1279,11 +1682,36 @@
       "title": { "hi": "गप्पू का गुब्बारा", "en": "Gappu’s balloon" },
       "cover": "balloon",
       "pages": [
-        { "word": "elephant", "hi": "गप्पू हाथी के पास एक लाल गुब्बारा था।", "en": "Gappu the elephant had a red balloon." },
-        { "word": "balloon", "hi": "हवा आई, और गुब्बारा उड़ गया!", "en": "The wind blew, and the balloon flew away!" },
-        { "word": "tree", "hi": "गुब्बारा एक पेड़ पर अटक गया।", "en": "The balloon got stuck in a tree." },
-        { "word": "monkey", "hi": "चीकू बंदर पेड़ पर चढ़ा और गुब्बारा ले आया।", "en": "Chiku the monkey climbed the tree and brought it back." },
-        { "word": "elephant", "hi": "गप्पू ने चीकू को धन्यवाद कहा। दोनों साथ खेले।", "en": "Gappu said thank you to Chiku, and they played together." }
+        {
+          "word": "elephant",
+          "hi": "गप्पू हाथी के पास एक लाल गुब्बारा था।",
+          "en": "Gappu the elephant had a red balloon.",
+          "act": { "move": "walk", "sky": "field", "with": "balloon" }
+        },
+        {
+          "word": "balloon",
+          "hi": "हवा आई, और गुब्बारा उड़ गया!",
+          "en": "The wind blew, and the balloon flew away!",
+          "act": { "move": "fly-up", "sky": "sky", "fx": "wind" }
+        },
+        {
+          "word": "tree",
+          "hi": "गुब्बारा एक पेड़ पर अटक गया।",
+          "en": "The balloon got stuck in a tree.",
+          "act": { "move": "sway", "sky": "field", "with": "balloon", "fx": "leaves" }
+        },
+        {
+          "word": "monkey",
+          "hi": "चीकू बंदर पेड़ पर चढ़ा और गुब्बारा ले आया।",
+          "en": "Chiku the monkey climbed the tree and brought it back.",
+          "act": { "move": "climb", "sky": "field", "with": "tree" }
+        },
+        {
+          "word": "elephant",
+          "hi": "गप्पू ने चीकू को धन्यवाद कहा। दोनों साथ खेले।",
+          "en": "Gappu said thank you to Chiku, and they played together.",
+          "act": { "move": "dance", "sky": "field", "with": "monkey", "fx": "hearts" }
+        }
       ],
       "questions": [
         { "hi": "गुब्बारा कहाँ अटका?", "en": "Where did the balloon get stuck?", "answer": "tree", "options": ["tree", "house", "bus"] },
@@ -1296,11 +1724,26 @@
       "title": { "hi": "पिप का स्नोमैन", "en": "Pip’s snowman" },
       "cover": "penguin",
       "pages": [
-        { "word": "penguin", "hi": "पिप पेंगुइन को बर्फ़ बहुत पसंद है।", "en": "Pip the penguin loves snow." },
-        { "word": "snowman", "hi": "उसने एक बड़ा स्नोमैन बनाया।", "en": "He made a big snowman." },
-        { "word": "carrot", "hi": "स्नोमैन की नाक के लिए उसने गाजर लगाई।", "en": "He used a carrot for its nose." },
-        { "word": "sun", "hi": "सूरज निकला, और स्नोमैन पिघलने लगा!", "en": "The sun came out, and the snowman began to melt!" },
-        { "word": "penguin", "hi": "पिप हँसा: \"कल फिर बनाएँगे!\"", "en": "Pip laughed: \"We’ll make another tomorrow!\"" }
+        { "word": "penguin", "hi": "पिप पेंगुइन को बर्फ़ बहुत पसंद है।", "en": "Pip the penguin loves snow.", "act": { "move": "walk", "sky": "snow", "fx": "snow" } },
+        { "word": "snowman", "hi": "उसने एक बड़ा स्नोमैन बनाया।", "en": "He made a big snowman.", "act": { "move": "grow", "sky": "snow", "fx": "snow" } },
+        {
+          "word": "carrot",
+          "hi": "स्नोमैन की नाक के लिए उसने गाजर लगाई।",
+          "en": "He used a carrot for its nose.",
+          "act": { "move": "fall", "sky": "snow", "with": "snowman" }
+        },
+        {
+          "word": "sun",
+          "hi": "सूरज निकला, और स्नोमैन पिघलने लगा!",
+          "en": "The sun came out, and the snowman began to melt!",
+          "act": { "move": "grow", "sky": "snow", "with": "snowman", "fx": "glow" }
+        },
+        {
+          "word": "penguin",
+          "hi": "पिप हँसा: \"कल फिर बनाएँगे!\"",
+          "en": "Pip laughed: \"We’ll make another tomorrow!\"",
+          "act": { "move": "dance", "sky": "snow", "fx": "snow" }
+        }
       ],
       "questions": [
         { "hi": "नाक के लिए क्या लगाया?", "en": "What did Pip use for the nose?", "answer": "carrot", "options": ["carrot", "banana", "kite"] },
@@ -1315,10 +1758,10 @@
       "title": { "hi": "जैक और जिल", "en": "Jack and Jill" },
       "cover": "bucket",
       "pages": [
-        { "word": "boy", "en": "Jack and Jill went up the hill" },
-        { "word": "bucket", "en": "To fetch a pail of water." },
-        { "word": "boy", "en": "Jack fell down and broke his crown," },
-        { "word": "girl", "en": "And Jill came tumbling after." }
+        { "word": "boy", "en": "Jack and Jill went up the hill", "act": { "move": "walk", "sky": "field", "with": "girl" } },
+        { "word": "bucket", "en": "To fetch a pail of water.", "act": { "move": "lift", "sky": "field", "with": "boy" } },
+        { "word": "boy", "en": "Jack fell down and broke his crown,", "act": { "move": "fall", "sky": "field", "fx": "dust" } },
+        { "word": "girl", "en": "And Jill came tumbling after.", "act": { "move": "roll", "sky": "field" } }
       ],
       "questions": [
         { "en": "What did they carry the water in?", "answer": "bucket", "options": ["bucket", "bag", "kite"] },
@@ -1333,10 +1776,10 @@
       "title": { "hi": "बारिश बारिश जाओ", "en": "Rain, Rain, Go Away" },
       "cover": "raincloud",
       "pages": [
-        { "word": "raincloud", "en": "Rain, rain, go away," },
-        { "word": "raincloud", "en": "Come again another day." },
-        { "word": "boy", "en": "Little Johnny wants to play," },
-        { "word": "umbrella", "en": "Rain, rain, go away." }
+        { "word": "raincloud", "en": "Rain, rain, go away,", "act": { "move": "shake", "sky": "rain", "fx": "rain" } },
+        { "word": "raincloud", "en": "Come again another day.", "act": { "move": "float", "sky": "sky" } },
+        { "word": "boy", "en": "Little Johnny wants to play,", "act": { "move": "jump", "sky": "field" } },
+        { "word": "umbrella", "en": "Rain, rain, go away.", "act": { "move": "sway", "sky": "rain", "fx": "rain" } }
       ],
       "questions": [
         { "en": "What does Johnny want to do?", "text": true, "answer": "play", "options": ["play", "sleep", "eat"] },
@@ -1351,10 +1794,10 @@
       "title": { "hi": "नाव चलाओ", "en": "Row, Row, Row Your Boat" },
       "cover": "boat",
       "pages": [
-        { "word": "boat", "en": "Row, row, row your boat" },
-        { "word": "river", "en": "Gently down the stream." },
-        { "word": "boat", "en": "Merrily, merrily, merrily, merrily," },
-        { "word": "moon", "en": "Life is but a dream." }
+        { "word": "boat", "en": "Row, row, row your boat", "act": { "move": "float", "sky": "river", "fx": "music" } },
+        { "word": "river", "en": "Gently down the stream.", "act": { "move": "sway", "sky": "day", "fx": "leaves" } },
+        { "word": "boat", "en": "Merrily, merrily, merrily, merrily,", "act": { "move": "float", "sky": "river", "fx": ["music", "sparkles"] } },
+        { "word": "moon", "en": "Life is but a dream.", "act": { "move": "peek", "sky": "night", "fx": "stars" } }
       ],
       "questions": [
         { "en": "What do you row?", "answer": "boat", "options": ["boat", "bus", "kite"] },
@@ -1369,10 +1812,10 @@
       "title": { "hi": "हे डिडल डिडल", "en": "Hey Diddle Diddle" },
       "cover": "cow",
       "pages": [
-        { "word": "cat", "en": "Hey diddle diddle, the cat and the fiddle," },
-        { "word": "cow", "en": "The cow jumped over the moon." },
-        { "word": "dog", "en": "The little dog laughed to see such fun," },
-        { "word": "spoon", "en": "And the dish ran away with the spoon." }
+        { "word": "cat", "en": "Hey diddle diddle, the cat and the fiddle,", "act": { "move": "dance", "sky": "night", "fx": "music" } },
+        { "word": "cow", "en": "The cow jumped over the moon.", "act": { "move": "fly-up", "sky": "night", "with": "moon", "fx": "stars" } },
+        { "word": "dog", "en": "The little dog laughed to see such fun,", "act": { "move": "jump", "sky": "night", "fx": "stars" } },
+        { "word": "spoon", "en": "And the dish ran away with the spoon.", "act": { "move": "run", "sky": "night", "fx": "dust" } }
       ],
       "questions": [
         { "en": "Who jumped over the moon?", "answer": "cow", "options": ["cow", "cat", "dog"] },
@@ -1385,13 +1828,33 @@
       "title": { "hi": "राम और धनुष", "en": "Ram and the bow" },
       "cover": "bow",
       "pages": [
-        { "word": "king", "hi": "राजा जनक की बेटी थी सीता।", "en": "King Janak had a daughter, Sita." },
-        { "word": "bow", "hi": "राजा के पास एक भारी धनुष था।", "en": "The king had a very heavy bow." },
-        { "word": "king", "hi": "राजा बोले, “जो धनुष उठाएगा, सीता की शादी उसी से होगी।”", "en": "The king said, “Whoever lifts the bow will marry Sita.”" },
-        { "word": "crown", "hi": "बहुत राजा आए। कोई धनुष हिला भी न सका।", "en": "Many kings came. None could even move the bow." },
-        { "word": "ram", "hi": "फिर राम आए। उन्होंने धनुष आराम से उठाया।", "en": "Then Ram came. He lifted the bow with ease." },
-        { "word": "bow", "hi": "टंकार! धनुष टूट गया।", "en": "Twang! The bow broke." },
-        { "word": "sita", "hi": "सीता ने राम को माला पहनाई।", "en": "Sita put a garland on Ram." }
+        { "word": "king", "hi": "राजा जनक की बेटी थी सीता।", "en": "King Janak had a daughter, Sita.", "act": { "move": "enter", "sky": "dawn", "with": "sita" } },
+        { "word": "bow", "hi": "राजा के पास एक भारी धनुष था।", "en": "The king had a very heavy bow.", "act": { "move": "grow", "sky": "dawn", "fx": "glow" } },
+        {
+          "word": "king",
+          "hi": "राजा बोले, “जो धनुष उठाएगा, सीता की शादी उसी से होगी।”",
+          "en": "The king said, “Whoever lifts the bow will marry Sita.”",
+          "act": { "move": "talk", "sky": "dawn", "with": "bow" }
+        },
+        {
+          "word": "crown",
+          "hi": "बहुत राजा आए। कोई धनुष हिला भी न सका।",
+          "en": "Many kings came. None could even move the bow.",
+          "act": { "move": "shake", "sky": "dawn", "with": "bow" }
+        },
+        {
+          "word": "ram",
+          "hi": "फिर राम आए। उन्होंने धनुष आराम से उठाया।",
+          "en": "Then Ram came. He lifted the bow with ease.",
+          "act": { "move": "grow", "sky": "dawn", "with": "bow", "fx": "glow" }
+        },
+        { "word": "bow", "hi": "टंकार! धनुष टूट गया।", "en": "Twang! The bow broke.", "act": { "move": "shake", "sky": "dawn", "fx": "sparkles", "sound": "thud" } },
+        {
+          "word": "sita",
+          "hi": "सीता ने राम को माला पहनाई।",
+          "en": "Sita put a garland on Ram.",
+          "act": { "move": "approach", "sky": "dawn", "with": "ram", "fx": "hearts" }
+        }
       ],
       "questions": [
         { "hi": "धनुष किसने उठाया?", "en": "Who lifted the bow?", "answer": "ram", "options": ["ram", "lakshman", "king"] },
@@ -1405,13 +1868,28 @@
       "title": { "hi": "सोने का हिरण", "en": "The golden deer" },
       "cover": "golden-deer",
       "pages": [
-        { "word": "tree", "hi": "राम, सीता और लक्ष्मण जंगल में रहते थे।", "en": "Ram, Sita and Lakshman lived in the forest." },
-        { "word": "golden-deer", "hi": "एक दिन सोने का हिरण आया।", "en": "One day a golden deer came." },
-        { "word": "sita", "hi": "सीता बोलीं, “कितना सुंदर! इसे पकड़ो।”", "en": "Sita said, “How lovely! Please catch it.”" },
-        { "word": "ram", "hi": "राम हिरण के पीछे गए।", "en": "Ram went after the deer." },
-        { "word": "ravan", "hi": "वह हिरण रावण की चाल थी!", "en": "The deer was Ravan’s trick!" },
-        { "word": "ravan", "hi": "रावण सीता को ले गया।", "en": "Ravan took Sita away." },
-        { "word": "ram", "hi": "राम उदास हुए। वे सीता को ढूँढने निकले।", "en": "Ram was sad. He set out to find Sita." }
+        {
+          "word": "tree",
+          "hi": "राम, सीता और लक्ष्मण जंगल में रहते थे।",
+          "en": "Ram, Sita and Lakshman lived in the forest.",
+          "act": { "move": "sway", "sky": "field", "fx": "leaves" }
+        },
+        { "word": "golden-deer", "hi": "एक दिन सोने का हिरण आया।", "en": "One day a golden deer came.", "act": { "move": "run", "sky": "field", "fx": "sparkles" } },
+        {
+          "word": "sita",
+          "hi": "सीता बोलीं, “कितना सुंदर! इसे पकड़ो।”",
+          "en": "Sita said, “How lovely! Please catch it.”",
+          "act": { "move": "talk", "sky": "field", "with": "golden-deer" }
+        },
+        { "word": "ram", "hi": "राम हिरण के पीछे गए।", "en": "Ram went after the deer.", "act": { "move": "run", "sky": "field", "with": "golden-deer", "fx": "dust" } },
+        { "word": "ravan", "hi": "वह हिरण रावण की चाल थी!", "en": "The deer was Ravan’s trick!", "act": { "move": "spin", "sky": "night" } },
+        { "word": "ravan", "hi": "रावण सीता को ले गया।", "en": "Ravan took Sita away.", "act": { "move": "fly-across", "sky": "rain", "fx": "wind" } },
+        {
+          "word": "ram",
+          "hi": "राम उदास हुए। वे सीता को ढूँढने निकले।",
+          "en": "Ram was sad. He set out to find Sita.",
+          "act": { "move": "walk", "sky": "dawn", "with": "lakshman" }
+        }
       ],
       "questions": [
         { "hi": "हिरण किसकी चाल थी?", "en": "Whose trick was the deer?", "answer": "ravan", "options": ["ravan", "hanuman", "king"] },
@@ -1425,12 +1903,37 @@
       "title": { "hi": "हनुमान की छलाँग", "en": "Hanuman’s great leap" },
       "cover": "hanuman",
       "pages": [
-        { "word": "hanuman", "hi": "हनुमान राम के सच्चे दोस्त थे।", "en": "Hanuman was Ram’s true friend." },
-        { "word": "sea", "hi": "सीता समुद्र के पार लंका में थीं।", "en": "Sita was across the sea, in Lanka." },
-        { "word": "hanuman", "hi": "हनुमान ने लंबी छलाँग लगाई!", "en": "Hanuman took a giant leap!" },
-        { "word": "tree", "hi": "सीता एक पेड़ के नीचे उदास बैठी थीं।", "en": "Sita sat sadly under a tree." },
-        { "word": "ring", "hi": "हनुमान ने उन्हें राम की अँगूठी दी।", "en": "Hanuman gave her Ram’s ring." },
-        { "word": "sita", "hi": "सीता मुस्कुराईं, “राम आएँगे!”", "en": "Sita smiled, “Ram will come!”" }
+        {
+          "word": "hanuman",
+          "hi": "हनुमान राम के सच्चे दोस्त थे।",
+          "en": "Hanuman was Ram’s true friend.",
+          "act": { "move": "approach", "sky": "dawn", "with": "ram", "fx": "hearts" }
+        },
+        {
+          "word": "sea",
+          "hi": "सीता समुद्र के पार लंका में थीं।",
+          "en": "Sita was across the sea, in Lanka.",
+          "act": { "move": "float", "sky": "sea", "fx": "wind" }
+        },
+        { "word": "hanuman", "hi": "हनुमान ने लंबी छलाँग लगाई!", "en": "Hanuman took a giant leap!", "act": { "move": "fly-across", "sky": "sky", "fx": "wind" } },
+        {
+          "word": "tree",
+          "hi": "सीता एक पेड़ के नीचे उदास बैठी थीं।",
+          "en": "Sita sat sadly under a tree.",
+          "act": { "move": "sway", "sky": "night", "with": "sita", "fx": "leaves" }
+        },
+        {
+          "word": "ring",
+          "hi": "हनुमान ने उन्हें राम की अँगूठी दी।",
+          "en": "Hanuman gave her Ram’s ring.",
+          "act": { "move": "grow", "sky": "night", "with": "sita", "fx": "sparkles" }
+        },
+        {
+          "word": "sita",
+          "hi": "सीता मुस्कुराईं, “राम आएँगे!”",
+          "en": "Sita smiled, “Ram will come!”",
+          "act": { "move": "talk", "sky": "dawn", "with": "ring", "fx": "hearts" }
+        }
       ],
       "questions": [
         { "hi": "हनुमान ने सीता को क्या दिया?", "en": "What did Hanuman give Sita?", "answer": "ring", "options": ["ring", "flower", "mango"] },
@@ -1444,13 +1947,38 @@
       "title": { "hi": "हनुमान लाए पहाड़", "en": "Hanuman brings the mountain" },
       "cover": "mountain",
       "pages": [
-        { "word": "lakshman", "hi": "लड़ाई में लक्ष्मण को चोट लगी।", "en": "In the battle Lakshman was hurt." },
-        { "word": "ram", "hi": "राम रो पड़े, “मेरा भाई!”", "en": "Ram wept, “My brother!”" },
-        { "word": "mountain", "hi": "वैद्य बोले, “पहाड़ पर एक बूटी है। वही बचाएगी।”", "en": "The healer said, “A herb on the mountain will save him.”" },
-        { "word": "hanuman", "hi": "हनुमान उड़कर पहाड़ पर पहुँचे।", "en": "Hanuman flew to the mountain." },
-        { "word": "leaf", "hi": "बहुत पौधे थे। बूटी कौन-सी?", "en": "So many plants. Which one was the herb?" },
-        { "word": "mountain", "hi": "हनुमान पूरा पहाड़ ही उठा लाए!", "en": "Hanuman lifted the whole mountain!" },
-        { "word": "lakshman", "hi": "लक्ष्मण ठीक हो गए। सब खुश!", "en": "Lakshman was well again. Everyone cheered!" }
+        { "word": "lakshman", "hi": "लड़ाई में लक्ष्मण को चोट लगी।", "en": "In the battle Lakshman was hurt.", "act": { "move": "sleep", "sky": "night" } },
+        { "word": "ram", "hi": "राम रो पड़े, “मेरा भाई!”", "en": "Ram wept, “My brother!”", "act": { "move": "shake", "sky": "night", "with": "lakshman" } },
+        {
+          "word": "mountain",
+          "hi": "वैद्य बोले, “पहाड़ पर एक बूटी है। वही बचाएगी।”",
+          "en": "The healer said, “A herb on the mountain will save him.”",
+          "act": { "move": "grow", "sky": "dawn", "fx": "glow" }
+        },
+        {
+          "word": "hanuman",
+          "hi": "हनुमान उड़कर पहाड़ पर पहुँचे।",
+          "en": "Hanuman flew to the mountain.",
+          "act": { "move": "fly-up", "sky": "sky", "with": "mountain", "fx": "wind" }
+        },
+        {
+          "word": "leaf",
+          "hi": "बहुत पौधे थे। बूटी कौन-सी?",
+          "en": "So many plants. Which one was the herb?",
+          "act": { "move": "float", "sky": "field", "fx": "leaves" }
+        },
+        {
+          "word": "mountain",
+          "hi": "हनुमान पूरा पहाड़ ही उठा लाए!",
+          "en": "Hanuman lifted the whole mountain!",
+          "act": { "move": "lift", "sky": "sky", "with": "hanuman" }
+        },
+        {
+          "word": "lakshman",
+          "hi": "लक्ष्मण ठीक हो गए। सब खुश!",
+          "en": "Lakshman was well again. Everyone cheered!",
+          "act": { "move": "dance", "sky": "dawn", "fx": "confetti" }
+        }
       ],
       "questions": [
         { "hi": "हनुमान क्या उठा लाए?", "en": "What did Hanuman bring?", "answer": "mountain", "options": ["mountain", "stone", "tree"] },
@@ -1464,12 +1992,32 @@
       "title": { "hi": "गोवर्धन पर्वत", "en": "The Govardhan hill" },
       "cover": "krishna",
       "pages": [
-        { "word": "cloud", "hi": "गाँव पर काले बादल छा गए।", "en": "Dark clouds covered the village." },
-        { "word": "rain", "hi": "ज़ोर की बारिश होने लगी। सब डर गए।", "en": "Heavy rain began. Everyone was scared." },
-        { "word": "cow", "hi": "गायें भीग रही थीं।", "en": "The cows were getting soaked." },
-        { "word": "krishna", "hi": "कृष्ण ने गोवर्धन पहाड़ उठा लिया!", "en": "Krishna lifted up the Govardhan hill!" },
-        { "word": "mountain", "hi": "सब पहाड़ के नीचे आ गए।", "en": "Everyone came under the hill." },
-        { "word": "sun", "hi": "सात दिन बाद बारिश रुकी। सूरज निकला।", "en": "After seven days the rain stopped. The sun came out." }
+        { "word": "cloud", "hi": "गाँव पर काले बादल छा गए।", "en": "Dark clouds covered the village.", "act": { "move": "enter-right", "sky": "rain" } },
+        {
+          "word": "rain",
+          "hi": "ज़ोर की बारिश होने लगी। सब डर गए।",
+          "en": "Heavy rain began. Everyone was scared.",
+          "act": { "move": "shake", "sky": "rain", "fx": "rain" }
+        },
+        { "word": "cow", "hi": "गायें भीग रही थीं।", "en": "The cows were getting soaked.", "act": { "move": "walk", "sky": "rain", "fx": "rain" } },
+        {
+          "word": "mountain",
+          "hi": "कृष्ण ने गोवर्धन पहाड़ उठा लिया!",
+          "en": "Krishna lifted up the Govardhan hill!",
+          "act": { "move": "lift", "sky": "rain", "with": "krishna", "fx": "rain" }
+        },
+        {
+          "word": "mountain",
+          "hi": "सब पहाड़ के नीचे आ गए।",
+          "en": "Everyone came under the hill.",
+          "act": { "move": "approach", "sky": "rain", "with": "cow", "fx": "hearts" }
+        },
+        {
+          "word": "sun",
+          "hi": "सात दिन बाद बारिश रुकी। सूरज निकला।",
+          "en": "After seven days the rain stopped. The sun came out.",
+          "act": { "move": "peek", "sky": "dawn", "fx": "glow" }
+        }
       ],
       "questions": [
         { "hi": "कृष्ण ने क्या उठाया?", "en": "What did Krishna lift?", "answer": "mountain", "options": ["mountain", "house", "tree"] },
@@ -1483,12 +2031,27 @@
       "title": { "hi": "लोमड़ी और कौआ", "en": "The fox and the crow" },
       "cover": "fox",
       "pages": [
-        { "word": "crow", "hi": "कौए को रोटी का टुकड़ा मिला।", "en": "A crow found a piece of roti." },
-        { "word": "tree", "hi": "वह पेड़ पर जा बैठा।", "en": "He sat on a tree." },
-        { "word": "fox", "hi": "नीचे से लोमड़ी ने देखा।", "en": "A fox saw him from below." },
-        { "word": "fox", "hi": "लोमड़ी बोली, “वाह! तुम्हारी आवाज़ कितनी मीठी होगी!”", "en": "The fox said, “Oh! Your voice must be so sweet!”" },
-        { "word": "crow", "hi": "कौए ने गाया, “काँव!” रोटी गिर गई।", "en": "The crow sang, “Caw!” The roti fell." },
-        { "word": "roti", "hi": "लोमड़ी रोटी लेकर भाग गई।", "en": "The fox ran away with the roti." }
+        { "word": "crow", "hi": "कौए को रोटी का टुकड़ा मिला।", "en": "A crow found a piece of roti.", "act": { "move": "fly-across", "sky": "sky", "with": "roti" } },
+        { "word": "tree", "hi": "वह पेड़ पर जा बैठा।", "en": "He sat on a tree.", "act": { "move": "sway", "sky": "field", "with": "crow" } },
+        { "word": "fox", "hi": "नीचे से लोमड़ी ने देखा।", "en": "A fox saw him from below.", "act": { "move": "enter", "sky": "field", "with": "tree" } },
+        {
+          "word": "fox",
+          "hi": "लोमड़ी बोली, “वाह! तुम्हारी आवाज़ कितनी मीठी होगी!”",
+          "en": "The fox said, “Oh! Your voice must be so sweet!”",
+          "act": { "move": "talk", "sky": "field", "with": "crow", "fx": "hearts" }
+        },
+        {
+          "word": "crow",
+          "hi": "कौए ने गाया, “काँव!” रोटी गिर गई।",
+          "en": "The crow sang, “Caw!” The roti fell.",
+          "act": { "move": "shake", "sky": "field", "fx": "music" }
+        },
+        {
+          "word": "roti",
+          "hi": "लोमड़ी रोटी लेकर भाग गई।",
+          "en": "The fox ran away with the roti.",
+          "act": { "move": "fall", "sky": "field", "with": "fox", "fx": "dust" }
+        }
       ],
       "questions": [
         { "hi": "कौए के पास क्या था?", "en": "What did the crow have?", "answer": "roti", "options": ["roti", "banana", "laddoo"] },
@@ -1502,13 +2065,38 @@
       "title": { "hi": "दो बिल्लियाँ और बंदर", "en": "Two cats and a monkey" },
       "cover": "monkey",
       "pages": [
-        { "word": "cat", "hi": "दो बिल्लियों को एक रोटी मिली।", "en": "Two cats found one roti." },
-        { "word": "cat", "hi": "“मेरी!” “नहीं, मेरी!” दोनों लड़ने लगीं।", "en": "“Mine!” “No, mine!” They began to fight." },
-        { "word": "monkey", "hi": "एक बंदर आया। “मैं बराबर बाँट दूँ?”", "en": "A monkey came. “Shall I share it equally?”" },
-        { "word": "roti", "hi": "बंदर ने रोटी तोड़ी। एक टुकड़ा बड़ा था।", "en": "The monkey broke the roti. One piece was bigger." },
-        { "word": "monkey", "hi": "बंदर ने बड़ा टुकड़ा खा लिया। अब दूसरा बड़ा हो गया!", "en": "The monkey ate the bigger piece. Now the other was bigger!" },
-        { "word": "monkey", "hi": "खाते-खाते बंदर ने पूरी रोटी खा ली।", "en": "Bite by bite, the monkey ate it all." },
-        { "word": "cat", "hi": "बिल्लियाँ देखती रह गईं।", "en": "The cats could only watch." }
+        { "word": "cat", "hi": "दो बिल्लियों को एक रोटी मिली।", "en": "Two cats found one roti.", "act": { "move": "enter", "sky": "field", "with": "roti" } },
+        {
+          "word": "cat",
+          "hi": "“मेरी!” “नहीं, मेरी!” दोनों लड़ने लगीं।",
+          "en": "“Mine!” “No, mine!” They began to fight.",
+          "act": { "move": "bump", "sky": "field", "with": "cat" }
+        },
+        {
+          "word": "monkey",
+          "hi": "एक बंदर आया। “मैं बराबर बाँट दूँ?”",
+          "en": "A monkey came. “Shall I share it equally?”",
+          "act": { "move": "enter-right", "sky": "field" }
+        },
+        {
+          "word": "roti",
+          "hi": "बंदर ने रोटी तोड़ी। एक टुकड़ा बड़ा था।",
+          "en": "The monkey broke the roti. One piece was bigger.",
+          "act": { "move": "spin", "sky": "field", "with": "monkey" }
+        },
+        {
+          "word": "monkey",
+          "hi": "बंदर ने बड़ा टुकड़ा खा लिया। अब दूसरा बड़ा हो गया!",
+          "en": "The monkey ate the bigger piece. Now the other was bigger!",
+          "act": { "move": "talk", "sky": "field", "with": "roti" }
+        },
+        {
+          "word": "roti",
+          "hi": "खाते-खाते बंदर ने पूरी रोटी खा ली।",
+          "en": "Bite by bite, the monkey ate it all.",
+          "act": { "move": "shrink", "sky": "field", "with": "monkey" }
+        },
+        { "word": "cat", "hi": "बिल्लियाँ देखती रह गईं।", "en": "The cats could only watch.", "act": { "move": "sway", "sky": "field", "with": "cat" } }
       ],
       "questions": [
         { "hi": "रोटी किसने खाई?", "en": "Who ate the roti?", "answer": "monkey", "options": ["monkey", "cat", "dog"] },
@@ -1522,13 +2110,48 @@
       "title": { "hi": "नमक वाला गधा", "en": "The donkey and the salt" },
       "cover": "donkey",
       "pages": [
-        { "word": "donkey", "hi": "एक गधा नमक की बोरी ले जा रहा था।", "en": "A donkey was carrying a sack of salt." },
-        { "word": "river", "hi": "रास्ते में नदी थी। गधा फिसल गया।", "en": "There was a river on the way. The donkey slipped." },
-        { "word": "salt", "hi": "नमक पानी में घुल गया। बोरी हल्की हो गई!", "en": "The salt melted in the water. The sack got light!" },
-        { "word": "donkey", "hi": "अगले दिन गधा जान-बूझकर गिरा।", "en": "The next day the donkey fell on purpose." },
-        { "word": "cotton", "hi": "मालिक समझ गया। उसने गधे पर रुई की बोरी लादी।", "en": "The owner understood. He loaded a sack of cotton." },
-        { "word": "river", "hi": "गधा फिर गिरा। रुई भीगकर भारी हो गई!", "en": "The donkey fell again. The wet cotton got heavy!" },
-        { "word": "donkey", "hi": "गधे ने फिर कभी चालाकी नहीं की।", "en": "The donkey never tried that trick again." }
+        {
+          "word": "donkey",
+          "hi": "एक गधा नमक की बोरी ले जा रहा था।",
+          "en": "A donkey was carrying a sack of salt.",
+          "act": { "move": "walk", "sky": "field", "with": "salt" }
+        },
+        {
+          "word": "donkey",
+          "hi": "रास्ते में नदी थी। गधा फिसल गया।",
+          "en": "There was a river on the way. The donkey slipped.",
+          "act": { "move": "fall", "sky": "sea", "fx": "splash" }
+        },
+        {
+          "word": "salt",
+          "hi": "नमक पानी में घुल गया। बोरी हल्की हो गई!",
+          "en": "The salt melted in the water. The sack got light!",
+          "act": { "move": "shrink", "sky": "underwater", "fx": "bubbles" }
+        },
+        {
+          "word": "donkey",
+          "hi": "अगले दिन गधा जान-बूझकर गिरा।",
+          "en": "The next day the donkey fell on purpose.",
+          "act": { "move": "fall", "sky": "sea", "fx": "splash", "sound": "thud" }
+        },
+        {
+          "word": "cotton",
+          "hi": "मालिक समझ गया। उसने गधे पर रुई की बोरी लादी।",
+          "en": "The owner understood. He loaded a sack of cotton.",
+          "act": { "move": "grow", "sky": "field", "with": "donkey" }
+        },
+        {
+          "word": "donkey",
+          "hi": "गधा फिर गिरा। रुई भीगकर भारी हो गई!",
+          "en": "The donkey fell again. The wet cotton got heavy!",
+          "act": { "move": "shake", "sky": "sea", "with": "cotton", "fx": "splash" }
+        },
+        {
+          "word": "donkey",
+          "hi": "गधे ने फिर कभी चालाकी नहीं की।",
+          "en": "The donkey never tried that trick again.",
+          "act": { "move": "walk", "sky": "field", "with": "cotton" }
+        }
       ],
       "questions": [
         { "hi": "पहले दिन बोरी में क्या था?", "en": "What was in the sack on the first day?", "answer": "salt", "options": ["salt", "cotton", "rice"] },
@@ -1542,17 +2165,43 @@
       "title": { "hi": "हाथी और दर्ज़ी", "en": "The elephant and the tailor" },
       "cover": "tailor",
       "pages": [
-        { "word": "elephant", "hi": "एक हाथी रोज़ नदी पर जाता था।", "en": "An elephant went to the river every day." },
-        { "word": "tailor", "hi": "रास्ते में एक दर्ज़ी की दुकान थी।", "en": "A tailor’s shop was on the way." },
-        { "word": "banana", "hi": "दर्ज़ी रोज़ हाथी को केला देता था।", "en": "The tailor gave the elephant a banana every day." },
-        { "word": "needle", "hi": "एक दिन दर्ज़ी ने सूँड़ में सुई चुभो दी!", "en": "One day the tailor pricked his trunk with a needle!" },
+        {
+          "word": "elephant",
+          "hi": "एक हाथी रोज़ नदी पर जाता था।",
+          "en": "An elephant went to the river every day.",
+          "act": { "move": "walk", "sky": "field", "sound": "thud" }
+        },
+        { "word": "tailor", "hi": "रास्ते में एक दर्ज़ी की दुकान थी।", "en": "A tailor’s shop was on the way.", "act": { "move": "enter", "sky": "home" } },
+        {
+          "word": "banana",
+          "hi": "दर्ज़ी रोज़ हाथी को केला देता था।",
+          "en": "The tailor gave the elephant a banana every day.",
+          "act": { "move": "approach", "sky": "home", "with": "elephant", "fx": "hearts" }
+        },
+        {
+          "word": "needle",
+          "hi": "एक दिन दर्ज़ी ने सूँड़ में सुई चुभो दी!",
+          "en": "One day the tailor pricked his trunk with a needle!",
+          "act": { "move": "shake", "sky": "home", "with": "elephant", "sound": "pop" }
+        },
         {
           "word": "water",
           "hi": "हाथी चुपचाप नदी गया। सूँड़ में कीचड़ वाला पानी भरा।",
-          "en": "The elephant quietly went to the river and filled his trunk with muddy water."
+          "en": "The elephant quietly went to the river and filled his trunk with muddy water.",
+          "act": { "move": "float", "sky": "river", "with": "elephant", "fx": "bubbles" }
         },
-        { "word": "tailor", "hi": "छप! हाथी ने दुकान पर पानी फेंक दिया।", "en": "Splash! He sprayed the whole shop." },
-        { "word": "elephant", "hi": "दर्ज़ी ने माफ़ी माँगी। फिर दोनों दोस्त बने।", "en": "The tailor said sorry. Then they were friends again." }
+        {
+          "word": "tailor",
+          "hi": "छप! हाथी ने दुकान पर पानी फेंक दिया।",
+          "en": "Splash! He sprayed the whole shop.",
+          "act": { "move": "shake", "sky": "home", "fx": "splash", "sound": "splash" }
+        },
+        {
+          "word": "elephant",
+          "hi": "दर्ज़ी ने माफ़ी माँगी। फिर दोनों दोस्त बने।",
+          "en": "The tailor said sorry. Then they were friends again.",
+          "act": { "move": "approach", "sky": "home", "with": "tailor", "fx": "hearts" }
+        }
       ],
       "questions": [
         { "hi": "दर्ज़ी रोज़ क्या देता था?", "en": "What did the tailor give every day?", "answer": "banana", "options": ["banana", "mango", "roti"] },
@@ -1566,12 +2215,32 @@
       "title": { "hi": "भालू की साइकिल", "en": "Bear's bicycle" },
       "cover": "bear",
       "pages": [
-        { "word": "bicycle", "hi": "भालू के पास एक नीली साइकिल है।", "en": "Bear has a blue bicycle." },
-        { "word": "bear", "hi": "भालू साइकिल से बाज़ार जाता है।", "en": "Bear rides his bicycle to the market." },
-        { "word": "mango", "hi": "वह बाज़ार से आम और केले लाता है।", "en": "He brings mangoes and bananas from the market." },
-        { "word": "monkey", "hi": "रास्ते में उसे बंदर मिलता है।", "en": "On the way he meets Monkey." },
-        { "word": "banana", "hi": "भालू बंदर को एक केला देता है।", "en": "Bear gives Monkey a banana." },
-        { "word": "heart", "hi": "दोनों दोस्त खुश हैं।", "en": "The two friends are happy." }
+        { "word": "bicycle", "hi": "भालू के पास एक नीली साइकिल है।", "en": "Bear has a blue bicycle.", "act": { "move": "drive", "sky": "field", "sound": "chime" } },
+        {
+          "word": "bear",
+          "hi": "भालू साइकिल से बाज़ार जाता है।",
+          "en": "Bear rides his bicycle to the market.",
+          "act": { "move": "drive", "sky": "field", "fx": "wind", "sound": "chime" }
+        },
+        {
+          "word": "mango",
+          "hi": "वह बाज़ार से आम और केले लाता है।",
+          "en": "He brings mangoes and bananas from the market.",
+          "act": { "move": "fall", "sky": "field", "with": "banana" }
+        },
+        {
+          "word": "monkey",
+          "hi": "रास्ते में उसे बंदर मिलता है।",
+          "en": "On the way he meets Monkey.",
+          "act": { "move": "approach", "sky": "field", "with": "bear" }
+        },
+        {
+          "word": "banana",
+          "hi": "भालू बंदर को एक केला देता है।",
+          "en": "Bear gives Monkey a banana.",
+          "act": { "move": "approach", "sky": "field", "with": "monkey" }
+        },
+        { "word": "heart", "hi": "दोनों दोस्त खुश हैं।", "en": "The two friends are happy.", "act": { "move": "grow", "sky": "field", "fx": "hearts" } }
       ],
       "questions": [
         { "hi": "भालू के पास क्या है?", "en": "What does Bear have?", "answer": "bicycle", "options": ["bicycle", "car", "boat"] },
@@ -1585,12 +2254,37 @@
       "title": { "hi": "प्यासा कौआ", "en": "The thirsty crow" },
       "cover": "crow",
       "pages": [
-        { "word": "sun", "hi": "गरमी का दिन था। एक कौआ बहुत प्यासा था।", "en": "It was a hot day. A crow was very thirsty." },
-        { "word": "pot", "hi": "उसने एक घड़ा देखा। घड़े में थोड़ा-सा पानी था।", "en": "He saw a clay pot. There was a little water in it." },
-        { "word": "crow", "hi": "कौए की चोंच पानी तक नहीं पहुँची।", "en": "The crow's beak could not reach the water." },
-        { "word": "stones", "hi": "उसने कंकड़ उठाए और घड़े में डाले।", "en": "He picked up pebbles and dropped them into the pot." },
-        { "word": "up", "hi": "पानी ऊपर आ गया।", "en": "The water came up." },
-        { "word": "crow", "hi": "कौए ने पानी पिया और खुशी से उड़ गया।", "en": "The crow drank the water and flew away happily." }
+        {
+          "word": "sun",
+          "hi": "गरमी का दिन था। एक कौआ बहुत प्यासा था।",
+          "en": "It was a hot day. A crow was very thirsty.",
+          "act": { "move": "grow", "sky": "dawn", "fx": "glow" }
+        },
+        {
+          "word": "pot",
+          "hi": "उसने एक घड़ा देखा। घड़े में थोड़ा-सा पानी था।",
+          "en": "He saw a clay pot. There was a little water in it.",
+          "act": { "move": "peek", "sky": "field", "with": "crow" }
+        },
+        {
+          "word": "crow",
+          "hi": "कौए की चोंच पानी तक नहीं पहुँची।",
+          "en": "The crow's beak could not reach the water.",
+          "act": { "move": "shake", "sky": "field", "with": "pot" }
+        },
+        {
+          "word": "stones",
+          "hi": "उसने कंकड़ उठाए और घड़े में डाले।",
+          "en": "He picked up pebbles and dropped them into the pot.",
+          "act": { "move": "fall", "sky": "field", "with": "pot", "fx": "splash" }
+        },
+        { "word": "up", "hi": "पानी ऊपर आ गया।", "en": "The water came up.", "act": { "move": "peek", "sky": "field", "fx": "bubbles" } },
+        {
+          "word": "crow",
+          "hi": "कौए ने पानी पिया और खुशी से उड़ गया।",
+          "en": "The crow drank the water and flew away happily.",
+          "act": { "move": "fly-across", "sky": "sky", "fx": "hearts" }
+        }
       ],
       "questions": [
         { "hi": "कौए ने क्या देखा?", "en": "What did the crow see?", "answer": "pot", "options": ["pot", "cup", "bottle"] },
@@ -1604,17 +2298,48 @@
       "title": { "hi": "शेर और चूहा", "en": "The lion and the mouse" },
       "cover": "lion",
       "pages": [
-        { "word": "lion", "hi": "जंगल में एक शेर पेड़ के नीचे सो रहा था।", "en": "A lion was sleeping under a tree in the jungle." },
-        { "word": "mouse", "hi": "एक चूहा उसके ऊपर उछलने-कूदने लगा।", "en": "A mouse began jumping about on him." },
-        { "word": "lion", "hi": "शेर जाग गया और उसने चूहे को पकड़ लिया।", "en": "The lion woke up and caught the mouse." },
+        {
+          "word": "lion",
+          "hi": "जंगल में एक शेर पेड़ के नीचे सो रहा था।",
+          "en": "A lion was sleeping under a tree in the jungle.",
+          "act": { "move": "sleep", "sky": "field", "fx": "zzz" }
+        },
+        {
+          "word": "mouse",
+          "hi": "एक चूहा उसके ऊपर उछलने-कूदने लगा।",
+          "en": "A mouse began jumping about on him.",
+          "act": { "move": "jump", "sky": "field", "with": "lion" }
+        },
+        {
+          "word": "lion",
+          "hi": "शेर जाग गया और उसने चूहे को पकड़ लिया।",
+          "en": "The lion woke up and caught the mouse.",
+          "act": { "move": "shake", "sky": "field", "with": "mouse" }
+        },
         {
           "word": "mouse",
           "hi": "चूहा बोला, \"मुझे छोड़ दो, मैं कभी तुम्हारी मदद करूँगा।\"",
-          "en": "The mouse said, \"Let me go, and one day I will help you.\""
+          "en": "The mouse said, \"Let me go, and one day I will help you.\"",
+          "act": { "move": "talk", "sky": "field", "with": "lion" }
         },
-        { "word": "lion", "hi": "शेर हँसा और उसने चूहे को छोड़ दिया।", "en": "The lion laughed and let the mouse go." },
-        { "word": "net", "hi": "एक दिन शेर शिकारी के जाल में फँस गया।", "en": "One day the lion was caught in a hunter's net." },
-        { "word": "mouse", "hi": "चूहे ने अपने दाँतों से जाल काट दिया। शेर आज़ाद हो गया!", "en": "The mouse cut the net with his teeth. The lion was free!" }
+        {
+          "word": "lion",
+          "hi": "शेर हँसा और उसने चूहे को छोड़ दिया।",
+          "en": "The lion laughed and let the mouse go.",
+          "act": { "move": "sway", "sky": "field", "with": "mouse", "fx": "hearts" }
+        },
+        {
+          "word": "net",
+          "hi": "एक दिन शेर शिकारी के जाल में फँस गया।",
+          "en": "One day the lion was caught in a hunter's net.",
+          "act": { "move": "fall", "sky": "field", "with": "lion" }
+        },
+        {
+          "word": "mouse",
+          "hi": "चूहे ने अपने दाँतों से जाल काट दिया। शेर आज़ाद हो गया!",
+          "en": "The mouse cut the net with his teeth. The lion was free!",
+          "act": { "move": "climb", "sky": "field", "with": "net", "fx": "confetti" }
+        }
       ],
       "questions": [
         { "hi": "शेर कहाँ फँस गया?", "en": "What was the lion caught in?", "answer": "net", "options": ["net", "well", "cave"] },
@@ -1628,16 +2353,42 @@
       "title": { "hi": "कछुआ और खरगोश", "en": "The tortoise and the hare" },
       "cover": "tortoise",
       "pages": [
-        { "word": "rabbit", "hi": "खरगोश को अपनी तेज़ चाल पर बहुत घमंड था।", "en": "The hare was very proud of how fast he was." },
-        { "word": "tortoise", "hi": "एक दिन कछुए ने कहा, \"चलो, दौड़ लगाते हैं।\"", "en": "One day the tortoise said, \"Let's have a race.\"" },
-        { "word": "rabbit", "hi": "दौड़ शुरू हुई। खरगोश बहुत आगे निकल गया।", "en": "The race began. The hare ran far ahead." },
+        {
+          "word": "rabbit",
+          "hi": "खरगोश को अपनी तेज़ चाल पर बहुत घमंड था।",
+          "en": "The hare was very proud of how fast he was.",
+          "act": { "move": "jump", "sky": "field" }
+        },
+        {
+          "word": "tortoise",
+          "hi": "एक दिन कछुए ने कहा, \"चलो, दौड़ लगाते हैं।\"",
+          "en": "One day the tortoise said, \"Let's have a race.\"",
+          "act": { "move": "talk", "sky": "field", "with": "rabbit" }
+        },
+        {
+          "word": "rabbit",
+          "hi": "दौड़ शुरू हुई। खरगोश बहुत आगे निकल गया।",
+          "en": "The race began. The hare ran far ahead.",
+          "act": { "move": "run", "sky": "field", "fx": "dust" }
+        },
         {
           "word": "tree",
           "hi": "उसने सोचा, \"थोड़ा आराम कर लूँ।\" और वह पेड़ के नीचे सो गया।",
-          "en": "He thought, \"I'll rest a little,\" and fell asleep under a tree."
+          "en": "He thought, \"I'll rest a little,\" and fell asleep under a tree.",
+          "act": { "move": "sway", "sky": "field", "with": "rabbit", "fx": "zzz" }
         },
-        { "word": "tortoise", "hi": "कछुआ धीरे-धीरे चलता रहा, बिना रुके।", "en": "The tortoise kept walking slowly, without stopping." },
-        { "word": "tortoise", "hi": "जब खरगोश जागा, कछुआ जीत चुका था!", "en": "When the hare woke up, the tortoise had already won!" }
+        {
+          "word": "tortoise",
+          "hi": "कछुआ धीरे-धीरे चलता रहा, बिना रुके।",
+          "en": "The tortoise kept walking slowly, without stopping.",
+          "act": { "move": "walk", "sky": "field" }
+        },
+        {
+          "word": "tortoise",
+          "hi": "जब खरगोश जागा, कछुआ जीत चुका था!",
+          "en": "When the hare woke up, the tortoise had already won!",
+          "act": { "move": "dance", "sky": "field", "fx": "confetti" }
+        }
       ],
       "questions": [
         { "hi": "दौड़ में कौन सो गया?", "en": "Who fell asleep in the race?", "answer": "rabbit", "options": ["rabbit", "tortoise", "lion"] },
@@ -1651,12 +2402,37 @@
       "title": { "hi": "लालची कुत्ता", "en": "The greedy dog" },
       "cover": "dog",
       "pages": [
-        { "word": "dog", "hi": "एक कुत्ते को एक हड्डी मिली।", "en": "A dog found a bone." },
-        { "word": "bridge", "hi": "वह हड्डी लेकर पुल पर से जा रहा था।", "en": "He was crossing a bridge with the bone." },
-        { "word": "water", "hi": "पानी में उसे अपनी परछाईं दिखी।", "en": "He saw his reflection in the water." },
-        { "word": "dog", "hi": "उसने सोचा, वहाँ दूसरा कुत्ता है जिसके पास बड़ी हड्डी है।", "en": "He thought it was another dog with a bigger bone." },
-        { "word": "dog", "hi": "वह उसकी हड्डी छीनने के लिए भौंका, भौं भौं!", "en": "He barked to grab that bone — woof!" },
-        { "word": "bone", "hi": "उसकी अपनी हड्डी पानी में गिर गई।", "en": "His own bone fell into the water." }
+        { "word": "dog", "hi": "एक कुत्ते को एक हड्डी मिली।", "en": "A dog found a bone.", "act": { "move": "enter", "sky": "field", "with": "bone" } },
+        {
+          "word": "bridge",
+          "hi": "वह हड्डी लेकर पुल पर से जा रहा था।",
+          "en": "He was crossing a bridge with the bone.",
+          "act": { "move": "sway", "sky": "river", "with": "dog" }
+        },
+        {
+          "word": "water",
+          "hi": "पानी में उसे अपनी परछाईं दिखी।",
+          "en": "He saw his reflection in the water.",
+          "act": { "move": "float", "sky": "river", "fx": "bubbles" }
+        },
+        {
+          "word": "dog",
+          "hi": "उसने सोचा, वहाँ दूसरा कुत्ता है जिसके पास बड़ी हड्डी है।",
+          "en": "He thought it was another dog with a bigger bone.",
+          "act": { "move": "shake", "sky": "river", "with": "dog" }
+        },
+        {
+          "word": "dog",
+          "hi": "वह उसकी हड्डी छीनने के लिए भौंका, भौं भौं!",
+          "en": "He barked to grab that bone — woof!",
+          "act": { "move": "jump", "sky": "river", "with": "dog" }
+        },
+        {
+          "word": "bone",
+          "hi": "उसकी अपनी हड्डी पानी में गिर गई।",
+          "en": "His own bone fell into the water.",
+          "act": { "move": "fall", "sky": "sea", "fx": "splash" }
+        }
       ],
       "questions": [
         { "hi": "कुत्ते को क्या मिला?", "en": "What did the dog find?", "answer": "bone", "options": ["bone", "roti", "apple"] },
@@ -1670,16 +2446,32 @@
       "title": { "hi": "चींटी और कबूतर", "en": "The ant and the pigeon" },
       "cover": "dove",
       "pages": [
-        { "word": "ant", "hi": "एक चींटी पानी पीने नदी पर गई।", "en": "An ant went to the river to drink." },
-        { "word": "river", "hi": "वह फिसलकर पानी में गिर गई।", "en": "She slipped and fell into the water." },
-        { "word": "dove", "hi": "पेड़ पर बैठे कबूतर ने उसे देखा।", "en": "A pigeon sitting in a tree saw her." },
+        { "word": "ant", "hi": "एक चींटी पानी पीने नदी पर गई।", "en": "An ant went to the river to drink.", "act": { "move": "scurry", "sky": "field" } },
+        { "word": "ant", "hi": "वह फिसलकर पानी में गिर गई।", "en": "She slipped and fell into the water.", "act": { "move": "fall", "sky": "sea", "fx": "splash" } },
+        {
+          "word": "dove",
+          "hi": "पेड़ पर बैठे कबूतर ने उसे देखा।",
+          "en": "A pigeon sitting in a tree saw her.",
+          "act": { "move": "sway", "sky": "field", "with": "tree" }
+        },
         {
           "word": "leaf",
           "hi": "कबूतर ने एक पत्ता पानी में गिराया। चींटी पत्ते पर चढ़ गई।",
-          "en": "The pigeon dropped a leaf into the water. The ant climbed onto it."
+          "en": "The pigeon dropped a leaf into the water. The ant climbed onto it.",
+          "act": { "move": "fall", "sky": "river", "with": "ant", "fx": "leaves" }
         },
-        { "word": "arrow", "hi": "कुछ दिन बाद एक शिकारी कबूतर पर निशाना लगा रहा था।", "en": "Some days later a hunter was aiming at the pigeon." },
-        { "word": "foot", "hi": "चींटी ने शिकारी के पैर में काट लिया। कबूतर उड़ गया!", "en": "The ant bit the hunter's foot. The pigeon flew away!" }
+        {
+          "word": "arrow",
+          "hi": "कुछ दिन बाद एक शिकारी कबूतर पर निशाना लगा रहा था।",
+          "en": "Some days later a hunter was aiming at the pigeon.",
+          "act": { "move": "shake", "sky": "field", "with": "dove" }
+        },
+        {
+          "word": "foot",
+          "hi": "चींटी ने शिकारी के पैर में काट लिया। कबूतर उड़ गया!",
+          "en": "The ant bit the hunter's foot. The pigeon flew away!",
+          "act": { "move": "jump", "sky": "field", "with": "ant", "sound": "boing" }
+        }
       ],
       "questions": [
         { "hi": "चींटी को किसने बचाया?", "en": "Who saved the ant?", "answer": "dove", "options": ["dove", "crow", "parrot"] },
@@ -1693,16 +2485,42 @@
       "title": { "hi": "टोपीवाला और बंदर", "en": "The cap seller and the monkeys" },
       "cover": "capseller",
       "pages": [
-        { "word": "capseller", "hi": "एक टोपीवाला गाँव-गाँव टोपियाँ बेचता था।", "en": "A cap seller sold caps from village to village." },
-        { "word": "tree", "hi": "एक दिन वह पेड़ के नीचे सो गया।", "en": "One day he fell asleep under a tree." },
-        { "word": "monkey", "hi": "पेड़ पर बहुत सारे बंदर थे। वे सारी टोपियाँ ले गए!", "en": "Many monkeys lived in the tree. They took all the caps!" },
-        { "word": "cap", "hi": "टोपीवाला जागा तो बंदरों ने टोपियाँ पहन रखी थीं।", "en": "When he woke up, the monkeys were wearing the caps." },
+        {
+          "word": "capseller",
+          "hi": "एक टोपीवाला गाँव-गाँव टोपियाँ बेचता था।",
+          "en": "A cap seller sold caps from village to village.",
+          "act": { "move": "walk", "sky": "field", "with": "cap" }
+        },
+        {
+          "word": "tree",
+          "hi": "एक दिन वह पेड़ के नीचे सो गया।",
+          "en": "One day he fell asleep under a tree.",
+          "act": { "move": "sway", "sky": "field", "with": "capseller", "fx": "zzz" }
+        },
+        {
+          "word": "monkey",
+          "hi": "पेड़ पर बहुत सारे बंदर थे। वे सारी टोपियाँ ले गए!",
+          "en": "Many monkeys lived in the tree. They took all the caps!",
+          "act": { "move": "jump", "sky": "field", "with": "cap" }
+        },
+        {
+          "word": "cap",
+          "hi": "टोपीवाला जागा तो बंदरों ने टोपियाँ पहन रखी थीं।",
+          "en": "When he woke up, the monkeys were wearing the caps.",
+          "act": { "move": "dance", "sky": "field", "with": "monkey" }
+        },
         {
           "word": "capseller",
           "hi": "उसने अपनी टोपी फेंकी। बंदरों ने भी नकल करके टोपियाँ फेंक दीं!",
-          "en": "He threw down his cap. The monkeys copied him and threw theirs down too!"
+          "en": "He threw down his cap. The monkeys copied him and threw theirs down too!",
+          "act": { "move": "shake", "sky": "field", "with": "monkey" }
         },
-        { "word": "cap", "hi": "टोपीवाले ने सारी टोपियाँ उठाईं और खुशी से घर गया।", "en": "He picked up all the caps and went home happily." }
+        {
+          "word": "cap",
+          "hi": "टोपीवाले ने सारी टोपियाँ उठाईं और खुशी से घर गया।",
+          "en": "He picked up all the caps and went home happily.",
+          "act": { "move": "grow", "sky": "field", "with": "capseller", "fx": "hearts" }
+        }
       ],
       "questions": [
         { "hi": "टोपियाँ कौन ले गया?", "en": "Who took the caps?", "answer": "monkey", "options": ["monkey", "dog", "crow"] },
@@ -1716,20 +2534,47 @@
       "title": { "hi": "डमडम का अंडा", "en": "Dumdum's egg" },
       "cover": "dinoegg",
       "pages": [
-        { "word": "trex", "hi": "डायनो घाटी में डमडम नाम का छोटा डायनासोर रहता था।", "en": "A little dinosaur called Dumdum lived in Dino Valley." },
-        { "word": "dinoegg", "hi": "एक दिन उसे घास में एक बड़ा अंडा मिला।", "en": "One day he found a big egg in the grass." },
-        { "word": "trex", "hi": "डमडम ने पूछा, \"यह अंडा किसका है?\"", "en": "Dumdum asked, \"Whose egg is this?\"" },
-        { "word": "pterodactyl", "hi": "उड़ने वाले डायनासोर ने कहा, \"मेरा नहीं।\"", "en": "The flying dinosaur said, \"Not mine.\"" },
-        { "word": "triceratops", "hi": "सींग वाले डायनासोर ने कहा, \"मेरा भी नहीं।\"", "en": "The horned dinosaur said, \"Not mine either.\"" },
+        {
+          "word": "trex",
+          "hi": "डायनो घाटी में डमडम नाम का छोटा डायनासोर रहता था।",
+          "en": "A little dinosaur called Dumdum lived in Dino Valley.",
+          "act": { "move": "walk", "sky": "field", "sound": "thud" }
+        },
+        {
+          "word": "dinoegg",
+          "hi": "एक दिन उसे घास में एक बड़ा अंडा मिला।",
+          "en": "One day he found a big egg in the grass.",
+          "act": { "move": "grow", "sky": "field", "with": "trex" }
+        },
+        {
+          "word": "trex",
+          "hi": "डमडम ने पूछा, \"यह अंडा किसका है?\"",
+          "en": "Dumdum asked, \"Whose egg is this?\"",
+          "act": { "move": "talk", "sky": "field", "with": "dinoegg" }
+        },
+        {
+          "word": "pterodactyl",
+          "hi": "उड़ने वाले डायनासोर ने कहा, \"मेरा नहीं।\"",
+          "en": "The flying dinosaur said, \"Not mine.\"",
+          "act": { "move": "fly-across", "sky": "sky" }
+        },
+        {
+          "word": "triceratops",
+          "hi": "सींग वाले डायनासोर ने कहा, \"मेरा भी नहीं।\"",
+          "en": "The horned dinosaur said, \"Not mine either.\"",
+          "act": { "move": "enter-right", "sky": "field", "with": "dinoegg" }
+        },
         {
           "word": "dinoegg",
           "hi": "तभी अंडा टूटा, टक टक! अंदर से एक नन्हा डायनासोर निकला!",
-          "en": "Then the egg cracked — tap tap! A tiny dinosaur came out!"
+          "en": "Then the egg cracked — tap tap! A tiny dinosaur came out!",
+          "act": { "move": "shake", "sky": "field", "fx": "sparkles", "sound": "pop" }
         },
         {
           "word": "heart",
           "hi": "नन्हे ने डमडम को देखा और बोला, \"दोस्त!\" डमडम बहुत खुश हुआ।",
-          "en": "The little one saw Dumdum and said, \"Friend!\" Dumdum was very happy."
+          "en": "The little one saw Dumdum and said, \"Friend!\" Dumdum was very happy.",
+          "act": { "move": "grow", "sky": "field", "with": "trex", "fx": "hearts" }
         }
       ],
       "questions": [
@@ -1744,10 +2589,30 @@
       "title": { "hi": "बादल राजा", "en": "King Cloud (a poem)" },
       "cover": "raincloud",
       "pages": [
-        { "word": "raincloud", "hi": "काले बादल आए, घिर-घिर कर छाए।", "en": "Dark clouds came and gathered all around." },
-        { "word": "raincloud", "hi": "टप-टप बूँदें गाएँ, सबको खूब नहलाएँ।", "en": "Drip-drop, the raindrops sing and give everyone a bath." },
-        { "word": "peacock", "hi": "मोर ने पंख फैलाए, छम-छम नाच दिखाए।", "en": "The peacock spread its feathers and danced." },
-        { "word": "umbrella", "hi": "हम भी छाता लाएँ, बारिश में मुस्काएँ।", "en": "We bring our umbrellas too, and smile in the rain." }
+        {
+          "word": "raincloud",
+          "hi": "काले बादल आए, घिर-घिर कर छाए।",
+          "en": "Dark clouds came and gathered all around.",
+          "act": { "move": "enter-right", "sky": "rain" }
+        },
+        {
+          "word": "raincloud",
+          "hi": "टप-टप बूँदें गाएँ, सबको खूब नहलाएँ।",
+          "en": "Drip-drop, the raindrops sing and give everyone a bath.",
+          "act": { "move": "float", "sky": "rain", "fx": ["rain", "music"] }
+        },
+        {
+          "word": "peacock",
+          "hi": "मोर ने पंख फैलाए, छम-छम नाच दिखाए।",
+          "en": "The peacock spread its feathers and danced.",
+          "act": { "move": "dance", "sky": "rain", "fx": "rain" }
+        },
+        {
+          "word": "umbrella",
+          "hi": "हम भी छाता लाएँ, बारिश में मुस्काएँ।",
+          "en": "We bring our umbrellas too, and smile in the rain.",
+          "act": { "move": "sway", "sky": "rain", "fx": ["rain", "hearts"] }
+        }
       ],
       "questions": [
         { "hi": "बारिश में कौन नाचा?", "en": "Who danced in the rain?", "answer": "peacock", "options": ["peacock", "crow", "hen"] },
@@ -1761,10 +2626,30 @@
       "title": { "hi": "मेरी साइकिल", "en": "My bicycle (a poem)" },
       "cover": "bicycle",
       "pages": [
-        { "word": "bicycle", "hi": "लाल रंग की मेरी साइकिल, ट्रिन-ट्रिन घंटी बजाए।", "en": "My red bicycle rings its bell, tring-tring." },
-        { "word": "tree", "hi": "पेड़ों के नीचे से निकले, ठंडी हवा हमें सहलाए।", "en": "We ride under the trees and the cool breeze strokes us." },
-        { "word": "river", "hi": "नदी किनारे रुक जाएँ, मछली को हाथ हिलाएँ।", "en": "We stop by the river and wave to the fish." },
-        { "word": "house", "hi": "शाम हुई तो घर को लौटें, माँ को सारी बात बताएँ।", "en": "When evening comes we ride home and tell Mum everything." }
+        {
+          "word": "bicycle",
+          "hi": "लाल रंग की मेरी साइकिल, ट्रिन-ट्रिन घंटी बजाए।",
+          "en": "My red bicycle rings its bell, tring-tring.",
+          "act": { "move": "drive", "sky": "field", "fx": "music", "sound": "chime" }
+        },
+        {
+          "word": "tree",
+          "hi": "पेड़ों के नीचे से निकले, ठंडी हवा हमें सहलाए।",
+          "en": "We ride under the trees and the cool breeze strokes us.",
+          "act": { "move": "sway", "sky": "field", "fx": ["wind", "leaves"] }
+        },
+        {
+          "word": "river",
+          "hi": "नदी किनारे रुक जाएँ, मछली को हाथ हिलाएँ।",
+          "en": "We stop by the river and wave to the fish.",
+          "act": { "move": "float", "sky": "river", "with": "fish", "fx": "bubbles" }
+        },
+        {
+          "word": "house",
+          "hi": "शाम हुई तो घर को लौटें, माँ को सारी बात बताएँ।",
+          "en": "When evening comes we ride home and tell Mum everything.",
+          "act": { "move": "grow", "sky": "dawn", "fx": "hearts" }
+        }
       ],
       "questions": [
         {
@@ -1783,20 +2668,42 @@
       "title": { "hi": "हाथी और चूहे", "en": "The elephants and the mice" },
       "cover": "elephant",
       "pages": [
-        { "word": "mouse", "hi": "एक पुराने गाँव में बहुत सारे चूहे रहते थे।", "en": "Many mice lived in an old village." },
+        {
+          "word": "mouse",
+          "hi": "एक पुराने गाँव में बहुत सारे चूहे रहते थे।",
+          "en": "Many mice lived in an old village.",
+          "act": { "move": "scurry", "sky": "field" }
+        },
         {
           "word": "elephant",
           "hi": "हाथी पानी पीने जाते तो चूहे उनके पैरों के नीचे आ जाते।",
-          "en": "When the elephants went to drink water, the mice got trampled."
+          "en": "When the elephants went to drink water, the mice got trampled.",
+          "act": { "move": "walk", "sky": "field", "with": "mouse", "fx": "dust", "sound": "thud" }
         },
         {
           "word": "mouse",
           "hi": "चूहों के राजा ने विनती की, और हाथियों ने अपना रास्ता बदल दिया।",
-          "en": "The mouse king asked kindly, and the elephants changed their path."
+          "en": "The mouse king asked kindly, and the elephants changed their path.",
+          "act": { "move": "talk", "sky": "field", "with": "elephant" }
         },
-        { "word": "net", "hi": "एक दिन शिकारियों ने हाथियों को जाल में फँसा लिया।", "en": "One day hunters trapped the elephants in nets." },
-        { "word": "mouse", "hi": "चूहे दौड़कर आए और दाँतों से सारे जाल काट दिए।", "en": "The mice came running and cut all the nets with their teeth." },
-        { "word": "elephant", "hi": "हाथी आज़ाद हो गए, और सब पक्के दोस्त बन गए।", "en": "The elephants were free, and they all became true friends." }
+        {
+          "word": "net",
+          "hi": "एक दिन शिकारियों ने हाथियों को जाल में फँसा लिया।",
+          "en": "One day hunters trapped the elephants in nets.",
+          "act": { "move": "fall", "sky": "field", "with": "elephant" }
+        },
+        {
+          "word": "mouse",
+          "hi": "चूहे दौड़कर आए और दाँतों से सारे जाल काट दिए।",
+          "en": "The mice came running and cut all the nets with their teeth.",
+          "act": { "move": "climb", "sky": "field", "with": "net" }
+        },
+        {
+          "word": "elephant",
+          "hi": "हाथी आज़ाद हो गए, और सब पक्के दोस्त बन गए।",
+          "en": "The elephants were free, and they all became true friends.",
+          "act": { "move": "dance", "sky": "field", "with": "mouse", "fx": "confetti" }
+        }
       ],
       "questions": [
         { "hi": "जाल किसने काटे?", "en": "Who cut the nets?", "answer": "mouse", "options": ["mouse", "elephant", "lion"] },
@@ -1816,12 +2723,42 @@
       "title": { "hi": "किसान और तीन ठग", "en": "The farmer and the three tricksters" },
       "cover": "goat",
       "pages": [
-        { "word": "farmer", "hi": "एक किसान बाज़ार से बकरी ख़रीदकर घर जा रहा था।", "en": "A farmer was walking home with a goat he had bought." },
-        { "word": "thief", "hi": "तीन ठगों ने बकरी हड़पने की चाल सोची।", "en": "Three tricksters made a plan to get the goat." },
-        { "word": "thief", "hi": "पहला ठग बोला, \"अरे! तुम कुत्ता क्यों उठाए हो?\"", "en": "The first one said, \"Hey! Why are you carrying a dog?\"" },
-        { "word": "dog", "hi": "दूसरे और तीसरे ठग ने भी यही कहा: \"यह तो कुत्ता है!\"", "en": "The second and the third said the same: \"That is a dog!\"" },
-        { "word": "goat", "hi": "किसान घबरा गया और बकरी छोड़कर चला गया।", "en": "The farmer got confused, left the goat and walked away." },
-        { "word": "farmer", "hi": "बाद में किसान समझ गया कि उसे ठगा गया था।", "en": "Later the farmer understood that he had been tricked." }
+        {
+          "word": "farmer",
+          "hi": "एक किसान बाज़ार से बकरी ख़रीदकर घर जा रहा था।",
+          "en": "A farmer was walking home with a goat he had bought.",
+          "act": { "move": "walk", "sky": "field", "with": "goat" }
+        },
+        {
+          "word": "thief",
+          "hi": "तीन ठगों ने बकरी हड़पने की चाल सोची।",
+          "en": "Three tricksters made a plan to get the goat.",
+          "act": { "move": "enter-right", "sky": "field" }
+        },
+        {
+          "word": "thief",
+          "hi": "पहला ठग बोला, \"अरे! तुम कुत्ता क्यों उठाए हो?\"",
+          "en": "The first one said, \"Hey! Why are you carrying a dog?\"",
+          "act": { "move": "talk", "sky": "field", "with": "farmer" }
+        },
+        {
+          "word": "dog",
+          "hi": "दूसरे और तीसरे ठग ने भी यही कहा: \"यह तो कुत्ता है!\"",
+          "en": "The second and the third said the same: \"That is a dog!\"",
+          "act": { "move": "spin", "sky": "field", "with": "thief" }
+        },
+        {
+          "word": "goat",
+          "hi": "किसान घबरा गया और बकरी छोड़कर चला गया।",
+          "en": "The farmer got confused, left the goat and walked away.",
+          "act": { "move": "shake", "sky": "field", "with": "farmer" }
+        },
+        {
+          "word": "farmer",
+          "hi": "बाद में किसान समझ गया कि उसे ठगा गया था।",
+          "en": "Later the farmer understood that he had been tricked.",
+          "act": { "move": "talk", "sky": "dawn", "fx": "sparkles" }
+        }
       ],
       "questions": [
         { "hi": "किसान क्या ख़रीदकर ला रहा था?", "en": "What had the farmer bought?", "answer": "goat", "options": ["goat", "dog", "cow"] },
@@ -1841,11 +2778,36 @@
       "title": { "hi": "आम का पेड़", "en": "The mango tree" },
       "cover": "tree",
       "pages": [
-        { "word": "tree", "hi": "गाँव के किनारे एक बड़ा आम का पेड़ था।", "en": "At the edge of the village stood a big mango tree." },
-        { "word": "boy", "hi": "एक लड़का रोज़ उसकी छाँव में खेलता था।", "en": "A boy played in its shade every day." },
-        { "word": "mango", "hi": "पेड़ उसे मीठे-मीठे आम देता था।", "en": "The tree gave him sweet mangoes." },
-        { "word": "bird", "hi": "पेड़ पर चिड़ियों के घोंसले भी थे।", "en": "Birds had their nests in the tree too." },
-        { "word": "plant", "hi": "बड़ा होकर लड़के ने भी एक नया पेड़ लगाया।", "en": "When the boy grew up, he planted a new tree too." }
+        {
+          "word": "tree",
+          "hi": "गाँव के किनारे एक बड़ा आम का पेड़ था।",
+          "en": "At the edge of the village stood a big mango tree.",
+          "act": { "move": "grow", "sky": "field" }
+        },
+        {
+          "word": "boy",
+          "hi": "एक लड़का रोज़ उसकी छाँव में खेलता था।",
+          "en": "A boy played in its shade every day.",
+          "act": { "move": "jump", "sky": "field", "with": "tree" }
+        },
+        {
+          "word": "mango",
+          "hi": "पेड़ उसे मीठे-मीठे आम देता था।",
+          "en": "The tree gave him sweet mangoes.",
+          "act": { "move": "fall", "sky": "field", "with": "boy" }
+        },
+        {
+          "word": "bird",
+          "hi": "पेड़ पर चिड़ियों के घोंसले भी थे।",
+          "en": "Birds had their nests in the tree too.",
+          "act": { "move": "fly-across", "sky": "field", "with": "tree" }
+        },
+        {
+          "word": "plant",
+          "hi": "बड़ा होकर लड़के ने भी एक नया पेड़ लगाया।",
+          "en": "When the boy grew up, he planted a new tree too.",
+          "act": { "move": "grow", "sky": "dawn", "fx": "sparkles" }
+        }
       ],
       "questions": [
         { "hi": "पेड़ लड़के को क्या देता था?", "en": "What did the tree give the boy?", "answer": "mango", "options": ["mango", "fish", "milk"] },
@@ -1865,15 +2827,36 @@
       "title": { "hi": "गीदड़ और ढोल", "en": "The jackal and the drum" },
       "cover": "jackal",
       "pages": [
-        { "word": "jackal", "hi": "एक भूखा गीदड़ जंगल में खाना ढूँढ रहा था।", "en": "A hungry jackal was looking for food in the forest." },
-        { "word": "tree", "hi": "हवा चली तो पेड़ की डाल किसी चीज़ से टकराई: ढम-ढम!", "en": "The wind blew, and a branch hit something: dum-dum!" },
-        { "word": "jackal", "hi": "गीदड़ डर गया। \"यह कौन सा बड़ा जानवर है?\"", "en": "The jackal got scared. \"What big animal is that?\"" },
+        {
+          "word": "jackal",
+          "hi": "एक भूखा गीदड़ जंगल में खाना ढूँढ रहा था।",
+          "en": "A hungry jackal was looking for food in the forest.",
+          "act": { "move": "walk", "sky": "field", "fx": "leaves" }
+        },
+        {
+          "word": "tree",
+          "hi": "हवा चली तो पेड़ की डाल किसी चीज़ से टकराई: ढम-ढम!",
+          "en": "The wind blew, and a branch hit something: dum-dum!",
+          "act": { "move": "sway", "sky": "field", "fx": "wind", "sound": "thud" }
+        },
+        {
+          "word": "jackal",
+          "hi": "गीदड़ डर गया। \"यह कौन सा बड़ा जानवर है?\"",
+          "en": "The jackal got scared. \"What big animal is that?\"",
+          "act": { "move": "shake", "sky": "field" }
+        },
         {
           "word": "drum",
           "hi": "हिम्मत करके उसने पास जाकर देखा: वह तो एक पुराना ढोल था!",
-          "en": "He found his courage and went closer: it was just an old drum!"
+          "en": "He found his courage and went closer: it was just an old drum!",
+          "act": { "move": "grow", "sky": "field", "with": "jackal", "fx": "music" }
         },
-        { "word": "jackal", "hi": "गीदड़ हँस पड़ा। \"बिना देखे डरना बेकार है।\"", "en": "The jackal laughed. \"It’s silly to be scared without looking.\"" }
+        {
+          "word": "jackal",
+          "hi": "गीदड़ हँस पड़ा। \"बिना देखे डरना बेकार है।\"",
+          "en": "The jackal laughed. \"It’s silly to be scared without looking.\"",
+          "act": { "move": "dance", "sky": "field", "with": "drum", "fx": "music" }
+        }
       ],
       "questions": [
         { "hi": "ढम-ढम की आवाज़ किससे आई?", "en": "What made the dum-dum sound?", "answer": "drum", "options": ["drum", "lion", "bell"] },
@@ -1893,22 +2876,35 @@
       "title": { "hi": "बया और बंदर", "en": "The weaver bird and the monkey" },
       "cover": "bird",
       "pages": [
-        { "word": "bird", "hi": "एक बया चिड़िया ने पेड़ पर सुंदर घोंसला बनाया।", "en": "A weaver bird built a lovely nest in a tree." },
+        {
+          "word": "bird",
+          "hi": "एक बया चिड़िया ने पेड़ पर सुंदर घोंसला बनाया।",
+          "en": "A weaver bird built a lovely nest in a tree.",
+          "act": { "move": "fly-across", "sky": "field", "with": "tree" }
+        },
         {
           "word": "raincloud",
           "hi": "ज़ोर की बारिश आई। एक बंदर ठंड से काँपता हुआ पेड़ के नीचे आया।",
-          "en": "Heavy rain came. A monkey, shivering with cold, came under the tree."
+          "en": "Heavy rain came. A monkey, shivering with cold, came under the tree.",
+          "act": { "move": "enter-right", "sky": "rain", "fx": "rain" }
         },
         {
           "word": "bird",
           "hi": "बया बोली, \"तुम्हारे तो हाथ हैं, तुम अपना घर क्यों नहीं बनाते?\"",
-          "en": "The bird said, \"You have hands. Why don’t you build yourself a home?\""
+          "en": "The bird said, \"You have hands. Why don’t you build yourself a home?\"",
+          "act": { "move": "talk", "sky": "rain", "with": "monkey" }
         },
-        { "word": "monkey", "hi": "बंदर को ग़ुस्सा आ गया, और उसने चिढ़कर घोंसला तोड़ दिया।", "en": "The monkey got cross and, in a temper, broke the nest." },
+        {
+          "word": "monkey",
+          "hi": "बंदर को ग़ुस्सा आ गया, और उसने चिढ़कर घोंसला तोड़ दिया।",
+          "en": "The monkey got cross and, in a temper, broke the nest.",
+          "act": { "move": "shake", "sky": "rain", "fx": "leaves" }
+        },
         {
           "word": "bird",
           "hi": "बया दुखी हुई और समझ गई: बिना माँगे सलाह हर किसी को नहीं देनी चाहिए।",
-          "en": "The bird was sad, and understood: don’t give advice to someone who hasn’t asked for it."
+          "en": "The bird was sad, and understood: don’t give advice to someone who hasn’t asked for it.",
+          "act": { "move": "sway", "sky": "dawn", "with": "tree" }
         }
       ],
       "questions": [
@@ -1929,26 +2925,35 @@
       "title": { "hi": "बादशाह का तोता", "en": "The emperor’s parrot" },
       "cover": "parrot",
       "pages": [
-        { "word": "parrot", "hi": "बादशाह अकबर का एक प्यारा तोता था।", "en": "Emperor Akbar had a beloved parrot." },
+        {
+          "word": "parrot",
+          "hi": "बादशाह अकबर का एक प्यारा तोता था।",
+          "en": "Emperor Akbar had a beloved parrot.",
+          "act": { "move": "dance", "sky": "home", "fx": "music" }
+        },
         {
           "word": "king",
           "hi": "अकबर ने कहा, \"जो मुझे इसके मरने की ख़बर देगा, उसे सज़ा मिलेगी।\"",
-          "en": "Akbar said, \"Whoever tells me it has died will be punished.\""
+          "en": "Akbar said, \"Whoever tells me it has died will be punished.\"",
+          "act": { "move": "talk", "sky": "home", "with": "parrot" }
         },
         {
           "word": "parrot",
           "hi": "एक दिन तोता मर गया। कोई भी बादशाह को बताने की हिम्मत नहीं कर पाया।",
-          "en": "One day the parrot died. Nobody dared to tell the emperor."
+          "en": "One day the parrot died. Nobody dared to tell the emperor.",
+          "act": { "move": "sleep", "sky": "night" }
         },
         {
           "word": "minister",
           "hi": "बीरबल गया और बोला, \"हुज़ूर, आपका तोता न खाता है, न पीता है, न बोलता है, न हिलता है।\"",
-          "en": "Birbal went and said, \"Your Majesty, your parrot doesn’t eat, doesn’t drink, doesn’t talk and doesn’t move.\""
+          "en": "Birbal went and said, \"Your Majesty, your parrot doesn’t eat, doesn’t drink, doesn’t talk and doesn’t move.\"",
+          "act": { "move": "talk", "sky": "home", "with": "king" }
         },
         {
           "word": "king",
           "hi": "अकबर बोले, \"तो क्या वह मर गया?\" बीरबल ने कहा, \"यह तो आपने ख़ुद कहा, हुज़ूर!\"",
-          "en": "Akbar said, \"So it has died?\" Birbal said, \"You said it yourself, Your Majesty!\""
+          "en": "Akbar said, \"So it has died?\" Birbal said, \"You said it yourself, Your Majesty!\"",
+          "act": { "move": "talk", "sky": "home", "with": "minister", "fx": "sparkles" }
         }
       ],
       "questions": [
@@ -1963,22 +2968,25 @@
       "title": { "hi": "चाँद पर खरगोश", "en": "The hare in the moon" },
       "cover": "rabbit",
       "pages": [
-        { "word": "rabbit", "hi": "एक जंगल में एक दयालु खरगोश रहता था।", "en": "A kind hare lived in a forest." },
-        { "word": "grandfather", "hi": "एक दिन एक भूखा बूढ़ा आदमी वहाँ आया।", "en": "One day a hungry old man came by." },
+        { "word": "rabbit", "hi": "एक जंगल में एक दयालु खरगोश रहता था।", "en": "A kind hare lived in a forest.", "act": { "move": "jump", "sky": "field" } },
+        { "word": "grandfather", "hi": "एक दिन एक भूखा बूढ़ा आदमी वहाँ आया।", "en": "One day a hungry old man came by.", "act": { "move": "walk", "sky": "field" } },
         {
           "word": "monkey",
           "hi": "बंदर फल लाया, और दूसरे जानवर भी कुछ न कुछ लाए।",
-          "en": "The monkey brought fruit, and the other animals brought something too."
+          "en": "The monkey brought fruit, and the other animals brought something too.",
+          "act": { "move": "approach", "sky": "field", "with": "grandfather" }
         },
         {
           "word": "rabbit",
           "hi": "खरगोश के पास देने को कुछ नहीं था, पर उसने अपना सब कुछ देने की ठान ली।",
-          "en": "The hare had nothing to give, but he decided to give everything he had."
+          "en": "The hare had nothing to give, but he decided to give everything he had.",
+          "act": { "move": "talk", "sky": "field", "with": "grandfather", "fx": "hearts" }
         },
         {
           "word": "moon",
           "hi": "बूढ़ा आदमी असल में चाँद का देवता था। उसने खरगोश की तस्वीर चाँद पर बना दी, ताकि सब उसकी दया याद रखें।",
-          "en": "The old man was really the spirit of the Moon. He drew the hare on the Moon, so everyone would remember his kindness."
+          "en": "The old man was really the spirit of the Moon. He drew the hare on the Moon, so everyone would remember his kindness.",
+          "act": { "move": "grow", "sky": "night", "with": "rabbit", "fx": "stars" }
         }
       ],
       "questions": [
@@ -1993,22 +3001,35 @@
       "title": { "hi": "किसान और भालू", "en": "The farmer and the bear" },
       "cover": "bear",
       "pages": [
-        { "word": "farmer", "hi": "एक किसान का खेत भालू के जंगल के पास था।", "en": "A farmer’s field was next to a bear’s forest." },
+        {
+          "word": "farmer",
+          "hi": "एक किसान का खेत भालू के जंगल के पास था।",
+          "en": "A farmer’s field was next to a bear’s forest.",
+          "act": { "move": "walk", "sky": "field" }
+        },
         {
           "word": "bear",
           "hi": "भालू बोला, \"फ़सल का आधा हिस्सा मेरा! मुझे ऊपर वाला हिस्सा चाहिए।\"",
-          "en": "The bear said, \"Half the crop is mine! I want the tops.\""
+          "en": "The bear said, \"Half the crop is mine! I want the tops.\"",
+          "act": { "move": "talk", "sky": "field", "with": "farmer" }
         },
         {
           "word": "potato",
           "hi": "किसान ने आलू बोए। भालू को पत्ते मिले, और किसान को आलू!",
-          "en": "The farmer planted potatoes. The bear got the leaves, and the farmer got the potatoes!"
+          "en": "The farmer planted potatoes. The bear got the leaves, and the farmer got the potatoes!",
+          "act": { "move": "peek", "sky": "field", "with": "farmer", "fx": "sparkles" }
         },
-        { "word": "bear", "hi": "भालू बोला, \"अगली बार मुझे नीचे वाला हिस्सा चाहिए।\"", "en": "The bear said, \"Next time I want the bottoms.\"" },
+        {
+          "word": "bear",
+          "hi": "भालू बोला, \"अगली बार मुझे नीचे वाला हिस्सा चाहिए।\"",
+          "en": "The bear said, \"Next time I want the bottoms.\"",
+          "act": { "move": "shake", "sky": "field", "with": "farmer" }
+        },
         {
           "word": "corn",
           "hi": "किसान ने मक्का बोया। भालू को जड़ें मिलीं, और किसान को भुट्टे!",
-          "en": "The farmer planted corn. The bear got the roots, and the farmer got the cobs!"
+          "en": "The farmer planted corn. The bear got the roots, and the farmer got the cobs!",
+          "act": { "move": "peek", "sky": "field", "with": "bear", "fx": "sparkles" }
         }
       ],
       "questions": [
@@ -3542,6 +4563,26 @@
               "title": { "hi": "गाड़ी ढूँढो", "en": "Find the vehicle" },
               "config": { "words": ["bus", "car", "boat", "train", "plane", "truck", "tractor", "bicycle"], "rounds": 4, "vehicle": "policecar" }
             }
+          ]
+        },
+        {
+          "id": "t-kahani",
+          "title": { "hi": "छोटी कहानियाँ", "en": "Little stories" },
+          "skill": "Listening · Stories",
+          "icon": "chick",
+          "lessons": [
+            {
+              "id": "t-kahani-1",
+              "game": "story",
+              "icon": "chick",
+              "title": { "hi": "चूज़ा और माँ", "en": "The chick and its mother" },
+              "config": { "story": "t-chooza" }
+            },
+            { "id": "t-kahani-2", "game": "story", "icon": "raincloud", "title": { "hi": "बारिश आई", "en": "Here comes the rain" }, "config": { "story": "t-barish" } },
+            { "id": "t-kahani-3", "game": "story", "icon": "butterfly", "title": { "hi": "तितली उड़ी", "en": "Fly, butterfly" }, "config": { "story": "t-titli" } },
+            { "id": "t-kahani-4", "game": "story", "icon": "moon", "title": { "hi": "रात हुई", "en": "Night time" }, "config": { "story": "t-raat" } },
+            { "id": "t-kahani-5", "game": "story", "icon": "fish", "title": { "hi": "छोटी मछली", "en": "Little fish" }, "config": { "story": "t-machhli" } },
+            { "id": "t-kahani-6", "game": "story", "icon": "elephant", "title": { "hi": "हाथी नहाया", "en": "Elephant bath time" }, "config": { "story": "t-haathi" } }
           ]
         }
       ],

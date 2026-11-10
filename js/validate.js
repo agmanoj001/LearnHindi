@@ -3,6 +3,7 @@ import { SKILLS } from './mathgen.js';
 import { PHONICS } from './phonicsgen.js';
 import { BEAT_KINDS, beatKind, tapTokens } from './logic.js';
 import { CAST, CAST_IDS, FACES, ARMS, PROPS, BACKGROUND_IDS } from './art-comic.js';
+import { actProblems } from './scene.js';
 
 export const COMIC_SERIES = ['mishti', 'dadi', 'birbal', 'chippu', 'betal', 'murari', 'rimjhim'];
 // Errors stop the app from using the content; warnings are shown in parent settings.
@@ -286,6 +287,8 @@ export function validateContent(c, { knownPictures = null, pictureExists = null,
             // English-only stories ("lang": "en", e.g. nursery rhymes) have no Hindi text
             if (s.lang !== 'en' && (!isStr(p?.hi) || !DEVANAGARI.test(p.hi))) err(`${at}.pages[${j}].hi must be Devanagari text`);
             if (!isStr(p?.en)) err(`${at}.pages[${j}].en is required`);
+            // how the page's picture moves (see js/scene.js)
+            if (p?.act !== undefined) for (const m of actProblems(p.act, hasWord)) err(`${at} (${s.id}).pages[${j}].act ${m}`);
           });
         (Array.isArray(s.questions) ? s.questions : []).forEach((q, j) => {
           const qat = `${at}.questions[${j}]`;

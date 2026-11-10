@@ -49,7 +49,8 @@ export const speakMath = (t) => t.replace(/\+/g, ' plus ').replace(/=/g, ' is ')
 export function radioPlaylist(content, level) {
   const order = (content.levels || []).map((l) => l.id);
   const i = order.indexOf(level);
-  const levels = order.slice(Math.max(0, i - 1), i + 1);
+  // this grade and the one below; the youngest grade borrows from the one above instead (its own come first)
+  const levels = i > 0 ? order.slice(i - 1, i + 1) : order.slice(0, 2);
   const all = (content.stories || []).filter((s) => levels.includes(s.level));
   const mine = (s) => (s.level === level ? 0 : 1);
   const stories = all.filter((s) => s.kind !== 'poem').sort((a, b) => mine(a) - mine(b));

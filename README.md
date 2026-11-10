@@ -16,6 +16,10 @@ It's plain HTML, CSS and JavaScript with no build step, so it runs on GitHub Pag
 
 **Yes, after the first visit.** The first time the app is opened online, it saves all its files on the device (the pages, every picture, the fonts and the lessons: about 55 files). After that it opens and plays with no internet at all: every lesson, story, game, recording and setting works offline, and progress is saved on the device. Updates download in the background the next time it is online; when a new version is ready, a small bar on the home screen offers to refresh (never in the middle of a lesson).
 
+Because the stars live only on the device, the grown-ups' area has a **Backup** section: save one small file with the stars, settings and children (not the photo or voice recordings), and restore it on a new phone or after the browser has been cleared. It also says whether the browser has agreed to keep the app's saves when space runs low.
+
+What would make it world class, with offline as the rule: [docs/ROADMAP.md](docs/ROADMAP.md).
+
 The one thing that can depend on the device is the **computer voice**. On Android the Google text-to-speech voices work offline once their voice data is installed (*Settings › System › Languages › Text-to-speech › Google › Install voice data › Hindi*). Some desktop browsers use online voices, so offline they fall back to a plainer voice or stay silent. **Family recordings made in the app always work offline**, which is another good reason to record them.
 
 On an iPhone or iPad, **add the app to the Home Screen** (Share › Add to Home Screen): Safari can clear the data of websites that haven't been opened for a while, but not of home-screen apps. Installed copies also ask the browser to keep progress and recordings safe from storage clean-ups.
@@ -31,13 +35,15 @@ Thinking of rebuilding it in an app builder? [docs/PLATFORM-EVALUATION.md](docs/
 - **The home screen greets the child**: the guide of the next lesson says नमस्ते (by name, if a nickname is set), with the day's path, a ring that fills as it is walked, and the streak of days.
 - **Finishing a lesson is a small celebration**: stars pop in one by one with sparkles, a perfect score gets a golden card, and chips show how many were right first time and the best run.
 - **Stories read like a picture book**: stacked pages, page dots, a turning animation, words that light up as they are read, and on tablets the picture sits beside the text.
+- **Stories move, from Toddler to Grade 2**: every page of a Toddler, Kindergarten, Grade 1 or Grade 2 story is a small scene that follows the words. Hanuman flies up to the sun, rain patters and the frog jumps with a splash, the two goats bump heads on the bridge, Diwali lamps light up one by one, Ganesh goes round and round his mother, the cat falls asleep under the stars. In Grade 1 and 2 the crow drops pebbles into the pot, the mouse climbs the hunter's net, the monkeys snatch the caps, Hanuman lifts the mountain and Pip's snowman melts in the sun. Each scene has its own backdrop (night, dawn, rain, snow, sea, under water, a room at home), a matching sound, and plays again when the picture is tapped.
+- **Reading on their own (Grade 1 and up)**: the story cover offers *मैं ख़ुद पढ़ूँ · I'll read it*. The pages then wait quietly for the child to read; the speaker button or a tapped word gives help only when asked. The word that names the picture is underlined; tapping it says it in Hindi and English and plays the picture, so word and meaning go together. Pages turn with a swipe, like a book.
 - **Things arrive with a little life**: answer cards, world cards and map stops pop in one after another. All of it stands still for anyone who has asked their device for reduced motion.
 
 ## The worlds
 
 | Grade | World | Guide | Subject | Tags | What it teaches |
 | --- | --- | --- | --- | --- | --- |
-| Toddler (2–3) | **Animal Farm** · पशु फ़ार्म | Kuku the chick | Hindi | Listening, Vocabulary, Counting | Animals and their sounds, colours, shapes, big and small, counting to 5, vehicles |
+| Toddler (2–3) | **Animal Farm** · पशु फ़ार्म | Kuku the chick | Hindi | Listening, Vocabulary, Counting | Animals and their sounds, colours, shapes, big and small, counting to 5, vehicles, six tiny moving stories |
 | Kindergarten (3–6) | **Vehicle Town** · गाड़ी नगर | Gappu the elephant | Hindi | Letters, Phonics, Reading | Hearing sounds, स्वर and व्यंजन, tracing, the alphabet train, two- and three-letter words, counting to 10, rhymes, and eight first stories (Hanuman, Krishna, Ganesh, folk tales) |
 | Kindergarten | **Buzz's Letter Garden** | Buzz the bee | English | English, Phonics, Letters | Letters big and small, first and last sounds, rhyming, clapping syllables, reading CVC words, short vowels, sight words |
 | Kindergarten | **Pip's Number Igloo** | Pip the penguin | Math (English) | Math, Counting, Shapes | Counting, numbers to 100, comparing, adding and taking away, making 10, teen numbers, shapes, positions, measuring |
@@ -71,7 +77,7 @@ The **home screen** shows the child's grade first, then every other world, so mo
 
 ### The story library
 
-The libraries hold **94 read-along stories and rhymes**. Kindergarten and Grade 1 have **easy first stories** in a few short lines a page: from the **Ramayana** (*Hanuman and the sun*, *The little squirrel* who helped build the bridge, *The night of lamps*, *Ram and the bow*, *The golden deer*, *Hanuman's great leap*, *Hanuman brings the mountain*), **Krishna** (*The butter thief*, *The Govardhan hill*), **Ganesh** (*Ganesh goes round*), and folk tales (*Two goats*, *The sun and the wind*, *The elephant and the ant*, *The fox and the crow*, *Two cats and a monkey*, *The donkey and the salt*, *The elephant and the tailor*). Each has picture questions and ends with a gentle lesson (सीख). The older grades have Panchatantra and Jataka tales (*The lion and the mouse*, *The monkey and the crocodile*, *The four friends*, *The jackal and the drum*, *The monkey and the wedge*, *The hare in the moon*), Akbar–Birbal stories (*The emperor's parrot*, *Who owns the water?*, *The shorter line*, *The cucumber in the bottle*, *Birbal counts the crows*, *Birbal's khichdi*), Tenali Raman, fables, poems, new stories starring the app's characters, **बाल गीत** for Kindergarten (मछली जल की रानी है, चंदा मामा दूर के, आलू कचालू, हाथी राजा and new ones), and classic **English nursery rhymes** in the English phonics worlds (*Twinkle, Twinkle*, *Humpty Dumpty*, *Baa, Baa, Black Sheep*, *Hickory, Dickory, Dock*, *Jack and Jill*, *Rain, Rain*, *Row Your Boat*, *Hey Diddle Diddle*), each with a rhyming-word question. Only traditional or public-domain rhymes and our own are used; film songs are left out because they are still in copyright. Every word can be tapped to hear it, pages are read aloud in Hindi (and English in "both" mode), and each story ends with questions: pictures for the younger grades, short written answers for older ones. Folktales finish with their **सीख** (moral). The library shows the child's grade and the one before it. Every story world also has a **story order** lesson: pictures from a story, shuffled, to tap in the order things happened.
+The libraries hold **100 read-along stories and rhymes**. Toddlers have **six tiny stories** of three or four pages, two to four words a line (*The chick and its mother*, *Here comes the rain*, *Fly, butterfly*, *Night time*, *Little fish*, *Elephant bath time*), and every page from Toddler to Grade 2 is a little moving scene. Kindergarten and Grade 1 have **easy first stories** in a few short lines a page: from the **Ramayana** (*Hanuman and the sun*, *The little squirrel* who helped build the bridge, *The night of lamps*, *Ram and the bow*, *The golden deer*, *Hanuman's great leap*, *Hanuman brings the mountain*), **Krishna** (*The butter thief*, *The Govardhan hill*), **Ganesh** (*Ganesh goes round*), and folk tales (*Two goats*, *The sun and the wind*, *The elephant and the ant*, *The fox and the crow*, *Two cats and a monkey*, *The donkey and the salt*, *The elephant and the tailor*). Each has picture questions and ends with a gentle lesson (सीख). The older grades have Panchatantra and Jataka tales (*The lion and the mouse*, *The monkey and the crocodile*, *The four friends*, *The jackal and the drum*, *The monkey and the wedge*, *The hare in the moon*), Akbar–Birbal stories (*The emperor's parrot*, *Who owns the water?*, *The shorter line*, *The cucumber in the bottle*, *Birbal counts the crows*, *Birbal's khichdi*), Tenali Raman, fables, poems, new stories starring the app's characters, **बाल गीत** for Kindergarten (मछली जल की रानी है, चंदा मामा दूर के, आलू कचालू, हाथी राजा and new ones), and classic **English nursery rhymes** in the English phonics worlds (*Twinkle, Twinkle*, *Humpty Dumpty*, *Baa, Baa, Black Sheep*, *Hickory, Dickory, Dock*, *Jack and Jill*, *Rain, Rain*, *Row Your Boat*, *Hey Diddle Diddle*), each with a rhyming-word question. Only traditional or public-domain rhymes and our own are used; film songs are left out because they are still in copyright. Every word can be tapped to hear it, pages are read aloud in Hindi (and English in "both" mode), and each story ends with questions: pictures for the younger grades, short written answers for older ones. Folktales finish with their **सीख** (moral). The library shows the child's grade and the one before it. Every story world also has a **story order** lesson: pictures from a story, shuffled, to tap in the order things happened.
 
 ### The characters
 
@@ -305,6 +311,20 @@ A question can also have `"show": "मैं ___ जाता हूँ।"` (a 
 ```
 
 Each page shows its `word`'s picture. Picture questions use word ids as options; `"text": true` questions use short Hindi answers. `moral` is optional.
+
+A page can also carry an `act`, which makes its picture a small moving scene (used for every page from Toddler to Grade 2):
+
+```json
+{ "word": "goat", "hi": "“तुम हटो!” “नहीं, तुम हटो!”", "en": "“You move!” “No, you move!”", "act": { "move": "bump", "with": "goat", "sky": "field" } }
+```
+
+- `move`: how the picture moves: `enter`, `enter-right`, `walk`, `run`, `scurry`, `drive`, `roll`, `fly-up`, `fly-across`, `jump`, `dance`, `fall`, `grow`, `peek`, `shake`, `sleep`, `float`, `sway`, `swim`, `spin`, `talk`, `lift`, `shrink`, and with a partner `approach`, `bump`, `orbit` or `climb`.
+- `with`: a second picture (a word id) that shares the page.
+- `fx`: what happens around it, one or a list of two: `rain`, `snow`, `splash`, `sparkles`, `stars`, `hearts`, `wind`, `music`, `zzz`, `lamps`, `leaves`, `bubbles`, `confetti`, `glow`, `dust`, `steam`.
+- `sky`: the backdrop: `day`, `night`, `dawn`, `rain`, `sky`, `field`, `river`, `sea`, `underwater`, `snow`, `home`.
+- `sound`: a sound effect instead of the move's own (`toot`, `sneeze`, `chime` …).
+
+The lists live in [`js/scene.js`](js/scene.js); the validator rejects anything not on them.
 
 ### Letters, phrases and the rest
 

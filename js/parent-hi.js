@@ -7,6 +7,15 @@ const HI = {
   'Each child has their own grade, stars and settings. Family voice recordings are shared. With more than one child, the start screen asks who is playing.':
     'हर बच्चे की अपनी कक्षा, सितारे और सेटिंग होती हैं। परिवार की आवाज़ें सबके लिए एक जैसी रहती हैं। एक से ज़्यादा बच्चे हों, तो शुरुआत में पूछा जाता है कि कौन खेलेगा।',
   'Playing now': 'अभी खेल रहा है',
+  Backup: 'बैकअप',
+  'Everything is saved on this device only. Keep a backup file (stars, settings and children; not the photo or voice recordings) to move to a new device or recover after the browser is cleared.':
+    'सब कुछ सिर्फ़ इसी फ़ोन में रहता है। एक बैकअप फ़ाइल रख लें (सितारे, सेटिंग और बच्चे; फ़ोटो और आवाज़ें नहीं), ताकि नए फ़ोन पर ले जा सकें या ब्राउज़र साफ़ होने पर वापस ला सकें।',
+  'Save a backup file': 'बैकअप फ़ाइल बनाएँ',
+  'Restore from a file': 'फ़ाइल से वापस लाएँ',
+  'Checking whether this device keeps the app…': 'देख रहे हैं कि यह फ़ोन ऐप को सँभालकर रखता है या नहीं…',
+  'This device keeps the app and its saves, even when space runs low.': 'यह फ़ोन ऐप और उसकी बचत सँभालकर रखता है, जगह कम होने पर भी।',
+  'This browser may clear the app’s saves if the device runs low on space. Installing the app (Add to Home Screen) and keeping a backup protects them.':
+    'जगह कम होने पर यह ब्राउज़र ऐप की बचत मिटा सकता है। ऐप को होम स्क्रीन पर जोड़ें और बैकअप रखें, तो सब सुरक्षित रहेगा।',
   Switch: 'बदलें',
   '+ Add a child': '+ बच्चा जोड़ें',
   'Remove this child': 'यह बच्चा हटाएँ',

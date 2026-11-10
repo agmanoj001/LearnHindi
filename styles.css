@@ -7289,3 +7289,1069 @@ body:has(.game-grammar) .caption-bar,
     display: none;
   }
 }
+
+/* ---------- story scenes: the picture moves with the story (Toddler and Kindergarten) ---------- */
+.story-page .pic.scene {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  padding: 0;
+  isolation: isolate;
+  container-type: size;
+  --pop: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+/* backdrops (one class each, so they beat the plain picture's tint) */
+.scene {
+  --ground: #b9e59b;
+}
+.scene.sky-day,
+.scene.sky-field,
+.scene.sky-river {
+  background: linear-gradient(180deg, #bfe7ff 0%, #effaff 75%);
+}
+.scene .actor {
+  position: absolute;
+  left: 19%;
+  width: 62%;
+  bottom: 5%;
+  height: 82%;
+  z-index: 3;
+  transform-origin: 50% 100%;
+}
+.scene .actor .body {
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 100%;
+}
+.scene.duo .actor.main {
+  left: 2%;
+  width: 50%;
+}
+.scene.duo .actor.partner {
+  left: 48%;
+  width: 50%;
+  z-index: 2;
+}
+.scene.mv-orbit .actor.partner {
+  left: 26%;
+  width: 48%;
+  height: 70%;
+}
+.scene.mv-orbit .actor.main {
+  left: 36%;
+  width: 28%;
+  height: 46%;
+  bottom: 26%;
+}
+.scene.mv-fly-across .actor.main,
+.scene.mv-fly-up .actor.main {
+  left: 25%;
+  width: 50%;
+}
+.scene.duo.mv-fly-across .actor.main,
+.scene.duo.mv-fly-up .actor.main {
+  left: 4%;
+  width: 44%;
+}
+.scene-ground {
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  bottom: 0;
+  height: 20%;
+  z-index: 0;
+  border-radius: 50% 50% 0 0 / 60% 60% 0 0;
+  background: var(--ground);
+}
+
+.scene.sky-night {
+  --ground: #2c3b73;
+  background: linear-gradient(180deg, #141c4a 0%, #34448a 100%);
+}
+.scene.sky-dawn {
+  --ground: #9fd67f;
+  background: linear-gradient(180deg, #ffb08a 0%, #ffd9a0 55%, #fff4d6 100%);
+}
+.scene.sky-rain {
+  --ground: #8fbfa3;
+  background: linear-gradient(180deg, #93a3b6 0%, #ccd6e1 100%);
+}
+.scene.sky-sky {
+  background: linear-gradient(180deg, #4fb3f6 0%, #a9dcff 100%);
+}
+.scene.sky-sky .scene-ground {
+  display: none;
+}
+.scene.sky-sky::before,
+.scene.sky-sky::after {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  width: 26%;
+  height: 16%;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow:
+    5cqw -3cqh 0 1cqh rgba(255, 255, 255, 0.9),
+    -4cqw 1cqh 0 0 rgba(255, 255, 255, 0.9);
+}
+.scene.sky-sky::before {
+  left: 8%;
+  top: 18%;
+}
+.scene.sky-sky::after {
+  right: 6%;
+  top: 56%;
+  transform: scale(0.7);
+}
+.scene.sky-field {
+  --ground: #86c95f;
+}
+.scene.sky-field .scene-ground {
+  height: 28%;
+  border-radius: 40% 60% 0 0 / 50% 50% 0 0;
+}
+.scene.sky-river,
+.scene.sky-sea {
+  --ground: #4fb2ea;
+}
+.scene.sky-sea {
+  background: linear-gradient(180deg, #bfe8ff 0%, #ecf9ff 100%);
+}
+.scene.sky-sea .scene-ground {
+  height: 36%;
+  border-radius: 0;
+}
+.scene.sky-river .scene-ground {
+  height: 24%;
+  border-radius: 0;
+  box-shadow: 0 -2.2cqh 0 #a6dc85;
+}
+.scene.sky-sea .scene-ground::before,
+.scene.sky-river .scene-ground::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -9px;
+  height: 18px;
+  background: radial-gradient(circle at 20px 0, transparent 11px, var(--ground) 12px) 0 0 / 40px 18px repeat-x;
+}
+.scene.sky-river .scene-ground::before {
+  top: -1px;
+  background: radial-gradient(circle at 20px 18px, rgba(255, 255, 255, 0.55) 3px, transparent 4px) 0 0 / 40px 18px repeat-x;
+}
+.scene.sky-snow {
+  --ground: #f4f8ff;
+  background: linear-gradient(180deg, #a9c8ec 0%, #e3eefb 100%);
+}
+.scene.sky-snow .scene-ground {
+  height: 24%;
+  box-shadow: 0 -3px 0 #d7e4f5 inset;
+}
+.scene.sky-home {
+  --ground: #deb184;
+  background: linear-gradient(180deg, #fff0d9 0%, #ffe3bf 100%);
+}
+.scene.sky-home .scene-ground {
+  height: 17%;
+  border-radius: 0;
+}
+.scene.sky-home::before {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  left: 7%;
+  top: 10%;
+  width: 18%;
+  height: 34%;
+  border-radius: 10px;
+  background:
+    linear-gradient(90deg, transparent 46%, #e7c598 46% 54%, transparent 54%),
+    linear-gradient(0deg, transparent 46%, #e7c598 46% 54%, transparent 54%),
+    #bfe6ff;
+  box-shadow: 0 0 0 5px #e7c598;
+}
+
+/* moves: the outer box carries the move, the inner body a gentle idle bob afterwards */
+.scene.play .actor .body {
+  animation: idle-bob 2.6s 1.3s ease-in-out infinite;
+}
+.scene.play .actor.partner .body {
+  animation-delay: 0.5s;
+  animation-duration: 3s;
+}
+@keyframes idle-bob {
+  50% {
+    transform: translateY(-3%) scale(1.01, 0.99);
+  }
+}
+.scene.play.mv-enter .main {
+  animation: mv-enter 1.5s cubic-bezier(0.25, 0.9, 0.35, 1.12) both;
+}
+@keyframes mv-enter {
+  from {
+    transform: translateX(-115%);
+  }
+}
+.scene.play.mv-enter-right .main {
+  animation: mv-enter-right 1.5s cubic-bezier(0.25, 0.9, 0.35, 1.12) both;
+}
+@keyframes mv-enter-right {
+  from {
+    transform: translateX(115%);
+  }
+}
+.scene.play.mv-walk .main {
+  animation: mv-enter 2.2s ease-out both;
+}
+.scene.play.mv-walk .main .body {
+  animation:
+    hop-small 0.37s ease-in-out 6,
+    idle-bob 2.6s 2.3s ease-in-out infinite;
+}
+@keyframes hop-small {
+  50% {
+    transform: translateY(-6%) rotate(2deg);
+  }
+}
+.scene.play.mv-run .main {
+  animation: mv-run 0.75s cubic-bezier(0.2, 0.8, 0.3, 1.1) both;
+}
+.scene.play.mv-run .main .body {
+  animation: hop-small 0.24s ease-in-out infinite;
+}
+@keyframes mv-run {
+  from {
+    transform: translateX(-150%) skewX(-8deg);
+  }
+}
+.scene.mv-scurry .actor.main {
+  height: 38%;
+}
+.scene.play.mv-scurry .main {
+  animation: mv-run 0.9s cubic-bezier(0.2, 0.8, 0.3, 1.1) both;
+}
+.scene.play.mv-scurry .main .body {
+  animation: hop-small 0.18s ease-in-out 12;
+}
+.scene.play.mv-drive .main {
+  animation: mv-enter 1.7s cubic-bezier(0.15, 0.7, 0.3, 1) both;
+}
+.scene.play.mv-drive .main .body {
+  animation: ride 0.32s ease-in-out infinite;
+}
+@keyframes ride {
+  50% {
+    transform: translateY(-1.6%);
+  }
+}
+.scene.play.mv-roll .main {
+  transform-origin: 50% 60%;
+  animation: mv-roll 1.5s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+@keyframes mv-roll {
+  from {
+    transform: translateX(-130%) rotate(-400deg);
+  }
+}
+.scene.play.mv-fly-up .main {
+  animation: mv-fly-up 2.2s cubic-bezier(0.3, 0.6, 0.3, 1) both;
+}
+.scene.play.mv-fly-up .main .body,
+.scene.play.mv-fly-across .main .body {
+  animation: hover 1.8s ease-in-out infinite;
+}
+@keyframes mv-fly-up {
+  from {
+    transform: translateY(55%) scale(0.8);
+  }
+  to {
+    transform: translateY(-20%) scale(0.92);
+  }
+}
+@keyframes hover {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(-5%) rotate(3deg);
+  }
+}
+.scene.play.mv-fly-across .main {
+  animation: mv-fly-across 4.6s ease-in-out infinite alternate;
+}
+@keyframes mv-fly-across {
+  0% {
+    transform: translate(-40%, 6%) rotate(-6deg);
+  }
+  50% {
+    transform: translate(0, -16%) rotate(0deg);
+  }
+  100% {
+    transform: translate(40%, 2%) rotate(6deg);
+  }
+}
+.scene.play.mv-jump .main {
+  animation: mv-jump 0.95s ease-in-out infinite;
+}
+.scene.play.mv-jump .main .body {
+  animation: squash 0.95s ease-in-out infinite;
+}
+@keyframes mv-jump {
+  0%,
+  20%,
+  100% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0.3, 0.6, 0.5, 1);
+  }
+  58% {
+    transform: translateY(-30%);
+    animation-timing-function: cubic-bezier(0.5, 0, 0.7, 0.4);
+  }
+}
+@keyframes squash {
+  0%,
+  100% {
+    transform: scale(1.08, 0.88);
+  }
+  20%,
+  90% {
+    transform: none;
+  }
+}
+.scene.play.mv-dance .main {
+  animation: mv-dance 1.2s ease-in-out infinite;
+}
+@keyframes mv-dance {
+  0%,
+  100% {
+    transform: rotate(-8deg);
+  }
+  25%,
+  75% {
+    transform: translateY(-7%) rotate(0deg);
+  }
+  50% {
+    transform: rotate(8deg);
+  }
+}
+.scene.play.mv-fall .main {
+  animation: mv-fall 1.3s both;
+}
+@keyframes mv-fall {
+  0% {
+    transform: translateY(-150%) rotate(-25deg);
+    animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45);
+  }
+  50% {
+    transform: translateY(0) rotate(8deg);
+    animation-timing-function: ease-out;
+  }
+  66% {
+    transform: translateY(-12%) rotate(-4deg);
+    animation-timing-function: ease-in;
+  }
+  82% {
+    transform: translateY(0) rotate(2deg);
+  }
+  91% {
+    transform: translateY(-3%);
+  }
+}
+.scene.play.mv-grow .main {
+  transform-origin: 50% 70%;
+  animation: mv-grow 1.4s var(--pop) both;
+}
+@keyframes mv-grow {
+  from {
+    transform: scale(0.15);
+    opacity: 0.2;
+  }
+}
+.scene.play.mv-peek .main {
+  animation: mv-peek 2s cubic-bezier(0.25, 0.7, 0.3, 1) both;
+}
+@keyframes mv-peek {
+  from {
+    transform: translateY(75%);
+  }
+}
+.scene.play.mv-shake .main {
+  animation: mv-shake 0.42s ease-in-out infinite;
+}
+@keyframes mv-shake {
+  25% {
+    transform: translateX(-1.5%) rotate(-3deg);
+  }
+  75% {
+    transform: translateX(1.5%) rotate(3deg);
+  }
+}
+.scene.play.mv-sleep .main {
+  animation: mv-sleep 3.4s ease-in-out infinite;
+}
+.scene.play.mv-sleep .main .body {
+  animation: none;
+}
+@keyframes mv-sleep {
+  50% {
+    transform: scale(1.04, 0.96) rotate(-2deg);
+  }
+}
+.scene.play.mv-float .main {
+  animation: mv-float 3s ease-in-out infinite;
+}
+.scene.play.mv-float .main .body,
+.scene.play.mv-sway .main .body,
+.scene.play.mv-swim .main .body,
+.scene.play.mv-shake .main .body,
+.scene.play.mv-dance .main .body {
+  animation: none;
+}
+@keyframes mv-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(-7%) rotate(3deg);
+  }
+}
+.scene.play.mv-sway .main {
+  animation: mv-sway 3.2s ease-in-out infinite;
+}
+@keyframes mv-sway {
+  0%,
+  100% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(4deg);
+  }
+}
+.scene.play.mv-swim .main {
+  animation: mv-swim 3.4s ease-in-out infinite;
+}
+@keyframes mv-swim {
+  0%,
+  100% {
+    transform: translate(-20%, 0) rotate(-5deg);
+  }
+  25% {
+    transform: translate(-6%, -7%) rotate(0deg);
+  }
+  50% {
+    transform: translate(20%, 0) rotate(5deg);
+  }
+  75% {
+    transform: translate(6%, 7%) rotate(0deg);
+  }
+}
+.scene.play.mv-spin .main {
+  transform-origin: 50% 50%;
+  animation: mv-spin 1.4s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+@keyframes mv-spin {
+  from {
+    transform: rotate(-360deg) scale(0.6);
+  }
+}
+.scene.play.mv-talk .main .body {
+  animation:
+    talk 0.3s ease-in-out 8 alternate,
+    idle-bob 2.6s 2.5s ease-in-out infinite;
+}
+@keyframes talk {
+  to {
+    transform: translateY(-2.5%) scale(1.03, 0.97);
+  }
+}
+.scene.play.mv-approach .main {
+  animation: mv-enter 1.5s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+.scene.play.mv-approach .partner {
+  animation: mv-enter-right 1.5s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+}
+.scene.play.mv-bump .main {
+  animation: bump-l 1.7s ease-in-out infinite;
+}
+.scene.play.mv-bump .partner {
+  animation: bump-r 1.7s ease-in-out infinite;
+}
+@keyframes bump-l {
+  0%,
+  100% {
+    transform: translateX(-16%);
+  }
+  40% {
+    transform: translateX(6%) rotate(4deg);
+    animation-timing-function: ease-out;
+  }
+  55% {
+    transform: translateX(-6%) rotate(-3deg);
+  }
+}
+@keyframes bump-r {
+  0%,
+  100% {
+    transform: translateX(16%);
+  }
+  40% {
+    transform: translateX(-6%) rotate(-4deg);
+    animation-timing-function: ease-out;
+  }
+  55% {
+    transform: translateX(6%) rotate(3deg);
+  }
+}
+/* round and round: left-right on the outside box, up-down on the inside, a quarter turn apart */
+.scene.play.mv-orbit .main {
+  animation: orbit-x 1.6s ease-in-out infinite alternate;
+}
+.scene.play.mv-orbit .main .body {
+  animation: orbit-y 1.6s -0.8s ease-in-out infinite alternate;
+}
+@keyframes orbit-x {
+  from {
+    transform: translateX(-120%);
+  }
+  to {
+    transform: translateX(120%);
+  }
+}
+@keyframes orbit-y {
+  from {
+    transform: translateY(-28%);
+  }
+  to {
+    transform: translateY(40%);
+  }
+}
+
+.scene.mv-climb .actor.partner {
+  left: 22%;
+  width: 56%;
+}
+.scene.mv-climb .actor.main {
+  left: 38%;
+  width: 24%;
+  height: 34%;
+  bottom: 4%;
+}
+.scene.play.mv-climb .main {
+  animation: climb 2.6s cubic-bezier(0.3, 0.4, 0.4, 1) both;
+}
+.scene.play.mv-climb .main .body {
+  animation: hop-small 0.3s ease-in-out 8;
+}
+@keyframes climb {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-165%);
+  }
+}
+.scene.play.mv-lift .main {
+  animation: lift 1.6s cubic-bezier(0.3, 0.6, 0.3, 1) both;
+}
+.scene.play.mv-lift .main .body {
+  transform-origin: 50% 0;
+  animation: swing 2.2s 1.6s ease-in-out infinite;
+}
+@keyframes lift {
+  to {
+    transform: translateY(-36%) scale(0.8);
+  }
+}
+@keyframes swing {
+  0%,
+  100% {
+    transform: rotate(-6deg);
+  }
+  50% {
+    transform: rotate(6deg);
+  }
+}
+.scene.play.mv-shrink .main {
+  transform-origin: 50% 70%;
+  animation: shrink 2.4s 0.6s ease-in forwards;
+}
+@keyframes shrink {
+  to {
+    transform: scale(0.1);
+    opacity: 0;
+  }
+}
+.scene.sky-underwater {
+  --ground: #f2d79b;
+  background: linear-gradient(180deg, #5cc3f0 0%, #2f8fd8 100%);
+}
+.scene.sky-underwater .scene-ground {
+  height: 14%;
+  border-radius: 40% 60% 0 0 / 40% 40% 0 0;
+}
+.scene.sky-underwater::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: repeating-linear-gradient(105deg, rgba(255, 255, 255, 0.12) 0 6%, transparent 6% 16%);
+}
+
+/* effects */
+.scene .fx {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+.scene .fx-stars,
+.scene .fx-glow {
+  z-index: 1;
+}
+.fx i {
+  position: absolute;
+  display: block;
+  left: var(--x);
+  top: var(--y);
+}
+.scene .fx svg {
+  width: 100%;
+  height: auto;
+}
+/* rain */
+.fx-rain i {
+  top: -22%;
+  width: 2px;
+  height: 14%;
+  border-radius: 2px;
+  background: linear-gradient(transparent, #4c96dc);
+  rotate: 12deg;
+}
+.scene.play .fx-rain i {
+  animation: rain-fall 0.75s linear infinite calc(var(--d) * -1);
+}
+@keyframes rain-fall {
+  to {
+    transform: translate(-14cqh, 135cqh);
+  }
+}
+/* snow drifts down */
+.fx-snow i {
+  top: -8%;
+  width: calc(2.6cqh * var(--s));
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 3px rgba(120, 150, 190, 0.5);
+}
+.scene.play .fx-snow i {
+  animation: leaf-fall 5s linear infinite calc(var(--d) * -3);
+}
+/* a splash: drops thrown up from the middle */
+.fx-splash i {
+  left: calc(38% + var(--r) * 24%);
+  top: auto;
+  bottom: 16%;
+  width: 3.2cqh;
+  height: 4cqh;
+  border-radius: 50% 50% 50% 50% / 62% 62% 38% 38%;
+  background: #5fb2f2;
+  opacity: 0;
+}
+.scene.play .fx-splash i {
+  animation: splash 1.3s ease-out infinite calc(var(--d) * -1);
+}
+@keyframes splash {
+  0% {
+    transform: translate(0, 0) scale(0.4);
+    opacity: 1;
+  }
+  45% {
+    transform: translate(calc((var(--r) - 0.5) * 40cqw), -42cqh) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(calc((var(--r) - 0.5) * 64cqw), 6cqh) scale(0.7);
+    opacity: 0;
+  }
+}
+/* sparkles and night stars */
+.fx-sparkles i,
+.fx-stars i {
+  width: calc(6cqh * var(--s));
+  color: #ffc93c;
+}
+.fx-stars i {
+  top: calc(var(--y) * 0.6);
+  width: calc(4.5cqh * var(--s));
+  color: #fff3b0;
+}
+.fx-sparkles i {
+  opacity: 0;
+  top: calc(var(--y) * 0.8);
+}
+.scene.play .fx-sparkles i {
+  animation: twinkle 1.7s ease-in-out infinite calc(var(--d) * -1);
+}
+.scene.play .fx-stars i {
+  animation: twinkle-soft 2.6s ease-in-out infinite calc(var(--d) * -1);
+}
+@keyframes twinkle {
+  0%,
+  100% {
+    transform: scale(0) rotate(0deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1) rotate(90deg);
+    opacity: 1;
+  }
+}
+@keyframes twinkle-soft {
+  50% {
+    transform: scale(0.55);
+    opacity: 0.45;
+  }
+}
+/* hearts and music notes float up */
+.fx-hearts i,
+.fx-music i {
+  top: auto;
+  bottom: 12%;
+  left: calc(12% + var(--r) * 76%);
+  width: calc(7cqh * var(--s));
+  color: #ff5a7a;
+  opacity: 0;
+}
+.fx-music i {
+  bottom: 40%;
+  left: calc(22% + var(--r) * 56%);
+  color: #6c63ff;
+}
+.fx-music i:nth-child(3n) {
+  color: #ff8a3d;
+}
+.scene.play .fx-hearts i,
+.scene.play .fx-music i {
+  animation: rise 2.8s ease-out infinite calc(var(--d) * -1);
+}
+@keyframes rise {
+  0% {
+    transform: translate(0, 0) scale(0.4);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  60% {
+    transform: translate(4cqw, -38cqh) scale(1) rotate(-10deg);
+  }
+  100% {
+    transform: translate(-2cqw, -62cqh) scale(1.1) rotate(8deg);
+    opacity: 0;
+  }
+}
+/* wind: streaks blowing across */
+.fx-wind i {
+  left: -32%;
+  top: calc(8% + var(--y) * 0.7);
+  width: 26cqw;
+  height: 1.6cqh;
+  min-height: 3px;
+  border-radius: 99px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.95), transparent);
+  box-shadow: 0 0 0 1px rgba(90, 140, 200, 0.18);
+}
+.scene.play .fx-wind i {
+  animation: gust 1.5s linear infinite calc(var(--d) * -1);
+}
+@keyframes gust {
+  to {
+    transform: translateX(170cqw);
+  }
+}
+/* sleepy z's */
+.fx-zzz i {
+  left: 62%;
+  top: 34%;
+  font-weight: 800;
+  font-size: calc(9cqh + var(--k) * 2cqh);
+  line-height: 1;
+  color: #6c63ff;
+  opacity: 0;
+}
+.scene.play .fx-zzz i {
+  animation: zzz 3s ease-out infinite;
+  animation-delay: calc(var(--k) * 1s);
+}
+@keyframes zzz {
+  0% {
+    transform: translate(0, 0) scale(0.5);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(12cqw, -30cqh) scale(1.2) rotate(12deg);
+    opacity: 0;
+  }
+}
+/* Diwali lamps light up one by one along the ground and flicker */
+.fx-lamps i {
+  top: auto;
+  bottom: 2%;
+  left: calc(var(--x) - 6cqw);
+  width: 12cqw;
+  max-width: 13cqh;
+}
+.fx-lamps .flame {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+}
+.scene.play .fx-lamps i {
+  animation: lamp-in 0.5s var(--pop) backwards 1;
+  animation-delay: calc(0.4s + var(--k) * 0.3s);
+}
+.scene.play .fx-lamps .flame {
+  animation: flicker 0.45s ease-in-out infinite alternate;
+  animation-delay: calc(var(--k) * -0.13s);
+}
+@keyframes lamp-in {
+  from {
+    transform: scale(0);
+  }
+}
+@keyframes flicker {
+  to {
+    transform: scale(0.86, 1.12) rotate(4deg);
+  }
+}
+/* leaves drift down */
+.fx-leaves i {
+  top: -12%;
+  width: calc(6cqh * var(--s));
+  color: #6cbf4a;
+}
+.fx-leaves i:nth-child(3n) {
+  color: #e9a23b;
+}
+.scene.play .fx-leaves i {
+  animation: leaf-fall 4.2s linear infinite;
+  animation-delay: calc(var(--d) * -2.5);
+}
+@keyframes leaf-fall {
+  25% {
+    transform: translate(5cqw, 30cqh) rotate(60deg);
+  }
+  50% {
+    transform: translate(-4cqw, 60cqh) rotate(140deg);
+  }
+  75% {
+    transform: translate(4cqw, 88cqh) rotate(220deg);
+  }
+  100% {
+    transform: translate(0, 120cqh) rotate(300deg);
+  }
+}
+/* bubbles rise */
+.fx-bubbles i {
+  top: auto;
+  bottom: -8%;
+  width: calc(5cqh * var(--s));
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.28);
+}
+.scene.play .fx-bubbles i {
+  animation: bubble 3.2s ease-in infinite;
+  animation-delay: calc(var(--d) * -2);
+}
+@keyframes bubble {
+  50% {
+    transform: translate(2cqw, -55cqh);
+  }
+  100% {
+    transform: translate(-2cqw, -112cqh);
+    opacity: 0.4;
+  }
+}
+/* confetti */
+.fx-confetti i {
+  top: -8%;
+  width: 2.2cqw;
+  height: 3.6cqh;
+  min-width: 5px;
+  border-radius: 2px;
+  background: var(--c);
+}
+.scene.play .fx-confetti i {
+  animation: confetti 2.6s linear infinite;
+  animation-delay: calc(var(--d) * -1.6);
+}
+@keyframes confetti {
+  to {
+    transform: translate(calc((var(--r) - 0.5) * 20cqw), 118cqh) rotate(540deg);
+  }
+}
+/* a warm glow behind the picture */
+.fx-glow i {
+  left: calc(50% - 50cqh);
+  top: 0;
+  width: 100cqh;
+  height: 100cqh;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 214, 102, 0.9), rgba(255, 214, 102, 0) 66%);
+}
+.scene.play .fx-glow i {
+  animation: glow 2.4s ease-in-out infinite calc(var(--d) * -1);
+}
+@keyframes glow {
+  50% {
+    transform: scale(1.18);
+    opacity: 0.7;
+  }
+}
+/* dust puffs behind a runner */
+.fx-dust i {
+  top: auto;
+  bottom: 6%;
+  left: calc(6% + var(--r) * 26%);
+  width: calc(8cqh * var(--s));
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: rgba(176, 142, 100, 0.45);
+  opacity: 0;
+}
+.scene.play .fx-dust i {
+  animation: dust 0.9s ease-out infinite calc(var(--d) * -1);
+}
+@keyframes dust {
+  0% {
+    transform: scale(0.3);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(-8cqw, -8cqh) scale(1.5);
+    opacity: 0;
+  }
+}
+/* steam from something hot */
+.fx-steam i {
+  top: auto;
+  bottom: 52%;
+  left: calc(40% + var(--k) * 6%);
+  width: 3cqw;
+  height: 16cqh;
+  border-radius: 50%;
+  border-left: 3px solid rgba(140, 140, 165, 0.6);
+  opacity: 0;
+}
+.scene.play .fx-steam i {
+  animation: steam 2.2s ease-out infinite;
+  animation-delay: calc(var(--k) * -0.55s);
+}
+@keyframes steam {
+  0% {
+    transform: translateY(0) scaleY(0.6);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(2cqw, -22cqh) scaleY(1.1) skewX(12deg);
+    opacity: 0;
+  }
+}
+.scene.sky-night .fx-zzz i,
+.scene.sky-night .fx-music i {
+  color: #fff3b0;
+}
+
+/* still pictures for those who asked for less motion: the scene stays, the moving bits go */
+@media (prefers-reduced-motion: reduce) {
+  .scene *,
+  .scene *::before {
+    animation: none !important;
+  }
+  .scene .fx:not(.fx-stars):not(.fx-lamps):not(.fx-glow) {
+    display: none;
+  }
+}
+
+/* ---------- story reader: read it myself, key words, swipe ---------- */
+.self-read {
+  --c1: #fff8e6;
+  --c2: #ffeec2;
+  --edge: #e9cf8a;
+  height: auto;
+  min-height: 60px;
+  padding: 8px 20px 8px 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--ink);
+}
+.self-read .self-icon {
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  border-radius: 50%;
+  background: #ffc93c;
+  color: #6b4a00;
+  display: grid;
+  place-items: center;
+}
+.self-read .self-icon svg {
+  width: 24px;
+  height: 24px;
+}
+.self-read .self-label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.15;
+}
+.self-read b {
+  font-size: 20px;
+}
+.self-read small {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 700;
+}
+/* the word that names the picture: a dotted line under it, in the world's colour */
+.story-word.key {
+  text-decoration: underline dotted;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 0.22em;
+  text-decoration-color: color-mix(in srgb, var(--place, #6c63ff) 75%, white);
+}
+.story-page {
+  touch-action: pan-y;
+}
+/* reading it myself: a small badge says so */
+.story-page.self::after {
+  content: 'अपने आप · On my own';
+  position: absolute;
+  top: -12px;
+  right: 18px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: #ffc93c;
+  color: #4a3300;
+  font-size: 12px;
+  font-weight: 800;
+}
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 8px 0;
+}
