@@ -676,8 +676,13 @@ export function appVoiceLines(content) {
 
 export function voiceLines(content) {
   const out = [...storyVoiceLines(content), ...appVoiceLines(content)];
-  const have = new Set(out.map((l) => l.key));
-  for (const l of lessonVoiceLines(content)) if (!have.has(l.key)) have.add(l.key) && out.push(l);
+  const byKey = new Map(out.map((l) => [l.key, l]));
+  for (const l of lessonVoiceLines(content)) {
+    const had = byKey.get(l.key);
+    if (!had) byKey.set(l.key, l) && out.push(l);
+    // shared with a line that has no grade (a picture word, a prompt): every grade needs it
+    else if (had.level !== l.level && !had.story) delete had.level;
+  }
   return out;
 }
 

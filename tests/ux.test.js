@@ -302,17 +302,17 @@ test('the story voice pack is cached on its own and kept across app updates', ()
 
 test('the voice pack in voices/ matches its index, and every file is a line the app says', async () => {
   const { voiceLines } = await import('../js/logic.js');
-  const { comicVoiceLines } = await import('../js/shows.js');
+  const { comicVoiceLines, storyRadioVoiceLines } = await import('../js/shows.js');
   const { castVoiceName } = await import('../js/castvoices.js');
   const dir = new URL('../voices/', import.meta.url);
   const idx = JSON.parse(readFileSync(new URL('index.json', dir), 'utf8'));
-  const lines = new Set([...voiceLines(content), ...comicVoiceLines(content, castVoiceName)].map((l) => l.key));
+  const lines = new Set([...voiceLines(content), ...comicVoiceLines(content, castVoiceName), ...storyRadioVoiceLines(content)].map((l) => l.key));
   for (const [key, bytes] of Object.entries(idx.files)) {
     assert.ok(lines.has(key), `${key} is a line the app says`);
     assert.equal(readFileSync(new URL(`${key}.mp3`, dir)).length, bytes, key);
   }
-  // every story a toddler to Grade 2 child hears has its voices
-  for (const s of content.stories.filter((x) => ['toddler', 'kg', 'grade1', 'grade2'].includes(x.level))) assert.ok(idx.files[`story-${s.id}-1_${s.lang === 'en' ? 'en' : 'hi'}`], s.id);
+  // every line the app can say has its recording: nothing is left to the device voice but what is made up on the spot
+  for (const k of lines) assert.ok(idx.files[k], `${k} is recorded`);
   assert.ok(idx.voices.hi && idx.voices.en);
 });
 

@@ -829,3 +829,21 @@ export function comicVoiceLines(content, voiceNameOf) {
   }
   return [...out.values()].filter((l) => !l.voiceName || l.voiceName);
 }
+
+// What Story radio says around a story's pages (the "now, a story" before it, "सीख:", the question to
+// think about and its answer), for the voice pack. The pages have recordings of their own.
+export function storyRadioVoiceLines(content) {
+  const out = new Map();
+  for (const st of content.stories || [])
+    for (const step of radioSteps(st, ['hi', 'en'], content.words))
+      for (const seg of step.say || []) {
+        if (seg.clipKey) continue;
+        const text = normText(seg.text);
+        if (!text || !/[\p{L}\p{N}]/u.test(text)) continue;
+        const key = textKey(seg.lang, text);
+        const had = out.get(key);
+        if (!had) out.set(key, { key, text, lang: seg.lang, level: st.level });
+        else if (had.level !== st.level) had.level = null;
+      }
+  return [...out.values()].map(({ level, ...l }) => (level ? { ...l, level } : l));
+}
