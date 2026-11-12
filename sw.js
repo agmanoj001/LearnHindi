@@ -40,6 +40,7 @@ const SHELL = [
   'js/storage.js',
   'js/sfx.js',
   'js/voicepack.js',
+  'js/castvoices.js',
   'js/scene.js',
   'js/ui.js',
   'js/games/comic.js',

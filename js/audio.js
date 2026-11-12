@@ -5,7 +5,7 @@
 //   4. the browser's text-to-speech (hi-IN / en-US)
 import { clips } from './storage.js';
 import { savedVoiceKeys, voiceUrl } from './voicepack.js';
-import { splitTemplate, fillTemplate, phrasePartKey } from './logic.js';
+import { splitTemplate, fillTemplate, phrasePartKey, textKey } from './logic.js';
 
 const TTS_LANG = { hi: 'hi-IN', en: 'en-US' };
 let clipKeys = new Set();
@@ -106,7 +106,9 @@ async function clipUrl(key) {
 }
 
 export function hasRecording(seg) {
-  return (seg.clipKey && (clipKeys.has(seg.clipKey) || (packOn && packKeys.has(seg.clipKey)))) || (seg.file && !failedFiles.has(seg.file));
+  if (seg.clipKey && (clipKeys.has(seg.clipKey) || (packOn && packKeys.has(seg.clipKey)))) return true;
+  if (packOn && seg.text && packKeys.has(textKey(seg.voice ? `${seg.lang}.${seg.voice}` : seg.lang, seg.text))) return true;
+  return !!(seg.file && !failedFiles.has(seg.file));
 }
 
 async function playSegment(seg, mine) {
@@ -118,6 +120,9 @@ async function playSegment(seg, mine) {
   if (url && (await playUrl(url))) return;
   if (mine !== token) return;
   if (packOn && seg.clipKey && packKeys.has(seg.clipKey) && (await playUrl(voiceUrl(seg.clipKey)))) return;
+  // a fixed line with no name of its own: its recording is named after its text
+  const tk = packOn && seg.text && packKeys.size ? textKey(seg.voice ? `${seg.lang}.${seg.voice}` : seg.lang, seg.text) : null;
+  if (tk && packKeys.has(tk) && (await playUrl(voiceUrl(tk)))) return;
   if (mine !== token) return;
   if (seg.file && !failedFiles.has(seg.file)) {
     if (await playUrl(`audio/${seg.file}`)) return;

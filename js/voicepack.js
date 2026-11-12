@@ -41,8 +41,8 @@ export async function savedVoiceKeys() {
 }
 
 // The pack's files for some grades (all of them when `levels` is empty), with their size. Story lines
-// belong to their story's grade; everything else (the app's prompts, the words, the guides' jokes) is
-// shared, so it comes with every grade.
+// belong to their story's grade, lesson lines to their lesson's grade (index.levels); everything else
+// (the prompts, words, letters, guides' jokes) is shared, so it comes with every grade.
 export const storyOfKey = (key) => key.match(/^story-(.+)-(?:title|moral|q\d+|\d+)_(?:hi|en)$/)?.[1] || null;
 export function packFiles(idx, levels = []) {
   if (!idx?.files) return [];
@@ -51,7 +51,8 @@ export function packFiles(idx, levels = []) {
     .filter(([key]) => {
       if (!want.size) return true;
       const story = storyOfKey(key);
-      return !story || want.has(idx.stories?.[story]);
+      const level = story ? idx.stories?.[story] : idx.levels?.[key];
+      return !level || want.has(level);
     })
     .map(([key, bytes]) => ({ key, bytes }));
 }

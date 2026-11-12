@@ -134,7 +134,10 @@ test('Story radio in Grades 7 and 8 plays the comics as radio plays, so it is ne
   assert.ok(said.every((x) => x.lang === 'hi' && x.text));
   assert.ok(said.some((x) => x.text === comic.panels[0].cap), 'captions are narrated');
   assert.ok(new Set(said.filter((x) => x.pitch).map((x) => x.pitch)).size > 1, 'characters sound different');
-  assert.ok(said.some((x) => x.text.startsWith('पहलवान पप्पू: ')), 'the speaker is named');
+  // the narrator names the speaker, then the character speaks in their own voice
+  const named = said.findIndex((x) => x.text === 'पहलवान पप्पू' && !x.voice);
+  assert.ok(named >= 0 && said[named + 1].voice === 'pappu', 'the speaker is named, then speaks');
+  assert.ok(new Set(said.filter((x) => x.voice).map((x) => x.voice)).size > 1, 'more than one character voice');
   const think = steps.findIndex((s) => s.show === 'think');
   const reveal = steps.findIndex((s) => s.show === 'page' && s.page === comic.guess.at);
   assert.ok(think > 0 && think < reveal && steps[think].say[0].text.includes(comic.guess.q), 'stops to think before the reveal');

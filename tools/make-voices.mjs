@@ -15,7 +15,17 @@
 // they stay on the family's device (see audio/ in .gitignore).
 import { readFileSync, writeFileSync, mkdirSync, existsSync, statSync, readdirSync, unlinkSync } from 'node:fs';
 import { createHash } from 'node:crypto';
-import { voiceLines } from '../js/logic.js';
+import { voiceLines as baseLines } from '../js/logic.js';
+import { comicVoiceLines } from '../js/shows.js';
+import { castVoiceName } from '../js/castvoices.js';
+
+// everything: stories, the app's own voice, the lessons, and the comics with a voice per character
+const voiceLines = (content) => {
+  const out = baseLines(content);
+  const have = new Set(out.map((l) => l.key));
+  for (const l of comicVoiceLines(content, castVoiceName)) if (!have.has(l.key)) have.add(l.key) && out.push(l);
+  return out;
+};
 
 const ROOT = new URL('..', import.meta.url);
 const OUT = new URL('voices/', ROOT);
@@ -35,13 +45,25 @@ const RATE = 0.9; // a little slower than everyday speech, for young listeners
 
 const headers = { 'Content-Type': 'application/json', ...(process.env.GOOGLE_TTS_KEY ? { 'X-Goog-Api-Key': process.env.GOOGLE_TTS_KEY } : {}) };
 
-async function call(path, body, tries = 5) {
+// The premium voices allow a limited number of requests a minute; stay under it (--rpm to change), and
+// when Google still says "slow down" (429), wait and try again, up to a minute at a time.
+const RPM = Number(opt('--rpm')) || 120;
+let nextSlot = 0;
+async function slot() {
+  const now = Date.now();
+  const at = Math.max(now, nextSlot);
+  nextSlot = at + 60000 / RPM;
+  if (at > now) await new Promise((r) => setTimeout(r, at - now));
+}
+
+async function call(path, body, tries = 8) {
   for (let t = 0; ; t++) {
+    if (body) await slot();
     const res = await fetch(`${API}${path}`, body ? { method: 'POST', headers, body: JSON.stringify(body) } : { headers });
     if (res.ok) return res.json();
     const text = await res.text();
     if (t < tries && (res.status === 429 || res.status >= 500)) {
-      await new Promise((r) => setTimeout(r, 1000 * 2 ** t));
+      await new Promise((r) => setTimeout(r, Math.min(60000, 2000 * 2 ** t)));
       continue;
     }
     const err = new Error(`${res.status} ${text.slice(0, 300)}`);
@@ -94,12 +116,13 @@ async function main() {
   const content = JSON.parse(readFileSync(new URL('content.json', ROOT), 'utf8'));
   const only = opt('--story');
   const lines = voiceLines(content).filter((l) => !only || l.story === only);
+  if (flag('--comics')) lines.splice(0, lines.length, ...lines.filter((l) => l.voiceName || /^t-hi-/.test(l.key)));
   mkdirSync(OUT, { recursive: true });
   const indexFile = new URL('index.json', OUT);
   const old = existsSync(indexFile) ? JSON.parse(readFileSync(indexFile, 'utf8')) : { files: {}, sums: {} };
   const voices = await pickVoices();
   console.log(`voices: ${voices.hi} (Hindi), ${voices.en} (English)`);
-  const todo = lines.filter((l) => flag('--all') || old.sums?.[l.key] !== sum(l.text, voices[l.lang]) || !existsSync(new URL(`${l.key}.mp3`, OUT)));
+  const todo = lines.filter((l) => flag('--all') || old.sums?.[l.key] !== sum(l.text, l.voiceName || voices[l.lang]) || !existsSync(new URL(`${l.key}.mp3`, OUT)));
   console.log(`${lines.length} lines, ${todo.length} to make`);
   const sums = { ...(old.sums || {}) };
   let done = 0;
@@ -107,8 +130,9 @@ async function main() {
   const work = async () => {
     for (let l = todo.shift(); l; l = todo.shift()) {
       try {
-        writeFileSync(new URL(`${l.key}.mp3`, OUT), await synth(l.text, voices[l.lang]));
-        sums[l.key] = sum(l.text, voices[l.lang]);
+        const voice = l.voiceName || voices[l.lang];
+        writeFileSync(new URL(`${l.key}.mp3`, OUT), await synth(l.text, voice));
+        sums[l.key] = sum(l.text, voice);
       } catch (e) {
         failed++;
         console.error(`${l.key}: ${e.message}`);
@@ -128,7 +152,9 @@ async function main() {
   }
   for (const k of Object.keys(sums)) if (!files[k]) delete sums[k];
   const stories = Object.fromEntries(content.stories.map((s) => [s.id, s.level]));
-  writeFileSync(indexFile, `${JSON.stringify({ version: new Date().toISOString().slice(0, 10), voices, files, stories, sums })}\n`);
+  // lesson lines that belong to one grade (the rest come with every grade)
+  const levels = Object.fromEntries(voiceLines(content).filter((l) => l.level && files[l.key]).map((l) => [l.key, l.level]));
+  writeFileSync(indexFile, `${JSON.stringify({ version: new Date().toISOString().slice(0, 10), voices, files, stories, levels, sums })}\n`);
   const bytes = Object.values(files).reduce((a, b) => a + b, 0);
   console.log(`done: ${Object.keys(files).length} recordings, ${(bytes / 1048576).toFixed(1)} MB${failed ? `, ${failed} failed` : ''}`);
   if (failed) process.exitCode = 1;

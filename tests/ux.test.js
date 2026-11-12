@@ -300,12 +300,15 @@ test('the story voice pack is cached on its own and kept across app updates', ()
   assert.ok(!/'voices\//.test(sw), 'the pack is not part of the first download');
 });
 
-test('the story voice pack in voices/ matches its index, and every file is a line a story reads', () => {
+test('the voice pack in voices/ matches its index, and every file is a line the app says', async () => {
+  const { voiceLines } = await import('../js/logic.js');
+  const { comicVoiceLines } = await import('../js/shows.js');
+  const { castVoiceName } = await import('../js/castvoices.js');
   const dir = new URL('../voices/', import.meta.url);
   const idx = JSON.parse(readFileSync(new URL('index.json', dir), 'utf8'));
-  const lines = new Set(storyVoiceLines(content).map((l) => l.key));
+  const lines = new Set([...voiceLines(content), ...comicVoiceLines(content, castVoiceName)].map((l) => l.key));
   for (const [key, bytes] of Object.entries(idx.files)) {
-    assert.ok(lines.has(key), `${key} is a story line`);
+    assert.ok(lines.has(key), `${key} is a line the app says`);
     assert.equal(readFileSync(new URL(`${key}.mp3`, dir)).length, bytes, key);
   }
   // every story a toddler to Grade 2 child hears has its voices
@@ -327,4 +330,27 @@ test('the app’s own prompts, words and guides’ jokes are in the voice pack t
   const segs = phraseSegs(content.phrases.thisIs, 'thisIs', 'hi', () => cow, 'गाय');
   assert.deepEqual(segs.map((x) => x.clipKey), ['phrase-thisIs-1_hi', 'cow_hi', 'phrase-thisIs-2_hi']);
   for (const x of segs) assert.ok(keys.has(x.clipKey), x.clipKey);
+});
+
+test('every comic character has their own recorded voice, and lesson lines are named after their text', async () => {
+  const { comicVoiceLines } = await import('../js/shows.js');
+  const { CAST_VOICES, castVoiceName } = await import('../js/castvoices.js');
+  const { textKey, lessonVoiceLines } = await import('../js/logic.js');
+  for (const c of content.comics) for (const p of c.panels) for (const b of p.say || []) assert.ok(CAST_VOICES[c.parts?.[b.who]?.look || b.who], `${c.id}: ${b.who} has a voice`);
+  const lines = comicVoiceLines(content, castVoiceName);
+  assert.ok(lines.some((l) => l.voiceName === 'hi-IN-Chirp3-HD-Algenib'), 'Pappu the wrestler booms');
+  assert.ok(lines.filter((l) => !l.voiceName).length > 100, 'the narrator reads captions and names');
+  // the same words in two voices are two recordings; the key ignores extra spaces
+  assert.notEqual(textKey('hi.pappu', 'हाँ!'), textKey('hi.mishti', 'हाँ!'));
+  assert.equal(textKey('hi', ' नमस्ते   दोस्त '), textKey('hi', 'नमस्ते दोस्त'));
+  // lessons: letters, a barakhadi syllable, a grammar rule and a quiz question are all there
+  const lesson = lessonVoiceLines(content);
+  const keys = new Set(lesson.map((l) => l.key));
+  assert.ok(keys.has('hc-ka') && keys.has(textKey('hi', 'की')));
+  const g = Object.values(content.grammar)[0];
+  assert.ok(keys.has(textKey('hi', g.learn[0].text.replace(/[[\]]/g, ''))), 'grammar rule');
+  const bank = Object.values(content.quizzes)[0];
+  assert.ok(keys.has(textKey('hi', bank.questions[0].hi)), 'quiz question');
+  // a line in only one grade's lessons downloads with that grade; shared ones come with every grade
+  assert.ok(lesson.some((l) => l.level === 'grade7') && lesson.some((l) => !l.level));
 });
