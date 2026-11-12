@@ -419,7 +419,8 @@ function drawTrail(path, walked) {
 function storyLevels(api, w) {
   const order = api.state.content.levels.map((l) => l.id);
   const i = order.indexOf(w.level);
-  return order.slice(Math.max(0, i - 1), i + 1);
+  // this grade and the one before; the youngest grade gets the one after instead (as on Story radio)
+  return i > 0 ? order.slice(i - 1, i + 1) : order.slice(0, 2);
 }
 
 // ---------- results ----------

@@ -7291,7 +7291,8 @@ body:has(.game-grammar) .caption-bar,
 }
 
 /* ---------- story scenes: the picture moves with the story (Toddler and Kindergarten) ---------- */
-.story-page .pic.scene {
+.story-page .pic.scene,
+.radio-cover.scene {
   position: relative;
   display: block;
   overflow: hidden;
@@ -8410,4 +8411,30 @@ body:has(.game-grammar) .caption-bar,
   width: 100%;
   max-width: 100%;
   text-overflow: ellipsis;
+}
+
+/* Story radio with pictures: each page is the story's moving scene, big and bright */
+.radio-screen.pictures .radio-host {
+  display: none;
+}
+.radio-cover.radio-page {
+  width: min(92vw, 560px, 62vh);
+  opacity: 1;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  animation: page-turn 0.45s var(--spring);
+}
+.radio-cover.radio-page:not(.scene) {
+  background: #fffdf7;
+  padding: 10px;
+}
+.radio-dark.on {
+  background: #2c3b73;
+  color: #fff3b0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .radio-cover.radio-page {
+    animation: none;
+  }
 }

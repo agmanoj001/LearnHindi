@@ -11,6 +11,7 @@ import { play, stop as stopSpeech } from './audio.js';
 import { langsFor, BEAT_KINDS, beatKind, showLines, textKey, normText } from './logic.js';
 import { isoDay } from './curriculum.js';
 import { lookOf, SERIES } from './games/comic.js';
+import { sceneHtml, sceneClass, sceneSound } from './scene.js';
 
 // ---------- pure helpers (tested in tests/shows.test.js) ----------
 
@@ -707,16 +708,19 @@ export async function radio(api) {
   const status = el('p', { class: 'radio-status' });
   const cover = el('div', { class: 'radio-cover' });
   const playBtn = el('button', { class: 'radio-btn big', 'aria-label': 'Pause', html: PAUSE });
+  // the pictures move with the story; a grown-up can switch to a dark screen for car rides
+  const MOON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z" fill="currentColor"/></svg>';
+  const darkBtn = el('button', { class: `round-btn small radio-dark${settings.radioDark ? ' on' : ''}`, 'aria-label': 'Dark screen', 'aria-pressed': String(!!settings.radioDark), html: MOON });
   const prevBtn = el('button', { class: 'radio-btn', 'aria-label': 'Previous story', html: ICONS.back });
   const nextBtn = el('button', { class: 'radio-btn', 'aria-label': 'Next story', html: ICONS.next });
   const screen = el('div', { class: 'screen radio-screen enter' }, [
     el('header', { class: 'game-head' }, [
       el('button', { class: 'round-btn small', 'aria-label': 'Back', html: ICONS.back, onclick: () => api.back() }),
       el('div', { class: 'head-title' }, [el('span', { class: 'world-name-hi', lang: 'hi', text: 'कहानी रेडियो' }), el('span', { class: 'world-name-en', text: 'Story radio' })]),
-      el('span', { class: 'round-spacer' }),
+      darkBtn,
     ]),
     el('div', { class: 'radio-body' }, [el('div', { class: 'radio-host' }, [el('span', { class: 'waves' }), host.node]), cover, title, status, el('div', { class: 'radio-controls' }, [prevBtn, playBtn, nextBtn])]),
-    el('p', { class: 'radio-note', text: 'The screen stays on but dark, so the stories keep playing. Tap anywhere to brighten it.' }),
+    el('p', { class: 'radio-note' }),
   ]);
   api.app.replaceChildren(screen);
 
@@ -727,10 +731,46 @@ export async function radio(api) {
   const onVisible = () => document.visibilityState === 'visible' && alive() && wake();
   document.addEventListener('visibilitychange', onVisible);
   let dimTimer = 0;
+  let current = null;
+  // a dark screen when a grown-up asked for one, and always for the comics (no pictures to watch)
+  const darkNow = () => settings.radioDark || !!current?.panels;
+  const note = screen.querySelector('.radio-note');
   const brighten = () => {
     screen.classList.remove('dim');
     clearTimeout(dimTimer);
-    dimTimer = setTimeout(() => screen.classList.add('dim'), 8000);
+    screen.classList.toggle('pictures', !darkNow());
+    note.textContent = darkNow() ? 'The screen stays on but dark, so the stories keep playing. Tap anywhere to brighten it.' : 'The pictures move with the story. Tap the moon for a dark screen, kinder on car rides.';
+    if (darkNow()) dimTimer = setTimeout(() => screen.classList.add('dim'), 8000);
+  };
+  darkBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    settings.radioDark = !settings.radioDark;
+    api.persistSettings?.();
+    darkBtn.classList.toggle('on', settings.radioDark);
+    darkBtn.setAttribute('aria-pressed', String(settings.radioDark));
+    brighten();
+  });
+  // a page of a story, as the same moving scene the story reader shows
+  const art = (id) => {
+    const w = api.word(id);
+    return w ? pictureForWord(w) : picture(id);
+  };
+  const showPage = async (page) => {
+    if (!page) return;
+    if (!page.act) {
+      cover.className = 'radio-cover radio-page';
+      cover.innerHTML = art(page.word);
+      return;
+    }
+    cover.className = `radio-cover radio-page ${sceneClass(page.act)}`;
+    cover.innerHTML = sceneHtml(page.act, page.word, art);
+    void cover.offsetWidth; // restart the animations
+    cover.classList.add('play');
+    const sound = sceneSound(page.act);
+    if (sound && api.sfx[sound]) {
+      api.sfx[sound]();
+      await sleep(350);
+    }
   };
   screen.addEventListener('pointerdown', brighten);
   brighten();
@@ -760,7 +800,10 @@ export async function radio(api) {
     title.replaceChildren(el('b', { lang: story.lang === 'en' ? 'en' : 'hi', text: lead }), story.lang === 'en' ? '' : el('span', { text: story.title.en }));
     // a comic's cover is its series' hero
     const coverId = story.panels ? `comic-${SERIES[story.series]?.hero}` : story.cover;
+    current = story;
+    cover.className = 'radio-cover';
     cover.innerHTML = picture(api.word(coverId)?.picture || coverId);
+    brighten();
     status.textContent = `${story.panels ? 'Comic' : story.kind === 'poem' ? 'Rhyme' : 'Story'} ${index + 1} of ${list.length}`;
   };
 
@@ -793,6 +836,7 @@ export async function radio(api) {
         const my = gen;
         const st = steps[step];
         screen.classList.toggle('thinking', st.show === 'think');
+        if (st.show === 'page' && !story.panels) await showPage(story.pages[st.page]);
         if (st.sfx) api.sfx[st.sfx]?.();
         if (st.say) await play(st.say);
         else if (st.pause) await sleep(st.pause);
