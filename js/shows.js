@@ -8,7 +8,7 @@ import { sceneSvg } from './art-scenes.js';
 import { picture, pictureForWord } from './art.js';
 import { mathModel } from './art-math.js';
 import { play, stop as stopSpeech } from './audio.js';
-import { langsFor, BEAT_KINDS, beatKind, showLines } from './logic.js';
+import { langsFor, BEAT_KINDS, beatKind, showLines, textKey, normText } from './logic.js';
 import { isoDay } from './curriculum.js';
 import { lookOf, SERIES } from './games/comic.js';
 
@@ -96,8 +96,10 @@ export function comicRadioSteps(comic) {
     for (const b of p.say || []) {
       const look = lookOf(comic, b.who);
       const name = look?.name || '';
-      const lead = b.kind === 'think' ? `${name} ने मन में सोचा: ` : b.kind === 'whisper' ? `${name}, धीरे से: ` : b.who !== last ? `${name}: ` : '';
-      say.push({ text: lead + b.text, lang: 'hi', pitch: look?.pitch ?? 1 });
+      // the narrator says who is speaking; the character says their own line, in their own voice
+      const lead = b.kind === 'think' ? `${name} ने मन में सोचा` : b.kind === 'whisper' ? `${name}, धीरे से` : b.who !== last ? name : '';
+      if (lead) say.push(narrator(lead));
+      say.push({ text: b.text, lang: 'hi', pitch: look?.pitch ?? 1, ...(look?.look ? { voice: look.look } : {}) });
       last = b.who;
     }
     if (say.length) steps.push({ pause: 350 }, { show: 'page', page: n, say });
@@ -805,4 +807,43 @@ export async function radio(api) {
   } finally {
     cleanup();
   }
+}
+
+// Every line Story radio and the comic reader say, for the voice pack: the narrator's lines (titles,
+// captions, sounds, who is speaking, "सोचो", answers, word meanings) in the app's voice, and each
+// character's lines in that character's own voice (castvoices.js).
+export function comicVoiceLines(content, voiceNameOf) {
+  const out = new Map();
+  const add = (seg, level) => {
+    const text = normText(seg.text);
+    if (!text || !/[\p{L}\p{N}]/u.test(text)) return;
+    const key = textKey(seg.voice ? `${seg.lang}.${seg.voice}` : seg.lang, text);
+    if (!out.has(key)) out.set(key, { key, text, lang: seg.lang, level, ...(seg.voice ? { voiceName: voiceNameOf(seg.voice) } : {}) });
+  };
+  for (const comic of content.comics || []) {
+    for (const st of comicRadioSteps(comic)) for (const seg of st.say || []) add(seg, comic.level);
+    for (const w of comic.words || []) {
+      add({ text: w.hi, lang: 'hi' }, comic.level);
+      add({ text: `${w.hi}। ${w.mean}`, lang: 'hi' }, comic.level);
+    }
+  }
+  return [...out.values()].filter((l) => !l.voiceName || l.voiceName);
+}
+
+// What Story radio says around a story's pages (the "now, a story" before it, "सीख:", the question to
+// think about and its answer), for the voice pack. The pages have recordings of their own.
+export function storyRadioVoiceLines(content) {
+  const out = new Map();
+  for (const st of content.stories || [])
+    for (const step of radioSteps(st, ['hi', 'en'], content.words))
+      for (const seg of step.say || []) {
+        if (seg.clipKey) continue;
+        const text = normText(seg.text);
+        if (!text || !/[\p{L}\p{N}]/u.test(text)) continue;
+        const key = textKey(seg.lang, text);
+        const had = out.get(key);
+        if (!had) out.set(key, { key, text, lang: seg.lang, level: st.level });
+        else if (had.level !== st.level) had.level = null;
+      }
+  return [...out.values()].map(({ level, ...l }) => (level ? { ...l, level } : l));
 }

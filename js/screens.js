@@ -34,11 +34,12 @@ const tagChips = (api, w) => el('span', { class: 'tag-chips' }, tagsOf(api, w).m
 // Tap a mascot and it does something silly.
 export function mascotJoke(api, mascot) {
   const lines = api.state.content.mascotLines || [];
-  const line = lines[Math.floor(api.rng() * lines.length)];
+  const n = Math.floor(api.rng() * lines.length);
+  const line = lines[n];
   if (!line) return;
   mascot.react(line.move || 'silly');
   api.sfx[line.move === 'sneeze' ? 'sneeze' : line.move === 'spin' ? 'whoosh' : line.move === 'dance' ? 'jingle' : 'boing']?.();
-  api.sayLines(line);
+  api.sayLines(line, `mascot-${n + 1}`);
 }
 
 // ---------- splash ----------

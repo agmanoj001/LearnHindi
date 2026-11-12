@@ -130,7 +130,7 @@ export default {
           el('div', { class: 'story-question' }, lines(q).map((t) => el('p', { class: `story-line ${t.lang}`, lang: t.lang, text: t.text }))),
           el('div', { class: `choices${q.text ? ' answers' : ''}` }, btns),
         );
-        const ask = () => ctx.playSegs(langs.flatMap((l, k) => [...(k ? [{ pause: 400 }] : []), { text: q[l], lang: l }]));
+        const ask = () => ctx.playSegs(langs.flatMap((l, k) => [...(k ? [{ pause: 400 }] : []), { text: q[l], lang: l, clipKey: `story-${story.id}-q${i + 1}_${l}` }]));
         ctx.setRepeat(ask);
         ask();
         const right = await choose(btns, (b) => b.value === q.answer, {

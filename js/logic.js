@@ -441,7 +441,8 @@ export function clipKeysFor(content) {
     if (!p.hi.includes('{w}')) keys.push(`phrase-${k}_hi`);
     if (!p.en.includes('{w}')) keys.push(`phrase-${k}_en`);
   }
-  return keys;
+  keys.push(...voiceLines(content).map((l) => l.key));
+  return [...new Set(keys)];
 }
 
 // "Bus_HI.m4a" -> "bus_hi"; letter ids keep their case-insensitive match.
@@ -644,6 +645,146 @@ export function storyVoiceLines(content) {
     for (const l of ls) add('title', st.title, l);
     st.pages.forEach((p, i) => ls.forEach((l) => add(i + 1, p, l)));
     if (st.moral) for (const l of ls) add('moral', st.moral, l);
+    (st.questions || []).forEach((q, i) => ls.forEach((l) => add(`q${i + 1}`, q, l)));
   }
   return out;
+}
+
+// The pieces of a prompt around its {w}: "यह {w} है" is read as "यह", the word, then "है".
+export const phrasePartKey = (key, i, lang) => `phrase-${key}-${i + 1}_${lang}`;
+export function phraseParts(template) {
+  return splitTemplate(template)
+    .filter((p) => typeof p === 'string')
+    .map((p) => p.trim())
+    .filter((p) => /[\p{L}\p{N}]/u.test(p));
+}
+
+// Everything else the app says in its own words: the prompts (whole, or the pieces around a word), every
+// picture word, and the guides' jokes. With these in the voice pack the narrator says all of it.
+export function appVoiceLines(content) {
+  const out = [];
+  for (const [k, p] of Object.entries(content.phrases || {}))
+    for (const l of ['hi', 'en']) {
+      if (!p[l]) continue;
+      if (!p[l].includes('{w}')) out.push({ key: `phrase-${k}_${l}`, text: p[l], lang: l });
+      else phraseParts(p[l]).forEach((text, i) => out.push({ key: phrasePartKey(k, i, l), text, lang: l }));
+    }
+  for (const [id, w] of Object.entries(content.words || {})) for (const l of ['hi', 'en']) if (w[l]) out.push({ key: `${id}_${l}`, text: w[l], lang: l });
+  (content.mascotLines || []).forEach((m, i) => ['hi', 'en'].forEach((l) => m[l] && out.push({ key: `mascot-${i + 1}_${l}`, text: m[l], lang: l })));
+  return out;
+}
+
+export function voiceLines(content) {
+  const out = [...storyVoiceLines(content), ...appVoiceLines(content)];
+  const byKey = new Map(out.map((l) => [l.key, l]));
+  for (const l of lessonVoiceLines(content)) {
+    const had = byKey.get(l.key);
+    if (!had) byKey.set(l.key, l) && out.push(l);
+    // shared with a line that has no grade (a picture word, a prompt): every grade needs it
+    else if (had.level !== l.level && !had.story) delete had.level;
+  }
+  return out;
+}
+
+// ---- recordings named after what they say ----
+// Many lines in the lessons are spoken straight from their text (a grammar rule, a quiz question, a
+// syllable). Their recordings are named after the text itself, so any fixed line the app says can come
+// from the voice pack without each game naming it. FNV-1a over the text, plus its length.
+export const normText = (text) => String(text ?? '').replace(/\s+/g, ' ').trim();
+export function textKey(lang, text) {
+  const t = normText(text);
+  let h = 0x811c9dc5;
+  for (let i = 0; i < t.length; i++) h = Math.imul(h ^ t.charCodeAt(i), 0x01000193) >>> 0;
+  return `t-${lang}-${h.toString(36)}${t.length.toString(36)}`;
+}
+
+const QUIZ_GAP = '___';
+const bareToken = (t) => t.replace(/[।.!?,"“”‘’]/g, '');
+
+// Every fixed line a lesson says, with the grade it belongs to (none = every grade needs it): letters,
+// numbers, animal sounds, sentences and their words, the barakhadi rows, word tiles, quizzes, sorting
+// games, grammar, Show time, and the words a child can tap in a story.
+export function lessonVoiceLines(content) {
+  // a line used in more than one grade (or with no grade) is shared by every grade
+  const lines = new Map();
+  const push = (key, text, lang, level = null) => {
+    text = normText(text);
+    if (!text || !/[\p{L}\p{N}]/u.test(text)) return;
+    const had = lines.get(key);
+    if (!had) lines.set(key, { key, text, lang, level });
+    else if (had.level !== level) had.level = null;
+  };
+  const byText = (text, lang, level) => push(textKey(lang, text), text, lang, level);
+  const levelsOf = (pred) => [...new Set(content.worlds.filter((w) => w.units.some((u) => u.lessons.some(pred))).map((w) => w.level))];
+  const oneLevel = (pred) => {
+    const ls = levelsOf(pred);
+    return ls.length === 1 ? ls[0] : null;
+  };
+
+  // named recordings
+  for (const s of content.letterSets || []) for (const l of s.letters) push(l.id, l.say || (s.lang === 'en' ? l.char.toUpperCase() : l.char), s.lang);
+  for (const n of content.numbers || []) for (const lg of ['hi', 'en']) push(`num-${n.value}_${lg}`, n[lg], lg);
+  for (const [id, w] of Object.entries(content.words || {})) if (w.sound) for (const lg of ['hi', 'en']) push(`${id}-sound_${lg}`, w.sound[lg], lg);
+  for (const s of content.sentences || [])
+    for (const lg of ['hi', 'en']) {
+      push(`sentence-${s.id}_${lg}`, s[lg], lg, s.level);
+      for (const t of String(s[lg] || '').split(/\s+/)) byText(bareToken(t), lg, s.level);
+    }
+  for (const sh of content.shows || []) for (const l of showLines(sh)) for (const lg of ['hi', 'en']) push(`${l.key}_${lg}`, l[lg], lg, sh.level);
+
+  // the barakhadi: each lesson's rows, said together, and each syllable on its own
+  const matras = new Map((content.matras || []).map((m) => [m.id, m]));
+  for (const w of content.worlds)
+    for (const u of w.units)
+      for (const lesson of u.lessons) {
+        const cfg = lesson.config || {};
+        if (lesson.game !== 'matra' || !cfg.consonants || !cfg.matras) continue;
+        const ms = cfg.matras.map((id) => matras.get(id)).filter(Boolean);
+        for (const c of cfg.consonants) {
+          const row = barakhadi(c, ms);
+          byText(row.map((r) => r.text).join(' '), 'hi', w.level);
+          for (const r of row) byText(r.text, 'hi');
+        }
+      }
+  for (const c of content.letterSets?.find((s) => s.id === 'hindiConsonants')?.letters || []) for (const m of matras.values()) byText(c.char + m.sign, 'hi');
+
+  // word tiles (the crane builds words from them), in both languages
+  for (const w of Object.values(content.words || {})) {
+    if (w.hi) for (const t of splitTiles(w, 'hi')) byText(t, 'hi');
+    if (w.en) for (const t of splitTiles(w, 'en')) byText(t, 'en');
+  }
+
+  // quizzes: the question (both languages), the line with its gap, the answer and every option
+  for (const [id, bank] of Object.entries(content.quizzes || {})) {
+    const level = oneLevel((l) => l.config?.bank === id);
+    for (const q of bank.questions || []) {
+      for (const lg of ['hi', 'en']) byText(q[lg], lg, level);
+      if (q.show) byText(q.show.replace(QUIZ_GAP, ' … '), 'hi', level);
+      byText(q.say || (q.show ? q.show.replace(QUIZ_GAP, q.answer) : q.pictures ? content.words[q.answer]?.hi : q.answer), 'hi', level);
+      if (!q.pictures) for (const o of q.options || []) byText(o, 'hi', level);
+    }
+  }
+
+  // sorting games: the instruction, the boxes and each item
+  for (const [id, def] of Object.entries(content.sorts || {})) {
+    const level = oneLevel((l) => l.config?.sort === id);
+    for (const lg of ['hi', 'en']) {
+      byText(def.prompt?.[lg], lg, level);
+      for (const b of def.bins || []) byText(b[lg], lg, level);
+    }
+    for (const it of def.items || []) byText(it.text, 'hi', level);
+  }
+
+  // grammar: each rule card (title, text, examples), each practice question with its sentence, each "why"
+  for (const t of Object.values(content.grammar || {})) {
+    for (const c of t.learn || []) for (const x of [c.title, c.text, ...(c.examples || [])]) if (x) byText(unmark(x), 'hi', t.level);
+    for (const q of t.practice || []) {
+      byText(unmark(q.q + (q.s ? `। ${q.s}` : '')), 'hi', t.level);
+      if (q.why) byText(unmark(q.why), 'hi', t.level);
+    }
+  }
+
+  // the words a child can tap in a story, and the sentence tokens
+  for (const st of content.stories || []) for (const p of st.pages) for (const lg of ['hi', 'en']) for (const t of String(p[lg] || '').split(/\s+/)) byText(bareToken(t), lg, st.level);
+  return [...lines.values()].map(({ level, ...l }) => (level ? { ...l, level } : l));
 }

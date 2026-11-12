@@ -9,8 +9,8 @@ const HI = {
   'Playing now': 'अभी खेल रहा है',
   Backup: 'बैकअप',
   'Story voices': 'कहानी की आवाज़ें',
-  'A natural recorded voice reads every story (title, pages and lesson) in Hindi and English, instead of the device’s computer voice. Download once and it works offline. A page you record yourself always plays instead.':
-    'एक असली-सी रिकॉर्ड की हुई आवाज़ हर कहानी (नाम, पन्ने और सीख) हिन्दी और अंग्रेज़ी में पढ़ती है, फ़ोन की कंप्यूटर आवाज़ की जगह। एक बार डाउनलोड करें, फिर बिना इंटरनेट चलती है। जो पन्ना आप ख़ुद रिकॉर्ड करें, वही बजता है।',
+  'A natural recorded voice reads every story (title, pages, questions and lesson) and says the app’s prompts and words, in Hindi and English, instead of the device’s computer voice. Download once and it works offline. Anything you record yourself always plays instead.':
+    'एक असली-सी रिकॉर्ड की हुई आवाज़ हर कहानी (नाम, पन्ने, सवाल और सीख) पढ़ती है और ऐप के निर्देश और शब्द बोलती है, हिन्दी और अंग्रेज़ी में, फ़ोन की कंप्यूटर आवाज़ की जगह। एक बार डाउनलोड करें, फिर बिना इंटरनेट चलती है। जो आप ख़ुद रिकॉर्ड करें, वही बजता है।',
   'Use the story voices': 'कहानी की आवाज़ें चलाएँ',
   'Not downloaded yet.': 'अभी डाउनलोड नहीं हुईं।',
   'Checking…': 'देख रहे हैं…',

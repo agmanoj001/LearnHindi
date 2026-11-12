@@ -255,14 +255,14 @@ import { storyVoiceLines, clipKeysFor } from '../js/logic.js';
 import { packFiles, voiceUrl } from '../js/voicepack.js';
 import { readClipsFile, VOICES_FILE_KIND } from '../js/storage.js';
 
-test('every story line has a voice: titles, pages and morals, in each of the story’s languages', () => {
+test('every story line has a voice: titles, pages, questions and morals, in each of the story’s languages', () => {
   const lines = storyVoiceLines(content);
   const keys = new Set(lines.map((l) => l.key));
   assert.equal(keys.size, lines.length, 'no two lines share a recording');
   const lion = lines.filter((l) => l.story === 'lion-mouse');
   const s = content.stories.find((x) => x.id === 'lion-mouse');
-  assert.equal(lion.length, 2 * (1 + s.pages.length + 1));
-  assert.ok(keys.has('story-lion-mouse-title_hi') && keys.has('story-lion-mouse-3_en') && keys.has('story-lion-mouse-moral_hi'));
+  assert.equal(lion.length, 2 * (1 + s.pages.length + s.questions.length + 1));
+  assert.ok(keys.has('story-lion-mouse-title_hi') && keys.has('story-lion-mouse-3_en') && keys.has('story-lion-mouse-q1_hi') && keys.has('story-lion-mouse-moral_hi'));
   // English rhymes only in English
   assert.ok(lines.filter((l) => l.story === 'twinkle').every((l) => l.lang === 'en'));
   for (const l of lines) assert.ok(l.text.trim(), l.key);
@@ -272,10 +272,10 @@ test('every story line has a voice: titles, pages and morals, in each of the sto
   assert.equal(voiceUrl('story-a-1_hi'), 'voices/story-a-1_hi.mp3');
 });
 
-test('the voice pack downloads a grade at a time', () => {
-  const idx = { files: { 'story-a-title_hi': 10, 'story-a-1_hi': 20, 'story-b-1_en': 30, 'story-b-moral_en': 5, junk: 1 }, stories: { a: 'kg', b: 'grade2' } };
-  assert.deepEqual(packFiles(idx, ['kg']).map((f) => f.key), ['story-a-title_hi', 'story-a-1_hi']);
-  assert.deepEqual(packFiles(idx, ['grade2']).map((f) => f.bytes), [30, 5]);
+test('the voice pack downloads a grade at a time, with the app’s own voices in every grade', () => {
+  const idx = { files: { 'story-a-title_hi': 10, 'story-a-1_hi': 20, 'story-b-q2_en': 30, 'story-b-moral_en': 5, 'phrase-great_hi': 1 }, stories: { a: 'kg', b: 'grade2' } };
+  assert.deepEqual(packFiles(idx, ['kg']).map((f) => f.key), ['story-a-title_hi', 'story-a-1_hi', 'phrase-great_hi']);
+  assert.deepEqual(packFiles(idx, ['grade2']).map((f) => f.bytes), [30, 5, 1]);
   assert.equal(packFiles(idx).length, 5);
   assert.deepEqual(packFiles(null), []);
 });
@@ -300,15 +300,78 @@ test('the story voice pack is cached on its own and kept across app updates', ()
   assert.ok(!/'voices\//.test(sw), 'the pack is not part of the first download');
 });
 
-test('the story voice pack in voices/ matches its index, and every file is a line a story reads', () => {
+test('the voice pack in voices/ matches its index, and every file is a line the app says', async () => {
+  const { voiceLines } = await import('../js/logic.js');
+  const { comicVoiceLines, storyRadioVoiceLines } = await import('../js/shows.js');
+  const { castVoiceName } = await import('../js/castvoices.js');
   const dir = new URL('../voices/', import.meta.url);
   const idx = JSON.parse(readFileSync(new URL('index.json', dir), 'utf8'));
-  const lines = new Set(storyVoiceLines(content).map((l) => l.key));
+  const lines = new Set([...voiceLines(content), ...comicVoiceLines(content, castVoiceName), ...storyRadioVoiceLines(content)].map((l) => l.key));
   for (const [key, bytes] of Object.entries(idx.files)) {
-    assert.ok(lines.has(key), `${key} is a story line`);
+    assert.ok(lines.has(key), `${key} is a line the app says`);
     assert.equal(readFileSync(new URL(`${key}.mp3`, dir)).length, bytes, key);
   }
-  // every story a toddler to Grade 2 child hears has its voices
-  for (const s of content.stories.filter((x) => ['toddler', 'kg', 'grade1', 'grade2'].includes(x.level))) assert.ok(idx.files[`story-${s.id}-1_${s.lang === 'en' ? 'en' : 'hi'}`], s.id);
+  // every line the app can say has its recording: nothing is left to the device voice but what is made up on the spot
+  for (const k of lines) assert.ok(idx.files[k], `${k} is recorded`);
   assert.ok(idx.voices.hi && idx.voices.en);
+});
+
+test('the app’s own prompts, words and guides’ jokes are in the voice pack too, read in pieces around a word', async () => {
+  const { appVoiceLines, phraseParts } = await import('../js/logic.js');
+  const { phraseSegs } = await import('../js/audio.js');
+  const lines = appVoiceLines(content);
+  const keys = new Set(lines.map((l) => l.key));
+  assert.ok(keys.has('phrase-great_hi') && keys.has('cow_hi') && keys.has('cow_en') && keys.has('mascot-1_hi'));
+  assert.deepEqual(phraseParts('यह {w} है'), ['यह', 'है']);
+  assert.deepEqual(phraseParts('{w}?'), []);
+  assert.ok(keys.has('phrase-thisIs-1_hi') && keys.has('phrase-thisIs-2_hi'));
+  // with the word recorded, "यह {w} है" plays three recordings: the piece, the word, the piece
+  const cow = [{ text: 'गाय', lang: 'hi', clipKey: 'cow_hi', file: 'x.mp3' }];
+  const segs = phraseSegs(content.phrases.thisIs, 'thisIs', 'hi', () => cow, 'गाय');
+  assert.deepEqual(segs.map((x) => x.clipKey), ['phrase-thisIs-1_hi', 'cow_hi', 'phrase-thisIs-2_hi']);
+  for (const x of segs) assert.ok(keys.has(x.clipKey), x.clipKey);
+});
+
+test('every comic character has their own recorded voice, and lesson lines are named after their text', async () => {
+  const { comicVoiceLines } = await import('../js/shows.js');
+  const { CAST_VOICES, castVoiceName } = await import('../js/castvoices.js');
+  const { textKey, lessonVoiceLines } = await import('../js/logic.js');
+  for (const c of content.comics) for (const p of c.panels) for (const b of p.say || []) assert.ok(CAST_VOICES[c.parts?.[b.who]?.look || b.who], `${c.id}: ${b.who} has a voice`);
+  const lines = comicVoiceLines(content, castVoiceName);
+  assert.ok(lines.some((l) => l.voiceName === 'hi-IN-Chirp3-HD-Algenib'), 'Pappu the wrestler booms');
+  assert.ok(lines.filter((l) => !l.voiceName).length > 100, 'the narrator reads captions and names');
+  // the same words in two voices are two recordings; the key ignores extra spaces
+  assert.notEqual(textKey('hi.pappu', 'हाँ!'), textKey('hi.mishti', 'हाँ!'));
+  assert.equal(textKey('hi', ' नमस्ते   दोस्त '), textKey('hi', 'नमस्ते दोस्त'));
+  // lessons: letters, a barakhadi syllable, a grammar rule and a quiz question are all there
+  const lesson = lessonVoiceLines(content);
+  const keys = new Set(lesson.map((l) => l.key));
+  assert.ok(keys.has('hc-ka') && keys.has(textKey('hi', 'की')));
+  const g = Object.values(content.grammar)[0];
+  assert.ok(keys.has(textKey('hi', g.learn[0].text.replace(/[[\]]/g, ''))), 'grammar rule');
+  const bank = Object.values(content.quizzes)[0];
+  assert.ok(keys.has(textKey('hi', bank.questions[0].hi)), 'quiz question');
+  // a line in only one grade's lessons downloads with that grade; shared ones come with every grade
+  assert.ok(lesson.some((l) => l.level === 'grade7') && lesson.some((l) => !l.level));
+});
+
+test('32 more Kindergarten stories to listen to, in four sets in Vehicle Town', () => {
+  const ids = content.stories.filter((s) => s.id.startsWith('k2-')).map((s) => s.id);
+  assert.equal(ids.length, 32);
+  const town = content.worlds.find((w) => w.id === 'town');
+  const linked = worldLessons(town).filter((l) => l.game === 'story').map((l) => l.config.story);
+  for (const id of ids) {
+    const s = story(id);
+    assert.equal(s.level, 'kg', id);
+    assert.ok(linked.includes(id), `Vehicle Town opens ${id}`);
+    assert.ok(s.pages.length >= 7 && s.pages.length <= 8, `${id}: ${s.pages.length} pages`);
+    for (const p of s.pages) {
+      assert.ok(words(p.hi) <= 10, `${id}: "${p.hi}" is short enough to follow by ear`);
+      assert.ok(pictureExists(content.words[p.word]?.picture), `${id}: ${p.word}`);
+    }
+    assert.equal(s.questions.length, 2, id);
+    for (const q of s.questions) assert.ok(!q.text && new Set(q.options).size === 3 && q.options.includes(q.answer) && q.options.every((o) => content.words[o]), id);
+    assert.ok(s.moral?.hi && s.moral.en, id);
+  }
+  for (const u of ['k-safar', 'k-janwar', 'k-tyohar', 'k-dadi']) assert.equal(town.units.find((x) => x.id === u)?.lessons.length, 8, u);
 });

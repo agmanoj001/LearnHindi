@@ -45,13 +45,13 @@ export default {
               mistakes++;
               ctx.miss();
               wobble(c);
-              ctx.sayText(c.page[lang], lang);
+              ctx.playSegs([{ text: c.page[lang], lang, clipKey: `story-${story.id}-${c.page.n + 1}_${lang}` }]);
               return;
             }
             const slot = slots[next++];
             slots[next]?.classList.add('next');
             ctx.sfx.pop();
-            ctx.sayText(c.page[lang], lang);
+            ctx.playSegs([{ text: c.page[lang], lang, clipKey: `story-${story.id}-${c.page.n + 1}_${lang}` }]);
             await flyTo(c, slot, { duration: 450, scale: 0.6 });
             c.classList.add('used');
             slot.classList.remove('next');

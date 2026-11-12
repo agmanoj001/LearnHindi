@@ -604,7 +604,7 @@ function storyVoicesSection(api) {
   render();
   return el('section', {}, [
     el('h2', { text: 'Story voices' }),
-    el('p', { class: 'note', text: 'A natural recorded voice reads every story (title, pages and lesson) in Hindi and English, instead of the device’s computer voice. Download once and it works offline. A page you record yourself always plays instead.' }),
+    el('p', { class: 'note', text: 'A natural recorded voice reads every story (title, pages, questions and lesson) and says the app’s prompts and words, in Hindi and English, instead of the device’s computer voice. Download once and it works offline. Anything you record yourself always plays instead.' }),
     el('label', { class: 'check' }, [
       el('input', {
         type: 'checkbox',

@@ -1,5 +1,6 @@
-// The story voice pack: recorded narration for every story (title, pages, moral), made once with a
-// natural Hindi and English voice (tools/make-voices.mjs) and kept in voices/. It is not part of the
+// The voice pack: recorded narration for every story (title, pages, questions, moral) and for the app's
+// own prompts, words and guides' jokes, made once with a natural Hindi and English voice
+// (tools/make-voices.mjs) and kept in voices/. It is not part of the
 // app's first download: a grown-up downloads it, a grade at a time or all at once, from the grown-ups'
 // area, and then it plays offline. A family recording of the same page always wins over it.
 export const VOICE_CACHE = 'kkm-voices';
@@ -39,15 +40,19 @@ export async function savedVoiceKeys() {
   return keys;
 }
 
-// The pack's files for some grades (all of them when `levels` is empty), with their size.
+// The pack's files for some grades (all of them when `levels` is empty), with their size. Story lines
+// belong to their story's grade, lesson lines to their lesson's grade (index.levels); everything else
+// (the prompts, words, letters, guides' jokes) is shared, so it comes with every grade.
+export const storyOfKey = (key) => key.match(/^story-(.+)-(?:title|moral|q\d+|\d+)_(?:hi|en)$/)?.[1] || null;
 export function packFiles(idx, levels = []) {
   if (!idx?.files) return [];
   const want = new Set(levels);
   return Object.entries(idx.files)
     .filter(([key]) => {
       if (!want.size) return true;
-      const story = key.match(/^story-(.+)-(?:title|moral|\d+)_(?:hi|en)$/)?.[1];
-      return story && want.has(idx.stories?.[story]);
+      const story = storyOfKey(key);
+      const level = story ? idx.stories?.[story] : idx.levels?.[key];
+      return !level || want.has(level);
     })
     .map(([key, bytes]) => ({ key, bytes }));
 }

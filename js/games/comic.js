@@ -97,7 +97,11 @@ export default {
 
     // ---- reading aloud ----
     let readToken = 0;
-    const lineSeg = (text, who) => ({ text, lang: 'hi', pitch: who ? lookOf(comic, who)?.pitch ?? 1 : 1 });
+    const lineSeg = (text, who) => {
+      const look = who ? lookOf(comic, who) : null;
+      // each character speaks in their own voice (a recorded one from the voice pack, if downloaded)
+      return { text, lang: 'hi', pitch: look?.pitch ?? 1, ...(look?.look ? { voice: look.look } : {}) };
+    };
     const sayNode = async (node, seg) => {
       node.classList.add('reading');
       await ctx.playSegs([seg]);
