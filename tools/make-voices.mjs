@@ -6,6 +6,8 @@
 //   GOOGLE_TTS_KEY=... node tools/make-voices.mjs --all      (everything again)
 //   node tools/make-voices.mjs --story lion-mouse            (one story; handy to try a voice)
 //   node tools/make-voices.mjs --voices                      (list the voices this key can use)
+//   --rpm 240 --workers 8   go faster, if Google's per-minute limit allows
+//   --adopt                 keep files a stopped run made but didn't list in the index
 //
 // The key needs the Cloud Text-to-Speech API enabled (Google's free tier covers the whole pack). Without
 // GOOGLE_TTS_KEY the request goes out with no key, for setups where a proxy adds it. Behind a proxy,
@@ -122,6 +124,8 @@ async function main() {
   const old = existsSync(indexFile) ? JSON.parse(readFileSync(indexFile, 'utf8')) : { files: {}, sums: {} };
   const voices = await pickVoices();
   console.log(`voices: ${voices.hi} (Hindi), ${voices.en} (English)`);
+  // --adopt: a file made by a run that stopped before saving its index counts as made (its text is current)
+  if (flag('--adopt')) for (const l of lines) if (!old.sums?.[l.key] && existsSync(new URL(`${l.key}.mp3`, OUT))) (old.sums ||= {})[l.key] = sum(l.text, l.voiceName || voices[l.lang]);
   const todo = lines.filter((l) => flag('--all') || old.sums?.[l.key] !== sum(l.text, l.voiceName || voices[l.lang]) || !existsSync(new URL(`${l.key}.mp3`, OUT)));
   // stories first (the youngest listeners), then everything else, then the comics' cast
   const rank = (l) => (l.key.startsWith('story-') ? 0 : l.voiceName ? 2 : 1);
