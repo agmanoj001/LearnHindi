@@ -299,3 +299,16 @@ test('the story voice pack is cached on its own and kept across app updates', ()
   assert.match(sw, /'js\/voicepack\.js'/);
   assert.ok(!/'voices\//.test(sw), 'the pack is not part of the first download');
 });
+
+test('the story voice pack in voices/ matches its index, and every file is a line a story reads', () => {
+  const dir = new URL('../voices/', import.meta.url);
+  const idx = JSON.parse(readFileSync(new URL('index.json', dir), 'utf8'));
+  const lines = new Set(storyVoiceLines(content).map((l) => l.key));
+  for (const [key, bytes] of Object.entries(idx.files)) {
+    assert.ok(lines.has(key), `${key} is a story line`);
+    assert.equal(readFileSync(new URL(`${key}.mp3`, dir)).length, bytes, key);
+  }
+  // every story a toddler to Grade 2 child hears has its voices
+  for (const s of content.stories.filter((x) => ['toddler', 'kg', 'grade1', 'grade2'].includes(x.level))) assert.ok(idx.files[`story-${s.id}-1_${s.lang === 'en' ? 'en' : 'hi'}`], s.id);
+  assert.ok(idx.voices.hi && idx.voices.en);
+});
