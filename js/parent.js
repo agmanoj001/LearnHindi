@@ -1,15 +1,16 @@
 // The grown-ups' area (behind a 3-second press): grade, language, voices and recordings,
 // sound, unlocking, the special photo, and a progress report. Nothing here leaves the device.
 import { el, ICONS } from './ui.js';
-import { normalizeProgress, clipKeysFor, clipKeyFromFileName, practiceReport, DAILY_LIMITS, showLines } from './logic.js';
+import { normalizeProgress, clipKeysFor, clipKeyFromFileName, practiceReport, DAILY_LIMITS, showLines, storyVoiceLines } from './logic.js';
 import { skillName, SKILLS as MATH_SKILLS } from './mathgen.js';
 import { phonicsName } from './phonicsgen.js';
 import { worldStars, worldLessons, lessonRecord, weekSummary, dueReviews, learningGains } from './curriculum.js';
-import { refreshClipKeys, voicesFor, setVoicePrefs, hasVoice, play } from './audio.js';
+import { refreshClipKeys, voicesFor, setVoicePrefs, hasVoice, play, setVoicePack } from './audio.js';
+import { loadIndex, savedVoiceKeys, packFiles, downloadVoices, removeVoices, formatMB } from './voicepack.js';
 import { deviceKind, VOICE_SETUP } from './logic.js';
-import { KEYS, save, load, clips, resizeImage, addProfile, removeProfile, MAX_PROFILES, makeBackup, readBackup, localKeys, keepOffline } from './storage.js';
+import { KEYS, save, load, clips, resizeImage, addProfile, removeProfile, MAX_PROFILES, makeBackup, readBackup, localKeys, keepOffline, exportClips, readClipsFile } from './storage.js';
 import { MASCOTS, MASCOT_IDS, mascotSvg } from './mascot.js';
-import { specialVehicle } from './art.js';
+import { specialVehicle, pictureForWord } from './art.js';
 import { levelCard } from './screens.js';
 import { translateParent, translateText } from './parent-hi.js';
 
@@ -232,7 +233,9 @@ export function showParent(api) {
         toggle('Music', s.music, (v) => ((s.music = v), persist(), api.music.setEnabled(v))),
         toggle('Sound effects', s.sfx, (v) => ((s.sfx = v), persist(), (api.sfx.enabled = v))),
       ),
+      storyVoicesSection(api),
       section('Voices', voiceRow('hi', 'Hindi'), voiceRow('en', 'English'), el('label', { class: 'rate' }, [el('span', { text: 'Speed' }), rate]), voiceNote),
+      storyRecorderSection(api),
       recorder,
       section(
         'Recordings from files',
@@ -263,6 +266,140 @@ export function showParent(api) {
     ]),
   );
   localize(api, api.app);
+}
+
+// Record a whole story in your own voice, one line at a time: the title, each page and the lesson.
+// After each recording it moves on to the next line, so a story takes a few minutes. Your recordings
+// play instead of the story voices and the computer voice, on this device only.
+function storyRecorderSection(api) {
+  const { content, settings } = api.state;
+  if (typeof MediaRecorder === 'undefined' || !navigator.mediaDevices?.getUserMedia) return null;
+  const order = content.levels.map((l) => l.id);
+  const stories = [...content.stories].sort((a, b) => (b.level === settings.level) - (a.level === settings.level) || order.indexOf(a.level) - order.indexOf(b.level));
+  let story = stories[0];
+  let lang = story.lang === 'en' ? 'en' : 'hi';
+  let at = 0;
+  let have = new Set();
+  let rec = null;
+  const all = storyVoiceLines(content);
+  const linesOf = () => all.filter((l) => l.story === story.id && l.lang === lang);
+  const levelName = (id) => content.levels.find((l) => l.id === id)?.name.en || id;
+
+  const pick = el(
+    'select',
+    {
+      class: 'select story-pick',
+      'aria-label': 'Story',
+      onchange: (e) => {
+        story = content.stories.find((s) => s.id === e.target.value);
+        if (story.lang === 'en') lang = 'en';
+        at = 0;
+        render();
+      },
+    },
+    stories.map((s) => el('option', { value: s.id, text: `${s.title.hi || s.title.en} · ${s.title.en} (${levelName(s.level)})` })),
+  );
+  const langSeg = el('div', { class: 'seg' });
+  const count = el('p', { class: 'note' });
+  const card = el('div', { class: 'rec-card' });
+  const nav = el('div', { class: 'btn-row rec-nav' });
+
+  const stopRec = () => rec?.stop();
+  const startRec = async (key) => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const mr = new MediaRecorder(stream);
+      const chunks = [];
+      mr.ondataavailable = (e) => chunks.push(e.data);
+      mr.onstop = async () => {
+        stream.getTracks().forEach((t) => t.stop());
+        rec = null;
+        await clips.put(key, new Blob(chunks, { type: mr.mimeType || 'audio/webm' }));
+        refreshClipKeys(await clips.keys());
+        if (at < linesOf().length - 1) at++; // on to the next line
+        render();
+      };
+      rec = mr;
+      mr.start();
+      render();
+    } catch {
+      alert('The microphone is not available. Allow microphone access for this site and try again.');
+    }
+  };
+
+  const render = async () => {
+    have = new Set(await clips.keys());
+    const lines = linesOf();
+    at = Math.min(at, lines.length - 1);
+    const line = lines[at];
+    const done = lines.filter((l) => have.has(l.key)).length;
+    count.textContent = `${done} of ${lines.length} lines recorded`;
+    langSeg.replaceChildren(
+      ...(story.lang === 'en' ? [['en', 'English']] : [['hi', 'हिन्दी'], ['en', 'English']]).map(([v, t]) =>
+        el('label', {}, [el('input', { type: 'radio', name: 'srec-lang', value: v, checked: lang === v, onchange: () => ((lang = v), (at = 0), render()) }), el('span', { text: t })]),
+      ),
+    );
+    const part = line.key.match(/-(title|moral|\d+)_/)[1];
+    const label = part === 'title' ? 'Title' : part === 'moral' ? 'The lesson' : `Page ${part} of ${story.pages.length}`;
+    const pageWord = /^\d+$/.test(part) ? story.pages[Number(part) - 1].word : story.cover;
+    const recording = !!rec;
+    card.className = `rec-card${have.has(line.key) ? ' has' : ''}${recording ? ' on' : ''}`;
+    card.replaceChildren(
+      el('div', { class: 'rec-pic', html: pictureForWord(api.word(pageWord)) }),
+      el('div', { class: 'rec-say' }, [el('small', { text: `${label}${have.has(line.key) ? ' · recorded ✓' : ''}` }), el('p', { lang, text: line.text })]),
+    );
+    const recBtn = el('button', { class: `btn rec${recording ? ' on' : ''}`, text: recording ? '■ Stop' : have.has(line.key) ? '● Record again' : '● Record', onclick: () => (recording ? stopRec() : startRec(line.key)) });
+    nav.replaceChildren(
+      el('button', { class: 'btn', text: '←', 'aria-label': 'Previous line', disabled: at === 0 || recording, onclick: () => ((at -= 1), render()) }),
+      recBtn,
+      el('button', { class: 'btn', text: '▶ Listen', disabled: !have.has(line.key) || recording, onclick: () => play([{ text: line.text, lang, clipKey: line.key }]) }),
+      el('button', { class: 'btn', text: '→', 'aria-label': 'Next line', disabled: at >= lines.length - 1 || recording, onclick: () => ((at += 1), render()) }),
+    );
+    localize(api, nav);
+  };
+  // move the family's recordings to another device: one file out, one file in
+  const saveFile = async () => {
+    const file = await exportClips();
+    if (!Object.keys(file.clips).length) return alert('There are no recordings yet.');
+    const a = el('a', { href: URL.createObjectURL(new Blob([JSON.stringify(file)], { type: 'application/json' })), download: `khel-khel-mein-recordings-${file.savedAt.slice(0, 10)}.json` });
+    document.body.append(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  };
+  const input = el('input', {
+    type: 'file',
+    accept: 'application/json,.json',
+    class: 'visually-hidden',
+    onchange: async (e) => {
+      const f = e.target.files?.[0];
+      if (!f) return;
+      let parsed = null;
+      try {
+        parsed = JSON.parse(await f.text());
+      } catch {
+        /* not JSON */
+      }
+      const r = readClipsFile(parsed, clipKeysFor(content));
+      if (r.error) return alert(r.error);
+      if (!confirm(`Add ${r.entries.length} recordings to this device? Recordings of the same lines are replaced.`)) return;
+      for (const [k, blob] of r.entries) await clips.put(k, blob);
+      refreshClipKeys(await clips.keys());
+      render();
+    },
+  });
+  render();
+  return el('section', {}, [
+    el('h2', { text: 'Record a story' }),
+    el('p', { class: 'note', text: 'Read a whole story in your own voice: tap Record, read the line, tap Stop, and the next line comes up. Your recordings play instead of the story voices, on this device only.' }),
+    pick,
+    langSeg,
+    count,
+    card,
+    nav,
+    el('p', { class: 'note', text: 'To use your recordings on another phone or tablet, save them to a file and load it there.' }),
+    el('div', { class: 'btn-row' }, [el('button', { class: 'btn', text: 'Save my recordings to a file', onclick: saveFile }), el('button', { class: 'btn', text: 'Load recordings from a file', onclick: () => input.click() }), input]),
+  ]);
 }
 
 // Record your own voice for the words, letters and phrases of the child's grade.
@@ -415,6 +552,77 @@ function tripSection(api) {
 }
 
 // Siblings each get their own grade, settings and progress. A nickname is optional and stays on this device.
+// The story voice pack: a natural recorded voice for every story, downloaded once and kept offline.
+function storyVoicesSection(api) {
+  const { content, settings } = api.state;
+  const order = content.levels.map((l) => l.id);
+  const i = order.indexOf(settings.level);
+  const myLevels = order.slice(Math.max(0, i - 1), i + 1); // the library shows this grade and the one before
+  const gradeName = content.levels[i]?.name.en || 'this grade';
+  const status = el('p', { class: 'note', text: 'Checking…' });
+  const bar = el('div', { class: 'dl-bar', hidden: true }, [el('i')]);
+  const buttons = el('div', { class: 'btn-row' });
+  const say = (text) => {
+    status.textContent = (settings.parentLang === 'hi' && translateText(text)) || text;
+  };
+  const render = async () => {
+    const idx = await loadIndex();
+    const have = await savedVoiceKeys();
+    setVoicePack(have, settings.storyVoices);
+    if (!idx?.files) {
+      buttons.replaceChildren();
+      return say('The story voices are not available yet. Stories use the device voice (or your recordings).');
+    }
+    const mine = packFiles(idx, myLevels);
+    const all = packFiles(idx);
+    const size = (files) => files.reduce((a, f) => a + f.bytes, 0);
+    const missing = (files) => files.filter((f) => !have.has(f.key));
+    const savedBytes = size(all.filter((f) => have.has(f.key)));
+    say(have.size ? `Saved on this device: ${have.size} of ${all.length} recordings (${formatMB(savedBytes)}).` : 'Not downloaded yet.');
+    const get = (files) => async () => {
+      buttons.querySelectorAll('button').forEach((b) => (b.disabled = true));
+      bar.hidden = false;
+      try {
+        const failed = await downloadVoices(files, (done, total) => {
+          bar.firstChild.style.width = `${Math.round((done / total) * 100)}%`;
+          say(`Downloading… ${done} of ${total}`);
+        });
+        if (failed) alert(`${failed} recordings could not be downloaded. Check the internet connection and try again.`);
+      } catch (e) {
+        alert(e.message);
+      }
+      bar.hidden = true;
+      render();
+    };
+    const rows = [];
+    if (missing(mine).length) rows.push(el('button', { class: 'btn primary', text: `Download for ${gradeName} (${formatMB(size(missing(mine)))})`, onclick: get(mine) }));
+    if (missing(all).length && missing(all).length !== missing(mine).length) rows.push(el('button', { class: 'btn', text: `Download all stories (${formatMB(size(missing(all)))})`, onclick: get(all) }));
+    if (have.size) rows.push(el('button', { class: 'btn danger', text: 'Remove', onclick: async () => confirm('Remove the story voices from this device?') && (await removeVoices(), render()) }));
+    buttons.replaceChildren(...rows);
+    localize(api, buttons);
+  };
+  render();
+  return el('section', {}, [
+    el('h2', { text: 'Story voices' }),
+    el('p', { class: 'note', text: 'A natural recorded voice reads every story (title, pages and lesson) in Hindi and English, instead of the device’s computer voice. Download once and it works offline. A page you record yourself always plays instead.' }),
+    el('label', { class: 'check' }, [
+      el('input', {
+        type: 'checkbox',
+        checked: settings.storyVoices,
+        onchange: (e) => {
+          settings.storyVoices = e.target.checked;
+          api.persistSettings();
+          setVoicePack(null, e.target.checked);
+        },
+      }),
+      el('span', {}, [el('span', { text: 'Use the story voices' })]),
+    ]),
+    buttons,
+    bar,
+    status,
+  ]);
+}
+
 // Save the stars somewhere safe, and bring them back on a new phone or after the browser was cleared.
 function backupSection(api) {
   const status = el('p', { class: 'note', text: 'Checking whether this device keeps the app…' });

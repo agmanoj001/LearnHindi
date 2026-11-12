@@ -1,5 +1,7 @@
 // Offline support: cache the app shell, then serve from cache and refresh in the background.
-const VERSION = 'kkm-v19';
+const VERSION = 'kkm-v20';
+// the story voice pack is saved by the page (Grown-ups › Story voices) into its own cache, kept across versions
+const VOICES = 'kkm-voices';
 const SHELL = [
   './',
   'index.html',
@@ -37,6 +39,7 @@ const SHELL = [
   'js/audio.js',
   'js/storage.js',
   'js/sfx.js',
+  'js/voicepack.js',
   'js/scene.js',
   'js/ui.js',
   'js/games/comic.js',
@@ -78,7 +81,7 @@ self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches
       .keys()
-      .then((keys) => Promise.all(keys.filter((k) => k !== VERSION).map((k) => caches.delete(k))))
+      .then((keys) => Promise.all(keys.filter((k) => k !== VERSION && k !== VOICES).map((k) => caches.delete(k))))
       .then(() => self.clients.claim()),
   );
 });
@@ -87,6 +90,11 @@ self.addEventListener('fetch', (event) => {
   const req = event.request;
   const url = new URL(req.url);
   if (req.method !== 'GET' || url.origin !== location.origin) return;
+  // voice recordings: from the voice pack when saved, else from the network (not kept in the app cache)
+  if (url.pathname.includes('/voices/')) {
+    event.respondWith(caches.open(VOICES).then(async (c) => (await c.match(req, { ignoreSearch: true })) || fetch(req).catch(() => new Response('Offline', { status: 503 }))));
+    return;
+  }
   event.respondWith(
     caches.open(VERSION).then(async (cache) => {
       const key = req.mode === 'navigate' ? 'index.html' : req;

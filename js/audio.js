@@ -1,12 +1,16 @@
 // Audio-first speech. For every thing we say, try in order:
 //   1. a family recording loaded from the device (IndexedDB, never in the repo)
-//   2. a file in the audio/ folder named in content.json (audio/ is git-ignored)
-//   3. the browser's text-to-speech (hi-IN / en-US)
+//   2. the story voice pack, if a grown-up downloaded it (voices/, see voicepack.js)
+//   3. a file in the audio/ folder named in content.json (audio/ is git-ignored)
+//   4. the browser's text-to-speech (hi-IN / en-US)
 import { clips } from './storage.js';
+import { savedVoiceKeys, voiceUrl } from './voicepack.js';
 import { splitTemplate, fillTemplate } from './logic.js';
 
 const TTS_LANG = { hi: 'hi-IN', en: 'en-US' };
 let clipKeys = new Set();
+let packKeys = new Set();
+let packOn = true;
 const clipUrls = new Map();
 const failedFiles = new Set();
 let token = 0;
@@ -29,6 +33,7 @@ function setSpeaking(on) {
 
 export async function initAudio() {
   clipKeys = new Set(await clips.keys());
+  packKeys = await savedVoiceKeys().catch(() => new Set());
   if ('speechSynthesis' in window) {
     speechSynthesis.getVoices();
     speechSynthesis.addEventListener?.('voiceschanged', () => speechSynthesis.getVoices());
@@ -39,6 +44,12 @@ export function refreshClipKeys(keys) {
   for (const url of clipUrls.values()) URL.revokeObjectURL(url);
   clipUrls.clear();
   clipKeys = new Set(keys);
+}
+
+// The story voice pack: which recordings are on the device, and whether to use them.
+export function setVoicePack(keys, on = packOn) {
+  if (keys) packKeys = new Set(keys);
+  packOn = on;
 }
 
 // Voices load a moment after the page does; wait for them (or give up quietly after a while).
@@ -95,7 +106,7 @@ async function clipUrl(key) {
 }
 
 export function hasRecording(seg) {
-  return (seg.clipKey && clipKeys.has(seg.clipKey)) || (seg.file && !failedFiles.has(seg.file));
+  return (seg.clipKey && (clipKeys.has(seg.clipKey) || (packOn && packKeys.has(seg.clipKey)))) || (seg.file && !failedFiles.has(seg.file));
 }
 
 async function playSegment(seg, mine) {
@@ -105,6 +116,9 @@ async function playSegment(seg, mine) {
   const url = seg.clipKey ? await clipUrl(seg.clipKey) : null;
   if (mine !== token) return;
   if (url && (await playUrl(url))) return;
+  if (mine !== token) return;
+  if (packOn && seg.clipKey && packKeys.has(seg.clipKey) && (await playUrl(voiceUrl(seg.clipKey)))) return;
+  if (mine !== token) return;
   if (seg.file && !failedFiles.has(seg.file)) {
     if (await playUrl(`audio/${seg.file}`)) return;
     failedFiles.add(seg.file);

@@ -50,7 +50,7 @@ export default {
     let onCover = true;
     const intro = async () => {
       await ctx.say('listenStory');
-      if (ctx.alive() && onCover) ctx.playSegs(langs.map((l) => ({ text: story.title[l], lang: l })));
+      if (ctx.alive() && onCover) ctx.playSegs(langs.map((l) => ({ text: story.title[l], lang: l, clipKey: `story-${story.id}-title_${l}` })));
     };
     ctx.setRepeat(intro);
     intro();

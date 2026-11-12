@@ -8,6 +8,26 @@ const HI = {
     'हर बच्चे की अपनी कक्षा, सितारे और सेटिंग होती हैं। परिवार की आवाज़ें सबके लिए एक जैसी रहती हैं। एक से ज़्यादा बच्चे हों, तो शुरुआत में पूछा जाता है कि कौन खेलेगा।',
   'Playing now': 'अभी खेल रहा है',
   Backup: 'बैकअप',
+  'Story voices': 'कहानी की आवाज़ें',
+  'A natural recorded voice reads every story (title, pages and lesson) in Hindi and English, instead of the device’s computer voice. Download once and it works offline. A page you record yourself always plays instead.':
+    'एक असली-सी रिकॉर्ड की हुई आवाज़ हर कहानी (नाम, पन्ने और सीख) हिन्दी और अंग्रेज़ी में पढ़ती है, फ़ोन की कंप्यूटर आवाज़ की जगह। एक बार डाउनलोड करें, फिर बिना इंटरनेट चलती है। जो पन्ना आप ख़ुद रिकॉर्ड करें, वही बजता है।',
+  'Use the story voices': 'कहानी की आवाज़ें चलाएँ',
+  'Not downloaded yet.': 'अभी डाउनलोड नहीं हुईं।',
+  'Checking…': 'देख रहे हैं…',
+  Remove: 'हटाएँ',
+  'The story voices are not available yet. Stories use the device voice (or your recordings).': 'कहानी की आवाज़ें अभी तैयार नहीं हैं। कहानियाँ फ़ोन की आवाज़ (या आपकी रिकॉर्डिंग) में चलती हैं।',
+  'Record a story': 'कहानी रिकॉर्ड करें',
+  'Read a whole story in your own voice: tap Record, read the line, tap Stop, and the next line comes up. Your recordings play instead of the story voices, on this device only.':
+    'पूरी कहानी अपनी आवाज़ में पढ़ें: रिकॉर्ड दबाएँ, पंक्ति पढ़ें, रोकें दबाएँ, और अगली पंक्ति आ जाएगी। आपकी रिकॉर्डिंग कहानी की आवाज़ों की जगह बजती है, सिर्फ़ इसी फ़ोन पर।',
+  'To use your recordings on another phone or tablet, save them to a file and load it there.': 'अपनी रिकॉर्डिंग दूसरे फ़ोन या टैबलेट पर चलाने के लिए, उन्हें फ़ाइल में सहेजें और वहाँ खोलें।',
+  'Save my recordings to a file': 'मेरी रिकॉर्डिंग फ़ाइल में सहेजें',
+  'Load recordings from a file': 'फ़ाइल से रिकॉर्डिंग लाएँ',
+  '● Record': '● रिकॉर्ड',
+  '● Record again': '● फिर से रिकॉर्ड',
+  '■ Stop': '■ रोकें',
+  '▶ Listen': '▶ सुनें',
+  'Previous line': 'पिछली पंक्ति',
+  'Next line': 'अगली पंक्ति',
   'Everything is saved on this device only. Keep a backup file (stars, settings and children; not the photo or voice recordings) to move to a new device or recover after the browser is cleared.':
     'सब कुछ सिर्फ़ इसी फ़ोन में रहता है। एक बैकअप फ़ाइल रख लें (सितारे, सेटिंग और बच्चे; फ़ोटो और आवाज़ें नहीं), ताकि नए फ़ोन पर ले जा सकें या ब्राउज़र साफ़ होने पर वापस ला सकें।',
   'Save a backup file': 'बैकअप फ़ाइल बनाएँ',
@@ -117,6 +137,15 @@ const PATTERNS = [
   [/^(\d+) recording\(s\) saved on this device\.$/, 'इस फ़ोन में $1 रिकॉर्डिंग।'],
   [/^This device has no (Hindi or English|Hindi|English) voice\. .*$/, (m, which) => `इस फ़ोन में ${{ 'Hindi or English': 'हिन्दी या अंग्रेज़ी', Hindi: 'हिन्दी', English: 'अंग्रेज़ी' }[which]} की आवाज़ नहीं है। Android पर: Settings › System › Languages › Text-to-speech › Google › Install voice data.`],
 ];
+
+const MORE = [
+  [/^Saved on this device: (\d+) of (\d+) recordings \(([\d.]+) MB\)\.$/, 'इस फ़ोन में: $2 में से $1 रिकॉर्डिंग ($3 MB)।'],
+  [/^Download for (.+) \(([\d.]+) MB\)$/, '$1 के लिए डाउनलोड करें ($2 MB)'],
+  [/^Download all stories \(([\d.]+) MB\)$/, 'सारी कहानियाँ डाउनलोड करें ($1 MB)'],
+  [/^Downloading… (\d+) of (\d+)$/, 'डाउनलोड हो रहा है… $2 में से $1'],
+  [/^(\d+) of (\d+) lines recorded$/, '$2 में से $1 पंक्तियाँ रिकॉर्ड हुईं'],
+];
+PATTERNS.push(...MORE);
 
 export function translateText(text) {
   const t = text.trim();

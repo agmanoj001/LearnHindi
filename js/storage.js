@@ -169,3 +169,39 @@ export async function keepOffline() {
     return false;
   }
 }
+
+// ---- family recordings in one file, to move them to another device ----
+// The file holds the family's own voices, so it is the family's to keep: it is never uploaded.
+export const VOICES_FILE_KIND = 'family-voices';
+
+const blobToBase64 = (blob) =>
+  new Promise((resolve, reject) => {
+    const r = new FileReader();
+    r.onload = () => resolve(String(r.result).split(',')[1] || '');
+    r.onerror = reject;
+    r.readAsDataURL(blob);
+  });
+
+export async function exportClips(keys = null) {
+  const out = {};
+  for (const key of keys || (await clips.keys())) {
+    const blob = await clips.get(key).catch(() => null);
+    if (blob) out[key] = { type: blob.type || 'audio/webm', data: await blobToBase64(blob) };
+  }
+  return { app: BACKUP_APP, kind: VOICES_FILE_KIND, version: 1, savedAt: new Date().toISOString(), clips: out };
+}
+
+// The recordings in a file, checked: [key, Blob] pairs, or an error message.
+export function readClipsFile(file, validKeys) {
+  if (!file || file.app !== BACKUP_APP || file.kind !== VOICES_FILE_KIND || file.version !== 1 || typeof file.clips !== 'object') return { error: 'This is not a Khel Khel Mein recordings file.' };
+  const valid = new Set(validKeys);
+  const entries = [];
+  for (const [key, c] of Object.entries(file.clips)) {
+    if (!valid.has(key) || typeof c?.data !== 'string' || !/^audio\//.test(c.type || '')) continue;
+    const bin = atob(c.data);
+    const bytes = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    entries.push([key, new Blob([bytes], { type: c.type })]);
+  }
+  return entries.length ? { entries } : { error: 'There are no recordings in this file.' };
+}

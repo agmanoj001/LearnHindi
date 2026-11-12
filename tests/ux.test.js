@@ -249,3 +249,53 @@ test('a backup holds settings, progress and children, and restores only those', 
   const sneaky = readBackup({ app: BACKUP_APP, version: 1, data: { 'vt.progress': {}, 'vt.special': { photo: 'x' }, evil: {}, 'vt.progress:p9x': {} } });
   assert.deepEqual(sneaky.entries.map(([k]) => k), ['vt.progress']);
 });
+
+// ---------- story voices: recorded narration ----------
+import { storyVoiceLines, clipKeysFor } from '../js/logic.js';
+import { packFiles, voiceUrl } from '../js/voicepack.js';
+import { readClipsFile, VOICES_FILE_KIND } from '../js/storage.js';
+
+test('every story line has a voice: titles, pages and morals, in each of the story’s languages', () => {
+  const lines = storyVoiceLines(content);
+  const keys = new Set(lines.map((l) => l.key));
+  assert.equal(keys.size, lines.length, 'no two lines share a recording');
+  const lion = lines.filter((l) => l.story === 'lion-mouse');
+  const s = content.stories.find((x) => x.id === 'lion-mouse');
+  assert.equal(lion.length, 2 * (1 + s.pages.length + 1));
+  assert.ok(keys.has('story-lion-mouse-title_hi') && keys.has('story-lion-mouse-3_en') && keys.has('story-lion-mouse-moral_hi'));
+  // English rhymes only in English
+  assert.ok(lines.filter((l) => l.story === 'twinkle').every((l) => l.lang === 'en'));
+  for (const l of lines) assert.ok(l.text.trim(), l.key);
+  // a family can record every one of them too
+  const family = new Set(clipKeysFor(content));
+  for (const k of keys) assert.ok(family.has(k), k);
+  assert.equal(voiceUrl('story-a-1_hi'), 'voices/story-a-1_hi.mp3');
+});
+
+test('the voice pack downloads a grade at a time', () => {
+  const idx = { files: { 'story-a-title_hi': 10, 'story-a-1_hi': 20, 'story-b-1_en': 30, 'story-b-moral_en': 5, junk: 1 }, stories: { a: 'kg', b: 'grade2' } };
+  assert.deepEqual(packFiles(idx, ['kg']).map((f) => f.key), ['story-a-title_hi', 'story-a-1_hi']);
+  assert.deepEqual(packFiles(idx, ['grade2']).map((f) => f.bytes), [30, 5]);
+  assert.equal(packFiles(idx).length, 5);
+  assert.deepEqual(packFiles(null), []);
+});
+
+test('a recordings file brings back only real recordings for real lines', () => {
+  const valid = clipKeysFor(content);
+  const data = Buffer.from('fake audio').toString('base64');
+  const file = (clips) => ({ app: 'khel-khel-mein', kind: VOICES_FILE_KIND, version: 1, clips });
+  const r = readClipsFile(file({ 'story-lion-mouse-1_hi': { type: 'audio/webm', data }, 'not-a-key': { type: 'audio/webm', data }, 'story-lion-mouse-2_hi': { type: 'text/html', data } }), valid);
+  assert.deepEqual(r.entries.map(([k]) => k), ['story-lion-mouse-1_hi']);
+  assert.equal(r.entries[0][1].type, 'audio/webm');
+  assert.ok(readClipsFile(file({}), valid).error);
+  assert.ok(readClipsFile({ app: 'khel-khel-mein', version: 1, data: {} }, valid).error, 'a backup file is not a recordings file');
+  assert.ok(readClipsFile(null, valid).error);
+});
+
+test('the story voice pack is cached on its own and kept across app updates', () => {
+  const sw = readFileSync(new URL('../sw.js', import.meta.url), 'utf8');
+  assert.match(sw, /const VOICES = 'kkm-voices'/);
+  assert.match(sw, /k !== VERSION && k !== VOICES/);
+  assert.match(sw, /'js\/voicepack\.js'/);
+  assert.ok(!/'voices\//.test(sw), 'the pack is not part of the first download');
+});
