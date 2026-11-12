@@ -57,31 +57,84 @@ export function packFiles(idx, levels = []) {
     .map(([key, bytes]) => ({ key, bytes }));
 }
 
-// Save files into the cache, a few at a time; onProgress(done, total). Returns how many failed.
+// The bundles to fetch for some recordings: every bundle holding one that isn't saved yet.
+export function bundlesFor(idx, files, have = new Set()) {
+  const want = new Set(files.filter((f) => !have.has(f.key)).map((f) => f.key));
+  return (idx?.packs || []).filter((p) => p.items.some(([key]) => want.has(key)));
+}
+
+// Save recordings into the cache. With bundles (index.packs): fetch each bundle whole, two at a time,
+// and cut it into its recordings on the device; a bundle already saved is skipped, so a download that
+// was interrupted carries on. onProgress(bytesDone, bytesTotal). Returns how many recordings failed.
 export async function downloadVoices(files, onProgress = () => {}) {
   const cache = await openCache();
   if (!cache) throw new Error('This browser cannot save files for offline use.');
   const have = await savedVoiceKeys();
-  const todo = files.filter((f) => !have.has(f.key));
-  let done = files.length - todo.length;
+  const idx = await loadIndex();
   let failed = 0;
-  onProgress(done, files.length);
-  const next = async () => {
-    for (let f = todo.shift(); f; f = todo.shift()) {
-      try {
-        const res = await fetch(voiceUrl(f.key), { cache: 'no-cache' });
-        if (!res.ok) throw new Error(res.status);
-        await cache.put(voiceUrl(f.key), res);
-      } catch {
-        failed++;
+  if (idx?.packs?.length) {
+    const todo = bundlesFor(idx, files, have);
+    const total = todo.reduce((a, p) => a + p.bytes, 0);
+    const got = new Map();
+    const report = () => onProgress([...got.values()].reduce((a, b) => a + b, 0), total);
+    report();
+    const next = async () => {
+      for (let p = todo.shift(); p; p = todo.shift()) {
+        try {
+          const buf = await fetchWithProgress(`voices/${p.file}`, (n) => (got.set(p.file, n), report()));
+          if (buf.length < p.bytes) throw new Error('short');
+          await Promise.all(p.items.map(([key, off, len]) => cache.put(voiceUrl(key), new Response(new Blob([buf.subarray(off, off + len)], { type: 'audio/mpeg' })))));
+          got.set(p.file, p.bytes);
+          report();
+        } catch {
+          failed += p.items.length;
+          got.delete(p.file);
+        }
       }
-      onProgress(++done, files.length);
-    }
-  };
-  await Promise.all(Array.from({ length: 6 }, next));
+    };
+    await Promise.all([next(), next()]);
+  } else {
+    // no bundles: one recording at a time (slow; kept for an older index)
+    const todo = files.filter((f) => !have.has(f.key));
+    let done = 0;
+    const next = async () => {
+      for (let f = todo.shift(); f; f = todo.shift()) {
+        try {
+          const res = await fetch(voiceUrl(f.key));
+          if (!res.ok) throw new Error(res.status);
+          await cache.put(voiceUrl(f.key), res);
+        } catch {
+          failed++;
+        }
+        onProgress(++done, files.length);
+      }
+    };
+    await Promise.all(Array.from({ length: 6 }, next));
+  }
   // keep the index too, so the pack is known offline
   await fetch(VOICE_INDEX).then((r) => r.ok && cache.put(VOICE_INDEX, r)).catch(() => {});
   return failed;
+}
+
+// A whole file as bytes, telling onBytes how much has arrived so far.
+async function fetchWithProgress(url, onBytes) {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(res.status);
+  if (!res.body?.getReader) return new Uint8Array(await res.arrayBuffer());
+  const reader = res.body.getReader();
+  const chunks = [];
+  let n = 0;
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    chunks.push(value);
+    n += value.length;
+    onBytes(n);
+  }
+  const out = new Uint8Array(n);
+  let at = 0;
+  for (const c of chunks) out.set(c, (at += c.length) - c.length);
+  return out;
 }
 
 export async function removeVoices() {

@@ -252,7 +252,7 @@ test('a backup holds settings, progress and children, and restores only those', 
 
 // ---------- story voices: recorded narration ----------
 import { storyVoiceLines, clipKeysFor } from '../js/logic.js';
-import { packFiles, voiceUrl } from '../js/voicepack.js';
+import { packFiles, voiceUrl, bundlesFor } from '../js/voicepack.js';
 import { readClipsFile, VOICES_FILE_KIND } from '../js/storage.js';
 
 test('every story line has a voice: titles, pages, questions and morals, in each of the story’s languages', () => {
@@ -307,10 +307,20 @@ test('the voice pack in voices/ matches its index, and every file is a line the 
   const dir = new URL('../voices/', import.meta.url);
   const idx = JSON.parse(readFileSync(new URL('index.json', dir), 'utf8'));
   const lines = new Set([...voiceLines(content), ...comicVoiceLines(content, castVoiceName), ...storyRadioVoiceLines(content)].map((l) => l.key));
-  for (const [key, bytes] of Object.entries(idx.files)) {
-    assert.ok(lines.has(key), `${key} is a line the app says`);
-    assert.equal(readFileSync(new URL(`${key}.mp3`, dir)).length, bytes, key);
+  for (const key of Object.keys(idx.files)) assert.ok(lines.has(key), `${key} is a line the app says`);
+  // the recordings are downloaded as bundles: every one is in exactly one bundle, at the right size,
+  // and each bundle is the size the index says
+  const inBundle = new Map();
+  for (const p of idx.packs) {
+    assert.equal(readFileSync(new URL(p.file, dir)).length, p.bytes, p.file);
+    assert.ok(p.bytes <= 8 * 1048576, `${p.file} is small enough to fetch in one go`);
+    for (const [key, off, len] of p.items) {
+      assert.ok(!inBundle.has(key), `${key} is in one bundle`);
+      inBundle.set(key, len);
+      assert.ok(off + len <= p.bytes);
+    }
   }
+  for (const [key, bytes] of Object.entries(idx.files)) assert.equal(inBundle.get(key), bytes, key);
   // every line the app can say has its recording: nothing is left to the device voice but what is made up on the spot
   for (const k of lines) assert.ok(idx.files[k], `${k} is recorded`);
   assert.ok(idx.voices.hi && idx.voices.en);
@@ -374,4 +384,18 @@ test('32 more Kindergarten stories to listen to, in four sets in Vehicle Town', 
     assert.ok(s.moral?.hi && s.moral.en, id);
   }
   for (const u of ['k-safar', 'k-janwar', 'k-tyohar', 'k-dadi']) assert.equal(town.units.find((x) => x.id === u)?.lessons.length, 8, u);
+});
+
+test('a grade downloads in a few bundles, and only the ones it is missing', () => {
+  const idx = JSON.parse(readFileSync(new URL('../voices/index.json', import.meta.url), 'utf8'));
+  const kg = packFiles(idx, ['toddler', 'kg']);
+  const bundles = bundlesFor(idx, kg);
+  assert.ok(bundles.length <= 10, `${bundles.length} bundles for Kindergarten, not ${kg.length} files`);
+  assert.ok(bundles.every((p) => p.level === null || ['toddler', 'kg'].includes(p.level)));
+  // everything already saved: nothing to fetch; one bundle's worth saved: that bundle is skipped
+  assert.equal(bundlesFor(idx, kg, new Set(kg.map((f) => f.key))).length, 0);
+  const first = new Set(bundles[0].items.map(([k]) => k));
+  assert.equal(bundlesFor(idx, kg, first).length, bundles.length - 1);
+  const g8 = bundlesFor(idx, packFiles(idx, ['grade7', 'grade8']));
+  assert.ok(g8.length <= 25, `${g8.length} bundles for Grades 7 and 8`);
 });

@@ -6,7 +6,7 @@ import { skillName, SKILLS as MATH_SKILLS } from './mathgen.js';
 import { phonicsName } from './phonicsgen.js';
 import { worldStars, worldLessons, lessonRecord, weekSummary, dueReviews, learningGains } from './curriculum.js';
 import { refreshClipKeys, voicesFor, setVoicePrefs, hasVoice, play, setVoicePack } from './audio.js';
-import { loadIndex, savedVoiceKeys, packFiles, downloadVoices, removeVoices, formatMB } from './voicepack.js';
+import { loadIndex, savedVoiceKeys, packFiles, bundlesFor, downloadVoices, removeVoices, formatMB } from './voicepack.js';
 import { deviceKind, VOICE_SETUP } from './logic.js';
 import { KEYS, save, load, clips, resizeImage, addProfile, removeProfile, MAX_PROFILES, makeBackup, readBackup, localKeys, keepOffline, exportClips, readClipsFile } from './storage.js';
 import { MASCOTS, MASCOT_IDS, mascotSvg } from './mascot.js';
@@ -575,17 +575,18 @@ function storyVoicesSection(api) {
     }
     const mine = packFiles(idx, myLevels);
     const all = packFiles(idx);
-    const size = (files) => files.reduce((a, f) => a + f.bytes, 0);
+    // what a download costs: the bundles still to fetch (or the single files, for an older index)
+    const size = (files) => (idx.packs?.length ? bundlesFor(idx, files, have).reduce((a, p) => a + p.bytes, 0) : files.reduce((a, f) => a + f.bytes, 0));
     const missing = (files) => files.filter((f) => !have.has(f.key));
-    const savedBytes = size(all.filter((f) => have.has(f.key)));
+    const savedBytes = all.filter((f) => have.has(f.key)).reduce((a, f) => a + f.bytes, 0);
     say(have.size ? `Saved on this device: ${have.size} of ${all.length} recordings (${formatMB(savedBytes)}).` : 'Not downloaded yet.');
     const get = (files) => async () => {
       buttons.querySelectorAll('button').forEach((b) => (b.disabled = true));
       bar.hidden = false;
       try {
         const failed = await downloadVoices(files, (done, total) => {
-          bar.firstChild.style.width = `${Math.round((done / total) * 100)}%`;
-          say(`Downloading… ${done} of ${total}`);
+          bar.firstChild.style.width = `${total ? Math.round((done / total) * 100) : 100}%`;
+          say(idx.packs?.length ? `Downloading… ${formatMB(done)} of ${formatMB(total)}` : `Downloading… ${done} of ${total}`);
         });
         if (failed) alert(`${failed} recordings could not be downloaded. Check the internet connection and try again.`);
       } catch (e) {
@@ -595,8 +596,8 @@ function storyVoicesSection(api) {
       render();
     };
     const rows = [];
-    if (missing(mine).length) rows.push(el('button', { class: 'btn primary', text: `Download for ${gradeName} (${formatMB(size(missing(mine)))})`, onclick: get(mine) }));
-    if (missing(all).length && missing(all).length !== missing(mine).length) rows.push(el('button', { class: 'btn', text: `Download all stories (${formatMB(size(missing(all)))})`, onclick: get(all) }));
+    if (missing(mine).length) rows.push(el('button', { class: 'btn primary', text: `Download for ${gradeName} (${formatMB(size(mine))})`, onclick: get(mine) }));
+    if (missing(all).length && missing(all).length !== missing(mine).length) rows.push(el('button', { class: 'btn', text: `Download everything (${formatMB(size(all))})`, onclick: get(all) }));
     if (have.size) rows.push(el('button', { class: 'btn danger', text: 'Remove', onclick: async () => confirm('Remove the story voices from this device?') && (await removeVoices(), render()) }));
     buttons.replaceChildren(...rows);
     localize(api, buttons);
