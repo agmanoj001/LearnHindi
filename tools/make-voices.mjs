@@ -23,10 +23,11 @@ const args = process.argv.slice(2);
 const flag = (f) => args.includes(f);
 const opt = (f) => (args.includes(f) ? args[args.indexOf(f) + 1] : null);
 
-// a warm, clear voice for children, best first; the first one this key can use is taken
+// a warm, clear voice for children, best first; the first one this key can use is taken (Leda was
+// chosen by listening to samples: the same narrator in Hindi and Indian English)
 const PREFER = {
-  hi: ['hi-IN-Chirp3-HD-Aoede', 'hi-IN-Chirp3-HD-Leda', 'hi-IN-Chirp3-HD-Kore', 'hi-IN-Neural2-A', 'hi-IN-Neural2-D', 'hi-IN-Wavenet-A', 'hi-IN-Standard-A'],
-  en: ['en-IN-Chirp3-HD-Aoede', 'en-IN-Chirp3-HD-Leda', 'en-IN-Neural2-A', 'en-IN-Wavenet-A', 'en-US-Neural2-F', 'en-US-Standard-C'],
+  hi: ['hi-IN-Chirp3-HD-Leda', 'hi-IN-Chirp3-HD-Aoede', 'hi-IN-Chirp3-HD-Kore', 'hi-IN-Neural2-A', 'hi-IN-Neural2-D', 'hi-IN-Wavenet-A', 'hi-IN-Standard-A'],
+  en: ['en-IN-Chirp3-HD-Leda', 'en-IN-Chirp3-HD-Aoede', 'en-IN-Neural2-A', 'en-IN-Wavenet-A', 'en-US-Neural2-F', 'en-US-Standard-C'],
 };
 const LANG_CODE = { hi: 'hi-IN', en: 'en-IN' };
 const RATE = 0.9; // a little slower than everyday speech, for young listeners
