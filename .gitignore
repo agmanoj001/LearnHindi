@@ -4,3 +4,5 @@ audio/
 photos/
 node_modules/
 .DS_Store
+# Single voice recordings are a working copy for tools/make-voices.mjs; the app downloads voices/packs/.
+voices/*.mp3

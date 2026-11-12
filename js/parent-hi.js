@@ -142,6 +142,8 @@ const MORE = [
   [/^Saved on this device: (\d+) of (\d+) recordings \(([\d.]+) MB\)\.$/, 'इस फ़ोन में: $2 में से $1 रिकॉर्डिंग ($3 MB)।'],
   [/^Download for (.+) \(([\d.]+) MB\)$/, '$1 के लिए डाउनलोड करें ($2 MB)'],
   [/^Download all stories \(([\d.]+) MB\)$/, 'सारी कहानियाँ डाउनलोड करें ($1 MB)'],
+  [/^Download everything \(([\d.]+) MB\)$/, 'सब कुछ डाउनलोड करें ($1 MB)'],
+  [/^Downloading… ([\d.]+) MB of ([\d.]+) MB$/, 'डाउनलोड हो रहा है… $2 MB में से $1 MB'],
   [/^Downloading… (\d+) of (\d+)$/, 'डाउनलोड हो रहा है… $2 में से $1'],
   [/^(\d+) of (\d+) lines recorded$/, '$2 में से $1 पंक्तियाँ रिकॉर्ड हुईं'],
 ];

@@ -20,6 +20,7 @@ import { createHash } from 'node:crypto';
 import { voiceLines as baseLines } from '../js/logic.js';
 import { comicVoiceLines, storyRadioVoiceLines } from '../js/shows.js';
 import { castVoiceName } from '../js/castvoices.js';
+import { pack, unpack } from './voice-bundles.mjs';
 
 // everything: stories, the app's own voice, the lessons, and the comics with a voice per character
 // A recording two parts of the app share (a word that is both a comic line and a story word) belongs
@@ -122,6 +123,9 @@ async function main() {
     return;
   }
   const content = JSON.parse(readFileSync(new URL('content.json', ROOT), 'utf8'));
+  // the single files are a working copy: bring back any the bundles hold
+  const unpacked = existsSync(new URL('voices/index.json', ROOT)) ? unpack() : 0;
+  if (unpacked) console.log(`unpacked ${unpacked} recordings from the bundles`);
   const only = opt('--story');
   const lines = voiceLines(content).filter((l) => !only || l.story === only);
   if (flag('--comics')) lines.splice(0, lines.length, ...lines.filter((l) => l.voiceName || /^t-hi-/.test(l.key)));
@@ -176,6 +180,9 @@ async function main() {
   const keys = new Set(all.map((l) => l.key));
   if (!only) for (const f of readdirSync(OUT)) if (f.endsWith('.mp3') && !keys.has(f.slice(0, -4))) unlinkSync(new URL(f, OUT));
   writeIndex();
+  // and the bundles the app downloads
+  const packs = pack();
+  console.log(`${packs.length} bundles`);
   const bytes = Object.values(files).reduce((a, b) => a + b, 0);
   console.log(`done: ${Object.keys(files).length} recordings, ${(bytes / 1048576).toFixed(1)} MB${failed ? `, ${failed} failed` : ''}`);
   if (failed) process.exitCode = 1;
