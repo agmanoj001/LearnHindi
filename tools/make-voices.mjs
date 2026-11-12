@@ -21,6 +21,9 @@ import { voiceLines as baseLines } from '../js/logic.js';
 import { comicVoiceLines, storyRadioVoiceLines } from '../js/shows.js';
 import { castVoiceName } from '../js/castvoices.js';
 import { pack, unpack } from './voice-bundles.mjs';
+import { hasFfmpeg, trimFile } from './trim-voices.mjs';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
 
 // everything: stories, the app's own voice, the lessons, and the comics with a voice per character
 // A recording two parts of the app share (a word that is both a comic line and a story word) belongs
@@ -50,7 +53,9 @@ const PREFER = {
   en: ['en-IN-Chirp3-HD-Leda', 'en-IN-Chirp3-HD-Aoede', 'en-IN-Neural2-A', 'en-IN-Wavenet-A', 'en-US-Neural2-F', 'en-US-Standard-C'],
 };
 const LANG_CODE = { hi: 'hi-IN', en: 'en-IN' };
-const RATE = 0.9; // a little slower than everyday speech, for young listeners
+const RATE = 0.9;
+// raise when recordings already on families' devices should be replaced (2: silence trimmed, silent ones fixed)
+const AUDIO_VERSION = 2; // a little slower than everyday speech, for young listeners
 
 const headers = { 'Content-Type': 'application/json', ...(process.env.GOOGLE_TTS_KEY ? { 'X-Goog-Api-Key': process.env.GOOGLE_TTS_KEY } : {}) };
 
@@ -112,6 +117,32 @@ async function synth(text, voice) {
   }
 }
 
+// The premium voices sometimes return silence for a very short line (a single letter, "है", "Yes").
+// Every recording is checked; a silent one is made again, and after two tries the standard natural
+// voice of the same language and gender (Neural2) says it instead.
+const FEMALE = new Set(['Achernar', 'Aoede', 'Autonoe', 'Callirrhoe', 'Despina', 'Erinome', 'Gacrux', 'Kore', 'Laomedeia', 'Leda', 'Pulcherrima', 'Sulafat', 'Vindemiatrix', 'Zephyr']);
+export const fallbackVoice = (name) => `${langOf(name)}-Neural2-${FEMALE.has(name.split('-').pop()) ? 'A' : 'B'}`;
+const ffrun = promisify(execFile);
+async function loudness(buf) {
+  const f = new URL(`voices/.check-${process.pid}-${Math.random().toString(36).slice(2)}.mp3`, ROOT).pathname;
+  writeFileSync(f, buf);
+  try {
+    const { stderr } = await ffrun('ffmpeg', ['-hide_banner', '-i', f, '-af', 'volumedetect', '-f', 'null', '-']);
+    return Number(stderr.match(/max_volume: ([-\d.]+)/)?.[1] ?? -99);
+  } finally {
+    unlinkSync(f);
+  }
+}
+let checked = null;
+async function speakChecked(text, voice) {
+  checked ??= await hasFfmpeg();
+  let buf = await synth(text, voice);
+  if (!checked) return { buf, fell: false };
+  for (let t = 0; t < 2 && (await loudness(buf)) < -25; t++) buf = await synth(text, voice);
+  if ((await loudness(buf)) >= -25) return { buf, fell: false };
+  return { buf: await synth(text, fallbackVoice(voice)), fell: true };
+}
+
 const sum = (text, voice) => createHash('sha1').update(`${voice}|${rateOk}|${text}`).digest('hex').slice(0, 12);
 
 async function main() {
@@ -148,7 +179,11 @@ async function main() {
     for (let l = todo.shift(); l; l = todo.shift()) {
       try {
         const voice = l.voiceName || voices[l.lang];
-        writeFileSync(new URL(`${l.key}.mp3`, OUT), await synth(l.text, voice));
+        const { buf, fell } = await speakChecked(l.text, voice);
+        const file = new URL(`${l.key}.mp3`, OUT);
+        writeFileSync(file, buf);
+        if (checked) await trimFile(file.pathname); // no dead air before or after
+        if (fell) console.log(`  ${l.key} ("${l.text}"): said by ${fallbackVoice(voice)}`);
         sums[l.key] = sum(l.text, voice);
       } catch (e) {
         failed++;
@@ -172,7 +207,7 @@ async function main() {
     // lesson lines that belong to one grade (the rest come with every grade)
     const levels = Object.fromEntries(all.filter((l) => l.level && files[l.key]).map((l) => [l.key, l.level]));
     const keep = Object.fromEntries(Object.entries(sums).filter(([k]) => files[k]));
-    writeFileSync(indexFile, `${JSON.stringify({ version: new Date().toISOString().slice(0, 10), voices, files, stories, levels, sums: keep })}\n`);
+    writeFileSync(indexFile, `${JSON.stringify({ version: new Date().toISOString().slice(0, 10), audioVersion: AUDIO_VERSION, voices, files, stories, levels, sums: keep })}\n`);
   }
 
   await Promise.all(Array.from({ length: Number(opt('--workers')) || 4 }, work));

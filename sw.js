@@ -1,5 +1,5 @@
 // Offline support: cache the app shell, then serve from cache and refresh in the background.
-const VERSION = 'kkm-v22';
+const VERSION = 'kkm-v23';
 // the story voice pack is saved by the page (Grown-ups › Story voices) into its own cache, kept across versions
 const VOICES = 'kkm-voices';
 const SHELL = [
@@ -93,7 +93,8 @@ self.addEventListener('fetch', (event) => {
   if (req.method !== 'GET' || url.origin !== location.origin) return;
   // voice recordings: from the voice pack when saved, else from the network (not kept in the app cache)
   if (url.pathname.includes('/voices/')) {
-    event.respondWith(caches.open(VOICES).then(async (c) => (await c.match(req, { ignoreSearch: true })) || fetch(req).catch(() => new Response('Offline', { status: 503 }))));
+    // an exact match: ignoreSearch would make the browser look through every one of ~15,000 recordings
+    event.respondWith(caches.open(VOICES).then(async (c) => (await c.match(req)) || fetch(req).catch(() => new Response('Offline', { status: 503 }))));
     return;
   }
   event.respondWith(

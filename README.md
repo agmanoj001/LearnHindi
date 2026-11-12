@@ -180,7 +180,7 @@ To make or refresh them after editing stories (only new or changed lines are mad
 GOOGLE_TTS_KEY=your-key node tools/make-voices.mjs
 ```
 
-`--story lion-mouse` makes one story (to try a voice), `--voices` lists the voices the key can use, `--hi <voice>` / `--en <voice>` pick one, and `--all` remakes everything. The key needs the *Cloud Text-to-Speech API* enabled; the whole pack (about 52,000 characters) is within Google's free tier.
+Every new recording is checked: Google's premium voices sometimes return silence for a very short line (a single letter, *है*, *Yes*), so a silent one is made again and, after two tries, said by the standard Neural2 voice of the same language and gender. The silence at the start and end of each recording is trimmed (`tools/trim-voices.mjs`, needs ffmpeg; the MP3 frames are copied, not re-encoded), so one line follows the next without dead air. When recordings already on families' devices should be replaced, raise `AUDIO_VERSION` in the script: the grown-ups' area then offers *Get the faster voices*. `--story lion-mouse` makes one story (to try a voice), `--voices` lists the voices the key can use, `--hi <voice>` / `--en <voice>` pick one, and `--all` remakes everything. The key needs the *Cloud Text-to-Speech API* enabled; the whole pack (about 52,000 characters) is within Google's free tier.
 
 ### Record a whole story
 

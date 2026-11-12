@@ -7,7 +7,7 @@ import { createMascot, mascotSvg } from './mascot.js';
 import { sceneSvg } from './art-scenes.js';
 import { picture, pictureForWord } from './art.js';
 import { mathModel } from './art-math.js';
-import { play, stop as stopSpeech } from './audio.js';
+import { play, stop as stopSpeech, preload } from './audio.js';
 import { langsFor, BEAT_KINDS, beatKind, showLines, textKey, normText } from './logic.js';
 import { isoDay } from './curriculum.js';
 import { lookOf, SERIES } from './games/comic.js';
@@ -120,9 +120,9 @@ export function radioSteps(story, langs, words = {}) {
   const intro = story.kind === 'poem' ? { hi: 'अब सुनो कविता', en: 'Now, a rhyme' } : { hi: 'अब सुनो कहानी', en: 'Now, a story' };
   steps.push({ show: 'title', say: ls.flatMap((l) => [line(`${intro[l]}: ${story.title[l] || story.title.hi}`, l)]) });
   story.pages.forEach((p, n) => {
-    steps.push({ pause: 500 }, { show: 'page', page: n, say: both(p, `story-${story.id}-${n + 1}`) });
+    steps.push({ pause: 200 }, { show: 'page', page: n, say: both(p, `story-${story.id}-${n + 1}`) });
   });
-  if (story.moral) steps.push({ pause: 500 }, { show: 'moral', say: [...ls.map((l) => line(l === 'hi' ? 'सीख:' : 'The lesson:', l)), ...both(story.moral, `story-${story.id}-moral`)] });
+  if (story.moral) steps.push({ pause: 300 }, { show: 'moral', say: [...ls.map((l) => line(l === 'hi' ? 'सीख:' : 'The lesson:', l)), ...both(story.moral, `story-${story.id}-moral`)] });
   const q = (story.questions || [])[0];
   if (q) {
     const answer = q.text ? { hi: q.answer, en: q.answer } : words[q.answer] ? { hi: words[q.answer].hi, en: words[q.answer].en } : null;
@@ -769,7 +769,7 @@ export async function radio(api) {
     const sound = sceneSound(page.act);
     if (sound && api.sfx[sound]) {
       api.sfx[sound]();
-      await sleep(350);
+      await sleep(150);
     }
   };
   screen.addEventListener('pointerdown', brighten);
@@ -836,6 +836,8 @@ export async function radio(api) {
         const my = gen;
         const st = steps[step];
         screen.classList.toggle('thinking', st.show === 'think');
+        // the next lines get ready while these play
+        for (const later of steps.slice(step + 1, step + 4)) if (later.say) preload(later.say);
         if (st.show === 'page' && !story.panels) await showPage(story.pages[st.page]);
         if (st.sfx) api.sfx[st.sfx]?.();
         if (st.say) await play(st.say);
