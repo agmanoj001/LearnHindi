@@ -5,7 +5,7 @@
 //   4. the browser's text-to-speech (hi-IN / en-US)
 import { clips } from './storage.js';
 import { savedVoiceKeys, voiceUrl } from './voicepack.js';
-import { splitTemplate, fillTemplate } from './logic.js';
+import { splitTemplate, fillTemplate, phrasePartKey } from './logic.js';
 
 const TTS_LANG = { hi: 'hi-IN', en: 'en-US' };
 let clipKeys = new Set();
@@ -233,5 +233,11 @@ export function phraseSegs(phrase, key, lang, itemSegs = null, itemText = '') {
   const inner = itemSegs ? itemSegs(lang) : [];
   // Without a recording for the item, one TTS utterance sounds more natural than pieces.
   if (!inner.some(hasRecording)) return [{ text: fillTemplate(template, itemText), lang }];
-  return splitTemplate(template).flatMap((part) => (typeof part === 'string' ? [{ text: part, lang }] : inner));
+  // the pieces around the word have their own recordings (a family's, or the voice pack's)
+  let n = 0;
+  return splitTemplate(template).flatMap((part) => {
+    if (typeof part !== 'string') return inner;
+    if (!/[\p{L}\p{N}]/u.test(part)) return [];
+    return [{ text: part.trim(), lang, clipKey: phrasePartKey(key, n++, lang) }];
+  });
 }

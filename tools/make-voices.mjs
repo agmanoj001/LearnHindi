@@ -1,5 +1,6 @@
-// Makes the story voice pack: one MP3 per line a story's narrator reads (title, pages, moral) in Hindi
-// and English, with Google Cloud Text-to-Speech, into voices/, plus voices/index.json.
+// Makes the voice pack: one MP3 per line the narrator reads (a story's title, pages, questions and moral,
+// and the app's prompts, words and guides' jokes) in Hindi and English, with Google Cloud
+// Text-to-Speech, into voices/, plus voices/index.json.
 //
 //   GOOGLE_TTS_KEY=... node tools/make-voices.mjs            (only new or changed lines)
 //   GOOGLE_TTS_KEY=... node tools/make-voices.mjs --all      (everything again)
@@ -14,7 +15,7 @@
 // they stay on the family's device (see audio/ in .gitignore).
 import { readFileSync, writeFileSync, mkdirSync, existsSync, statSync, readdirSync, unlinkSync } from 'node:fs';
 import { createHash } from 'node:crypto';
-import { storyVoiceLines } from '../js/logic.js';
+import { voiceLines } from '../js/logic.js';
 
 const ROOT = new URL('..', import.meta.url);
 const OUT = new URL('voices/', ROOT);
@@ -92,7 +93,7 @@ async function main() {
   }
   const content = JSON.parse(readFileSync(new URL('content.json', ROOT), 'utf8'));
   const only = opt('--story');
-  const lines = storyVoiceLines(content).filter((l) => !only || l.story === only);
+  const lines = voiceLines(content).filter((l) => !only || l.story === only);
   mkdirSync(OUT, { recursive: true });
   const indexFile = new URL('index.json', OUT);
   const old = existsSync(indexFile) ? JSON.parse(readFileSync(indexFile, 'utf8')) : { files: {}, sums: {} };
@@ -118,7 +119,7 @@ async function main() {
   await Promise.all(Array.from({ length: 4 }, work));
 
   // the index: every line that has a file (and no files for lines that are gone)
-  const all = new Set(storyVoiceLines(content).map((l) => l.key));
+  const all = new Set(voiceLines(content).map((l) => l.key));
   for (const f of readdirSync(OUT)) if (f.endsWith('.mp3') && !all.has(f.slice(0, -4)) && !only) unlinkSync(new URL(f, OUT));
   const files = {};
   for (const key of all) {

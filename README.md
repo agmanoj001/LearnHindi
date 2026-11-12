@@ -20,7 +20,7 @@ Because the stars live only on the device, the grown-ups' area has a **Backup** 
 
 What would make it world class, with offline as the rule: [docs/ROADMAP.md](docs/ROADMAP.md).
 
-**Story voices.** Every story (title, pages and lesson, in Hindi and English) can be read by a natural recorded voice instead of the device's computer voice. A grown-up downloads them once under *Grown-ups › Story voices*, for the child's grade or for every story; they then play offline. Grown-ups can also **record a whole story** in their own voice under *Grown-ups › Record a story*: one line at a time, moving on to the next line after each recording. A family recording always plays first, then the story voices, then the computer voice. Family recordings stay on the device; *Save my recordings to a file* moves them to another phone or tablet.
+**Story voices.** Every story (title, pages, questions and lesson, in Hindi and English) can be read by a natural recorded voice instead of the device's computer voice, and the same voice says the app's own prompts (*शाबाश!*, *यह … है*, *Find the …*), every picture word and the guides' jokes. A grown-up downloads them once under *Grown-ups › Story voices*, for the child's grade or for every story; they then play offline. Grown-ups can also **record a whole story** in their own voice under *Grown-ups › Record a story*: one line at a time, moving on to the next line after each recording. A family recording always plays first, then the story voices, then the computer voice. Family recordings stay on the device; *Save my recordings to a file* moves them to another phone or tablet.
 
 The one thing that can depend on the device is the **computer voice**. On Android the Google text-to-speech voices work offline once their voice data is installed (*Settings › System › Languages › Text-to-speech › Google › Install voice data › Hindi*). Some desktop browsers use online voices, so offline they fall back to a plainer voice or stay silent. **Family recordings made in the app always work offline**, which is another good reason to record them.
 
@@ -162,7 +162,7 @@ Everything stays on the device. Nothing is uploaded.
 For everything the app says, it uses, in order:
 
 1. **A recording on this device** (made in the app or loaded from files). Kept in the browser's IndexedDB, never uploaded.
-2. **The story voices** (stories only), if a grown-up downloaded them: `voices/`, saved in the browser's offline cache.
+2. **The voice pack**, if a grown-up downloaded it: `voices/`, saved in the browser's offline cache. It covers the stories, the prompts, every picture word and the guides' jokes; anything worked out on the spot (sums, quiz answers) still uses text-to-speech.
 3. **A file in `audio/`** named in `content.json` (`"audio": { "hi": "bus_hi.mp3" }`).
 4. **The browser's text-to-speech**, using the best Hindi (`hi-IN`) and English voices installed.
 
@@ -170,9 +170,9 @@ If the device has no Hindi voice, the home screen shows a card with the steps fo
 
 `audio/` is in `.gitignore` on purpose, so family voices never end up in this public repo (and aren't on the GitHub Pages site either). On GitHub Pages, use option 1.
 
-### The story voices (`voices/`)
+### The voice pack (`voices/`)
 
-One MP3 per line a narrator reads (`story-<id>-title_hi.mp3`, `story-<id>-3_en.mp3`, `story-<id>-moral_hi.mp3` …), made with Google Cloud Text-to-Speech, plus `voices/index.json` (which voice, each file's size, each story's grade). They are computer voices, so unlike family recordings they may live in this repo. They are **not** part of the app's first download: the service worker serves them from a separate cache, `kkm-voices`, that the grown-ups' area fills and that survives app updates.
+One MP3 per line the narrator reads: each story's title, pages, questions and moral (`story-<id>-title_hi.mp3`, `story-<id>-3_en.mp3`, `story-<id>-q1_hi.mp3`, `story-<id>-moral_hi.mp3`), and the app's own voice: prompts (`phrase-great_hi.mp3`; a prompt with a word in it is recorded in pieces around the word, `phrase-thisIs-1_hi.mp3` = यह and `phrase-thisIs-2_hi.mp3` = है), every picture word (`cow_hi.mp3`) and the guides' jokes (`mascot-1_hi.mp3`). Story lines download with their grade; the app's own voice comes with every grade. All of it is made with Google Cloud Text-to-Speech, plus `voices/index.json` (which voice, each file's size, each story's grade). They are computer voices, so unlike family recordings they may live in this repo. They are **not** part of the app's first download: the service worker serves them from a separate cache, `kkm-voices`, that the grown-ups' area fills and that survives app updates.
 
 To make or refresh them after editing stories (only new or changed lines are made again):
 

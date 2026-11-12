@@ -441,7 +441,8 @@ export function clipKeysFor(content) {
     if (!p.hi.includes('{w}')) keys.push(`phrase-${k}_hi`);
     if (!p.en.includes('{w}')) keys.push(`phrase-${k}_en`);
   }
-  return keys;
+  keys.push(...voiceLines(content).map((l) => l.key));
+  return [...new Set(keys)];
 }
 
 // "Bus_HI.m4a" -> "bus_hi"; letter ids keep their case-insensitive match.
@@ -644,6 +645,33 @@ export function storyVoiceLines(content) {
     for (const l of ls) add('title', st.title, l);
     st.pages.forEach((p, i) => ls.forEach((l) => add(i + 1, p, l)));
     if (st.moral) for (const l of ls) add('moral', st.moral, l);
+    (st.questions || []).forEach((q, i) => ls.forEach((l) => add(`q${i + 1}`, q, l)));
   }
   return out;
 }
+
+// The pieces of a prompt around its {w}: "यह {w} है" is read as "यह", the word, then "है".
+export const phrasePartKey = (key, i, lang) => `phrase-${key}-${i + 1}_${lang}`;
+export function phraseParts(template) {
+  return splitTemplate(template)
+    .filter((p) => typeof p === 'string')
+    .map((p) => p.trim())
+    .filter((p) => /[\p{L}\p{N}]/u.test(p));
+}
+
+// Everything else the app says in its own words: the prompts (whole, or the pieces around a word), every
+// picture word, and the guides' jokes. With these in the voice pack the narrator says all of it.
+export function appVoiceLines(content) {
+  const out = [];
+  for (const [k, p] of Object.entries(content.phrases || {}))
+    for (const l of ['hi', 'en']) {
+      if (!p[l]) continue;
+      if (!p[l].includes('{w}')) out.push({ key: `phrase-${k}_${l}`, text: p[l], lang: l });
+      else phraseParts(p[l]).forEach((text, i) => out.push({ key: phrasePartKey(k, i, l), text, lang: l }));
+    }
+  for (const [id, w] of Object.entries(content.words || {})) for (const l of ['hi', 'en']) if (w[l]) out.push({ key: `${id}_${l}`, text: w[l], lang: l });
+  (content.mascotLines || []).forEach((m, i) => ['hi', 'en'].forEach((l) => m[l] && out.push({ key: `mascot-${i + 1}_${l}`, text: m[l], lang: l })));
+  return out;
+}
+
+export const voiceLines = (content) => [...storyVoiceLines(content), ...appVoiceLines(content)];

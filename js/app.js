@@ -292,8 +292,8 @@ function sayAbout(w) {
 }
 
 // Say {hi, en} text (titles, questions) in the current language mix.
-function sayLines(text) {
-  return play(joinLangs(langs().filter((l) => text[l]), (l) => [{ text: text[l], lang: l }]));
+function sayLines(text, key = null) {
+  return play(joinLangs(langs().filter((l) => text[l]), (l) => [{ text: text[l], lang: l, ...(key ? { clipKey: `${key}_${l}` } : {}) }]));
 }
 
 // ---------- shared visual helpers ----------
