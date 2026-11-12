@@ -354,3 +354,24 @@ test('every comic character has their own recorded voice, and lesson lines are n
   // a line in only one grade's lessons downloads with that grade; shared ones come with every grade
   assert.ok(lesson.some((l) => l.level === 'grade7') && lesson.some((l) => !l.level));
 });
+
+test('32 more Kindergarten stories to listen to, in four sets in Vehicle Town', () => {
+  const ids = content.stories.filter((s) => s.id.startsWith('k2-')).map((s) => s.id);
+  assert.equal(ids.length, 32);
+  const town = content.worlds.find((w) => w.id === 'town');
+  const linked = worldLessons(town).filter((l) => l.game === 'story').map((l) => l.config.story);
+  for (const id of ids) {
+    const s = story(id);
+    assert.equal(s.level, 'kg', id);
+    assert.ok(linked.includes(id), `Vehicle Town opens ${id}`);
+    assert.ok(s.pages.length >= 7 && s.pages.length <= 8, `${id}: ${s.pages.length} pages`);
+    for (const p of s.pages) {
+      assert.ok(words(p.hi) <= 10, `${id}: "${p.hi}" is short enough to follow by ear`);
+      assert.ok(pictureExists(content.words[p.word]?.picture), `${id}: ${p.word}`);
+    }
+    assert.equal(s.questions.length, 2, id);
+    for (const q of s.questions) assert.ok(!q.text && new Set(q.options).size === 3 && q.options.includes(q.answer) && q.options.every((o) => content.words[o]), id);
+    assert.ok(s.moral?.hi && s.moral.en, id);
+  }
+  for (const u of ['k-safar', 'k-janwar', 'k-tyohar', 'k-dadi']) assert.equal(town.units.find((x) => x.id === u)?.lessons.length, 8, u);
+});
