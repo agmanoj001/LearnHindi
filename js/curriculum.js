@@ -28,6 +28,8 @@ export function isUnlocked(progress, world, lessonId, unlockAll = false) {
   const list = worldLessons(world);
   const i = list.findIndex((l) => l.id === lessonId);
   if (i <= 0) return i === 0;
+  // a story needs nothing before it: every story is open to listen to from the start
+  if (list[i].game === 'story') return true;
   return lessonRecord(progress, list[i - 1].id).stars > 0;
 }
 

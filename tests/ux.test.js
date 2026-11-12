@@ -399,3 +399,21 @@ test('a grade downloads in a few bundles, and only the ones it is missing', () =
   const g8 = bundlesFor(idx, packFiles(idx, ['grade7', 'grade8']));
   assert.ok(g8.length <= 25, `${g8.length} bundles for Grades 7 and 8`);
 });
+
+test('stories are never locked, and the youngest grade’s library includes the grade above', async () => {
+  const { isUnlocked } = await import('../js/curriculum.js');
+  const town = content.worlds.find((w) => w.id === 'town');
+  const fresh = normalizeProgress(null, content);
+  // with no stars at all, every story lesson in Vehicle Town is open (other lessons still unlock in turn)
+  const lessons = worldLessons(town);
+  for (const l of lessons.filter((x) => x.game === 'story')) assert.ok(isUnlocked(fresh, town, l.id), l.id);
+  const notStory = lessons.findIndex((l, i) => i > 0 && l.game !== 'story');
+  assert.equal(isUnlocked(fresh, town, lessons[notStory].id), false);
+  // Story radio and the library: a toddler hears and sees Kindergarten's stories too
+  const screens = readFileSync(new URL('../js/screens.js', import.meta.url), 'utf8');
+  assert.match(screens, /i > 0 \? order\.slice\(i - 1, i \+ 1\) : order\.slice\(0, 2\)/);
+  // the radio shows each page as its moving scene
+  const shows = readFileSync(new URL('../js/shows.js', import.meta.url), 'utf8');
+  assert.match(shows, /showPage\(story\.pages\[st\.page\]\)/);
+  assert.equal(normalizeSettings({ radioDark: true }, content).radioDark, true);
+});
