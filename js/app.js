@@ -17,7 +17,7 @@ import {
 import { findLesson, lessonRecord, lessonLetters, applyLessonResult, adaptTier, addPlayTime, isoDay } from './curriculum.js';
 import { validateContent } from './validate.js';
 import { pictureExists, picture, pictureForWord, specialVehicle } from './art.js';
-import { initAudio, play, stop, wordSegs, letterSegs, numberSegs, soundSegs, sentenceSegs, phraseSegs, setVoicePrefs } from './audio.js';
+import { initAudio, setVoicePack, play, stop, wordSegs, letterSegs, numberSegs, soundSegs, sentenceSegs, phraseSegs, setVoicePrefs } from './audio.js';
 import { KEYS, load, save, normalizeProfiles, profileKey, keepStorage } from './storage.js';
 import { sfx, music } from './sfx.js';
 import { el, sleep, bounce, ICONS } from './ui.js';
@@ -114,6 +114,7 @@ function loadProfile() {
   state.lang = state.settings.lang;
   state.hubTag = null;
   setVoicePrefs(state.settings.voice);
+  setVoicePack(null, state.settings.storyVoices);
   sfx.enabled = state.settings.sfx;
   music.enabled = state.settings.music;
 }

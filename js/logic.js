@@ -324,6 +324,7 @@ export function defaultSettings(content) {
     music: true,
     sfx: true,
     bigText: false, // larger text in the comics
+    storyVoices: true, // use the story voice pack when it has been downloaded
     voice: { hi: '', en: '', rate: 0.9 },
   };
 }
@@ -337,7 +338,7 @@ export function normalizeSettings(saved, content) {
   if (DAILY_LIMITS.includes(saved.dailyLimit)) out.dailyLimit = saved.dailyLimit;
   if (saved.parentLang === 'hi' || saved.parentLang === 'en') out.parentLang = saved.parentLang;
   if (saved.showMode === 'watch' || saved.showMode === 'play') out.showMode = saved.showMode;
-  for (const k of ['onboarded', 'lockGrade', 'unlockAll', 'math', 'captions', 'retell', 'music', 'sfx', 'bigText']) if (typeof saved[k] === 'boolean') out[k] = saved[k];
+  for (const k of ['onboarded', 'lockGrade', 'unlockAll', 'math', 'captions', 'retell', 'music', 'sfx', 'bigText', 'storyVoices']) if (typeof saved[k] === 'boolean') out[k] = saved[k];
   if (saved.voice && typeof saved.voice === 'object') {
     for (const l of ['hi', 'en']) if (typeof saved.voice[l] === 'string') out.voice[l] = saved.voice[l];
     if (typeof saved.voice.rate === 'number' && saved.voice.rate >= 0.5 && saved.voice.rate <= 1.3) out.voice.rate = saved.voice.rate;
@@ -434,11 +435,7 @@ export function clipKeysFor(content) {
   for (const s of content.letterSets) for (const l of s.letters) keys.push(l.id);
   for (const n of content.numbers) keys.push(`num-${n.value}_hi`, `num-${n.value}_en`);
   for (const s of content.sentences || []) keys.push(`sentence-${s.id}_hi`, `sentence-${s.id}_en`);
-  for (const st of content.stories || []) {
-    const ls = st.lang === 'en' ? ['en'] : ['hi', 'en'];
-    st.pages.forEach((_, i) => keys.push(...ls.map((l) => `story-${st.id}-${i + 1}_${l}`)));
-    if (st.moral) keys.push(`story-${st.id}-moral_hi`, `story-${st.id}-moral_en`);
-  }
+  keys.push(...storyVoiceLines(content).map((l) => l.key));
   for (const show of content.shows || []) for (const l of showLines(show)) keys.push(...['hi', 'en'].filter((x) => l[x]).map((x) => `${l.key}_${x}`));
   for (const [k, p] of Object.entries(content.phrases)) {
     if (!p.hi.includes('{w}')) keys.push(`phrase-${k}_hi`);
@@ -635,4 +632,18 @@ export function isKeyToken(token, word, lang) {
   const parts = (word.hi || '').split(' ').map(hiStem).filter((s) => [...s].length >= 2);
   const ts = hiStem(t);
   return parts.some((s) => ts === s || (t.startsWith(s) && [...t].length - [...s].length <= 4));
+}
+
+// Every line a story's narrator reads: the title, each page and the moral, in each of the story's
+// languages. `key` names the recording (a family one on the device, or the story voice pack).
+export function storyVoiceLines(content) {
+  const out = [];
+  for (const st of content.stories || []) {
+    const ls = st.lang === 'en' ? ['en'] : ['hi', 'en'];
+    const add = (part, text, l) => text?.[l] && out.push({ key: `story-${st.id}-${part}_${l}`, text: text[l], lang: l, story: st.id });
+    for (const l of ls) add('title', st.title, l);
+    st.pages.forEach((p, i) => ls.forEach((l) => add(i + 1, p, l)));
+    if (st.moral) for (const l of ls) add('moral', st.moral, l);
+  }
+  return out;
 }

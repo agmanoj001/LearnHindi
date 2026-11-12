@@ -20,6 +20,8 @@ Because the stars live only on the device, the grown-ups' area has a **Backup** 
 
 What would make it world class, with offline as the rule: [docs/ROADMAP.md](docs/ROADMAP.md).
 
+**Story voices.** Every story (title, pages and lesson, in Hindi and English) can be read by a natural recorded voice instead of the device's computer voice. A grown-up downloads them once under *Grown-ups › Story voices*, for the child's grade or for every story; they then play offline. Grown-ups can also **record a whole story** in their own voice under *Grown-ups › Record a story*: one line at a time, moving on to the next line after each recording. A family recording always plays first, then the story voices, then the computer voice. Family recordings stay on the device; *Save my recordings to a file* moves them to another phone or tablet.
+
 The one thing that can depend on the device is the **computer voice**. On Android the Google text-to-speech voices work offline once their voice data is installed (*Settings › System › Languages › Text-to-speech › Google › Install voice data › Hindi*). Some desktop browsers use online voices, so offline they fall back to a plainer voice or stay silent. **Family recordings made in the app always work offline**, which is another good reason to record them.
 
 On an iPhone or iPad, **add the app to the Home Screen** (Share › Add to Home Screen): Safari can clear the data of websites that haven't been opened for a while, but not of home-screen apps. Installed copies also ask the browser to keep progress and recordings safe from storage clean-ups.
@@ -160,12 +162,29 @@ Everything stays on the device. Nothing is uploaded.
 For everything the app says, it uses, in order:
 
 1. **A recording on this device** (made in the app or loaded from files). Kept in the browser's IndexedDB, never uploaded.
-2. **A file in `audio/`** named in `content.json` (`"audio": { "hi": "bus_hi.mp3" }`).
-3. **The browser's text-to-speech**, using the best Hindi (`hi-IN`) and English voices installed.
+2. **The story voices** (stories only), if a grown-up downloaded them: `voices/`, saved in the browser's offline cache.
+3. **A file in `audio/`** named in `content.json` (`"audio": { "hi": "bus_hi.mp3" }`).
+4. **The browser's text-to-speech**, using the best Hindi (`hi-IN`) and English voices installed.
 
 If the device has no Hindi voice, the home screen shows a card with the steps for that kind of device (Android, iPhone and iPad, Windows, Mac or Chromebook) until a grown-up hides it, and the parent area's trip checklist repeats them.
 
 `audio/` is in `.gitignore` on purpose, so family voices never end up in this public repo (and aren't on the GitHub Pages site either). On GitHub Pages, use option 1.
+
+### The story voices (`voices/`)
+
+One MP3 per line a narrator reads (`story-<id>-title_hi.mp3`, `story-<id>-3_en.mp3`, `story-<id>-moral_hi.mp3` …), made with Google Cloud Text-to-Speech, plus `voices/index.json` (which voice, each file's size, each story's grade). They are computer voices, so unlike family recordings they may live in this repo. They are **not** part of the app's first download: the service worker serves them from a separate cache, `kkm-voices`, that the grown-ups' area fills and that survives app updates.
+
+To make or refresh them after editing stories (only new or changed lines are made again):
+
+```bash
+GOOGLE_TTS_KEY=your-key node tools/make-voices.mjs
+```
+
+`--story lion-mouse` makes one story (to try a voice), `--voices` lists the voices the key can use, `--hi <voice>` / `--en <voice>` pick one, and `--all` remakes everything. The key needs the *Cloud Text-to-Speech API* enabled; the whole pack (about 52,000 characters) is within Google's free tier.
+
+### Record a whole story
+
+Parent area › **Record a story**. Pick a story and a language, then tap **● Record**, read the line shown, tap **■ Stop**: it saves and moves on to the next line (title, then each page, then the lesson). ← and → move between lines and ▶ plays one back. **Save my recordings to a file** and **Load recordings from a file** move the family's recordings to another device; the file stays with the family.
 
 ### Recording in the app
 
@@ -184,6 +203,7 @@ Name each file after what it says, then use Parent area › Recordings from file
 | Sentences | `sentence-<id>_<hi\|en>` | `sentence-bus-here_hi.m4a` |
 | Phrases without `{w}` | `phrase-<key>_<hi\|en>` | `phrase-great_hi.m4a` |
 | Story pages | `story-<story id>-<page>_<hi\|en>` | `story-lion-mouse-1_hi.m4a` |
+| Story titles | `story-<story id>-title_<hi\|en>` | `story-lion-mouse-title_hi.m4a` |
 | Story morals | `story-<story id>-moral_<hi\|en>` | `story-lion-mouse-moral_hi.m4a` |
 
 Files with names the app doesn't recognise are listed so you can rename them. When a word has a recording but the phrase around it doesn't ("Find {w}"), the phrase uses text-to-speech and your recording is slotted in for the word.

@@ -8355,3 +8355,59 @@ body:has(.game-grammar) .caption-bar,
   gap: 10px;
   margin: 8px 0;
 }
+.dl-bar {
+  height: 10px;
+  border-radius: 99px;
+  background: #e8e6f5;
+  overflow: hidden;
+  margin: 6px 0;
+}
+.dl-bar i {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--brand, #6c63ff);
+  transition: width 0.2s;
+}
+/* record a story, one line at a time */
+.rec-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 18px;
+  background: #f6f5fc;
+  border: 2px solid transparent;
+}
+.rec-card.has {
+  background: #eefaf2;
+}
+.rec-card.on {
+  border-color: #ff5a5f;
+  background: #fff1f1;
+}
+.rec-pic {
+  flex: none;
+  width: 92px;
+  height: 66px;
+}
+.rec-say small {
+  color: var(--muted);
+  font-weight: 700;
+}
+.rec-say p {
+  margin: 4px 0 0;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+.rec-nav .btn.rec.on {
+  background: #ff5a5f;
+  color: #fff;
+}
+.select.story-pick {
+  width: 100%;
+  max-width: 100%;
+  text-overflow: ellipsis;
+}
