@@ -24,7 +24,7 @@ export default {
     const total = story.pages.length + story.questions.length;
     ctx.setProgress(0, total);
     const lines = (text) => langs.map((l) => ({ text: text[l], lang: l }));
-    const pageSegs = (page, n) => langs.flatMap((l, i) => [...(i ? [{ pause: 400 }] : []), { text: page[l], lang: l, clipKey: `story-${story.id}-${n}_${l}` }]);
+    const pageSegs = (page, n) => langs.flatMap((l, i) => [...(i ? [{ pause: 200 }] : []), { text: page[l], lang: l, clipKey: `story-${story.id}-${n}_${l}` }]);
 
     // ---- cover ----
     const coverWord = ctx.word(story.cover);
@@ -91,6 +91,9 @@ export default {
       const card = el('div', { class: `story-page${selfRead ? ' self' : ''}` }, [dots, pic, el('div', { class: 'story-text' }, textLines)]);
       ctx.stage.replaceChildren(card, next);
       swipeToTurn(card, next);
+      // the next page (or the first question) gets ready while this one plays
+      const after = story.pages[i + 1];
+      ctx.preload?.(after ? pageSegs(after, n + 1) : langs.map((l) => ({ text: story.questions[0]?.[l], lang: l, clipKey: `story-${story.id}-q1_${l}` })));
       if (page.act) await pic.play();
       if (!ctx.alive()) return;
       const read = async () => {
@@ -130,7 +133,7 @@ export default {
           el('div', { class: 'story-question' }, lines(q).map((t) => el('p', { class: `story-line ${t.lang}`, lang: t.lang, text: t.text }))),
           el('div', { class: `choices${q.text ? ' answers' : ''}` }, btns),
         );
-        const ask = () => ctx.playSegs(langs.flatMap((l, k) => [...(k ? [{ pause: 400 }] : []), { text: q[l], lang: l, clipKey: `story-${story.id}-q${i + 1}_${l}` }]));
+        const ask = () => ctx.playSegs(langs.flatMap((l, k) => [...(k ? [{ pause: 200 }] : []), { text: q[l], lang: l, clipKey: `story-${story.id}-q${i + 1}_${l}` }]));
         ctx.setRepeat(ask);
         ask();
         const right = await choose(btns, (b) => b.value === q.answer, {
@@ -140,7 +143,6 @@ export default {
         await cheer(ctx, right);
         if (q.text) await ctx.sayText(q.answer, 'hi');
         else await ctx.sayItem(right.item);
-        await sleep(300);
       },
       { offset: story.pages.length, total },
     );
@@ -163,7 +165,7 @@ export default {
       ctx.stage.replaceChildren(card, done);
       ctx.sfx.sparkle();
       const read = async () => {
-        await ctx.playSegs(langs.flatMap((l, k) => [...(k ? [{ pause: 400 }] : []), { text: story.moral[l], lang: l, clipKey: `story-${story.id}-moral_${l}` }]));
+        await ctx.playSegs(langs.flatMap((l, k) => [...(k ? [{ pause: 200 }] : []), { text: story.moral[l], lang: l, clipKey: `story-${story.id}-moral_${l}` }]));
         done.classList.add('ready');
       };
       ctx.setRepeat(read);
@@ -208,7 +210,7 @@ function stageScene(ctx, page) {
     scene.classList.add('play');
     if (sound && ctx.sfx[sound]) {
       ctx.sfx[sound]();
-      await sleep(350);
+      await sleep(150);
     }
   };
   scene.addEventListener('click', () => scene.play());
@@ -234,17 +236,38 @@ function readAlong(lineEls, page, langs, rate) {
   const light = (w) => {
     for (const l of lines) for (const x of l.words) x.btn.classList.toggle('now', x === w);
   };
+  // without timing from the voice: an estimate per word
   const estimate = (line, k = 0) => {
     if (exact || !line.words[k]) return;
     light(line.words[k]);
     const ms = (180 + 70 * line.words[k].btn.textContent.length) / rate;
     timer = setTimeout(() => estimate(line, k + 1), ms);
   };
+  // a recording: each word gets its share of the recording's real length
+  const timed = (line, ms) => {
+    const weights = line.words.map((w) => w.btn.textContent.length + 1);
+    const total = weights.reduce((a, b) => a + b, 0);
+    let k = 0;
+    const step = () => {
+      if (exact || !line.words[k]) return light(null);
+      light(line.words[k]);
+      timer = setTimeout(step, (ms * weights[k++]) / total);
+    };
+    step();
+  };
+  // the caption comes as a line is about to be said; the highlight waits for the voice to start
   const onCaption = (e) => {
     clearTimeout(timer);
+    light(null);
     current = lines.find((l) => l.text === e.detail.text) || null;
     exact = false;
-    if (current) estimate(current);
+    if (current) timer = setTimeout(() => estimate(current), 1500); // no word from the voice: guess
+  };
+  const onVoice = (e) => {
+    if (!current || e.detail.text !== current.text) return;
+    clearTimeout(timer);
+    if (e.detail.ms) timed(current, e.detail.ms);
+    else estimate(current);
   };
   const onWord = (e) => {
     if (!current || e.detail.text !== current.text) return;
@@ -253,10 +276,12 @@ function readAlong(lineEls, page, langs, rate) {
     light(current.words.find((w) => e.detail.charIndex >= w.start && e.detail.charIndex < w.end + 1));
   };
   window.addEventListener('vt-caption', onCaption);
+  window.addEventListener('vt-voice', onVoice);
   window.addEventListener('vt-word', onWord);
   return () => {
     clearTimeout(timer);
     window.removeEventListener('vt-caption', onCaption);
+    window.removeEventListener('vt-voice', onVoice);
     window.removeEventListener('vt-word', onWord);
     light(null);
   };

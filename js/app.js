@@ -17,7 +17,7 @@ import {
 import { findLesson, lessonRecord, lessonLetters, applyLessonResult, adaptTier, addPlayTime, isoDay } from './curriculum.js';
 import { validateContent } from './validate.js';
 import { pictureExists, picture, pictureForWord, specialVehicle } from './art.js';
-import { initAudio, setVoicePack, play, stop, wordSegs, letterSegs, numberSegs, soundSegs, sentenceSegs, phraseSegs, setVoicePrefs } from './audio.js';
+import { initAudio, setVoicePack, preload, play, stop, wordSegs, letterSegs, numberSegs, soundSegs, sentenceSegs, phraseSegs, setVoicePrefs } from './audio.js';
 import { KEYS, load, save, normalizeProfiles, profileKey, keepStorage } from './storage.js';
 import { sfx, music } from './sfx.js';
 import { el, sleep, bounce, ICONS } from './ui.js';
@@ -243,7 +243,7 @@ const isLetter = (item) => item && typeof item.char === 'string';
 const isNumber = (item) => item && typeof item.value === 'number';
 const itemLangs = (item) => (isLetter(item) ? [item.lang] : langs());
 const itemText = (item, lang) => (isLetter(item) ? item.say || item.char : item[lang]);
-const PAUSE = { pause: 300 };
+const PAUSE = { pause: 200 };
 
 function itemSegs(item, lang) {
   if (isLetter(item)) return letterSegs(item);
@@ -454,6 +454,7 @@ function startLesson({ lessonId, worldId, storyId }) {
     sayLines,
     saySentence: (sentence, ls = langs()) => play(joinLangs(ls, (l) => sentenceSegs(sentence, l))),
     playSegs: (segs) => play(segs),
+    preload,
     stop,
     sfx,
     mascot,

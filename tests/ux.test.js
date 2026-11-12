@@ -417,3 +417,23 @@ test('stories are never locked, and the youngest grade’s library includes the 
   assert.match(shows, /showPage\(story\.pages\[st\.page\]\)/);
   assert.equal(normalizeSettings({ radioDark: true }, content).radioDark, true);
 });
+
+test('voices start at once: an exact lookup, fetched ahead, trimmed, and short pauses', () => {
+  const sw = readFileSync(new URL('../sw.js', import.meta.url), 'utf8');
+  // ignoreSearch makes the browser look through every recording; voices are found by their exact address
+  const voiceLine = sw.split('\n').find((l) => l.includes('caches.open(VOICES)'));
+  assert.ok(voiceLine && !voiceLine.includes('ignoreSearch'), 'voices: exact match');
+  const audio = readFileSync(new URL('../js/audio.js', import.meta.url), 'utf8');
+  assert.match(audio, /export function preload\(segs\)/);
+  assert.match(audio, /stop\(\);\n  preload\(segments\);/, 'a sequence fetches all its recordings at once');
+  assert.match(audio, /'vt-voice'/, 'the read-along hears when the voice really starts');
+  const story = readFileSync(new URL('../js/games/story.js', import.meta.url), 'utf8');
+  assert.match(story, /\{ pause: 200 \}/);
+  assert.match(story, /ctx\.preload\?\.\(/, 'the next page gets ready while this one plays');
+  // the second edition of the recordings: silence trimmed, silent short lines fixed
+  const idx = JSON.parse(readFileSync(new URL('../voices/index.json', import.meta.url), 'utf8'));
+  assert.equal(idx.audioVersion, 2);
+  const make = readFileSync(new URL('../tools/make-voices.mjs', import.meta.url), 'utf8');
+  assert.match(make, /speakChecked/, 'new recordings are checked for silence');
+  assert.match(make, /trimFile/, 'and trimmed');
+});

@@ -47,7 +47,7 @@ export async function runRounds(ctx, count, playRound, { offset = 0, total = cou
     await playRound(i);
     if (!ctx.alive()) return false;
     ctx.setProgress(offset + i + 1, total);
-    await sleep(500);
+    await sleep(300);
   }
   return ctx.alive();
 }
@@ -64,7 +64,7 @@ export async function cheer(ctx, node) {
     node.append(ring);
     setTimeout(() => ring.remove(), 700);
   }
-  await sleep(250);
+  await sleep(120);
 }
 
 export function vehicleEl(ctx, id, cls = '') {

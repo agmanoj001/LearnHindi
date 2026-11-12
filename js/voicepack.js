@@ -27,6 +27,14 @@ export async function loadIndex() {
 
 const openCache = () => (typeof caches === 'undefined' ? Promise.resolve(null) : caches.open(VOICE_CACHE));
 
+// Which edition of the recordings this device saved (index.audioVersion when it downloaded them).
+const VERSION_KEY = 'voices/audio-version';
+export async function savedAudioVersion() {
+  const cache = await openCache().catch(() => null);
+  const res = cache && (await cache.match(VERSION_KEY).catch(() => null));
+  return res ? Number(await res.text()) || 1 : 1;
+}
+
 // The recordings already saved on this device, as clip keys.
 export async function savedVoiceKeys() {
   const cache = await openCache().catch(() => null);
@@ -34,7 +42,7 @@ export async function savedVoiceKeys() {
   const reqs = await cache.keys();
   const keys = new Set();
   for (const r of reqs) {
-    const m = new URL(r.url).pathname.match(/voices\/(.+)\.mp3$/);
+    const m = new URL(r.url).pathname.match(/voices\/([^/]+)\.mp3$/);
     if (m) keys.add(decodeURIComponent(m[1]));
   }
   return keys;
@@ -66,11 +74,12 @@ export function bundlesFor(idx, files, have = new Set()) {
 // Save recordings into the cache. With bundles (index.packs): fetch each bundle whole, two at a time,
 // and cut it into its recordings on the device; a bundle already saved is skipped, so a download that
 // was interrupted carries on. onProgress(bytesDone, bytesTotal). Returns how many recordings failed.
-export async function downloadVoices(files, onProgress = () => {}) {
+export async function downloadVoices(files, onProgress = () => {}, { fresh = false } = {}) {
   const cache = await openCache();
   if (!cache) throw new Error('This browser cannot save files for offline use.');
-  const have = await savedVoiceKeys();
   const idx = await loadIndex();
+  // fresh: a newer edition of the recordings replaces the ones saved (they keep playing until then)
+  const have = fresh ? new Set() : await savedVoiceKeys();
   let failed = 0;
   if (idx?.packs?.length) {
     const todo = bundlesFor(idx, files, have);
@@ -111,8 +120,9 @@ export async function downloadVoices(files, onProgress = () => {}) {
     };
     await Promise.all(Array.from({ length: 6 }, next));
   }
-  // keep the index too, so the pack is known offline
+  // keep the index too, so the pack is known offline, and which edition this is
   await fetch(VOICE_INDEX).then((r) => r.ok && cache.put(VOICE_INDEX, r)).catch(() => {});
+  if (!failed && idx?.audioVersion) await cache.put(VERSION_KEY, new Response(String(idx.audioVersion)));
   return failed;
 }
 

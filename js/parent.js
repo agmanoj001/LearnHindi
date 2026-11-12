@@ -6,7 +6,7 @@ import { skillName, SKILLS as MATH_SKILLS } from './mathgen.js';
 import { phonicsName } from './phonicsgen.js';
 import { worldStars, worldLessons, lessonRecord, weekSummary, dueReviews, learningGains } from './curriculum.js';
 import { refreshClipKeys, voicesFor, setVoicePrefs, hasVoice, play, setVoicePack } from './audio.js';
-import { loadIndex, savedVoiceKeys, packFiles, bundlesFor, downloadVoices, removeVoices, formatMB } from './voicepack.js';
+import { loadIndex, savedVoiceKeys, savedAudioVersion, packFiles, bundlesFor, downloadVoices, removeVoices, formatMB } from './voicepack.js';
 import { deviceKind, VOICE_SETUP } from './logic.js';
 import { KEYS, save, load, clips, resizeImage, addProfile, removeProfile, MAX_PROFILES, makeBackup, readBackup, localKeys, keepOffline, exportClips, readClipsFile } from './storage.js';
 import { MASCOTS, MASCOT_IDS, mascotSvg } from './mascot.js';
@@ -580,14 +580,20 @@ function storyVoicesSection(api) {
     const missing = (files) => files.filter((f) => !have.has(f.key));
     const savedBytes = all.filter((f) => have.has(f.key)).reduce((a, f) => a + f.bytes, 0);
     say(have.size ? `Saved on this device: ${have.size} of ${all.length} recordings (${formatMB(savedBytes)}).` : 'Not downloaded yet.');
-    const get = (files) => async () => {
+    // the recordings on this device are an older edition (before the silence was trimmed): offer the new one
+    const stale = have.size > 0 && idx.audioVersion > (await savedAudioVersion());
+    const get = (files, fresh = false) => async () => {
       buttons.querySelectorAll('button').forEach((b) => (b.disabled = true));
       bar.hidden = false;
       try {
-        const failed = await downloadVoices(files, (done, total) => {
-          bar.firstChild.style.width = `${total ? Math.round((done / total) * 100) : 100}%`;
-          say(idx.packs?.length ? `Downloading… ${formatMB(done)} of ${formatMB(total)}` : `Downloading… ${done} of ${total}`);
-        });
+        const failed = await downloadVoices(
+          files,
+          (done, total) => {
+            bar.firstChild.style.width = `${total ? Math.round((done / total) * 100) : 100}%`;
+            say(idx.packs?.length ? `Downloading… ${formatMB(done)} of ${formatMB(total)}` : `Downloading… ${done} of ${total}`);
+          },
+          { fresh },
+        );
         if (failed) alert(`${failed} recordings could not be downloaded. Check the internet connection and try again.`);
       } catch (e) {
         alert(e.message);
@@ -596,8 +602,12 @@ function storyVoicesSection(api) {
       render();
     };
     const rows = [];
-    if (missing(mine).length) rows.push(el('button', { class: 'btn primary', text: `Download for ${gradeName} (${formatMB(size(mine))})`, onclick: get(mine) }));
-    if (missing(all).length && missing(all).length !== missing(mine).length) rows.push(el('button', { class: 'btn', text: `Download everything (${formatMB(size(all))})`, onclick: get(all) }));
+    if (stale) {
+      const freshSize = bundlesFor(idx, mine).reduce((a, p) => a + p.bytes, 0);
+      rows.push(el('button', { class: 'btn primary', text: `Get the faster voices (${formatMB(freshSize)})`, onclick: get(mine, true) }));
+      say('New, faster voices are ready: no pauses before each line, and every word clear. Your saved voices keep working until you update.');
+    } else if (missing(mine).length) rows.push(el('button', { class: 'btn primary', text: `Download for ${gradeName} (${formatMB(size(mine))})`, onclick: get(mine) }));
+    if (!stale && missing(all).length && missing(all).length !== missing(mine).length) rows.push(el('button', { class: 'btn', text: `Download everything (${formatMB(size(all))})`, onclick: get(all) }));
     if (have.size) rows.push(el('button', { class: 'btn danger', text: 'Remove', onclick: async () => confirm('Remove the story voices from this device?') && (await removeVoices(), render()) }));
     buttons.replaceChildren(...rows);
     localize(api, buttons);

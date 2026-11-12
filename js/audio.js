@@ -4,7 +4,7 @@
 //   3. a file in the audio/ folder named in content.json (audio/ is git-ignored)
 //   4. the browser's text-to-speech (hi-IN / en-US)
 import { clips } from './storage.js';
-import { savedVoiceKeys, voiceUrl } from './voicepack.js';
+import { savedVoiceKeys, voiceUrl, VOICE_CACHE } from './voicepack.js';
 import { splitTemplate, fillTemplate, phrasePartKey, textKey } from './logic.js';
 
 const TTS_LANG = { hi: 'hi-IN', en: 'en-US' };
@@ -48,9 +48,64 @@ export function refreshClipKeys(keys) {
 
 // The story voice pack: which recordings are on the device, and whether to use them.
 export function setVoicePack(keys, on = packOn) {
-  if (keys) packKeys = new Set(keys);
+  if (keys) {
+    packKeys = new Set(keys);
+    for (const p of packUrls.values()) p.then((u) => u && URL.revokeObjectURL(u));
+    packUrls.clear();
+    voiceCache = null;
+  }
   packOn = on;
 }
+
+// ---- playing the voice pack quickly ----
+// A recording is read straight from the offline cache by its exact address (a fast, indexed lookup),
+// kept as an in-memory blob, and fetched before it is needed: play() asks for every recording of the
+// sequence at once, and games ask for the next page while this one plays.
+let voiceCache = null;
+const packUrls = new Map();
+function packKeyFor(seg) {
+  if (!packOn || seg.pause) return null;
+  if (seg.clipKey && packKeys.has(seg.clipKey)) return seg.clipKey;
+  if (seg.text && packKeys.size) {
+    const tk = textKey(seg.voice ? `${seg.lang}.${seg.voice}` : seg.lang, seg.text);
+    if (packKeys.has(tk)) return tk;
+  }
+  return null;
+}
+function packUrl(key) {
+  if (!packUrls.has(key)) {
+    packUrls.set(
+      key,
+      (async () => {
+        try {
+          voiceCache ||= await caches.open(VOICE_CACHE);
+          const res = await voiceCache.match(voiceUrl(key));
+          return res ? URL.createObjectURL(await res.blob()) : null;
+        } catch {
+          return null;
+        }
+      })(),
+    );
+    // keep a few hundred in memory; let the oldest go
+    if (packUrls.size > 400) {
+      const [old, p] = packUrls.entries().next().value;
+      packUrls.delete(old);
+      setTimeout(() => p.then((u) => u && URL.revokeObjectURL(u)), 30000);
+    }
+  }
+  return packUrls.get(key);
+}
+// Get recordings ready before they are said.
+export function preload(segs) {
+  for (const seg of segs || []) {
+    if (!seg || seg.pause) continue;
+    if (seg.clipKey && clipKeys.has(seg.clipKey)) clipUrl(seg.clipKey);
+    const k = packKeyFor(seg);
+    if (k) packUrl(k);
+  }
+}
+// The voice pack was recorded a little slowly (0.9); the speed chosen under Grown-ups › Voices applies
+const packRate = () => Math.max(0.75, Math.min(1.5, (prefs.rate || 0.9) / 0.9));
 
 // Voices load a moment after the page does; wait for them (or give up quietly after a while).
 export function voicesReady(timeout = 2500) {
@@ -86,6 +141,7 @@ export function stop() {
 // Plays a list of segments one after another. A new call interrupts the old one.
 export async function play(segments) {
   stop();
+  preload(segments);
   const mine = token;
   setSpeaking(true);
   for (const seg of segments) {
@@ -117,15 +173,18 @@ async function playSegment(seg, mine) {
   if (seg.text) window.dispatchEvent(new CustomEvent('vt-caption', { detail: { text: seg.text, lang: seg.lang } }));
   const url = seg.clipKey ? await clipUrl(seg.clipKey) : null;
   if (mine !== token) return;
-  if (url && (await playUrl(url))) return;
+  if (url && (await playUrl(url, seg))) return;
   if (mine !== token) return;
-  if (packOn && seg.clipKey && packKeys.has(seg.clipKey) && (await playUrl(voiceUrl(seg.clipKey)))) return;
-  // a fixed line with no name of its own: its recording is named after its text
-  const tk = packOn && seg.text && packKeys.size ? textKey(seg.voice ? `${seg.lang}.${seg.voice}` : seg.lang, seg.text) : null;
-  if (tk && packKeys.has(tk) && (await playUrl(voiceUrl(tk)))) return;
+  // the voice pack (a line with no name of its own is recorded under its text)
+  const pk = packKeyFor(seg);
+  if (pk) {
+    const purl = await packUrl(pk);
+    if (mine !== token) return;
+    if (purl && (await playUrl(purl, seg, packRate()))) return;
+  }
   if (mine !== token) return;
   if (seg.file && !failedFiles.has(seg.file)) {
-    if (await playUrl(`audio/${seg.file}`)) return;
+    if (await playUrl(`audio/${seg.file}`, seg)) return;
     failedFiles.add(seg.file);
   }
   if (mine !== token) return;
@@ -139,13 +198,16 @@ function wait(ms) {
   });
 }
 
-function playUrl(url) {
+function playUrl(url, seg = null, rate = 1) {
   return new Promise((resolve) => {
     const a = new Audio(url);
+    a.playbackRate = rate;
     currentAudio = a;
     currentResolve = resolve;
     a.onended = () => resolve(true);
     a.onerror = () => resolve(false);
+    // tell the read-along when the voice really starts, and for how long it will speak
+    a.onplaying = () => seg?.text && window.dispatchEvent(new CustomEvent('vt-voice', { detail: { text: seg.text, lang: seg.lang, ms: isFinite(a.duration) ? (a.duration * 1000) / rate : 0 } }));
     a.play().catch(() => resolve(false));
   });
 }
@@ -195,6 +257,7 @@ function speak(text, lang, pitch = 1.05) {
       }
     };
     currentResolve = finish;
+    u.onstart = () => window.dispatchEvent(new CustomEvent('vt-voice', { detail: { text, lang, ms: 0 } }));
     // word by word, for read-along highlighting (not every voice reports these)
     u.onboundary = (e) => {
       if (e.name === 'word' || e.name === undefined) window.dispatchEvent(new CustomEvent('vt-word', { detail: { text, charIndex: e.charIndex } }));
