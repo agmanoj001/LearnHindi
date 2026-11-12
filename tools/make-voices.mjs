@@ -123,6 +123,9 @@ async function main() {
   const voices = await pickVoices();
   console.log(`voices: ${voices.hi} (Hindi), ${voices.en} (English)`);
   const todo = lines.filter((l) => flag('--all') || old.sums?.[l.key] !== sum(l.text, l.voiceName || voices[l.lang]) || !existsSync(new URL(`${l.key}.mp3`, OUT)));
+  // stories first (the youngest listeners), then everything else, then the comics' cast
+  const rank = (l) => (l.key.startsWith('story-') ? 0 : l.voiceName ? 2 : 1);
+  todo.sort((a, b) => rank(a) - rank(b));
   console.log(`${lines.length} lines, ${todo.length} to make`);
   const sums = { ...(old.sums || {}) };
   let done = 0;
@@ -138,23 +141,31 @@ async function main() {
         console.error(`${l.key}: ${e.message}`);
       }
       if (++done % 50 === 0) console.log(`  ${done} made`);
+      if (done % 200 === 0) writeIndex(); // so a run that stops early keeps what it made
     }
   };
-  await Promise.all(Array.from({ length: 4 }, work));
 
-  // the index: every line that has a file (and no files for lines that are gone)
-  const all = new Set(voiceLines(content).map((l) => l.key));
-  for (const f of readdirSync(OUT)) if (f.endsWith('.mp3') && !all.has(f.slice(0, -4)) && !only) unlinkSync(new URL(f, OUT));
-  const files = {};
-  for (const key of all) {
-    const f = new URL(`${key}.mp3`, OUT);
-    if (existsSync(f)) files[key] = statSync(f).size;
-  }
-  for (const k of Object.keys(sums)) if (!files[k]) delete sums[k];
+  // the index: every line that has a file and was made from its current text
+  const all = voiceLines(content);
   const stories = Object.fromEntries(content.stories.map((s) => [s.id, s.level]));
-  // lesson lines that belong to one grade (the rest come with every grade)
-  const levels = Object.fromEntries(voiceLines(content).filter((l) => l.level && files[l.key]).map((l) => [l.key, l.level]));
-  writeFileSync(indexFile, `${JSON.stringify({ version: new Date().toISOString().slice(0, 10), voices, files, stories, levels, sums })}\n`);
+  let files = {};
+  function writeIndex() {
+    files = {};
+    for (const l of all) {
+      const f = new URL(`${l.key}.mp3`, OUT);
+      if (existsSync(f) && sums[l.key]) files[l.key] = statSync(f).size;
+    }
+    // lesson lines that belong to one grade (the rest come with every grade)
+    const levels = Object.fromEntries(all.filter((l) => l.level && files[l.key]).map((l) => [l.key, l.level]));
+    const keep = Object.fromEntries(Object.entries(sums).filter(([k]) => files[k]));
+    writeFileSync(indexFile, `${JSON.stringify({ version: new Date().toISOString().slice(0, 10), voices, files, stories, levels, sums: keep })}\n`);
+  }
+
+  await Promise.all(Array.from({ length: Number(opt('--workers')) || 4 }, work));
+  // no files for lines that are gone
+  const keys = new Set(all.map((l) => l.key));
+  if (!only) for (const f of readdirSync(OUT)) if (f.endsWith('.mp3') && !keys.has(f.slice(0, -4))) unlinkSync(new URL(f, OUT));
+  writeIndex();
   const bytes = Object.values(files).reduce((a, b) => a + b, 0);
   console.log(`done: ${Object.keys(files).length} recordings, ${(bytes / 1048576).toFixed(1)} MB${failed ? `, ${failed} failed` : ''}`);
   if (failed) process.exitCode = 1;
