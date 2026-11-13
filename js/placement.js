@@ -15,7 +15,7 @@ export const PLACEMENT = [
   { level: 'grade2', ask: { hi: 'यह शब्द पढ़ो। इसकी तस्वीर कौन सी है?', en: 'Read the word. Which picture is it?' }, show: 'पत्ता', options: ['leaf', 'tree', 'flower'], answer: 'leaf', pictures: true },
   { level: 'grade2', ask: { hi: 'यह शब्द पढ़ो। इसकी तस्वीर कौन सी है?', en: 'Read the word. Which picture is it?' }, show: 'चम्मच', options: ['spoon', 'cup', 'bottle'], answer: 'spoon', pictures: true },
   // Grade 3: gender and number
-  { level: 'grade3', ask: { hi: '"लड़का" का स्त्रीलिंग क्या है?', en: 'What is the female form of "लड़का"?' }, options: ['लड़की', 'लड़के', 'लड़कों'], answer: 'लड़की' },
+  { level: 'grade3', ask: { hi: '"लड़का" को लड़की के लिए क्या कहेंगे?', en: 'What is the female form of "लड़का"?' }, options: ['लड़की', 'लड़के', 'लड़कों'], answer: 'लड़की' },
   { level: 'grade3', ask: { hi: '"केला" का बहुवचन क्या है?', en: 'What is the plural of "केला"?' }, options: ['केले', 'केला', 'कला'], answer: 'केले' },
   // Grade 4: pronouns and describing words
   { level: 'grade4', ask: { hi: 'सही शब्द चुनो', en: 'Pick the right word' }, show: '___ रोज़ स्कूल जाता है।', options: ['वह', 'वे', 'हम'], answer: 'वह' },

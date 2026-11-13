@@ -656,7 +656,7 @@ export function parentGate(api, { onDone = () => api.go('parent'), html = ICONS.
 const OFFLINE_IDEAS = [
   { hi: 'बाहर जाकर खेलो!', en: 'Go and play outside!' },
   { hi: 'किसी के साथ एक असली किताब पढ़ो।', en: 'Read a real book with someone.' },
-  { hi: 'आज जो सीखा, उसका चित्र बनाओ।', en: 'Draw a picture of what you learned today.' },
+  { hi: 'आज जो सीखा, उसकी तस्वीर बनाओ।', en: 'Draw a picture of what you learned today.' },
   { hi: 'घर में चीज़ें गिनो: कितने चम्मच? कितनी कुर्सियाँ?', en: 'Count things at home: how many spoons? How many chairs?' },
   { hi: 'किसी को आज की कहानी सुनाओ।', en: 'Tell someone a story from today.' },
   { hi: 'काग़ज़ पर आज के शब्द लिखो।', en: "Write today's words on paper." },

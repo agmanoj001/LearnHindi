@@ -7,16 +7,39 @@ import { sparkleAt } from '../ui.js';
 
 // Resolves with the correct button once it is tapped. Other taps call onWrong (gentle feedback only).
 // With `ctx`, the answer is recorded for the parent's progress view (right on the first tap or not).
+let hintCount = 0;
 export function choose(buttons, isRight, { ctx, onRight, onWrong } = {}) {
   return new Promise((resolve) => {
     let finished = false;
     let misses = 0;
+    // Hints, from the 💡 button or after two wrong taps: first one wrong answer is taken away, then
+    // the right one glows. A hint is help, not a penalty, but the answer no longer counts as first try.
+    let hints = 0;
+    const hint = () => {
+      if (finished) return;
+      hintCount++; // stops answers being read out over the hint
+      const right = buttons.find((b) => isRight(b));
+      const wrong = buttons.filter((b) => !isRight(b) && !b.classList.contains('ruled-out'));
+      if (hints === 0 && wrong.length >= 2) {
+        const out = wrong[Math.floor(Math.random() * wrong.length)];
+        out.classList.add('ruled-out');
+        out.setAttribute('aria-disabled', 'true');
+        ctx?.say?.('hintOne');
+      } else {
+        right?.classList.add('hint');
+        ctx?.say?.('hintLook');
+      }
+      hints++;
+    };
+    ctx?.setHint?.(hint);
     for (const b of buttons) {
       b.addEventListener('click', () => {
-        if (finished) return;
+        if (finished || b.classList.contains('ruled-out')) return;
         if (isRight(b)) {
           finished = true;
-          b.firstTry = misses === 0;
+          ctx?.setHint?.(null);
+          b.firstTry = misses === 0 && hints === 0;
+          b.classList.remove('hint');
           ctx?.record(b.item ?? b.letter ?? b.num ?? b.word, b.firstTry);
           onRight?.(b);
           resolve(b);
@@ -28,6 +51,8 @@ export function choose(buttons, isRight, { ctx, onRight, onWrong } = {}) {
           setTimeout(() => b.classList.remove('wrong'), 480);
           ctx?.sfx.haptic?.([18, 60, 18]);
           onWrong?.(b);
+          // two misses: help without being asked (after the wrong answer has been said)
+          if (misses >= 2) setTimeout(hint, 1300);
         }
       });
     }
@@ -117,10 +142,12 @@ export const youngReader = (ctx) => ['toddler', 'kg', 'grade1'].includes(ctx.lev
 export async function readChoices(ctx, btns, segsOf) {
   let stop = false;
   const off = () => (stop = true);
+  const hintsAtStart = hintCount;
   for (const b of btns) b.addEventListener('pointerdown', off, { once: true });
   try {
     for (const b of btns) {
-      if (stop || !ctx.alive() || !b.isConnected) break;
+      if (stop || hintCount !== hintsAtStart || !ctx.alive() || !b.isConnected) break;
+      if (b.classList.contains('ruled-out')) continue;
       b.classList.add('reading');
       await ctx.playSegs(segsOf(b));
       b.classList.remove('reading');

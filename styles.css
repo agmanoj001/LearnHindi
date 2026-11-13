@@ -8450,3 +8450,33 @@ body:has(.game-grammar) .caption-bar,
     transform: none;
   }
 }
+
+/* hints: the 💡 button, a wrong answer taken away, the right one glowing */
+.round-btn.hint-btn {
+  color: #b7791f;
+  background: #fff6d6;
+}
+.round-btn.hint-btn[hidden] {
+  display: none;
+}
+.card.ruled-out {
+  opacity: 0.28;
+  filter: grayscale(1);
+  pointer-events: none;
+  transform: scale(0.94);
+  transition: opacity 0.4s, transform 0.4s;
+}
+.card.hint {
+  box-shadow: 0 0 0 6px #ffd34d, 0 0 26px 6px rgba(255, 201, 60, 0.75), var(--shadow-lg);
+  animation: hint-glow 1.1s ease-in-out infinite;
+}
+@keyframes hint-glow {
+  50% {
+    transform: scale(1.06);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .card.hint {
+    animation: none;
+  }
+}
