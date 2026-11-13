@@ -8,7 +8,7 @@ import { makeBackup, readBackup, BACKUP_APP } from '../js/storage.js';
 import { pictureExists } from '../js/art.js';
 import { worldLessons } from '../js/curriculum.js';
 import { makePhrase, songRound, progOf, musicLevel, MUSIC_STYLES, sfx } from '../js/sfx.js';
-import { MOVES, FX, SKIES, SOUNDS, sceneHtml, sceneClass, sceneSound, actProblems } from '../js/scene.js';
+import { MOVES, FX, SKIES, SOUNDS, MOODS, sceneHtml, sceneClass, sceneSound, actProblems, speaks } from '../js/scene.js';
 
 const content = JSON.parse(readFileSync(new URL('../content.json', import.meta.url), 'utf8'));
 
@@ -162,7 +162,10 @@ test('the scene builder: backdrop, picture, partner and effects; every move, eff
   assert.equal((html.match(/<i /g) || []).length, FX.hearts.n + FX.stars.n);
   assert.ok(html.indexOf('fx-stars') < html.indexOf('actor main'), 'stars sit behind the picture');
   assert.ok(html.indexOf('fx-hearts') > html.indexOf('actor main'), 'hearts float in front');
-  assert.equal(sceneClass({ move: 'jump', fx: 'splash', sky: 'rain' }), 'scene sky-rain mv-jump has-splash');
+  assert.equal(sceneClass({ move: 'float', fx: 'splash', sky: 'rain' }), 'scene sky-rain mv-float has-splash');
+  // a mood: the page's own, else the one its move suggests
+  assert.equal(sceneClass({ move: 'jump', fx: 'splash', sky: 'rain' }), 'scene sky-rain mv-jump mood-happy has-splash');
+  assert.equal(sceneClass({ move: 'jump', mood: 'scared' }), 'scene sky-day mv-jump mood-scared');
   assert.equal(sceneClass({}), 'scene sky-day mv-enter');
   // the sound: its own, else the move's, else the effect's
   assert.equal(sceneSound({ move: 'jump', sound: 'sneeze' }), 'sneeze');
@@ -177,6 +180,28 @@ test('the scene builder: backdrop, picture, partner and effects; every move, eff
   assert.match(css, /prefers-reduced-motion: reduce\)\s*\{\s*\.scene \*/, 'scenes stand still for reduced motion');
 });
 
+test('story characters blink, talk and show how they feel', () => {
+  const people = readFileSync(new URL('../js/art-people.js', import.meta.url), 'utf8');
+  const kit = readFileSync(new URL('../js/art-kit.js', import.meta.url), 'utf8');
+  assert.match(kit, /class="eye"/, 'every eye can blink');
+  assert.match(people, /class="mouth"/);
+  assert.match(people, /class="m-open" opacity="0"/, 'the open mouth is hidden outside a scene');
+  assert.match(people, /class="arm arm-/);
+  const css = readFileSync(new URL('../styles.css', import.meta.url), 'utf8');
+  for (const m of MOODS) assert.ok(css.includes(`.scene.mood-${m} `), `CSS for mood ${m}`);
+  assert.match(css, /\.scene\.play \.eye \{\s*animation: blink/);
+  // who is speaking: speech marks or a speaking word, in either language
+  assert.ok(speaks({ hi: 'माँ ने कहा, आओ!', en: 'Mother said, come!' }));
+  assert.ok(speaks({ hi: 'बिल्ली बोली, म्याऊँ', en: '' }));
+  assert.ok(speaks({ hi: '', en: '"Hello!" says the cat.', act: {} }));
+  assert.ok(speaks({ hi: 'हम्म', en: 'Hmm', act: { move: 'talk' } }));
+  assert.ok(!speaks({ hi: 'बारिश आई।', en: 'The rain comes.' }));
+  assert.ok(!speaks({ hi: 'गाय आई।', en: 'The cow’s calf comes.' }));
+  // pages get moods from what happens on them
+  const moods = content.stories.flatMap((s) => s.pages.map((p) => p.act?.mood)).filter(Boolean);
+  for (const m of MOODS) assert.ok(moods.includes(m), `some page is ${m}`);
+});
+
 test('a scene that names a missing move, effect, sky or partner is caught', () => {
   const has = (id) => id === 'hen';
   assert.deepEqual(actProblems({ move: 'jump' }, has), []);
@@ -189,6 +214,8 @@ test('a scene that names a missing move, effect, sky or partner is caught', () =
   assert.equal(actProblems({ with: 'dragon' }, has).length, 1);
   assert.equal(actProblems({ sound: 'kaboom' }, has).length, 1);
   assert.equal(actProblems({ colour: 'red' }, has).length, 1);
+  assert.deepEqual(actProblems({ mood: 'sad' }, has), []);
+  assert.equal(actProblems({ mood: 'grumpy' }, has).length, 1);
   assert.equal(actProblems('jump', has).length, 1);
 });
 
