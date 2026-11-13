@@ -455,3 +455,25 @@ test('little ones hear the answers, and right answers add a synonym', async () =
   assert.match(kit, /\['toddler', 'kg', 'grade1'\]/);
   for (const g of ['rhyme', 'story', 'quiz']) assert.match(readFileSync(new URL(`../js/games/${g}.js`, import.meta.url), 'utf8'), /readChoices\(/, g);
 });
+
+test('hints in every question, everyday Hindi, and a roti that looks like a roti', async () => {
+  const kit = readFileSync(new URL('../js/games/kit.js', import.meta.url), 'utf8');
+  assert.match(kit, /ctx\?\.setHint\?\.\(hint\)/, 'choose() offers a hint');
+  assert.match(kit, /ruled-out/);
+  assert.ok(content.phrases.hintOne?.hi && content.phrases.hintLook?.hi);
+  // no bookish words in young children's titles and prompts
+  const bookish = /ध्वनि|संख्या|विलोम|अक्षरांश|तुकांत|स्त्रीलिंग/;
+  for (const w of content.worlds.filter((x) => ['toddler', 'kg', 'grade1', 'grade2'].includes(x.level))) {
+    assert.ok(!bookish.test(w.name.hi), w.name.hi);
+    for (const u of w.units) {
+      assert.ok(!bookish.test(u.title.hi), u.title.hi);
+      for (const l of u.lessons) assert.ok(!bookish.test(l.title.hi), l.title.hi);
+    }
+  }
+  for (const [k, p] of Object.entries(content.phrases)) assert.ok(!bookish.test(p.hi), k);
+  // the roti: round and pale, on a plate
+  const { picture } = await import('../js/art.js');
+  const roti = picture('roti');
+  assert.match(roti, /#F7E9CC/);
+  assert.ok(!roti.includes('#E9B872'));
+});

@@ -103,7 +103,17 @@ export const PEOPLE = {
 
 export const THINGS = {
   // ---------- food ----------
-  roti: () => ell(100, 74, 60, 42, '#E9B872') + [70, 96, 120, 84, 112, 134].map((x, i) => ell(x, 58 + (i % 3) * 16, 7, 4, '#C98B3E')).join('') + ell(80, 60, 16, 8, '#F5D39A', 'opacity="0.6"'),
+  // a phulka on a steel thali: round, pale wheat, with the light brown spots it gets on the flame
+  roti: () =>
+    ell(100, 84, 82, 46, '#C9CED6') +
+    ell(100, 80, 76, 40, '#E3E7ED') +
+    ell(100, 80, 64, 32, '#D3D8E0') +
+    ell(100, 72, 56, 34, '#EBD3A4') +
+    ell(100, 70, 53, 31, '#F7E9CC') +
+    ell(92, 62, 30, 13, '#FBF3E1', 'opacity="0.8"') +
+    [[72, 66, 7, 4], [86, 80, 5, 3], [108, 58, 6, 3.5], [124, 74, 8, 4.5], [98, 90, 6, 3], [116, 88, 4, 2.5], [80, 54, 4, 2.5], [134, 62, 4, 2.5], [64, 80, 4, 2.5]]
+      .map(([x, y, rx, ry], k) => ell(x, y, rx, ry, k % 3 ? '#C98B4A' : '#A9652F', 'opacity="0.75"'))
+      .join(''),
   rice: () => path('M40 70 H160 Q156 120 100 122 Q44 120 40 70 Z', '#3D7BFF') + ell(100, 70, 60, 10, '#2F5BD3') + path('M48 70 Q60 40 100 38 Q140 40 152 70 Z', '#F3F4F8') + [70, 86, 100, 116, 130, 92, 108].map((x, i) => ell(x, 52 + (i % 3) * 6, 4, 2, '#E3E6ED')).join(''),
   milk: () => path('M66 24 H134 L126 124 H74 Z', '#E4F2FF') + path('M70 44 H130 L126 124 H74 Z', '#F8FAFF') + rect(80, 52, 6, 60, '#fff', 3, 'opacity="0.8"') + path('M76 44 Q100 38 124 44', 'none', stroke('#E3E6ED', 3)),
   kheer: () => path('M40 72 H160 Q156 120 100 122 Q44 120 40 72 Z', '#E9B872') + ell(100, 72, 60, 12, '#FFF1DE') + [76, 98, 122].map((x) => ell(x, 70, 5, 3, '#A47864')).join('') + circ(110, 74, 3, '#2EC27E') + path('M110 50 Q118 34 112 20 M90 50 Q98 34 92 20', 'none', stroke('#E3E6ED', 4)),

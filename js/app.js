@@ -385,10 +385,14 @@ function startLesson({ lessonId, worldId, storyId }) {
   let repeat = null;
   const backBtn = el('button', { class: 'round-btn home', 'aria-label': 'Back to the map', html: ICONS.back, onclick: back });
   const speakBtn = el('button', { class: 'round-btn speak', 'aria-label': 'Say it again', html: ICONS.speaker, onclick: () => repeat && repeat() });
+  // the hint button shows while a question waits for an answer
+  let hintFn = null;
+  const BULB = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 21h6v-1.5H9zM12 2.5a6.5 6.5 0 0 0-3.8 11.8c.5.4.8 1 .8 1.7v1h6v-1c0-.7.3-1.3.8-1.7A6.5 6.5 0 0 0 12 2.5z" fill="currentColor"/></svg>';
+  const hintBtn = el('button', { class: 'round-btn hint-btn', 'aria-label': 'Hint', html: BULB, hidden: true, onclick: () => hintFn && hintFn() });
   const mascot = createMascot(world.mascot, { size: 'small', onTap: () => screens.mascotJoke(api, mascot) });
   const screen = el('div', { class: `screen game game-${lesson.game} theme-${world.theme} enter`, style: { '--place': world.color } }, [
     screens.backdrop(world),
-    el('header', { class: 'game-head' }, [backBtn, progressBar, speakBtn]),
+    el('header', { class: 'game-head' }, [backBtn, progressBar, hintBtn, speakBtn]),
     stage,
     el('div', { class: 'mascot-corner' }, [mascot.node]),
   ]);
@@ -490,6 +494,10 @@ function startLesson({ lessonId, worldId, storyId }) {
     collectedItems: () => state.progress.collected[world.collection] || [],
     unlockedVehicles: () => state.progress.collected[world.collection] || [],
     setRepeat: (fn) => (repeat = fn),
+    setHint: (fn) => {
+      hintFn = fn;
+      hintBtn.hidden = !fn;
+    },
     setProgress(done, total) {
       const p = total ? Math.min(1, done / total) : 0;
       progressBar.style.setProperty('--p', p);

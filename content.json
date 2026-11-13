@@ -28,14 +28,16 @@
     "readWord": { "hi": "शब्द पढ़ो और उसकी तस्वीर ढूँढो", "en": "Read the word and find its picture" },
     "fixMatra": { "hi": "सही मात्रा लगाओ", "en": "Add the right matra" },
     "makeSentence": { "hi": "वाक्य बनाओ", "en": "Make the sentence" },
-    "rhymesWith": { "hi": "किसकी तुक {w} से मिलती है?", "en": "Which word rhymes with {w}?" },
+    "rhymesWith": { "hi": "{w} से मिलती-जुलती आवाज़ किसकी है?", "en": "Which word rhymes with {w}?" },
     "oppositeOf": { "hi": "{w} का उल्टा क्या है?", "en": "What is the opposite of {w}?" },
     "pluralOf": { "hi": "एक {w}, और बहुत सारे?", "en": "One {w}. And many?" },
-    "femaleOf": { "hi": "{w} का स्त्रीलिंग क्या है?", "en": "What is the female of {w}?" },
+    "femaleOf": { "hi": "{w} को लड़की के लिए क्या कहेंगे?", "en": "What is the female of {w}?" },
     "listenStory": { "hi": "चलो कहानी पढ़ें", "en": "Let's read a story" },
     "newItem": { "hi": "नया दोस्त मिला: {w}!", "en": "You found a new friend: {w}!" },
     "unitDone": { "hi": "वाह! यह पाठ पूरा हो गया!", "en": "Hooray! You finished this unit!" },
-    "startsWith": { "hi": "कौन सा शब्द {w} से शुरू होता है?", "en": "Which word starts with {w}?" }
+    "startsWith": { "hi": "कौन सा शब्द {w} से शुरू होता है?", "en": "Which word starts with {w}?" },
+    "hintOne": { "hi": "एक ग़लत जवाब हटा दिया। अब सोचो!", "en": "One wrong answer is gone. Have another go!" },
+    "hintLook": { "hi": "इसे देखो!", "en": "Look at this one!" }
   },
   "words": {
     "digger": { "hi": "खुदाई मशीन", "translit": "khudaai mashin", "en": "digger", "picture": "digger" },
@@ -6088,7 +6090,7 @@
       "units": [
         {
           "id": "k-sounds",
-          "title": { "hi": "ध्वनि पहचानो", "en": "Let's hear sounds" },
+          "title": { "hi": "आवाज़ पहचानो", "en": "Let's hear sounds" },
           "skill": "Phonological awareness",
           "icon": "eye",
           "lessons": [
@@ -6112,7 +6114,7 @@
               "id": "k-sounds-2",
               "game": "firstsound",
               "icon": "letter:क",
-              "title": { "hi": "पहली ध्वनि", "en": "First sounds" },
+              "title": { "hi": "पहली आवाज़", "en": "First sounds" },
               "config": {
                 "letters": { "sets": ["hindiConsonants"], "from": 0, "to": 33 },
                 "words": [
@@ -6141,7 +6143,7 @@
         },
         {
           "id": "k-vowels",
-          "title": { "hi": "स्वर सीखें", "en": "Let's learn vowels" },
+          "title": { "hi": "अ, आ, इ… सीखो", "en": "Let's learn vowels" },
           "skill": "Phonics",
           "icon": "letter:अ",
           "lessons": [
@@ -6177,7 +6179,7 @@
         },
         {
           "id": "k-cons1",
-          "title": { "hi": "व्यंजन क से ञ", "en": "Consonants क to ञ" },
+          "title": { "hi": "क से ञ तक", "en": "Consonants क to ञ" },
           "skill": "Phonics",
           "icon": "letter:क",
           "lessons": [
@@ -6242,7 +6244,7 @@
         },
         {
           "id": "k-cons2",
-          "title": { "hi": "व्यंजन ट से न", "en": "Consonants ट to न" },
+          "title": { "hi": "ट से न तक", "en": "Consonants ट to न" },
           "skill": "Phonics",
           "icon": "letter:ट",
           "lessons": [
@@ -6311,7 +6313,7 @@
         },
         {
           "id": "k-cons3",
-          "title": { "hi": "व्यंजन प से ज्ञ", "en": "Consonants प to ज्ञ" },
+          "title": { "hi": "प से ज्ञ तक", "en": "Consonants प to ज्ञ" },
           "skill": "Phonics",
           "icon": "letter:प",
           "lessons": [
@@ -6711,7 +6713,7 @@
         },
         {
           "id": "km-numbers",
-          "title": { "hi": "संख्याएँ", "en": "Let's learn numbers" },
+          "title": { "hi": "नंबर सीखो", "en": "Let's learn numbers" },
           "skill": "Numbers to 100 · NC.K.CC.1–3",
           "icon": "letter:7",
           "lessons": [
@@ -6719,7 +6721,7 @@
               "id": "km-numbers-1",
               "game": "math",
               "icon": "letter:7",
-              "title": { "hi": "संख्या ढूँढो", "en": "Find the number" },
+              "title": { "hi": "नंबर ढूँढो", "en": "Find the number" },
               "config": { "skills": ["k-numerals"] }
             },
             { "id": "km-numbers-2", "game": "math", "icon": "letter:8", "title": { "hi": "आगे क्या?", "en": "What comes next?" }, "config": { "skills": ["k-next"] } },
@@ -6728,12 +6730,12 @@
         },
         {
           "id": "km-compare",
-          "title": { "hi": "तुलना", "en": "Let's compare" },
+          "title": { "hi": "कौन ज़्यादा?", "en": "Let's compare" },
           "skill": "Compare numbers · NC.K.CC.6–7",
           "icon": "apple",
           "lessons": [
             { "id": "km-compare-1", "game": "math", "icon": "apple", "title": { "hi": "ज़्यादा या कम?", "en": "More or fewer?" }, "config": { "skills": ["k-more"] } },
-            { "id": "km-compare-2", "game": "math", "icon": "letter:9", "title": { "hi": "बड़ी संख्या", "en": "Bigger number" }, "config": { "skills": ["k-compare"] } }
+            { "id": "km-compare-2", "game": "math", "icon": "letter:9", "title": { "hi": "बड़ा नंबर", "en": "Bigger number" }, "config": { "skills": ["k-compare"] } }
           ]
         },
         {
@@ -6753,7 +6755,13 @@
           "skill": "Partners, 10 and teens · NC.K.OA.3–4, NBT.1",
           "icon": "letter:10",
           "lessons": [
-            { "id": "km-ten-1", "game": "math", "icon": "letter:5", "title": { "hi": "संख्या के साथी", "en": "Number partners" }, "config": { "skills": ["k-partner"] } },
+            {
+              "id": "km-ten-1",
+              "game": "math",
+              "icon": "letter:5",
+              "title": { "hi": "नंबर के जोड़ीदार", "en": "Number partners" },
+              "config": { "skills": ["k-partner"] }
+            },
             { "id": "km-ten-2", "game": "math", "icon": "letter:10", "title": { "hi": "10 बनाओ", "en": "Make 10" }, "config": { "skills": ["k-make10"] } },
             { "id": "km-ten-3", "game": "math", "icon": "letter:14", "title": { "hi": "11 से 19", "en": "Teen numbers" }, "config": { "skills": ["k-teens"] } }
           ]
@@ -6860,7 +6868,7 @@
         },
         {
           "id": "ke-first",
-          "title": { "hi": "पहली ध्वनि", "en": "Let's hear first sounds" },
+          "title": { "hi": "पहली आवाज़", "en": "Let's hear first sounds" },
           "skill": "Letter sounds · NC.K.RF.3a",
           "icon": "letter:B",
           "lessons": [
@@ -6868,7 +6876,7 @@
               "id": "ke-first-1",
               "game": "phonics",
               "icon": "apple",
-              "title": { "hi": "पहली ध्वनि", "en": "What does it start with?" },
+              "title": { "hi": "पहली आवाज़", "en": "What does it start with?" },
               "config": { "skills": ["k-first-sound"] }
             },
             {
@@ -6934,14 +6942,14 @@
               "id": "ke-cvc-2",
               "game": "phonics",
               "icon": "bug",
-              "title": { "hi": "बीच की ध्वनि", "en": "The middle sound" },
+              "title": { "hi": "बीच की आवाज़", "en": "The middle sound" },
               "config": { "skills": ["k-middle-vowel"] }
             }
           ]
         },
         {
           "id": "ke-last",
-          "title": { "hi": "आख़िरी ध्वनि", "en": "Let's hear last sounds" },
+          "title": { "hi": "आख़िरी आवाज़", "en": "Let's hear last sounds" },
           "skill": "Final sounds · NC.K.RF.2d",
           "icon": "bus",
           "lessons": [
@@ -6949,7 +6957,7 @@
               "id": "ke-last-1",
               "game": "phonics",
               "icon": "bus",
-              "title": { "hi": "आख़िरी ध्वनि", "en": "How does it end?" },
+              "title": { "hi": "आख़िरी आवाज़", "en": "How does it end?" },
               "config": { "skills": ["k-last-sound"] }
             }
           ]
@@ -7244,7 +7252,7 @@
               "id": "g1-more-4",
               "game": "sequence",
               "icon": "letter:123",
-              "title": { "hi": "कहानी का क्रम", "en": "Story order" },
+              "title": { "hi": "पहले क्या, फिर क्या?", "en": "Story order" },
               "config": { "levels": ["grade1"], "rounds": 2 }
             }
           ]
@@ -7297,7 +7305,7 @@
         },
         {
           "id": "g1-lok",
-          "title": { "hi": "लोक कथाएँ", "en": "Folk tales" },
+          "title": { "hi": "दादी-नानी की कहानियाँ", "en": "Folk tales" },
           "skill": "Reading · Stories",
           "icon": "fox",
           "lessons": [
@@ -7353,7 +7361,7 @@
               "id": "g1m-count-2",
               "game": "math",
               "icon": "letter:105",
-              "title": { "hi": "बड़ी संख्याएँ पढ़ो", "en": "Read big numbers" },
+              "title": { "hi": "बड़े नंबर पढ़ो", "en": "Read big numbers" },
               "config": { "skills": ["g1-numerals"] }
             }
           ]
@@ -7381,14 +7389,14 @@
           "icon": "letter:+",
           "lessons": [
             { "id": "g1m-facts-1", "game": "math", "icon": "letter:+", "title": { "hi": "दस बनाओ", "en": "Make a ten" }, "config": { "skills": ["g1-facts20"] } },
-            { "id": "g1m-facts-2", "game": "math", "icon": "letter:3+", "title": { "hi": "तीन संख्याएँ", "en": "Three numbers" }, "config": { "skills": ["g1-three"] } },
             {
-              "id": "g1m-facts-3",
+              "id": "g1m-facts-2",
               "game": "math",
-              "icon": "letter:?",
-              "title": { "hi": "छूटी संख्या", "en": "Missing numbers" },
-              "config": { "skills": ["g1-missing"] }
-            }
+              "icon": "letter:3+",
+              "title": { "hi": "तीन नंबर जोड़ो", "en": "Three numbers" },
+              "config": { "skills": ["g1-three"] }
+            },
+            { "id": "g1m-facts-3", "game": "math", "icon": "letter:?", "title": { "hi": "छूटा नंबर", "en": "Missing numbers" }, "config": { "skills": ["g1-missing"] } }
           ]
         },
         {
@@ -7453,7 +7461,13 @@
           "icon": "coins",
           "lessons": [
             { "id": "g1m-money-1", "game": "math", "icon": "coins", "title": { "hi": "सिक्के", "en": "Coins" }, "config": { "skills": ["g1-coins"] } },
-            { "id": "g1m-money-2", "game": "math", "icon": "balloon", "title": { "hi": "चित्र ग्राफ़", "en": "Picture graphs" }, "config": { "skills": ["g1-graph"] } }
+            {
+              "id": "g1m-money-2",
+              "game": "math",
+              "icon": "balloon",
+              "title": { "hi": "तस्वीर वाला ग्राफ़", "en": "Picture graphs" },
+              "config": { "skills": ["g1-graph"] }
+            }
           ]
         },
         {
@@ -7466,7 +7480,7 @@
               "id": "g1m-shapes-1",
               "game": "math",
               "icon": "shape-triangle",
-              "title": { "hi": "भुजाएँ और कोने", "en": "Sides and corners" },
+              "title": { "hi": "किनारे और कोने", "en": "Sides and corners" },
               "config": { "skills": ["g1-sides"] }
             },
             {
@@ -7520,7 +7534,7 @@
       "color": "#7C3AED",
       "collection": "castle",
       "tags": ["english", "phonics", "reading"],
-      "name": { "hi": "कीकी का ध्वनि महल", "en": "Kiki's Phonics Castle" },
+      "name": { "hi": "कीकी का आवाज़ महल", "en": "Kiki's Phonics Castle" },
       "letterSets": ["english"],
       "units": [
         {
@@ -7540,18 +7554,18 @@
               "id": "ge-digraph-1",
               "game": "phonics",
               "icon": "ship",
-              "title": { "hi": "दो अक्षर एक ध्वनि", "en": "Two letters, one sound" },
+              "title": { "hi": "दो अक्षर, एक आवाज़", "en": "Two letters, one sound" },
               "config": { "skills": ["g1-digraphs"] }
             }
           ]
         },
         {
           "id": "ge-blend",
-          "title": { "hi": "मिली-जुली ध्वनि", "en": "Let's learn blends" },
+          "title": { "hi": "मिली-जुली आवाज़", "en": "Let's learn blends" },
           "skill": "Blends · NC.1.RF.2b",
           "icon": "frog",
           "lessons": [
-            { "id": "ge-blend-1", "game": "phonics", "icon": "frog", "title": { "hi": "मिली ध्वनि", "en": "Blends" }, "config": { "skills": ["g1-blends"] } },
+            { "id": "ge-blend-1", "game": "phonics", "icon": "frog", "title": { "hi": "मिली आवाज़", "en": "Blends" }, "config": { "skills": ["g1-blends"] } },
             {
               "id": "ge-blend-2",
               "game": "phonics",
@@ -7584,11 +7598,17 @@
         },
         {
           "id": "ge-syll",
-          "title": { "hi": "अक्षरांश और अंत", "en": "Let's learn syllables and endings" },
+          "title": { "hi": "शब्द के टुकड़े और अंत", "en": "Let's learn syllables and endings" },
           "skill": "Syllables and -s/-es · NC.1.RF.3d–f",
           "icon": "elephant",
           "lessons": [
-            { "id": "ge-syll-1", "game": "phonics", "icon": "elephant", "title": { "hi": "अक्षरांश", "en": "Syllables" }, "config": { "skills": ["g1-syllables"] } },
+            {
+              "id": "ge-syll-1",
+              "game": "phonics",
+              "icon": "elephant",
+              "title": { "hi": "शब्द के टुकड़े", "en": "Syllables" },
+              "config": { "skills": ["g1-syllables"] }
+            },
             {
               "id": "ge-syll-2",
               "game": "phonics",
@@ -7787,28 +7807,28 @@
         },
         {
           "id": "g2-living",
-          "title": { "hi": "सजीव और निर्जीव", "en": "Living and non-living" },
+          "title": { "hi": "जानदार और बेजान", "en": "Living and non-living" },
           "skill": "Vocabulary",
           "icon": "cow",
-          "lessons": [{ "id": "g2-living-1", "game": "sort", "icon": "cow", "title": { "hi": "सजीव या निर्जीव?", "en": "Living or not?" }, "config": { "sort": "g2-living" } }]
+          "lessons": [{ "id": "g2-living-1", "game": "sort", "icon": "cow", "title": { "hi": "जानदार या बेजान?", "en": "Living or not?" }, "config": { "sort": "g2-living" } }]
         },
         {
           "id": "g2-opp",
-          "title": { "hi": "विलोम शब्द", "en": "Let's learn opposites" },
+          "title": { "hi": "उल्टे शब्द", "en": "Let's learn opposites" },
           "skill": "Vocabulary",
           "icon": "size-big",
           "lessons": [{ "id": "g2-opp-1", "game": "pairs", "icon": "pair:snake", "title": { "hi": "उल्टा", "en": "Opposites" }, "config": { "kinds": ["opposite"] } }]
         },
         {
           "id": "g2-many",
-          "title": { "hi": "एक और अनेक", "en": "One and many" },
+          "title": { "hi": "एक और बहुत सारे", "en": "One and many" },
           "skill": "Grammar",
           "icon": "bananas",
-          "lessons": [{ "id": "g2-many-1", "game": "pairs", "icon": "pair:snake", "title": { "hi": "एक-अनेक", "en": "One, many" }, "config": { "kinds": ["plural"] } }]
+          "lessons": [{ "id": "g2-many-1", "game": "pairs", "icon": "pair:snake", "title": { "hi": "एक या बहुत?", "en": "One, many" }, "config": { "kinds": ["plural"] } }]
         },
         {
           "id": "g2-punct",
-          "title": { "hi": "विराम चिह्न", "en": "Let's learn । and ?" },
+          "title": { "hi": "। और ? लगाओ", "en": "Let's learn । and ?" },
           "skill": "Writing",
           "icon": "letter:।",
           "lessons": [
@@ -7816,7 +7836,7 @@
               "id": "g2-punct-1",
               "game": "quiz",
               "icon": "letter:?",
-              "title": { "hi": "चिह्न लगाओ", "en": "Add the mark" },
+              "title": { "hi": "। या ? लगाओ", "en": "Add the mark" },
               "config": { "bank": "g2-punct", "rounds": 6 }
             }
           ]
@@ -7860,7 +7880,7 @@
       "units": [
         {
           "id": "g2-fables",
-          "title": { "hi": "पंचतंत्र और नीति कथाएँ", "en": "Let's read fables" },
+          "title": { "hi": "पंचतंत्र की कहानियाँ", "en": "Let's read fables" },
           "skill": "Stories",
           "icon": "lion",
           "lessons": [
@@ -7930,7 +7950,7 @@
         },
         {
           "id": "g2-rhyme",
-          "title": { "hi": "तुकांत शब्द", "en": "Rhyming words" },
+          "title": { "hi": "तुक वाले शब्द", "en": "Rhyming words" },
           "skill": "Phonological awareness",
           "icon": "rhyme:squirrel",
           "lessons": [{ "id": "g2-rhyme-1", "game": "rhyme", "icon": "rhyme:squirrel", "title": { "hi": "तुक मिलाओ", "en": "Rhymes" }, "config": { "rounds": 5 } }]
@@ -7967,7 +7987,7 @@
               "id": "g2-new-4",
               "game": "sequence",
               "icon": "letter:123",
-              "title": { "hi": "कहानी का क्रम", "en": "Story order" },
+              "title": { "hi": "पहले क्या, फिर क्या?", "en": "Story order" },
               "config": { "levels": ["grade2"], "rounds": 2 }
             }
           ]
@@ -8056,10 +8076,10 @@
         },
         {
           "id": "g3-opp",
-          "title": { "hi": "विलोम", "en": "Opposites" },
+          "title": { "hi": "उल्टे शब्द (विलोम)", "en": "Opposites" },
           "skill": "Vocabulary",
           "icon": "size-small",
-          "lessons": [{ "id": "g3-opp-1", "game": "pairs", "icon": "pair:alien", "title": { "hi": "विलोम", "en": "Opposites" }, "config": { "kinds": ["opposite"] } }]
+          "lessons": [{ "id": "g3-opp-1", "game": "pairs", "icon": "pair:alien", "title": { "hi": "उल्टे शब्द", "en": "Opposites" }, "config": { "kinds": ["opposite"] } }]
         },
         {
           "id": "g3-nouns",
@@ -8078,14 +8098,14 @@
         },
         {
           "id": "g3-syn",
-          "title": { "hi": "पर्यायवाची शब्द", "en": "Same-meaning words" },
+          "title": { "hi": "एक जैसे मतलब वाले शब्द (पर्यायवाची)", "en": "Same-meaning words" },
           "skill": "Vocabulary",
           "icon": "sun",
           "lessons": [{ "id": "g3-syn-1", "game": "quiz", "icon": "sun", "title": { "hi": "दूसरा नाम", "en": "Another word" }, "config": { "bank": "g3-synonyms", "rounds": 6 } }]
         },
         {
           "id": "g3-punct",
-          "title": { "hi": "विराम चिह्न", "en": "Full stop, question and wow marks" },
+          "title": { "hi": "रुकने के निशान (विराम चिह्न)", "en": "Full stop, question and wow marks" },
           "skill": "Writing",
           "icon": "letter:?",
           "lessons": [
@@ -8093,7 +8113,7 @@
               "id": "g3-punct-1",
               "game": "quiz",
               "icon": "letter:।",
-              "title": { "hi": "चिह्न लगाओ", "en": "Add the mark" },
+              "title": { "hi": "। या ? लगाओ", "en": "Add the mark" },
               "config": { "bank": "g3-punct", "rounds": 6 }
             }
           ]
@@ -8251,7 +8271,7 @@
               "id": "g3-new-3",
               "game": "sequence",
               "icon": "letter:123",
-              "title": { "hi": "कहानी का क्रम", "en": "Story order" },
+              "title": { "hi": "पहले क्या, फिर क्या?", "en": "Story order" },
               "config": { "levels": ["grade3"], "rounds": 2 }
             }
           ]
@@ -8564,7 +8584,7 @@
               "id": "g4-new-3",
               "game": "sequence",
               "icon": "letter:123",
-              "title": { "hi": "कहानी का क्रम", "en": "Story order" },
+              "title": { "hi": "पहले क्या, फिर क्या?", "en": "Story order" },
               "config": { "levels": ["grade4"], "rounds": 2 }
             }
           ]
@@ -8615,7 +8635,7 @@
         },
         {
           "id": "g4-syn",
-          "title": { "hi": "समानार्थी शब्द", "en": "Words that mean the same" },
+          "title": { "hi": "मिलते-जुलते मतलब वाले शब्द (समानार्थी)", "en": "Words that mean the same" },
           "skill": "Vocabulary",
           "icon": "letter:=",
           "lessons": [
@@ -8623,7 +8643,7 @@
               "id": "g4-syn-1",
               "game": "quiz",
               "icon": "letter:=",
-              "title": { "hi": "समानार्थी", "en": "Same meaning" },
+              "title": { "hi": "एक जैसा मतलब", "en": "Same meaning" },
               "config": { "bank": "g4-synonyms", "rounds": 6 }
             }
           ]
@@ -10152,7 +10172,7 @@
       "title": { "hi": "विराम चिह्न", "en": "Punctuation" },
       "questions": [
         {
-          "hi": "वाक्य के अंत में कौन सा चिह्न लगेगा?",
+          "hi": "वाक्य के अंत में कौन सा निशान लगेगा?",
           "en": "Which mark ends this sentence?",
           "options": ["?", "।", "!"],
           "answer": "?",
@@ -10160,7 +10180,7 @@
           "say": "तुम कहाँ जा रहे हो?"
         },
         {
-          "hi": "वाक्य के अंत में कौन सा चिह्न लगेगा?",
+          "hi": "वाक्य के अंत में कौन सा निशान लगेगा?",
           "en": "Which mark ends this sentence?",
           "options": ["?", "।", "!"],
           "answer": "।",
@@ -10168,7 +10188,7 @@
           "say": "मैं स्कूल जाता हूँ।"
         },
         {
-          "hi": "वाक्य के अंत में कौन सा चिह्न लगेगा?",
+          "hi": "वाक्य के अंत में कौन सा निशान लगेगा?",
           "en": "Which mark ends this sentence?",
           "options": ["?", "।", "!"],
           "answer": "!",
@@ -10176,7 +10196,7 @@
           "say": "वाह, कितना सुंदर फूल है!"
         },
         {
-          "hi": "वाक्य के अंत में कौन सा चिह्न लगेगा?",
+          "hi": "वाक्य के अंत में कौन सा निशान लगेगा?",
           "en": "Which mark ends this sentence?",
           "options": ["?", "।", "!"],
           "answer": "?",
@@ -10184,7 +10204,7 @@
           "say": "क्या तुमने खाना खाया?"
         },
         {
-          "hi": "वाक्य के अंत में कौन सा चिह्न लगेगा?",
+          "hi": "वाक्य के अंत में कौन सा निशान लगेगा?",
           "en": "Which mark ends this sentence?",
           "options": ["?", "।", "!"],
           "answer": "।",
@@ -10192,7 +10212,7 @@
           "say": "आज बारिश हो रही है।"
         },
         {
-          "hi": "वाक्य के अंत में कौन सा चिह्न लगेगा?",
+          "hi": "वाक्य के अंत में कौन सा निशान लगेगा?",
           "en": "Which mark ends this sentence?",
           "options": ["?", "।", "!"],
           "answer": "!",
@@ -10200,7 +10220,7 @@
           "say": "अरे, साँप!"
         },
         {
-          "hi": "वाक्य के अंत में कौन सा चिह्न लगेगा?",
+          "hi": "वाक्य के अंत में कौन सा निशान लगेगा?",
           "en": "Which mark ends this sentence?",
           "options": ["?", "।", "!"],
           "answer": "?",
@@ -10208,7 +10228,7 @@
           "say": "तुम्हारा नाम क्या है?"
         },
         {
-          "hi": "वाक्य के अंत में कौन सा चिह्न लगेगा?",
+          "hi": "वाक्य के अंत में कौन सा निशान लगेगा?",
           "en": "Which mark ends this sentence?",
           "options": ["?", "।", "!"],
           "answer": "।",
@@ -10412,14 +10432,14 @@
     "g2-punct": {
       "title": { "hi": "पूर्ण विराम और प्रश्न चिह्न", "en": "Full stop and question mark" },
       "questions": [
-        { "hi": "सही चिह्न लगाओ", "en": "Add the right mark", "answer": "।", "options": ["।", "?"], "show": "यह मेरा घर है___" },
-        { "hi": "सही चिह्न लगाओ", "en": "Add the right mark", "answer": "?", "options": ["।", "?"], "show": "तुम्हारा नाम क्या है___" },
-        { "hi": "सही चिह्न लगाओ", "en": "Add the right mark", "answer": "।", "options": ["।", "?"], "show": "मैं स्कूल जाता हूँ___" },
-        { "hi": "सही चिह्न लगाओ", "en": "Add the right mark", "answer": "?", "options": ["।", "?"], "show": "क्या तुम खेलोगे___" },
-        { "hi": "सही चिह्न लगाओ", "en": "Add the right mark", "answer": "।", "options": ["।", "?"], "show": "आसमान नीला है___" },
-        { "hi": "सही चिह्न लगाओ", "en": "Add the right mark", "answer": "?", "options": ["।", "?"], "show": "तुम कहाँ रहते हो___" },
-        { "hi": "सही चिह्न लगाओ", "en": "Add the right mark", "answer": "।", "options": ["।", "?"], "show": "बिल्ली दूध पीती है___" },
-        { "hi": "सही चिह्न लगाओ", "en": "Add the right mark", "answer": "?", "options": ["।", "?"], "show": "यह किसकी किताब है___" }
+        { "hi": "सही निशान लगाओ", "en": "Add the right mark", "answer": "।", "options": ["।", "?"], "show": "यह मेरा घर है___" },
+        { "hi": "सही निशान लगाओ", "en": "Add the right mark", "answer": "?", "options": ["।", "?"], "show": "तुम्हारा नाम क्या है___" },
+        { "hi": "सही निशान लगाओ", "en": "Add the right mark", "answer": "।", "options": ["।", "?"], "show": "मैं स्कूल जाता हूँ___" },
+        { "hi": "सही निशान लगाओ", "en": "Add the right mark", "answer": "?", "options": ["।", "?"], "show": "क्या तुम खेलोगे___" },
+        { "hi": "सही निशान लगाओ", "en": "Add the right mark", "answer": "।", "options": ["।", "?"], "show": "आसमान नीला है___" },
+        { "hi": "सही निशान लगाओ", "en": "Add the right mark", "answer": "?", "options": ["।", "?"], "show": "तुम कहाँ रहते हो___" },
+        { "hi": "सही निशान लगाओ", "en": "Add the right mark", "answer": "।", "options": ["।", "?"], "show": "बिल्ली दूध पीती है___" },
+        { "hi": "सही निशान लगाओ", "en": "Add the right mark", "answer": "?", "options": ["।", "?"], "show": "यह किसकी किताब है___" }
       ]
     },
     "g2-time": {
@@ -12308,8 +12328,8 @@
       ]
     },
     "g2-living": {
-      "prompt": { "hi": "यह सजीव है या निर्जीव?", "en": "Is it living or non-living?" },
-      "bins": [{ "id": "living", "hi": "सजीव", "en": "Living" }, { "id": "thing", "hi": "निर्जीव", "en": "Non-living" }],
+      "prompt": { "hi": "यह जानदार है या बेजान?", "en": "Is it living or non-living?" },
+      "bins": [{ "id": "living", "hi": "जानदार (सजीव)", "en": "Living" }, { "id": "thing", "hi": "बेजान (निर्जीव)", "en": "Non-living" }],
       "items": [
         { "text": "पेड़", "bin": "living", "word": "tree" },
         { "text": "गाय", "bin": "living", "word": "cow" },
@@ -12364,7 +12384,7 @@
   "tags": {
     "listening": { "hi": "सुनना", "en": "Listening", "color": "#0EA5E9" },
     "letters": { "hi": "अक्षर", "en": "Letters", "color": "#6C63FF" },
-    "phonics": { "hi": "ध्वनि", "en": "Phonics", "color": "#A66BFF" },
+    "phonics": { "hi": "आवाज़ें", "en": "Phonics", "color": "#A66BFF" },
     "reading": { "hi": "पढ़ना", "en": "Reading", "color": "#2563EB" },
     "vocabulary": { "hi": "शब्द भंडार", "en": "Vocabulary", "color": "#0D9488" },
     "grammar": { "hi": "व्याकरण", "en": "Grammar", "color": "#E11D48" },
