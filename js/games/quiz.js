@@ -2,7 +2,7 @@
 // Used for grammar (लिंग, सर्वनाम, काल), same-meaning words, punctuation, idioms and more.
 // Banks live in content.json "quizzes"; a lesson names one with { "bank": "g3-synonyms" }.
 import { sample, shuffle } from '../logic.js';
-import { el, sleep, choose, runRounds, cheer } from './kit.js';
+import { el, sleep, choose, runRounds, cheer, readChoices, youngReader } from './kit.js';
 
 const GAP = '___';
 
@@ -29,9 +29,12 @@ export default {
         ),
       );
       ctx.stage.replaceChildren(...[question, pic, shown, el('div', { class: 'choices answers' }, btns)].filter(Boolean));
+      let answered = false;
       const prompt = async () => {
         await ctx.sayLines(q);
-        if (ctx.alive() && q.show) ctx.sayText(q.show.replace(GAP, ' … '), 'hi');
+        if (ctx.alive() && q.show) await ctx.sayText(q.show.replace(GAP, ' … '), 'hi');
+        // little ones hear the picture names, one by one
+        if (ctx.alive() && !answered && q.pictures && youngReader(ctx)) await readChoices(ctx, btns, (b) => [{ text: b.item.hi, lang: 'hi', clipKey: `${b.item.id}_hi` }]);
       };
       ctx.setRepeat(prompt);
       prompt();
@@ -39,13 +42,15 @@ export default {
         ctx,
         onWrong: (b) => (q.pictures ? ctx.say('thisIs', b.item) : ctx.sayText(b.value, 'hi')),
       });
+      answered = true;
       if (shown) {
         shown.querySelector('.gap').textContent = q.answer;
         shown.classList.add('done');
       }
       await cheer(ctx, right);
       await ctx.sayText(q.say || (q.show ? q.show.replace(GAP, q.answer) : q.pictures ? ctx.word(q.answer).hi : q.answer), 'hi');
-      await sleep(350);
+      if (q.pictures) await ctx.saySynonym(ctx.word(q.answer));
+      await sleep(250);
     });
     if (ok) ctx.complete();
   },

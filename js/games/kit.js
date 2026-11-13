@@ -110,3 +110,23 @@ export function numberCard(ctx, num) {
   b.num = num;
   return b;
 }
+
+// Little ones can't read the answers yet: after the question, each answer lights up and is said in turn.
+// A tap on any answer stops the reading at once (its own sound plays instead).
+export const youngReader = (ctx) => ['toddler', 'kg', 'grade1'].includes(ctx.level?.id);
+export async function readChoices(ctx, btns, segsOf) {
+  let stop = false;
+  const off = () => (stop = true);
+  for (const b of btns) b.addEventListener('pointerdown', off, { once: true });
+  try {
+    for (const b of btns) {
+      if (stop || !ctx.alive() || !b.isConnected) break;
+      b.classList.add('reading');
+      await ctx.playSegs(segsOf(b));
+      b.classList.remove('reading');
+      if (!stop) await sleep(120);
+    }
+  } finally {
+    for (const b of btns) b.classList.remove('reading');
+  }
+}

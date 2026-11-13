@@ -8438,3 +8438,15 @@ body:has(.game-grammar) .caption-bar,
     animation: none;
   }
 }
+
+/* the answer being read aloud to a young child lights up */
+.card.reading {
+  transform: translateY(-4px) scale(1.04);
+  box-shadow: 0 0 0 5px #ffc93c, var(--shadow-lg);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .card.reading {
+    transform: none;
+  }
+}

@@ -1,6 +1,6 @@
 // Ice-cream van (Grade 1+): rhyming words. Hear a word, pick the scoop that rhymes with it (नल -> जल, car -> star).
 import { makeRhymeRound, langForRound } from '../logic.js';
-import { el, sleep, choose, runRounds, cheer, vehicleEl, bounce } from './kit.js';
+import { el, sleep, choose, runRounds, cheer, vehicleEl, bounce, readChoices } from './kit.js';
 
 export default {
   async start(ctx) {
@@ -19,18 +19,24 @@ export default {
       const big = scoop(target, 'target');
       const btns = round.options.map((id) => Object.assign(scoop(ctx.word(id), 'cone'), { item: ctx.word(id) }));
       ctx.stage.replaceChildren(el('div', { class: 'scene' }, [van, big]), el('div', { class: 'choices cones' }, btns));
-      const prompt = () => ctx.say('rhymesWith', target, [lang]);
+      // rhyming is about hearing: every scoop is said aloud too, so no reading is needed
+      let answered = false;
+      const prompt = async () => {
+        await ctx.say('rhymesWith', target, [lang]);
+        if (ctx.alive() && !answered) await readChoices(ctx, btns, (b) => [{ text: b.item[lang], lang, clipKey: `${b.item.id}_${lang}` }]);
+      };
       big.onclick = () => ctx.sayItem(target, [lang]);
       van.onclick = prompt;
       ctx.setRepeat(prompt);
       prompt();
       const right = await choose(btns, (b) => b.item.id === round.answer, { ctx, onWrong: (b) => ctx.sayItem(b.item, [lang]) });
+      answered = true;
       await cheer(ctx, right);
       // say the pair together so the rhyme is heard
       await ctx.sayItem(target, [lang]);
       bounce(right);
-      await ctx.sayItem(right.item, [lang]);
-      await sleep(300);
+      await ctx.sayAnswer(right.item, [lang]);
+      await sleep(200);
     });
     if (ok) ctx.complete();
   },

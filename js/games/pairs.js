@@ -28,8 +28,8 @@ export default {
       space.classList.add('filled');
       await cheer(ctx, space);
       await ctx.sayItem(from);
-      await ctx.sayItem(right.item);
-      await sleep(300);
+      await ctx.sayAnswer(right.item);
+      await sleep(200);
     });
     if (ok) ctx.complete();
   },

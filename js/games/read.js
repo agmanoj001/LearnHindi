@@ -46,7 +46,7 @@ export default {
         const right = await choose(pics, (b) => b.item.id === target.id, { ctx, onWrong: (b) => ctx.say('thisIs', b.item) });
         await flyTo(letter, right, { duration: 600, scale: 0.5, keep: false });
         await cheer(ctx, right);
-        await ctx.sayItem(target);
+        await ctx.sayAnswer(target);
       }
       await sleep(300);
     });
