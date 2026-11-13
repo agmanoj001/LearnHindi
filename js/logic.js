@@ -671,6 +671,7 @@ export function appVoiceLines(content) {
       else phraseParts(p[l]).forEach((text, i) => out.push({ key: phrasePartKey(k, i, l), text, lang: l }));
     }
   for (const [id, w] of Object.entries(content.words || {})) for (const l of ['hi', 'en']) if (w[l]) out.push({ key: `${id}_${l}`, text: w[l], lang: l });
+  for (const w of Object.values(content.words || {})) if (w.syn) out.push({ key: textKey('hi', synLine(w)), text: synLine(w), lang: 'hi' });
   (content.mascotLines || []).forEach((m, i) => ['hi', 'en'].forEach((l) => m[l] && out.push({ key: `mascot-${i + 1}_${l}`, text: m[l], lang: l })));
   return out;
 }
@@ -785,7 +786,17 @@ export function lessonVoiceLines(content) {
     }
   }
 
+  // written answers to story questions (read aloud to young children)
+  for (const st of content.stories || [])
+    for (const q of st.questions || [])
+      if (q.text) {
+        const lg = st.lang === 'en' ? 'en' : 'hi';
+        for (const o of q.options || []) byText(o, lg, st.level);
+      }
   // the words a child can tap in a story, and the sentence tokens
   for (const st of content.stories || []) for (const p of st.pages) for (const lg of ['hi', 'en']) for (const t of String(p[lg] || '').split(/\s+/)) byText(bareToken(t), lg, st.level);
   return [...lines.values()].map(({ level, ...l }) => (level ? { ...l, level } : l));
 }
+
+// A word's synonym, said after a right answer to grow vocabulary: "हाथी, यानी गज।"
+export const synLine = (word) => (word?.syn ? `${word.hi}, यानी ${word.syn}।` : null);

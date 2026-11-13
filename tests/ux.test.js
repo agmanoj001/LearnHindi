@@ -437,3 +437,21 @@ test('voices start at once: an exact lookup, fetched ahead, trimmed, and short p
   assert.match(make, /speakChecked/, 'new recordings are checked for silence');
   assert.match(make, /trimFile/, 'and trimmed');
 });
+
+test('little ones hear the answers, and right answers add a synonym', async () => {
+  const { synLine, voiceLines } = await import('../js/logic.js');
+  const elephant = content.words.elephant;
+  assert.equal(synLine(elephant), 'हाथी, यानी गज।');
+  assert.equal(synLine(content.words.ant), null);
+  const syn = Object.values(content.words).filter((w) => w.syn);
+  assert.ok(syn.length >= 30);
+  for (const w of syn) assert.notEqual(w.syn, w.hi);
+  // every synonym line and every written story answer has its recording
+  const keys = new Set(voiceLines(content).map((l) => l.key));
+  const { textKey } = await import('../js/logic.js');
+  for (const w of syn) assert.ok(keys.has(textKey('hi', synLine(w))), w.hi);
+  const kit = readFileSync(new URL('../js/games/kit.js', import.meta.url), 'utf8');
+  assert.match(kit, /export async function readChoices/);
+  assert.match(kit, /\['toddler', 'kg', 'grade1'\]/);
+  for (const g of ['rhyme', 'story', 'quiz']) assert.match(readFileSync(new URL(`../js/games/${g}.js`, import.meta.url), 'utf8'), /readChoices\(/, g);
+});

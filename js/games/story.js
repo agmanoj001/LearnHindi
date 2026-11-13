@@ -2,7 +2,7 @@
 // Every word on the page can be tapped to hear it. Each visit opens the next story for the stage.
 import { sentenceTokens, shuffle, isKeyToken } from '../logic.js';
 import { storyLang, worldStoryLang } from '../curriculum.js';
-import { el, sleep, choose, runRounds, cheer, waitTap, bounce, ICONS } from './kit.js';
+import { el, sleep, choose, runRounds, cheer, waitTap, bounce, ICONS, readChoices, youngReader } from './kit.js';
 import { clips } from '../storage.js';
 import { sceneHtml, sceneClass, sceneSound } from '../scene.js';
 
@@ -133,16 +133,26 @@ export default {
           el('div', { class: 'story-question' }, lines(q).map((t) => el('p', { class: `story-line ${t.lang}`, lang: t.lang, text: t.text }))),
           el('div', { class: `choices${q.text ? ' answers' : ''}` }, btns),
         );
-        const ask = () => ctx.playSegs(langs.flatMap((l, k) => [...(k ? [{ pause: 200 }] : []), { text: q[l], lang: l, clipKey: `story-${story.id}-q${i + 1}_${l}` }]));
+        const qlang = story.lang === 'en' ? 'en' : 'hi';
+        let answered = false;
+        // little ones hear the answers too (picture names or the written answers), one by one
+        const readAnswers = () =>
+          readChoices(ctx, btns, (b) => (q.text ? [{ text: b.value, lang: qlang }] : [{ text: b.item[langs[0]], lang: langs[0], clipKey: `${b.item.id}_${langs[0]}` }]));
+        const askOnly = () => ctx.playSegs(langs.flatMap((l, k) => [...(k ? [{ pause: 200 }] : []), { text: q[l], lang: l, clipKey: `story-${story.id}-q${i + 1}_${l}` }]));
+        const ask = async () => {
+          await askOnly();
+          if (ctx.alive() && !answered && youngReader(ctx)) await readAnswers();
+        };
         ctx.setRepeat(ask);
         ask();
         const right = await choose(btns, (b) => b.value === q.answer, {
           ctx,
-          onWrong: (b) => (q.text ? ctx.sayText(b.value, 'hi') : ctx.say('thisIs', b.item)),
+          onWrong: (b) => (q.text ? ctx.sayText(b.value, qlang) : ctx.say('thisIs', b.item)),
         });
+        answered = true;
         await cheer(ctx, right);
-        if (q.text) await ctx.sayText(q.answer, 'hi');
-        else await ctx.sayItem(right.item);
+        if (q.text) await ctx.sayText(q.answer, qlang);
+        else await ctx.sayAnswer(right.item);
       },
       { offset: story.pages.length, total },
     );

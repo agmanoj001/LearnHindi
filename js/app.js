@@ -13,6 +13,7 @@ import {
   weightedSequence,
   COMBO_MILESTONES,
   comboText,
+  synLine,
 } from './logic.js';
 import { findLesson, lessonRecord, lessonLetters, applyLessonResult, adaptTier, addPlayTime, isoDay } from './curriculum.js';
 import { validateContent } from './validate.js';
@@ -271,6 +272,16 @@ function sayItem(item, ls = itemLangs(item)) {
   return play(joinLangs(ls, (l) => itemSegs(item, l)));
 }
 
+// After a right answer: the word, then its synonym if it has one (in Hindi).
+async function sayAnswer(item, ls) {
+  await sayItem(item, ls);
+  await saySynonym(item, ls);
+}
+function saySynonym(item, ls) {
+  const line = synLine(item);
+  if (line && langs().includes('hi') && (!ls || ls.includes('hi'))) return play([{ pause: 150 }, { text: line, lang: 'hi' }]);
+}
+
 function sayLetterWithWord(letter) {
   const segs = letterSegs(letter);
   if (letter.word) segs.push(PAUSE, ...wordSegs(word(letter.word), letter.lang));
@@ -447,6 +458,8 @@ function startLesson({ lessonId, worldId, storyId }) {
     numbers: state.content.numbers,
     say,
     sayItem,
+    sayAnswer,
+    saySynonym,
     sayText,
     sayLetterWithWord,
     saySound,
