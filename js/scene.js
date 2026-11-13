@@ -1,11 +1,12 @@
 // Story scenes: each page of a little one's story can say how its picture moves, so the screen follows the
 // story (Hanuman flies up to the sun, rain falls, the goats bump on the bridge, the lamps flicker at Diwali).
-// A page's "act" is { move, fx, with, sky, sound }:
+// A page's "act" is { move, fx, with, sky, sound, mood }:
 //   move  how the page's picture moves (MOVES below)
 //   fx    what happens around it (FX below): one, or a list of two
 //   with  a second picture (a word id) that shares the page, e.g. the mother Krishna runs to
 //   sky   the backdrop (SKIES below)
 //   sound a sound effect to play instead of the move's own
+//   mood  how the characters feel (MOODS below): it changes their faces and arms
 // Pure: no DOM here, so the validator and tests can use it. The story game turns this into HTML and CSS
 // does the moving; under "reduce motion" everything stands still.
 
@@ -63,6 +64,18 @@ export const FX = {
 // the sound effects a scene may play (all in sfx.js)
 export const SOUNDS = ['whoosh', 'vroom', 'toot', 'boing', 'jingle', 'thud', 'sparkle', 'chime', 'cheer', 'rain', 'splash', 'pop', 'sneeze', 'siren'];
 
+// how a character can feel. Every face also blinks, and a person's mouth moves while the page is read.
+//   happy: big smile, arms up   sad: a frown, head down   surprised: round eyes, open mouth
+//   scared: open mouth, trembling   sleepy: eyes shut
+export const MOODS = ['happy', 'sad', 'surprised', 'scared', 'sleepy'];
+// the mood a move suggests, for pages that don't say
+const MOVE_MOOD = { sleep: 'sleepy', shake: 'scared', dance: 'happy', jump: 'happy' };
+export const moodOf = (act) => act.mood || MOVE_MOOD[act.move] || null;
+
+// whether a page has someone speaking (so the main character's mouth moves while it is read)
+const SPEECH = /[“”"]|\b(says?|said|asks?|asked|shouts?|shouted|calls?|called|sings?|sang|tells?|told|replies|replied)\b|कहा|कहती|कहता|बोल[ाीे]|पूछ[ाीे]|चिल्ला|गा(ता|ती|ते|या|ई)/;
+export const speaks = (page) => page.act?.move === 'talk' || SPEECH.test(`${page.hi || ''} ${page.en || ''}`);
+
 export const SKIES = ['day', 'night', 'dawn', 'rain', 'sky', 'field', 'river', 'sea', 'underwater', 'snow', 'home'];
 
 const fxList = (act) => [].concat(act.fx ?? []);
@@ -107,7 +120,8 @@ export function sceneHtml(act, mainWord, art) {
   ].join('');
 }
 
-export const sceneClass = (act) => `scene sky-${act.sky || 'day'} mv-${act.move || 'enter'}${act.with ? ' duo' : ''}${fxList(act).map((f) => ` has-${f}`).join('')}`;
+export const sceneClass = (act) =>
+  `scene sky-${act.sky || 'day'} mv-${act.move || 'enter'}${act.with ? ' duo' : ''}${moodOf(act) ? ` mood-${moodOf(act)}` : ''}${fxList(act).map((f) => ` has-${f}`).join('')}`;
 
 // the sound a page makes as it opens: its own, else its move's, else its effect's
 export const sceneSound = (act) => act.sound || MOVES[act.move] || fxList(act).map((f) => FX[f]?.sound).find(Boolean) || null;
@@ -116,7 +130,7 @@ export const sceneSound = (act) => act.sound || MOVES[act.move] || fxList(act).m
 export function actProblems(act, hasWord) {
   const out = [];
   if (act === null || typeof act !== 'object' || Array.isArray(act)) return ['must be an object like { "move": "jump" }'];
-  for (const k of Object.keys(act)) if (!['move', 'fx', 'with', 'sky', 'sound'].includes(k)) out.push(`has an unknown field "${k}"`);
+  for (const k of Object.keys(act)) if (!['move', 'fx', 'with', 'sky', 'sound', 'mood'].includes(k)) out.push(`has an unknown field "${k}"`);
   if (act.move !== undefined && !(act.move in MOVES)) out.push(`move "${act.move}" is not one of ${Object.keys(MOVES).join(', ')}`);
   const fx = fxList(act);
   if (act.fx !== undefined && (!fx.length || fx.length > 2 || new Set(fx).size < fx.length)) out.push('fx must be one effect or a list of two different ones');
@@ -124,6 +138,7 @@ export function actProblems(act, hasWord) {
   if (act.sky !== undefined && !SKIES.includes(act.sky)) out.push(`sky "${act.sky}" is not one of ${SKIES.join(', ')}`);
   if (act.with !== undefined && !hasWord(act.with)) out.push(`with "${act.with}" is not a word id`);
   if (['approach', 'bump', 'orbit', 'climb'].includes(act.move) && !act.with) out.push(`move "${act.move}" needs a partner ("with")`);
+  if (act.mood !== undefined && !MOODS.includes(act.mood)) out.push(`mood "${act.mood}" is not one of ${MOODS.join(', ')}`);
   if (act.sound !== undefined && !SOUNDS.includes(act.sound)) out.push(`sound "${act.sound}" is not a sound effect`);
   return out;
 }

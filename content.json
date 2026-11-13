@@ -821,8 +821,8 @@
       "pages": [
         { "word": "moon", "hi": "चाँद निकला।", "en": "The moon comes up.", "act": { "move": "peek", "fx": "stars", "sky": "night" } },
         { "word": "star", "hi": "तारे चमके।", "en": "The stars twinkle.", "act": { "move": "grow", "fx": ["stars", "sparkles"], "sky": "night" } },
-        { "word": "cat", "hi": "बिल्ली सो गई।", "en": "The cat falls asleep.", "act": { "move": "sleep", "fx": "zzz", "sky": "night" } },
-        { "word": "bed", "hi": "अब हम भी सोएँ।", "en": "Now we sleep too.", "act": { "move": "sleep", "fx": ["zzz", "stars"], "sky": "night" } }
+        { "word": "cat", "hi": "बिल्ली सो गई।", "en": "The cat falls asleep.", "act": { "move": "sleep", "fx": "zzz", "sky": "night", "mood": "sleepy" } },
+        { "word": "bed", "hi": "अब हम भी सोएँ।", "en": "Now we sleep too.", "act": { "move": "sleep", "fx": ["zzz", "stars"], "sky": "night", "mood": "sleepy" } }
       ],
       "questions": [
         { "hi": "कौन सो गई?", "en": "Who fell asleep?", "answer": "cat", "options": ["cat", "fish", "bird"] },
@@ -860,7 +860,7 @@
           "en": "The elephant splashes water!",
           "act": { "move": "shake", "fx": "splash", "sky": "river", "sound": "splash" }
         },
-        { "word": "elephant", "hi": "हाथी खुश हुआ।", "en": "The elephant is happy.", "act": { "move": "dance", "fx": "hearts", "sky": "field" } }
+        { "word": "elephant", "hi": "हाथी खुश हुआ।", "en": "The elephant is happy.", "act": { "move": "dance", "fx": "hearts", "sky": "field", "mood": "happy" } }
       ],
       "questions": [
         { "hi": "पानी किसने उछाला?", "en": "Who splashed the water?", "answer": "elephant", "options": ["elephant", "chick", "star"] },
@@ -875,7 +875,7 @@
       "pages": [
         { "word": "fish", "hi": "मछली जल की रानी है,", "en": "The fish is the queen of the water,", "act": { "move": "swim", "fx": "bubbles", "sky": "underwater" } },
         { "word": "water", "hi": "जीवन उसका पानी है।", "en": "water is her life.", "act": { "move": "float", "fx": "bubbles", "sky": "underwater" } },
-        { "word": "fish", "hi": "हाथ लगाओ, डर जाएगी,", "en": "Touch her and she gets scared,", "act": { "move": "shake", "sky": "underwater" } },
+        { "word": "fish", "hi": "हाथ लगाओ, डर जाएगी,", "en": "Touch her and she gets scared,", "act": { "move": "shake", "sky": "underwater", "mood": "scared" } },
         { "word": "river", "hi": "बाहर निकालो, मर जाएगी।", "en": "take her out and she can’t live.", "act": { "move": "float", "with": "fish", "sky": "river" } }
       ],
       "questions": [
@@ -917,19 +917,19 @@
           "word": "monkey",
           "hi": "बंदर की झोपड़ी में सो रहे थे।",
           "en": "I was sleeping in the monkey’s hut.",
-          "act": { "move": "sleep", "fx": "zzz", "sky": "night" }
+          "act": { "move": "sleep", "fx": "zzz", "sky": "night", "mood": "sleepy" }
         },
         {
           "word": "monkey",
           "hi": "बंदर ने लात मारी, रो रहे थे।",
           "en": "The monkey kicked me, and I cried.",
-          "act": { "move": "bump", "with": "potato", "sky": "field" }
+          "act": { "move": "bump", "with": "potato", "sky": "field", "mood": "sad" }
         },
         {
           "word": "coins",
           "hi": "मम्मी ने पैसे दिए, हँस रहे थे।",
           "en": "Mummy gave me coins, and I laughed.",
-          "act": { "move": "grow", "fx": "sparkles", "sky": "home" }
+          "act": { "move": "grow", "fx": "sparkles", "sky": "home", "mood": "happy" }
         }
       ],
       "questions": [
@@ -1144,7 +1144,7 @@
           "word": "hanuman",
           "hi": "हनुमान हँसा और घर लौट आया।",
           "en": "Hanuman laughed and came home.",
-          "act": { "move": "enter", "with": "house", "fx": "hearts", "sky": "field" }
+          "act": { "move": "enter", "with": "house", "fx": "hearts", "sky": "field", "mood": "happy" }
         }
       ],
       "questions": [
@@ -1172,7 +1172,7 @@
           "word": "monkey",
           "hi": "बंदर हँसे, “तुम छोटी हो!”",
           "en": "The monkeys laughed, “You are so small!”",
-          "act": { "move": "talk", "with": "squirrel", "sky": "field" }
+          "act": { "move": "talk", "with": "squirrel", "sky": "field", "mood": "happy" }
         },
         {
           "word": "ram",
@@ -1257,7 +1257,7 @@
           "word": "mother",
           "hi": "माँ हँसीं, “मेरा माखन चोर!”",
           "en": "Mother laughed, “My little butter thief!”",
-          "act": { "move": "talk", "with": "krishna", "fx": "hearts", "sky": "home" }
+          "act": { "move": "talk", "with": "krishna", "fx": "hearts", "sky": "home", "mood": "happy" }
         }
       ],
       "questions": [
@@ -1403,7 +1403,12 @@
           "en": "The ant climbed into the elephant’s trunk.",
           "act": { "move": "shake", "with": "ant", "sky": "field", "sound": "sneeze" }
         },
-        { "word": "elephant", "hi": "हाथी चिल्लाया, “माफ़ करो!”", "en": "The elephant cried, “Sorry!”", "act": { "move": "talk", "with": "ant", "sky": "field" } },
+        {
+          "word": "elephant",
+          "hi": "हाथी चिल्लाया, “माफ़ करो!”",
+          "en": "The elephant cried, “Sorry!”",
+          "act": { "move": "talk", "with": "ant", "sky": "field", "mood": "sad" }
+        },
         {
           "word": "ant",
           "hi": "अब हाथी और चींटी दोस्त हैं।",
@@ -1455,7 +1460,12 @@
           "en": "Then the plane came slowly down.",
           "act": { "move": "drive", "sky": "field", "fx": "dust" }
         },
-        { "word": "sea", "hi": "हम समुद्र के पास पहुँच गए। वाह!", "en": "We reached the sea. Wow!", "act": { "move": "float", "sky": "sea", "fx": "sparkles" } }
+        {
+          "word": "sea",
+          "hi": "हम समुद्र के पास पहुँच गए। वाह!",
+          "en": "We reached the sea. Wow!",
+          "act": { "move": "float", "sky": "sea", "fx": "sparkles", "mood": "surprised" }
+        }
       ],
       "questions": [
         { "hi": "हम किसमें उड़े?", "en": "What did we fly in?", "answer": "plane", "options": ["plane", "boat", "train"] },
@@ -1526,7 +1536,7 @@
           "word": "dolphin",
           "hi": "अचानक पानी से एक डॉल्फ़िन उछली!",
           "en": "Suddenly a dolphin leapt out of the water!",
-          "act": { "move": "jump", "sky": "sea", "fx": "splash" }
+          "act": { "move": "jump", "sky": "sea", "fx": "splash", "mood": "surprised" }
         },
         {
           "word": "dolphin",
@@ -1659,7 +1669,12 @@
       "cover": "crocodile",
       "pages": [
         { "word": "crocodile", "hi": "नदी में एक बड़ा मगर रहता था।", "en": "A big crocodile lived in the river.", "act": { "move": "float", "sky": "river" } },
-        { "word": "crocodile", "hi": "एक दिन उसके दाँत में दर्द हुआ। \"आह!\"", "en": "One day his tooth hurt. \"Ow!\"", "act": { "move": "shake", "sky": "river" } },
+        {
+          "word": "crocodile",
+          "hi": "एक दिन उसके दाँत में दर्द हुआ। \"आह!\"",
+          "en": "One day his tooth hurt. \"Ow!\"",
+          "act": { "move": "shake", "sky": "river", "mood": "sad" }
+        },
         { "word": "bird", "hi": "एक नन्ही चिड़िया उड़ती हुई आई।", "en": "A little bird came flying.", "act": { "move": "fly-across", "sky": "sky" } },
         {
           "word": "bird",
@@ -1683,7 +1698,7 @@
           "word": "crocodile",
           "hi": "\"धन्यवाद, दोस्त! अब दर्द नहीं है।\"",
           "en": "\"Thank you, friend! It doesn’t hurt now.\"",
-          "act": { "move": "dance", "sky": "river", "fx": "hearts" }
+          "act": { "move": "dance", "sky": "river", "fx": "hearts", "mood": "sad" }
         },
         {
           "word": "bird",
@@ -1795,7 +1810,12 @@
       "cover": "owl",
       "pages": [
         { "word": "sun", "hi": "दिन में सब जागते हैं।", "en": "In the day, everyone is awake.", "act": { "move": "peek", "sky": "dawn", "fx": "glow" } },
-        { "word": "owl", "hi": "पर उल्लू पेड़ पर सोता है।", "en": "But the owl sleeps in the tree.", "act": { "move": "sleep", "sky": "field", "fx": "zzz" } },
+        {
+          "word": "owl",
+          "hi": "पर उल्लू पेड़ पर सोता है।",
+          "en": "But the owl sleeps in the tree.",
+          "act": { "move": "sleep", "sky": "field", "fx": "zzz", "mood": "sleepy" }
+        },
         { "word": "moon", "hi": "रात हुई। चाँद निकला।", "en": "Night came. The moon rose.", "act": { "move": "peek", "sky": "night", "fx": "stars" } },
         { "word": "owl", "hi": "उल्लू ने बड़ी-बड़ी आँखें खोलीं।", "en": "The owl opened his big, big eyes.", "act": { "move": "grow", "sky": "night" } },
         { "word": "owl", "hi": "\"हू-हू! अब मेरा दिन शुरू!\"", "en": "\"Hoo-hoo! Now my day begins!\"", "act": { "move": "talk", "sky": "night", "fx": "music" } },
@@ -1810,7 +1830,7 @@
           "word": "mouse",
           "hi": "चूहा बोला, \"धन्यवाद, रात के दोस्त!\"",
           "en": "The mouse said, \"Thank you, friend of the night!\"",
-          "act": { "move": "talk", "sky": "night", "with": "owl", "fx": "hearts" }
+          "act": { "move": "talk", "sky": "night", "with": "owl", "fx": "hearts", "mood": "happy" }
         }
       ],
       "questions": [
@@ -1830,9 +1850,9 @@
           "word": "monkey",
           "hi": "बंदर हँसा, \"इतनी लंबी गर्दन!\"",
           "en": "Monkey laughed, \"What a long neck!\"",
-          "act": { "move": "talk", "sky": "field", "with": "giraffe" }
+          "act": { "move": "talk", "sky": "field", "with": "giraffe", "mood": "happy" }
         },
-        { "word": "giraffe", "hi": "जिराफ़ उदास हो गया।", "en": "The giraffe felt sad.", "act": { "move": "shake", "sky": "field" } },
+        { "word": "giraffe", "hi": "जिराफ़ उदास हो गया।", "en": "The giraffe felt sad.", "act": { "move": "shake", "sky": "field", "mood": "sad" } },
         { "word": "mango", "hi": "पेड़ पर ऊँचे-ऊँचे आम लगे थे।", "en": "Mangoes hung high up in a tree.", "act": { "move": "lift", "sky": "field", "with": "tree" } },
         {
           "word": "rabbit",
@@ -1856,7 +1876,7 @@
           "word": "monkey",
           "hi": "बंदर बोला, \"माफ़ करना। तुम्हारी गर्दन कमाल है!\"",
           "en": "Monkey said, \"Sorry. Your neck is amazing!\"",
-          "act": { "move": "dance", "sky": "field", "with": "giraffe", "fx": "hearts" }
+          "act": { "move": "dance", "sky": "field", "with": "giraffe", "fx": "hearts", "mood": "sad" }
         }
       ],
       "questions": [
@@ -1883,7 +1903,7 @@
           "word": "rabbit",
           "hi": "खरगोश हँसा, \"तुम कभी नहीं पहुँचोगे!\"",
           "en": "The rabbit laughed, \"You’ll never get there!\"",
-          "act": { "move": "jump", "sky": "field", "with": "snail" }
+          "act": { "move": "jump", "sky": "field", "with": "snail", "mood": "happy" }
         },
         {
           "word": "sun",
@@ -1920,7 +1940,7 @@
           "word": "lion",
           "hi": "जंगल का राजा शेर सो रहा था।",
           "en": "The lion, king of the jungle, was asleep.",
-          "act": { "move": "sleep", "sky": "field", "fx": "zzz" }
+          "act": { "move": "sleep", "sky": "field", "fx": "zzz", "mood": "sleepy" }
         },
         { "word": "fly", "hi": "एक मक्खी उसकी नाक पर बैठी।", "en": "A fly landed on his nose.", "act": { "move": "fly-across", "sky": "field", "with": "lion" } },
         { "word": "lion", "hi": "आ… आ… आछू!", "en": "Ah… ah… achoo!", "act": { "move": "shake", "sky": "field", "fx": "wind", "sound": "sneeze" } },
@@ -1934,20 +1954,20 @@
           "word": "elephant",
           "hi": "हाथी डर के भागा, धम-धम!",
           "en": "Elephant ran off in fright, thump-thump!",
-          "act": { "move": "run", "sky": "field", "fx": "dust", "sound": "thud" }
+          "act": { "move": "run", "sky": "field", "fx": "dust", "sound": "thud", "mood": "scared" }
         },
         { "word": "rabbit", "hi": "खरगोश झाड़ी में छिप गया।", "en": "Rabbit hid in a bush.", "act": { "move": "shrink", "sky": "field", "fx": "leaves" } },
         {
           "word": "lion",
           "hi": "शेर बोला, \"डरो मत! बस छींक थी!\"",
           "en": "Lion said, \"Don’t be scared! It was only a sneeze!\"",
-          "act": { "move": "talk", "sky": "field", "fx": "sparkles" }
+          "act": { "move": "talk", "sky": "field", "fx": "sparkles", "mood": "scared" }
         },
         {
           "word": "monkey",
           "hi": "सब हँस पड़े। हा-हा-हा!",
           "en": "Everyone burst out laughing. Ha-ha-ha!",
-          "act": { "move": "dance", "sky": "field", "with": "lion", "fx": "confetti" }
+          "act": { "move": "dance", "sky": "field", "with": "lion", "fx": "confetti", "mood": "happy" }
         }
       ],
       "questions": [
@@ -2048,13 +2068,13 @@
           "word": "bear",
           "hi": "भालू बोला, \"माफ़ करना। थोड़ा शहद दोगी?\"",
           "en": "The bear said, \"Sorry. May I have a little honey?\"",
-          "act": { "move": "talk", "sky": "field", "with": "bee", "fx": "hearts" }
+          "act": { "move": "talk", "sky": "field", "with": "bee", "fx": "hearts", "mood": "sad" }
         },
         {
           "word": "bee",
           "hi": "मधुमक्खियों ने ख़ुशी से थोड़ा शहद दिया।",
           "en": "The bees happily gave him some honey.",
-          "act": { "move": "approach", "sky": "field", "with": "bear", "fx": "sparkles" }
+          "act": { "move": "approach", "sky": "field", "with": "bear", "fx": "sparkles", "mood": "happy" }
         }
       ],
       "questions": [
@@ -2138,19 +2158,24 @@
           "en": "Mini jumped… and the glass fell! Splash!",
           "act": { "move": "jump", "sky": "home", "fx": "splash" }
         },
-        { "word": "cat", "hi": "मिनी डर गई। \"अब क्या करूँ?\"", "en": "Mini was scared. \"What do I do now?\"", "act": { "move": "shake", "sky": "home" } },
+        {
+          "word": "cat",
+          "hi": "मिनी डर गई। \"अब क्या करूँ?\"",
+          "en": "Mini was scared. \"What do I do now?\"",
+          "act": { "move": "shake", "sky": "home", "mood": "scared" }
+        },
         { "word": "grandmother", "hi": "दादी आईं। \"यह किसने किया?\"", "en": "Grandma came. \"Who did this?\"", "act": { "move": "enter-right", "sky": "home" } },
         {
           "word": "cat",
           "hi": "मिनी बोली, \"म्याऊँ… मैंने किया। माफ़ करना।\"",
           "en": "Mini said, \"Meow… I did it. I’m sorry.\"",
-          "act": { "move": "talk", "sky": "home", "with": "grandmother" }
+          "act": { "move": "talk", "sky": "home", "with": "grandmother", "mood": "sad" }
         },
         {
           "word": "grandmother",
           "hi": "दादी मुस्कुराईं, \"सच बोलना अच्छी बात है।\"",
           "en": "Grandma smiled, \"Telling the truth is a good thing.\"",
-          "act": { "move": "talk", "sky": "home", "with": "cat", "fx": "hearts" }
+          "act": { "move": "talk", "sky": "home", "with": "cat", "fx": "hearts", "mood": "happy" }
         },
         {
           "word": "milk",
@@ -2185,7 +2210,7 @@
           "word": "boy",
           "hi": "सब रंगों से भर गए। सब हँसे!",
           "en": "Everyone was covered in colours. Everyone laughed!",
-          "act": { "move": "dance", "sky": "field", "fx": "confetti" }
+          "act": { "move": "dance", "sky": "field", "fx": "confetti", "mood": "happy" }
         },
         { "word": "laddoo", "hi": "फिर सबने मिलकर लड्डू खाए।", "en": "Then everyone ate laddoos together.", "act": { "move": "roll", "sky": "home", "fx": "hearts" } },
         {
@@ -2273,7 +2298,7 @@
           "word": "butterfly",
           "hi": "तितली आई, मधुमक्खी आई। सब ख़ुश!",
           "en": "A butterfly came, and a bee. Everyone was happy!",
-          "act": { "move": "fly-across", "sky": "field", "with": "flower", "fx": "hearts" }
+          "act": { "move": "fly-across", "sky": "field", "with": "flower", "fx": "hearts", "mood": "happy" }
         }
       ],
       "questions": [
@@ -2319,7 +2344,7 @@
           "word": "laddoo",
           "hi": "दादी ने लड्डू खिलाए। कितना मज़ेदार सफ़र!",
           "en": "Grandma gave us laddoos. What a fun journey!",
-          "act": { "move": "roll", "sky": "home", "fx": "confetti" }
+          "act": { "move": "roll", "sky": "home", "fx": "confetti", "mood": "happy" }
         }
       ],
       "questions": [
@@ -2359,7 +2384,7 @@
           "word": "mother",
           "hi": "मम्मी मिल गईं! भैया उनसे लिपट गया।",
           "en": "Mummy was found! Brother hugged her tight.",
-          "act": { "move": "approach", "sky": "field", "with": "boy", "fx": "hearts" }
+          "act": { "move": "approach", "sky": "field", "with": "boy", "fx": "hearts", "mood": "happy" }
         },
         {
           "word": "mother",
@@ -2383,7 +2408,7 @@
       "title": { "hi": "चंदा की लोरी", "en": "The moon’s lullaby" },
       "cover": "moon",
       "pages": [
-        { "word": "sun", "hi": "सूरज थककर घर चला गया।", "en": "The sun went home, tired.", "act": { "move": "shrink", "sky": "dawn" } },
+        { "word": "sun", "hi": "सूरज थककर घर चला गया।", "en": "The sun went home, tired.", "act": { "move": "shrink", "sky": "dawn", "mood": "sleepy" } },
         { "word": "moon", "hi": "चंदा मामा आसमान में आए।", "en": "Uncle Moon came into the sky.", "act": { "move": "peek", "sky": "night", "fx": "stars" } },
         {
           "word": "star",
@@ -2395,7 +2420,7 @@
           "word": "bird",
           "hi": "चिड़िया अपने घोंसले में सो गई।",
           "en": "The bird went to sleep in her nest.",
-          "act": { "move": "sleep", "sky": "night", "fx": "zzz" }
+          "act": { "move": "sleep", "sky": "night", "fx": "zzz", "mood": "sleepy" }
         },
         { "word": "cow", "hi": "गाय ने भी आँखें बंद कीं।", "en": "The cow closed her eyes too.", "act": { "move": "sleep", "sky": "night", "fx": ["zzz", "stars"] } },
         {
@@ -2414,7 +2439,7 @@
           "word": "moon",
           "hi": "चंदा मामा गाते हैं, \"सो जा, सो जा…\"",
           "en": "Uncle Moon sings, \"Sleep now, sleep now…\"",
-          "act": { "move": "float", "sky": "night", "fx": ["music", "stars"] }
+          "act": { "move": "float", "sky": "night", "fx": ["music", "stars"], "mood": "sleepy" }
         }
       ],
       "questions": [
@@ -2458,7 +2483,7 @@
           "word": "boy",
           "hi": "बच्चा बोला, \"धन्यवाद, दमकल वालों!\"",
           "en": "The child said, \"Thank you, firefighters!\"",
-          "act": { "move": "jump", "sky": "day", "with": "firetruck", "fx": "hearts" }
+          "act": { "move": "jump", "sky": "day", "with": "firetruck", "fx": "hearts", "mood": "happy" }
         },
         {
           "word": "firetruck",
@@ -2481,7 +2506,7 @@
       "pages": [
         { "word": "school", "hi": "आज स्कूल का पहला दिन है।", "en": "Today is the first day of school.", "act": { "move": "grow", "sky": "dawn", "fx": "glow" } },
         { "word": "bag", "hi": "बस्ते में किताब, पेंसिल और टिफ़िन।", "en": "In the bag: a book, a pencil and lunch.", "act": { "move": "jump", "sky": "home" } },
-        { "word": "boy", "hi": "भैया थोड़ा डरा हुआ था।", "en": "Brother was a little scared.", "act": { "move": "shake", "sky": "day" } },
+        { "word": "boy", "hi": "भैया थोड़ा डरा हुआ था।", "en": "Brother was a little scared.", "act": { "move": "shake", "sky": "day", "mood": "scared" } },
         { "word": "bus", "hi": "स्कूल बस आई। पों-पों!", "en": "The school bus came. Beep-beep!", "act": { "move": "drive", "sky": "field", "sound": "toot" } },
         {
           "word": "girl",
@@ -2525,7 +2550,7 @@
           "word": "lion",
           "hi": "वह रोज़ कहता, \"मुझे एक जानवर खाने को दो!\"",
           "en": "Every day he roared, \"Bring me an animal to eat!\"",
-          "act": { "move": "talk", "sky": "field", "fx": "wind" }
+          "act": { "move": "talk", "sky": "field", "fx": "wind", "mood": "scared" }
         },
         { "word": "rabbit", "hi": "आज नन्हे खरगोश की बारी थी।", "en": "Today it was the little rabbit’s turn.", "act": { "move": "shake", "sky": "field" } },
         {
@@ -2544,7 +2569,7 @@
           "word": "lion",
           "hi": "शेर दहाड़ा, और कुएँ में कूद गया। छपाक!",
           "en": "The lion roared, and jumped into the well. Splash!",
-          "act": { "move": "fall", "sky": "sea", "fx": "splash" }
+          "act": { "move": "fall", "sky": "sea", "fx": "splash", "mood": "scared" }
         },
         {
           "word": "rabbit",
@@ -2577,7 +2602,7 @@
           "en": "His axe fell into the river. Splash!",
           "act": { "move": "fall", "sky": "sea", "fx": "splash" }
         },
-        { "word": "woodcutter", "hi": "लकड़हारा रोने लगा।", "en": "The woodcutter began to cry.", "act": { "move": "shake", "sky": "river" } },
+        { "word": "woodcutter", "hi": "लकड़हारा रोने लगा।", "en": "The woodcutter began to cry.", "act": { "move": "shake", "sky": "river", "mood": "sad" } },
         {
           "word": "goldenaxe",
           "hi": "जल देवी सोने की कुल्हाड़ी लाईं। \"यह तुम्हारी है?\"",
@@ -2675,7 +2700,7 @@
           "word": "jackal",
           "hi": "कुत्ते भौंके! सियार डरकर भागा।",
           "en": "Dogs barked! The jackal ran away in fright.",
-          "act": { "move": "run", "sky": "day", "fx": "dust" }
+          "act": { "move": "run", "sky": "day", "fx": "dust", "mood": "scared" }
         },
         {
           "word": "bluejackal",
@@ -2687,7 +2712,7 @@
           "word": "bluejackal",
           "hi": "जंगल में सब डर गए। \"यह कौन है?\"",
           "en": "In the jungle everyone was scared. \"Who is that?\"",
-          "act": { "move": "grow", "sky": "field" }
+          "act": { "move": "grow", "sky": "field", "mood": "scared" }
         },
         {
           "word": "bluejackal",
@@ -2744,7 +2769,7 @@
           "word": "hen",
           "hi": "मुर्गी डरकर उड़ गई, और कभी नहीं लौटी।",
           "en": "The hen flew away in fright, and never came back.",
-          "act": { "move": "fly-across", "sky": "sky", "fx": "wind" }
+          "act": { "move": "fly-across", "sky": "sky", "fx": "wind", "mood": "scared" }
         },
         {
           "word": "farmer",
@@ -2779,7 +2804,7 @@
           "act": { "move": "jump", "sky": "field", "with": "grapes" }
         },
         { "word": "fox", "hi": "फिर कूदी, और ऊँचा! फिर नहीं!", "en": "She jumped again, higher! Still no!", "act": { "move": "jump", "sky": "field", "fx": "dust" } },
-        { "word": "fox", "hi": "लोमड़ी थककर बैठ गई।", "en": "The fox sat down, tired.", "act": { "move": "sleep", "sky": "field" } },
+        { "word": "fox", "hi": "लोमड़ी थककर बैठ गई।", "en": "The fox sat down, tired.", "act": { "move": "sleep", "sky": "field", "mood": "sleepy" } },
         {
           "word": "grapes",
           "hi": "बोली, \"हुँह! अंगूर तो खट्टे हैं!\"",
@@ -2867,7 +2892,7 @@
           "word": "tree",
           "hi": "अरे! पतंग पेड़ में अटक गई।",
           "en": "Oh no! The kite got stuck in a tree.",
-          "act": { "move": "shake", "sky": "field", "with": "kite", "fx": "leaves" }
+          "act": { "move": "shake", "sky": "field", "with": "kite", "fx": "leaves", "mood": "surprised" }
         },
         {
           "word": "grandfather",
@@ -2885,7 +2910,7 @@
           "word": "boy",
           "hi": "भैया बोला, \"धन्यवाद, दादा जी!\"",
           "en": "Brother said, \"Thank you, Grandpa!\"",
-          "act": { "move": "dance", "sky": "field", "with": "grandfather", "fx": "hearts" }
+          "act": { "move": "dance", "sky": "field", "with": "grandfather", "fx": "hearts", "mood": "happy" }
         }
       ],
       "questions": [
@@ -2972,7 +2997,12 @@
           "en": "The peacock opened its colourful feathers.",
           "act": { "move": "grow", "sky": "rain", "fx": "sparkles" }
         },
-        { "word": "peacock", "hi": "मोर छम छम नाचने लगा।", "en": "The peacock began to dance.", "act": { "move": "dance", "sky": "rain", "fx": ["rain", "music"] } },
+        {
+          "word": "peacock",
+          "hi": "मोर छम छम नाचने लगा।",
+          "en": "The peacock began to dance.",
+          "act": { "move": "dance", "sky": "rain", "fx": ["rain", "music"], "mood": "happy" }
+        },
         { "word": "girl", "hi": "सब बच्चे ताली बजाने लगे।", "en": "All the children clapped.", "act": { "move": "jump", "sky": "field", "fx": "confetti" } }
       ],
       "questions": [
@@ -2992,7 +3022,7 @@
           "word": "ant",
           "hi": "दाना भारी था। चींटी थक गई।",
           "en": "The grain was heavy. The ant got tired.",
-          "act": { "move": "shake", "sky": "field", "with": "rice" }
+          "act": { "move": "shake", "sky": "field", "with": "rice", "mood": "sleepy" }
         },
         {
           "word": "ant",
@@ -3048,7 +3078,7 @@
           "word": "brother",
           "hi": "भाई बोला, \"वाह! कितनी ऊँची!\"",
           "en": "Brother said, \"Wow! So high!\"",
-          "act": { "move": "jump", "sky": "field", "with": "kite", "fx": "sparkles" }
+          "act": { "move": "jump", "sky": "field", "with": "kite", "fx": "sparkles", "mood": "surprised" }
         }
       ],
       "questions": [
@@ -3129,7 +3159,7 @@
           "word": "hen",
           "hi": "मुर्गी आई। \"माँ!\" चूज़ा ख़ुश हो गया।",
           "en": "The hen came. \"Mother!\" The chick was happy.",
-          "act": { "move": "approach", "sky": "field", "with": "chick", "fx": "hearts" }
+          "act": { "move": "approach", "sky": "field", "with": "chick", "fx": "hearts", "mood": "happy" }
         }
       ],
       "questions": [
@@ -3150,7 +3180,7 @@
           "en": "Riya took her red umbrella.",
           "act": { "move": "grow", "sky": "rain", "with": "girl", "fx": "rain" }
         },
-        { "word": "girl", "hi": "रिया बारिश में नाची।", "en": "Riya danced in the rain.", "act": { "move": "dance", "sky": "rain", "fx": "rain" } },
+        { "word": "girl", "hi": "रिया बारिश में नाची।", "en": "Riya danced in the rain.", "act": { "move": "dance", "sky": "rain", "fx": "rain", "mood": "happy" } },
         {
           "word": "frog",
           "hi": "मेंढक भी टर्र-टर्र गाने लगे।",
@@ -3198,7 +3228,7 @@
           "word": "elephant",
           "hi": "गप्पू ने चीकू को धन्यवाद कहा। दोनों साथ खेले।",
           "en": "Gappu said thank you to Chiku, and they played together.",
-          "act": { "move": "dance", "sky": "field", "with": "monkey", "fx": "hearts" }
+          "act": { "move": "dance", "sky": "field", "with": "monkey", "fx": "hearts", "mood": "happy" }
         }
       ],
       "questions": [
@@ -3212,7 +3242,12 @@
       "title": { "hi": "पिप का स्नोमैन", "en": "Pip’s snowman" },
       "cover": "penguin",
       "pages": [
-        { "word": "penguin", "hi": "पिप पेंगुइन को बर्फ़ बहुत पसंद है।", "en": "Pip the penguin loves snow.", "act": { "move": "walk", "sky": "snow", "fx": "snow" } },
+        {
+          "word": "penguin",
+          "hi": "पिप पेंगुइन को बर्फ़ बहुत पसंद है।",
+          "en": "Pip the penguin loves snow.",
+          "act": { "move": "walk", "sky": "snow", "fx": "snow", "mood": "happy" }
+        },
         { "word": "snowman", "hi": "उसने एक बड़ा स्नोमैन बनाया।", "en": "He made a big snowman.", "act": { "move": "grow", "sky": "snow", "fx": "snow" } },
         {
           "word": "carrot",
@@ -3230,7 +3265,7 @@
           "word": "penguin",
           "hi": "पिप हँसा: \"कल फिर बनाएँगे!\"",
           "en": "Pip laughed: \"We’ll make another tomorrow!\"",
-          "act": { "move": "dance", "sky": "snow", "fx": "snow" }
+          "act": { "move": "dance", "sky": "snow", "fx": "snow", "mood": "happy" }
         }
       ],
       "questions": [
@@ -3285,7 +3320,7 @@
         { "word": "boat", "en": "Row, row, row your boat", "act": { "move": "float", "sky": "river", "fx": "music" } },
         { "word": "river", "en": "Gently down the stream.", "act": { "move": "sway", "sky": "day", "fx": "leaves" } },
         { "word": "boat", "en": "Merrily, merrily, merrily, merrily,", "act": { "move": "float", "sky": "river", "fx": ["music", "sparkles"] } },
-        { "word": "moon", "en": "Life is but a dream.", "act": { "move": "peek", "sky": "night", "fx": "stars" } }
+        { "word": "moon", "en": "Life is but a dream.", "act": { "move": "peek", "sky": "night", "fx": "stars", "mood": "sleepy" } }
       ],
       "questions": [
         { "en": "What do you row?", "answer": "boat", "options": ["boat", "bus", "kite"] },
@@ -3302,7 +3337,7 @@
       "pages": [
         { "word": "cat", "en": "Hey diddle diddle, the cat and the fiddle,", "act": { "move": "dance", "sky": "night", "fx": "music" } },
         { "word": "cow", "en": "The cow jumped over the moon.", "act": { "move": "fly-up", "sky": "night", "with": "moon", "fx": "stars" } },
-        { "word": "dog", "en": "The little dog laughed to see such fun,", "act": { "move": "jump", "sky": "night", "fx": "stars" } },
+        { "word": "dog", "en": "The little dog laughed to see such fun,", "act": { "move": "jump", "sky": "night", "fx": "stars", "mood": "happy" } },
         { "word": "spoon", "en": "And the dish ran away with the spoon.", "act": { "move": "run", "sky": "night", "fx": "dust" } }
       ],
       "questions": [
@@ -3376,7 +3411,7 @@
           "word": "ram",
           "hi": "राम उदास हुए। वे सीता को ढूँढने निकले।",
           "en": "Ram was sad. He set out to find Sita.",
-          "act": { "move": "walk", "sky": "dawn", "with": "lakshman" }
+          "act": { "move": "walk", "sky": "dawn", "with": "lakshman", "mood": "sad" }
         }
       ],
       "questions": [
@@ -3420,7 +3455,7 @@
           "word": "sita",
           "hi": "सीता मुस्कुराईं, “राम आएँगे!”",
           "en": "Sita smiled, “Ram will come!”",
-          "act": { "move": "talk", "sky": "dawn", "with": "ring", "fx": "hearts" }
+          "act": { "move": "talk", "sky": "dawn", "with": "ring", "fx": "hearts", "mood": "happy" }
         }
       ],
       "questions": [
@@ -3435,8 +3470,18 @@
       "title": { "hi": "हनुमान लाए पहाड़", "en": "Hanuman brings the mountain" },
       "cover": "mountain",
       "pages": [
-        { "word": "lakshman", "hi": "लड़ाई में लक्ष्मण को चोट लगी।", "en": "In the battle Lakshman was hurt.", "act": { "move": "sleep", "sky": "night" } },
-        { "word": "ram", "hi": "राम रो पड़े, “मेरा भाई!”", "en": "Ram wept, “My brother!”", "act": { "move": "shake", "sky": "night", "with": "lakshman" } },
+        {
+          "word": "lakshman",
+          "hi": "लड़ाई में लक्ष्मण को चोट लगी।",
+          "en": "In the battle Lakshman was hurt.",
+          "act": { "move": "sleep", "sky": "night", "mood": "sad" }
+        },
+        {
+          "word": "ram",
+          "hi": "राम रो पड़े, “मेरा भाई!”",
+          "en": "Ram wept, “My brother!”",
+          "act": { "move": "shake", "sky": "night", "with": "lakshman", "mood": "sad" }
+        },
         {
           "word": "mountain",
           "hi": "वैद्य बोले, “पहाड़ पर एक बूटी है। वही बचाएगी।”",
@@ -3465,7 +3510,7 @@
           "word": "lakshman",
           "hi": "लक्ष्मण ठीक हो गए। सब खुश!",
           "en": "Lakshman was well again. Everyone cheered!",
-          "act": { "move": "dance", "sky": "dawn", "fx": "confetti" }
+          "act": { "move": "dance", "sky": "dawn", "fx": "confetti", "mood": "happy" }
         }
       ],
       "questions": [
@@ -3485,7 +3530,7 @@
           "word": "rain",
           "hi": "ज़ोर की बारिश होने लगी। सब डर गए।",
           "en": "Heavy rain began. Everyone was scared.",
-          "act": { "move": "shake", "sky": "rain", "fx": "rain" }
+          "act": { "move": "shake", "sky": "rain", "fx": "rain", "mood": "scared" }
         },
         { "word": "cow", "hi": "गायें भीग रही थीं।", "en": "The cows were getting soaked.", "act": { "move": "walk", "sky": "rain", "fx": "rain" } },
         {
@@ -3688,7 +3733,7 @@
           "word": "elephant",
           "hi": "दर्ज़ी ने माफ़ी माँगी। फिर दोनों दोस्त बने।",
           "en": "The tailor said sorry. Then they were friends again.",
-          "act": { "move": "approach", "sky": "home", "with": "tailor", "fx": "hearts" }
+          "act": { "move": "approach", "sky": "home", "with": "tailor", "fx": "hearts", "mood": "sad" }
         }
       ],
       "questions": [
@@ -3728,7 +3773,12 @@
           "en": "Bear gives Monkey a banana.",
           "act": { "move": "approach", "sky": "field", "with": "monkey" }
         },
-        { "word": "heart", "hi": "दोनों दोस्त खुश हैं।", "en": "The two friends are happy.", "act": { "move": "grow", "sky": "field", "fx": "hearts" } }
+        {
+          "word": "heart",
+          "hi": "दोनों दोस्त खुश हैं।",
+          "en": "The two friends are happy.",
+          "act": { "move": "grow", "sky": "field", "fx": "hearts", "mood": "happy" }
+        }
       ],
       "questions": [
         { "hi": "भालू के पास क्या है?", "en": "What does Bear have?", "answer": "bicycle", "options": ["bicycle", "car", "boat"] },
@@ -3771,7 +3821,7 @@
           "word": "crow",
           "hi": "कौए ने पानी पिया और खुशी से उड़ गया।",
           "en": "The crow drank the water and flew away happily.",
-          "act": { "move": "fly-across", "sky": "sky", "fx": "hearts" }
+          "act": { "move": "fly-across", "sky": "sky", "fx": "hearts", "mood": "happy" }
         }
       ],
       "questions": [
@@ -3790,7 +3840,7 @@
           "word": "lion",
           "hi": "जंगल में एक शेर पेड़ के नीचे सो रहा था।",
           "en": "A lion was sleeping under a tree in the jungle.",
-          "act": { "move": "sleep", "sky": "field", "fx": "zzz" }
+          "act": { "move": "sleep", "sky": "field", "fx": "zzz", "mood": "sleepy" }
         },
         {
           "word": "mouse",
@@ -3814,7 +3864,7 @@
           "word": "lion",
           "hi": "शेर हँसा और उसने चूहे को छोड़ दिया।",
           "en": "The lion laughed and let the mouse go.",
-          "act": { "move": "sway", "sky": "field", "with": "mouse", "fx": "hearts" }
+          "act": { "move": "sway", "sky": "field", "with": "mouse", "fx": "hearts", "mood": "happy" }
         },
         {
           "word": "net",
@@ -3863,7 +3913,7 @@
           "word": "tree",
           "hi": "उसने सोचा, \"थोड़ा आराम कर लूँ।\" और वह पेड़ के नीचे सो गया।",
           "en": "He thought, \"I'll rest a little,\" and fell asleep under a tree.",
-          "act": { "move": "sway", "sky": "field", "with": "rabbit", "fx": "zzz" }
+          "act": { "move": "sway", "sky": "field", "with": "rabbit", "fx": "zzz", "mood": "sleepy" }
         },
         {
           "word": "tortoise",
@@ -3983,7 +4033,7 @@
           "word": "tree",
           "hi": "एक दिन वह पेड़ के नीचे सो गया।",
           "en": "One day he fell asleep under a tree.",
-          "act": { "move": "sway", "sky": "field", "with": "capseller", "fx": "zzz" }
+          "act": { "move": "sway", "sky": "field", "with": "capseller", "fx": "zzz", "mood": "sleepy" }
         },
         {
           "word": "monkey",
@@ -4007,7 +4057,7 @@
           "word": "cap",
           "hi": "टोपीवाले ने सारी टोपियाँ उठाईं और खुशी से घर गया।",
           "en": "He picked up all the caps and went home happily.",
-          "act": { "move": "grow", "sky": "field", "with": "capseller", "fx": "hearts" }
+          "act": { "move": "grow", "sky": "field", "with": "capseller", "fx": "hearts", "mood": "happy" }
         }
       ],
       "questions": [
@@ -4062,7 +4112,7 @@
           "word": "heart",
           "hi": "नन्हे ने डमडम को देखा और बोला, \"दोस्त!\" डमडम बहुत खुश हुआ।",
           "en": "The little one saw Dumdum and said, \"Friend!\" Dumdum was very happy.",
-          "act": { "move": "grow", "sky": "field", "with": "trex", "fx": "hearts" }
+          "act": { "move": "grow", "sky": "field", "with": "trex", "fx": "hearts", "mood": "happy" }
         }
       ],
       "questions": [
@@ -4093,13 +4143,13 @@
           "word": "peacock",
           "hi": "मोर ने पंख फैलाए, छम-छम नाच दिखाए।",
           "en": "The peacock spread its feathers and danced.",
-          "act": { "move": "dance", "sky": "rain", "fx": "rain" }
+          "act": { "move": "dance", "sky": "rain", "fx": "rain", "mood": "happy" }
         },
         {
           "word": "umbrella",
           "hi": "हम भी छाता लाएँ, बारिश में मुस्काएँ।",
           "en": "We bring our umbrellas too, and smile in the rain.",
-          "act": { "move": "sway", "sky": "rain", "fx": ["rain", "hearts"] }
+          "act": { "move": "sway", "sky": "rain", "fx": ["rain", "hearts"], "mood": "happy" }
         }
       ],
       "questions": [
@@ -4331,7 +4381,7 @@
           "word": "jackal",
           "hi": "गीदड़ डर गया। \"यह कौन सा बड़ा जानवर है?\"",
           "en": "The jackal got scared. \"What big animal is that?\"",
-          "act": { "move": "shake", "sky": "field" }
+          "act": { "move": "shake", "sky": "field", "mood": "scared" }
         },
         {
           "word": "drum",
@@ -4343,7 +4393,7 @@
           "word": "jackal",
           "hi": "गीदड़ हँस पड़ा। \"बिना देखे डरना बेकार है।\"",
           "en": "The jackal laughed. \"It’s silly to be scared without looking.\"",
-          "act": { "move": "dance", "sky": "field", "with": "drum", "fx": "music" }
+          "act": { "move": "dance", "sky": "field", "with": "drum", "fx": "music", "mood": "scared" }
         }
       ],
       "questions": [
@@ -4374,7 +4424,7 @@
           "word": "raincloud",
           "hi": "ज़ोर की बारिश आई। एक बंदर ठंड से काँपता हुआ पेड़ के नीचे आया।",
           "en": "Heavy rain came. A monkey, shivering with cold, came under the tree.",
-          "act": { "move": "enter-right", "sky": "rain", "fx": "rain" }
+          "act": { "move": "enter-right", "sky": "rain", "fx": "rain", "mood": "scared" }
         },
         {
           "word": "bird",
@@ -4392,7 +4442,7 @@
           "word": "bird",
           "hi": "बया दुखी हुई और समझ गई: बिना माँगे सलाह हर किसी को नहीं देनी चाहिए।",
           "en": "The bird was sad, and understood: don’t give advice to someone who hasn’t asked for it.",
-          "act": { "move": "sway", "sky": "dawn", "with": "tree" }
+          "act": { "move": "sway", "sky": "dawn", "with": "tree", "mood": "sad" }
         }
       ],
       "questions": [

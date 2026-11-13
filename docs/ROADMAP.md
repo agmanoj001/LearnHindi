@@ -52,7 +52,7 @@ Found by looking at about 30 screens (Kindergarten and Grade 7 on a phone, Grade
 
 | | What | Why |
 | --- | --- | --- |
-| ➡️ 1 | **Fill the screen in lessons.** Scale the question and the answer cards to the screen (a bigger target and bigger pictures on tablets; fewer empty bands on phones) | On a 1024 px tablet the answer cards stay phone-sized (about 60 px wide) in a sea of empty space; on a phone the middle third of most lesson screens is empty and the answers are small. Small targets are the main cause of missed taps for ages 2–5 |
+| ✅ | **Fill the screen in lessons.** Done: answer cards, pictures, letters and maths numbers now grow with the screen (up to about 250 px on a tablet, 300 px when there are only two answers), and their words grow with them | On a 1024 px tablet the answer cards stay phone-sized (about 60 px wide) in a sea of empty space; on a phone the middle third of most lesson screens is empty and the answers are small. Small targets are the main cause of missed taps for ages 2–5 |
 | ➡️ 2 | **A simpler home screen for pre-readers**: one big play button, Story radio and their world; move the filter chips and the skill tags to the grown-ups' area | A toddler sees a path card, two big buttons, a row of filter chips and world cards with small labels. None of it can be read at that age, and every extra choice costs attention |
 | ➡️ 3 | **The counting game**: show the animals on the bus large, and let each one bounce as it is counted | The animals are tiny and hard to count at a glance |
 | ➡️ 4 | **The hint button in every game**, not only the choose-an-answer games (maths, phonics, digging, tracing, the train) | Right now the 💡 is missing in the games that don't use the shared answer handler, which feels inconsistent |
@@ -64,7 +64,7 @@ Found by looking at about 30 screens (Kindergarten and Grade 7 on a phone, Grade
 
 | | What | Why |
 | --- | --- | --- |
-| ➡️ 1 | **Give story characters life**: a few poses and faces per main character (happy, sad, surprised, blinking, talking), switched by the scene | Scenes now move a whole picture (slide, hop, spin); the characters have no moving limbs and their faces never change. This is the biggest single jump in animation quality, and it costs only a few KB of SVG |
+| ✅ | **Give story characters life.** Done: every face blinks; people's mouths move while a page with speech is read; five moods (happy, sad, surprised, scared, sleepy) change eyes, mouth and arms. Each page gets its mood from its text or its move, and a page can set `mood` itself | Scenes now move a whole picture (slide, hop, spin); the characters have no moving limbs and their faces never change. This is the biggest single jump in animation quality, and it costs only a few KB of SVG |
 | ➡️ 2 | **Depth in the backgrounds**: drifting clouds, layers that move at different speeds, small ambient life (a bird, a butterfly, leaves) | The backgrounds are flat (plain lavender blocks for buildings, a road strip); a little parallax makes the worlds feel alive |
 | ➡️ 3 | **A guide that reacts to every answer** (cheers, thinks, encourages, claps) and is bigger on screen | The guide sits small in a corner and mostly watches; attachment to a companion is one of the strongest levers on engagement for young children |
 | ➡️ 4 | **Shared-element transitions**: tapping a world, a lesson or a story grows into the next screen instead of cutting to it | It makes the app read as one place rather than a set of pages, and it tells a child where they went |
@@ -76,7 +76,7 @@ Found by looking at about 30 screens (Kindergarten and Grade 7 on a phone, Grade
 
 | | What | Why |
 | --- | --- | --- |
-| ➡️ 1 | **One language rule, everywhere.** Child-facing text follows the language setting: Hindi first with a small English line when "both" is on, and never English alone. Today the home screen mixes them ("Keep going / Rhymes / Story time", the skill tags and some world names are English only, while titles are Hindi) | A child who is learning Hindi shouldn't have to switch languages to find the play button; mixed screens also read as unfinished |
+| ✅ | **One language rule, everywhere.** Done for the home screen and the world maps: with Hindi on, everything a child reads is Hindi; with "both", Hindi first and English small after it (English first in the maths and phonics worlds). Child-facing text follows the language setting, and never English alone. Today the home screen mixes them ("Keep going / Rhymes / Story time", the skill tags and some world names are English only, while titles are Hindi) | A child who is learning Hindi shouldn't have to switch languages to find the play button; mixed screens also read as unfinished |
 | ➡️ 2 | **Fix the wrong or awkward captions**, starting with "Find the house that says letter" (it should be "Find the house with this word") | The caption bar quotes the app's own prompts; small slips here are the most visible in screenshots and reviews |
 | ➡️ 3 | **More praise, mostly for effort**: ten or more lines instead of two (शाबाश!, वाह!), such as "तुमने कोशिश की!", "ध्यान से सुना!", "अब और अच्छा!" | Praising effort and strategy builds persistence far better than praising being right (Mueller and Dweck); repeating the same two lines becomes noise |
 | ➡️ 4 | **Re-record the very short lines inside a carrier phrase** (single letters, *है*, *Yes*) so one narrator voice says everything | About 40 lines (those the premium voice returned as silence) use a different, standard voice, so a few moments sound like a different person |
@@ -110,8 +110,8 @@ Found by looking at about 30 screens (Kindergarten and Grade 7 on a phone, Grade
 
 ## Suggested order
 
-1. **Sections 4.1 and 6.1** (fill the screen, one language rule): quick, and they touch every screen.
-2. **Section 5.1** (character poses and faces), the biggest jump in animation quality.
+1. ✅ **Sections 4.1 and 6.1** (fill the screen, one language rule): done.
+2. ✅ **Section 5.1** (character poses and faces): done.
 3. **Section 8.2** (watch real children), to check the first two and set the order for the rest.
 4. **Sections 8.1 and 8.5** (automated checks and a performance budget), so nothing slips as the app grows.
 5. The rest, in the order the watching of real children suggests.

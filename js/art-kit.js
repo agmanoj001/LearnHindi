@@ -16,7 +16,8 @@ export const line = (x1, y1, x2, y2, color = INK, w = 4) =>
   `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${color}" stroke-width="${w}" stroke-linecap="round"/>`;
 export const win = (x, y, w, h) => rect(x, y, w, h, GLASS, 6, '');
 export const wheel = (x, y, r = 15) => circ(x, y, r, INK) + circ(x, y, r * 0.45, '#D9DEE7');
-export const eye = (x, y, r = 4) => circ(x, y, r, INK) + circ(x + r * 0.35, y - r * 0.35, r * 0.35, '#fff');
+// an eye; in a story scene it blinks and shows the mood (styles.css .scene .eye)
+export const eye = (x, y, r = 4) => `<g class="eye">${circ(x, y, r, INK) + circ(x + r * 0.35, y - r * 0.35, r * 0.35, '#fff')}</g>`;
 export const tracks = (x, y, w, h = 26) => {
   let s = rect(x, y, w, h, '#3B4252', h / 2);
   const n = Math.max(3, Math.round(w / 28));

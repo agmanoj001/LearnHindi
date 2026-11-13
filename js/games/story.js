@@ -4,7 +4,7 @@ import { sentenceTokens, shuffle, isKeyToken } from '../logic.js';
 import { storyLang, worldStoryLang } from '../curriculum.js';
 import { el, sleep, choose, runRounds, cheer, waitTap, bounce, ICONS, readChoices, youngReader } from './kit.js';
 import { clips } from '../storage.js';
-import { sceneHtml, sceneClass, sceneSound } from '../scene.js';
+import { sceneHtml, sceneClass, sceneSound, speaks } from '../scene.js';
 
 const bare = (token) => token.replace(/[।.!?,"“”‘’]/g, '');
 
@@ -209,7 +209,7 @@ function swipeToTurn(card, next) {
 // is heard before the reading starts.
 function stageScene(ctx, page) {
   const scene = el('button', {
-    class: `pic ${sceneClass(page.act)}`,
+    class: `pic ${sceneClass(page.act)}${speaks(page) ? ' talks' : ''}`,
     'aria-label': 'Play the picture again',
     html: sceneHtml(page.act, page.word, (id) => ctx.picture(ctx.word(id))),
   });

@@ -19,10 +19,13 @@ function person({ skin = SKIN[1], hair = '#2B2D42', style = 'short', top = '#3D7
   else s += rect(100 - 18, bodyBottom - 4, 15, 128 - bodyBottom + 2, bottom, 6) + rect(100 + 3, bodyBottom - 4, 15, 128 - bodyBottom + 2, bottom, 6);
   if (dress) s += rect(100 - 14, bodyBottom + 6, 10, 128 - bodyBottom - 8, skin, 4) + rect(100 + 4, bodyBottom + 6, 10, 128 - bodyBottom - 8, skin, 4);
   s += rect(100 - 24, bodyTop, 48, bodyBottom - bodyTop + (dress ? -8 : 0), top, 14);
-  // arms
-  s += path(`M${100 - 22} ${bodyTop + 10} Q${100 - 38} ${bodyTop + 26} ${100 - 34} ${bodyTop + 40}`, 'none', stroke(top, 10));
-  s += path(`M${100 + 22} ${bodyTop + 10} Q${100 + 38} ${bodyTop + 26} ${100 + 34} ${bodyTop + 40}`, 'none', stroke(top, 10));
-  s += circ(100 - 34, bodyTop + 42, 6, skin) + circ(100 + 34, bodyTop + 42, 6, skin);
+  // arms (each turns at its shoulder, so a story scene can wave them: styles.css .scene .arm)
+  const arm = (side, dx) =>
+    `<g class="arm arm-${side}" style="transform-origin:${100 + dx}px ${bodyTop + 10}px">` +
+    path(`M${100 + dx} ${bodyTop + 10} Q${100 + dx * 1.73} ${bodyTop + 26} ${100 + dx * 1.55} ${bodyTop + 40}`, 'none', stroke(top, 10)) +
+    circ(100 + dx * 1.55, bodyTop + 42, 6, skin) +
+    '</g>';
+  s += arm('l', -22) + arm('r', 22);
   s += prop;
   // head
   s += rect(100 - 6, hy + hr - 6, 12, 10, skin, 3);
@@ -30,7 +33,8 @@ function person({ skin = SKIN[1], hair = '#2B2D42', style = 'short', top = '#3D7
   if (style === 'short' || style === 'long' || style === 'bun') s += path(`M${100 - hr} ${hy - 2} Q${100 - hr + 2} ${hy - hr - 6} ${100} ${hy - hr - 4} Q${100 + hr - 2} ${hy - hr - 6} ${100 + hr} ${hy - 2} Q${100 + 6} ${hy - hr + 6} ${100 - hr} ${hy - 2} Z`, hair);
   if (style === 'grey') s += path(`M${100 - hr} ${hy} Q${100 - hr - 2} ${hy - hr + 4} ${100 - hr + 10} ${hy - hr + 6} M${100 + hr} ${hy} Q${100 + hr + 2} ${hy - hr + 4} ${100 + hr - 10} ${hy - hr + 6}`, 'none', stroke('#D9DEE7', 6));
   s += eye(100 - 8, hy - 1, 3.4) + eye(100 + 8, hy - 1, 3.4);
-  s += path(`M${100 - 6} ${hy + 9} Q100 ${hy + 14} ${100 + 6} ${hy + 9}`, 'none', stroke('#8A3B2E', 2.4));
+  // the mouth: a smile, and an open mouth that shows when talking or surprised (hidden unless a scene shows it)
+  s += `<g class="mouth"><path class="m-smile" d="M${100 - 6} ${hy + 9} Q100 ${hy + 14} ${100 + 6} ${hy + 9}" ${stroke('#8A3B2E', 2.4)}/>${ell(100, hy + 11, 4, 3.6, '#8A3B2E', 'class="m-open" opacity="0"')}</g>`;
   s += ell(100 - 13, hy + 6, 4, 2.5, '#FF8FA3', 'opacity="0.5"') + ell(100 + 13, hy + 6, 4, 2.5, '#FF8FA3', 'opacity="0.5"');
   if (bindi) s += circ(100, hy - 9, 2, '#E2583E');
   if (mustache) s += path(`M${100 - 10} ${hy + 7} Q100 ${hy + 3} ${100 + 10} ${hy + 7} Q100 ${hy + 9} ${100 - 10} ${hy + 7} Z`, mustache === true ? INK : mustache);

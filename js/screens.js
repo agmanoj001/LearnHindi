@@ -21,6 +21,22 @@ function appTitle(api) {
 
 // English-only worlds (math) lead with English; Hindi worlds lead with Hindi.
 const english = (w) => w.lang === 'en';
+// One language rule for what a child reads (docs/ROADMAP.md 6.1). With the setting on Hindi: Hindi only.
+// On English: English only. On both: the main language, with the other one small after it. The main
+// language is Hindi, except in the worlds taught in English (maths, phonics), where it is English.
+const langMode = (api) => api.state.settings.lang || 'both';
+export function sayText(mode, t, lead = 'hi') {
+  const main = mode === 'en' ? 'en' : mode === 'hi' ? 'hi' : lead;
+  const other = main === 'hi' ? 'en' : 'hi';
+  return { main: t[main] ?? t[other], mainLang: main, sub: mode === 'both' && t[other] !== t[main] ? t[other] || null : null, subLang: other };
+}
+const said = (api, t, lead = 'hi', mainTag = 'span') => {
+  const x = sayText(langMode(api), t, lead);
+  return [el(mainTag, { lang: x.mainLang, text: x.main }), x.sub ? el('small', { class: 'say-sub', lang: x.subLang, text: x.sub }) : null].filter(Boolean);
+};
+const one = (api, t, lead = 'hi') => sayText(langMode(api), t, lead).main;
+const UNIT = { hi: 'भाग', en: 'Unit' };
+
 const bigName = (w, text, cls) => (english(w) ? el('span', { class: `${cls} latin`, text: text.en }) : el('span', { class: cls, lang: 'hi', text: text.hi }));
 
 function subjectName(world) {
@@ -29,7 +45,14 @@ function subjectName(world) {
 
 // What a world teaches, from content.json "tags": Phonics, Grammar, Stories, Math …
 const tagsOf = (api, w) => (w.tags || []).map((id) => ({ id, ...(api.state.content.tags?.[id] || { hi: id, en: id }) }));
-const tagChips = (api, w) => el('span', { class: 'tag-chips' }, tagsOf(api, w).map((t) => el('span', { class: 'tag-chip', style: { '--tag': readable(t.color || '#6C63FF') }, text: t.en })));
+const tagChips = (api, w) => el('span', { class: 'tag-chips' }, tagsOf(api, w).map((t) => el('span', { class: 'tag-chip', style: { '--tag': readable(t.color || '#6C63FF') }, lang: sayText(langMode(api), t).mainLang, text: one(api, t) })));
+// a unit's skill ("Listening") in the child's language, from the tag of the same name when there is one
+const SKILLS = { Colours: 'रंग', Concepts: 'समझ', Numbers: 'गिनती', Words: 'शब्द', 'Phonological awareness': 'आवाज़ें पहचानो', 'Rhymes and fluency': 'तुकबंदी', Comprehension: 'समझकर पढ़ो', Comics: 'कॉमिक्स' };
+const skillName = (api, skill) =>
+  skill
+    .split(' · ')
+    .map((part) => one(api, Object.values(api.state.content.tags || {}).find((t) => t.en === part) || { hi: SKILLS[part] || part, en: part }))
+    .join(' · ');
 
 // Tap a mascot and it does something silly.
 export function mascotJoke(api, mascot) {
@@ -142,7 +165,8 @@ export function hub(api) {
     el('button', {
       class: `tag-filter${(filter || null) === id ? ' on' : ''}`,
       style: { '--tag': readable(t?.color || '#6C63FF') },
-      text: t ? t.en : 'All',
+      lang: sayText(langMode(api), t || { hi: 'सब', en: 'All' }).mainLang,
+      text: one(api, t || { hi: 'सब', en: 'All' }),
       onclick: () => {
         api.sfx.pop();
         api.state.hubTag = id;
@@ -160,9 +184,9 @@ export function hub(api) {
       el('div', { class: 'world-card-scene', html: sceneSvg(world.theme, { crop: 'bottom' }) }),
       el('div', { class: 'world-card-mascot', html: mascotSvg(world.mascot) }),
       el('div', { class: 'world-card-text' }, [
-        el('span', { class: 'chips' }, [el('span', { class: 'chip grade', text: level(world.level).name.en }), el('span', { class: `chip subject ${world.subject}`, text: `${sub.en} · ${sub.hi}` })]),
+        el('span', { class: 'chips' }, [el('span', { class: 'chip grade', text: one(api, level(world.level).name) }), el('span', { class: `chip subject ${world.subject}`, text: one(api, sub, english(world) ? 'en' : 'hi') })]),
         bigName(world, world.name, 'world-name-hi'),
-        el('span', { class: 'world-name-en', lang: english(world) ? 'hi' : 'en', text: english(world) ? world.name.hi : world.name.en }),
+        langMode(api) === 'both' ? el('span', { class: 'world-name-en', lang: english(world) ? 'hi' : 'en', text: english(world) ? world.name.hi : world.name.en }) : null,
         tagChips(api, world),
         el('span', { class: 'world-stars' }, [
           el('span', { class: 'star-icon', html: ICONS.star }),
@@ -188,8 +212,8 @@ export function hub(api) {
   // Show time and Story radio: watching and listening that still teaches (good for journeys)
   const showtime = (content.shows || []).length
     ? el('div', { class: 'showtime-row' }, [
-        el('button', { class: 'showtime-btn tv', 'aria-label': 'Show time', onclick: () => (api.sfx.pop(), api.go('shows')) }, [el('span', { class: 'showtime-icon', html: SHOW_ICONS.tv }), el('span', { class: 'showtime-text' }, [el('b', { lang: 'hi', text: 'कार्टून' }), el('span', { text: 'Show time' })])]),
-        el('button', { class: 'showtime-btn radio', 'aria-label': 'Story radio', onclick: () => (api.sfx.pop(), api.go('radio')) }, [el('span', { class: 'showtime-icon', html: SHOW_ICONS.radio }), el('span', { class: 'showtime-text' }, [el('b', { lang: 'hi', text: 'कहानी रेडियो' }), el('span', { text: 'Story radio' })])]),
+        el('button', { class: 'showtime-btn tv', 'aria-label': 'Show time', onclick: () => (api.sfx.pop(), api.go('shows')) }, [el('span', { class: 'showtime-icon', html: SHOW_ICONS.tv }), el('span', { class: 'showtime-text' }, said(api, { hi: 'कार्टून', en: 'Show time' }, 'hi', 'b'))]),
+        el('button', { class: 'showtime-btn radio', 'aria-label': 'Story radio', onclick: () => (api.sfx.pop(), api.go('radio')) }, [el('span', { class: 'showtime-icon', html: SHOW_ICONS.radio }), el('span', { class: 'showtime-text' }, said(api, { hi: 'कहानी रेडियो', en: 'Story radio' }, 'hi', 'b'))]),
       ])
     : null;
   api.app.replaceChildren(
@@ -207,9 +231,9 @@ export function hub(api) {
         filter ? null : voiceTip,
         filter ? null : showtime,
         usedTags.length > 1 ? el('div', { class: 'tag-filters', role: 'toolbar', 'aria-label': 'Show worlds about' }, [tagBtn(null, null), ...usedTags.map(([id, t]) => tagBtn(id, t))]) : null,
-        mine.length ? el('h2', { class: 'hub-section', text: `${level(settings.level).name.en} · ${level(settings.level).name.hi}` }) : null,
+        mine.length ? el('h2', { class: 'hub-section' }, said(api, level(settings.level).name)) : null,
         el('div', { class: 'world-cards' }, mine.map(card)),
-        others.length ? el('h2', { class: 'hub-section', text: 'More worlds · और दुनिया' }) : null,
+        others.length ? el('h2', { class: 'hub-section' }, said(api, { hi: 'और दुनिया', en: 'More worlds' })) : null,
         others.length ? el('div', { class: 'world-cards' }, others.map(card)) : null,
       ]),
     ]),
@@ -311,7 +335,7 @@ export function world(api, w) {
       const x = SNAKE[i % SNAKE.length];
       const row = el('div', { class: `node-row ${cls} ${x > 0 ? 'guide-left' : ''}`, style: { '--x': String(x) } }, [
         node,
-        el('span', { class: 'node-title' }, english(w) ? [el('span', { class: 'latin', text: lesson.title.en })] : [el('span', { lang: 'hi', text: lesson.title.hi }), el('span', { class: 'en', text: lesson.title.en })]),
+        el('span', { class: 'node-title' }, english(w) ? [el('span', { class: 'latin', text: lesson.title.en })] : [el('span', { lang: 'hi', text: lesson.title.hi }), langMode(api) === 'both' ? el('span', { class: 'en', text: lesson.title.en }) : null]),
         stars,
       ]);
       node.addEventListener('click', () => {
@@ -334,9 +358,9 @@ export function world(api, w) {
     const banner = el('button', { class: `unit-banner ${done ? 'done' : ''}`, 'aria-label': unit.title.en }, [
       el('span', { class: 'unit-icon', html: api.iconHtml(unit.icon) }),
       el('span', { class: 'unit-text' }, [
-        el('span', { class: 'unit-skill', text: `Unit ${ui + 1} · ${unit.skill}` }),
+        el('span', { class: 'unit-skill', text: `${one(api, UNIT, english(w) ? 'en' : 'hi')} ${ui + 1} · ${english(w) ? unit.skill : skillName(api, unit.skill)}` }),
         bigName(w, unit.title, 'unit-title-hi'),
-        english(w) ? null : el('span', { class: 'unit-title-en', text: unit.title.en }),
+        english(w) || langMode(api) !== 'both' ? null : el('span', { class: 'unit-title-en', text: unit.title.en }),
       ]),
       done ? el('span', { class: 'unit-trophy', html: ICONS.trophy }) : null,
     ]);
@@ -348,7 +372,7 @@ export function world(api, w) {
     el('button', { class: 'round-btn', 'aria-label': 'All worlds', html: ICONS.back, onclick: () => api.back() }),
     el('div', { class: 'world-title' }, [
       bigName(w, w.name, 'world-name-hi'),
-      el('span', { class: 'world-name-en', text: [english(w) ? null : w.name.en, ...tagsOf(api, w).map((t) => t.en)].filter(Boolean).join(' · ') }),
+      el('span', { class: 'world-name-en', text: [english(w) || langMode(api) !== 'both' ? null : w.name.en, ...tagsOf(api, w).map((t) => one(api, t))].filter(Boolean).join(' · ') }),
       el('span', { class: 'title-stars', 'aria-label': `${st.got} of ${st.max} stars` }, [el('span', { class: 'star-icon', html: ICONS.star }), el('b', { text: `${st.got} / ${st.max}` })]),
     ]),
     el('span', { class: 'star-chip' }, [el('span', { class: 'star-icon', html: ICONS.star }), el('b', { text: String(st.got) })]),
@@ -715,8 +739,8 @@ export function todayCard(api, steps) {
       el('span', { class: 'hero-guide' }, [guide.node]),
       el('span', { class: 'hero-text' }, [
         el('b', { lang: 'hi', text: name ? `नमस्ते, ${name}!` : 'नमस्ते!' }),
-        el('span', { class: 'hero-sub' }, allDone ? [el('span', { lang: 'hi', text: 'आज का सफ़र पूरा!' }), el('span', { text: ' · All done for today!' })] : [el('span', { lang: 'hi', text: 'आज का सफ़र' }), el('span', { text: " · Today's path" })]),
-        days > 1 ? el('span', { class: 'hero-streak', 'aria-label': `${days} day streak` }, [el('span', { class: 'sun-icon', html: ICONS.sun }), el('span', { text: `${days} days in a row` })]) : null,
+        el('span', { class: 'hero-sub' }, said(api, allDone ? { hi: 'आज का सफ़र पूरा!', en: 'All done for today!' } : { hi: 'आज का सफ़र', en: "Today's path" })),
+        days > 1 ? el('span', { class: 'hero-streak', 'aria-label': `${days} day streak` }, [el('span', { class: 'sun-icon', html: ICONS.sun }), el('span', { text: one(api, { hi: `लगातार ${days} दिन`, en: `${days} days in a row` }) })]) : null,
       ]),
       el('span', { class: `goal-ring${allDone ? ' full' : ''}`, style: { '--p': String(done / steps.length) }, role: 'img', 'aria-label': `${done} of ${steps.length} done today` }, [allDone ? el('span', { class: 'ring-check', html: ICONS.check }) : el('b', { text: `${done}/${steps.length}` })]),
     ]),
@@ -727,7 +751,10 @@ export function todayCard(api, steps) {
         const meta = STEP[s.kind];
         const b = el('button', { class: `today-step ${s.kind}${s.done ? ' done' : ''}`, style: { '--place': s.world.color }, 'aria-label': `${meta.en}: ${s.lesson.title.en}` }, [
           el('span', { class: 'today-icon', html: api.iconHtml(s.lesson.icon) }),
-          el('span', { class: 'today-text' }, [el('b', { text: `${i + 1}. ${meta.en}` }), el('span', { class: 'today-lesson', text: s.lesson.title.en })]),
+          el('span', { class: 'today-text' }, [
+            el('b', {}, [`${i + 1}. `, ...said(api, meta)]),
+            el('span', { class: 'today-lesson', lang: sayText(langMode(api), s.lesson.title, english(s.world) ? 'en' : 'hi').mainLang, text: one(api, s.lesson.title, english(s.world) ? 'en' : 'hi') }),
+          ]),
           el('span', { class: 'today-badge', html: s.done ? ICONS.check : ICONS[meta.icon] }),
         ]);
         b.addEventListener('click', () => {

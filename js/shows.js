@@ -11,7 +11,7 @@ import { play, stop as stopSpeech, preload } from './audio.js';
 import { langsFor, BEAT_KINDS, beatKind, showLines, textKey, normText } from './logic.js';
 import { isoDay } from './curriculum.js';
 import { lookOf, SERIES } from './games/comic.js';
-import { sceneHtml, sceneClass, sceneSound } from './scene.js';
+import { sceneHtml, sceneClass, sceneSound, speaks } from './scene.js';
 
 // ---------- pure helpers (tested in tests/shows.test.js) ----------
 
@@ -762,7 +762,7 @@ export async function radio(api) {
       cover.innerHTML = art(page.word);
       return;
     }
-    cover.className = `radio-cover radio-page ${sceneClass(page.act)}`;
+    cover.className = `radio-cover radio-page ${sceneClass(page.act)}${speaks(page) ? ' talks' : ''}`;
     cover.innerHTML = sceneHtml(page.act, page.word, art);
     void cover.offsetWidth; // restart the animations
     cover.classList.add('play');
