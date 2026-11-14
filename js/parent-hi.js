@@ -45,6 +45,9 @@ const HI = {
   'Not sure? Quick check (2 minutes)': 'पक्का नहीं? छोटी जाँच (2 मिनट)',
   Navigation: 'रास्ता',
   'Stay in this grade': 'इसी कक्षा में रहें',
+  'Simple home screen': 'आसान होम स्क्रीन',
+  'For Toddler and Kindergarten: one big play button, Show time, Story radio and their worlds. Turn off for the full home screen with filters and every grade.':
+    'नन्हे बच्चों और बालवाटिका के लिए: एक बड़ा खेलो बटन, कार्टून, कहानी रेडियो और उनकी दुनिया। पूरी होम स्क्रीन (फ़िल्टर और सभी कक्षाएँ) के लिए बंद करें।',
   'The home screen shows only this grade’s worlds.': 'होम स्क्रीन पर सिर्फ़ इसी कक्षा की दुनिया दिखती हैं।',
   'Unlock every lesson': 'सारे पाठ खोल दें',
   'Normally lessons open one after another.': 'आम तौर पर पाठ एक के बाद एक खुलते हैं।',

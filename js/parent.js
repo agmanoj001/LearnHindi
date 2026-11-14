@@ -198,6 +198,7 @@ export function showParent(api) {
       section(
         'Navigation',
         toggle('Stay in this grade', s.lockGrade, (v) => ((s.lockGrade = v), persist()), 'The home screen shows only this grade’s worlds.'),
+        toggle('Simple home screen', s.simpleHome, (v) => ((s.simpleHome = v), persist()), 'For Toddler and Kindergarten: one big play button, Show time, Story radio and their worlds. Turn off for the full home screen with filters and every grade.'),
         toggle('Unlock every lesson', s.unlockAll, (v) => ((s.unlockAll = v), persist()), 'Normally lessons open one after another.'),
         toggle('Math worlds', s.math, (v) => ((s.math = v), persist()), 'English math for Kindergarten and Grade 1, following the North Carolina Standard Course of Study.'),
       ),
