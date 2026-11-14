@@ -52,6 +52,7 @@ async function boot() {
   await initAudio();
   startPlayClock();
   initCaptions();
+  initParallax();
   history.replaceState({ name: 'splash', depth: 0 }, '');
   window.addEventListener('popstate', (e) => render(e.state || { name: 'hub', depth: 0 }));
   render({ name: 'splash', depth: 0 });
@@ -84,6 +85,22 @@ function overLimit() {
 function allowMore(minutes = 10) {
   const day = isoDay(Date.now());
   state.extraMinutes = { ...(state.extraMinutes || {}), [day]: (state.extraMinutes?.[day] || 0) + minutes };
+}
+
+// ---------- depth: the background layers follow a finger or a tilt a little (styles.css .layer) ----------
+function initParallax() {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  let raf = 0;
+  const set = (x, y) => {
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(() => {
+      document.documentElement.style.setProperty('--px', Math.max(-1, Math.min(1, x)).toFixed(3));
+      document.documentElement.style.setProperty('--py', Math.max(-1, Math.min(1, y)).toFixed(3));
+    });
+  };
+  // the far layers move the opposite way to the finger, so the nearest things seem closest
+  window.addEventListener('pointermove', (e) => set(-(e.clientX / innerWidth - 0.5) * 2, -(e.clientY / innerHeight - 0.5) * 2), { passive: true });
+  window.addEventListener('deviceorientation', (e) => e.gamma != null && set(-e.gamma / 30, -(e.beta - 45) / 30), { passive: true });
 }
 
 // ---------- captions ----------

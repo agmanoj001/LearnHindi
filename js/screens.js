@@ -152,11 +152,18 @@ export function levelCard(api, level, selected, onPick) {
 
 // ---------- hub: one card per world ----------
 
+// Children who can't read yet get a simple home screen (docs/ROADMAP.md 4.2): their guide and one big play
+// button, Show time and Story radio, and their own worlds. No filters, skill tags or other grades; those
+// stay for older children and in the grown-ups' area ("Simple home screen" turns it off).
+export const PRE_READERS = ['toddler', 'kg'];
+export const simpleHome = (settings) => settings.simpleHome !== false && PRE_READERS.includes(settings.level);
+
 export function hub(api) {
   const { content, settings, progress } = api.state;
-  const all = hubWorlds(content, settings);
+  const simple = simpleHome(settings);
+  const all = simple ? hubWorlds(content, settings).filter((w) => w.level === settings.level) : hubWorlds(content, settings);
   // a row of tags filters the worlds: "show me everything about Grammar"
-  const filter = api.state.hubTag && all.some((w) => (w.tags || []).includes(api.state.hubTag)) ? api.state.hubTag : null;
+  const filter = !simple && api.state.hubTag && all.some((w) => (w.tags || []).includes(api.state.hubTag)) ? api.state.hubTag : null;
   const worlds = filter ? all.filter((w) => (w.tags || []).includes(filter)) : all;
   const mine = worlds.filter((w) => w.level === settings.level);
   const others = worlds.filter((w) => w.level !== settings.level);
@@ -187,7 +194,7 @@ export function hub(api) {
         el('span', { class: 'chips' }, [el('span', { class: 'chip grade', text: one(api, level(world.level).name) }), el('span', { class: `chip subject ${world.subject}`, text: one(api, sub, english(world) ? 'en' : 'hi') })]),
         bigName(world, world.name, 'world-name-hi'),
         langMode(api) === 'both' ? el('span', { class: 'world-name-en', lang: english(world) ? 'hi' : 'en', text: english(world) ? world.name.hi : world.name.en }) : null,
-        tagChips(api, world),
+        simple ? null : tagChips(api, world),
         el('span', { class: 'world-stars' }, [
           el('span', { class: 'star-icon', html: ICONS.star }),
           el('span', { text: `${st.got} / ${st.max}` }),
@@ -217,7 +224,7 @@ export function hub(api) {
       ])
     : null;
   api.app.replaceChildren(
-    el('div', { class: 'screen hub enter' }, [
+    el('div', { class: `screen hub enter${simple ? ' simple' : ''}` }, [
       backdrop(null),
       el('header', { class: 'hub-head' }, [
         appTitle(api),
@@ -227,11 +234,11 @@ export function hub(api) {
         ]),
       ]),
       el('div', { class: 'hub-scroll' }, [
-        filter ? null : todayCard(api, todayPlan(content, progress, all.filter((w) => w.level === settings.level))),
+        filter ? null : (simple ? playHero : todayCard)(api, todayPlan(content, progress, all.filter((w) => w.level === settings.level)), all),
         filter ? null : voiceTip,
         filter ? null : showtime,
-        usedTags.length > 1 ? el('div', { class: 'tag-filters', role: 'toolbar', 'aria-label': 'Show worlds about' }, [tagBtn(null, null), ...usedTags.map(([id, t]) => tagBtn(id, t))]) : null,
-        mine.length ? el('h2', { class: 'hub-section' }, said(api, level(settings.level).name)) : null,
+        !simple && usedTags.length > 1 ? el('div', { class: 'tag-filters', role: 'toolbar', 'aria-label': 'Show worlds about' }, [tagBtn(null, null), ...usedTags.map(([id, t]) => tagBtn(id, t))]) : null,
+        mine.length && !simple ? el('h2', { class: 'hub-section' }, said(api, level(settings.level).name)) : null,
         el('div', { class: 'world-cards' }, mine.map(card)),
         others.length ? el('h2', { class: 'hub-section' }, said(api, { hi: 'और दुनिया', en: 'More worlds' })) : null,
         others.length ? el('div', { class: 'world-cards' }, others.map(card)) : null,
@@ -526,18 +533,50 @@ function praiseRibbon(world, starCount) {
 
 // ---------- collection ----------
 
+// A collection is a picture to play with (docs/ROADMAP.md 7.1): the world's own scene, and a tray of the
+// stickers the child has earned. Tap or drag a sticker into the picture; drag it around (lower down is
+// nearer, so bigger); tap it to hear it; drag it back out to take it away. The album button shows them all
+// as cards. What's in the picture is saved with the progress (progress.scenes).
+export const SCENE_MAX = 30;
+export const stickerSize = (y) => 0.62 + (Math.max(0, Math.min(100, y)) / 100) * 0.62;
+
 export function collection(api, w) {
   const { content, progress } = api.state;
   const col = content.collections[w.collection];
   const have = new Set(progress.collected[w.collection] || []);
+  const special = w.collection === 'vehicles' && api.state.special;
+  const artOf = (id) => (id === 'special' ? specialVehicle(api.state.special) : pictureForWord(api.word(id)));
+  const sayOf = (id) => (id === 'special' ? (api.sfx.vroom(), api.say('special')) : api.sayAbout(api.word(id)));
+  const view = api.state.collectionView || 'scene';
+  const owned = [...(special ? ['special'] : []), ...col.items.filter((id) => have.has(id))];
+  const flip = el('button', {
+    class: 'round-btn small',
+    'aria-label': view === 'scene' ? 'All stickers' : 'My picture',
+    html: view === 'scene' ? ICONS.album : ICONS.picture,
+    onclick: () => {
+      api.sfx.pop();
+      api.state.collectionView = view === 'scene' ? 'album' : 'scene';
+      collection(api, w);
+    },
+  });
+  const head = el('header', { class: 'game-head' }, [
+    el('button', { class: 'round-btn', 'aria-label': 'Back', html: ICONS.back, onclick: () => api.back() }),
+    el('div', { class: 'head-title' }, [el('span', { class: 'world-name-hi', lang: 'hi', text: col.name.hi }), el('span', { class: 'world-name-en', text: langMode(api) === 'both' ? `${have.size} / ${col.items.length} · ${col.name.en}` : `${have.size} / ${col.items.length}` })]),
+    flip,
+  ]);
+  const next = nextCollectible(progress, { id: w.collection, ...col });
+  const hint = next ? el('p', { class: 'collection-hint' }, said(api, { hi: 'पाठ पूरे करो, और दोस्त पाओ!', en: 'Finish lessons to find more!' })) : null;
+  const body = view === 'scene' ? stickerScene(api, w, owned, col, artOf, sayOf) : stickerAlbum(api, col, have, special, artOf, sayOf);
+  api.app.replaceChildren(el('div', { class: `screen collection ${view} theme-${w.theme} enter`, style: { '--place': w.color } }, [backdrop(w), head, body, hint]));
+  if (view === 'scene' && !(progress.scenes?.[w.collection] || []).length && owned.length) api.sayLines({ hi: 'स्टिकर उठाओ और तस्वीर में लगाओ!', en: 'Pick a sticker and put it in the picture!' });
+  else api.sayLines(col.name);
+}
+
+function stickerAlbum(api, col, have, special, artOf, sayOf) {
   const cards = [];
-  if (w.collection === 'vehicles' && api.state.special) {
-    const c = el('button', { class: 'card sticker special', 'aria-label': 'special vehicle', html: specialVehicle(api.state.special) });
-    c.addEventListener('click', () => {
-      api.sfx.vroom();
-      bounce(c);
-      api.say('special');
-    });
+  if (special) {
+    const c = el('button', { class: 'card sticker special', 'aria-label': 'special vehicle', html: artOf('special') });
+    c.addEventListener('click', () => (bounce(c), sayOf('special')));
     cards.push(c);
   }
   for (const id of col.items) {
@@ -548,24 +587,135 @@ export function collection(api, w) {
       if (!got) return void api.sfx.boing();
       api.sfx.pop();
       bounce(c);
-      api.sayAbout(w0);
+      sayOf(id);
     });
     cards.push(c);
   }
-  const next = nextCollectible(progress, { id: w.collection, ...col });
-  api.app.replaceChildren(
-    el('div', { class: `screen collection theme-${w.theme} enter`, style: { '--place': w.color } }, [
-      backdrop(w),
-      el('header', { class: 'game-head' }, [
-        el('button', { class: 'round-btn', 'aria-label': 'Back', html: ICONS.back, onclick: () => api.back() }),
-        el('div', { class: 'head-title' }, [el('span', { class: 'world-name-hi', lang: 'hi', text: col.name.hi }), el('span', { class: 'world-name-en', text: `${have.size} / ${col.items.length} · ${col.name.en}` })]),
-        el('span', { class: 'round-spacer' }),
-      ]),
-      el('main', { class: 'sticker-grid' }, cards),
-      next ? el('p', { class: 'collection-hint', text: 'Finish lessons to find more! · पाठ पूरे करो, और दोस्त पाओ!' }) : null,
-    ]),
-  );
-  api.sayLines(col.name);
+  return el('main', { class: 'sticker-grid' }, cards);
+}
+
+function stickerScene(api, w, owned, col, artOf, sayOf) {
+  const key = w.collection;
+  const ok = new Set(owned);
+  let placed = (api.state.progress.scenes?.[key] || []).filter((p) => ok.has(p.id)).slice(0, SCENE_MAX);
+  const save = () => {
+    api.state.progress = { ...api.state.progress, scenes: { ...(api.state.progress.scenes || {}), [key]: placed.map(({ id, x, y }) => ({ id, x: Math.round(x * 10) / 10, y: Math.round(y * 10) / 10 })) } };
+    api.persistProgress();
+  };
+  const stage = el('div', { class: 'scene-stage', html: sceneSvg(w.theme), role: 'application', 'aria-label': 'My picture' });
+  const layer = el('div', { class: 'scene-stickers' });
+  stage.append(layer);
+  const tray = el('div', { class: 'sticker-tray', role: 'toolbar', 'aria-label': 'My stickers' });
+  const at = (e) => {
+    const r = stage.getBoundingClientRect();
+    return { x: ((e.clientX - r.left) / r.width) * 100, y: ((e.clientY - r.top) / r.height) * 100, inside: e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom };
+  };
+  const place = (node, p) => {
+    node.style.left = `${p.x}%`;
+    node.style.top = `${p.y}%`;
+    node.style.setProperty('--s', stickerSize(p.y).toFixed(3));
+    node.style.zIndex = String(Math.round(p.y * 10));
+  };
+  // a sticker in the picture: drag it, tap it, or drag it out to take it away
+  const addNode = (p, { fresh = false } = {}) => {
+    const node = el('div', { class: `placed${fresh ? ' fresh' : ''}`, html: artOf(p.id), role: 'img', 'aria-label': p.id === 'special' ? 'special vehicle' : api.word(p.id).en, style: { '--bob': `${(p.x * 0.07) % 2}s` } });
+    place(node, p);
+    node.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      node.setPointerCapture(e.pointerId);
+      const start = { x: e.clientX, y: e.clientY };
+      let moved = false;
+      node.classList.add('lifted');
+      const move = (ev) => {
+        if (!moved && Math.hypot(ev.clientX - start.x, ev.clientY - start.y) < 8) return;
+        moved = true;
+        const q = at(ev);
+        p.x = Math.max(0, Math.min(100, q.x));
+        p.y = Math.max(0, Math.min(100, q.y));
+        place(node, p);
+        node.classList.toggle('leaving', !q.inside);
+      };
+      const up = (ev) => {
+        node.removeEventListener('pointermove', move);
+        node.removeEventListener('pointerup', up);
+        node.removeEventListener('pointercancel', up);
+        node.classList.remove('lifted');
+        if (!moved) {
+          bounce(node);
+          sayOf(p.id);
+          return;
+        }
+        if (!at(ev).inside) {
+          placed = placed.filter((x) => x !== p);
+          api.sfx.pop();
+          node.classList.add('gone');
+          setTimeout(() => node.remove(), 260);
+        } else api.sfx.pop();
+        save();
+      };
+      node.addEventListener('pointermove', move);
+      node.addEventListener('pointerup', up);
+      node.addEventListener('pointercancel', up);
+    });
+    layer.append(node);
+    return node;
+  };
+  for (const p of placed) addNode(p);
+  // a free-ish spot in the lower part of the picture for a tapped sticker
+  const spot = () => {
+    const n = placed.length;
+    return { x: 14 + ((n * 37) % 72), y: 58 + ((n * 23) % 30) };
+  };
+  const drop = (id, p) => {
+    if (placed.length >= SCENE_MAX) {
+      api.sfx.boing();
+      return api.sayLines({ hi: 'तस्वीर भर गई! पहले कुछ हटाओ।', en: 'The picture is full! Take some out first.' });
+    }
+    const item = { id, ...p };
+    placed.push(item);
+    const node = addNode(item, { fresh: true });
+    api.sfx.pop();
+    sparkleAt(node, { count: 8 });
+    sayOf(id);
+    save();
+  };
+  for (const id of owned) {
+    const b = el('button', { class: 'tray-sticker', html: artOf(id), 'aria-label': `Put ${id === 'special' ? 'my vehicle' : api.word(id).en} in the picture` });
+    b.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      const start = { x: e.clientX, y: e.clientY };
+      let ghost = null;
+      const move = (ev) => {
+        if (!ghost && Math.abs(ev.clientY - start.y) < 10 && Math.abs(ev.clientX - start.x) < 10) return;
+        // a mostly sideways move scrolls the tray; up out of it picks the sticker up
+        if (!ghost && Math.abs(ev.clientX - start.x) > Math.abs(ev.clientY - start.y) * 1.2) return cleanup();
+        if (!ghost) ghost = el('div', { class: 'placed ghost', html: artOf(id) });
+        if (!ghost.isConnected) document.body.append(ghost);
+        ghost.style.left = `${ev.clientX}px`;
+        ghost.style.top = `${ev.clientY}px`;
+      };
+      const up = (ev) => {
+        cleanup();
+        if (!ghost) return drop(id, spot());
+        ghost.remove();
+        const q = at(ev);
+        if (q.inside) drop(id, { x: q.x, y: q.y });
+      };
+      const cleanup = () => {
+        window.removeEventListener('pointermove', move);
+        window.removeEventListener('pointerup', up);
+        window.removeEventListener('pointercancel', cleanup);
+      };
+      window.addEventListener('pointermove', move);
+      window.addEventListener('pointerup', up);
+      window.addEventListener('pointercancel', cleanup);
+    });
+    b.addEventListener('keydown', (e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), drop(id, spot())));
+    tray.append(b);
+  }
+  // stickers still to find: a "?" each, so a child can see there is more
+  for (const id of col.items.filter((x) => !ok.has(x)).slice(0, 4)) tray.append(el('button', { class: 'tray-sticker locked', 'aria-label': 'not found yet', html: '<span>?</span>', onclick: () => api.sfx.boing() }));
+  return el('main', { class: 'scene-play' }, [stage, tray]);
 }
 
 // ---------- story library ----------
@@ -723,6 +873,33 @@ const STEP = {
   story: { hi: 'कहानी', en: 'Story time', icon: 'star' },
   watched: { hi: 'कार्टून वाला खेल', en: 'Play what you watched', icon: 'play' },
 };
+
+// The simple home screen's hero: the guide says hello, and one big button plays the next thing to do.
+export function playHero(api, steps, worlds = []) {
+  const next = steps.find((s) => !s.done) || steps[0];
+  const world = next?.world || worlds[0];
+  if (!world) return null;
+  const lesson = next?.lesson || currentLesson(api.state.progress, world);
+  const guide = createMascot(world.mascot, { onTap: () => mascotJoke(api, guide) });
+  const { list = [], current } = api.state.profiles || {};
+  const name = list.find((p) => p.id === current)?.name?.trim();
+  const play = el('button', { class: 'big-play', style: { '--place': world.color }, 'aria-label': `Play: ${lesson.title.en}` }, [
+    el('span', { class: 'big-play-pic', html: api.iconHtml(lesson.icon) }),
+    el('span', { class: 'big-play-btn', html: ICONS.play }),
+  ]);
+  play.addEventListener('click', () => {
+    api.sfx.pop();
+    bounce(play);
+    api.go('lesson', { lessonId: lesson.id });
+  });
+  return el('section', { class: 'play-hero', 'aria-label': 'Play' }, [
+    el('div', { class: 'play-hero-guide' }, [guide.node, el('b', { class: 'play-hello', lang: 'hi', text: name ? `नमस्ते, ${name}!` : 'नमस्ते!' })]),
+    play,
+    steps.length > 1
+      ? el('span', { class: 'play-dots', role: 'img', 'aria-label': `${steps.filter((s) => s.done).length} of ${steps.length} done today` }, steps.map((s) => el('i', { class: s.done ? 'done' : s === next ? 'now' : '' })))
+      : null,
+  ]);
+}
 
 export function todayCard(api, steps) {
   if (!steps.length) return null;

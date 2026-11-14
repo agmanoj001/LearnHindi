@@ -15,6 +15,7 @@ export async function loadIndex() {
   try {
     const res = await fetch(VOICE_INDEX, { cache: 'no-cache' });
     if (res.ok) index = await res.json();
+    if (index) await dropChanged(index);
   } catch {
     /* offline and never fetched: no pack to offer */
   }
@@ -23,6 +24,24 @@ export async function loadIndex() {
     if (cached) index = await cached.json().catch(() => null);
   }
   return index;
+}
+
+// When a line's words change (a caption fixed, say), the pack records it again under the same name. A
+// device that saved the old recording would go on saying the old words, so forget every recording whose
+// line changed since this device saved the index (index.sums). The app says those lines with the device
+// voice until a grown-up downloads the pack again, which fetches only the bundles holding them.
+export function changedKeys(saved, fresh) {
+  if (!saved?.sums || !fresh?.sums) return [];
+  return Object.keys(saved.sums).filter((k) => saved.sums[k] !== fresh.sums[k]);
+}
+async function dropChanged(fresh) {
+  const cache = await openCache().catch(() => null);
+  const saved = cache && (await cache.match(VOICE_INDEX).then((r) => r?.json()).catch(() => null));
+  if (!saved || saved.version === fresh.version) return;
+  const stale = changedKeys(saved, fresh);
+  await Promise.all(stale.map((k) => cache.delete(voiceUrl(k))));
+  // remember this edition, so it is checked once
+  await cache.put(VOICE_INDEX, new Response(JSON.stringify(fresh), { headers: { 'Content-Type': 'application/json' } }));
 }
 
 const openCache = () => (typeof caches === 'undefined' ? Promise.resolve(null) : caches.open(VOICE_CACHE));

@@ -90,6 +90,7 @@ export const ICONS = {
   flag: icon('<path d="M5 21V4"/><path d="M5 4h12l-2.5 4L17 12H5" fill="currentColor"/>'),
   sun: icon('<circle cx="12" cy="12" r="4.5" fill="currentColor"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/>'),
   trophy: icon('<path d="M7 4h10v5a5 5 0 0 1-10 0z" fill="currentColor"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4M12 14v4M8 21h8M9.5 18h5"/>'),
+  picture: icon('<rect x="3.5" y="4.5" width="17" height="15" rx="3"/><path d="M5.5 17l4-4.5 3.5 3.5 2.5-2.5 3 3.5"/><circle cx="15.5" cy="9" r="1.6" fill="currentColor"/>'),
   album: icon('<rect x="3.5" y="4" width="17" height="16" rx="3"/><path d="M8 9.5l2 2 3.5-4"/><circle cx="16.5" cy="15" r="1.6" fill="currentColor"/><circle cx="8.5" cy="15.5" r="1.6" fill="currentColor"/>'),
   map: icon('<path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6z"/><path d="M9 4v14M15 6v14"/>'),
   replay: icon('<path d="M4 12a8 8 0 1 0 2.4-5.7"/><path d="M4 4.5v4.5h4.5"/>'),

@@ -314,6 +314,7 @@ export function defaultSettings(content) {
     level: (levels.find((l) => l.id === 'kg') || levels[0])?.id ?? null,
     onboarded: false,
     lockGrade: false,
+    simpleHome: true, // Toddler and Kindergarten: one big play button instead of the full home screen
     unlockAll: false,
     math: true, // English math worlds (NC standards) for Kindergarten and Grade 1
     captions: true, // show what the app says, as text
@@ -339,7 +340,7 @@ export function normalizeSettings(saved, content) {
   if (DAILY_LIMITS.includes(saved.dailyLimit)) out.dailyLimit = saved.dailyLimit;
   if (saved.parentLang === 'hi' || saved.parentLang === 'en') out.parentLang = saved.parentLang;
   if (saved.showMode === 'watch' || saved.showMode === 'play') out.showMode = saved.showMode;
-  for (const k of ['onboarded', 'lockGrade', 'unlockAll', 'math', 'captions', 'retell', 'music', 'sfx', 'bigText', 'storyVoices', 'radioDark']) if (typeof saved[k] === 'boolean') out[k] = saved[k];
+  for (const k of ['onboarded', 'lockGrade', 'simpleHome', 'unlockAll', 'math', 'captions', 'retell', 'music', 'sfx', 'bigText', 'storyVoices', 'radioDark']) if (typeof saved[k] === 'boolean') out[k] = saved[k];
   if (saved.voice && typeof saved.voice === 'object') {
     for (const l of ['hi', 'en']) if (typeof saved.voice[l] === 'string') out.voice[l] = saved.voice[l];
     if (typeof saved.voice.rate === 'number' && saved.voice.rate >= 0.5 && saved.voice.rate <= 1.3) out.voice.rate = saved.voice.rate;
@@ -350,7 +351,7 @@ export function normalizeSettings(saved, content) {
 export function defaultProgress(content) {
   const collected = {};
   for (const [id, col] of Object.entries(content.collections || {})) collected[id] = col.items.slice(0, col.start || 0);
-  return { lessons: {}, collected, days: [], trainPos: {}, storyPos: {}, comicPos: {}, stats: {}, time: {}, shows: {} };
+  return { lessons: {}, collected, days: [], trainPos: {}, storyPos: {}, comicPos: {}, stats: {}, time: {}, shows: {}, scenes: {} };
 }
 
 export function normalizeProgress(saved, content) {
@@ -400,6 +401,18 @@ export function normalizeProgress(saved, content) {
       Object.entries(obj(saved.shows))
         .filter(([, r]) => r && typeof r === 'object' && typeof r.last === 'string' && /^\d{4}-\d\d-\d\d$/.test(r.last))
         .map(([id, r]) => [id, { views: Math.max(1, r.views | 0), last: r.last }]),
+    ),
+    // the stickers placed in each collection's picture: only stickers the child has, at most 30 a picture
+    scenes: Object.fromEntries(
+      Object.entries(obj(saved.scenes))
+        .filter(([id, list]) => content.collections?.[id] && Array.isArray(list))
+        .map(([id, list]) => [
+          id,
+          list
+            .filter((p) => p && typeof p === 'object' && (p.id === 'special' || collected[id].includes(p.id)) && Number.isFinite(p.x) && Number.isFinite(p.y))
+            .slice(0, 30)
+            .map((p) => ({ id: p.id, x: Math.max(0, Math.min(100, p.x)), y: Math.max(0, Math.min(100, p.y)) })),
+        ]),
     ),
   };
 }

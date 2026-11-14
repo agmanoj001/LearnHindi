@@ -504,3 +504,77 @@ test('hints in every question, everyday Hindi, and a roti that looks like a roti
   assert.match(roti, /#F7E9CC/);
   assert.ok(!roti.includes('#E9B872'));
 });
+
+// ---- roadmap round 2: simple home for pre-readers, depth in the backgrounds, captions, playable collections ----
+import { simpleHome, PRE_READERS, stickerSize, SCENE_MAX } from '../js/screens.js';
+import { ambientLife, sceneSvg } from '../js/art-scenes.js';
+
+test('Toddler and Kindergarten get the simple home screen unless a grown-up turns it off', () => {
+  assert.deepEqual(PRE_READERS, ['toddler', 'kg']);
+  assert.ok(simpleHome({ level: 'toddler' }));
+  assert.ok(simpleHome({ level: 'kg', simpleHome: true }));
+  assert.ok(!simpleHome({ level: 'kg', simpleHome: false }));
+  assert.ok(!simpleHome({ level: 'grade1' }));
+  assert.equal(normalizeSettings({}, content).simpleHome, true);
+  assert.equal(normalizeSettings({ simpleHome: false }, content).simpleHome, false);
+  const parent = readFileSync(new URL('../js/parent.js', import.meta.url), 'utf8');
+  const hi = readFileSync(new URL('../js/parent-hi.js', import.meta.url), 'utf8');
+  assert.match(parent, /toggle\('Simple home screen'/);
+  assert.match(hi, /'Simple home screen': '/, 'the toggle is in Hindi too');
+});
+
+test('outdoor worlds have birds, butterflies or leaves, and Vehicle Town has depth layers', () => {
+  assert.match(ambientLife('farm'), /class="flap"/);
+  assert.match(ambientLife('forest'), /class="fall leaf"/);
+  assert.equal(ambientLife('space'), '', 'nothing flies in space');
+  const town = sceneSvg('town');
+  for (const l of ['far', 'mid', 'near']) assert.match(town, new RegExp(`class="layer ${l}`));
+  assert.ok(!sceneSvg('farm', { crop: 'bottom' }).includes('class="layer near life"'), 'the small world cards stay calm');
+  const css = readFileSync(new URL('../styles.css', import.meta.url), 'utf8');
+  assert.match(css, /\.backdrop \.layer\.far \{/);
+  assert.match(css, /prefers-reduced-motion: reduce\) \{\s*\.backdrop \.life \{\s*display: none/);
+});
+
+test('the captions that read badly are fixed', () => {
+  const p = content.phrases;
+  assert.equal(p.readFind.en, 'Find the {w} house');
+  assert.equal(p.rescue.en, 'Help! Find the {w}');
+  assert.equal(p.whoSays.hi, '{w} कौन बोलता है?');
+  assert.equal(p.whichIs.hi, '{w} कौन सा है?');
+  assert.match(p.unitDone.hi, /भाग/, 'a unit is a भाग, as on the map');
+  assert.ok(!/female/i.test(p.femaleOf.en));
+  for (const [k, v] of Object.entries(p)) for (const l of ['hi', 'en']) if (v[l]) assert.ok(!/\bthat says\b/.test(v[l]), `${k}.${l}`);
+});
+
+test('a collection is a picture: placed stickers are saved, checked and sized by depth', () => {
+  assert.ok(stickerSize(90) > stickerSize(10), 'lower in the picture is nearer, so bigger');
+  const saved = {
+    collected: { farm: ['cow', 'dog'] },
+    scenes: {
+      farm: [
+        { id: 'cow', x: 20, y: 70 },
+        { id: 'horse', x: 50, y: 50 }, // not earned yet
+        { id: 'dog', x: 140, y: -5 }, // off the picture: kept inside it
+        { id: 'dog', x: 'a', y: 3 },
+      ],
+      nowhere: [{ id: 'cow', x: 1, y: 1 }],
+    },
+  };
+  const p = normalizeProgress(saved, content);
+  assert.deepEqual(p.scenes.farm, [
+    { id: 'cow', x: 20, y: 70 },
+    { id: 'dog', x: 100, y: 0 },
+  ]);
+  assert.ok(!('nowhere' in p.scenes));
+  const many = normalizeProgress({ collected: { farm: ['cow'] }, scenes: { farm: Array.from({ length: 50 }, () => ({ id: 'cow', x: 1, y: 1 })) } }, content);
+  assert.equal(many.scenes.farm.length, SCENE_MAX);
+  assert.deepEqual(normalizeProgress({}, content).scenes, {});
+});
+
+import { changedKeys } from '../js/voicepack.js';
+test('recordings whose words changed are forgotten on the device, so the old words are not said', () => {
+  const saved = { sums: { a: '1', b: '2', c: '3' } };
+  const fresh = { sums: { a: '1', b: '9', d: '4' } };
+  assert.deepEqual(changedKeys(saved, fresh), ['b', 'c']);
+  assert.deepEqual(changedKeys(null, fresh), []);
+});

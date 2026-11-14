@@ -35,26 +35,49 @@ const SCENES = {
     `<g transform="translate(270 440)"><path d="M0 40 L40 8 L80 40 V90 H0 Z" fill="#E24B4F"/><rect x="28" y="56" width="24" height="34" fill="#fff"/><path d="M28 56 L52 90 M52 56 L28 90" stroke="#E24B4F" stroke-width="3"/></g>` +
     `<g stroke="#C9A27E" stroke-width="5">${[20, 60, 100, 140, 180].map((x) => `<line x1="${x}" y1="560" x2="${x}" y2="600"/>`).join('')}<line x1="10" y1="572" x2="190" y2="572"/></g>` +
     `<g class="sway">${[40, 120, 330, 360].map((x, i) => `<circle cx="${x}" cy="${660 + (i % 2) * 30}" r="6" fill="${['#FF6B9A', '#FFD43B'][i % 2]}"/>`).join('')}</g>`,
-  town: (id) =>
-    sky(id, '#B9D7FF', '#F0F6FF') +
-    cloud(70, 90, 0.9) +
-    cloud(290, 150, 0.6) +
-    `<g fill="#C9C3FF" opacity="0.7">${[
-      [10, 380, 50, 160],
-      [70, 330, 40, 210],
-      [120, 400, 60, 140],
-      [190, 350, 46, 190],
-      [250, 300, 54, 240],
-      [315, 380, 70, 160],
-    ]
-      .map(([x, y, w, h]) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="6"/>`)
-      .join('')}</g>` +
-    hills([
-      [560, '#A6E07A', 30],
-      [640, '#8BD164', 24],
-    ]) +
-    `<rect x="0" y="690" width="400" height="60" fill="#5B6478"/><path d="M0 720 H400" stroke="#fff" stroke-width="5" stroke-dasharray="26 22"/>` +
-    `<g class="swim" style="--d:9s"><g transform="translate(-60 690) scale(0.35)"><path d="M20 100 V76 Q20 65 34 63 L58 58 L78 34 Q82 30 90 30 H128 Q136 30 140 36 L158 60 L172 64 Q182 68 182 80 V100 Z" fill="#FF5A5F"/><circle cx="56" cy="102" r="17" fill="#2B2D42"/><circle cx="148" cy="102" r="17" fill="#2B2D42"/></g></g>`,
+  // Vehicle Town (Kindergarten): a pale skyline far away, houses with roofs and windows nearer, trees,
+  // and traffic on the road. Each depth is its own layer, so the layers can drift at different speeds.
+  town: (id) => {
+    const far = [
+      [0, 360, 54, 200],
+      [60, 320, 40, 240],
+      [108, 380, 58, 180],
+      [176, 300, 46, 260],
+      [232, 340, 60, 220],
+      [300, 310, 44, 250],
+      [350, 370, 60, 190],
+    ];
+    const houses = [
+      [8, 470, 78, 120, '#FFD6A5', '#E2725B'],
+      [96, 440, 64, 150, '#BDE0FE', '#5C7CFA'],
+      [170, 486, 86, 104, '#FFC8DD', '#C2185B'],
+      [266, 450, 60, 140, '#CDEAC0', '#3D9970'],
+      [334, 476, 64, 114, '#FFF1A8', '#E0A100'],
+    ];
+    const house = ([x, y, w, h, wall, roof]) =>
+      `<path d="M${x - 4} ${y + 2} L${x + w / 2} ${y - 30} L${x + w + 4} ${y + 2} Z" fill="${roof}"/>` +
+      `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${wall}"/>` +
+      Array.from({ length: Math.floor((h - 40) / 34) }, (_, row) =>
+        [0, 1].map((c) => `<rect x="${x + 10 + c * (w - 32)}" y="${y + 14 + row * 34}" width="12" height="16" rx="2" fill="#7FB8FF"/>`).join(''),
+      ).join('') +
+      `<rect x="${x + w / 2 - 8}" y="${y + h - 26}" width="16" height="26" rx="3" fill="#8A5A44"/>`;
+    const tree = (x, y, s) => `<g class="sway" style="--d:${R(5 + s)}s"><rect x="${x - 3}" y="${y}" width="6" height="${R(26 * s)}" fill="#8A5A44"/><circle cx="${x}" cy="${y - 4}" r="${R(16 * s)}" fill="#4CB963"/><circle cx="${x - 9 * s}" cy="${y + 4}" r="${R(11 * s)}" fill="#3FA956"/></g>`;
+    const car = (cls, d, y, c, flip = false) =>
+      `<g class="${cls}" style="--d:${d}s"><g transform="translate(${flip ? 460 : -60} ${y}) scale(${flip ? -0.32 : 0.32} 0.32)"><path d="M20 100 V76 Q20 65 34 63 L58 58 L78 34 Q82 30 90 30 H128 Q136 30 140 36 L158 60 L172 64 Q182 68 182 80 V100 Z" fill="${c}"/><path d="M84 40 H126 L146 62 H72 Z" fill="#CFEFFF"/><circle cx="56" cy="102" r="17" fill="#2B2D42"/><circle cx="148" cy="102" r="17" fill="#2B2D42"/></g></g>`;
+    return (
+      sky(id, '#B9D7FF', '#F0F6FF') +
+      `<g class="layer far">${cloud(70, 90, 0.9)}${cloud(290, 150, 0.6)}<g fill="#D9D3FF" opacity="0.75">${far.map(([x, y, w, h]) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="5"/>`).join('')}</g></g>` +
+      `<g class="layer mid">${houses.map(house).join('')}</g>` +
+      hills([
+        [600, '#A6E07A', 26],
+        [660, '#8BD164', 20],
+      ]) +
+      `<g class="layer near">${tree(40, 600, 1.2)}${tree(150, 612, 0.9)}${tree(300, 604, 1.1)}${tree(372, 616, 0.8)}</g>` +
+      `<rect x="0" y="690" width="400" height="60" fill="#5B6478"/><path d="M0 720 H400" stroke="#fff" stroke-width="5" stroke-dasharray="26 22"/>` +
+      car('swim', 9, 690, '#FF5A5F') +
+      car('swim back', 13, 712, '#FFB020', true)
+    );
+  },
   jungle: (id) =>
     sky(id, '#BFF0C8', '#EAFBE9') +
     `<circle cx="70" cy="80" r="34" fill="#FFF3A6" opacity="0.8"/>` +
@@ -481,9 +504,42 @@ SCENES.colony = (id) =>
 
 export const THEMES = Object.keys(SCENES);
 
+// Small ambient life on top of the outdoor worlds (docs/ROADMAP.md 5.2): birds crossing the sky, a
+// butterfly over the grass, leaves falling in the woods. It sits in the "near" layer, in front of the scene.
+const bird = (y, d, delay, s = 1) =>
+  `<g class="swim" style="--d:${d}s;animation-delay:-${delay}s"><g transform="translate(-40 ${y}) scale(${s})"><g class="flap"><path d="M0 0 Q6 -7 12 0 Q18 -7 24 0" fill="none" stroke="#3B4252" stroke-width="2.4" stroke-linecap="round"/></g></g></g>`;
+const butterfly = (x, y, c, delay) =>
+  `<g class="flutter" style="animation-delay:-${delay}s"><g transform="translate(${x} ${y})"><g class="flap-x"><ellipse cx="-6" cy="-3" rx="7" ry="9" fill="${c}"/><ellipse cx="6" cy="-3" rx="7" ry="9" fill="${c}"/><ellipse cx="-4" cy="7" rx="4" ry="5" fill="${c}"/><ellipse cx="4" cy="7" rx="4" ry="5" fill="${c}"/></g><rect x="-1.2" y="-8" width="2.4" height="18" rx="1.2" fill="#3B4252"/></g></g>`;
+const leaf = (x, d, delay, c) =>
+  `<g class="fall leaf" style="--d:${d}s;animation-delay:-${delay}s"><path transform="translate(${x} -20)" d="M0 0 C6 -8 16 -6 16 0 C16 6 6 8 0 0 Z" fill="${c}"/></g>`;
+const AMBIENT = {
+  birds: bird(150, 26, 4) + bird(176, 26, 6, 0.8) + bird(250, 34, 20, 0.7),
+  butterflies: butterfly(90, 640, '#FF8FB1', 0) + butterfly(310, 600, '#FFD43B', 3),
+  leaves: [40, 130, 220, 330].map((x, i) => leaf(x, 12 + i * 2, i * 3.3, ['#E0A100', '#4CB963', '#D9622B', '#7CC27F'][i])).join(''),
+};
+const LIFE = {
+  farm: ['birds', 'butterflies'],
+  town: ['birds', 'butterflies'],
+  garden: ['birds', 'butterflies'],
+  jungle: ['birds', 'leaves'],
+  forest: ['birds', 'leaves'],
+  village: ['birds', 'butterflies'],
+  carnival: ['birds'],
+  castle: ['birds'],
+  mountain: ['birds'],
+  desert: ['birds'],
+  dino: ['birds', 'leaves'],
+  palace: ['birds', 'butterflies'],
+  peepal: ['leaves'],
+  chaupal: ['birds'],
+  colony: ['birds'],
+};
+export const ambientLife = (theme) => (LIFE[theme] || []).map((k) => AMBIENT[k]).join('');
+
 // `crop: 'bottom'` keeps the ground in view (used by the short world cards on the hub).
 export function sceneSvg(theme, { crop = 'middle' } = {}) {
   const id = `sky${++uid}`;
   const align = crop === 'bottom' ? 'xMidYMax' : 'xMidYMid';
-  return `<svg viewBox="0 0 400 800" preserveAspectRatio="${align} slice" aria-hidden="true">${(SCENES[theme] || SCENES.hub)(id)}</svg>`;
+  const life = crop === 'bottom' ? '' : ambientLife(theme);
+  return `<svg viewBox="0 0 400 800" preserveAspectRatio="${align} slice" aria-hidden="true">${(SCENES[theme] || SCENES.hub)(id)}${life ? `<g class="layer near life">${life}</g>` : ''}</svg>`;
 }
