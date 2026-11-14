@@ -180,7 +180,7 @@ async function playSegment(seg, mine) {
   if (pk) {
     const purl = await packUrl(pk);
     if (mine !== token) return;
-    if (purl && (await playUrl(purl, seg, packRate()))) return;
+    if (purl && (await playUrl(purl, seg, packRate(), pk))) return;
   }
   if (mine !== token) return;
   if (seg.file && !failedFiles.has(seg.file)) {
@@ -198,7 +198,7 @@ function wait(ms) {
   });
 }
 
-function playUrl(url, seg = null, rate = 1) {
+function playUrl(url, seg = null, rate = 1, pack = null) {
   return new Promise((resolve) => {
     const a = new Audio(url);
     a.playbackRate = rate;
@@ -206,8 +206,9 @@ function playUrl(url, seg = null, rate = 1) {
     currentResolve = resolve;
     a.onended = () => resolve(true);
     a.onerror = () => resolve(false);
-    // tell the read-along when the voice really starts, and for how long it will speak
-    a.onplaying = () => seg?.text && window.dispatchEvent(new CustomEvent('vt-voice', { detail: { text: seg.text, lang: seg.lang, ms: isFinite(a.duration) ? (a.duration * 1000) / rate : 0 } }));
+    // tell the read-along when the voice really starts, for how long it will speak, and which pack
+    // recording it is (its words are timed: voices/words.json)
+    a.onplaying = () => seg?.text && window.dispatchEvent(new CustomEvent('vt-voice', { detail: { text: seg.text, lang: seg.lang, ms: isFinite(a.duration) ? (a.duration * 1000) / rate : 0, pack } }));
     a.play().catch(() => resolve(false));
   });
 }

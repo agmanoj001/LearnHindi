@@ -6,6 +6,7 @@
 export const VOICE_CACHE = 'kkm-voices';
 export const VOICE_INDEX = 'voices/index.json';
 export const voiceUrl = (key) => `voices/${key}.mp3`;
+export const WORDS_FILE = 'voices/words.json';
 
 let index = null;
 
@@ -139,8 +140,10 @@ export async function downloadVoices(files, onProgress = () => {}, { fresh = fal
     };
     await Promise.all(Array.from({ length: 6 }, next));
   }
-  // keep the index too, so the pack is known offline, and which edition this is
+  // keep the index too, so the pack is known offline, and which edition this is; and the word timings
   await fetch(VOICE_INDEX).then((r) => r.ok && cache.put(VOICE_INDEX, r)).catch(() => {});
+  await fetch(WORDS_FILE).then((r) => r.ok && cache.put(WORDS_FILE, r)).catch(() => {});
+  wordTimes = null;
   if (!failed && idx?.audioVersion) await cache.put(VERSION_KEY, new Response(String(idx.audioVersion)));
   return failed;
 }
@@ -164,6 +167,30 @@ async function fetchWithProgress(url, onBytes) {
   let at = 0;
   for (const c of chunks) out.set(c, (at += c.length) - c.length);
   return out;
+}
+
+// When each word of a story page starts in its recording, as fractions of the recording
+// (tools/align-words.mjs). Saved with the pack; a device that downloaded the pack before the timings
+// existed fetches them once. A recording made again since its timings were made is left untimed.
+let wordTimes = null;
+export function loadWordTimes() {
+  wordTimes ||= (async () => {
+    const cache = await openCache().catch(() => null);
+    let res = cache && (await cache.match(WORDS_FILE).catch(() => null));
+    if (!res) {
+      res = await fetch(WORDS_FILE).catch(() => null);
+      if (res?.ok && cache) await cache.put(WORDS_FILE, res.clone()).catch(() => {});
+    }
+    const words = res?.ok !== false ? (await res?.json().catch(() => null))?.words : null;
+    const idx = await loadIndex();
+    return { words: words || {}, sums: idx?.sums || {} };
+  })();
+  return wordTimes;
+}
+export function timesFor(table, key, nWords) {
+  const t = table?.words?.[key];
+  if (!t || t.f.length !== nWords || (table.sums[key] && table.sums[key] !== t.s)) return null;
+  return t.f;
 }
 
 export async function removeVoices() {

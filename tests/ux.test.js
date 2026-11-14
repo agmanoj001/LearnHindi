@@ -578,3 +578,83 @@ test('recordings whose words changed are forgotten on the device, so the old wor
   assert.deepEqual(changedKeys(saved, fresh), ['b', 'c']);
   assert.deepEqual(changedKeys(null, fresh), []);
 });
+
+// ---- section 1: word-timed read-along, decodable stories ----
+import { spansFrom, mapper, wordFractions, markedSsml, isPageKey } from '../tools/align-words.mjs';
+import { timesFor } from '../js/voicepack.js';
+import { storyNeeds, taughtMatras, decodability, nextDecodable, MATRA_SIGNS } from '../js/curriculum.js';
+import { sentenceTokens } from '../js/logic.js';
+
+test('word timings: pauses are found, matched between the two readings, and words never start in a pause', () => {
+  // 0–1 s speech, 1–1.4 s pause, 1.4–2 s speech; a 0.05 s blip joins the speech after it
+  assert.deepEqual(spansFrom(2, [1], [1.4]), [[0, 1], [1.4, 2]]);
+  // the guide pauses at 0.5–0.7 s of 1.2 s; the voice at 1–1.4 s of 2 s: the pause ends line up
+  const map = mapper([[0, 0.5], [0.7, 1.2]], [[0, 1], [1.4, 2]]);
+  assert.equal(map(0.7), 1.4);
+  assert.equal(map(0.25), 0.5);
+  const f = wordFractions([0, 0.3, 0.6, 0.7, 0.95], [[0, 0.5], [0.7, 1.2]], [[0, 1], [1.4, 2]], 2);
+  assert.ok(f.every((x, i) => i === 0 || x >= f[i - 1]), 'words come in order');
+  assert.ok(!f.some((x) => x * 2 > 1 && x * 2 < 1.4), 'no word starts in the pause');
+  assert.match(markedSsml(['राम', '"हाँ"', 'A&B']), /<mark name="0"\/>राम <mark name="1"\/>&quot;हाँ&quot; <mark name="2"\/>A&amp;B/);
+  assert.ok(isPageKey('story-frog-jump-3_hi') && !isPageKey('story-frog-jump-title_hi') && !isPageKey('story-frog-jump-q1_en'));
+});
+
+test('every story page in the voice pack has word timings that fit its words and its recording', () => {
+  const idx = JSON.parse(readFileSync(new URL('../voices/index.json', import.meta.url), 'utf8'));
+  const { words } = JSON.parse(readFileSync(new URL('../voices/words.json', import.meta.url), 'utf8'));
+  const table = { words, sums: idx.sums };
+  let n = 0;
+  for (const st of content.stories)
+    st.pages.forEach((p, i) =>
+      (st.lang === 'en' ? ['en'] : ['hi', 'en']).forEach((l) => {
+        const key = `story-${st.id}-${i + 1}_${l}`;
+        if (!idx.files[key]) return;
+        const f = timesFor(table, key, sentenceTokens(p[l]).length);
+        assert.ok(f, `${key} has timings`);
+        assert.ok(f.every((x, k) => x >= 0 && x <= 1 && (k === 0 || x >= f[k - 1])), `${key} timings rise from 0 to 1`);
+        n++;
+      }),
+    );
+  assert.ok(n > 1500, `${n} lines timed`);
+  // a recording made again isn't followed with its old timings
+  assert.equal(timesFor({ words: { k: { s: 'old', f: [0, 0.5] } }, sums: { k: 'new' } }, 'k', 2), null);
+  assert.equal(timesFor({ words: { k: { s: 'a', f: [0, 0.5] } }, sums: { k: 'a' } }, 'k', 3), null, 'the word count must match');
+});
+
+test('decodable stories: each uses only the matras taught by its stage, with no joined letters', () => {
+  const STAGES = [[], ['aa', 'i', 'ii'], ['u', 'uu'], ['e', 'ai'], ['o', 'au']];
+  const allowed = (stage) => new Set(STAGES.slice(0, stage + 1).flat());
+  const dec = content.stories.filter((s) => s.decodable != null);
+  assert.equal(dec.length, 10);
+  for (let stage = 0; stage < 5; stage++) assert.equal(dec.filter((s) => s.decodable === stage).length, 2, `two stories at stage ${stage}`);
+  for (const s of dec) {
+    const n = storyNeeds(s);
+    assert.deepEqual(decodability(n, allowed(s.decodable)).missing, [], `${s.id} needs only stage ${s.decodable} matras`);
+    assert.deepEqual(n.conjuncts, [], `${s.id} has no joined letters`);
+    assert.equal(s.level, 'grade1');
+  }
+  // one of each stage is a lesson at the end of its matra unit
+  const jungle = content.worlds.find((w) => w.id === 'jungle');
+  for (const [unit, stage] of [['g1-m1', 0], ['g1-m1', 1], ['g1-m2', 2], ['g1-m3', 3], ['g1-m4', 4]]) {
+    const ids = jungle.units.find((u) => u.id === unit).lessons.map((l) => l.config?.story);
+    assert.ok(dec.some((s) => s.decodable === stage && ids.includes(s.id)), `${unit} has a stage ${stage} story`);
+  }
+});
+
+test('the next story to read is one the child can decode, from the matras their lessons taught', () => {
+  assert.equal(Object.keys(MATRA_SIGNS).length, 12);
+  assert.deepEqual(storyNeeds({ title: { hi: 'राजा' }, pages: [{ hi: 'क्या बात!' }] }), { matras: ['aa'], conjuncts: ['क्य'], words: 3 });
+  const none = taughtMatras(content, { lessons: {} }, 'grade1');
+  assert.equal(none.size, 0);
+  const m1 = taughtMatras(content, { lessons: { 'g1-m1-1': { stars: 2 } } }, 'grade1');
+  assert.deepEqual([...m1].sort(), ['aa', 'i', 'ii']);
+  assert.equal(taughtMatras(content, { lessons: {} }, 'grade3').size, 12, 'from Grade 2 up, all of them');
+  const g1 = content.stories.filter((s) => s.level === 'grade1' && s.lang !== 'en');
+  const first = nextDecodable(g1, none, () => false);
+  assert.equal(first.decodable, 0, 'with no matras yet, a stage 0 story');
+  const read = new Set(content.stories.filter((s) => s.decodable === 0).map((s) => s.id));
+  assert.equal(nextDecodable(g1, m1, (s) => read.has(s.id)).decodable, 1, 'after ा ि ी and the stage 0 books, a stage 1 book');
+});
+test('a short blip inside a pause joins the speech after it', () => {
+  assert.deepEqual(spansFrom(3, [1, 1.55], [1.5, 2]), [[0, 1], [1.5, 3]]);
+});
