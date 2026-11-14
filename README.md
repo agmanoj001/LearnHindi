@@ -185,6 +185,14 @@ GOOGLE_TTS_KEY=your-key node tools/make-voices.mjs
 
 Every new recording is checked: Google's premium voices sometimes return silence for a very short line (a single letter, *है*, *Yes*), so a silent one is made again and, after two tries, said by the standard Neural2 voice of the same language and gender. The silence at the start and end of each recording is trimmed (`tools/trim-voices.mjs`, needs ffmpeg; the MP3 frames are copied, not re-encoded), so one line follows the next without dead air. When recordings already on families' devices should be replaced, raise `AUDIO_VERSION` in the script: the grown-ups' area then offers *Get the faster voices*. `--story lion-mouse` makes one story (to try a voice), `--voices` lists the voices the key can use, `--hi <voice>` / `--en <voice>` pick one, and `--all` remakes everything. The key needs the *Cloud Text-to-Speech API* enabled; the whole pack (about 52,000 characters) is within Google's free tier.
 
+**Word timings for the read-along.** The story voice doesn't say when each word starts, so after making voices, run
+
+```bash
+GOOGLE_TTS_KEY=your-key node tools/align-words.mjs
+```
+
+It asks Google's Neural2 voice (which does report word times) to read each story page with a mark before every word, matches the pauses of that reading to the pauses in the recording (ffmpeg), and saves when each word starts, as a fraction of the recording, in `voices/words.json` with the recording's checksum. The story reader then lights each word exactly as the voice reaches it; a recording made again is left untimed (estimated) until the tool runs again. Only new or changed pages are timed; `--all` times every page.
+
 ### Record a whole story
 
 Parent area › **Record a story**. Pick a story and a language, then tap **● Record**, read the line shown, tap **■ Stop**: it saves and moves on to the next line (title, then each page, then the lesson). ← and → move between lines and ▶ plays one back. **Save my recordings to a file** and **Load recordings from a file** move the family's recordings to another device; the file stays with the family.
