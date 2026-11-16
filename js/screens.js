@@ -5,7 +5,7 @@ import { createMascot, mascotSvg, MASCOTS, MASCOT_IDS } from './mascot.js';
 import { sceneSvg } from './art-scenes.js';
 import { PLACEMENT_LEVELS, placementQuestions, placementResult } from './placement.js';
 import { picture, pictureForWord, specialVehicle } from './art.js';
-import { worldLessons, lessonRecord, isUnlocked, currentLesson, nextLesson, worldStars, hubWorlds, streak, nextCollectible, todayPlan, storyLang, worldStoryLang } from './curriculum.js';
+import { worldLessons, lessonRecord, isUnlocked, currentLesson, nextLesson, worldStars, hubWorlds, streak, nextCollectible, todayPlan, storyLang, worldStoryLang, storyNeeds, taughtMatras, decodability, nextDecodable, MATRA_SIGNS } from './curriculum.js';
 import { SHOW_ICONS } from './shows.js';
 import { voicesReady, hasVoice } from './audio.js';
 import { deviceKind, VOICE_SETUP, readable } from './logic.js';
@@ -724,14 +724,26 @@ export function library(api, w) {
   const { content, progress } = api.state;
   const levels = storyLevels(api, w);
   const stories = content.stories.filter((s) => levels.includes(s.level) && storyLang(s) === worldStoryLang(w));
-  const books = stories.map((s) => {
-    const read = lessonRecord(progress, `story:${s.id}`).stars > 0;
-    const b = el('button', { class: `book ${read ? 'read' : ''} ${s.kind === 'poem' ? 'poem' : ''}`, 'aria-label': s.title.en }, [
+  // read from the library (story:<id>) or as a lesson on a map
+  const readAsLesson = new Set(content.worlds.flatMap((x) => worldLessons(x)).filter((l) => l.config?.story && lessonRecord(progress, l.id).stars > 0).map((l) => l.config.story));
+  const isRead = (s) => lessonRecord(progress, `story:${s.id}`).stars > 0 || readAsLesson.has(s.id);
+  // learning to read Hindi (Grades 1 and 2): which books the child can already decode (docs/ROADMAP.md 1.3)
+  const decoding = !english(w) && ['grade1', 'grade2'].includes(w.level);
+  const taught = decoding ? taughtMatras(content, progress, api.state.settings.level) : null;
+  const canRead = (s) => decodability(storyNeeds(s), taught);
+  const next = decoding ? nextDecodable(stories, taught, isRead) : null;
+  const book = (s, { hero = false } = {}) => {
+    const read = isRead(s);
+    const d = decoding ? canRead(s) : null;
+    const b = el('button', { class: `book ${read ? 'read' : ''} ${s.kind === 'poem' ? 'poem' : ''}${hero ? ' next-book' : ''}`, 'aria-label': s.title.en }, [
+      hero ? el('span', { class: 'next-ribbon' }, said(api, { hi: 'अब यह पढ़ो!', en: 'Read this next!' })) : null,
       s.kind === 'poem' ? el('span', { class: 'poem-ribbon', text: s.lang === 'en' ? 'Rhyme' : 'कविता · Poem' }) : null,
       el('span', { class: 'book-cover', html: pictureForWord(api.word(s.cover)) }),
       // English rhymes lead with their English title
       s.lang === 'en' ? el('span', { class: 'book-title latin', text: s.title.en }) : el('span', { class: 'book-title', lang: 'hi', text: s.title.hi }),
       el('span', { class: 'book-title-en', lang: s.lang === 'en' ? 'hi' : 'en', text: s.lang === 'en' ? s.title.hi : s.title.en }),
+      d?.ok && !hero ? el('span', { class: 'can-read', lang: 'hi', title: 'You can read this one yourself', text: 'ख़ुद पढ़ो' }) : null,
+      d && !d.ok && d.missing.length <= 3 ? el('span', { class: 'needs-matras', title: 'Matras still to learn' }, d.missing.map((m) => el('i', { lang: 'hi', text: `◌${MATRA_SIGNS[m]}` }))) : null,
       read ? el('span', { class: 'book-badge', html: ICONS.check }) : null,
     ]);
     b.addEventListener('click', () => {
@@ -739,7 +751,11 @@ export function library(api, w) {
       api.go('lesson', { worldId: w.id, storyId: s.id });
     });
     return b;
-  });
+  };
+  // while learning to read, the books a child can read come first, then those needing the fewest new matras
+  const order = decoding ? stories.map((s, i) => [s, canRead(s).missing.length, i]).sort((a, b) => a[1] - b[1] || a[2] - b[2]).map((x) => x[0]) : stories;
+  const books = order.filter((s) => !next || s !== next || !canRead(s).ok).map((s) => book(s));
+  const hero = next && canRead(next).ok ? book(next, { hero: true }) : null;
   // each world's guide keeps its own library, on shelves that match the world
   const guide = MASCOTS[w.mascot]?.name || { hi: '', en: '' };
   const mascot = createMascot(w.mascot, { size: 'small', onTap: () => mascotJoke(api, mascot) });
@@ -753,7 +769,7 @@ export function library(api, w) {
           : [el('span', { class: 'world-name-hi', lang: 'hi', text: `${guide.hi} का पुस्तकालय` }), el('span', { class: 'world-name-en', text: `${guide.en}'s library · ${stories.length} books` })]),
         el('span', { class: 'round-spacer' }),
       ]),
-      el('main', { class: 'shelf' }, books),
+      el('main', { class: 'shelf' }, [hero, ...books]),
       el('div', { class: 'mascot-corner' }, [mascot.node]),
     ]),
   );

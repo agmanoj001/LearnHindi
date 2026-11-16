@@ -281,3 +281,48 @@ export function learningGains(progress, content) {
 // Hindi worlds everything else.
 export const storyLang = (story) => story.lang || 'hi';
 export const worldStoryLang = (world) => (world?.lang === 'en' ? 'en' : 'hi');
+
+// ---------- decodable stories (docs/ROADMAP.md 1.3) ----------
+// The Science of Reading: a beginner should read texts that use only the sounds taught so far. Each
+// Hindi story is tagged with the matras and the joined letters (conjuncts) its words need; the matras a
+// child has learned come from the matra lessons they have finished (lesson config "focus"). A story is
+// decodable when it needs no matra still to come. Grade 1 doesn't teach conjuncts, so they only rank
+// stories (fewer is easier) rather than rule them out.
+export const MATRA_SIGNS = { aa: 'ा', i: 'ि', ii: 'ी', u: 'ु', uu: 'ू', ri: 'ृ', e: 'े', ai: 'ै', o: 'ो', au: 'ौ', am: 'ं', an: 'ँ' };
+const SIGN_TO_MATRA = Object.fromEntries(Object.entries(MATRA_SIGNS).map(([id, s]) => [s, id]));
+const CONJUNCT = /[क-हक़-य़]़?्[क-हक़-य़]/g;
+
+export function storyNeeds(story) {
+  const text = [story.title?.hi, ...story.pages.map((p) => p.hi)].filter(Boolean).join(' ');
+  const matras = new Set();
+  for (const ch of text) if (SIGN_TO_MATRA[ch]) matras.add(SIGN_TO_MATRA[ch]);
+  const conjuncts = new Set((text.match(CONJUNCT) || []).map((c) => c.replace('़', '')));
+  const words = text.split(/\s+/).filter(Boolean).length;
+  return { matras: Object.keys(MATRA_SIGNS).filter((m) => matras.has(m)), conjuncts: [...conjuncts], words };
+}
+
+// The matras a child has learned: every matra lesson (or reading lesson) with a star teaches its focus.
+// From Grade 2 up, all of them.
+export function taughtMatras(content, progress, level) {
+  const order = (content.levels || []).map((l) => l.id);
+  if (order.indexOf(level) > order.indexOf('grade1')) return new Set(Object.keys(MATRA_SIGNS));
+  const out = new Set();
+  for (const w of content.worlds || [])
+    for (const l of worldLessons(w)) if (Array.isArray(l.config?.focus) && lessonRecord(progress, l.id).stars > 0) for (const m of l.config.focus) if (MATRA_SIGNS[m]) out.add(m);
+  return out;
+}
+
+export function decodability(needs, taught) {
+  const missing = needs.matras.filter((m) => !taught.has(m));
+  return { ok: missing.length === 0, missing, conjuncts: needs.conjuncts.length };
+}
+
+// The story to read next: one not yet read that the child can decode, with the fewest joined letters, then
+// the fewest different matras (the simplest), then the fewest words. If none can be decoded yet, the one needing the fewest new matras.
+export function nextDecodable(stories, taught, isRead) {
+  const ranked = stories
+    .filter((s) => !isRead(s))
+    .map((s) => ({ s, d: decodability(storyNeeds(s), taught), m: storyNeeds(s).matras.length, n: storyNeeds(s).words }))
+    .sort((a, b) => a.d.missing.length - b.d.missing.length || a.d.conjuncts - b.d.conjuncts || a.m - b.m || a.n - b.n);
+  return ranked[0]?.s || null;
+}

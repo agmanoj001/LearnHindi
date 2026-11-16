@@ -9020,3 +9020,54 @@ body:has(.game-grammar) .caption-bar,
 .choices.street-houses .word-text {
   overflow-wrap: anywhere;
 }
+
+/* ---- decodable books (docs/ROADMAP.md 1.3): the one to read next, those a child can read, the matras still to learn ---- */
+.book.next-book {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  gap: 14px;
+  padding: 26px 16px 14px 24px;
+  box-shadow: 0 0 0 4px var(--good), var(--shadow-lg);
+}
+.book.next-book .book-cover {
+  width: 42%;
+  max-width: 180px;
+}
+.book.next-book .book-title {
+  font-size: clamp(22px, 6vw, 30px);
+}
+.next-ribbon {
+  position: absolute;
+  top: -12px;
+  left: 18px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--good);
+  color: #fff;
+  font: 800 15px 'Baloo 2', var(--font);
+  box-shadow: var(--shadow-sm);
+}
+.next-ribbon .say-sub {
+  opacity: 0.9;
+}
+.can-read {
+  margin-top: 6px;
+  padding: 1px 10px;
+  border-radius: 999px;
+  background: var(--good-soft);
+  color: #158a55;
+  font: 800 13px 'Baloo 2', var(--font);
+}
+.needs-matras {
+  margin-top: 6px;
+  display: flex;
+  gap: 3px;
+}
+.needs-matras i {
+  font: 700 15px 'Baloo 2', var(--font);
+  font-style: normal;
+  padding: 0 6px;
+  border-radius: 8px;
+  background: #fff3d6;
+  color: #9a6b00;
+}

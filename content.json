@@ -5727,6 +5727,226 @@
         }
       ],
       "moral": { "hi": "धैर्य और समझ से मुश्किल काम भी हो जाते हैं।", "en": "Patience and thought make hard things possible." }
+    },
+    {
+      "id": "dec-kamal",
+      "title": { "hi": "कमल, घर चल", "en": "Kamal, come home" },
+      "cover": "boy",
+      "pages": [
+        { "word": "boy", "hi": "कमल, घर चल।", "en": "Kamal, come home.", "act": { "move": "walk", "sky": "field", "with": "house" } },
+        { "word": "tap", "hi": "नल पर जल भर।", "en": "Fill water at the tap.", "act": { "move": "shake", "sky": "home", "fx": "splash" } },
+        { "word": "peas", "hi": "कमल, मटर चख।", "en": "Kamal, taste the peas.", "act": { "move": "talk", "sky": "home" } },
+        { "word": "book", "hi": "अब घर पर पढ़।", "en": "Now read at home.", "act": { "move": "grow", "sky": "home", "fx": "sparkles" } }
+      ],
+      "questions": [
+        { "hi": "कमल ने नल पर क्या भरा?", "en": "What did Kamal fill at the tap?", "answer": "water", "options": ["water", "milk", "tea"] },
+        { "hi": "कमल ने क्या चखा?", "en": "What did Kamal taste?", "answer": "peas", "options": ["peas", "mango", "roti"] }
+      ],
+      "level": "grade1",
+      "decodable": 0
+    },
+    {
+      "id": "dec-magar",
+      "title": { "hi": "मगर, बस पर चढ़!", "en": "Crocodile, get on the bus!" },
+      "cover": "crocodile",
+      "pages": [
+        { "word": "crocodile", "hi": "एक नटखट मगर।", "en": "A naughty crocodile.", "act": { "move": "enter", "sky": "river" } },
+        { "word": "crocodile", "hi": "मगर, छपक-छपक कर!", "en": "Crocodile, splash splash!", "act": { "move": "jump", "sky": "river", "fx": "splash" } },
+        { "word": "bus", "hi": "सड़क पर बस।", "en": "A bus on the road.", "act": { "move": "drive", "sky": "field", "fx": "dust", "sound": "toot" } },
+        { "word": "crocodile", "hi": "मगर, बस पर चढ़!", "en": "Crocodile, get on the bus!", "act": { "move": "climb", "sky": "field", "with": "bus" } },
+        { "word": "bus", "hi": "बस चल पड़। पम पम!", "en": "Off goes the bus. Beep beep!", "act": { "move": "drive", "sky": "field", "fx": "wind", "sound": "toot" } }
+      ],
+      "questions": [
+        { "hi": "बस पर कौन चढ़ा?", "en": "Who got on the bus?", "answer": "crocodile", "options": ["crocodile", "cow", "lion"] },
+        { "hi": "मगर कहाँ छपक-छपक कर रहा था?", "en": "Where was the crocodile splashing?", "answer": "water", "options": ["water", "house", "tree"] }
+      ],
+      "level": "grade1",
+      "decodable": 0
+    },
+    {
+      "id": "dec-raja-aam",
+      "title": { "hi": "राजा का आम", "en": "The king's mango" },
+      "cover": "mango",
+      "pages": [
+        { "word": "king", "hi": "एक राजा था।", "en": "There was a king.", "act": { "move": "enter", "sky": "dawn", "fx": "glow" } },
+        {
+          "word": "mango",
+          "hi": "राजा का आम मीठा था।",
+          "en": "The king's mango was sweet.",
+          "act": { "move": "grow", "sky": "field", "with": "king", "fx": "sparkles" }
+        },
+        { "word": "squirrel", "hi": "एक गिलहरी आई।", "en": "A squirrel came.", "act": { "move": "scurry", "sky": "field" } },
+        { "word": "squirrel", "hi": "गिलहरी आम खा गई!", "en": "The squirrel ate the mango!", "act": { "move": "talk", "sky": "field", "with": "mango" } },
+        { "word": "king", "hi": "राजा ताली मार कर नाचा।", "en": "The king clapped and danced.", "act": { "move": "dance", "sky": "field", "fx": "music" } }
+      ],
+      "questions": [
+        { "hi": "आम किसने खाया?", "en": "Who ate the mango?", "answer": "squirrel", "options": ["squirrel", "king", "crow"] },
+        { "hi": "राजा का आम कैसा था?", "en": "What was the king's mango like?", "answer": "मीठा", "options": ["मीठा", "खट्टा", "कड़वा"], "text": true }
+      ],
+      "level": "grade1",
+      "decodable": 1
+    },
+    {
+      "id": "dec-titli",
+      "title": { "hi": "तितली आई", "en": "A butterfly came" },
+      "cover": "butterfly",
+      "pages": [
+        { "word": "girl", "hi": "मीना बाग गई।", "en": "Meena went to the garden.", "act": { "move": "walk", "sky": "field", "fx": "leaves" } },
+        { "word": "butterfly", "hi": "एक तितली आई।", "en": "A butterfly came.", "act": { "move": "fly-across", "sky": "sky" } },
+        { "word": "butterfly", "hi": "तितली नाची।", "en": "The butterfly danced.", "act": { "move": "dance", "sky": "field", "fx": "sparkles" } },
+        { "word": "girl", "hi": "मीना भी नाची।", "en": "Meena danced too.", "act": { "move": "dance", "sky": "field", "with": "butterfly", "fx": "music" } },
+        { "word": "butterfly", "hi": "तितली उड़ गई। टा-टा!", "en": "The butterfly flew away. Bye-bye!", "act": { "move": "fly-up", "sky": "sky", "fx": "wind" } }
+      ],
+      "questions": [
+        { "hi": "मीना कहाँ गई?", "en": "Where did Meena go?", "answer": "बाग", "options": ["बाग", "स्कूल", "मेला"], "text": true },
+        { "hi": "कौन उड़ गई?", "en": "Who flew away?", "answer": "butterfly", "options": ["butterfly", "cow", "fish"] }
+      ],
+      "level": "grade1",
+      "decodable": 1
+    },
+    {
+      "id": "dec-chuha",
+      "title": { "hi": "चूहा और घड़ी", "en": "The mouse and the clock" },
+      "cover": "mouse",
+      "pages": [
+        { "word": "mouse", "hi": "चूहा भागा।", "en": "The mouse ran.", "act": { "move": "scurry", "sky": "home" } },
+        { "word": "clock", "hi": "चूहा घड़ी पर चढ़ा।", "en": "The mouse climbed the clock.", "act": { "move": "climb", "sky": "home", "with": "mouse" } },
+        { "word": "clock", "hi": "घड़ी बजी — टन!", "en": "The clock struck — dong!", "act": { "move": "shake", "sky": "home", "fx": "music", "sound": "chime" } },
+        { "word": "mouse", "hi": "चूहा कूदा, धम!", "en": "The mouse jumped, thump!", "act": { "move": "fall", "sky": "home", "sound": "thud" } },
+        { "word": "mouse", "hi": "चूहा भागा, दूर-दूर!", "en": "The mouse ran far, far away!", "act": { "move": "run", "sky": "home", "fx": "dust" } }
+      ],
+      "questions": [
+        { "hi": "चूहा किस पर चढ़ा?", "en": "What did the mouse climb?", "answer": "clock", "options": ["clock", "tree", "bus"] },
+        {
+          "hi": "घड़ी बजी, तो चूहे ने क्या किया?",
+          "en": "When the clock struck, what did the mouse do?",
+          "answer": "कूदा",
+          "options": ["कूदा", "सोया", "खाया"],
+          "text": true
+        }
+      ],
+      "level": "grade1",
+      "decodable": 2
+    },
+    {
+      "id": "dec-bhalu",
+      "title": { "hi": "भालू भूखा था", "en": "The hungry bear" },
+      "cover": "bear",
+      "pages": [
+        { "word": "bear", "hi": "भालू भूखा था।", "en": "The bear was hungry.", "act": { "move": "walk", "sky": "field" } },
+        { "word": "bear", "hi": "भालू बाग गया।", "en": "The bear went to the garden.", "act": { "move": "walk", "sky": "field", "fx": "leaves" } },
+        { "word": "mango", "hi": "भालू ऊपर कूदा।", "en": "The bear jumped up.", "act": { "move": "jump", "sky": "field", "with": "bear" } },
+        {
+          "word": "mango",
+          "hi": "आम मिला! भालू खुश!",
+          "en": "He got a mango! The bear is happy!",
+          "act": { "move": "fall", "sky": "field", "with": "bear", "fx": "sparkles" }
+        },
+        { "word": "bear", "hi": "भालू झूमा, झूम-झूम!", "en": "The bear swayed and swayed!", "act": { "move": "dance", "sky": "field", "fx": "music" } }
+      ],
+      "questions": [
+        { "hi": "भालू को क्या मिला?", "en": "What did the bear get?", "answer": "mango", "options": ["mango", "fish", "roti"] },
+        { "hi": "भालू कैसा था?", "en": "How was the bear?", "answer": "भूखा", "options": ["भूखा", "गीला", "छोटा"], "text": true }
+      ],
+      "level": "grade1",
+      "decodable": 2
+    },
+    {
+      "id": "dec-sher",
+      "title": { "hi": "शेर की सैर", "en": "The lion's walk" },
+      "cover": "lion",
+      "pages": [
+        { "word": "lion", "hi": "शेर सैर पर निकला।", "en": "The lion went for a walk.", "act": { "move": "walk", "sky": "field" } },
+        { "word": "cloud", "hi": "काले बादल आए।", "en": "Dark clouds came.", "act": { "move": "enter-right", "sky": "rain" } },
+        { "word": "rain", "hi": "बारिश हुई — टप टप!", "en": "It rained — drip drop!", "act": { "move": "float", "sky": "rain", "fx": "rain", "sound": "rain" } },
+        {
+          "word": "umbrella",
+          "hi": "शेर छाता लेकर भागा।",
+          "en": "The lion ran with an umbrella.",
+          "act": { "move": "run", "sky": "rain", "with": "lion", "fx": "rain" }
+        },
+        { "word": "tea", "hi": "घर पर शेर ने चाय पी।", "en": "At home, the lion drank tea.", "act": { "move": "grow", "sky": "home", "with": "lion", "fx": "steam" } }
+      ],
+      "questions": [
+        { "hi": "शेर ने क्या लिया?", "en": "What did the lion take?", "answer": "umbrella", "options": ["umbrella", "kite", "drum"] },
+        { "hi": "घर पर शेर ने क्या पिया?", "en": "What did the lion drink at home?", "answer": "tea", "options": ["tea", "milk", "water"] }
+      ],
+      "level": "grade1",
+      "decodable": 3
+    },
+    {
+      "id": "dec-mela",
+      "title": { "hi": "राजू मेले गया", "en": "Raju goes to the fair" },
+      "cover": "fair",
+      "pages": [
+        { "word": "boy", "hi": "राजू मेला देखने गया।", "en": "Raju went to see the fair.", "act": { "move": "walk", "sky": "field", "with": "fair" } },
+        { "word": "ferris", "hi": "वह बड़े झूले पर बैठा।", "en": "He sat on the big wheel.", "act": { "move": "spin", "sky": "field", "fx": "confetti" } },
+        { "word": "whistle", "hi": "उसे एक सीटी मिली।", "en": "He got a whistle.", "act": { "move": "grow", "sky": "field", "fx": "sparkles" } },
+        {
+          "word": "whistle",
+          "hi": "राजू ने सीटी बजाई — टी टी!",
+          "en": "Raju blew the whistle — toot toot!",
+          "act": { "move": "shake", "sky": "field", "with": "boy", "fx": "music", "sound": "toot" }
+        },
+        { "word": "house", "hi": "राजू थक कर घर आया।", "en": "Raju came home tired.", "act": { "move": "sleep", "sky": "night", "fx": "zzz" } }
+      ],
+      "questions": [
+        { "hi": "राजू कहाँ गया?", "en": "Where did Raju go?", "answer": "fair", "options": ["fair", "school", "river"] },
+        { "hi": "राजू को क्या मिला?", "en": "What did Raju get?", "answer": "whistle", "options": ["whistle", "kite", "book"] }
+      ],
+      "level": "grade1",
+      "decodable": 3
+    },
+    {
+      "id": "dec-mor",
+      "title": { "hi": "मोर नाचा", "en": "The peacock danced" },
+      "cover": "peacock",
+      "pages": [
+        { "word": "cloud", "hi": "काले बादल आए।", "en": "Dark clouds came.", "act": { "move": "enter-right", "sky": "rain" } },
+        { "word": "peacock", "hi": "मोर ने बादल देखे।", "en": "The peacock saw the clouds.", "act": { "move": "peek", "sky": "rain", "with": "cloud" } },
+        {
+          "word": "peacock",
+          "hi": "मोर ने पैर उठाए और नाचा।",
+          "en": "The peacock lifted its feet and danced.",
+          "act": { "move": "dance", "sky": "rain", "fx": "music" }
+        },
+        { "word": "rain", "hi": "बारिश हुई। मोर खुश हुआ।", "en": "It rained. The peacock was happy.", "act": { "move": "float", "sky": "rain", "fx": "rain" } },
+        {
+          "word": "peahen",
+          "hi": "मोरनी भी आई और नाची!",
+          "en": "The peahen came too, and danced!",
+          "act": { "move": "dance", "sky": "rain", "with": "peacock", "fx": ["rain", "hearts"] }
+        }
+      ],
+      "questions": [
+        { "hi": "बादल देखकर कौन नाचा?", "en": "Who danced when he saw the clouds?", "answer": "peacock", "options": ["peacock", "crow", "duck"] },
+        { "hi": "बाद में कौन आई?", "en": "Who came later?", "answer": "peahen", "options": ["peahen", "hen", "cow"] }
+      ],
+      "level": "grade1",
+      "decodable": 4
+    },
+    {
+      "id": "dec-tota",
+      "title": { "hi": "तोता बोला", "en": "The parrot spoke" },
+      "cover": "parrot",
+      "pages": [
+        { "word": "parrot", "hi": "एक तोता था।", "en": "There was a parrot.", "act": { "move": "fly-across", "sky": "sky" } },
+        { "word": "parrot", "hi": "तोता बोला, \"राम राम!\"", "en": "The parrot said, \"Ram Ram!\"", "act": { "move": "talk", "sky": "field" } },
+        { "word": "crow", "hi": "कौआ आया।", "en": "A crow came.", "act": { "move": "fly-across", "sky": "sky", "fx": "wind" } },
+        { "word": "crow", "hi": "कौआ बोला, \"का का!\"", "en": "The crow said, \"Caw caw!\"", "act": { "move": "talk", "sky": "field", "with": "parrot" } },
+        {
+          "word": "parrot",
+          "hi": "तोता और कौआ साथ बैठे।",
+          "en": "The parrot and the crow sat together.",
+          "act": { "move": "approach", "sky": "field", "with": "crow", "fx": "hearts" }
+        }
+      ],
+      "questions": [
+        { "hi": "तोता क्या बोला?", "en": "What did the parrot say?", "answer": "राम राम", "options": ["राम राम", "का का", "म्याऊँ"], "text": true },
+        { "hi": "कौन आया?", "en": "Who came?", "answer": "crow", "options": ["crow", "lion", "fish"] }
+      ],
+      "level": "grade1",
+      "decodable": 4
     }
   ],
   "levels": [
@@ -7113,6 +7333,14 @@
               "icon": "blocks:elephant",
               "title": { "hi": "शब्द बनाओ", "en": "Build words" },
               "config": { "activities": ["build"], "buildWords": ["@grade1"], "focus": ["aa", "i", "ii"], "allow": [], "buildRounds": 3 }
+            },
+            { "id": "g1-m1-dec-kamal", "game": "story", "icon": "boy", "title": { "hi": "ख़ुद पढ़ो!", "en": "Read it yourself!" }, "config": { "story": "dec-kamal" } },
+            {
+              "id": "g1-m1-dec-raja-aam",
+              "game": "story",
+              "icon": "mango",
+              "title": { "hi": "ख़ुद पढ़ो!", "en": "Read it yourself!" },
+              "config": { "story": "dec-raja-aam" }
             }
           ]
         },
@@ -7135,7 +7363,8 @@
               "icon": "card:parrot",
               "title": { "hi": "शब्द पढ़ो", "en": "Read words" },
               "config": { "words": ["@grade1"], "focus": ["u", "uu"], "allow": ["aa", "i", "ii"], "modes": ["find", "match"] }
-            }
+            },
+            { "id": "g1-m2-dec-chuha", "game": "story", "icon": "mouse", "title": { "hi": "ख़ुद पढ़ो!", "en": "Read it yourself!" }, "config": { "story": "dec-chuha" } }
           ]
         },
         {
@@ -7157,7 +7386,8 @@
               "icon": "card:parrot",
               "title": { "hi": "शब्द पढ़ो", "en": "Read words" },
               "config": { "words": ["@grade1"], "focus": ["e", "ai"], "allow": ["aa", "i", "ii", "u", "uu"], "modes": ["find", "match"] }
-            }
+            },
+            { "id": "g1-m3-dec-sher", "game": "story", "icon": "lion", "title": { "hi": "ख़ुद पढ़ो!", "en": "Read it yourself!" }, "config": { "story": "dec-sher" } }
           ]
         },
         {
@@ -7179,7 +7409,8 @@
               "icon": "card:parrot",
               "title": { "hi": "शब्द पढ़ो", "en": "Read words" },
               "config": { "words": ["@grade1"], "focus": ["o", "au"], "allow": ["aa", "i", "ii", "u", "uu", "e", "ai"], "modes": ["find", "match"] }
-            }
+            },
+            { "id": "g1-m4-dec-mor", "game": "story", "icon": "peacock", "title": { "hi": "ख़ुद पढ़ो!", "en": "Read it yourself!" }, "config": { "story": "dec-mor" } }
           ]
         },
         {

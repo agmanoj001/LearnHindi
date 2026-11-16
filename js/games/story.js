@@ -5,11 +5,14 @@ import { storyLang, worldStoryLang } from '../curriculum.js';
 import { el, sleep, choose, runRounds, cheer, waitTap, bounce, ICONS, readChoices, youngReader } from './kit.js';
 import { clips } from '../storage.js';
 import { sceneHtml, sceneClass, sceneSound, speaks } from '../scene.js';
+import { loadWordTimes, timesFor } from '../voicepack.js';
 
 const bare = (token) => token.replace(/[।.!?,"“”‘’]/g, '');
 
 export default {
   async start(ctx) {
+    // the read-along's word timings, ready before the first page is read
+    loadWordTimes().then((t) => (timesTable = t)).catch(() => {});
     const levels = ctx.config.levels || [ctx.level.id];
     const wanted = worldStoryLang(ctx.world);
     const stories = ctx.content.stories.filter((s) => levels.includes(s.level) && storyLang(s) === wanted);
@@ -227,8 +230,11 @@ function stageScene(ctx, page) {
   return scene;
 }
 
-// Read-along: light up each word as it is spoken. Voices that report word boundaries drive it
-// exactly; otherwise (and for family recordings) the timing is estimated from word length.
+// Read-along: light up each word as it is spoken. The voice pack's recordings have each word's start
+// worked out when the pack was made (voices/words.json), so the light follows the voice exactly; voices
+// that report word boundaries drive it too; otherwise (and for family recordings) the timing is
+// estimated from word length.
+let timesTable = null;
 function readAlong(lineEls, page, langs, rate) {
   const lines = langs.map((l, i) => {
     const text = page[l];
@@ -273,10 +279,29 @@ function readAlong(lineEls, page, langs, rate) {
     exact = false;
     if (current) timer = setTimeout(() => estimate(current), 1500); // no word from the voice: guess
   };
-  const onVoice = (e) => {
+  // a pack recording with its word timings: each word lights at its own moment
+  const exactly = (line, ms, starts, t0 = performance.now()) => {
+    exact = true;
+    let k = 0;
+    const step = () => {
+      if (!line.words[k]) return;
+      light(line.words[k]);
+      k++;
+      if (line.words[k]) timer = setTimeout(step, Math.max(0, starts[k] * ms - (performance.now() - t0)));
+    };
+    timer = setTimeout(step, Math.max(0, starts[0] * ms - (performance.now() - t0)));
+  };
+  const onVoice = async (e) => {
     if (!current || e.detail.text !== current.text) return;
     clearTimeout(timer);
-    if (e.detail.ms) timed(current, e.detail.ms);
+    const line = current;
+    const t0 = performance.now();
+    // a pack recording: its timings (still loading on a slow device? wait a moment for them)
+    if (e.detail.pack && !timesTable) await Promise.race([loadWordTimes().then((t) => (timesTable = t)), sleep(400)]).catch(() => {});
+    if (line !== current) return;
+    const starts = e.detail.pack && e.detail.ms ? timesFor(timesTable, e.detail.pack, current.words.length) : null;
+    if (starts) exactly(current, e.detail.ms, starts, t0);
+    else if (e.detail.ms) timed(current, e.detail.ms);
     else estimate(current);
   };
   const onWord = (e) => {
