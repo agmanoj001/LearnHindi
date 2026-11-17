@@ -10469,3 +10469,98 @@ body:has(.game-grammar) .caption-bar,
 .radio-screen.asleep .radio-cover {
   opacity: 0.25;
 }
+
+/* ---- a gentle daily rhythm (roadmap 7.4): the week's sticker trail, and today's celebration ---- */
+.week-trail {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin-top: 10px;
+}
+.trail-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+.trail-day small {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--muted);
+  line-height: 1;
+}
+.trail-sticker {
+  width: 100%;
+  max-width: 46px;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: rgba(31, 35, 64, 0.06);
+  padding: 4px;
+}
+.trail-sticker svg {
+  width: 100%;
+  height: 100%;
+}
+.trail-day.today .trail-sticker {
+  outline: 2px dashed var(--brand);
+  outline-offset: 1px;
+  background: #fff;
+}
+.trail-day.got .trail-sticker {
+  background: #fff6d6;
+  box-shadow: 0 2px 0 #f2c94c;
+}
+.trail-day.later .trail-sticker {
+  opacity: 0.5;
+}
+.trail-day.just .trail-sticker {
+  animation: fav-beat 0.6s var(--spring);
+}
+.play-hero .week-trail {
+  width: min(100%, 380px);
+  margin: 12px auto 0;
+}
+.day-done {
+  position: fixed;
+  inset: 0;
+  z-index: 35;
+  display: grid;
+  place-items: center;
+  background: rgba(20, 16, 50, 0.35);
+  animation: fade-in 0.25s ease-out;
+  transition: opacity 0.35s;
+}
+.day-done.gone {
+  opacity: 0;
+}
+.day-done-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 22px 28px;
+  border-radius: 28px;
+  background: #fff;
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+  animation: pop-in 0.4s var(--spring);
+}
+.day-done-card b {
+  font-size: 26px;
+  color: var(--brand-ink);
+}
+.day-done-card span {
+  color: var(--muted);
+}
+.day-done-sticker {
+  width: 120px;
+  height: 120px;
+  display: grid;
+  place-items: center;
+}
+.day-done-sticker svg {
+  width: 100%;
+  height: 100%;
+}

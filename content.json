@@ -67,7 +67,9 @@
     "coachAny": { "hi": "जो पसंद हो, उस पर टैप करो!", "en": "Tap the one you like!" },
     "coachPage": { "hi": "अगला पन्ना देखने के लिए यहाँ टैप करो!", "en": "Tap here to turn the page!" },
     "favAdded": { "hi": "यह कहानी पसंदीदा में आ गई!", "en": "This story is one of your favourites now!" },
-    "radioGoodnight": { "hi": "शुभ रात्रि! कहानियाँ भी अब सो गईं। कल फिर सुनेंगे।", "en": "Good night! The stories are asleep now. More tomorrow." }
+    "radioGoodnight": { "hi": "शुभ रात्रि! कहानियाँ भी अब सो गईं। कल फिर सुनेंगे।", "en": "Good night! The stories are asleep now. More tomorrow." },
+    "dayDone": { "hi": "वाह! आज के तीनों पूरे! यह लो आज का स्टिकर।", "en": "Wow! All three done today! Here's today's sticker." },
+    "weekDone": { "hi": "पूरे हफ़्ते के स्टिकर! शाबाश!", "en": "A sticker for every day this week! Well done!" }
   },
   "words": {
     "digger": { "hi": "खुदाई मशीन", "translit": "khudaai mashin", "en": "digger", "picture": "digger" },

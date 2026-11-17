@@ -71,6 +71,7 @@ const DONE = {
   'Haptics and sound polish': () => /export const FEEDBACK/.test(read('js/sfx.js')) && /export const sfxLevel/.test(read('js/sfx.js')) && /sfx\.feel\('wrong'\)/.test(read('js/app.js')),
   'Favourites and "read again"': () => exists('js/favourites.js') && /function readAgain\(api\)/.test(read('js/screens.js')) && /heartButton\(api, s, \{ cls: 'on-book' \}\)/.test(read('js/screens.js')),
   'Story radio': () => /export const SLEEP_STEPS/.test(read('js/shows.js')) && /class: 'radio-chip pick'/.test(read('js/shows.js')) && /'Play this one again'/.test(read('js/shows.js')),
+  'A gentle daily rhythm': () => /export function stickyPlan/.test(read('js/curriculum.js')) && /export function weekTrail/.test(read('js/screens.js')) && /export async function celebrateDay/.test(read('js/screens.js')),
   'Free play between lessons': () => exists('js/freeplay.js') && /freeplayDue\(/.test(read('js/screens.js')) && ['drive', 'feed', 'colour'].every((m) => read('js/freeplay.js').includes(`'${m}'`)),
 };
 

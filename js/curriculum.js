@@ -221,8 +221,52 @@ export function todayPlan(content, progress, worlds, now = Date.now()) {
   if (story && !steps.some((s) => s.lesson.id === story.lesson.id)) steps.push({ kind: 'story', ...story });
   const watched = showPractice(content, progress, worlds, now);
   if (watched && !steps.some((s) => s.lesson.id === watched.lesson.id)) steps.splice(1, 0, { kind: 'watched', ...watched });
-  return steps.map((s) => ({ ...s, done: done(s.lesson.id) }));
+  // "today's three" (docs/ROADMAP.md 7.4): a short path with a clear finish
+  return steps.slice(0, TODAY_STEPS).map((s) => ({ ...s, done: done(s.lesson.id) }));
 }
+
+// Today's path, the same all day (docs/ROADMAP.md 7.4). todayPlan() picks the next lesson in each place,
+// so a step played today would be swapped for the next one and the day could never be finished. The day's
+// plan is worked out once, kept in progress.today, and each step is ticked as it is played.
+// Returns { steps, today } (save `today` in the progress when it changed).
+export function stickyPlan(content, progress, worlds, now = Date.now()) {
+  const day = isoDay(now);
+  const saved = progress.today;
+  if (saved?.day === day && Array.isArray(saved.steps) && saved.steps.length) {
+    const steps = saved.steps
+      .map((s) => {
+        const world = worlds.find((w) => w.id === s.world);
+        const lesson = world && worldLessons(world).find((l) => l.id === s.lesson);
+        return lesson ? { kind: s.kind, world, lesson, done: lessonRecord(progress, lesson.id).last === day } : null;
+      })
+      .filter(Boolean);
+    if (steps.length === saved.steps.length) return { steps, today: saved };
+  }
+  const steps = todayPlan(content, progress, worlds, now);
+  return { steps, today: { day, steps: steps.map((s) => ({ kind: s.kind, world: s.world.id, lesson: s.lesson.id })) } };
+}
+
+// ---- a gentle daily rhythm (docs/ROADMAP.md 7.4) ----
+// Today's three, a small celebration when they're done, and a sticker for the day on a week-long trail.
+// The trail is progress.trail: { 'YYYY-MM-DD': stickerId }.
+export const TODAY_STEPS = 3;
+export const TRAIL_STICKERS = ['sun', 'star', 'flower', 'kite', 'balloon', 'butterfly', 'moon', 'peacock', 'lotus', 'rose', 'umbrella', 'drum', 'rocket', 'owl'];
+// the day's sticker: the same for everyone on a given day, different from one day to the next
+export function trailSticker(day) {
+  let h = 0;
+  for (const ch of day) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
+  return TRAIL_STICKERS[h % TRAIL_STICKERS.length];
+}
+// the seven days of this week, Monday to Sunday
+export function weekDays(now = Date.now()) {
+  const d = new Date(now);
+  const monday = new Date(d.getFullYear(), d.getMonth(), d.getDate() - ((d.getDay() + 6) % 7));
+  return Array.from({ length: 7 }, (_, i) => isoDay(new Date(monday.getFullYear(), monday.getMonth(), monday.getDate() + i)));
+}
+// all of today's path is done and the day's sticker hasn't been given yet: time to celebrate
+export const dayFinished = (progress, steps, now = Date.now()) => steps.length > 0 && steps.every((s) => s.done) && !progress.trail?.[isoDay(now)];
+// the week is full when every day of it has its sticker
+export const weekFull = (trail, now = Date.now()) => weekDays(now).every((d) => trail?.[d]);
 
 // An episode watched today or yesterday whose game hasn't been played since: practise it next.
 export function showPractice(content, progress, worlds, now = Date.now()) {

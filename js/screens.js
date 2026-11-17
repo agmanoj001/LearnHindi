@@ -1,10 +1,11 @@
 // Screens outside a lesson: splash, onboarding, the world hub, a world's path map,
 // results, the sticker collection and the story library.
-import { el, sleep, bounce, animate, sparkleAt, ICONS, infoButton, forGrownups } from './ui.js';
+import { el, sleep, bounce, animate, sparkleAt, flyTo, ICONS, infoButton, forGrownups } from './ui.js';
 import { createMascot, mascotSvg, MASCOTS, MASCOT_IDS } from './mascot.js';
 import { sceneSvg } from './art-scenes.js';
 import { PLACEMENT_LEVELS, placementQuestions, placementResult } from './placement.js';
 import { picture, pictureForWord, specialVehicle } from './art.js';
+import { weekDays, trailSticker, dayFinished, weekFull, isoDay, stickyPlan } from './curriculum.js';
 import { worldLessons, lessonRecord, isUnlocked, currentLesson, nextLesson, worldStars, hubWorlds, streak, nextCollectible, todayPlan, storyLang, worldStoryLang, storyNeeds, taughtMatras, decodability, nextDecodable, MATRA_SIGNS } from './curriculum.js';
 import { SHOW_ICONS } from './shows.js';
 import { greeting, timeSlot, HELLO, milestoneLine } from './guide.js';
@@ -274,6 +275,13 @@ export function hub(api) {
         el('button', { class: 'showtime-btn radio', 'aria-label': 'Story radio', onclick: () => (api.sfx.pop(), api.go('radio')) }, [el('span', { class: 'showtime-icon', html: SHOW_ICONS.radio }), el('span', { class: 'showtime-text' }, said(api, { hi: 'कहानी रेडियो', en: 'Story radio' }, 'hi', 'b'))]),
       ])
     : null;
+  // today's path stays the same all day, so it can be finished (roadmap 7.4)
+  const sticky = stickyPlan(content, progress, all.filter((w) => w.level === settings.level));
+  const plan = sticky.steps;
+  if (sticky.today !== progress.today) {
+    api.state.progress = { ...api.state.progress, today: sticky.today };
+    api.persistProgress();
+  }
   api.app.replaceChildren(
     el('div', { class: `screen hub enter${simple ? ' simple' : ''}` }, [
       backdrop(null),
@@ -290,7 +298,7 @@ export function hub(api) {
         filter
           ? null
           : el('div', { class: 'hub-top' }, [
-              (simple ? playHero : todayCard)(api, todayPlan(content, progress, all.filter((w) => w.level === settings.level)), all),
+              (simple ? playHero : todayCard)(api, plan, all),
               el('div', { class: 'hub-side' }, [
                 showtime,
                 readAgain(api),
@@ -306,6 +314,11 @@ export function hub(api) {
       ]),
     ]),
   );
+  // today's three just finished: celebrate, and the day's sticker goes on the week's trail (roadmap 7.4)
+  if (!filter && dayFinished(progress, plan)) {
+    const screen = api.app.querySelector('.screen.hub');
+    setTimeout(() => screen?.isConnected && celebrateDay(api, screen), 700);
+  }
 }
 
 // ---------- music on or off, one tap from the home screen (a car ride, a quiet room) ----------
@@ -1112,6 +1125,7 @@ export function playHero(api, steps, worlds = []) {
     steps.length > 1
       ? el('span', { class: 'play-dots', role: 'img', 'aria-label': `${steps.filter((s) => s.done).length} of ${steps.length} done today` }, steps.map((s) => el('i', { class: s.done ? 'done' : s === next ? 'now' : '' })))
       : null,
+    weekTrail(api),
   ]);
 }
 
@@ -1156,7 +1170,64 @@ export function todayCard(api, steps) {
         return b;
       }),
     ),
+    weekTrail(api),
   ]);
+}
+
+// ---------- a gentle daily rhythm (roadmap 7.4): the week's sticker trail, and a celebration ----------
+const WEEKDAY = [
+  { hi: 'सोम', en: 'Mon' },
+  { hi: 'मंगल', en: 'Tue' },
+  { hi: 'बुध', en: 'Wed' },
+  { hi: 'गुरु', en: 'Thu' },
+  { hi: 'शुक्र', en: 'Fri' },
+  { hi: 'शनि', en: 'Sat' },
+  { hi: 'रवि', en: 'Sun' },
+];
+// Monday to Sunday: a sticker on each day today's path was finished; today's place waits, dashed
+export function weekTrail(api, now = Date.now()) {
+  const trail = api.state.progress.trail || {};
+  const today = isoDay(now);
+  return el(
+    'div',
+    { class: 'week-trail', role: 'img', 'aria-label': `This week: ${weekDays(now).filter((d) => trail[d]).length} of 7 days done` },
+    weekDays(now).map((d, i) =>
+      el('span', { class: `trail-day${trail[d] ? ' got' : ''}${d === today ? ' today' : ''}${d > today ? ' later' : ''}`, 'data-day': d }, [
+        el('span', { class: 'trail-sticker', html: trail[d] && api.word(trail[d]) ? pictureForWord(api.word(trail[d])) : '' }),
+        el('small', { lang: langMode(api) === 'en' ? 'en' : 'hi', text: one(api, WEEKDAY[i]) }),
+      ]),
+    ),
+  );
+}
+// Today's path just finished: the day's sticker, a little party, and its place on the trail
+export async function celebrateDay(api, screen, now = Date.now()) {
+  const day = isoDay(now);
+  const id = trailSticker(day);
+  api.state.progress = { ...api.state.progress, trail: { ...(api.state.progress.trail || {}), [day]: id } };
+  api.persistProgress();
+  const full = weekFull(api.state.progress.trail, now);
+  const sticker = el('span', { class: 'day-done-sticker', html: api.word(id) ? pictureForWord(api.word(id)) : '' });
+  const party = el('div', { class: 'day-done', role: 'status' }, [
+    el('div', { class: 'confetti' }, Array.from({ length: 30 }, (_, i) => el('i', { style: { left: `${(i * 37) % 100}%`, animationDelay: `${(i % 10) * 0.1}s`, background: ['#FF5A5F', '#FFC93C', '#2EC27E', '#3D7BFF', '#A66BFF', '#FF8FB1'][i % 6] } }))),
+    el('div', { class: 'day-done-card' }, [
+      sticker,
+      el('b', { lang: 'hi', text: full ? 'पूरा हफ़्ता!' : 'आज के तीनों पूरे!' }),
+      el('span', { text: full ? 'A sticker for every day this week!' : "All three done today! Here's today's sticker." }),
+    ]),
+  ]);
+  screen.append(party);
+  api.sfx.cheer();
+  api.sfx.feel?.('reward');
+  await api.say(full ? 'weekDone' : 'dayDone');
+  // the sticker flies to today's place on the trail
+  const slot = screen.querySelector(`.trail-day[data-day="${day}"] .trail-sticker`);
+  if (slot?.isConnected) {
+    await flyTo(sticker, slot, { scale: 0.3, duration: 700 }).catch?.(() => {});
+    slot.innerHTML = sticker.innerHTML;
+    slot.parentNode.classList.add('got', 'just');
+  }
+  party.classList.add('gone');
+  setTimeout(() => party.remove(), 400);
 }
 
 // ---------- placement check: which grade should we start in? ----------

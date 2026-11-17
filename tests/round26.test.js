@@ -74,3 +74,62 @@ test('Story radio can pick a story from picture tiles, play one again, and say g
   assert.ok(content.phrases.radioGoodnight?.hi && content.phrases.radioGoodnight?.en);
   assert.match(css, /\.radio-pick \{[^}]*position: fixed;[^}]*z-index: 30/);
 });
+
+// ---- 7.4 a gentle daily rhythm ----
+import * as C from '../js/curriculum.js';
+
+test("today's path has at most three steps, stays the same all day, and can be finished", () => {
+  const worlds = content.worlds.filter((w) => w.level === 'grade1');
+  const now = new Date(2026, 10, 17, 10).getTime();
+  let p = defaultProgress(content);
+  const first = C.stickyPlan(content, p, worlds, now);
+  assert.ok(first.steps.length >= 1 && first.steps.length <= C.TODAY_STEPS);
+  p = { ...p, today: first.today };
+  // play each step: the plan doesn't move on to the next lesson, and the day finishes
+  for (const s of first.steps) {
+    assert.ok(!C.dayFinished(p, C.stickyPlan(content, p, worlds, now).steps, now));
+    p = C.applyLessonResult(p, { world: s.world, lesson: s.lesson, collection: null, firstTry: 3, answered: 6, now }).progress;
+    const again = C.stickyPlan(content, p, worlds, now);
+    assert.deepEqual(again.steps.map((x) => x.lesson.id), first.steps.map((x) => x.lesson.id), 'the same path all day');
+    assert.equal(again.today, p.today, 'nothing new to save');
+  }
+  assert.ok(C.dayFinished(p, C.stickyPlan(content, p, worlds, now).steps, now));
+  // tomorrow is a new path
+  const tomorrow = C.stickyPlan(content, p, worlds, now + 86400000);
+  assert.notEqual(tomorrow.today.day, p.today.day);
+  // the saved path is kept cleanly
+  assert.deepEqual(normalizeProgress({ today: first.today }, content).today, first.today);
+  assert.equal(normalizeProgress({ today: { day: 'soon', steps: [] } }, content).today, undefined);
+});
+
+test('a sticker for each finished day, on a Monday-to-Sunday trail', () => {
+  const tue = new Date(2026, 10, 17, 9).getTime();
+  const week = C.weekDays(tue);
+  assert.equal(week.length, 7);
+  assert.equal(week[0], '2026-11-16', 'Monday');
+  assert.equal(week[6], '2026-11-22', 'Sunday');
+  assert.deepEqual(C.weekDays(new Date(2026, 10, 22, 20).getTime()), week, 'Sunday is the end of the same week');
+  // the day's sticker: a picture word, the same all day, and it changes from day to day
+  for (const id of C.TRAIL_STICKERS) assert.ok(content.words[id], id);
+  assert.equal(C.trailSticker('2026-11-17'), C.trailSticker('2026-11-17'));
+  assert.ok(new Set(week.map(C.trailSticker)).size >= 4);
+  // finished once a day; a full week when every day has its sticker
+  const steps = [{ done: true }, { done: true }];
+  assert.ok(C.dayFinished({ trail: {} }, steps, tue));
+  assert.ok(!C.dayFinished({ trail: { '2026-11-17': 'sun' } }, steps, tue), 'not twice');
+  assert.ok(!C.dayFinished({ trail: {} }, [{ done: true }, { done: false }], tue));
+  assert.ok(C.weekFull(Object.fromEntries(week.map((d) => [d, 'sun'])), tue));
+  assert.ok(!C.weekFull({ [week[0]]: 'sun' }, tue));
+  // kept cleanly with the progress
+  const p = normalizeProgress({ trail: { '2026-11-16': 'star', bad: 'sun', '2026-11-17': 3 } }, content);
+  assert.deepEqual(p.trail, { '2026-11-16': 'star' });
+});
+
+test('the home screen shows the trail and celebrates a finished day once', () => {
+  const screens = read('js/screens.js');
+  assert.match(screens, /const sticky = stickyPlan\(content, progress/);
+  assert.match(screens, /if \(!filter && dayFinished\(progress, plan\)\)/);
+  assert.match(screens, /await api\.say\(full \? 'weekDone' : 'dayDone'\)/);
+  assert.equal((screens.match(/weekTrail\(api\),/g) || []).length, 2, 'on the today card and the simple home screen');
+  for (const k of ['dayDone', 'weekDone']) assert.ok(content.phrases[k]?.hi && content.phrases[k]?.en, k);
+});

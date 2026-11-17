@@ -483,7 +483,7 @@ export function normalizeSettings(saved, content) {
 export function defaultProgress(content) {
   const collected = {};
   for (const [id, col] of Object.entries(content.collections || {})) collected[id] = col.items.slice(0, col.start || 0);
-  return { lessons: {}, collected, days: [], trainPos: {}, storyPos: {}, comicPos: {}, stats: {}, time: {}, shows: {}, scenes: {}, coached: [], favs: [] };
+  return { lessons: {}, collected, days: [], trainPos: {}, storyPos: {}, comicPos: {}, stats: {}, time: {}, shows: {}, scenes: {}, coached: [], favs: [], trail: {} };
 }
 
 export function normalizeProgress(saved, content) {
@@ -528,6 +528,12 @@ export function normalizeProgress(saved, content) {
         .map(([id, r]) => [id, { panel: Math.min(r.panel, 99), solved: r.solved === true }]),
     ),
     stats: obj(saved.stats),
+    // today's path, kept for the day (curriculum.js stickyPlan, roadmap 7.4)
+    ...(saved.today && typeof saved.today === 'object' && /^\d{4}-\d\d-\d\d$/.test(saved.today.day) && Array.isArray(saved.today.steps)
+      ? { today: { day: saved.today.day, steps: saved.today.steps.filter((s) => s && ['go', 'review', 'story', 'watched'].includes(s.kind) && typeof s.world === 'string' && typeof s.lesson === 'string').slice(0, 4) } }
+      : {}),
+    // the week-long sticker trail (curriculum.js, roadmap 7.4): a sticker for each day today's path was finished
+    trail: Object.fromEntries(Object.entries(obj(saved.trail)).filter(([d, id]) => /^\d{4}-\d\d-\d\d$/.test(d) && typeof id === 'string' && /^[a-z-]+$/.test(id)).sort().slice(-60)),
     // favourite stories, newest first (js/favourites.js): only stories that exist, each once
     favs: Array.isArray(saved.favs) ? [...new Set(saved.favs.filter((id) => (content.stories || []).some((s) => s.id === id)))].slice(0, 50) : [],
     // the "how to play" hands already shown (js/coach.js): "game:kind"
