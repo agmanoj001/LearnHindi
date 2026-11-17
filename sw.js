@@ -1,5 +1,5 @@
 // Offline support: cache the app shell, then serve from cache and refresh in the background.
-const VERSION = 'kkm-v29';
+const VERSION = 'kkm-v30';
 // the story voice pack is saved by the page (Grown-ups › Story voices) into its own cache, kept across versions
 const VOICES = 'kkm-voices';
 const SHELL = [
@@ -16,6 +16,8 @@ const SHELL = [
   'fonts/fredoka-latin.woff2',
   'js/app.js',
   'js/guide.js',
+  'js/together.js',
+  'js/freeplay.js',
   'js/logic.js',
   'js/validate.js',
   'js/art.js',
@@ -47,6 +49,7 @@ const SHELL = [
   'js/games/comic.js',
   'js/games/grammar.js',
   'js/games/ginti.js',
+  'js/games/together.js',
   'js/games/kit.js',
   'js/games/construction.js',
   'js/games/busdepot.js',

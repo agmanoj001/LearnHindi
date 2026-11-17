@@ -96,6 +96,12 @@ Not sure which grade to start with? The first screen (and the parent area) has a
 
 Story pages light up **word by word** as they are read (exactly, where the voice reports word timings; otherwise estimated from word length, which also works for family recordings). With **Tell it back** turned on in the parent area, each story ends with "Now you tell the story!": the child records their own retelling, with the pictures as prompts, and grown-ups can listen to it later. Recordings never leave the device.
 
+### Talk together, play together, and free play
+
+- **साथ में बात करें (talk together).** After every story the results screen has a button for the grown-up with five questions to ask: finish a line from the story, what happened first, open a page and say what is happening, a "why" question, and a "what about you" question that links the story to the child's day. They are for the grown-up to read out, so the app doesn't speak them. Talking about a story this way (dialogic reading) builds far more vocabulary than reading aloud alone.
+- **साथ खेलो (play together).** The home screen has a two-player mode for one device. Pick two players: any child on this device (each at the grade in their own settings), or a grown-up. They take turns for 10 rounds, each at their own level: find the picture for Toddler and KG, read the word for Grades 1–2, that grade's quizzes for Grades 3–8, and a Hindi number word past 20 for the grown-up. Every right answer adds a star to one shared jar, and the other player may help with the 💡.
+- **खेल का समय (free play).** After every second lesson from Toddler to Grade 4, the results screen offers a pause with no right answer. Every world can colour a picture of its stickers, newest first. Vehicle Town adds driving the collected vehicles around the town with a horn, and the farm adds feeding the animals: each has foods it likes, and any food can be offered. Nothing is scored or saved.
+
 ### Today's path
 
 The top of the home screen shows **three steps for today**: *Keep going* (the next new lesson, in the grade's world with the least done, so subjects stay balanced), *Review* (a finished lesson that is due again) and *Story time* (a story not read yet). Each turns green once done today.
@@ -300,6 +306,7 @@ Built-in drawings are in `js/art.js`, `js/art-words.js`, `js/art-creatures.js` a
 | `sequence` | Story order: tap a story's pictures in the order things happened | `levels` or `story`, `rounds` |
 | `comic` | A Hindi comic with word meanings and questions (Grades 7 and 8) | `comic` (a `comics` id) |
 | `grammar` | Rule cards, then practice with a "क्यों?" after each answer (Grades 7 and 8) | `topic` (a `grammar` id), or `topics` for a mixed review; `rounds` (default 8) |
+| `together` | साथ खेलो: two players on one device take turns at their own levels, with one shared jar of stars (started from the home screen, not a world) | `players` (two of `{ level, name, avatar }`; `level` `adult` is the grown-up), `rounds` (default 10) |
 | `ginti` | गिनती, Hindi numbers 1–100: count by tapping, find the group, hear and find, Devanagari digits, what comes next, read the word, ज़्यादा / कम / बराबर, जोड़ो, घटाओ, आधा | `modes` (`count`, `show`, `hear`, `digits`, `next`, `compare`, `read`, `add`, `take`, `half`), `from`, `to` (1–100), `rounds` |
 
 Every game also takes `choices`: how many options to show at each of the three levels, e.g. `[2, 3, 4]` (the default). `letters` can name a range: `{ "sets": ["hindiConsonants"], "from": 0, "to": 10 }`.
@@ -338,9 +345,18 @@ A question can also have `"show": "मैं ___ जाता हूँ।"` (a 
     { "hi": "जाल किसने काटा?", "en": "Who cut the net?", "answer": "mouse", "options": ["mouse", "lion", "monkey"] },
     { "hi": "शेर ने चूहे को क्यों छोड़ा?", "en": "Why did the lion let the mouse go?", "text": true, "answer": "उसे हँसी आई", "options": ["उसे हँसी आई", "वह डर गया"] }
   ],
-  "moral": { "hi": "छोटे दोस्त भी बड़ी मदद कर सकते हैं।", "en": "Small friends can be a big help." }
+  "moral": { "hi": "छोटे दोस्त भी बड़ी मदद कर सकते हैं।", "en": "Small friends can be a big help." },
+  "talk": [
+    { "type": "complete", "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"जंगल में एक … सो रहा था।\" (शेर)", "en": "Say this and let your child fill the gap: …" },
+    { "type": "recall", "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (…)", "en": "Ask: what happened first in the story? (…)" },
+    { "type": "open", "hi": "जिस पन्ने पर चूहा है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?", "en": "Go back to the page with the mouse and ask: what is happening here?" },
+    { "type": "why", "hi": "चूहे ने शेर की मदद क्यों की?", "en": "Why did the mouse help the lion?" },
+    { "type": "you", "hi": "तुमने कभी किसी बड़े की मदद की है?", "en": "Have you ever helped someone bigger than you?" }
+  ]
 }
 ```
+
+`talk` is required: the five questions for a grown-up after the story (`complete`, `recall`, `open`, `why`, `you`), each in `hi` and `en`. When you add a story, write its `why` and `you` questions for that story, and word the Hindi so it suits a boy or a girl (no करोगे/करोगी). The checks fail if any of the five is missing.
 
 Each page shows its `word`'s picture. Picture questions use word ids as options; `"text": true` questions use short Hindi answers. `moral` is optional.
 
@@ -497,6 +513,8 @@ CURRICULUM.md         what each grade teaches, sources and research
 js/app.js             app start, router, lesson frame
 js/screens.js         splash, hub, world maps, results, collections, library
 js/shows.js           Show time episode player and Story radio
+js/together.js        साथ खेलो: who plays and the question for each level (pure, tested)
+js/freeplay.js        free play between lessons: colour, drive, feed
 js/art-comic.js       comic characters (faces, poses, props) and panel backgrounds
 js/games/comic.js     the comic reader (Grades 7 and 8)
 js/games/grammar.js   grammar rule cards and practice (Grades 7 and 8)

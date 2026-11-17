@@ -13,3 +13,15 @@
 6. After a merge, check on `main` itself (not the merge reply) that the commit, the feature and the ✅ rows are there: `git fetch origin main`, then `git merge-base --is-ancestor <commit> origin/main` and `git show origin/main:docs/ROADMAP.md`.
 
 An item that is only partly done stays `➡️`, with a note in its row of what is there and what is left.
+
+## Every story gets its talk-together prompts
+
+Every story in `content.json` has a `talk` list: five prompts a grown-up can ask after the story (roadmap 1.4 and 7.6, dialogic reading). When a story is added later, its prompts are part of adding it, in the **same change**, never a follow-up:
+
+- `complete`: a line from the story with the picture word left out for the child to say, e.g. `"चूँ-चूँ! … आया।" (चूज़ा)`.
+- `recall`: what happened first, quoting the first page (for a poem, the first line).
+- `open`: "जिस पन्ने पर X है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?", with X a picture in the story.
+- `why`: a "why" question about this story, written for it (not a template).
+- `you`: a "what about you" question that links the story to the child's own life, written for it.
+
+Each prompt has `hi` and `en`. Write the Hindi addressed to the child so it fits a boy or a girl ("तुम्हें…", a ने-construction or an imperative; not करोगे/करोगी). `validateContent` (js/validate.js) and `npm test` fail when a story is missing any of the five, so a story can't land without them. The prompts are read by the grown-up and not spoken, so they need no voice recordings.

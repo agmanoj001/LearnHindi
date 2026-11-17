@@ -9298,3 +9298,556 @@ body:has(.game-grammar) .caption-bar,
   color: #e0a100;
   flex: none;
 }
+
+/* ---- talk together: a grown-up's prompts after a story (js/screens.js showTalk) ---- */
+.talk-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px;
+  border: 0;
+  border-radius: 18px;
+  background: #f1efff;
+  color: var(--glyph);
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+}
+.talk-icon {
+  font-size: 24px;
+}
+.talk-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.15;
+}
+.talk-text b {
+  font: 800 17px 'Baloo 2', var(--font);
+}
+.talk-text small {
+  font: 600 12px 'Fredoka', var(--font);
+  color: var(--muted);
+}
+.talk-sheet {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgba(20, 22, 44, 0.45);
+  animation: fade-in 0.2s ease-out;
+}
+.talk-card {
+  width: min(560px, 100%);
+  max-height: calc(100vh - 32px);
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 26px;
+  padding: 16px 18px 18px;
+  box-shadow: var(--shadow-lg);
+}
+.talk-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+.talk-head b {
+  display: block;
+  font: 800 20px 'Baloo 2', var(--font);
+  color: var(--glyph);
+}
+.talk-head small,
+.talk-intro small,
+.talk-en {
+  display: block;
+  font: 600 13px 'Fredoka', var(--font);
+  color: var(--muted);
+}
+.talk-intro {
+  margin: 8px 0 10px;
+  font: 600 15px 'Baloo 2', var(--font);
+  color: var(--ink);
+}
+.talk-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.talk-item {
+  padding: 10px 12px;
+  border-radius: 16px;
+  background: #f7f6ff;
+  border-left: 6px solid var(--brand);
+}
+.talk-item.recall {
+  border-left-color: #2ec27e;
+}
+.talk-item.open {
+  border-left-color: #3d7bff;
+}
+.talk-item.why {
+  border-left-color: #ff9f43;
+}
+.talk-item.you {
+  border-left-color: #ff6b9a;
+}
+.talk-kind {
+  display: flex;
+  gap: 6px;
+  align-items: baseline;
+  margin-bottom: 2px;
+}
+.talk-kind b {
+  font: 800 14px 'Baloo 2', var(--font);
+  color: var(--glyph);
+}
+.talk-kind small {
+  font: 600 12px 'Fredoka', var(--font);
+  color: var(--muted);
+}
+.talk-q {
+  display: block;
+  font: 700 17px / 1.35 'Baloo 2', var(--font);
+  color: var(--ink);
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* ---- साथ खेलो: two players on one device (js/games/together.js, js/screens.js together) ---- */
+.together-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 22px;
+  background: linear-gradient(120deg, #fff3d6, #ffe0ec);
+  color: var(--glyph);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+}
+.together-btn b {
+  font: 800 20px 'Baloo 2', var(--font);
+}
+.together-btn .say-sub {
+  font-size: 13px;
+}
+.together-icon {
+  font-size: 28px;
+}
+.together-main {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 0 24px;
+}
+.together-help {
+  max-width: 520px;
+  margin: 0;
+  text-align: center;
+  font: 700 17px 'Baloo 2', var(--font);
+  color: var(--ink);
+}
+.together-help .say-sub {
+  display: block;
+  margin: 2px 0 0;
+}
+.together-slots {
+  display: flex;
+  gap: 14px;
+}
+.together-slot,
+.together-person {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 22px;
+  background: #fff;
+  box-shadow: var(--shadow);
+  color: var(--glyph);
+  cursor: pointer;
+}
+.together-slot {
+  width: clamp(130px, 38vw, 200px);
+  box-shadow: 0 0 0 4px #e7e4ff, var(--shadow);
+}
+.together-slot.p1 {
+  --pc: #3d7bff;
+}
+.together-slot.p2 {
+  --pc: #ff6b9a;
+}
+.together-slot.choosing {
+  box-shadow: 0 0 0 5px var(--pc), var(--shadow-lg);
+}
+.together-slot small,
+.together-person small,
+.slot-level {
+  font: 600 13px 'Fredoka', var(--font);
+  color: var(--muted);
+}
+.together-slot b,
+.together-person b {
+  font: 800 18px 'Baloo 2', var(--font);
+}
+.player-face {
+  display: block;
+  width: 64px;
+  height: 64px;
+}
+.player-face svg {
+  width: 100%;
+  height: 100%;
+}
+.together-people {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+.together-person.picked {
+  opacity: 0.55;
+}
+.team-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: min(94vw, 560px);
+}
+.player-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px 4px 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.25s var(--spring), box-shadow 0.25s;
+}
+.player-chip .player-face {
+  width: 44px;
+  height: 44px;
+}
+.player-chip.p1 {
+  --pc: #3d7bff;
+}
+.player-chip.p2 {
+  --pc: #ff6b9a;
+}
+.player-chip.turn {
+  transform: scale(1.12);
+  box-shadow: 0 0 0 4px var(--pc), var(--shadow);
+}
+.player-name {
+  font: 800 16px 'Baloo 2', var(--font);
+  color: var(--glyph);
+}
+.team-jar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 14px;
+  border-radius: 18px;
+  background: #fff6d6;
+  box-shadow: 0 0 0 3px #ffc93c;
+  font: 800 22px 'Fredoka', var(--font);
+  color: #b7791f;
+}
+.together-area {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 12px;
+}
+.turn-banner {
+  padding: 6px 16px;
+  border-radius: 999px;
+  color: #fff;
+  font: 800 18px 'Baloo 2', var(--font);
+  animation: pop-in 0.35s var(--spring);
+}
+.turn-banner.p1 {
+  background: #3d7bff;
+}
+.turn-banner.p2 {
+  background: #ff6b9a;
+}
+.together-word {
+  padding: 10px 30px;
+  border-radius: 26px;
+  background: #fff;
+  box-shadow: var(--shadow);
+  font: 800 clamp(40px, 11vmin, 76px) / 1.2 'Baloo 2', var(--font);
+  color: var(--glyph);
+}
+
+/* ---- free play between lessons (js/freeplay.js) ---- */
+.bubble.freeplay-go {
+  background: linear-gradient(160deg, #ffe27a, #ffb52e);
+  box-shadow: 0 6px 0 #d98c00, var(--shadow);
+  font-size: 30px;
+}
+.freeplay-tabs {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 2px 0 6px;
+}
+.freeplay-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 14px;
+  border: 0;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--glyph);
+  cursor: pointer;
+}
+.freeplay-tab b {
+  font: 800 16px 'Baloo 2', var(--font);
+}
+.freeplay-tab small {
+  font: 600 11px 'Fredoka', var(--font);
+  color: var(--muted);
+}
+.freeplay-tab.on {
+  background: #fff;
+  box-shadow: 0 0 0 3px var(--place), var(--shadow-sm);
+}
+.freeplay-main {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 8px;
+}
+.colour-page {
+  flex: 1;
+  min-height: 0;
+  width: min(94vw, 560px);
+  background: #fff;
+  border-radius: 26px;
+  box-shadow: var(--shadow-lg);
+  padding: 10px;
+  touch-action: manipulation;
+}
+.colour-page svg {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+.palette {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+.swatch {
+  width: clamp(36px, 9vw, 48px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  background: var(--c);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+}
+.swatch.on {
+  transform: scale(1.18);
+  box-shadow: 0 0 0 3px var(--glyph), var(--shadow);
+}
+.bubble.small {
+  width: 48px;
+  height: 48px;
+  padding: 10px;
+}
+.colour-picks {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  max-width: 100%;
+  padding: 4px;
+}
+.colour-pick {
+  flex: none;
+  width: clamp(60px, 15vw, 84px);
+  aspect-ratio: 200 / 140;
+  border: 0;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 4px;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+}
+.colour-pick.on {
+  box-shadow: 0 0 0 3px var(--place), var(--shadow-sm);
+}
+.colour-pick svg {
+  width: 100%;
+  height: 100%;
+}
+.drive-road {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  width: min(96vw, 760px);
+  border-radius: 26px;
+  overflow: hidden;
+  box-shadow: 0 0 0 5px #fff, var(--shadow-lg);
+  touch-action: none;
+}
+.drive-road > svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.drive-car {
+  position: absolute;
+  width: clamp(90px, 24vw, 160px);
+  aspect-ratio: 200 / 140;
+  translate: -50% -70%;
+  transform: scaleX(var(--face, 1));
+  filter: drop-shadow(0 6px 4px rgba(31, 35, 64, 0.25));
+  pointer-events: none;
+}
+.drive-car svg {
+  width: 100%;
+  height: 100%;
+}
+.drive-controls {
+  display: flex;
+  gap: 10px;
+}
+.bubble.honk {
+  width: auto;
+  padding: 10px 22px;
+  font: 800 20px 'Baloo 2', var(--font);
+  color: #fff;
+}
+.feed-pen {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  width: min(94vw, 620px);
+}
+.feed-animal {
+  aspect-ratio: 200 / 150;
+  border: 0;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.92);
+  padding: 6px;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+}
+.feed-animal svg,
+.feed-food svg {
+  width: 100%;
+  height: 100%;
+}
+.feed-animal.yum {
+  animation: feed-yum 0.8s var(--spring);
+  box-shadow: 0 0 0 4px #2ec27e, var(--shadow);
+}
+.feed-animal.nope {
+  animation: feed-nope 0.5s ease-in-out;
+}
+@keyframes feed-yum {
+  30% {
+    transform: translateY(-12%) scale(1.06);
+  }
+}
+@keyframes feed-nope {
+  25% {
+    transform: translateX(-6%) rotate(-4deg);
+  }
+  75% {
+    transform: translateX(6%) rotate(4deg);
+  }
+}
+.feed-help {
+  margin: 0;
+  text-align: center;
+  font: 700 16px 'Baloo 2', var(--font);
+  color: var(--ink);
+}
+.feed-help small {
+  display: block;
+  font: 600 12px 'Fredoka', var(--font);
+  color: var(--muted);
+}
+.feed-tray {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.75);
+}
+.feed-food {
+  width: clamp(60px, 15vw, 90px);
+  aspect-ratio: 200 / 140;
+  border: 0;
+  border-radius: 16px;
+  background: #fff;
+  padding: 4px;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: transform 0.2s var(--spring);
+}
+.feed-food.lifted {
+  transform: translateY(-10px) scale(1.12);
+  box-shadow: 0 0 0 3px #ffc93c, var(--shadow);
+}
+@media (prefers-reduced-motion: reduce) {
+  .feed-animal.yum,
+  .feed-animal.nope {
+    animation: none;
+  }
+}
+/* long answers (idioms for the older player) wrap inside the screen */
+.together-area .choices.answers {
+  flex-direction: column;
+  align-items: stretch;
+  width: min(94vw, 560px);
+}
+.together-area .choices.answers .card.answer {
+  min-width: 0;
+  min-height: 0;
+  padding: 10px 16px;
+}
+.together-area .choices.answers .word-text {
+  white-space: normal;
+  text-align: center;
+  font-size: clamp(17px, 4.6vmin, 24px);
+  line-height: 1.3;
+}

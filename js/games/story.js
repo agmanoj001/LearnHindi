@@ -186,6 +186,8 @@ export default {
       await waitTap(done);
       if (!ctx.alive()) return;
     }
+    // the results screen offers the grown-up this story's talk-together prompts
+    ctx.markStory?.(story.id);
     ctx.complete();
   },
 };
