@@ -212,7 +212,7 @@ export function hub(api) {
   const card = (world) => {
     const st = worldStars(progress, world);
     const sub = subjectName(world);
-    const c = el('button', { class: `world-card theme-${world.theme}`, style: { '--place': world.color }, 'aria-label': `${world.name.en}, ${level(world.level).name.en}` }, [
+    const c = el('button', { class: `world-card theme-${world.theme}`, style: { '--place': world.color }, 'data-grow': `world:${world.id}`, 'aria-label': `${world.name.en}, ${level(world.level).name.en}` }, [
       el('div', { class: 'world-card-scene', html: sceneSvg(world.theme, { crop: 'bottom' }) }),
       el('div', { class: 'world-card-mascot', html: mascotSvg(world.mascot) }),
       el('div', { class: 'world-card-text' }, [
@@ -232,7 +232,7 @@ export function hub(api) {
       bounce(c);
       api.sayLines(world.name);
       await sleep(250);
-      api.go('world', { worldId: world.id });
+      api.go('world', { worldId: world.id }, { from: c });
     });
     return c;
   };
@@ -366,7 +366,7 @@ export function world(api, w) {
       const open = isUnlocked(progress, w, lesson.id, settings.unlockAll);
       const isCurrent = lesson.id === current.id;
       const cls = rec.stars ? 'done' : isCurrent ? 'current' : open ? 'open' : 'locked';
-      const node = el('button', { class: `node ${cls}`, 'aria-label': `${lesson.title.en}${open ? '' : ' (locked)'}` }, [
+      const node = el('button', { class: `node ${cls}`, 'data-grow': `lesson:${lesson.id}`, 'aria-label': `${lesson.title.en}${open ? '' : ' (locked)'}` }, [
         el('span', { class: 'node-icon', html: api.iconHtml(lesson.icon) }),
         !open ? el('span', { class: 'node-lock', html: ICONS.lock }) : null,
       ]);
@@ -388,7 +388,7 @@ export function world(api, w) {
           return;
         }
         api.sfx.pop();
-        api.go('lesson', { lessonId: lesson.id });
+        api.go('lesson', { lessonId: lesson.id }, { from: node });
       });
       if (isCurrent) {
         currentNode = row;
@@ -895,7 +895,7 @@ export function library(api, w) {
   const book = (s, { hero = false } = {}) => {
     const read = isRead(s);
     const d = decoding ? canRead(s) : null;
-    const b = el('button', { class: `book ${read ? 'read' : ''} ${s.kind === 'poem' ? 'poem' : ''}${hero ? ' next-book' : ''}`, 'aria-label': s.title.en }, [
+    const b = el('button', { class: `book ${read ? 'read' : ''} ${s.kind === 'poem' ? 'poem' : ''}${hero ? ' next-book' : ''}`, 'data-grow': `story:${s.id}`, 'aria-label': s.title.en }, [
       hero ? el('span', { class: 'next-ribbon' }, said(api, { hi: 'अब यह पढ़ो!', en: 'Read this next!' })) : null,
       s.kind === 'poem' ? el('span', { class: 'poem-ribbon', text: s.lang === 'en' ? 'Rhyme' : 'कविता · Poem' }) : null,
       el('span', { class: 'book-cover', html: pictureForWord(api.word(s.cover)) }),
@@ -908,7 +908,7 @@ export function library(api, w) {
     ]);
     b.addEventListener('click', () => {
       api.sfx.page();
-      api.go('lesson', { worldId: w.id, storyId: s.id });
+      api.go('lesson', { worldId: w.id, storyId: s.id }, { from: b });
     });
     return b;
   };
@@ -1061,14 +1061,14 @@ export function playHero(api, steps, worlds = []) {
   const guide = createMascot(world.mascot, { onTap: () => mascotJoke(api, guide) });
   const { list = [], current } = api.state.profiles || {};
   const name = list.find((p) => p.id === current)?.name?.trim();
-  const play = el('button', { class: 'big-play', style: { '--place': world.color }, 'aria-label': `Play: ${lesson.title.en}` }, [
+  const play = el('button', { class: 'big-play', style: { '--place': world.color }, 'data-grow': `lesson:${lesson.id}`, 'aria-label': `Play: ${lesson.title.en}` }, [
     el('span', { class: 'big-play-pic', html: api.iconHtml(lesson.icon) }),
     el('span', { class: 'big-play-btn', html: ICONS.play }),
   ]);
   play.addEventListener('click', () => {
     api.sfx.pop();
     bounce(play);
-    api.go('lesson', { lessonId: lesson.id });
+    api.go('lesson', { lessonId: lesson.id }, { from: play });
   });
   return el('section', { class: 'play-hero', 'aria-label': 'Play' }, [
     el('div', { class: 'play-hero-guide' }, [guide.node, el('b', { class: 'play-hello', lang: 'hi', text: hello(name) })]),
@@ -1104,7 +1104,7 @@ export function todayCard(api, steps) {
       { class: 'today-steps' },
       steps.map((s, i) => {
         const meta = STEP[s.kind];
-        const b = el('button', { class: `today-step ${s.kind}${s.done ? ' done' : ''}`, style: { '--place': s.world.color }, 'aria-label': `${meta.en}: ${s.lesson.title.en}` }, [
+        const b = el('button', { class: `today-step ${s.kind}${s.done ? ' done' : ''}`, style: { '--place': s.world.color }, 'data-grow': `lesson:${s.lesson.id}`, 'aria-label': `${meta.en}: ${s.lesson.title.en}` }, [
           el('span', { class: 'today-icon', html: api.iconHtml(s.lesson.icon) }),
           el('span', { class: 'today-text' }, [
             el('b', {}, [`${i + 1}. `, ...said(api, meta)]),
@@ -1115,7 +1115,7 @@ export function todayCard(api, steps) {
         b.addEventListener('click', () => {
           api.sfx.pop();
           bounce(b);
-          api.go('lesson', { lessonId: s.lesson.id });
+          api.go('lesson', { lessonId: s.lesson.id }, { from: b });
         });
         return b;
       }),

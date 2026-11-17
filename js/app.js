@@ -57,7 +57,13 @@ async function boot() {
   initCaptions();
   initParallax();
   history.replaceState({ name: 'splash', depth: 0 }, '');
-  window.addEventListener('popstate', (e) => render(e.state || { name: 'hub', depth: 0 }));
+  window.addEventListener('popstate', (e) => {
+    const route = e.state || { name: 'hub', depth: 0 };
+    // going back from a screen that grew out of a card: it shrinks back into that card
+    const leaving = state.current;
+    if (leaving?.grow && route.depth < (leaving.depth || 0)) return grow(() => render(route), app.querySelector('.screen'), () => app.querySelector(`[data-grow="${CSS.escape(leaving.grow)}"]`));
+    render(route);
+  });
   render({ name: 'splash', depth: 0 });
 }
 
@@ -169,10 +175,33 @@ function homeRoute() {
   return { name: 'hub', params: {} };
 }
 
-function go(name, params = {}, { replace = false } = {}) {
-  const route = { name, params, depth: replace ? state.depth : state.depth + 1 };
+// Tapping a world, a lesson, a story or an episode grows that card into the next screen, and going back
+// shrinks the screen into the card again (roadmap 5.4): the card and the screen share a view-transition
+// name, so the browser morphs one into the other. Browsers without View Transitions, and "reduce
+// motion", keep the usual slide-in.
+const canGrow = () => typeof document.startViewTransition === 'function' && !window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+function grow(change, from, to) {
+  if (!from?.isConnected || !canGrow()) return change();
+  from.style.viewTransitionName = 'grow';
+  document.documentElement.classList.add('growing');
+  let target = null;
+  const t = document.startViewTransition(() => {
+    from.style.viewTransitionName = '';
+    change();
+    target = to();
+    target?.style.setProperty('view-transition-name', 'grow');
+  });
+  t.finished.finally(() => {
+    document.documentElement.classList.remove('growing');
+    target?.style.removeProperty('view-transition-name');
+  });
+}
+
+function go(name, params = {}, { replace = false, from = null } = {}) {
+  const route = { name, params, depth: replace ? state.depth : state.depth + 1, ...(from?.dataset?.grow ? { grow: from.dataset.grow } : {}) };
   if (replace) history.replaceState(route, '');
   else history.pushState(route, '');
+  if (from) return grow(() => render(route), from, () => app.querySelector('.screen'));
   render(route);
 }
 
@@ -191,6 +220,7 @@ function render(route) {
   stop();
   state.depth = route.depth || 0;
   state.route = route.name;
+  state.current = route;
   // quieter music in lessons and shows, where children need to hear every sound
   music.setMood(route.name === 'lesson' || route.name === 'show' ? 'lesson' : 'free');
   // the "new version" bar only lives on calm screens; it comes back on the next calm one

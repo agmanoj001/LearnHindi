@@ -204,3 +204,20 @@ test('the guide claps, thinks along and encourages, with a bubble that says so',
   assert.match(css, /\.mascot-corner \.mascot\.small \{\s*width: clamp\(96px/, 'bigger in lessons');
   assert.match(css, /prefers-reduced-motion: reduce\) \{\s*\.mascot\.m-clap \.m-arm-l/);
 });
+
+// ---- 5.4 shared-element transitions ----
+test('a tapped world, lesson, story or episode grows into its screen, and shrinks back', () => {
+  const app = read('js/app.js');
+  assert.match(app, /function grow\(change, from, to\)/);
+  assert.match(app, /document\.startViewTransition\(/);
+  assert.match(app, /prefers-reduced-motion: reduce/, 'not with reduce motion');
+  assert.match(app, /typeof document\.startViewTransition === 'function'/, 'not where unsupported');
+  assert.match(app, /grow: from\.dataset\.grow/, 'the route remembers its card');
+  assert.match(app, /\[data-grow="\$\{CSS\.escape\(leaving\.grow\)\}"\]/, 'back shrinks into the same card');
+  const screens = read('js/screens.js');
+  for (const k of ['world:', 'lesson:', 'story:']) assert.ok(screens.includes(`'data-grow': \`${k}`), k);
+  for (const from of ['{ from: c }', '{ from: node }', '{ from: b }', '{ from: play }']) assert.ok(screens.includes(from), from);
+  assert.ok(read('js/shows.js').includes("'data-grow': `show:"));
+  assert.match(css, /::view-transition-group\(grow\) \{[^}]*animation-duration: 0\.42s/);
+  assert.match(css, /\.growing \.enter \{\s*animation: none;/);
+});

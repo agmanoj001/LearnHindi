@@ -214,7 +214,7 @@ export function showsHome(api) {
     const w = worldOf(api, show);
     const seen = progress.shows?.[show.id];
     const first = show.scenes[0];
-    const b = el('button', { class: `show-card theme-${first.bg}`, style: { '--place': w?.color || '#6C63FF' }, 'aria-label': show.title.en }, [
+    const b = el('button', { class: `show-card theme-${first.bg}`, style: { '--place': w?.color || '#6C63FF' }, 'data-grow': `show:${show.id}`, 'aria-label': show.title.en }, [
       el('span', { class: 'show-thumb', html: sceneSvg(first.bg, { crop: 'bottom' }) }, [el('span', { class: 'show-thumb-guide', html: mascotSvg(w?.mascot || 'gappu') }), el('span', { class: 'show-play', html: ICONS.play })]),
       el('span', { class: 'show-card-text' }, [
         el('span', { class: 'chips' }, [el('span', { class: 'chip grade', text: levelName(api, show.level).en }), el('span', { class: `chip subject ${show.lang === 'en' ? 'math' : 'hindi'}`, text: show.lang === 'en' ? 'English' : 'हिन्दी' })]),
@@ -227,7 +227,7 @@ export function showsHome(api) {
     b.addEventListener('click', () => {
       api.sfx.pop();
       bounce(b);
-      api.go('show', { showId: show.id });
+      api.go('show', { showId: show.id }, { from: b });
     });
     return b;
   };

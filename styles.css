@@ -10157,3 +10157,27 @@ body:has(.game-grammar) .caption-bar,
     animation: none;
   }
 }
+
+/* ---- a tapped card grows into the next screen, and back (roadmap 5.4, js/app.js grow()) ---- */
+::view-transition-group(grow) {
+  animation-duration: 0.42s;
+  animation-timing-function: cubic-bezier(0.2, 0.85, 0.25, 1.05);
+  overflow: hidden;
+  border-radius: 28px;
+}
+::view-transition-old(grow),
+::view-transition-new(grow) {
+  height: 100%;
+  object-fit: cover;
+}
+::view-transition-old(grow) {
+  animation-duration: 0.2s;
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.28s;
+}
+/* while a screen grows out of its card, the usual slide-in would only get in the way */
+.growing .enter {
+  animation: none;
+}
