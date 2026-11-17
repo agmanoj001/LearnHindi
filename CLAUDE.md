@@ -25,3 +25,11 @@ Every story in `content.json` has a `talk` list: five prompts a grown-up can ask
 - `you`: a "what about you" question that links the story to the child's own life, written for it.
 
 Each prompt has `hi` and `en`. Write the Hindi addressed to the child so it fits a boy or a girl ("तुम्हें…", a ने-construction or an imperative; not करोगे/करोगी). `validateContent` (js/validate.js) and `npm test` fail when a story is missing any of the five, so a story can't land without them. The prompts are read by the grown-up and not spoken, so they need no voice recordings.
+
+## Long work: push after each piece, and keep a restart check-in
+
+The user's usage limit can stop work part-way (it resets after 5 hours), and the cloud machine is reclaimed when idle, so:
+
+1. For work with several parts (for example, more than one roadmap item), commit and push to the working branch after **each** finished piece (one roadmap item, with its ✅ tick and its check), not once at the end. Run `npm test` before each push.
+2. At the start of such work, schedule a restart check-in about 5 hours ahead (`send_later`) that tells this session to continue any unfinished task from the last pushed step, or do nothing if all is done. If work is still going when it fires, schedule the next one.
+3. Opening or merging a pull request still waits for the user to ask.
