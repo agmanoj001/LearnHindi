@@ -64,11 +64,11 @@ Every story page from Toddler to Grade 2 is a small moving scene that follows th
 
 | Unit | Standards |
 | --- | --- |
-| Let's count! | NC.K.CC.4–5: count to tell how many (rows, scattered, up to 20); quick looks at dot patterns and ten frames |
-| Let's learn numbers | NC.K.CC.1–3: read numbers 0–20, count on from any number, count by tens to 100 |
+| Let's count! | NC.K.CC.4–5: count to tell how many (rows, scattered, up to 20); quick looks at dot patterns and ten frames; counting back from 10 like a rocket's countdown (NC.K.CC.2); what comes next in a pattern (AB, AAB) |
+| Let's learn numbers | NC.K.CC.1–3: read numbers 0–20, count on from any number, count by tens to 100; first, second, third … fifth in a race to the flag |
 | Let's compare | NC.K.CC.6–7: more, fewer or the same (the smaller group is sometimes drawn bigger); which number is bigger |
-| Let's add and take away | NC.K.OA.1, 2, 5: story problems with objects; facts within 5 |
-| Let's make 10 | NC.K.OA.3–4, NBT.1: number partners on a ten frame, how many more make 10, teen numbers as ten and some ones |
+| Let's add and take away | NC.K.OA.1, 2, 5: story problems with objects; facts within 5, then ten of them with no hurry (a fact missed comes back two rounds later) |
+| Let's make 10 | NC.K.OA.3–4, NBT.1: number partners on a ten frame, how many more make 10, teen numbers as ten and some ones; number bonds (the whole and its two parts); bubbles to pop in pairs that make 10 |
 | Let's find shapes | NC.K.G.1–3: above, below, beside, in front of, behind; name flat shapes in any size or turn; flat or solid |
 | Let's measure and sort | NC.K.MD.1–3: longer, taller, heavier (on a balance); sort a mixed group and count each kind |
 | Number party! | Mixed review of the year |
@@ -92,9 +92,9 @@ Every story page from Toddler to Grade 2 is a small moving scene that follows th
 
 | Unit | Standards |
 | --- | --- |
-| Let's count to 150 | NC.1.NBT.1: count on from any number to 150, across the hundreds; read numbers to 150 (105 is not 15) |
+| Let's count to 150 | NC.1.NBT.1: count on from any number to 150, across the hundreds; read numbers to 150 (105 is not 15); count back from 20, and across a ten (51, 50, 49); skip count by 2s, 5s and 10s (NC.1.OA.5) |
 | Let's learn tens and ones | NC.1.NBT.2–3: base-ten blocks, tens and ones, compare with >, = and < |
-| Let's add and subtract to 20 | NC.1.OA.2, 3, 6: make a ten on two ten frames (8 + 5 = 8 + 2 + 3), three addends, missing numbers |
+| Let's add and subtract to 20 | NC.1.OA.2, 3, 6: make a ten on two ten frames (8 + 5 = 8 + 2 + 3), three addends, missing numbers; doubles and near doubles (6 + 7 is double 6 and one more); number bonds to 20; facts practice with no timer; bubbles to pop in pairs that make 20 |
 | Let's solve story problems | NC.1.OA.1, 7, 8: add to, take from, put together, compare (Pip and Tiko line up their kites); is this equation true? |
 | Let's add big numbers | NC.1.NBT.4–6: 10 more and 10 less, add tens and ones, subtract tens |
 | Let's measure and tell time | NC.1.MD.1–3: order by length, measure with cubes, tell time to the hour and half hour (the hour hand sits halfway at half past) |
@@ -212,7 +212,9 @@ Sounds are always said with a key word ("c, as in cat"): text-to-speech can't sa
 
 ## Math skills
 
-Besides the answer cards, each unit with a hands-on game (docs/ROADMAP.md 10.1) ends with one: fill a ten-frame (Let's make 10), frog hops on a number line (Let's add and take away), the pattern train (Let's count!), a shape builder (Let's find shapes) and measuring with cubes (Let's measure and sort) in Kindergarten; a balance for "equal" (Let's add and subtract to 20), a coin shop (Let's learn coins and graphs) and a clock with hands to turn (Let's measure and tell time) in Grade 1. They record the skill of the unit, so the grown-ups' area counts them with the rest.
+Besides the answer cards, each unit with a hands-on game (docs/ROADMAP.md 10.1) ends with one: fill a ten-frame (Let's make 10), frog hops on a number line (Let's add and take away), the pattern train (Let's count!), a shape builder (Let's find shapes) and measuring with cubes (Let's measure and sort) in Kindergarten; a balance for "equal" (Let's add and subtract to 20), a coin shop (Let's learn coins and graphs) and a clock with hands to turn (Let's measure and tell time) in Grade 1. They record the skill of the unit, so the grown-ups' area counts them with the rest. Number-bond bubbles (docs/ROADMAP.md 10.4) are a ninth: pop two bubbles that make 10 (Let's make 10) or 20 (Let's add and subtract to 20).
+
+The facts-practice lessons (*Facts, no hurry* and *Facts practice, no hurry*) have no clock at all: ten facts, and any fact missed the first time comes back two rounds later, the same fact, so it is practised until it is known.
 
 Each skill makes problems at three levels: level 1 uses small numbers with objects to count, level 2 uses bigger numbers and pictorial models (ten frames, number lines, base-ten blocks), level 3 uses the biggest numbers with fewer pictures (concrete → pictorial → abstract).
 
@@ -237,6 +239,9 @@ Each skill makes problems at three levels: level 1 uses small numbers with objec
 | `k-measure` | NC.K.MD.2 | Longer, taller, heavier | Let's measure and sort, Number party! |
 | `k-sort` | NC.K.MD.3 | Sort and count groups | Let's measure and sort |
 | `k-pattern` | K.MP.7 | Patterns: what comes next (AB, AAB, ABC) | Let's count! (the pattern train), Number party! |
+| `k-countback` | NC.K.CC.2 | Count back from 10 | Let's count!, Number party! |
+| `k-ordinal` | NC.K.CC.4 | First, second, third… | Let's learn numbers, Number party! |
+| `k-bond10` | NC.K.OA.3 | Number bonds to 10 | Let's make 10 (and the make-10 bubbles), Number party! |
 | `g1-count150` | NC.1.NBT.1 | Count to 150 from any number | Let's count to 150 |
 | `g1-numerals` | NC.1.NBT.1 | Read numbers to 150 | Let's count to 150 |
 | `g1-place` | NC.1.NBT.2 | Tens and ones | Let's learn tens and ones, Carnival challenge |
@@ -256,6 +261,11 @@ Each skill makes problems at three levels: level 1 uses small numbers with objec
 | `g1-sides` | NC.1.G.1 | Sides and corners of shapes | Let's explore shapes, Carnival challenge |
 | `g1-halves` | NC.1.G.3 | Halves and fourths | Let's explore shapes, Carnival challenge |
 | `g1-compose` | NC.1.G.2 | Put shapes together | Let's explore shapes |
+| `g1-countback` | NC.1.OA.5 | Count back from 20 (and across a ten) | Let's count to 150, Carnival challenge |
+| `g1-skip` | NC.1.OA.5 | Skip count by 2s, 5s and 10s | Let's count to 150, Carnival challenge |
+| `g1-doubles` | NC.1.OA.6 | Doubles and near doubles | Let's add and subtract to 20, Carnival challenge |
+| `g1-bond20` | NC.1.OA.6 | Number bonds to 20 | Let's add and subtract to 20 (and the make-20 bubbles), Carnival challenge |
+| `g1-fluency` | NC.1.OA.6 | Facts within 10 (and 20), no hurry | Let's add and subtract to 20 |
 
 **Not covered yet:** NC.K.G.4–6 (comparing, building and composing shapes with real materials), NC.K.CC.4's one-to-one counting of real objects (the app's tap-to-count is the closest), and NC.1.OA.3's properties of operations as a separate skill. These are better done with blocks, beads and paper shapes at a table.
 

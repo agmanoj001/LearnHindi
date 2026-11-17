@@ -134,6 +134,10 @@ const COINS = {
   quarter: { cents: 25, name: 'quarter' },
 };
 
+// the racers for first, second, third (k-ordinal)
+const RACERS = ['penguin', 'duck', 'cat', 'rabbit', 'chick', 'monkey'];
+const ORDINALS = ['first', 'second', 'third', 'fourth', 'fifth'];
+
 const HEAVY = [
   ['elephant', 'mouse'],
   ['cow', 'chick'],
@@ -575,6 +579,87 @@ export const SKILLS = {
         answer: counts[i],
         explain: `${counts[i]} ${counts[i] === 1 ? picked[i][1] : picked[i][2]}!`,
         hint: `Only count the ${picked[i][2]}.`,
+      };
+    },
+  },
+
+  // ---- the gaps Grade 2 leans on (docs/ROADMAP.md 10.4) ----
+  // counting back, like a rocket's countdown
+  'k-countback': {
+    code: 'NC.K.CC.2',
+    name: 'Count back from 10',
+    gen(t, rng, n) {
+      const len = 4;
+      const start = t === 0 ? int(rng, 4, 5) : int(rng, 3, 10);
+      // tier 2: a number missing in the middle
+      const gap = t === 2 ? int(rng, 1, len - 2) : len - 1;
+      const items = Array.from({ length: len }, (_, i) => (i === gap ? null : start - i));
+      const answer = start - gap;
+      const last = gap === len - 1;
+      return {
+        ask: last ? 'Count back. What comes next?' : 'Count back. What number is missing?',
+        say: `Count back: ${items.map((v) => (v === null ? '…' : v)).join(', ')}. ${last ? 'What comes next?' : 'What number is missing?'}`,
+        model: { kind: 'sequence', items },
+        options: numberOptions(answer, n, rng, { min: 0, max: 10, tricky: [answer + 2] }),
+        answer,
+        explain: `${answer + 1}, ${answer}!${answer === 0 ? ' Blast off!' : ''}`,
+        hint: 'Counting back, each number is one less.',
+      };
+    },
+  },
+  // first, second, third: who is where in the race
+  'k-ordinal': {
+    code: 'NC.K.CC.4',
+    name: 'First, second, third…',
+    gen(t, rng, n) {
+      const len = t === 0 ? 3 : 5;
+      const racers = shuffle(RACERS, rng).slice(0, len);
+      const i = int(rng, 0, len - 1);
+      const model = { kind: 'queue', pics: racers };
+      if (t === 2 && rng() < 0.5) {
+        return {
+          ask: `The ${racers[i]} is in which place?`,
+          model,
+          options: textOptions(ORDINALS[i], ORDINALS.slice(0, len), n, rng),
+          answer: ORDINALS[i],
+          explain: `The ${racers[i]} is ${ORDINALS[i]}!`,
+          hint: 'Start at the flag: first, second, third…',
+        };
+      }
+      const others = shuffle(
+        racers.filter((_, k) => k !== i),
+        rng,
+      ).slice(0, n - 1);
+      return {
+        ask: `Who is ${ORDINALS[i]}?`,
+        say: `Who is ${ORDINALS[i]} in the race?`,
+        model,
+        options: shuffle([racers[i], ...others], rng).map((p) => ({ value: p, say: `the ${p}`, model: { kind: 'pic', pic: p } })),
+        answer: racers[i],
+        explain: `The ${racers[i]} is ${ORDINALS[i]}!`,
+        hint: 'Start at the flag and count: first, second, third…',
+      };
+    },
+  },
+  // a number bond: the whole on top, its two parts below
+  'k-bond10': {
+    code: 'NC.K.OA.3',
+    name: 'Number bonds to 10',
+    gen(t, rng, n) {
+      const whole = t === 0 ? int(rng, 3, 5) : t === 1 ? int(rng, 5, 10) : 10;
+      const a = int(rng, t === 2 ? 0 : 1, whole - 1);
+      const b = whole - a;
+      // tier 1 sometimes gives both parts and asks for the whole
+      const missWhole = t === 1 && rng() < 0.3;
+      return {
+        ask: missWhole ? `${a} and ${b} make what?` : `${whole} is ${a} and what?`,
+        say: missWhole ? `The parts are ${a} and ${b}. What is the whole?` : `${whole} is made of ${a} and how many more?`,
+        eq: missWhole ? `${a} + ${b} = ?` : `${a} + ? = ${whole}`,
+        model: { kind: 'bond', whole: missWhole ? null : whole, parts: [a, missWhole ? b : null], dots: t === 0 },
+        options: numberOptions(missWhole ? whole : b, n, rng, { min: 0, max: 10 }),
+        answer: missWhole ? whole : b,
+        explain: `${a} and ${b} make ${whole}!`,
+        hint: missWhole ? 'Put the two parts together.' : `Count on from ${a} to ${whole}.`,
       };
     },
   },
@@ -1183,6 +1268,126 @@ export const SKILLS = {
         answer: set.makes,
         explain: `${set.say[0].toUpperCase()}${set.say.slice(1)} make a ${set.makes}!`,
         hint: 'Imagine sliding the pieces together.',
+      };
+    },
+  },
+  // ---- the gaps Grade 2 leans on (docs/ROADMAP.md 10.4) ----
+  'g1-countback': {
+    code: 'NC.1.OA.5',
+    name: 'Count back from 20 (and across a ten)',
+    gen(t, rng, n) {
+      const len = 4;
+      // tier 2 crosses a ten going down: 52, 51, 50, …49
+      const start = t === 2 ? int(rng, 3, 12) * 10 + int(rng, 1, 2) : int(rng, t === 0 ? 8 : 12, 20);
+      const gap = t === 1 ? int(rng, 1, len - 2) : len - 1;
+      const items = Array.from({ length: len }, (_, i) => (i === gap ? null : start - i));
+      const answer = start - gap;
+      const last = gap === len - 1;
+      return {
+        ask: last ? 'Count back. What comes next?' : 'Count back. What number is missing?',
+        say: `Count back: ${items.map((v) => (v === null ? '…' : v)).join(', ')}. ${last ? 'What comes next?' : 'What number is missing?'}`,
+        model: { kind: 'sequence', items },
+        options: numberOptions(answer, n, rng, { min: 0, max: 125, tricky: [answer + 10, answer % 10 === 9 ? answer - 9 : swapDigits(answer)] }),
+        answer,
+        explain: `${answer + 1}, ${answer}!`,
+        hint: answer % 10 === 9 ? 'After 0 ones, the tens go down by one and the ones start again at 9.' : 'Counting back, each number is one less.',
+      };
+    },
+  },
+  'g1-skip': {
+    code: 'NC.1.OA.5',
+    name: 'Skip count by 2s, 5s and 10s',
+    gen(t, rng, n) {
+      const step = t === 0 ? pick(rng, [10, 5]) : t === 1 ? pick(rng, [5, 2]) : pick(rng, [2, 5, 10]);
+      if (t < 2) {
+        // groups to count: rods of ten, or dots in fives and twos
+        const groups = int(rng, 2, step === 2 ? 7 : 6);
+        const answer = groups * step;
+        const model = step === 10 ? { kind: 'base10', tens: groups, ones: 0 } : { kind: 'objects', groups: Array.from({ length: groups }, (_, i) => ({ n: step, pic: 'dot', color: COLORS[i % COLORS.length] })), layout: 'rows', small: true };
+        const seq = Array.from({ length: groups }, (_, i) => (i + 1) * step);
+        return {
+          ask: `Count by ${step}s. How many?`,
+          say: `Each group has ${step}. Count by ${step}s. How many in all?`,
+          model,
+          options: numberOptions(answer / step, n, rng, { min: 1, max: 10 }).map((o) => ({ value: o.value * step, label: String(o.value * step) })),
+          answer,
+          explain: `${seq.join(', ')}. ${answer}!`,
+          hint: `Touch each group and say the next number: ${seq.slice(0, 2).join(', ')}…`,
+        };
+      }
+      // tier 2: a skip-counting list that starts in the middle, with a gap
+      const s = sequence(rng, { start: int(rng, 1, step === 10 ? 8 : 12) * step, step, len: 5, gapAtEnd: false });
+      return {
+        ...s,
+        ask: `Count by ${step}s. ${s.ask}`,
+        options: numberOptions(s.answer / step, n, rng, { min: 1, max: 20 }).map((o) => ({ value: o.value * step, label: String(o.value * step) })),
+        explain: `Each jump is ${step} more. ${s.answer}!`,
+        hint: `Add ${step} to the number before the gap.`,
+      };
+    },
+  },
+  'g1-doubles': {
+    code: 'NC.1.OA.6',
+    name: 'Doubles and near doubles',
+    gen(t, rng, n) {
+      const a = int(rng, 1, t === 0 ? 5 : 9);
+      const near = t === 2 && rng() < 0.7;
+      const b = near ? a + 1 : a;
+      const answer = a + b;
+      const dots = (k, c) => ({ n: k, pic: 'dot', color: c });
+      return {
+        ask: near ? 'A near double! What is it?' : `What is double ${a}?`,
+        say: near ? `${a} plus ${b}? Think of double ${a}.` : `Double ${a}: ${a} plus ${a}?`,
+        eq: `${a} + ${b} = ?`,
+        model: t === 2 ? null : { kind: 'objects', groups: [dots(a, '#FF5A5F'), dots(b, '#3D7BFF')], op: '+', layout: 'rows' },
+        options: numberOptions(answer, n, rng, { min: 2, max: 20, tricky: near ? [2 * a, 2 * b] : [answer + 1] }),
+        answer,
+        explain: near ? `Double ${a} is ${2 * a}, and one more is ${answer}!` : `Double ${a} is ${answer}!`,
+        hint: near ? `Double ${a} is ${2 * a}. Then add one more.` : 'Both sides are the same. Count them all.',
+      };
+    },
+  },
+  'g1-bond20': {
+    code: 'NC.1.OA.6',
+    name: 'Number bonds to 20',
+    gen(t, rng, n) {
+      // tier 0: a teen number is 10 and some ones
+      const whole = int(rng, 11, t === 0 ? 19 : 20);
+      const a = t === 0 ? 10 : int(rng, 2, whole - 2);
+      const b = whole - a;
+      const missWhole = t === 2 && rng() < 0.4;
+      return {
+        ask: missWhole ? `${a} and ${b} make what?` : `${whole} is ${a} and what?`,
+        say: missWhole ? `The parts are ${a} and ${b}. What is the whole?` : `${whole} is made of ${a} and how many more?`,
+        eq: missWhole ? `${a} + ${b} = ?` : `${a} + ? = ${whole}`,
+        model: { kind: 'bond', whole: missWhole ? null : whole, parts: [a, missWhole ? b : null] },
+        options: numberOptions(missWhole ? whole : b, n, rng, { min: 0, max: 20, tricky: missWhole ? [] : [swapDigits(b)] }),
+        answer: missWhole ? whole : b,
+        explain: `${a} and ${b} make ${whole}!`,
+        hint: a === 10 ? `${whole} is one ten and some ones. Look at the ones.` : missWhole ? 'Make a ten first, then add the rest.' : `Count on from ${a} to ${whole}, or take ${a} away from ${whole}.`,
+      };
+    },
+  },
+  // just the fact, no picture and no clock: facts missed come back later in the lesson (js/games/math.js)
+  'g1-fluency': {
+    code: 'NC.1.OA.6',
+    name: 'Facts within 10 (and 20), no hurry',
+    gen(t, rng, n) {
+      const top = t === 2 ? 20 : 10;
+      const plus = t === 0 || rng() < 0.5;
+      const total = int(rng, t === 2 ? 11 : 2, top);
+      const a = plus ? int(rng, 1, total - 1) : total;
+      const b = plus ? total - a : int(rng, 1, total - 1);
+      const answer = plus ? a + b : a - b;
+      return {
+        ask: plus ? 'Add!' : 'Take away!',
+        say: `${a} ${plus ? 'plus' : 'minus'} ${b}?`,
+        eq: `${a} ${plus ? '+' : '−'} ${b} = ?`,
+        model: null,
+        options: numberOptions(answer, n, rng, { min: 0, max: top }),
+        answer,
+        explain: `${a} ${plus ? 'plus' : 'minus'} ${b} is ${answer}.`,
+        hint: plus ? 'Start with the bigger number and count on.' : `Think: ${b} plus what makes ${a}?`,
       };
     },
   },

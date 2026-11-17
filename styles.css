@@ -12635,3 +12635,132 @@ body:has(.game-grammar) .caption-bar,
   border: 3px solid #ffc93c;
   background: #fff8e1;
 }
+
+/* filling the maths gaps (roadmap 10.4): the race to the flag, number bonds, bubbles that make 10 */
+.mm-queue {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  padding: 0 10px 8px;
+  border-bottom: 5px solid #8bd17c;
+  border-radius: 6px;
+}
+.mm-flag {
+  width: 34px;
+  height: auto;
+}
+.mm-racer {
+  width: clamp(48px, calc(64vw / var(--n)), 96px);
+}
+/* every racer runs toward the flag */
+.mm-racer svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  transform: scaleX(-1);
+}
+.mm-bond {
+  width: min(78vw, 320px);
+  height: auto;
+}
+.mm-bond-gap {
+  animation: pulse 1.4s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.math-again {
+  margin: 0;
+  padding: 2px 14px;
+  border-radius: 999px;
+  font: 700 15px 'Fredoka', var(--font);
+  color: #7a4b00;
+  background: #ffe9a8;
+}
+.bd-field {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  width: 100%;
+  padding: 6px 0 10px;
+}
+.bd-bubble {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: clamp(76px, 22vw, 108px);
+  aspect-ratio: 1;
+  border: 3px solid #9cc7ff;
+  border-radius: 50%;
+  font: 800 clamp(30px, 8vw, 42px) 'Fredoka', var(--font);
+  color: #1d3b8b;
+  background: radial-gradient(circle at 32% 28%, #fff 0 14%, #dcebff 15% 60%, #b9d6ff 100%);
+  box-shadow: 0 6px 14px rgba(61, 123, 255, 0.22);
+  cursor: pointer;
+  animation: bd-float 3.2s ease-in-out infinite;
+  animation-delay: calc(var(--i) * -0.45s);
+  transition: transform 0.2s var(--spring);
+}
+.bd-bubble.picked {
+  border-color: #ff8a3d;
+  box-shadow: 0 0 0 5px rgba(255, 138, 61, 0.35);
+  transform: scale(1.1);
+}
+.bd-bubble.popped {
+  animation: bd-pop 0.45s ease-out forwards;
+  pointer-events: none;
+}
+.bd-dots {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2px;
+  max-width: 62%;
+}
+.bd-dots i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ff5a5f;
+}
+.bd-found {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  min-height: 34px;
+}
+.bd-pair {
+  padding: 4px 14px;
+  border-radius: 999px;
+  font: 800 20px 'Fredoka', var(--font);
+  color: #0f5132;
+  background: var(--good-soft);
+  animation: pop-in 0.3s ease-out both;
+}
+@keyframes bd-float {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -7px;
+  }
+}
+@keyframes bd-pop {
+  40% {
+    transform: scale(1.25);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(0.2);
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bd-bubble {
+    animation: none;
+  }
+}

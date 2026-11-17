@@ -802,17 +802,19 @@ import { ACTIVITIES, ACTIVITY_SKILL, DESIGNS } from '../js/games/handson.js';
 import { HANDS_ACTIVITIES } from '../js/validate.js';
 import { SKILLS, makeProblem } from '../js/mathgen.js';
 
-test('eight hands-on maths activities, each a lesson in the maths world of its grade, recording a skill of that grade', () => {
+test('the hands-on maths activities, each a lesson in a maths world, recording a skill of that world\'s grade', () => {
+  const PREFIX = { kg: 'k-', grade1: 'g1-', grade2: 'g2-', grade3: 'g3-', grade4: 'g4-' };
   assert.deepEqual(ACTIVITIES, HANDS_ACTIVITIES);
   const math = content.worlds.filter((w) => w.subject === 'math');
   for (const a of ACTIVITIES) {
     const found = math.flatMap((w) => w.units.flatMap((u) => u.lessons.filter((l) => l.game === 'handson' && l.config.activity === a).map((l) => ({ l, w }))));
-    assert.equal(found.length, 1, `one ${a} lesson`);
-    const { l, w } = found[0];
-    const skill = l.config.skill || ACTIVITY_SKILL[a];
-    assert.ok(SKILLS[skill], `${l.id}: ${skill} is a maths skill`);
-    assert.ok(skill.startsWith(w.level === 'kg' ? 'k-' : 'g1-'), `${l.id} records a ${w.level} skill`);
-    assert.ok(l.title.hi && l.title.en && l.icon);
+    assert.ok(found.length >= 1, `a ${a} lesson`);
+    for (const { l, w } of found) {
+      const skill = l.config.skill || ACTIVITY_SKILL[a];
+      assert.ok(SKILLS[skill], `${l.id}: ${skill} is a maths skill`);
+      assert.ok(skill.startsWith(PREFIX[w.level]), `${l.id} records a ${w.level} skill`);
+      assert.ok(l.title.hi && l.title.en && l.icon);
+    }
   }
   assert.match(read('sw.js'), /'js\/games\/handson\.js'/);
 });

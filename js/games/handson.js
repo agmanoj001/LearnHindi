@@ -6,10 +6,11 @@
 // A lesson names its activity: { "activity": "tenframe", "rounds": 5 }.
 import { el, sleep, runRounds, cheer, bounce, wobble, flyTo, ICONS, stepHint } from './kit.js';
 import { mathModel } from '../art-math.js';
+import { shuffle } from '../logic.js';
 
-export const ACTIVITIES = ['tenframe', 'numberline', 'pattern', 'shapes', 'measure', 'balance', 'shop', 'clock'];
+export const ACTIVITIES = ['tenframe', 'numberline', 'pattern', 'shapes', 'measure', 'balance', 'shop', 'clock', 'bonds'];
 // the skill each records (js/mathgen.js), so the grown-ups' area shows it with the others
-export const ACTIVITY_SKILL = { tenframe: 'k-make10', numberline: 'k-add', pattern: 'k-pattern', shapes: 'g1-compose', measure: 'g1-units', balance: 'g1-equal', shop: 'g1-coins', clock: 'g1-time' };
+export const ACTIVITY_SKILL = { tenframe: 'k-make10', numberline: 'k-add', pattern: 'k-pattern', shapes: 'g1-compose', measure: 'g1-units', balance: 'g1-equal', shop: 'g1-coins', clock: 'g1-time', bonds: 'k-bond10' };
 
 const int = (rng, lo, hi) => lo + Math.floor(rng() * (hi - lo + 1));
 const pick = (rng, xs) => xs[Math.floor(rng() * xs.length)];
@@ -499,7 +500,81 @@ async function clock(ctx) {
   return { first, explain: m ? `The long hand points to 6: it's half past ${h}!` : `The short hand points to ${h} and the long hand to 12. It's ${h} o'clock!`, node: pic };
 }
 
-const PLAY = { tenframe, numberline, pattern, shapes, measure, balance, shop, clock };
+// ---------- 9. number-bond bubbles: tap two that make 10, or 20 (NC.K.OA.4, NC.1.OA.6; docs/ROADMAP.md 10.4) ----------
+async function bonds(ctx) {
+  const t = ctx.tier;
+  const target = ctx.config.target === 20 ? 20 : 10;
+  const count = t === 0 ? 2 : 3;
+  // the smaller number of each pair, all different; for 20 at first, the pairs around 10 (3 and 17)
+  const lows = shuffle(Array.from({ length: target / 2 }, (_, i) => i + 1).filter((a) => target === 10 || t > 0 || a >= 3), ctx.rng).slice(0, count);
+  const values = lows.flatMap((a) => [a, target - a]);
+  // at the top level, one bubble has no partner
+  if (t === 2) {
+    const free = Array.from({ length: target - 1 }, (_, i) => i + 1).filter((d) => !values.includes(d) && !values.includes(target - d));
+    if (free.length) values.push(pick(ctx.rng, free));
+  }
+  const ask = `Pop two bubbles that make ${target}.`;
+  const { work, tools, check } = board(ctx, ask, 'hands-bonds');
+  check.hidden = true;
+  const found = el('div', { class: 'bd-found', 'aria-live': 'polite' });
+  let picked = null;
+  let wrong = 0;
+  let pairsFound = 0;
+  let finish;
+  const done = new Promise((r) => (finish = r));
+  const bubbles = shuffle(values, ctx.rng).map((v, i) => {
+    const dots = t === 0 && target === 10 ? `<span class="bd-dots">${'<i></i>'.repeat(v)}</span>` : '';
+    const b = el('button', { class: 'bd-bubble', style: { '--i': String(i) }, 'aria-label': String(v), html: `<b>${v}</b>${dots}` });
+    b.v = v;
+    b.addEventListener('click', () => {
+      if (b.classList.contains('popped')) return;
+      if (!picked) {
+        picked = b;
+        b.classList.add('picked');
+        ctx.sfx.pop();
+        ctx.sayText(String(v), 'en');
+        hint.step();
+        return;
+      }
+      if (picked === b) {
+        b.classList.remove('picked');
+        picked = null;
+        return;
+      }
+      const a = picked;
+      picked = null;
+      a.classList.remove('picked');
+      if (a.v + b.v === target) {
+        for (const x of [a, b]) x.classList.add('popped');
+        found.append(el('span', { class: 'bd-pair', text: `${a.v} + ${b.v} = ${target}` }));
+        ctx.sfx.feel ? ctx.sfx.feel('right') : ctx.sfx.chime();
+        hint.step();
+        ctx.sayText(`${a.v} and ${b.v} make ${target}!`, 'en');
+        if (++pairsFound === count) {
+          hint.done();
+          setTimeout(finish, 700);
+        }
+      } else {
+        wrong++;
+        wobble(a);
+        wobble(b);
+        ctx.miss?.();
+        hint.miss();
+        ctx.sayText(`${a.v} and ${b.v} make ${a.v + b.v}. We need ${target}.`, 'en');
+      }
+    });
+    return b;
+  });
+  work.append(el('div', { class: 'bd-field' }, bubbles), found);
+  tools.append(el('span', { class: 'hands-help', text: `Tap one bubble, then the one that makes ${target} with it.` }));
+  // the next step: the partner of the bubble picked, or any bubble that has a partner
+  const partner = (b) => bubbles.find((x) => x !== b && !x.classList.contains('popped') && x.v + b.v === target);
+  const hint = stepHint(ctx, () => (picked ? partner(picked) : bubbles.find((b) => !b.classList.contains('popped') && partner(b))), { coach: 'each' });
+  await done;
+  return { first: wrong === 0 && hint.used === 0, explain: `You found ${count} ways to make ${target}!`, node: found };
+}
+
+const PLAY = { tenframe, numberline, pattern, shapes, measure, balance, shop, clock, bonds };
 
 export default {
   async start(ctx) {

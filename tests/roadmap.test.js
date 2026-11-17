@@ -99,6 +99,7 @@ const DONE = {
     /guideSays\(show\.next/.test(read('js/shows.js')),
   '"Words I know" book': () => exists('js/wordbook.js') && /wordsChip\(api\)/.test(read('js/screens.js')) && /case 'words'/.test(read('js/app.js')) && /\.words-page/.test(css),
   'Free play between lessons': () => exists('js/freeplay.js') && /freeplayDue\(/.test(read('js/screens.js')) && ['drive', 'feed', 'colour'].every((m) => read('js/freeplay.js').includes(`'${m}'`)),
+  'Fill the gaps in Kindergarten and Grade 1': () => ['k-countback', 'k-ordinal', 'k-bond10', 'g1-countback', 'g1-skip', 'g1-doubles', 'g1-bond20', 'g1-fluency'].every((s) => JSON.stringify(content.worlds).includes(`"${s}"`)) && /"target":20/.test(JSON.stringify(content.worlds)) && /retry/.test(read('js/games/math.js')),
 };
 
 // title of an open row -> a sign in the code that it has been built (then its row must be ✅)

@@ -387,9 +387,41 @@ function compose(m) {
   return S('-30 -30 200 160', `<g class="mm-piece" style="--apart:translate(${apart[0]})">${a}</g><g class="mm-piece" style="--apart:translate(${apart[1]})">${b}</g>`, 'mm-compose');
 }
 
+// ---------- first, second, third: a race to the flag (the first is nearest it) ----------
+
+function queue(m) {
+  const flag = S('0 0 40 90', `<rect x="5" y="6" width="4" height="82" rx="2" fill="${INK}"/>${[0, 1, 2, 3].map((r) => [0, 1, 2].map((c) => `<rect x="${9 + c * 9}" y="${6 + r * 7}" width="9" height="7" fill="${(r + c) % 2 ? '#fff' : INK}"/>`).join('')).join('')}<rect x="9" y="6" width="27" height="28" fill="none" stroke="${INK}" stroke-width="1.5"/>`, 'mm-flag');
+  return `<div class="mm-queue" style="--n:${m.pics.length}">${flag}${m.pics.map((p) => `<span class="mm-racer">${pic(p)}</span>`).join('')}</div>`;
+}
+
+// ---------- a number bond: the whole on top, joined to its two parts (null = the gap) ----------
+
+function bond(m) {
+  const circle = (cx, cy, r, v, color) => {
+    const gap = v === null || v === undefined;
+    return `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${gap ? '#fff' : color}" stroke="${gap ? BLUE : INK}" stroke-width="4"${gap ? ' stroke-dasharray="8 6"' : ''}/><text class="${gap ? 'mm-bond-gap' : ''}" x="${cx}" y="${cy + r * 0.36}" font-size="${r * 0.95}" font-weight="800" fill="${gap ? BLUE : INK}" text-anchor="middle">${gap ? '?' : v}</text>`;
+  };
+  // little dots under each known number, for counting at first
+  const dotsUnder = (cx, cy, v) => {
+    if (!m.dots || !v) return '';
+    const w = Math.min(v, 5) * 12;
+    return Array.from({ length: v }, (_, i) => `<circle cx="${cx - w / 2 + 6 + (i % 5) * 12}" cy="${cy + Math.floor(i / 5) * 12}" r="4.5" fill="${RED}"/>`).join('');
+  };
+  const [a, b] = m.parts;
+  const body =
+    `<line x1="150" y1="58" x2="78" y2="138" stroke="${INK}" stroke-width="5"/><line x1="150" y1="58" x2="222" y2="138" stroke="${INK}" stroke-width="5"/>` +
+    circle(150, 52, 40, m.whole, '#FFE3A3') +
+    circle(78, 146, 36, a, '#C7F0D8') +
+    circle(222, 146, 36, b, '#C7F0D8') +
+    dotsUnder(150, 104, m.whole) +
+    dotsUnder(78, 194, a) +
+    dotsUnder(222, 194, b);
+  return S(`0 0 300 ${m.dots ? 216 : 190}`, body, 'mm-bond');
+}
+
 // ---------- entry ----------
 
-const KINDS = { objects, dots, tenframe, base10, compare10, numberline, sequence, shape, position, bar, tower, balance, clock, coin, graph, match, parts, compose, pic: (m) => `<span class="mm-pic">${pic(m.pic)}</span>` };
+const KINDS = { objects, queue, bond, dots, tenframe, base10, compare10, numberline, sequence, shape, position, bar, tower, balance, clock, coin, graph, match, parts, compose, pic: (m) => `<span class="mm-pic">${pic(m.pic)}</span>` };
 
 export function mathModel(model) {
   if (!model) return '';
