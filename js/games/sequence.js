@@ -54,7 +54,7 @@ export default {
             hint.step();
             const slot = slots[next++];
             slots[next]?.classList.add('next');
-            ctx.sfx.pop();
+            ctx.sfx.feel('place');
             ctx.playSegs([{ text: c.page[lang], lang, clipKey: `story-${story.id}-${c.page.n + 1}_${lang}` }]);
             await flyTo(c, slot, { duration: 450, scale: 0.6 });
             c.classList.add('used');

@@ -54,7 +54,7 @@ export function choose(buttons, isRight, { ctx, onRight, onWrong, record = true,
           // a brief red edge, so the "no" is seen as well as felt
           b.classList.add('wrong');
           setTimeout(() => b.classList.remove('wrong'), 480);
-          ctx?.sfx.haptic?.([18, 60, 18]);
+          // the frame's miss(): the soft "not that one" sound and buzz, and the guide's encouragement
           ctx?.miss?.();
           onWrong?.(b);
           // two misses: help without being asked (after the wrong answer has been said)
@@ -152,8 +152,7 @@ export async function runRounds(ctx, count, playRound, { offset = 0, total = cou
 
 // Positive feedback after a correct answer.
 export async function cheer(ctx, node) {
-  ctx.sfx.chime();
-  ctx.sfx.haptic?.(14);
+  ctx.sfx.feel ? ctx.sfx.feel('right') : ctx.sfx.chime();
   if (node) {
     bounce(node);
     sparkleAt(node);

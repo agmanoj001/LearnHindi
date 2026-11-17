@@ -179,7 +179,7 @@ async function build(ctx) {
           hint.step();
           const slot = slots[state.placed - 1];
           b.classList.add('lifting');
-          ctx.sfx.pop();
+          ctx.sfx.feel('place');
           await flyTo(b, slot, { duration: 600 });
           b.classList.add('used');
           slot.replaceChildren(el('span', { class: 'glyph', text: b.tile }));

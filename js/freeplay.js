@@ -35,7 +35,7 @@ export function freeplay(api, world, mode = freeplayModes(world)[0]) {
   const modes = freeplayModes(world);
   const tab = (m) => {
     const name = { colour: { hi: 'रंग भरो', en: 'Colour' }, drive: { hi: 'गाड़ी चलाओ', en: 'Drive' }, feed: { hi: 'खाना खिलाओ', en: 'Feed' } }[m];
-    return el('button', { class: `freeplay-tab${m === mode ? ' on' : ''}`, 'aria-pressed': String(m === mode), onclick: () => (api.sfx.pop(), freeplay(api, world, m)) }, [el('b', { lang: 'hi', text: name.hi }), el('small', { text: name.en })]);
+    return el('button', { class: `freeplay-tab${m === mode ? ' on' : ''}`, 'aria-pressed': String(m === mode), onclick: () => (api.sfx.feel('select'), freeplay(api, world, m)) }, [el('b', { lang: 'hi', text: name.hi }), el('small', { text: name.en })]);
   };
   const body = mode === 'drive' ? drive(api, world) : mode === 'feed' ? feed(api) : colour(api, world);
   api.app.replaceChildren(
@@ -84,7 +84,7 @@ function colour(api, world) {
   });
   const pickers = ids.map((id) => {
     const b = el('button', { class: 'colour-pick', html: pictureForWord(api.word(id)), 'aria-label': api.word(id).en });
-    b.addEventListener('click', () => (api.sfx.pop(), show(id)));
+    b.addEventListener('click', () => (api.sfx.feel('select'), show(id)));
     return b;
   });
   const clear = el('button', { class: 'bubble ghost small', 'aria-label': 'Start again', html: ICONS.replay, onclick: () => show(page.dataset.id || ids[0]) });
@@ -192,7 +192,7 @@ function feed(api) {
   }
   for (const f of foods) {
     const b = el('button', { class: 'feed-food', html: pictureForWord(f), 'aria-label': f.en });
-    b.addEventListener('click', () => (api.sfx.pop(), lift(b, f)));
+    b.addEventListener('click', () => (api.sfx.feel('select'), lift(b, f)));
     tray.append(b);
   }
   return el('main', { class: 'freeplay-main' }, [pen, el('p', { class: 'feed-help' }, [el('span', { lang: 'hi', text: 'खाना चुनो, फिर जानवर पर टैप करो' }), el('small', { text: 'Pick some food, then tap an animal' })]), tray]);

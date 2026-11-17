@@ -195,7 +195,7 @@ test('the guide claps, thinks along and encourages, with a bubble that says so',
   assert.deepEqual(Object.keys(REACTION_BUBBLES).sort(), ['cheer', 'clap', 'dance', 'encourage', 'think']);
   const app = read('js/app.js');
   assert.match(app, /mascot\.react\(firstTry \? 'clap' : 'cheer'\)/, 'right: clap, or cheer after help');
-  assert.match(app, /miss\(\) \{\s*mascot\.react\('encourage'\)/, 'wrong: encourage');
+  assert.match(app, /miss\(\) \{[^}]*mascot\.react\('encourage'\)/, 'wrong: encourage');
   assert.match(app, /if \(fn && !coaching\) mascot\.react\('think'\)/, 'a new question: think');
   // every wrong tap reaches the guide, from the shared answer handler too, and only once
   assert.match(read('js/games/kit.js'), /ctx\?\.miss\?\.\(\);\s*onWrong\?\.\(b\)/);
@@ -322,4 +322,31 @@ test('the tracing letter writes itself first, and syllables pop as they are said
   ctx.sayText = async (t) => (said.push(t), (go = false));
   assert.equal(await sayPieces(ctx, [node(), node()], ['क', 'ल'], 'hi', () => go), false);
   assert.deepEqual(said, ['ब', 'स', 'क']);
+});
+
+// ---- 5.7 haptics and sound polish ----
+import { FEEDBACK, sfxLevel, SFX_LEVEL, musicLevel as musicAt, sfx } from '../js/sfx.js';
+
+test('one soft sound and one touch per kind of interaction', () => {
+  assert.deepEqual(Object.keys(FEEDBACK), ['tap', 'select', 'place', 'right', 'wrong', 'reward', 'page']);
+  // each kind sounds different, and each has its own vibration
+  assert.equal(new Set(Object.values(FEEDBACK).map((f) => f.sound)).size, 7);
+  assert.equal(new Set(Object.values(FEEDBACK).map((f) => JSON.stringify(f.haptic))).size, 7);
+  for (const f of Object.values(FEEDBACK)) assert.equal(typeof sfx[f.sound], 'function', f.sound);
+  // used where they belong
+  assert.match(read('js/app.js'), /miss\(\) \{\s*sfx\.feel\('wrong'\)/);
+  assert.match(read('js/games/kit.js'), /ctx\.sfx\.feel \? ctx\.sfx\.feel\('right'\)/);
+  for (const g of ['construction', 'sentence', 'sequence']) assert.match(read(`js/games/${g}.js`), /ctx\.sfx\.feel\('place'\)/, g);
+  assert.match(read('js/games/story.js'), /ctx\.sfx\.feel\('page'\)/);
+  assert.match(read('js/freeplay.js'), /api\.sfx\.feel\('select'\)/);
+  assert.match(read('js/app.js'), /closest\?\.\('\.round-btn, \.bubble, \.info-btn'\) && sfx\.feel\('tap'\)/);
+  // a wrong tap is felt once, not twice
+  assert.doesNotMatch(read('js/games/kit.js'), /haptic\?\.\(\[18, 60, 18\]\)/);
+});
+
+test('everything sits back under speech: the music everywhere, and the sound effects too', () => {
+  assert.ok(musicAt('free', true) <= musicAt('free', false) * 0.15 + 1e-9, 'music on the home screen and maps');
+  assert.ok(musicAt('lesson', true) < musicAt('lesson', false) * 0.1, 'music in lessons');
+  assert.equal(sfxLevel(false), SFX_LEVEL);
+  assert.equal(sfxLevel(true), SFX_LEVEL / 2);
 });

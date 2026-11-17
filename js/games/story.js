@@ -115,7 +115,7 @@ export default {
       if (i === 0) ctx.coach?.('page', [next]);
       await waitTap(next);
       ctx.stop?.();
-      ctx.sfx.pop();
+      ctx.sfx.feel('page');
       ctx.setProgress(n, total);
     }
 

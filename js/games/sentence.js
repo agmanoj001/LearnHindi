@@ -51,7 +51,7 @@ export default {
             hint.step();
             const slot = slots[next++];
             slots[next]?.classList.add('next');
-            ctx.sfx.pop();
+            ctx.sfx.feel('place');
             await flyTo(c, slot, { duration: 450 });
             c.classList.add('used');
             slot.textContent = c.token;

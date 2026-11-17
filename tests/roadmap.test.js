@@ -68,6 +68,7 @@ const DONE = {
   'Shared-element transitions': () => /function grow\(change, from, to\)/.test(read('js/app.js')) && /::view-transition-group\(grow\)/.test(css) && /\{ from: c \}/.test(read('js/screens.js')),
   'A motion budget and a slow-phone test': () => exists('tools/motion-budget.mjs') && exists('docs/MOTION-BUDGET.md') && /export function tooSlow/.test(read('js/motion.js')) && /\.lite \.backdrop \*/.test(css),
   'Hindi text animation': () => /export function strokeOrder/.test(read('js/logic.js')) && /writeItself/.test(read('js/games/trace.js')) && /export async function sayPieces/.test(read('js/games/kit.js')),
+  'Haptics and sound polish': () => /export const FEEDBACK/.test(read('js/sfx.js')) && /export const sfxLevel/.test(read('js/sfx.js')) && /sfx\.feel\('wrong'\)/.test(read('js/app.js')),
   'Free play between lessons': () => exists('js/freeplay.js') && /freeplayDue\(/.test(read('js/screens.js')) && ['drive', 'feed', 'colour'].every((m) => read('js/freeplay.js').includes(`'${m}'`)),
 };
 

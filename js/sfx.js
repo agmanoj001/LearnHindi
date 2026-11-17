@@ -14,7 +14,7 @@ function ac() {
     const comp = ctx.createDynamicsCompressor();
     master.connect(comp).connect(ctx.destination);
     sfxBus = ctx.createGain();
-    sfxBus.gain.value = 0.8;
+    sfxBus.gain.value = SFX_LEVEL;
     musicBus = ctx.createGain();
     musicBus.gain.value = MUSIC_LEVEL;
     // a small room so bells shimmer instead of beeping
@@ -222,6 +222,30 @@ export const sfx = {
     tone(300, 0, 0.15, { to: 900, vol: 0.05 });
   }),
   toot: on(() => (tone(440, 0, 0.3, { type: 'square', vol: 0.04 }), tone(440, 0.4, 0.5, { type: 'square', vol: 0.04 }))),
+  // a soft wooden tick: a button that opens something or goes back
+  tick: on(() => (tone(1250, 0, 0.04, { type: 'triangle', to: 900, vol: 0.05 }), noise(0, 0.02, { from: 3000, to: 5000, vol: 0.02 }))),
+  // a tile, word or picture settling into its slot
+  place: on(() => (marimba(midi(C5 - 5), 0, { vol: 0.13, dur: 0.3 }), tone(160, 0, 0.08, { to: 90, vol: 0.06 }))),
+  // "not that one": two soft falling notes, never a buzzer
+  uhOh: on(() => (tone(440, 0, 0.12, { vol: 0.07 }), tone(330, 0.13, 0.2, { vol: 0.07 }))),
+  // One soft sound and one touch per kind of interaction (roadmap 5.7), the same all over the app, so a
+  // child who can't read yet still knows what just happened.
+  feel: (kind) => {
+    const f = FEEDBACK[kind];
+    if (!f) return;
+    sfx[f.sound]?.();
+    sfx.haptic(f.haptic);
+  },
+};
+
+export const FEEDBACK = {
+  tap: { sound: 'tick', haptic: 6 }, // a button that opens something or goes back
+  select: { sound: 'pop', haptic: 10 }, // picking something with no right answer: a vehicle, a colour, food
+  place: { sound: 'place', haptic: 12 }, // a tile, a word or a picture dropping into its slot
+  right: { sound: 'chime', haptic: 14 }, // a right answer
+  wrong: { sound: 'uhOh', haptic: [18, 60, 18] }, // not that one
+  reward: { sound: 'jingle', haptic: [10, 40, 10, 40, 10] }, // a level up, a run of right answers
+  page: { sound: 'page', haptic: 8 }, // turning a page
 };
 
 // ---------- background music ----------
@@ -380,17 +404,23 @@ function schedule() {
   }
 }
 
-// how loud the music sits: quieter in lessons, and nearly silent under speech there
+// how loud the music sits: quieter in lessons, and nearly silent under speech there; under speech
+// everywhere else it drops well back too (roadmap 5.7)
 export function musicLevel(m, speaking) {
   const base = m === 'lesson' ? MUSIC_LEVEL * 0.55 : MUSIC_LEVEL;
-  return speaking ? base * (m === 'lesson' ? 0.08 : 0.25) : base;
+  return speaking ? base * (m === 'lesson' ? 0.08 : 0.15) : base;
 }
+// the sound effects sit back under speech as well, so a tap never covers a word
+export const SFX_LEVEL = 0.8;
+export const sfxLevel = (speaking) => (speaking ? SFX_LEVEL * 0.5 : SFX_LEVEL);
 let speakingNow = false;
 const setLevel = (ramp = 0.15) => {
   if (!ctx || !musicBus) return;
   const t = ctx.currentTime;
   musicBus.gain.cancelScheduledValues(t);
   musicBus.gain.setTargetAtTime(musicLevel(mood, speakingNow), t, ramp);
+  sfxBus.gain.cancelScheduledValues(t);
+  sfxBus.gain.setTargetAtTime(sfxLevel(speakingNow), t, 0.05);
 };
 
 export const music = {

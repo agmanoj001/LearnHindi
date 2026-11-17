@@ -24,7 +24,7 @@ import { showCoach, needsCoach, coachKey, COACH_KINDS, COACH_MAX } from './coach
 import { applyMotion, liteMotion, slowDevice, watchMotion, isLite } from './motion.js';
 import { initAudio, setVoicePack, preload, play, stop, isSpeaking, wordSegs, letterSegs, numberSegs, soundSegs, sentenceSegs, phraseSegs, setVoicePrefs } from './audio.js';
 import { KEYS, load, save, normalizeProfiles, profileKey, keepStorage } from './storage.js';
-import { sfx, music } from './sfx.js';
+import { sfx, music, FEEDBACK } from './sfx.js';
 import { el, sleep, bounce, ICONS } from './ui.js';
 import { createMascot, MASCOT_IDS } from './mascot.js';
 import * as screens from './screens.js';
@@ -58,6 +58,9 @@ async function boot() {
   initCaptions();
   initParallax();
   history.replaceState({ name: 'splash', depth: 0 }, '');
+  // every round button (back, home, the speaker, the 💡, the ⓘ) and every results bubble answers a tap
+  // with the same soft tick and touch (roadmap 5.7)
+  document.addEventListener('click', (e) => e.target.closest?.('.round-btn, .bubble, .info-btn') && sfx.feel('tap'), true);
   window.addEventListener('popstate', (e) => {
     const route = e.state || { name: 'hub', depth: 0 };
     // going back from a screen that grew out of a card: it shrinks back into that card
@@ -497,6 +500,7 @@ function startLesson({ lessonId, worldId, storyId, together }) {
   // a little celebration when the level goes up; going down happens quietly
   const levelUp = () => {
     sfx.sparkle();
+    sfx.haptic(FEEDBACK.reward.haptic);
     mascot.react('dance');
     const badge = el('div', { class: 'level-up', text: { hi: '★ शाबाश! अगला स्तर', en: '★ Level up!', both: '★ Level up! · शाबाश!' }[state.lang] || '★ Level up!' });
     screen.append(badge);
@@ -505,6 +509,7 @@ function startLesson({ lessonId, worldId, storyId, together }) {
   // several right first time in a row: a quick cheer for keeping at it
   const comboCheer = (n) => {
     sfx.sparkle();
+    sfx.haptic(FEEDBACK.reward.haptic);
     mascot.react('dance');
     const badge = el('div', { class: 'level-up combo' }, [el('span', { class: 'combo-flame', html: ICONS.sparkle }), el('span', { text: comboText(n, state.lang) })]);
     screen.append(badge);
@@ -624,6 +629,7 @@ function startLesson({ lessonId, worldId, storyId, together }) {
     },
     // any wrong tap (choose() reports them too): the guide says "you can do it"
     miss() {
+      sfx.feel('wrong');
       mascot.react('encourage');
     },
     practice: (pool, n) => weightedSequence(pool, n, rng, (x) => practiceWeight(state.progress.stats[itemKey(x)])),
