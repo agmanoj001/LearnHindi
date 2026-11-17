@@ -10680,3 +10680,71 @@ body:has(.game-grammar) .caption-bar,
   height: 14px;
   color: var(--sun);
 }
+
+/* ---- sing-along rhymes (roadmap 7.7): a ball hops onto each word, the words dance a little ---- */
+.story-text {
+  position: relative;
+}
+.sing-ball {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fff6b0, #ffb703 70%);
+  box-shadow: 0 2px 0 #e08e00;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.16s ease-out, opacity 0.2s;
+}
+.story-page.singing .sing-ball {
+  opacity: 1;
+}
+.sing-ball.hop {
+  animation: sing-hop 0.32s ease-out;
+}
+@keyframes sing-hop {
+  0% {
+    margin-top: -16px;
+  }
+  60% {
+    margin-top: 2px;
+  }
+  100% {
+    margin-top: 0;
+  }
+}
+.story-page.singing .story-word.now {
+  color: var(--brand);
+  transform: translateY(-2px) scale(1.08);
+}
+.sing-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  border: 0;
+  border-radius: 999px;
+  font: 800 15px var(--font);
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+}
+.sing-btn.on {
+  color: #fff;
+  background: #ff7a59;
+}
+.story-page {
+  position: relative;
+}
+@media (prefers-reduced-motion: reduce) {
+  .sing-ball.hop {
+    animation: none;
+  }
+}

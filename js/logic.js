@@ -457,6 +457,7 @@ export function defaultSettings(content) {
     bigText: false, // larger text in the comics
     storyVoices: true, // use the story voice pack when it has been downloaded
     radioDark: false, // Story radio: a dark screen instead of the moving pictures (kinder on car rides)
+    singAlong: true, // rhymes are sung along with a bouncing ball and claps (roadmap 7.7)
     motion: 'auto', // animations: 'auto' (lighter on a device that measured slow), 'full' or 'lite' (js/motion.js)
     voice: { hi: '', en: '', rate: 0.9 },
   };
@@ -472,7 +473,7 @@ export function normalizeSettings(saved, content) {
   if (saved.parentLang === 'hi' || saved.parentLang === 'en') out.parentLang = saved.parentLang;
   if (saved.showMode === 'watch' || saved.showMode === 'play') out.showMode = saved.showMode;
   if (['auto', 'full', 'lite'].includes(saved.motion)) out.motion = saved.motion;
-  for (const k of ['onboarded', 'lockGrade', 'simpleHome', 'unlockAll', 'math', 'captions', 'retell', 'music', 'sfx', 'bigText', 'storyVoices', 'radioDark']) if (typeof saved[k] === 'boolean') out[k] = saved[k];
+  for (const k of ['onboarded', 'lockGrade', 'simpleHome', 'unlockAll', 'math', 'captions', 'retell', 'music', 'sfx', 'bigText', 'storyVoices', 'radioDark', 'singAlong']) if (typeof saved[k] === 'boolean') out[k] = saved[k];
   if (saved.voice && typeof saved.voice === 'object') {
     for (const l of ['hi', 'en']) if (typeof saved.voice[l] === 'string') out.voice[l] = saved.voice[l];
     if (typeof saved.voice.rate === 'number' && saved.voice.rate >= 0.5 && saved.voice.rate <= 1.3) out.voice.rate = saved.voice.rate;

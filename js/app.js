@@ -588,6 +588,9 @@ function startLesson({ lessonId, worldId, storyId, together }) {
     preload,
     stop,
     sfx,
+    // the guide does something (singing along, roadmap 7.7), and the music sits like a song under the words
+    react: (kind) => mascot.react(kind),
+    setMusicMood: (m) => music.setMood(m),
     mascot,
     label,
     wordCard,

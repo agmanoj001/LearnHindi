@@ -60,6 +60,10 @@ export default {
     const selfRead = (await Promise.race([waitTap(play), ...(mine ? [waitTap(mine)] : [])])) === mine;
     onCover = false;
     ctx.stop?.();
+    // rhymes are sung along (roadmap 7.7), unless switched off with 🎵 (remembered); not when reading alone
+    const poem = story.kind === 'poem' && !selfRead;
+    let singing = poem && ctx.settings.singAlong !== false;
+    if (singing) ctx.setMusicMood?.('sing');
 
     // ---- pages ----
     for (const [i, page] of story.pages.entries()) {
@@ -91,7 +95,21 @@ export default {
       );
       const next = el('button', { class: 'round-btn big go next-page', 'aria-label': 'Next', html: ICONS.next });
       const dots = el('div', { class: 'page-dots', 'aria-label': `Page ${n} of ${story.pages.length}` }, story.pages.map((_, k) => el('i', { class: k < i ? 'done' : k === i ? 'now' : '' })));
-      const card = el('div', { class: `story-page${selfRead ? ' self' : ''}` }, [dots, pic, el('div', { class: 'story-text' }, textLines)]);
+      // a rhyme is sung along (roadmap 7.7): a ball hops onto each word as it is said, a clap lands on it,
+      // the guide claps and dances, the tune plays under it like a song; 🎵 switches back to just reading
+      const ball = poem ? el('span', { class: 'sing-ball', 'aria-hidden': 'true' }) : null;
+      const singBtn = poem
+        ? el('button', { class: `sing-btn${singing ? ' on' : ''}`, 'aria-pressed': String(singing), 'aria-label': 'Sing along' }, [el('span', { 'aria-hidden': 'true', text: '🎵' }), el('span', { lang: 'hi', text: 'गाओ' })])
+        : null;
+      const card = el('div', { class: `story-page${selfRead ? ' self' : ''}${poem && singing ? ' singing' : ''}` }, [dots, singBtn, pic, el('div', { class: 'story-text' }, [...textLines, ball])]);
+      singBtn?.addEventListener('click', () => {
+        singing = !singing;
+        ctx.setSetting?.('singAlong', singing);
+        singBtn.classList.toggle('on', singing);
+        singBtn.setAttribute('aria-pressed', String(singing));
+        card.classList.toggle('singing', singing);
+        ctx.setMusicMood?.(singing ? 'sing' : 'lesson');
+      });
       ctx.stage.replaceChildren(card, next);
       swipeToTurn(card, next);
       // the next page (or the first question) gets ready while this one plays
@@ -101,7 +119,19 @@ export default {
       if (!ctx.alive()) return;
       const read = async () => {
         card.classList.add('reading');
-        const stopHighlight = readAlong(textLines, page, langs, ctx.settings.voice?.rate || 0.9);
+        let beat = 0;
+        const stopHighlight = readAlong(textLines, page, langs, ctx.settings.voice?.rate || 0.9, (w) => {
+          if (!poem || !singing || !w) return;
+          // the ball hops onto the word, a clap, and the guide joins in
+          const box = w.btn.getBoundingClientRect();
+          const area = ball.parentNode.getBoundingClientRect();
+          ball.style.transform = `translate(${box.left - area.left + box.width / 2 - 9}px, ${box.top - area.top - 22}px)`;
+          ball.classList.remove('hop');
+          void ball.offsetWidth;
+          ball.classList.add('hop');
+          ctx.sfx.clap?.();
+          ctx.react?.(beat++ % 4 === 3 ? 'dance' : 'clap');
+        });
         await ctx.playSegs(pageSegs(page, n));
         stopHighlight();
         card.classList.remove('reading');
@@ -119,6 +149,7 @@ export default {
       ctx.setProgress(n, total);
     }
 
+    if (poem) ctx.setMusicMood?.('lesson');
     // ---- questions ----
     const ok = await runRounds(
       ctx,
@@ -239,7 +270,7 @@ function stageScene(ctx, page) {
 // that report word boundaries drive it too; otherwise (and for family recordings) the timing is
 // estimated from word length.
 let timesTable = null;
-function readAlong(lineEls, page, langs, rate) {
+function readAlong(lineEls, page, langs, rate, onLight = null) {
   const lines = langs.map((l, i) => {
     const text = page[l];
     let at = 0;
@@ -255,6 +286,7 @@ function readAlong(lineEls, page, langs, rate) {
   let exact = false;
   const light = (w) => {
     for (const l of lines) for (const x of l.words) x.btn.classList.toggle('now', x === w);
+    onLight?.(w);
   };
   // without timing from the voice: an estimate per word
   const estimate = (line, k = 0) => {

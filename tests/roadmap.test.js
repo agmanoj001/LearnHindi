@@ -73,6 +73,7 @@ const DONE = {
   'Story radio': () => /export const SLEEP_STEPS/.test(read('js/shows.js')) && /class: 'radio-chip pick'/.test(read('js/shows.js')) && /'Play this one again'/.test(read('js/shows.js')),
   'A gentle daily rhythm': () => /export function stickyPlan/.test(read('js/curriculum.js')) && /export function weekTrail/.test(read('js/screens.js')) && /export async function celebrateDay/.test(read('js/screens.js')),
   "Little rewards that aren't stars": () => exists('js/rewards.js') && /export const OUTFITS/.test(read('js/mascot.js')) && /export function rewards\(api/.test(read('js/screens.js')),
+  'Sing-along rhymes': () => /class: 'sing-ball'/.test(read('js/games/story.js')) && /m === 'sing'/.test(read('js/sfx.js')) && /\.sing-ball\.hop/.test(css),
   'Free play between lessons': () => exists('js/freeplay.js') && /freeplayDue\(/.test(read('js/screens.js')) && ['drive', 'feed', 'colour'].every((m) => read('js/freeplay.js').includes(`'${m}'`)),
 };
 
@@ -80,7 +81,6 @@ const DONE = {
 const WATCH = {
   'Share the backup': () => /navigator\.share\(/.test(js),
   'A "what\'s new" note': () => /whatsNew|changelog/i.test(js),
-  'Sing-along rhymes': () => /singAlong|sing-along/i.test(js + css),
   'A surprise each day': () => /dailySurprise|gift-box/.test(js + css),
   '"Words I know" book': () => /wordsKnown|words-i-know/.test(js + css),
   'Festivals and seasons that arrive on their day': () => /FESTIVAL_DATES|festivalToday/.test(js),

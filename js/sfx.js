@@ -222,6 +222,11 @@ export const sfx = {
     tone(300, 0, 0.15, { to: 900, vol: 0.05 });
   }),
   toot: on(() => (tone(440, 0, 0.3, { type: 'square', vol: 0.04 }), tone(440, 0.4, 0.5, { type: 'square', vol: 0.04 }))),
+  // a hand clap for singing along (roadmap 7.7)
+  clap: on(() => {
+    noise(0, 0.05, { from: 900, to: 2600, q: 0.8, vol: 0.12 });
+    noise(0.014, 0.07, { from: 1100, to: 3000, q: 0.8, vol: 0.09 });
+  }),
   // a soft wooden tick: a button that opens something or goes back
   // the tap sound can be one the child chose (js/rewards.js, roadmap 7.5)
   tapSound: null,
@@ -417,6 +422,8 @@ function schedule() {
 // how loud the music sits: quieter in lessons, and nearly silent under speech there; under speech
 // everywhere else it drops well back too (roadmap 5.7)
 export function musicLevel(m, speaking) {
+  // singing along (roadmap 7.7): the tune stays under the words, like a song
+  if (m === 'sing') return MUSIC_LEVEL * (speaking ? 0.6 : 0.8);
   const base = m === 'lesson' ? MUSIC_LEVEL * 0.55 : MUSIC_LEVEL;
   return speaking ? base * (m === 'lesson' ? 0.08 : 0.15) : base;
 }

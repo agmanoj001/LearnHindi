@@ -188,3 +188,25 @@ test('a new prize shows on the results screen; the wardrobe is a tap from home',
   for (const k of ['newPrize', 'prizesHello']) assert.ok(content.phrases[k]?.hi && content.phrases[k]?.en, k);
   assert.match(read('sw.js'), /'js\/rewards\.js'/);
 });
+
+// ---- 7.7 sing-along rhymes ----
+import { musicLevel } from '../js/sfx.js';
+import { normalizeSettings, defaultSettings } from '../js/logic.js';
+
+test('rhymes are sung along: a ball on each word, a clap, the guide dances, the tune stays under the words', () => {
+  const story = read('js/games/story.js');
+  assert.match(story, /const poem = story\.kind === 'poem' && !selfRead;/);
+  assert.match(story, /let singing = poem && ctx\.settings\.singAlong !== false;/);
+  assert.match(story, /readAlong\(textLines, page, langs, ctx\.settings\.voice\?\.rate \|\| 0\.9, \(w\) => \{/, 'the ball follows the read-along timing');
+  assert.match(story, /ctx\.sfx\.clap\?\.\(\);\s*ctx\.react\?\.\(beat\+\+ % 4 === 3 \? 'dance' : 'clap'\)/);
+  assert.match(story, /ctx\.setSetting\?\.\('singAlong', singing\)/);
+  assert.match(read('js/app.js'), /react: \(kind\) => mascot\.react\(kind\)/);
+  // singing: the music stays well up under the words; in a lesson it all but stops
+  assert.ok(musicLevel('sing', true) > musicLevel('lesson', true) * 5);
+  assert.ok(musicLevel('sing', true) < musicLevel('sing', false));
+  assert.equal(defaultSettings(content).singAlong, true);
+  assert.equal(normalizeSettings({ singAlong: false }, content).singAlong, false);
+  // there are rhymes to sing, in Hindi and English
+  const poems = content.stories.filter((s) => s.kind === 'poem');
+  assert.ok(poems.length >= 30 && poems.some((s) => s.lang === 'en') && poems.some((s) => s.lang !== 'en'));
+});
