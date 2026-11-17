@@ -36,4 +36,4 @@ The user's usage limit can stop work part-way (it resets after 5 hours), and the
    - one about **5 hours** ahead, because the usage limit resets after 5 hours.
 
    Whenever one fires (or the work resumes), schedule its replacement so that both stay pending while work goes on. When everything is done, cancel any check-in still pending.
-3. Opening or merging a pull request still waits for the user to ask.
+3. **Open a pull request** (into `main`) whenever a piece of work is finished, pushed and CI is green on its last commit: this is a standing request, so don't wait to be asked. If CI is red, fix it first. List the roadmap items marked done in its description. **Merging** still waits for the user to ask.
