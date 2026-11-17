@@ -78,13 +78,15 @@ const math = content.worlds.filter((w) => w.subject === 'math');
 // the grades with a maths world, and the prefix of their skills (docs/ROADMAP.md 10.5, 10.8)
 const PREFIX = { kg: 'k-', grade1: 'g1-', grade2: 'g2-', grade3: 'g3-', grade4: 'g4-' };
 
-test('every grade from Kindergarten to Grade 2 has an English maths world', () => {
+test('every grade from Kindergarten to Grade 4 has an English maths world', () => {
   assert.deepEqual(
     math.map((w) => [w.level, w.lang]),
     [
       ['kg', 'en'],
       ['grade1', 'en'],
       ['grade2', 'en'],
+      ['grade3', 'en'],
+      ['grade4', 'en'],
     ],
   );
   const { errors } = validateContent(content);

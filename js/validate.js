@@ -40,7 +40,7 @@ export const GAME_TYPES = [
   'together', // started from the home screen, not a map (js/together.js)
 ];
 // the hands-on maths activities (js/games/handson.js ACTIVITIES)
-export const HANDS_ACTIVITIES = ['tenframe', 'numberline', 'pattern', 'shapes', 'measure', 'balance', 'shop', 'clock', 'bonds', 'jumps', 'array'];
+export const HANDS_ACTIVITIES = ['tenframe', 'numberline', 'pattern', 'shapes', 'measure', 'balance', 'shop', 'clock', 'bonds', 'jumps', 'array', 'fraction', 'angle'];
 // the kinds of round in the Hindi numbers game (js/games/ginti.js)
 export const GINTI_MODES = ['count', 'show', 'hear', 'digits', 'next', 'compare', 'read', 'add', 'take', 'half'];
 export const NUMBERS_MAX = 100;

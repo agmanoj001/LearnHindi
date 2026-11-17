@@ -272,3 +272,64 @@ test('10.7: पहाड़े chanted the Hindi way, 2 to 10, with every line r
   bad.worlds.flatMap((w) => w.units).flatMap((u) => u.lessons).find((l) => l.game === 'pahade').config.table = 13;
   assert.ok(validateContent(bad).errors.some((e) => e.includes('"table"')));
 });
+
+// ---- 10.8 the Grade 3 and Grade 4 maths worlds ----
+import { commas, indian } from '../js/mathgen.js';
+
+test('10.8: Robu\'s Number Factory (Grade 3) and Jugnu\'s Number Observatory (Grade 4), each teaching all its skills', () => {
+  for (const [id, level, prefix, codes] of [
+    ['factory', 'grade3', 'g3-', ['NC.3.OA.1', 'NC.3.OA.7', 'NC.3.OA.2', 'NC.3.NF.2', 'NC.3.MD.7', 'NC.3.MD.8', 'NC.3.MD.1', 'NC.3.NBT.1']],
+    ['jantar', 'grade4', 'g4-', ['NC.4.NBT.5', 'NC.4.NBT.6', 'NC.4.NF.1', 'NC.4.NF.6', 'NC.4.MD.6', 'NC.4.OA.4']],
+  ]) {
+    const w = content.worlds.find((x) => x.id === id);
+    assert.equal(w.level, level);
+    assert.equal(w.subject, 'math');
+    assert.ok(MASCOT_IDS.includes(w.mascot) && THEMES.includes(w.theme));
+    assert.ok(content.collections[w.collection].items.every((x) => content.words[x]));
+    const ls = w.units.flatMap((u) => u.lessons);
+    assert.ok(ls.length >= 22, `${id}: ${ls.length} lessons`);
+    const used = new Set(ls.flatMap((l) => (l.game === 'math' ? l.config.skills : [l.config.skill])));
+    const own = Object.keys(SKILLS).filter((s) => s.startsWith(prefix));
+    assert.ok(own.length >= 20);
+    for (const s of own) assert.ok(used.has(s), `${s} is taught`);
+    const have = new Set(own.map((s) => SKILLS[s].code));
+    for (const c of codes) assert.ok(have.has(c), c);
+  }
+  assert.ok(SKILLS['g4-lakh'], 'lakh and crore');
+  const hands = lessons.filter((l) => l.game === 'handson' && ['grade3', 'grade4'].includes(l.world.level)).map((l) => l.config.activity);
+  for (const a of ['array', 'fraction', 'angle']) assert.ok(hands.includes(a), a);
+});
+
+test('10.8: big numbers the international and the Indian way, and the new pictures', () => {
+  assert.equal(commas(345678), '345,678');
+  assert.equal(indian(345678), '3,45,678');
+  assert.equal(indian(10000000), '1,00,00,000');
+  assert.equal(indian(999), '999');
+  const rng = seeded(23);
+  for (let i = 0; i < 40; i++) {
+    const p = makeProblem('g4-divide', { tier: 2, n: 4, rng });
+    const [dividend, d] = p.eq.match(/\d+/g).map(Number);
+    const [q, r = 0] = p.answer.split(' R ').map(Number);
+    assert.equal(q * d + r, dividend, p.eq);
+    assert.ok(r < d);
+    const f = makeProblem('g3-fracline', { tier: 1, n: 4, rng });
+    const [k, b] = f.answer.split('/').map(Number);
+    assert.equal(f.model.at, k);
+    assert.equal(f.model.den, b);
+  }
+  for (const m of [
+    { kind: 'frac', shape: 'circle', parts: 6, shade: 2 },
+    { kind: 'frac', shape: 'bar', parts: 8, shade: 3 },
+    { kind: 'fracline', den: 4, at: 3, to: 1 },
+    { kind: 'rect', w: 6, h: 4, unit: 'cm' },
+    { kind: 'poly', sides: [3, null, 5], unit: 'cm' },
+    { kind: 'beaker', max: 10, v: 6 },
+    { kind: 'longdiv', dividend: 1655, divisor: 2 },
+    { kind: 'angle', deg: 120, protractor: true },
+    { kind: 'angle', deg: 90, split: 35 },
+    { kind: 'lines', type: 'perpendicular' },
+    { kind: 'areamodel', a: 23, b: 14 },
+    { kind: 'shape', shape: 'square', line: 45 },
+  ])
+    assert.doesNotMatch(mathModel(m), /undefined|NaN|class="mm">/, m.kind);
+});

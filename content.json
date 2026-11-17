@@ -10930,7 +10930,9 @@
     "bazaar": {
       "name": { "hi": "बाज़ार की चीज़ें", "en": "Market finds" },
       "items": ["mango", "banana", "grapes", "peanut", "rasgulla", "laddoo", "pot", "drum", "umbrella", "squirrel"]
-    }
+    },
+    "factory": { "name": { "hi": "फ़ैक्टरी की चीज़ें", "en": "Factory finds" }, "items": ["box", "bottle", "fan", "clock", "lock", "bell", "scooter", "cup", "ball", "drum"] },
+    "jantar": { "name": { "hi": "आसमान के इनाम", "en": "Sky prizes" }, "items": ["telescope", "moon", "sun", "comet", "satellite", "rocket", "earth", "saturn", "mars", "lamp"] }
   },
   "worlds": [
     {
@@ -13917,6 +13919,194 @@
       "helpers": { "courier": "satellite", "engine": "rocket" }
     },
     {
+      "id": "factory",
+      "level": "grade3",
+      "subject": "math",
+      "lang": "en",
+      "theme": "factory",
+      "mascot": "robu",
+      "color": "#6366F1",
+      "collection": "factory",
+      "name": { "hi": "रोबू की गिनती फ़ैक्टरी", "en": "Robu's Number Factory" },
+      "tags": ["math", "counting", "shapes"],
+      "letterSets": [],
+      "units": [
+        {
+          "id": "g3m-mult",
+          "title": { "hi": "गुणा", "en": "Let's multiply" },
+          "skill": "Multiplication · NC.3.OA.1, 5, 7",
+          "icon": "letter:×",
+          "lessons": [
+            { "id": "g3m-mult-1", "game": "math", "icon": "apple", "title": { "hi": "बराबर समूह", "en": "Equal groups" }, "config": { "skills": ["g3-groups"] } },
+            { "id": "g3m-mult-2", "game": "math", "icon": "letter:×", "title": { "hi": "गुणा के तथ्य", "en": "Times tables" }, "config": { "skills": ["g3-multfacts"] } },
+            {
+              "id": "g3m-mult-3",
+              "game": "math",
+              "icon": "letter:7×8",
+              "title": { "hi": "आराम से अभ्यास", "en": "Facts practice, no hurry" },
+              "config": { "skills": ["g3-multfacts"], "rounds": 10, "retry": true }
+            },
+            {
+              "id": "g3m-mult-4",
+              "game": "math",
+              "icon": "letter:↔",
+              "title": { "hi": "उलटो और तोड़ो", "en": "Turn it around, break it apart" },
+              "config": { "skills": ["g3-properties"] }
+            },
+            {
+              "id": "g3m-mult-5",
+              "game": "handson",
+              "icon": "laddoo",
+              "title": { "hi": "कतारें बनाओ", "en": "Build an array" },
+              "config": { "rounds": 4, "activity": "array", "skill": "g3-multfacts" }
+            }
+          ]
+        },
+        {
+          "id": "g3m-div",
+          "title": { "hi": "भाग", "en": "Let's divide" },
+          "skill": "Division · NC.3.OA.2, 4, 6",
+          "icon": "letter:÷",
+          "lessons": [
+            { "id": "g3m-div-1", "game": "math", "icon": "letter:÷", "title": { "hi": "बराबर बाँटो", "en": "Share equally" }, "config": { "skills": ["g3-divide"] } },
+            { "id": "g3m-div-2", "game": "math", "icon": "letter:?", "title": { "hi": "छूटी संख्या", "en": "Missing numbers" }, "config": { "skills": ["g3-missing"] } }
+          ]
+        },
+        {
+          "id": "g3m-story",
+          "title": { "hi": "कहानियाँ और पैटर्न", "en": "Let's solve stories and patterns" },
+          "skill": "Story problems, patterns · NC.3.OA.3, 8, 9",
+          "icon": "kite",
+          "lessons": [
+            { "id": "g3m-story-1", "game": "math", "icon": "kite", "title": { "hi": "कहानी के सवाल", "en": "Story problems" }, "config": { "skills": ["g3-wordprob"] } },
+            { "id": "g3m-story-2", "game": "math", "icon": "letter:2,4,6", "title": { "hi": "पैटर्न", "en": "Patterns" }, "config": { "skills": ["g3-patterns"] } }
+          ]
+        },
+        {
+          "id": "g3m-numbers",
+          "title": { "hi": "बड़ी संख्याएँ", "en": "Let's round and add" },
+          "skill": "Rounding, adding, tens · NC.3.NBT.1–3",
+          "icon": "letter:≈",
+          "lessons": [
+            {
+              "id": "g3m-numbers-1",
+              "game": "math",
+              "icon": "letter:≈",
+              "title": { "hi": "नज़दीकी दहाई और सैकड़ा", "en": "Round to 10 and 100" },
+              "config": { "skills": ["g3-round"] }
+            },
+            {
+              "id": "g3m-numbers-2",
+              "game": "math",
+              "icon": "letter:+",
+              "title": { "hi": "1000 तक जोड़-घटाव", "en": "Add and subtract to 1,000" },
+              "config": { "skills": ["g3-addsub"] }
+            },
+            {
+              "id": "g3m-numbers-3",
+              "game": "math",
+              "icon": "letter:×10",
+              "title": { "hi": "दहाई से गुणा", "en": "Times 10, 20, 30" },
+              "config": { "skills": ["g3-times10"] }
+            }
+          ]
+        },
+        {
+          "id": "g3m-frac",
+          "title": { "hi": "भिन्न", "en": "Let's learn fractions" },
+          "skill": "Fractions · NC.3.NF.1–3, G.2",
+          "icon": "roti",
+          "lessons": [
+            { "id": "g3m-frac-1", "game": "math", "icon": "roti", "title": { "hi": "बराबर हिस्से", "en": "Equal parts" }, "config": { "skills": ["g3-equalparts"] } },
+            {
+              "id": "g3m-frac-2",
+              "game": "math",
+              "icon": "letter:3/4",
+              "title": { "hi": "आकार के भिन्न", "en": "Fractions of a shape" },
+              "config": { "skills": ["g3-fraction"] }
+            },
+            {
+              "id": "g3m-frac-3",
+              "game": "math",
+              "icon": "letter:0–1",
+              "title": { "hi": "संख्या रेखा पर भिन्न", "en": "Fractions on a number line" },
+              "config": { "skills": ["g3-fracline"] }
+            },
+            {
+              "id": "g3m-frac-4",
+              "game": "math",
+              "icon": "letter:>",
+              "title": { "hi": "भिन्नों की तुलना", "en": "Compare fractions" },
+              "config": { "skills": ["g3-fraccompare"] }
+            },
+            {
+              "id": "g3m-frac-5",
+              "game": "handson",
+              "icon": "roti",
+              "title": { "hi": "भिन्न रँगो", "en": "Shade the fraction" },
+              "config": { "rounds": 4, "activity": "fraction", "skill": "g3-fraction" }
+            }
+          ]
+        },
+        {
+          "id": "g3m-measure",
+          "title": { "hi": "समय और नाप", "en": "Let's tell time and measure" },
+          "skill": "Time, mass, volume · NC.3.MD.1–2",
+          "icon": "clock",
+          "lessons": [
+            { "id": "g3m-measure-1", "game": "math", "icon": "clock", "title": { "hi": "मिनट तक समय", "en": "Time to the minute" }, "config": { "skills": ["g3-time"] } },
+            {
+              "id": "g3m-measure-2",
+              "game": "math",
+              "icon": "bottle",
+              "title": { "hi": "ग्राम, किलो, लीटर", "en": "Grams, kilograms, litres" },
+              "config": { "skills": ["g3-measure"] }
+            }
+          ]
+        },
+        {
+          "id": "g3m-area",
+          "title": { "hi": "क्षेत्रफल और परिमाप", "en": "Let's find area and perimeter" },
+          "skill": "Area, perimeter, graphs · NC.3.MD.3, 5–8",
+          "icon": "letter:▦",
+          "lessons": [
+            { "id": "g3m-area-1", "game": "math", "icon": "letter:▦", "title": { "hi": "क्षेत्रफल", "en": "Area" }, "config": { "skills": ["g3-area"] } },
+            { "id": "g3m-area-2", "game": "math", "icon": "letter:▭", "title": { "hi": "परिमाप", "en": "Perimeter" }, "config": { "skills": ["g3-perimeter"] } },
+            { "id": "g3m-area-3", "game": "math", "icon": "balloon", "title": { "hi": "बार ग्राफ़", "en": "Scaled bar graphs" }, "config": { "skills": ["g3-graph"] } }
+          ]
+        },
+        {
+          "id": "g3m-shapes",
+          "title": { "hi": "चतुर्भुज", "en": "Let's sort quadrilaterals" },
+          "skill": "Shapes · NC.3.G.1",
+          "icon": "shape-square",
+          "lessons": [{ "id": "g3m-shapes-1", "game": "math", "icon": "shape-square", "title": { "hi": "चतुर्भुज", "en": "Quadrilaterals" }, "config": { "skills": ["g3-quad"] } }]
+        },
+        {
+          "id": "g3m-review",
+          "title": { "hi": "फ़ैक्टरी चुनौती", "en": "Factory challenge" },
+          "skill": "Review · mixed practice",
+          "icon": "box",
+          "lessons": [
+            {
+              "id": "g3m-review-1",
+              "game": "math",
+              "icon": "box",
+              "title": { "hi": "चुनौती 1", "en": "Challenge 1" },
+              "config": { "skills": ["g3-multfacts", "g3-divide", "g3-round", "g3-fraction", "g3-area", "g3-time"], "rounds": 8 }
+            },
+            {
+              "id": "g3m-review-2",
+              "game": "math",
+              "icon": "bell",
+              "title": { "hi": "चुनौती 2", "en": "Challenge 2" },
+              "config": { "skills": ["g3-wordprob", "g3-missing", "g3-addsub", "g3-fracline", "g3-perimeter", "g3-quad", "g3-graph", "g3-measure"], "rounds": 8 }
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "palace",
       "level": "grade3",
       "subject": "hindi",
@@ -14318,6 +14508,225 @@
       ],
       "tags": ["grammar", "vocabulary"],
       "helpers": { "courier": "dolphin", "engine": "whale" }
+    },
+    {
+      "id": "jantar",
+      "level": "grade4",
+      "subject": "math",
+      "lang": "en",
+      "theme": "jantar",
+      "mascot": "jugnu",
+      "color": "#7C3AED",
+      "collection": "jantar",
+      "name": { "hi": "जुगनू की गिनती वेधशाला", "en": "Jugnu's Number Observatory" },
+      "tags": ["math", "counting", "shapes"],
+      "letterSets": [],
+      "units": [
+        {
+          "id": "g4m-big",
+          "title": { "hi": "बड़ी संख्याएँ", "en": "Let's read big numbers" },
+          "skill": "Place value, rounding, lakh and crore · NC.4.NBT.1–3",
+          "icon": "telescope",
+          "lessons": [
+            {
+              "id": "g4m-big-1",
+              "game": "math",
+              "icon": "telescope",
+              "title": { "hi": "दस लाख तक स्थानीय मान", "en": "Place value to a million" },
+              "config": { "skills": ["g4-placevalue"] }
+            },
+            {
+              "id": "g4m-big-2",
+              "game": "math",
+              "icon": "letter:≈",
+              "title": { "hi": "बड़ी संख्याएँ: नज़दीकी", "en": "Round big numbers" },
+              "config": { "skills": ["g4-round"] }
+            },
+            { "id": "g4m-big-3", "game": "math", "icon": "letter:लाख", "title": { "hi": "लाख और करोड़", "en": "Lakh and crore" }, "config": { "skills": ["g4-lakh"] } }
+          ]
+        },
+        {
+          "id": "g4m-ops",
+          "title": { "hi": "जोड़, घटाव, गुणा", "en": "Let's add, subtract and multiply" },
+          "skill": "Multi-digit numbers · NC.4.NBT.4–5",
+          "icon": "letter:×",
+          "lessons": [
+            { "id": "g4m-ops-1", "game": "math", "icon": "letter:+", "title": { "hi": "बड़े जोड़-घटाव", "en": "Big sums" }, "config": { "skills": ["g4-addsub"] } },
+            { "id": "g4m-ops-2", "game": "math", "icon": "letter:×", "title": { "hi": "गुणा", "en": "Multiply" }, "config": { "skills": ["g4-multiply"] } }
+          ]
+        },
+        {
+          "id": "g4m-div",
+          "title": { "hi": "लंबा भाग", "en": "Let's do long division" },
+          "skill": "Division with remainders · NC.4.NBT.6, OA.3",
+          "icon": "letter:÷",
+          "lessons": [
+            { "id": "g4m-div-1", "game": "math", "icon": "letter:÷", "title": { "hi": "लंबा भाग", "en": "Long division" }, "config": { "skills": ["g4-divide"] } },
+            {
+              "id": "g4m-div-2",
+              "game": "math",
+              "icon": "letter:R",
+              "title": { "hi": "भाग का अभ्यास, आराम से", "en": "Division practice, no hurry" },
+              "config": { "skills": ["g4-divide"], "rounds": 8, "retry": true }
+            },
+            { "id": "g4m-div-3", "game": "math", "icon": "bus", "title": { "hi": "कहानी के सवाल", "en": "Story problems" }, "config": { "skills": ["g4-wordprob"] } }
+          ]
+        },
+        {
+          "id": "g4m-factors",
+          "title": { "hi": "गुणनखंड और पैटर्न", "en": "Let's find factors and patterns" },
+          "skill": "Factors, comparing, patterns · NC.4.OA.1, 2, 4, 5",
+          "icon": "letter:12",
+          "lessons": [
+            {
+              "id": "g4m-factors-1",
+              "game": "math",
+              "icon": "letter:12",
+              "title": { "hi": "गुणनखंड और गुणज", "en": "Factors and multiples" },
+              "config": { "skills": ["g4-factors"] }
+            },
+            {
+              "id": "g4m-factors-2",
+              "game": "math",
+              "icon": "letter:3×",
+              "title": { "hi": "कितने गुना", "en": "Times as many" },
+              "config": { "skills": ["g4-compare"] }
+            },
+            {
+              "id": "g4m-factors-3",
+              "game": "math",
+              "icon": "letter:+5",
+              "title": { "hi": "नियम से पैटर्न", "en": "Patterns from a rule" },
+              "config": { "skills": ["g4-patterns"] }
+            }
+          ]
+        },
+        {
+          "id": "g4m-frac",
+          "title": { "hi": "भिन्न", "en": "Let's work with fractions" },
+          "skill": "Fractions · NC.4.NF.1–4",
+          "icon": "roti",
+          "lessons": [
+            {
+              "id": "g4m-frac-1",
+              "game": "math",
+              "icon": "letter:½",
+              "title": { "hi": "तुल्य भिन्न", "en": "Equal fractions" },
+              "config": { "skills": ["g4-equivfrac"] }
+            },
+            {
+              "id": "g4m-frac-2",
+              "game": "math",
+              "icon": "letter:>",
+              "title": { "hi": "भिन्नों की तुलना", "en": "Compare fractions" },
+              "config": { "skills": ["g4-comparefrac"] }
+            },
+            {
+              "id": "g4m-frac-3",
+              "game": "math",
+              "icon": "letter:+",
+              "title": { "hi": "भिन्नों का जोड़", "en": "Add fractions" },
+              "config": { "skills": ["g4-addfrac"] }
+            },
+            {
+              "id": "g4m-frac-4",
+              "game": "math",
+              "icon": "letter:3×",
+              "title": { "hi": "भिन्न का गुणा", "en": "Times a fraction" },
+              "config": { "skills": ["g4-multfrac"] }
+            }
+          ]
+        },
+        {
+          "id": "g4m-dec",
+          "title": { "hi": "दशमलव", "en": "Let's learn decimals" },
+          "skill": "Decimals · NC.4.NF.5–7",
+          "icon": "letter:0.5",
+          "lessons": [
+            {
+              "id": "g4m-dec-1",
+              "game": "math",
+              "icon": "letter:0.5",
+              "title": { "hi": "दशांश और शतांश", "en": "Tenths and hundredths" },
+              "config": { "skills": ["g4-decimals"] }
+            }
+          ]
+        },
+        {
+          "id": "g4m-measure",
+          "title": { "hi": "नाप-तौल", "en": "Let's convert and measure" },
+          "skill": "Units, area and perimeter · NC.4.MD.1–3",
+          "icon": "letter:km",
+          "lessons": [
+            {
+              "id": "g4m-measure-1",
+              "game": "math",
+              "icon": "letter:km",
+              "title": { "hi": "इकाई बदलो", "en": "Change the units" },
+              "config": { "skills": ["g4-convert"] }
+            },
+            {
+              "id": "g4m-measure-2",
+              "game": "math",
+              "icon": "letter:▭",
+              "title": { "hi": "क्षेत्रफल और परिमाप", "en": "Area and perimeter" },
+              "config": { "skills": ["g4-areaperim"] }
+            }
+          ]
+        },
+        {
+          "id": "g4m-angles",
+          "title": { "hi": "कोण और रेखाएँ", "en": "Let's measure angles" },
+          "skill": "Angles, lines, symmetry · NC.4.MD.5–7, G.1–3",
+          "icon": "letter:∠",
+          "lessons": [
+            { "id": "g4m-angles-1", "game": "math", "icon": "letter:∠", "title": { "hi": "कोण", "en": "Angles" }, "config": { "skills": ["g4-angles"] } },
+            {
+              "id": "g4m-angles-2",
+              "game": "math",
+              "icon": "letter:∥",
+              "title": { "hi": "समांतर और लंब", "en": "Parallel and perpendicular" },
+              "config": { "skills": ["g4-lines"] }
+            },
+            {
+              "id": "g4m-angles-3",
+              "game": "math",
+              "icon": "letter:⟷",
+              "title": { "hi": "सममिति रेखा", "en": "Lines of symmetry" },
+              "config": { "skills": ["g4-symmetry"] }
+            },
+            {
+              "id": "g4m-angles-4",
+              "game": "handson",
+              "icon": "telescope",
+              "title": { "hi": "कोण बनाओ", "en": "Turn the angle" },
+              "config": { "rounds": 4, "activity": "angle", "skill": "g4-angles" }
+            }
+          ]
+        },
+        {
+          "id": "g4m-review",
+          "title": { "hi": "वेधशाला चुनौती", "en": "Observatory challenge" },
+          "skill": "Review · mixed practice",
+          "icon": "moon",
+          "lessons": [
+            {
+              "id": "g4m-review-1",
+              "game": "math",
+              "icon": "moon",
+              "title": { "hi": "चुनौती 1", "en": "Challenge 1" },
+              "config": { "skills": ["g4-placevalue", "g4-multiply", "g4-divide", "g4-equivfrac", "g4-decimals", "g4-angles"], "rounds": 8 }
+            },
+            {
+              "id": "g4m-review-2",
+              "game": "math",
+              "icon": "comet",
+              "title": { "hi": "चुनौती 2", "en": "Challenge 2" },
+              "config": { "skills": ["g4-lakh", "g4-addsub", "g4-factors", "g4-addfrac", "g4-convert", "g4-areaperim", "g4-symmetry", "g4-wordprob"], "rounds": 8 }
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "mountain",

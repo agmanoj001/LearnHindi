@@ -13022,3 +13022,83 @@ body:has(.game-grammar) .caption-bar,
   font-size: 12px;
   color: var(--muted);
 }
+/* Grades 3–4: fractions, sides, jugs, long division, angles (roadmap 10.8) */
+.mm-frac {
+  width: clamp(110px, 26vmin, 150px);
+  height: auto;
+}
+.mm-frac.bar {
+  width: min(78vw, 300px);
+}
+.mm-frac.small,
+.mm-frac.bar.small {
+  width: clamp(90px, 22vmin, 130px);
+}
+.mm-fracline,
+.mm-areamodel {
+  width: min(92vw, 560px);
+  height: auto;
+}
+.mm-areamodel {
+  width: min(84vw, 340px);
+}
+.mm-rect,
+.mm-poly {
+  width: min(74vw, 300px);
+  height: auto;
+}
+.mm-beaker {
+  width: min(52vw, 210px);
+  height: auto;
+}
+.mm-longdiv {
+  width: min(70vw, 280px);
+  height: auto;
+}
+.mm-angle {
+  width: min(82vw, 330px);
+  height: auto;
+}
+.mm-lines {
+  width: clamp(84px, 20vmin, 120px);
+  height: auto;
+}
+/* equal groups, each in a ring */
+.mm-objects.ringed .mm-group {
+  padding: 6px;
+  border: 3px dashed #9cc7ff;
+  border-radius: 22px;
+}
+/* shade the fraction, and turn the angle (hands-on) */
+.fr-bar {
+  display: grid;
+  grid-template-columns: repeat(var(--n), 1fr);
+  width: min(92vw, 520px);
+  height: 74px;
+  border: 4px solid #2b2d42;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.fr-cell {
+  border: 0;
+  border-right: 3px solid #2b2d42;
+  background: #fff6d6;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.fr-cell:last-child {
+  border-right: 0;
+}
+.fr-cell.on {
+  background: #ff8a3d;
+}
+.an-pic {
+  width: min(86vw, 360px);
+  touch-action: none;
+  cursor: grab;
+}
+.an-pic svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}

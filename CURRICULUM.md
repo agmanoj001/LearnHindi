@@ -118,6 +118,38 @@ Every story page from Toddler to Grade 2 is a small moving scene that follows th
 | Let's explore shapes and equal parts | NC.2.G.1–3: sides and angles, faces of a cube; rows and columns of squares; halves, thirds and fourths |
 | Bazaar challenge | Mixed review of the year |
 
+### Grade 3 · Robu's Number Factory (math, English)
+
+*A factory of turning gears and a moving belt, with Robu the robot (docs/ROADMAP.md 10.8).*
+
+| Unit | Standards |
+| --- | --- |
+| Let's multiply | NC.3.OA.1, 5, 7: equal groups; facts to 10 × 10, also ten with no hurry; turn it around (4 × 9 = 9 × 4), × 1, × 0, break it apart (7 × 8 = 7 × 5 + 7 × 3); build an array |
+| Let's divide | NC.3.OA.2, 4, 6: share equally; the unknown number in × and ÷ |
+| Let's solve stories and patterns | NC.3.OA.3, 8, 9: story problems with × and ÷, two steps; count by 3s to 9s, even or odd products, find the rule |
+| Let's round and add | NC.3.NBT.1–3: round to the nearest 10 and 100; add and subtract within 1,000; 6 × 40 |
+| Let's learn fractions | NC.3.NF.1–3, G.2: equal parts, fractions of a bar or a circle, fractions on a number line (to 2), comparing (same top or same bottom), 2/3 = ?/9; shade the fraction |
+| Let's tell time and measure | NC.3.MD.1–2: time to the minute, when a show ends, how many minutes from … to …; grams, kilograms or litres, a measuring jug |
+| Let's find area and perimeter | NC.3.MD.3, 5–8: area by squares, then length × width, a missing side; perimeter of rectangles and polygons, a missing side; bar graphs that count in 2s and 5s |
+| Let's sort quadrilaterals | NC.3.G.1: not a quadrilateral, rectangle, rhombus, trapezoid; a square is always a rectangle |
+| Factory challenge | Mixed review of the year |
+
+### Grade 4 · Jugnu's Number Observatory (math, English)
+
+*An open-air observatory at dusk, its giant stone instruments for measuring the sky, with Jugnu the firefly.*
+
+| Unit | Standards |
+| --- | --- |
+| Let's read big numbers | NC.4.NBT.1–3: place value to a million, read and compare; round to any place; **lakh and crore**, the Indian way of grouping (3,45,678), how many thousands make a lakh and lakhs a crore |
+| Let's add, subtract and multiply | NC.4.NBT.4–5: add and subtract to a million; multiply up to 4 digits by 1, and 2 digits by 2 with an area model |
+| Let's do long division | NC.4.NBT.6, OA.3: long division with remainders (the bracket drawn), also with no hurry; how many vans are needed, how many are left over |
+| Let's find factors and patterns | NC.4.OA.1, 2, 4, 5: factors, multiples, prime or composite; times as many; patterns from a rule |
+| Let's work with fractions | NC.4.NF.1–4: equal fractions, comparing with 1/2 and a common bottom, adding and subtracting (and mixed numbers), a whole number times a fraction |
+| Let's learn decimals | NC.4.NF.5–7: a hundred grid, tenths and hundredths, 0.5 or 0.45 |
+| Let's convert and measure | NC.4.MD.1–3: km, m, cm, kg, g, L, mL, hours and minutes; area and perimeter with a missing side |
+| Let's measure angles | NC.4.MD.5–7, G.1–3: acute, right, obtuse; read a protractor; angles that make a right angle or a straight line; parallel and perpendicular lines; lines of symmetry; turn the angle on a protractor |
+| Observatory challenge | Mixed review of the year |
+
 ### Kindergarten · Buzz's Letter Garden (English phonics)
 
 | Unit | Standards |
@@ -326,6 +358,46 @@ Each skill makes problems at three levels: level 1 uses small numbers with objec
 | `g2-shapes` | NC.2.G.1 | Shapes by their sides, angles and faces | Let's explore shapes and equal parts, Bazaar challenge |
 | `g2-partition` | NC.2.G.2 | Rows and columns of squares | Let's explore shapes and equal parts, Bazaar challenge |
 | `g2-fractions` | NC.2.G.3 | Halves, thirds and fourths | Let's explore shapes and equal parts, Bazaar challenge |
+| `g3-groups` | NC.3.OA.1 | Equal groups: what multiplication means | Let's multiply |
+| `g3-multfacts` | NC.3.OA.7 | Multiplication facts to 10 × 10 | Let's multiply, Factory challenge |
+| `g3-divide` | NC.3.OA.2 | Division: sharing equally | Let's divide, Factory challenge |
+| `g3-missing` | NC.3.OA.4 | The unknown number in × and ÷ | Let's divide, Factory challenge |
+| `g3-properties` | NC.3.OA.5 | Turn it around, break it apart | Let's multiply |
+| `g3-wordprob` | NC.3.OA.3 | Story problems with × and ÷ (and two steps) | Let's solve stories and patterns, Factory challenge |
+| `g3-patterns` | NC.3.OA.9 | Patterns in the times tables | Let's solve stories and patterns |
+| `g3-round` | NC.3.NBT.1 | Round to the nearest 10 or 100 | Let's round and add, Factory challenge |
+| `g3-addsub` | NC.3.NBT.2 | Add and subtract within 1,000 (regrouping) | Let's round and add, Factory challenge |
+| `g3-times10` | NC.3.NBT.3 | Multiply by 10, 20, 30 … | Let's round and add |
+| `g3-equalparts` | NC.3.G.2 | Equal parts of a whole | Let's learn fractions |
+| `g3-fraction` | NC.3.NF.1 | Fractions of a shape | Let's learn fractions, Factory challenge |
+| `g3-fracline` | NC.3.NF.2 | Fractions on a number line | Let's learn fractions, Factory challenge |
+| `g3-fraccompare` | NC.3.NF.3 | Compare fractions; equal fractions | Let's learn fractions |
+| `g3-time` | NC.3.MD.1 | Time to the minute; how long it takes | Let's tell time and measure, Factory challenge |
+| `g3-measure` | NC.3.MD.2 | Grams, kilograms and litres | Let's tell time and measure, Factory challenge |
+| `g3-graph` | NC.3.MD.3 | Scaled bar graphs | Let's find area and perimeter, Factory challenge |
+| `g3-area` | NC.3.MD.7 | Area: square units, length × width | Let's find area and perimeter, Factory challenge |
+| `g3-perimeter` | NC.3.MD.8 | Perimeter: the distance around | Let's find area and perimeter, Factory challenge |
+| `g3-quad` | NC.3.G.1 | Quadrilaterals: squares, rectangles, rhombuses | Let's sort quadrilaterals, Factory challenge |
+| `g4-placevalue` | NC.4.NBT.2 | Place value to a million | Let's read big numbers, Observatory challenge |
+| `g4-round` | NC.4.NBT.3 | Round big numbers to any place | Let's read big numbers |
+| `g4-lakh` | NCERT lakh, crore | The Indian way: lakh and crore | Let's read big numbers, Observatory challenge |
+| `g4-addsub` | NC.4.NBT.4 | Add and subtract big numbers | Let's add, subtract and multiply, Observatory challenge |
+| `g4-multiply` | NC.4.NBT.5 | Multiply: by one digit, and two digits by two | Let's add, subtract and multiply, Observatory challenge |
+| `g4-divide` | NC.4.NBT.6 | Long division, with remainders | Let's do long division, Observatory challenge |
+| `g4-factors` | NC.4.OA.4 | Factors, multiples, prime and composite | Let's find factors and patterns, Observatory challenge |
+| `g4-compare` | NC.4.OA.1 | Times as many | Let's find factors and patterns |
+| `g4-patterns` | NC.4.OA.5 | Number patterns from a rule | Let's find factors and patterns |
+| `g4-wordprob` | NC.4.OA.3 | Story problems in several steps (and what to do with a remainder) | Let's do long division, Observatory challenge |
+| `g4-equivfrac` | NC.4.NF.1 | Equivalent fractions | Let's work with fractions, Observatory challenge |
+| `g4-comparefrac` | NC.4.NF.2 | Compare fractions with different denominators | Let's work with fractions |
+| `g4-addfrac` | NC.4.NF.3 | Add and subtract fractions (same denominator) | Let's work with fractions, Observatory challenge |
+| `g4-multfrac` | NC.4.NF.4 | A whole number times a fraction | Let's work with fractions |
+| `g4-decimals` | NC.4.NF.6 | Tenths and hundredths as decimals | Let's learn decimals, Observatory challenge |
+| `g4-convert` | NC.4.MD.1 | Change units: km, m, cm, kg, g, L, mL, hours | Let's convert and measure, Observatory challenge |
+| `g4-areaperim` | NC.4.MD.3 | Area and perimeter of rectangles | Let's convert and measure, Observatory challenge |
+| `g4-angles` | NC.4.MD.6 | Angles: acute, right, obtuse; measure and add | Let's measure angles, Observatory challenge |
+| `g4-lines` | NC.4.G.1 | Parallel and perpendicular lines; right triangles | Let's measure angles |
+| `g4-symmetry` | NC.4.G.3 | Lines of symmetry | Let's measure angles, Observatory challenge |
 
 **Not covered yet:** NC.K.G.4–6 (comparing, building and composing shapes with real materials), NC.K.CC.4's one-to-one counting of real objects (the app's tap-to-count is the closest), and NC.1.OA.3's properties of operations as a separate skill. These are better done with blocks, beads and paper shapes at a table.
 

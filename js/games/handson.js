@@ -8,9 +8,9 @@ import { el, sleep, runRounds, cheer, bounce, wobble, flyTo, ICONS, stepHint } f
 import { mathModel } from '../art-math.js';
 import { shuffle } from '../logic.js';
 
-export const ACTIVITIES = ['tenframe', 'numberline', 'pattern', 'shapes', 'measure', 'balance', 'shop', 'clock', 'bonds', 'jumps', 'array'];
+export const ACTIVITIES = ['tenframe', 'numberline', 'pattern', 'shapes', 'measure', 'balance', 'shop', 'clock', 'bonds', 'jumps', 'array', 'fraction', 'angle'];
 // the skill each records (js/mathgen.js), so the grown-ups' area shows it with the others
-export const ACTIVITY_SKILL = { tenframe: 'k-make10', numberline: 'k-add', pattern: 'k-pattern', shapes: 'g1-compose', measure: 'g1-units', balance: 'g1-equal', shop: 'g1-coins', clock: 'g1-time', bonds: 'k-bond10', jumps: 'g2-add100', array: 'g2-arrays' };
+export const ACTIVITY_SKILL = { tenframe: 'k-make10', numberline: 'k-add', pattern: 'k-pattern', shapes: 'g1-compose', measure: 'g1-units', balance: 'g1-equal', shop: 'g1-coins', clock: 'g1-time', bonds: 'k-bond10', jumps: 'g2-add100', array: 'g2-arrays', fraction: 'g3-fraction', angle: 'g4-angles' };
 
 const int = (rng, lo, hi) => lo + Math.floor(rng() * (hi - lo + 1));
 const pick = (rng, xs) => xs[Math.floor(rng() * xs.length)];
@@ -683,7 +683,95 @@ async function arrayBuild(ctx) {
   return { first, explain: `${R} rows of ${C}: ${Array.from({ length: R }, () => C).join(' + ')} = ${total}!`, node: pic };
 }
 
-const PLAY = { tenframe, numberline, pattern, shapes, measure, balance, shop, clock, bonds, jumps, array: arrayBuild };
+// ---------- 12. shade the fraction (NC.3.NF.1, NF.3; docs/ROADMAP.md 10.8) ----------
+async function fraction(ctx) {
+  const t = ctx.tier;
+  const b = pick(ctx.rng, t === 0 ? [2, 3, 4] : [3, 4, 5, 6, 8]);
+  const k = t === 0 ? 1 : int(ctx.rng, 1, b - 1);
+  // at the top level the bar has more pieces than the fraction asks for: 1/2 of a bar of 8
+  const m = t === 2 ? pick(ctx.rng, [2, 3].filter((x) => b * x <= 12)) || 1 : 1;
+  const parts = b * m;
+  const want = k * m;
+  const ask = m > 1 ? `Shade ${k}/${b} of the bar. It has ${parts} pieces.` : `Shade ${k}/${b} of the bar.`;
+  const { work, tools, check } = board(ctx, ask, 'hands-fraction');
+  const cells = Array.from({ length: parts }, (_, i) => {
+    const c = el('button', { class: 'fr-cell', 'aria-label': `Piece ${i + 1}` });
+    c.addEventListener('click', () => {
+      c.classList.toggle('on');
+      ctx.sfx.pop();
+      draw();
+      hint.step();
+    });
+    return c;
+  });
+  const readout = el('p', { class: 'hands-readout' });
+  const on = () => cells.filter((c) => c.classList.contains('on')).length;
+  const draw = () => (readout.textContent = `${on()} of ${parts} pieces shaded: ${on()}/${parts}`);
+  draw();
+  work.append(el('div', { class: 'fr-bar', style: { '--n': String(parts) } }, cells), readout);
+  tools.append(el('span', { class: 'hands-help', text: 'Tap a piece to shade it, or to clear it.' }));
+  const hint = stepHint(ctx, () => (on() < want ? cells.find((c) => !c.classList.contains('on')) : on() > want ? cells.filter((c) => c.classList.contains('on')).at(-1) : check), { coach: 'each' });
+  const first = await untilRight(ctx, check, () => (on() === want ? true : `That's ${on()}/${parts}. Shade ${k}/${b}${m > 1 ? `: that is ${want} of the ${parts} pieces` : ''}.`), hint);
+  return { first, explain: m > 1 ? `${want}/${parts} is the same as ${k}/${b}!` : `${k} of ${b} equal pieces: ${k}/${b}!`, node: work };
+}
+
+// ---------- 13. turn the angle on the protractor (NC.4.MD.6; docs/ROADMAP.md 10.8) ----------
+async function angleTurn(ctx) {
+  const t = ctx.tier;
+  const step = [30, 10, 5][t];
+  const target = int(ctx.rng, 1, Math.floor(175 / step)) * step;
+  const ask = `Make an angle of ${target}°.`;
+  const { work, tools, check } = board(ctx, ask, 'hands-angle');
+  // the arm starts on the buttons' own steps, well away from the answer, so it can always be reached
+  const starts = Array.from({ length: Math.floor(180 / step) - 1 }, (_, i) => (i + 1) * step).filter((d) => Math.abs(d - target) >= 2 * step);
+  let deg = pick(ctx.rng, starts.length ? starts : [target === step ? 2 * step : step]);
+  const pic = el('div', { class: 'an-pic' });
+  const readout = el('b', { class: 'ck-digital' });
+  const draw = () => {
+    pic.innerHTML = mathModel({ kind: 'angle', deg, protractor: true });
+    readout.textContent = `${deg}°`;
+  };
+  draw();
+  // drag the arm round, or use the buttons
+  pic.addEventListener('pointerdown', (e) => {
+    const move = (ev) => {
+      const r = pic.getBoundingClientRect();
+      // the corner of the angle is at (150, 170) of the 300 × 190 picture
+      const x = ev.clientX - (r.left + (r.width * 150) / 300);
+      const y = r.top + (r.height * 170) / 190 - ev.clientY;
+      const a = Math.round(((Math.atan2(y, x) * 180) / Math.PI) / 5) * 5;
+      if (a >= 0 && a <= 180 && a !== deg) {
+        deg = a;
+        draw();
+        ctx.sfx.tick?.();
+        hint.step();
+      }
+    };
+    move(e);
+    pic.setPointerCapture?.(e.pointerId);
+    pic.onpointermove = move;
+    pic.onpointerup = pic.onpointercancel = () => (pic.onpointermove = null);
+  });
+  const turn = (d, btn) => () => {
+    if (deg + d < 0 || deg + d > 180) return wobble(btn);
+    deg += d;
+    draw();
+    ctx.sfx.pop();
+    hint.step();
+  };
+  const less = toolBtn(`− ${step}°`, 'less', `Close by ${step} degrees`);
+  const more = toolBtn(`+ ${step}°`, 'more', `Open by ${step} degrees`);
+  less.addEventListener('click', turn(-step, less));
+  more.addEventListener('click', turn(step, more));
+  tools.append(less, more);
+  work.append(pic, readout);
+  const hint = stepHint(ctx, () => (deg < target ? more : deg > target ? less : check), { coach: 'each' });
+  const first = await untilRight(ctx, check, () => (deg === target ? true : `That angle is ${deg}°. Make ${target}°.`), hint);
+  const kind = target < 90 ? 'an acute angle' : target === 90 ? 'a right angle' : target < 180 ? 'an obtuse angle' : 'a straight angle';
+  return { first, explain: `${target}°: ${kind}!`, node: pic };
+}
+
+const PLAY = { tenframe, numberline, pattern, shapes, measure, balance, shop, clock, bonds, jumps, array: arrayBuild, fraction, angle: angleTurn };
 
 export default {
   async start(ctx) {

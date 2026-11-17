@@ -192,6 +192,40 @@ const UNIT_CHOICES = [
 ];
 // money in cents (a dollar is a bill)
 const MONEY = { dollar: 100, quarter: 25, dime: 10, nickel: 5, penny: 1 };
+// what to use for a thing: grams, kilograms or litres (Grade 3)
+const MASS_UNITS = [
+  ['a paper clip', 'grams'],
+  ['a watermelon', 'kilograms'],
+  ['the water in a bucket', 'litres'],
+  ['a spoonful of sugar', 'grams'],
+  ['a big dog', 'kilograms'],
+  ['the milk in a jug', 'litres'],
+  ['a pencil', 'grams'],
+  ['a sack of rice', 'kilograms'],
+];
+const FRAC_NAMES = { 2: 'halves', 3: 'thirds', 4: 'fourths', 5: 'fifths', 6: 'sixths', 8: 'eighths', 10: 'tenths', 12: 'twelfths', 100: 'hundredths' };
+// Grade 4: big numbers written 345,678, and the Indian way 3,45,678
+export const commas = (v) => String(v).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+export function indian(v) {
+  const s = String(v);
+  if (s.length <= 3) return s;
+  return `${s.slice(0, -3).replace(/\B(?=(\d{2})+(?!\d))/g, ',')},${s.slice(-3)}`;
+}
+const PLACES = ['ones', 'tens', 'hundreds', 'thousands', 'ten thousands', 'hundred thousands'];
+const smallestFactor = (v) => {
+  for (let f = 2; f * f <= v; f++) if (v % f === 0) return f;
+  return v;
+};
+const isPrime = (v) => v > 1 && smallestFactor(v) === v;
+// [big unit, small unit, how many small make one big]
+const UNIT_PAIRS = [
+  ['km', 'm', 1000],
+  ['m', 'cm', 100],
+  ['kg', 'g', 1000],
+  ['L', 'mL', 1000],
+  ['hours', 'minutes', 60],
+  ['minutes', 'seconds', 60],
+];
 // shapes by their number of sides
 const POLY_SIDES = { triangle: 3, square: 4, rectangle: 4, rhombus: 4, trapezoid: 4, pentagon: 5, hexagon: 6 };
 
@@ -2162,6 +2196,1203 @@ export const SKILLS = {
         explain: `The bar for ${name(i)} goes up to ${counts[i]}.`,
         hint: 'Follow the top of the bar across to the numbers.',
       };
+    },
+  },
+  // ======================= Grade 3 (docs/ROADMAP.md 10.8) =======================
+  'g3-groups': {
+    code: 'NC.3.OA.1',
+    name: 'Equal groups: what multiplication means',
+    gen(t, rng, n) {
+      const g = int(rng, 2, t === 0 ? 4 : 6);
+      const k = int(rng, 2, t === 0 ? 4 : 6);
+      const th = thing(rng);
+      const model = { kind: 'objects', groups: Array.from({ length: g }, () => ({ n: k, pic: th.pic })), layout: 'rows', ring: true, small: g * k > 12 };
+      if (t === 1) {
+        const right = `${g} × ${k}`;
+        const wrong = [...new Set([`${g} + ${k}`, `${g} × ${k + 1}`, `${g + 1} × ${k}`])].filter((x) => x !== right && x !== `${k} × ${g}`);
+        return {
+          ask: 'Which multiplication matches the groups?',
+          model,
+          options: textOptions(right, wrong, Math.min(n, 4), rng),
+          answer: right,
+          explain: `${g} groups of ${k}: ${right} = ${g * k}.`,
+          hint: 'How many groups? How many in each group?',
+        };
+      }
+      return {
+        ask: t === 2 ? `There are ${g} bags with ${k} ${th.many} in each bag. How many ${th.many} in all?` : `${g} groups of ${k}. How many in all?`,
+        eq: t === 0 ? `${g} × ${k} = ?` : null,
+        model: t === 2 ? null : model,
+        options: numberOptions(g * k, n, rng, { min: 2, max: 40, tricky: [g + k] }),
+        answer: g * k,
+        explain: `${g} groups of ${k} is ${g} × ${k} = ${g * k}.`,
+        hint: `Count by ${k}s, one group at a time.`,
+      };
+    },
+  },
+  'g3-multfacts': {
+    code: 'NC.3.OA.7',
+    name: 'Multiplication facts to 10 × 10',
+    gen(t, rng, n) {
+      const a = int(rng, 2, t === 0 ? 5 : 9);
+      const b = int(rng, 2, t === 0 ? 5 : 10);
+      const answer = a * b;
+      return {
+        ask: 'Multiply!',
+        say: `${a} times ${b}?`,
+        eq: `${a} × ${b} = ?`,
+        model: t === 0 ? { kind: 'array', rows: a, cols: b } : null,
+        options: numberOptions(answer, n, rng, { min: 0, max: 100, tricky: [a * (b - 1), a * (b + 1), a + b] }),
+        answer,
+        explain: `${a} times ${b} is ${answer}.`,
+        hint: t === 0 ? `Count by ${b}s, one row at a time.` : `Use a fact you know: ${a} × ${b - 1} = ${a * (b - 1)}, and ${a} more.`,
+      };
+    },
+  },
+  'g3-divide': {
+    code: 'NC.3.OA.2',
+    name: 'Division: sharing equally',
+    gen(t, rng, n) {
+      const d = int(rng, 2, t === 0 ? 5 : 9);
+      const q = int(rng, 2, t === 0 ? 5 : 9);
+      const total = d * q;
+      const th = thing(rng);
+      if (t === 2)
+        return {
+          ask: 'What is the missing number?',
+          eq: `? × ${d} = ${total}`,
+          options: numberOptions(q, n, rng, { min: 1, max: 12, tricky: [total - d] }),
+          answer: q,
+          explain: `${q} × ${d} = ${total}, so ${total} ÷ ${d} = ${q}.`,
+          hint: `Count by ${d}s until you reach ${total}. How many jumps?`,
+        };
+      return {
+        ask: t === 0 ? `Share ${total} ${th.many} equally into ${d} rows. How many in each row?` : 'Divide!',
+        say: t === 0 ? undefined : `${total} divided by ${d}?`,
+        eq: `${total} ÷ ${d} = ?`,
+        model: t === 0 ? { kind: 'array', rows: d, cols: q, pic: th.pic } : null,
+        options: numberOptions(q, n, rng, { min: 1, max: 12, tricky: [d] }),
+        answer: q,
+        explain: `${total} ÷ ${d} = ${q}, because ${d} × ${q} = ${total}.`,
+        hint: `Think multiplication: ${d} times what makes ${total}?`,
+      };
+    },
+  },
+  'g3-missing': {
+    code: 'NC.3.OA.4',
+    name: 'The unknown number in × and ÷',
+    gen(t, rng, n) {
+      const a = int(rng, 2, 9);
+      const b = int(rng, 2, 9);
+      const p = a * b;
+      const [eq, answer, hint] = [
+        [`${a} × ? = ${p}`, b, `${a} times what makes ${p}?`],
+        [`${p} ÷ ? = ${b}`, a, `${b} times what makes ${p}?`],
+        [`? ÷ ${a} = ${b}`, p, `Undo the division: ${a} × ${b}.`],
+      ][t];
+      return {
+        ask: 'What is the missing number?',
+        eq,
+        options: numberOptions(answer, n, rng, { min: 1, max: 100, tricky: t === 2 ? [a + b] : [p - a] }),
+        answer,
+        explain: eq.replace('?', String(answer)),
+        hint,
+      };
+    },
+  },
+  'g3-properties': {
+    code: 'NC.3.OA.5',
+    name: 'Turn it around, break it apart',
+    gen(t, rng, n) {
+      const a = int(rng, 2, 9);
+      const b = int(rng, 6, 9);
+      if (t === 0)
+        return {
+          ask: 'Turn it around!',
+          eq: `${a} × ${b} = ${b} × ?`,
+          options: numberOptions(a, n, rng, { min: 1, max: 10, tricky: [b] }),
+          answer: a,
+          explain: `${a} × ${b} and ${b} × ${a} are both ${a * b}. The order doesn't change the answer.`,
+          hint: 'The same two numbers, the other way round.',
+        };
+      if (t === 1) {
+        const [eq, answer, why] = pick(rng, [
+          [`${a} × 1 = ?`, a, `Anything times 1 stays the same: ${a}.`],
+          [`${a} × 0 = ?`, 0, 'Anything times 0 is 0.'],
+          [`2 × ${a} × 5 = 10 × ?`, a, `2 × 5 is 10, so it is 10 × ${a} = ${10 * a}.`],
+        ]);
+        return { ask: 'What is the missing number?', eq, options: numberOptions(answer, n, rng, { min: 0, max: 12, tricky: [answer + 1] }), answer, explain: why, hint: 'Look for an easy way: 1, 0, or 10.' };
+      }
+      return {
+        ask: 'Break it apart!',
+        eq: `${a} × ${b} = ${a} × 5 + ${a} × ?`,
+        options: numberOptions(b - 5, n, rng, { min: 1, max: 9, tricky: [b] }),
+        answer: b - 5,
+        explain: `${b} is 5 and ${b - 5}: ${a} × 5 + ${a} × ${b - 5} = ${a * 5} + ${a * (b - 5)} = ${a * b}.`,
+        hint: `${b} is 5 and how many more?`,
+      };
+    },
+  },
+  'g3-wordprob': {
+    code: 'NC.3.OA.3',
+    name: 'Story problems with × and ÷ (and two steps)',
+    gen(t, rng, n) {
+      const [A] = shuffle(['Robu', 'Gilu', 'Tiko', 'Jugnu'], rng);
+      const [one, many, box, boxes] = pick(rng, [
+        ['mango', 'mangoes', 'basket', 'baskets'],
+        ['pencil', 'pencils', 'box', 'boxes'],
+        ['laddoo', 'laddoos', 'plate', 'plates'],
+        ['marble', 'marbles', 'bag', 'bags'],
+        ['sticker', 'stickers', 'page', 'pages'],
+      ]);
+      const a = int(rng, 3, 9);
+      const b = int(rng, 3, 9);
+      const kind = t === 0 ? 'times' : t === 1 ? pick(rng, ['times', 'share']) : pick(rng, ['two', 'two', 'share']);
+      let ask;
+      let answer;
+      let tricky;
+      let hint;
+      if (kind === 'times') {
+        ask = `${A} has ${a} ${boxes} of ${many}. Each ${box} has ${b} ${many}. How many ${many} in all?`;
+        answer = a * b;
+        tricky = [a + b];
+        hint = `${a} groups of ${b}: multiply.`;
+      } else if (kind === 'share') {
+        ask = `${A} shares ${a * b} ${many} equally among ${a} friends. How many does each friend get?`;
+        answer = b;
+        tricky = [a * b - a];
+        hint = `Divide: ${a * b} ÷ ${a}.`;
+      } else {
+        const c = int(rng, 2, a * b - 2);
+        ask = `${A} buys ${a} packs of ${b} ${many}, then gives away ${c}. How many ${many} are left?`;
+        answer = a * b - c;
+        tricky = [a * b + c, a * b];
+        hint = `First multiply ${a} × ${b}, then take away ${c}.`;
+      }
+      return { ask, options: numberOptions(answer, n, rng, { min: 0, max: 90, tricky }), answer, explain: `${answer} ${answer === 1 ? one : many}!`, hint };
+    },
+  },
+  'g3-patterns': {
+    code: 'NC.3.OA.9',
+    name: 'Patterns in the times tables',
+    gen(t, rng, n) {
+      if (t === 0) {
+        const k = int(rng, 3, 9);
+        const s = sequence(rng, { start: k * int(rng, 1, 3), step: k, len: 5, gapAtEnd: true });
+        return { ...s, ask: `Count by ${k}s. ${s.ask}`, options: numberOptions(s.answer, n, rng, { min: 0, max: 100, tricky: [s.answer + 1, s.answer - k + 1] }), explain: `Each jump is ${k}. ${s.answer}!`, hint: `Add ${k} to the last number.` };
+      }
+      if (t === 1) {
+        const a = int(rng, 2, 9);
+        const b = int(rng, 2, 9);
+        const even = (a * b) % 2 === 0;
+        return {
+          ask: `Is ${a} × ${b} even or odd?`,
+          options: [
+            { value: 'even', label: 'even' },
+            { value: 'odd', label: 'odd' },
+          ],
+          answer: even ? 'even' : 'odd',
+          explain: even ? `${a} × ${b} = ${a * b}: even. An even number times any number is even.` : `${a} × ${b} = ${a * b}: odd. Odd times odd is odd.`,
+          hint: 'If either number is even, the answer is even.',
+        };
+      }
+      const step = int(rng, 2, 9);
+      const start = int(rng, 1, 9);
+      const shown = Array.from({ length: 4 }, (_, i) => start + i * step);
+      const right = `add ${step}`;
+      const wrong = [`add ${step + 1}`, `add ${step - 1}`, `times ${step}`].filter((x) => x !== right && x !== 'add 1' && x !== 'times 1');
+      return {
+        ask: `What is the rule? ${shown.join(', ')}…`,
+        say: `${shown.join(', ')}. What is the rule?`,
+        options: textOptions(right, [...new Set(wrong)], Math.min(n, 4), rng),
+        answer: right,
+        explain: `Each number is ${step} more than the one before: ${right}.`,
+        hint: 'How much does it grow from one number to the next?',
+      };
+    },
+  },
+  'g3-round': {
+    code: 'NC.3.NBT.1',
+    name: 'Round to the nearest 10 or 100',
+    gen(t, rng, n) {
+      const to = t === 2 ? 100 : 10;
+      let v;
+      do v = t === 0 ? int(rng, 11, 99) : int(rng, 101, 989);
+      while (v % to === 0);
+      const lo = Math.floor(v / to) * to;
+      const answer = v - lo >= to / 2 ? lo + to : lo;
+      const opts = [...new Set([lo, lo + to, answer + to, lo - to].filter((x) => x >= 0))];
+      const others = shuffle(
+        opts.filter((x) => x !== answer),
+        rng,
+      ).slice(0, n - 1);
+      return {
+        ask: `Round ${v} to the nearest ${to}.`,
+        model: t === 0 ? { kind: 'numberline', from: lo, to: lo + to, start: v, step: 1 } : null,
+        options: [answer, ...others].sort((a, b) => a - b).map((x) => ({ value: x, label: String(x) })),
+        answer,
+        explain: `${v} is closer to ${answer}${v - lo === to / 2 ? ' (halfway rounds up)' : ''}.`,
+        hint: to === 10 ? 'Look at the ones digit: 5 or more rounds up.' : 'Look at the tens digit: 5 or more rounds up.',
+      };
+    },
+  },
+  'g3-addsub': {
+    code: 'NC.3.NBT.2',
+    name: 'Add and subtract within 1,000 (regrouping)',
+    gen(t, rng, n) {
+      const plus = t === 0 ? true : t === 1 ? false : rng() < 0.5;
+      let a;
+      let b;
+      do {
+        a = int(rng, 120, 880);
+        b = int(rng, 15, plus ? 999 - a : a - 10);
+      } while (plus ? (a % 10) + (b % 10) < 10 : a % 10 >= b % 10);
+      const answer = plus ? a + b : a - b;
+      return {
+        ask: plus ? 'Add!' : 'Subtract!',
+        say: `${a} ${plus ? 'plus' : 'minus'} ${b}?`,
+        eq: `${a} ${plus ? '+' : '−'} ${b} = ?`,
+        options: bigOptions(answer, n, rng, plus ? [answer - 10] : [answer + 10, answer - 10]),
+        answer,
+        explain: `${a} ${plus ? '+' : '−'} ${b} = ${answer}.`,
+        hint: plus ? 'Ones first: ten ones make a new ten.' : 'Not enough ones? Break a ten.',
+      };
+    },
+  },
+  'g3-times10': {
+    code: 'NC.3.NBT.3',
+    name: 'Multiply by 10, 20, 30 …',
+    gen(t, rng, n) {
+      const a = int(rng, 2, 9);
+      const m = int(rng, t === 0 ? 1 : 2, 9);
+      const answer = a * m * 10;
+      return {
+        ask: 'Multiply!',
+        say: `${a} times ${m * 10}?`,
+        eq: `${a} × ${m * 10} = ?`,
+        model: t === 0 ? { kind: 'objects', groups: Array.from({ length: a }, () => ({ n: m, pic: 'dot', color: '#3D7BFF' })), layout: 'rows', ring: true, small: true } : null,
+        options: bigOptions(answer, n, rng, [a * m, answer * 10]),
+        answer,
+        explain: `${a} × ${m} = ${a * m}, so ${a} × ${m} tens = ${a * m} tens = ${answer}.`,
+        hint: `Think ${a} × ${m}, then make it tens.`,
+      };
+    },
+  },
+  'g3-equalparts': {
+    code: 'NC.3.G.2',
+    name: 'Equal parts of a whole',
+    gen(t, rng, n) {
+      const b = pick(rng, t === 0 ? [2, 3, 4] : [3, 4, 6, 8]);
+      const shape = pick(rng, ['bar', 'circle']);
+      return {
+        ask: `The shape is cut into ${b} equal parts. What fraction is one part?`,
+        model: { kind: 'frac', shape, parts: b, shade: 1 },
+        options: textOptions(`1/${b}`, [2, 3, 4, 6, 8].filter((x) => x !== b).map((x) => `1/${x}`), Math.min(n, 4), rng),
+        answer: `1/${b}`,
+        explain: `One of ${b} equal parts is 1/${b}.`,
+        hint: 'Count all the equal parts: that is the bottom number.',
+      };
+    },
+  },
+  'g3-fraction': {
+    code: 'NC.3.NF.1',
+    name: 'Fractions of a shape',
+    gen(t, rng, n) {
+      const b = pick(rng, [2, 3, 4, 6, 8]);
+      const k = t === 0 ? 1 : int(rng, 1, b - 1);
+      const shape = pick(rng, ['bar', 'circle']);
+      if (t === 2) {
+        const right = { parts: b, shade: k };
+        const cands = [right, { parts: b, shade: b - k }, { parts: k + b, shade: k }, { parts: b, shade: Math.max(1, (k % (b - 1)) + 1) }].filter((c, i, a) => c.shade > 0 && c.shade < c.parts && a.findIndex((x) => x.parts === c.parts && x.shade === c.shade) === i);
+        const opts = [right, ...shuffle(cands.slice(1), rng).slice(0, n - 1)];
+        return {
+          ask: `Which shows ${k}/${b}?`,
+          options: shuffle(opts, rng).map((c) => ({ value: `${c.shade}/${c.parts}`, say: 'this one', model: { kind: 'frac', shape, parts: c.parts, shade: c.shade } })),
+          answer: `${k}/${b}`,
+          explain: `${k} of ${b} equal parts are shaded: ${k}/${b}.`,
+          hint: 'The bottom number is how many parts in all; the top is how many are shaded.',
+        };
+      }
+      const wrong = [`${b}/${k}`, `${b - k}/${b}`, `${k}/${b + 1}`, `${k + 1}/${b}`].filter((x) => x !== `${k}/${b}` && !/\/0|^0\//.test(x));
+      return {
+        ask: 'What fraction is shaded?',
+        model: { kind: 'frac', shape, parts: b, shade: k },
+        options: textOptions(`${k}/${b}`, [...new Set(wrong)], Math.min(n, 4), rng),
+        answer: `${k}/${b}`,
+        explain: `${k} of ${b} equal parts: ${k}/${b}.`,
+        hint: 'Bottom: all the parts. Top: the shaded parts.',
+      };
+    },
+  },
+  'g3-fracline': {
+    code: 'NC.3.NF.2',
+    name: 'Fractions on a number line',
+    gen(t, rng, n) {
+      const b = pick(rng, t === 0 ? [2, 3, 4] : [3, 4, 6, 8]);
+      const to = t === 2 ? 2 : 1;
+      let k;
+      do k = int(rng, 1, b * to - 1);
+      while (k === b);
+      const wrong = [...new Set([`${k}/${b + 1}`, `${k + 1}/${b}`, `${Math.max(1, k - 1)}/${b}`, `${b}/${k}`])].filter((x) => x !== `${k}/${b}`);
+      return {
+        ask: 'What fraction is at the dot?',
+        model: { kind: 'fracline', den: b, at: k, to },
+        options: textOptions(`${k}/${b}`, wrong, Math.min(n, 4), rng),
+        answer: `${k}/${b}`,
+        explain: `From 0 to 1 is cut into ${b} equal jumps; the dot is ${k} jumps along: ${k}/${b}.`,
+        hint: 'Count the equal jumps between 0 and 1, then count the jumps to the dot.',
+      };
+    },
+  },
+  'g3-fraccompare': {
+    code: 'NC.3.NF.3',
+    name: 'Compare fractions; equal fractions',
+    gen(t, rng, n) {
+      if (t === 2) {
+        const [a, b] = pick(rng, [
+          [1, 2],
+          [1, 3],
+          [2, 3],
+          [1, 4],
+          [3, 4],
+        ]);
+        const m = pick(rng, [2, 3]);
+        return {
+          ask: 'Equal fractions: what is missing?',
+          eq: `${a}/${b} = ?/${b * m}`,
+          model: { kind: 'frac', shape: 'bar', parts: b, shade: a },
+          options: numberOptions(a * m, n, rng, { min: 1, max: 12, tricky: [a + m, b * m - a] }),
+          answer: a * m,
+          explain: `${a}/${b} = ${a * m}/${b * m}: twice as many pieces, each half the size.`.replace('twice', m === 2 ? 'twice' : 'three times').replace('half', m === 2 ? 'half' : 'a third'),
+          hint: `The bottom is ${m} times bigger, so the top is ${m} times bigger too.`,
+        };
+      }
+      const same = t === 0 ? 'den' : pick(rng, ['den', 'num']);
+      const b = pick(rng, [4, 6, 8]);
+      let x;
+      let y;
+      if (same === 'den') {
+        [x, y] = shuffle([int(rng, 1, b - 1), 0], rng);
+        y = x;
+        while (y === x) y = int(rng, 1, b - 1);
+      }
+      // the same top number: a few pieces of two different sizes
+      const d1 = pick(rng, [2, 3, 4]);
+      if (same === 'num') x = y = int(rng, 1, d1 - 1);
+      const f1 = same === 'den' ? [x, b] : [x, d1];
+      const f2 = same === 'den' ? [y, b] : [y, pick(rng, [6, 8, 10])];
+      const v = (f) => f[0] / f[1];
+      const big = v(f1) > v(f2) ? f1 : f2;
+      const lab = (f) => `${f[0]}/${f[1]}`;
+      return {
+        ask: `Which is greater, ${lab(f1)} or ${lab(f2)}?`,
+        options: [f1, f2].map((f) => ({ value: lab(f), label: lab(f), model: { kind: 'frac', shape: 'bar', parts: f[1], shade: f[0], small: true } })),
+        answer: lab(big),
+        explain: same === 'den' ? `Same size pieces: ${big[0]} pieces are more. ${lab(big)} is greater.` : `Same number of pieces, but ${FRAC_NAMES[big[1]]} are bigger than ${FRAC_NAMES[(big === f1 ? f2 : f1)[1]]}. ${lab(big)} is greater.`,
+        hint: same === 'den' ? 'The pieces are the same size: compare the top numbers.' : 'The more parts the whole is cut into, the smaller each part.',
+      };
+    },
+  },
+  'g3-time': {
+    code: 'NC.3.MD.1',
+    name: 'Time to the minute; how long it takes',
+    gen(t, rng, n) {
+      if (t === 0) {
+        const h = int(rng, 1, 12);
+        const m = int(rng, 1, 59);
+        const label = clockLabel(h, m);
+        const pool = [clockLabel(h, (m + 5) % 60), clockLabel(h, (m + 55) % 60), clockLabel((h % 12) + 1, m), clockLabel(h, (m + 1) % 60), clockLabel(Math.max(1, Math.round(m / 5)) % 12 || 12, (h * 5) % 60)];
+        const wrong = shuffle([...new Set(pool)].filter((x) => x !== label), rng).slice(0, n - 1);
+        return {
+          ask: 'What time is it?',
+          model: { kind: 'clock', h, m },
+          options: shuffle([label, ...wrong], rng).map((s) => ({ value: s, label: s, say: clockSay(...s.split(':').map(Number)) })),
+          answer: label,
+          explain: `Count by fives, then on by ones: ${m} minutes. It's ${clockSay(h, m)}.`,
+          hint: 'Count the long hand by fives, then the little marks by ones.',
+        };
+      }
+      const h = int(rng, 1, 10);
+      const m = int(rng, 0, 11) * 5;
+      const dur = t === 1 ? pick(rng, [15, 20, 30, 45]) : pick(rng, [25, 35, 40, 50, 55]);
+      const end = h * 60 + m + dur;
+      const [eh, em] = [Math.floor(end / 60), end % 60];
+      if (t === 2 && rng() < 0.5)
+        return {
+          ask: `From ${clockLabel(h, m)} to ${clockLabel(eh, em)}: how many minutes?`,
+          options: numberOptions(dur, n, rng, { min: 5, max: 60, tricky: [dur + 10, Math.abs(em - m)] }).map((o) => ({ ...o, label: `${o.value} min`, say: `${o.value} minutes` })),
+          answer: dur,
+          explain: `From ${clockLabel(h, m)} to ${clockLabel(eh, em)} is ${dur} minutes.`,
+          hint: `Jump to the next hour first, then add the rest.`,
+        };
+      const label = clockLabel(eh, em);
+      const wrong = shuffle([...new Set([clockLabel(eh, (em + 10) % 60), clockLabel(h, (m + dur) % 60), clockLabel(eh + 1, em), clockLabel(eh, (em + 50) % 60)])].filter((x) => x !== label), rng).slice(0, n - 1);
+      return {
+        ask: `The show starts at ${clockLabel(h, m)} and lasts ${dur} minutes. When does it end?`,
+        say: `The show starts at ${clockSay(h, m)} and lasts ${dur} minutes. When does it end?`,
+        model: { kind: 'clock', h, m },
+        options: shuffle([label, ...wrong], rng).map((s) => ({ value: s, label: s, say: clockSay(...s.split(':').map(Number)) })),
+        answer: label,
+        explain: `${clockLabel(h, m)} and ${dur} minutes more is ${label}.`,
+        hint: 'Count on in fives. After 60 minutes, the hour goes up by one.',
+      };
+    },
+  },
+  'g3-measure': {
+    code: 'NC.3.MD.2',
+    name: 'Grams, kilograms and litres',
+    gen(t, rng, n) {
+      if (t === 0) {
+        const [what, unit] = pick(rng, MASS_UNITS);
+        return {
+          ask: `Which unit would you use for ${what}?`,
+          options: ['grams', 'kilograms', 'litres'].map((u) => ({ value: u, label: u })),
+          answer: unit,
+          explain: unit === 'litres' ? `Litres measure how much liquid: ${what}.` : unit === 'grams' ? `${what[0].toUpperCase()}${what.slice(1)} is light: grams.` : `${what[0].toUpperCase()}${what.slice(1)} is heavy: kilograms.`,
+          hint: 'Litres are for liquids. Grams are for light things, kilograms for heavy things.',
+        };
+      }
+      if (t === 1) {
+        const max = pick(rng, [5, 10]);
+        const v = int(rng, 1, max - 1);
+        return {
+          ask: 'How many litres of water are in the jug?',
+          model: { kind: 'beaker', max, v },
+          options: numberOptions(v, n, rng, { min: 1, max }).map((o) => ({ ...o, label: `${o.value} L`, say: `${o.value} litres` })),
+          answer: v,
+          explain: `The water comes up to ${v}: ${v} litres.`,
+          hint: 'Read the mark at the top of the water.',
+        };
+      }
+      const a = int(rng, 2, 9);
+      const b = int(rng, 2, 9);
+      const [ask, answer] = pick(rng, [
+        [`A bag of rice is ${a} kg. Another bag is ${b} kg. How many kilograms in all?`, a + b],
+        [`${a} bottles each hold ${b} litres. How many litres in all?`, a * b],
+        [`A melon is ${a * 100 + b * 10} grams. An apple is ${b * 10 + 50} grams. How many grams heavier is the melon?`, a * 100 + b * 10 - (b * 10 + 50)],
+      ]);
+      return { ask, options: bigOptions(answer, n, rng, []), answer, explain: `${answer}!`, hint: 'Add, subtract or multiply? Read the story again.' };
+    },
+  },
+  'g3-graph': {
+    code: 'NC.3.MD.3',
+    name: 'Scaled bar graphs',
+    gen(t, rng, n) {
+      const step = t === 0 ? 2 : pick(rng, [2, 5]);
+      const picked = shuffle(THINGS.slice(0, 12), rng).slice(0, 4);
+      let counts;
+      do counts = picked.map(() => int(rng, 1, 8) * step);
+      while (new Set(counts).size !== 4);
+      const model = { kind: 'bars', rows: picked.map(([pic, , many], i) => ({ pic, label: many, n: counts[i] })), max: 8 * step, step };
+      const [i, j] = shuffle([0, 1, 2, 3], rng);
+      if (t === 0)
+        return { ask: `How many ${picked[i][2]}?`, model, options: numberOptions(counts[i], n, rng, { min: 1, max: 8 * step, tricky: [counts[i] / step] }), answer: counts[i], explain: `The bar ends at ${counts[i]}.`, hint: `The numbers go up by ${step}s.` };
+      const [big, small] = counts[i] > counts[j] ? [i, j] : [j, i];
+      const answer = counts[big] - counts[small];
+      return {
+        ask: `How many more ${picked[big][2]} than ${picked[small][2]}?`,
+        model,
+        options: numberOptions(answer, n, rng, { min: 1, max: 8 * step, tricky: [answer / step, counts[big] + counts[small]] }),
+        answer,
+        explain: `${counts[big]} − ${counts[small]} = ${answer}.`,
+        hint: `Read both bars (the scale goes up by ${step}s), then subtract.`,
+      };
+    },
+  },
+  'g3-area': {
+    code: 'NC.3.MD.7',
+    name: 'Area: square units, length × width',
+    gen(t, rng, n) {
+      const w = int(rng, 2, t === 0 ? 5 : 9);
+      const h = int(rng, 2, t === 0 ? 4 : 7);
+      if (t === 2 && rng() < 0.5)
+        return {
+          ask: `A rectangle has an area of ${w * h} square cm. One side is ${w} cm. How long is the other side?`,
+          options: numberOptions(h, n, rng, { min: 1, max: 12, tricky: [w * h - w] }).map((o) => ({ ...o, label: `${o.value} cm` })),
+          answer: h,
+          explain: `${w} × ${h} = ${w * h}, so the other side is ${h} cm.`,
+          hint: `${w} times what makes ${w * h}?`,
+        };
+      return {
+        ask: t === 0 ? 'Each square is 1 square unit. What is the area?' : 'What is the area of the rectangle?',
+        model: t === 0 ? { kind: 'grid', rows: h, cols: w, shade: w * h } : { kind: 'rect', w, h, unit: 'cm' },
+        options: numberOptions(w * h, n, rng, { min: 2, max: 81, tricky: [2 * (w + h), w + h] }).map((o) => ({ ...o, label: t === 0 ? String(o.value) : `${o.value} sq cm`, say: t === 0 ? String(o.value) : `${o.value} square centimetres` })),
+        answer: w * h,
+        explain: `${h} rows of ${w}: ${w} × ${h} = ${w * h} square ${t === 0 ? 'units' : 'centimetres'}.`,
+        hint: t === 0 ? 'Count the squares, or multiply the rows by the squares in a row.' : 'Area is length times width.',
+      };
+    },
+  },
+  'g3-perimeter': {
+    code: 'NC.3.MD.8',
+    name: 'Perimeter: the distance around',
+    gen(t, rng, n) {
+      if (t === 0) {
+        const w = int(rng, 2, 9);
+        const h = int(rng, 2, 7);
+        return {
+          ask: 'What is the perimeter of the rectangle?',
+          model: { kind: 'rect', w, h, unit: 'cm' },
+          options: numberOptions(2 * (w + h), n, rng, { min: 4, max: 40, tricky: [w * h, w + h] }).map((o) => ({ ...o, label: `${o.value} cm` })),
+          answer: 2 * (w + h),
+          explain: `${w} + ${h} + ${w} + ${h} = ${2 * (w + h)} cm all the way around.`,
+          hint: 'Add all four sides: the two long ones and the two short ones.',
+        };
+      }
+      const k = t === 1 ? pick(rng, [3, 5]) : pick(rng, [3, 4, 5]);
+      const sides = Array.from({ length: k }, () => int(rng, 2, 9));
+      const total = sides.reduce((s, x) => s + x, 0);
+      if (t === 2) {
+        const miss = int(rng, 0, k - 1);
+        return {
+          ask: `The perimeter is ${total} cm. How long is the side with the ?`,
+          model: { kind: 'poly', sides: sides.map((s, i) => (i === miss ? null : s)), unit: 'cm' },
+          options: numberOptions(sides[miss], n, rng, { min: 1, max: 12, tricky: [total - sides[miss]] }).map((o) => ({ ...o, label: `${o.value} cm` })),
+          answer: sides[miss],
+          explain: `The other sides make ${total - sides[miss]}; ${total} − ${total - sides[miss]} = ${sides[miss]} cm.`,
+          hint: 'Add the sides you know, then take that from the perimeter.',
+        };
+      }
+      return {
+        ask: 'What is the perimeter?',
+        model: { kind: 'poly', sides, unit: 'cm' },
+        options: numberOptions(total, n, rng, { min: 6, max: 50, tricky: [total - sides[0]] }).map((o) => ({ ...o, label: `${o.value} cm` })),
+        answer: total,
+        explain: `${sides.join(' + ')} = ${total} cm.`,
+        hint: 'Add the lengths of all the sides.',
+      };
+    },
+  },
+  'g3-quad': {
+    code: 'NC.3.G.1',
+    name: 'Quadrilaterals: squares, rectangles, rhombuses',
+    gen(t, rng, n) {
+      const quads = ['square', 'rectangle', 'rhombus', 'trapezoid', 'parallelogram'];
+      const others = ['triangle', 'pentagon', 'hexagon', 'circle'];
+      if (t === 0) {
+        const odd = pick(rng, others);
+        const opts = [odd, ...shuffle(quads, rng).slice(0, n - 1)];
+        return {
+          ask: 'Which one is NOT a quadrilateral?',
+          options: shuffle(opts, rng).map((s, i) => ({ value: s, say: `the ${s}`, model: { kind: 'shape', shape: s, color: COLORS[i % COLORS.length] } })),
+          answer: odd,
+          explain: `A quadrilateral has 4 sides. The ${odd} doesn't.`,
+          hint: 'Count the sides of each shape.',
+        };
+      }
+      if (t === 1) {
+        // a rectangle or a rhombus, with no square among the wrong ones (a square is both)
+        const want = pick(rng, ['rectangle', 'rhombus', 'trapezoid']);
+        const wrong = shuffle(
+          quads.filter((s) => s !== want && s !== 'square'),
+          rng,
+        ).slice(0, n - 1);
+        return {
+          ask: `Which one is a ${want}?`,
+          options: shuffle([want, ...wrong], rng).map((s, i) => ({ value: s, say: `the ${s}`, model: { kind: 'shape', shape: s, color: COLORS[i % COLORS.length] } })),
+          answer: want,
+          explain: { rectangle: 'A rectangle has 4 square corners.', rhombus: 'A rhombus has 4 equal sides.', trapezoid: 'A trapezoid has one pair of sides that never meet.' }[want],
+          hint: 'Look at the corners and the lengths of the sides.',
+        };
+      }
+      const [ask, answer, wrong, why] = pick(rng, [
+        ['A square is always a …', 'rectangle', ['triangle', 'pentagon', 'circle'], 'A square has 4 square corners, so it is a rectangle too (and a rhombus).'],
+        ['A rectangle with 4 equal sides is a …', 'square', ['trapezoid', 'triangle', 'hexagon'], 'Square corners and equal sides: a square.'],
+        ['4 equal sides but no square corners: a …', 'rhombus', ['rectangle', 'square', 'circle'], 'Equal sides, slanted corners: a rhombus.'],
+      ]);
+      return { ask, options: textOptions(answer, wrong, Math.min(n, 4), rng), answer, explain: why, hint: 'Think about the sides and the corners.' };
+    },
+  },
+  // ======================= Grade 4 (docs/ROADMAP.md 10.8) =======================
+  'g4-placevalue': {
+    code: 'NC.4.NBT.2',
+    name: 'Place value to a million',
+    gen(t, rng, n) {
+      let d;
+      do d = Array.from({ length: 6 }, (_, i) => int(rng, i ? 0 : 1, 9));
+      while (new Set(d).size < 6);
+      const v = Number(d.join(''));
+      if (t === 0) {
+        const k = pick(
+          rng,
+          [0, 1, 2, 3, 4].filter((i) => d[i] > 0),
+        );
+        const value = d[k] * 10 ** (5 - k);
+        const others = shuffle([0, 1, 2, 3, 4, 5].filter((p) => p !== 5 - k).map((p) => d[k] * 10 ** p), rng).slice(0, n - 1);
+        return {
+          ask: `What is the ${d[k]} worth in ${commas(v)}?`,
+          options: [value, ...others].sort((a, b) => a - b).map((x) => ({ value: x, label: commas(x) })),
+          answer: value,
+          explain: `The ${d[k]} is in the ${PLACES[5 - k]} place: ${commas(value)}.`,
+          hint: 'Ones, tens, hundreds, thousands, ten thousands, hundred thousands: count the places from the right.',
+        };
+      }
+      if (t === 1) {
+        const words = numberWords(v);
+        return {
+          ask: `Find ${words}.`,
+          options: bigOptions(v, n, rng, [Number([d[0], d[1], d[2], d[4], d[3], d[5]].join('')), Number([d[1], d[0], ...d.slice(2)].join(''))]).map((o) => ({ ...o, label: commas(o.value) })),
+          answer: v,
+          explain: `${words[0].toUpperCase()}${words.slice(1)} is ${commas(v)}.`,
+          hint: 'The thousands come before the comma, the hundreds, tens and ones after it.',
+        };
+      }
+      let b = Number([...d.slice(0, 2), d[3], d[2], ...d.slice(4)].join(''));
+      if (rng() < 0.15) b = v;
+      const answer = v > b ? '>' : v < b ? '<' : '=';
+      return {
+        ask: 'Greater than, less than or equal?',
+        eq: `${commas(v)} ? ${commas(b)}`,
+        options: [
+          { value: '>', label: '>', say: 'greater than' },
+          { value: '=', label: '=', say: 'equal to' },
+          { value: '<', label: '<', say: 'less than' },
+        ],
+        answer,
+        explain: `${commas(v)} is ${answer === '>' ? 'greater than' : answer === '<' ? 'less than' : 'equal to'} ${commas(b)}.`,
+        hint: 'Compare from the left: the first place where the digits differ decides.',
+      };
+    },
+  },
+  'g4-round': {
+    code: 'NC.4.NBT.3',
+    name: 'Round big numbers to any place',
+    gen(t, rng, n) {
+      const to = [100, 1000, pick(rng, [1000, 10000, 100000])][t];
+      let v;
+      do v = int(rng, 1000, t === 0 ? 9999 : 999999);
+      while (v % to === 0 || v < to);
+      const lo = Math.floor(v / to) * to;
+      const answer = v - lo >= to / 2 ? lo + to : lo;
+      const others = shuffle([...new Set([lo, lo + to, answer + to, Math.round(v / (to / 10)) * (to / 10)])].filter((x) => x !== answer && x > 0), rng).slice(0, n - 1);
+      return {
+        ask: `Round ${commas(v)} to the nearest ${commas(to)}.`,
+        options: [answer, ...others].sort((a, b) => a - b).map((x) => ({ value: x, label: commas(x) })),
+        answer,
+        explain: `${commas(v)} is nearer to ${commas(answer)}.`,
+        hint: `Look at the digit just right of the ${PLACES[Math.round(Math.log10(to))]} place: 5 or more rounds up.`,
+      };
+    },
+  },
+  'g4-lakh': {
+    code: 'NCERT lakh, crore',
+    name: 'The Indian way: lakh and crore',
+    gen(t, rng, n) {
+      if (t === 0) {
+        const [ask, answer, wrong, why] = pick(rng, [
+          ['1,00,000 is one …', 'lakh', ['crore', 'thousand', 'million'], 'A 1 and five zeros: one lakh (a hundred thousand).'],
+          ['1,00,00,000 is one …', 'crore', ['lakh', 'thousand', 'million'], 'A 1 and seven zeros: one crore (ten million).'],
+          ['How do you say 5,00,000?', 'five lakh', ['fifty thousand', 'five crore', 'five thousand'], '5 and five zeros: five lakh.'],
+        ]);
+        return { ask, options: textOptions(answer, wrong, Math.min(n, 4), rng), answer, explain: why, hint: 'In India, after the thousands come lakhs, then crores.' };
+      }
+      if (t === 1) {
+        const v = int(rng, 100001, 9999999);
+        const right = indian(v);
+        const s = String(v);
+        const wrong = [...new Set([commas(v), s.replace(/(\d)(?=(\d{2})+$)/g, '$1,'), `${s.slice(0, 1)},${s.slice(1, 4)},${s.slice(4)}`])].filter((x) => x !== right);
+        return {
+          ask: `Write ${commas(v)} the Indian way.`,
+          options: textOptions(right, wrong, Math.min(n, 4), rng),
+          answer: right,
+          explain: `The last three digits, then twos: ${right}.`,
+          hint: 'Put a comma before the last three digits, then after every two.',
+        };
+      }
+      const [ask, answer, tricky, why] = pick(rng, [
+        ['How many lakhs make one crore?', 100, [10, 1000], '100 lakh = 1 crore.'],
+        ['How many thousands make one lakh?', 100, [10, 1000], '100 thousand = 1 lakh.'],
+        ['One million is how many lakhs?', 10, [100, 1], '1,000,000 = 10,00,000: ten lakh.'],
+        ['Ten crore is how many millions?', 100, [10, 1000], '10 crore = 10,00,00,000 = 100,000,000: a hundred million.'],
+      ]);
+      return { ask, options: numberOptions(answer, n, rng, { min: 1, max: 1000, tricky }).map((o) => ({ ...o, label: commas(o.value) })), answer, explain: why, hint: 'Count the zeros.' };
+    },
+  },
+  'g4-addsub': {
+    code: 'NC.4.NBT.4',
+    name: 'Add and subtract big numbers',
+    gen(t, rng, n) {
+      const top = [9999, 99999, 999999][t];
+      const plus = rng() < 0.5;
+      let a = int(rng, Math.ceil(top / 10), Math.floor(top / 2));
+      let b = int(rng, Math.ceil(top / 20), Math.floor(top / 2));
+      if (!plus && b > a) [a, b] = [b, a];
+      const answer = plus ? a + b : a - b;
+      return {
+        ask: plus ? 'Add!' : 'Subtract!',
+        say: `${a} ${plus ? 'plus' : 'minus'} ${b}?`,
+        eq: `${commas(a)} ${plus ? '+' : '−'} ${commas(b)} = ?`,
+        options: bigOptions(answer, n, rng, [answer + 1000, answer - 1000, answer + 10]).map((o) => ({ ...o, label: commas(o.value) })),
+        answer,
+        explain: `${commas(a)} ${plus ? '+' : '−'} ${commas(b)} = ${commas(answer)}.`,
+        hint: 'Line up the places; start with the ones and regroup as you go.',
+      };
+    },
+  },
+  'g4-multiply': {
+    code: 'NC.4.NBT.5',
+    name: 'Multiply: by one digit, and two digits by two',
+    gen(t, rng, n) {
+      let a;
+      let b;
+      if (t < 2) {
+        a = t === 0 ? int(rng, 12, 99) : int(rng, 120, 999);
+        b = int(rng, 3, 9);
+      } else {
+        a = int(rng, 12, 49);
+        b = int(rng, 12, 39);
+      }
+      const answer = a * b;
+      const [at, ao, bt, bo] = [Math.floor(a / 10) * 10, a % 10, Math.floor(b / 10) * 10, b % 10];
+      return {
+        ask: 'Multiply!',
+        say: `${a} times ${b}?`,
+        eq: `${a} × ${b} = ?`,
+        model: t === 2 ? { kind: 'areamodel', a, b } : null,
+        options: bigOptions(answer, n, rng, t === 2 ? [at * bt + ao * bo, answer - 10 * bo] : [answer - b * 10, answer + b]).map((o) => ({ ...o, label: commas(o.value) })),
+        answer,
+        explain: t === 2 ? `${at} × ${bt} + ${at} × ${bo} + ${ao} × ${bt} + ${ao} × ${bo} = ${answer}.` : `${a} × ${b} = ${answer}.`,
+        hint: t === 2 ? 'Break both numbers into tens and ones: four little multiplications.' : 'Multiply each place, starting with the ones.',
+      };
+    },
+  },
+  'g4-divide': {
+    code: 'NC.4.NBT.6',
+    name: 'Long division, with remainders',
+    gen(t, rng, n) {
+      const d = int(rng, 2, 9);
+      const q = [int(rng, 3, 12), int(rng, 21, 199), int(rng, 120, 999)][t];
+      const r = t === 0 ? 0 : int(rng, 0, d - 1);
+      const dividend = d * q + r;
+      const lab = (qq, rr) => (rr ? `${qq} R ${rr}` : String(qq));
+      const right = lab(q, r);
+      const wrong = [...new Set([lab(q + 1, r), lab(q, (r + 1) % d), lab(q - 1, r + d < 10 ? r + d : r), lab(q * 10, r), lab(q, 0)])].filter((x) => x !== right && !/^-|^0/.test(x));
+      return {
+        ask: 'Divide!',
+        say: `${dividend} divided by ${d}?`,
+        eq: `${dividend} ÷ ${d} = ?`,
+        model: t > 0 ? { kind: 'longdiv', dividend, divisor: d } : null,
+        options: textOptions(right, wrong, Math.min(n, 4), rng),
+        answer: right,
+        explain: r ? `${d} × ${q} = ${d * q}, and ${r} left over: ${q} remainder ${r}.` : `${d} × ${q} = ${dividend}.`,
+        hint: `How many ${d}s fit? Work from the left, one digit at a time.`,
+      };
+    },
+  },
+  'g4-factors': {
+    code: 'NC.4.OA.4',
+    name: 'Factors, multiples, prime and composite',
+    gen(t, rng, n) {
+      if (t === 2) {
+        const v = pick(rng, [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 4, 6, 8, 9, 15, 21, 25, 27, 33, 35, 39, 49, 51]);
+        const prime = isPrime(v);
+        return {
+          ask: `Is ${v} prime or composite?`,
+          options: [
+            { value: 'prime', label: 'prime' },
+            { value: 'composite', label: 'composite' },
+          ],
+          answer: prime ? 'prime' : 'composite',
+          explain: prime ? `${v} has only two factors: 1 and ${v}. Prime!` : `${v} = ${smallestFactor(v)} × ${v / smallestFactor(v)}: it has more factors. Composite.`,
+          hint: 'Can you share it into equal groups other than 1 group or groups of 1?',
+        };
+      }
+      const base = pick(rng, t === 0 ? [12, 16, 18, 20, 24, 30, 36] : [3, 4, 6, 7, 8, 9]);
+      const fits = (x) => (t === 0 ? base % x === 0 : x % base === 0);
+      const pool = t === 0 ? Array.from({ length: base - 2 }, (_, i) => i + 2) : Array.from({ length: 40 }, (_, i) => i + base + 1);
+      const right = pick(rng, pool.filter(fits));
+      const wrong = shuffle(
+        pool.filter((x) => !fits(x)),
+        rng,
+      ).slice(0, n - 1);
+      return {
+        ask: t === 0 ? `Which is a factor of ${base}?` : `Which is a multiple of ${base}?`,
+        options: [right, ...wrong].sort((a, b) => a - b).map((x) => ({ value: x, label: String(x) })),
+        answer: right,
+        explain: t === 0 ? `${base} ÷ ${right} = ${base / right}, with nothing left over.` : `${base} × ${right / base} = ${right}.`,
+        hint: t === 0 ? `Does it divide ${base} exactly?` : `Count by ${base}s.`,
+      };
+    },
+  },
+  'g4-compare': {
+    code: 'NC.4.OA.1',
+    name: 'Times as many',
+    gen(t, rng, n) {
+      const a = int(rng, 2, 9);
+      const k = int(rng, 2, 9);
+      const [A, B] = shuffle(['Jugnu', 'Robu', 'Gilu', 'Tiko'], rng);
+      const [ask, answer, tricky] = [
+        [`${A} has ${a} stars. ${B} has ${k} times as many. How many stars does ${B} have?`, a * k, [a + k]],
+        [`${a * k} is ${k} times as many as what number?`, a, [a * k - k]],
+        [`${B} has ${a * k} shells. ${A} has ${a}. How many times as many shells does ${B} have?`, k, [a * k - a]],
+      ][t];
+      return { ask, options: numberOptions(answer, n, rng, { min: 1, max: 81, tricky }), answer, explain: `${a} × ${k} = ${a * k}.`, hint: '"Times as many" means multiply (or divide to undo it).' };
+    },
+  },
+  'g4-patterns': {
+    code: 'NC.4.OA.5',
+    name: 'Number patterns from a rule',
+    gen(t, rng, n) {
+      const start = int(rng, 1, 9);
+      if (t === 2) {
+        const k = pick(rng, [2, 3]);
+        const seq = [start, start * k, start * k * k];
+        const answer = start * k ** 3;
+        return { ask: `The rule is "multiply by ${k}". ${seq.join(', ')}, … what comes next?`, options: numberOptions(answer, n, rng, { min: 1, max: 1000, tricky: [seq[2] + (seq[2] - seq[1])] }), answer, explain: `${seq[2]} × ${k} = ${answer}.`, hint: `Multiply the last number by ${k}.` };
+      }
+      const step = int(rng, 2, 9);
+      const nth = t === 0 ? 4 : int(rng, 6, 10);
+      const answer = start + (nth - 1) * step;
+      return {
+        ask: `Start at ${start} and add ${step} each time. What is number ${nth} in the pattern?`,
+        options: numberOptions(answer, n, rng, { min: 1, max: 100, tricky: [start + nth * step] }),
+        answer,
+        explain: `${Array.from({ length: Math.min(nth, 6) }, (_, i) => start + i * step).join(', ')}${nth > 6 ? ' …' : ''}: number ${nth} is ${answer}.`,
+        hint: `The first number is ${start}. Each one after it adds ${step}.`,
+      };
+    },
+  },
+  'g4-wordprob': {
+    code: 'NC.4.OA.3',
+    name: 'Story problems in several steps (and what to do with a remainder)',
+    gen(t, rng, n) {
+      const kind = pick(rng, t === 0 ? ['vans', 'left'] : ['vans', 'left', 'tickets']);
+      let ask;
+      let answer;
+      let tricky;
+      let hint;
+      if (kind === 'vans') {
+        const per = int(rng, 5, 9);
+        const kids = per * int(rng, 3, 8) + int(rng, 1, per - 1);
+        answer = Math.ceil(kids / per);
+        ask = `${kids} children go on a trip. Each van holds ${per}. How many vans are needed?`;
+        tricky = [answer - 1];
+        hint = 'The children left over need a van too!';
+      } else if (kind === 'left') {
+        const per = int(rng, 4, 9);
+        const total = per * int(rng, 4, 9) + int(rng, 1, per - 1);
+        answer = total % per;
+        ask = `${total} laddoos are put on plates, ${per} on each plate. How many laddoos are left over?`;
+        tricky = [Math.floor(total / per)];
+        hint = 'Divide, then look at the remainder.';
+      } else {
+        const price = int(rng, 6, 15);
+        const k = int(rng, 3, 7);
+        const snack = int(rng, 3, 9);
+        answer = price * k + snack;
+        ask = `Tickets cost $${price} each. A family buys ${k} tickets and one $${snack} snack. How much do they spend?`;
+        tricky = [price * k, price + k + snack];
+        hint = 'First the tickets (multiply), then add the snack.';
+      }
+      return { ask, options: numberOptions(answer, n, rng, { min: 0, max: 200, tricky }), answer, explain: `${answer}!`, hint };
+    },
+  },
+  'g4-equivfrac': {
+    code: 'NC.4.NF.1',
+    name: 'Equivalent fractions',
+    gen(t, rng, n) {
+      const [a, b] = pick(rng, [
+        [1, 2],
+        [1, 3],
+        [2, 3],
+        [1, 4],
+        [3, 4],
+        [2, 5],
+        [3, 5],
+      ]);
+      const m = int(rng, 2, t === 0 ? 3 : 5);
+      if (t === 2) {
+        const right = `${a * m}/${b * m}`;
+        const wrong = [...new Set([`${a + m}/${b + m}`, `${a * m}/${b}`, `${a}/${b * m}`, `${b * m}/${a * m}`])].filter((x) => x !== right);
+        return { ask: `Which fraction is equal to ${a}/${b}?`, options: textOptions(right, wrong, Math.min(n, 4), rng), answer: right, explain: `Multiply the top and the bottom by ${m}: ${a}/${b} = ${right}.`, hint: 'Multiply the top and the bottom by the same number. Adding does not work!' };
+      }
+      return {
+        ask: 'Equal fractions: what is missing?',
+        eq: `${a}/${b} = ?/${b * m}`,
+        model: t === 0 ? { kind: 'frac', shape: 'bar', parts: b * m, shade: a * m } : null,
+        options: numberOptions(a * m, n, rng, { min: 1, max: 30, tricky: [a + m, a * m + 1] }),
+        answer: a * m,
+        explain: `${b} × ${m} = ${b * m}, so ${a} × ${m} = ${a * m}: ${a}/${b} = ${a * m}/${b * m}.`,
+        hint: `What was the bottom multiplied by? Do the same to the top.`,
+      };
+    },
+  },
+  'g4-comparefrac': {
+    code: 'NC.4.NF.2',
+    name: 'Compare fractions with different denominators',
+    gen(t, rng) {
+      const fr = () => {
+        const d = pick(rng, [3, 4, 5, 6, 8, 10, 12]);
+        return [int(rng, 1, d - 1), d];
+      };
+      let f1;
+      let f2;
+      do {
+        f1 = fr();
+        f2 = fr();
+      } while (f1[1] === f2[1] || (t === 0 && (f1[0] / f1[1] - 0.5) * (f2[0] / f2[1] - 0.5) >= 0));
+      if (t === 2 && rng() < 0.25) f2 = [f1[0] * 2, f1[1] * 2];
+      const v = (f) => f[0] / f[1];
+      const answer = Math.abs(v(f1) - v(f2)) < 1e-9 ? '=' : v(f1) > v(f2) ? '>' : '<';
+      return {
+        ask: 'Greater than, less than or equal?',
+        eq: `${f1[0]}/${f1[1]} ? ${f2[0]}/${f2[1]}`,
+        model: t === 0 ? { kind: 'frac', shape: 'bar', parts: f1[1], shade: f1[0] } : null,
+        options: [
+          { value: '>', label: '>', say: 'greater than' },
+          { value: '=', label: '=', say: 'equal to' },
+          { value: '<', label: '<', say: 'less than' },
+        ],
+        answer,
+        explain: t === 0 ? 'One is more than a half and the other is less than a half.' : `With the same bottom (${f1[1] * f2[1]}): ${f1[0] * f2[1]} and ${f2[0] * f1[1]}. So ${f1[0]}/${f1[1]} ${answer} ${f2[0]}/${f2[1]}.`,
+        hint: t === 0 ? 'Compare each one with 1/2.' : 'Make the bottoms the same, then compare the tops.',
+      };
+    },
+  },
+  'g4-addfrac': {
+    code: 'NC.4.NF.3',
+    name: 'Add and subtract fractions (same denominator)',
+    gen(t, rng, n) {
+      const d = pick(rng, [4, 5, 6, 8, 10]);
+      if (t === 2) {
+        const [w1, w2] = [int(rng, 1, 3), int(rng, 1, 3)];
+        let [a, b] = [int(rng, 1, d - 2), 0];
+        b = int(rng, 1, d - 1 - a);
+        const right = `${w1 + w2} ${a + b}/${d}`;
+        const wrong = [...new Set([`${w1 + w2} ${a + b}/${d * 2}`, `${w1 + w2 + 1} ${a + b}/${d}`, `${w1 * w2} ${a + b}/${d}`, `${w1 + w2} ${a * b}/${d}`])].filter((x) => x !== right && !/ 0\//.test(x));
+        return { ask: 'Add the mixed numbers!', eq: `${w1} ${a}/${d} + ${w2} ${b}/${d} = ?`, options: textOptions(right, wrong, Math.min(n, 4), rng), answer: right, explain: `Wholes: ${w1} + ${w2} = ${w1 + w2}. Parts: ${a}/${d} + ${b}/${d} = ${a + b}/${d}.`, hint: 'Add the whole numbers, then the fractions.' };
+      }
+      const plus = t === 0 || rng() < 0.5;
+      const a = int(rng, 1, d - 1);
+      const b = plus ? int(rng, 1, d - a) : int(rng, 1, a);
+      const answer = plus ? a + b : a - b;
+      return {
+        ask: plus ? 'Add the fractions!' : 'Subtract the fractions!',
+        eq: `${a}/${d} ${plus ? '+' : '−'} ${b}/${d} = ?/${d}`,
+        model: t === 0 ? { kind: 'frac', shape: 'bar', parts: d, shade: a } : null,
+        options: numberOptions(answer, n, rng, { min: 0, max: d * 2 }),
+        answer,
+        explain: `${a} ${plus ? '+' : '−'} ${b} = ${answer} pieces of the same size: ${answer}/${d}.`,
+        hint: 'The pieces are the same size: add or take away the tops; the bottom stays.',
+      };
+    },
+  },
+  'g4-multfrac': {
+    code: 'NC.4.NF.4',
+    name: 'A whole number times a fraction',
+    gen(t, rng, n) {
+      const d = pick(rng, [3, 4, 5, 6, 8]);
+      const a = t === 2 ? d - int(rng, 0, 1) : int(rng, 1, d - 1);
+      const k = int(rng, 2, t === 0 ? 4 : 6);
+      if (t === 2 && (k * a) % d === 0)
+        return { ask: 'Multiply!', eq: `${k} × ${a}/${d} = ?`, options: numberOptions((k * a) / d, n, rng, { min: 1, max: 12, tricky: [k * a] }), answer: (k * a) / d, explain: `${k} × ${a}/${d} = ${k * a}/${d} = ${(k * a) / d} wholes.`, hint: `How many ${d}ths in all? How many wholes is that?` };
+      return {
+        ask: 'Multiply!',
+        eq: `${k} × ${a}/${d} = ?/${d}`,
+        model: t === 0 ? { kind: 'frac', shape: 'bar', parts: d, shade: a } : null,
+        options: numberOptions(k * a, n, rng, { min: 1, max: 48, tricky: [k + a, k * d] }),
+        answer: k * a,
+        explain: `${k} groups of ${a}/${d} is ${k * a}/${d}.`,
+        hint: 'Multiply the top by the whole number. The size of the pieces (the bottom) stays.',
+      };
+    },
+  },
+  'g4-decimals': {
+    code: 'NC.4.NF.6',
+    name: 'Tenths and hundredths as decimals',
+    gen(t, rng, n) {
+      const dec = (h) => `0.${String(h).padStart(2, '0')}`.replace(/(\.\d)0$/, '$1');
+      if (t === 0) {
+        let h;
+        do h = int(rng, 11, 89);
+        while (h % 10 === 0);
+        const right = dec(h);
+        const wrong = [...new Set([dec(Number(String(h).split('').reverse().join(''))), `${Math.floor(h / 10)}.${h % 10}`, `0.0${h % 10}`, dec(h + 10)])].filter((x) => x !== right);
+        return { ask: 'What decimal is shaded?', model: { kind: 'grid', rows: 10, cols: 10, shade: h }, options: textOptions(right, wrong, Math.min(n, 4), rng), answer: right, explain: `${h} of 100 squares: ${h}/100 = ${right}.`, hint: 'Each square is one hundredth. Each full row is one tenth.' };
+      }
+      if (t === 1) {
+        const [num, den] = pick(rng, [
+          [int(rng, 1, 9), 10],
+          [int(rng, 1, 9), 100],
+          [int(rng, 11, 99), 100],
+        ]);
+        const right = den === 10 ? `0.${num}` : dec(num);
+        const wrong = [...new Set([den === 10 ? `0.0${num}` : `0.${num}`, `${num}.0`, den === 10 ? `${num}.10` : `0.${num}0`])].filter((x) => x !== right);
+        return { ask: `Write ${num}/${den} as a decimal.`, options: textOptions(right, wrong, Math.min(n, 4), rng), answer: right, explain: `${num}/${den} = ${right}.`, hint: den === 10 ? 'Tenths go in the first place after the point.' : 'Hundredths fill two places after the point.' };
+      }
+      let a;
+      let b;
+      do [a, b] = [int(rng, 1, 99), int(rng, 1, 99)];
+      while (a === b || a % 10 === 0 || b % 10 === 0);
+      // a tenths number against a hundredths one: 0.5 or 0.45
+      const x = a < 10 ? `0.${a}` : dec(a);
+      const y = b < 10 ? `0.${b}` : dec(b);
+      const vx = Number(x);
+      const vy = Number(y);
+      if (vx === vy) return SKILLS['g4-decimals'].gen(1, rng, n);
+      const right = vx > vy ? x : y;
+      return { ask: `Which is greater, ${x} or ${y}?`, options: [x, y].map((v) => ({ value: v, label: v })), answer: right, explain: `${right} is greater: compare the tenths first, then the hundredths.`, hint: 'Write both with two places after the point, then compare.' };
+    },
+  },
+  'g4-convert': {
+    code: 'NC.4.MD.1',
+    name: 'Change units: km, m, cm, kg, g, L, mL, hours',
+    gen(t, rng, n) {
+      const [big, small, k] = pick(rng, UNIT_PAIRS);
+      if (t === 2) {
+        const a = int(rng, 2, 5);
+        const cut = int(rng, 1, 9) * (k / 20);
+        const answer = a * k - cut;
+        return {
+          ask: `${a} ${big} take away ${cut} ${small}: how many ${small} are left?`,
+          options: bigOptions(answer, n, rng, [a - cut > 0 ? a - cut : a * k, a * k + cut]).map((o) => ({ ...o, label: `${commas(o.value)} ${small}` })),
+          answer,
+          explain: `${a} ${big} = ${commas(a * k)} ${small}; ${commas(a * k)} − ${cut} = ${commas(answer)} ${small}.`,
+          hint: `First change ${big} to ${small}: 1 ${big} = ${k} ${small}.`,
+        };
+      }
+      const a = int(rng, 2, t === 0 ? 5 : 12);
+      return {
+        ask: `${a} ${big} = ? ${small}`,
+        options: bigOptions(a * k, n, rng, [a * (k / 10), a * k * 10, a + k]).map((o) => ({ ...o, label: `${commas(o.value)} ${small}` })),
+        answer: a * k,
+        explain: `1 ${big} is ${k} ${small}, so ${a} ${big} is ${commas(a * k)} ${small}.`,
+        hint: `1 ${big} = ${k} ${small}. Multiply by ${a}.`,
+      };
+    },
+  },
+  'g4-areaperim': {
+    code: 'NC.4.MD.3',
+    name: 'Area and perimeter of rectangles',
+    gen(t, rng, n) {
+      const w = int(rng, 3, 15);
+      const h = int(rng, 2, 9);
+      const unit = 'm';
+      if (t === 2) {
+        const byArea = rng() < 0.5;
+        return {
+          ask: byArea ? `A garden has an area of ${w * h} square m. It is ${w} m long. How wide is it?` : `A fence goes all the way round a ${w} m long field: ${2 * (w + h)} m of fence. How wide is the field?`,
+          options: numberOptions(h, n, rng, { min: 1, max: 20, tricky: [byArea ? w * h - w : 2 * (w + h) - 2 * w] }).map((o) => ({ ...o, label: `${o.value} m` })),
+          answer: h,
+          explain: byArea ? `${w} × ${h} = ${w * h}, so it is ${h} m wide.` : `${2 * (w + h)} − ${w} − ${w} = ${2 * h}, and half of that is ${h} m.`,
+          hint: byArea ? 'Area = length × width: divide.' : 'Take away the two long sides, then halve what is left.',
+        };
+      }
+      const area = t === 0 || rng() < 0.5;
+      const answer = area ? w * h : 2 * (w + h);
+      return {
+        ask: `What is the ${area ? 'area' : 'perimeter'} of the rectangle?`,
+        model: { kind: 'rect', w, h, unit },
+        options: numberOptions(answer, n, rng, { min: 4, max: 150, tricky: [area ? 2 * (w + h) : w * h, w + h] }).map((o) => ({ ...o, label: area ? `${o.value} sq m` : `${o.value} m` })),
+        answer,
+        explain: area ? `${w} × ${h} = ${w * h} square metres.` : `2 × (${w} + ${h}) = ${2 * (w + h)} metres.`,
+        hint: area ? 'Area: length × width.' : 'Perimeter: add all four sides.',
+      };
+    },
+  },
+  'g4-angles': {
+    code: 'NC.4.MD.6',
+    name: 'Angles: acute, right, obtuse; measure and add',
+    gen(t, rng, n) {
+      if (t === 0) {
+        const deg = pick(rng, [int(rng, 20, 75), 90, int(rng, 105, 160)]);
+        const kind = deg < 90 ? 'acute' : deg === 90 ? 'right' : 'obtuse';
+        return {
+          ask: 'What kind of angle is this?',
+          model: { kind: 'angle', deg },
+          options: ['acute', 'right', 'obtuse'].map((k) => ({ value: k, label: k })),
+          answer: kind,
+          explain: { acute: 'Smaller than a square corner: acute.', right: 'A square corner: a right angle, 90°.', obtuse: 'Wider than a square corner: obtuse.' }[kind],
+          hint: 'Compare it with the corner of a book: that is a right angle.',
+        };
+      }
+      if (t === 1) {
+        const deg = int(rng, 2, 17) * 10;
+        return {
+          ask: 'How many degrees is the angle?',
+          model: { kind: 'angle', deg, protractor: true },
+          options: numberOptions(deg / 10, n, rng, { min: 1, max: 18, tricky: [18 - deg / 10] }).map((o) => ({ value: o.value * 10, label: `${o.value * 10}°`, say: `${o.value * 10} degrees` })),
+          answer: deg,
+          explain: `Start at 0 on the protractor: the angle is ${deg}°.`,
+          hint: 'Read the scale that starts at 0 on the arm lying flat.',
+        };
+      }
+      const whole = pick(rng, [90, 180]);
+      const a = int(rng, 2, whole / 10 - 2) * 5;
+      return {
+        ask: `Two angles make ${whole === 90 ? 'a right angle' : 'a straight line'}. One is ${a}°. How big is the other?`,
+        model: { kind: 'angle', deg: whole, split: a },
+        options: numberOptions(whole - a, n, rng, { min: 5, max: 175, tricky: [whole - a + 10, a] }).map((o) => ({ ...o, label: `${o.value}°`, say: `${o.value} degrees` })),
+        answer: whole - a,
+        explain: `${whole}° − ${a}° = ${whole - a}°.`,
+        hint: `A right angle is 90°; a straight line is 180°.`,
+      };
+    },
+  },
+  'g4-lines': {
+    code: 'NC.4.G.1',
+    name: 'Parallel and perpendicular lines; right triangles',
+    gen(t, rng, n) {
+      if (t === 2) {
+        const [shape, answer] = pick(rng, [
+          ['rectangle', 4],
+          ['square', 4],
+          ['triangle', 0],
+          ['trapezoid', 0],
+        ]);
+        return { ask: `How many right angles does this ${shape} have?`, model: { kind: 'shape', shape, color: pick(rng, COLORS), marks: 'corners' }, options: numberOptions(answer, n, rng, { min: 0, max: 4 }), answer, explain: answer ? `All ${answer} corners of a ${shape} are square corners.` : `No square corners in this ${shape}.`, hint: 'A right angle is a square corner.' };
+      }
+      const kinds = ['parallel', 'perpendicular', 'intersecting'];
+      const want = pick(rng, t === 0 ? ['parallel', 'perpendicular'] : kinds);
+      const opts = t === 0 ? ['parallel', 'perpendicular'] : kinds;
+      return {
+        ask: `Which lines are ${want}?`,
+        options: shuffle(opts, rng).map((k) => ({ value: k, say: 'these lines', model: { kind: 'lines', type: k } })),
+        answer: want,
+        explain: { parallel: 'Parallel lines never meet, like train tracks.', perpendicular: 'Perpendicular lines meet at a right angle, like a plus sign.', intersecting: 'These lines cross, but not at a right angle.' }[want],
+        hint: 'Parallel lines never meet. Perpendicular lines make square corners.',
+      };
+    },
+  },
+  'g4-symmetry': {
+    code: 'NC.4.G.3',
+    name: 'Lines of symmetry',
+    gen(t, rng, n) {
+      if (t === 0) {
+        const [shape, rot, yes] = pick(rng, [
+          ['square', 0, true],
+          ['rectangle', 0, true],
+          ['triangle', 0, true],
+          ['hexagon', 0, true],
+          ['rectangle', 45, false],
+          ['parallelogram', 0, false],
+          ['trapezoid', 90, false],
+        ]);
+        return {
+          ask: 'Is the dashed line a line of symmetry?',
+          model: { kind: 'shape', shape, color: pick(rng, COLORS), line: rot },
+          options: [
+            { value: 'yes', label: 'yes' },
+            { value: 'no', label: 'no' },
+          ],
+          answer: yes ? 'yes' : 'no',
+          explain: yes ? 'Fold along it and the two halves match exactly.' : 'Fold along it and the halves do not match.',
+          hint: 'Imagine folding the shape along the dashed line.',
+        };
+      }
+      if (t === 1) {
+        const [shape, k] = pick(rng, [
+          ['square', 4],
+          ['rectangle', 2],
+          ['hexagon', 6],
+          ['rhombus', 2],
+          ['parallelogram', 0],
+        ]);
+        return { ask: `How many lines of symmetry does this ${shape} have?`, model: { kind: 'shape', shape, color: pick(rng, COLORS) }, options: numberOptions(k, n, rng, { min: 0, max: 8 }), answer: k, explain: `A ${shape} has ${k} line${k === 1 ? '' : 's'} of symmetry.`, hint: 'Try every way of folding it in half.' };
+      }
+      const yes = pick(rng, ['A', 'H', 'M', 'T', 'U', 'V', 'W', 'X', 'Y', 'O']);
+      const no = shuffle(['F', 'G', 'J', 'L', 'N', 'P', 'R', 'S', 'Z'], rng).slice(0, n - 1);
+      return { ask: 'Which letter has a line of symmetry?', options: shuffle([yes, ...no], rng).map((x) => ({ value: x, label: x })), answer: yes, explain: `${yes} folds onto itself along a line.`, hint: 'Imagine a mirror down the middle of each letter.' };
     },
   },
 };

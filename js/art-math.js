@@ -48,7 +48,7 @@ function objects(m) {
     return `<div class="mm-group${g.arrive ? ' arrive' : ''}" style="--cols:${colsFor(g.n)}">${items.join('')}</div>`;
   });
   const stacked = m.op && total > 8 ? ' stacked' : '';
-  return `<div class="mm-objects rows ${size}${stacked}">${groups.join(m.op ? `<span class="mm-op">${m.op}</span>` : '')}</div>`;
+  return `<div class="mm-objects rows ${size}${stacked}${m.ring ? ' ringed' : ''}">${groups.join(m.op ? `<span class="mm-op">${m.op}</span>` : '')}</div>`;
 }
 
 // dice patterns for a quick look
@@ -270,7 +270,12 @@ function shapeBody(shape, color, { stretch = 1, marks } = {}) {
   return body;
 }
 
-const shape = (m) => S('0 0 120 120', `<g transform="rotate(${m.rot || 0} 60 60) translate(60 60) scale(${m.scale || 1}) translate(-60 -60)">${shapeBody(m.shape, m.color || BLUE, m)}</g>`, 'mm-shape');
+const shape = (m) =>
+  S(
+    '0 0 120 120',
+    `<g transform="rotate(${m.rot || 0} 60 60) translate(60 60) scale(${m.scale || 1}) translate(-60 -60)">${shapeBody(m.shape, m.color || BLUE, m)}</g>${m.line !== undefined ? `<line x1="60" y1="2" x2="60" y2="118" stroke="${INK}" stroke-width="3" stroke-dasharray="7 5" transform="rotate(${m.line} 60 60)"/>` : ''}`,
+    'mm-shape',
+  );
 
 // ---------- position: a table with a long cloth and a friend somewhere around it ----------
 
@@ -526,11 +531,13 @@ function money(m) {
 // a bar graph with a scale, one bar per thing
 function bars(m) {
   const H = 26;
-  const w = 26;
+  // one tick a step (a scaled graph counts in 2s or 5s)
+  const stepN = m.step || 1;
+  const w = 26 / stepN;
   const x0 = 76;
   const rows = m.rows.length;
   let body = '';
-  for (let i = 0; i <= m.max; i++) {
+  for (let i = 0; i <= m.max; i += stepN) {
     const x = x0 + i * w;
     body += `<line x1="${x}" y1="6" x2="${x}" y2="${10 + rows * (H + 12)}" stroke="#D9DEEA" stroke-width="1.5"/><text x="${x}" y="${30 + rows * (H + 12)}" font-size="14" font-weight="700" fill="${INK}" text-anchor="middle">${i}</text>`;
   }
@@ -571,9 +578,170 @@ function rupee(m) {
   return S('0 0 120 120', `<circle cx="60" cy="62" r="${a.r}" fill="#1E1B4B" opacity="0.12"/>${ring}${text}`, 'mm-coin mm-rupee');
 }
 
+// ---------- Grades 3 and 4: fractions, lengths of sides, a jug ----------
+
+// a bar or a circle cut into `parts` equal parts, `shade` of them coloured
+function frac(m) {
+  const fill = '#FFE9A8';
+  const on = '#FF8A3D';
+  let body = '';
+  if (m.shape === 'circle') {
+    const at = (k) => {
+      const a = -Math.PI / 2 + (k / m.parts) * 2 * Math.PI;
+      return [(60 + 48 * Math.cos(a)).toFixed(1), (60 + 48 * Math.sin(a)).toFixed(1)];
+    };
+    body += `<circle cx="60" cy="60" r="48" fill="${fill}"/>`;
+    for (let k = 0; k < m.parts; k++) {
+      const [x1, y1] = at(k);
+      const [x2, y2] = at(k + 1);
+      if (k < (m.shade || 0)) body += m.parts === 1 ? `<circle cx="60" cy="60" r="48" fill="${on}"/>` : `<path d="M60 60 L${x1} ${y1} A48 48 0 ${m.parts === 2 ? 0 : 0} 1 ${x2} ${y2} Z" fill="${on}"/>`;
+    }
+    if (m.parts > 1) for (let k = 0; k < m.parts; k++) body += `<line x1="60" y1="60" x2="${at(k)[0]}" y2="${at(k)[1]}" stroke="${INK}" stroke-width="3"/>`;
+    body += `<circle cx="60" cy="60" r="48" fill="none" stroke="${INK}" stroke-width="4"/>`;
+    return S('0 0 120 120', body, `mm-frac${m.small ? ' small' : ''}`);
+  }
+  const W = 240;
+  const u = W / m.parts;
+  for (let k = 0; k < m.parts; k++) body += `<rect x="${(6 + k * u).toFixed(1)}" y="6" width="${u.toFixed(1)}" height="56" fill="${k < (m.shade || 0) ? on : fill}" stroke="${INK}" stroke-width="3"/>`;
+  return S(`0 0 ${W + 12} 68`, body, `mm-frac bar${m.small ? ' small' : ''}`);
+}
+
+// a number line from 0 to 1 (or 2), cut into equal jumps, with a dot `at` jumps along
+function fracline(m) {
+  const n = m.den * m.to;
+  const step = 540 / n;
+  let body = `<line x1="20" y1="44" x2="580" y2="44" stroke="${INK}" stroke-width="3" stroke-linecap="round"/>`;
+  for (let i = 0; i <= n; i++) {
+    const x = 30 + i * step;
+    const whole = i % m.den === 0;
+    body += `<line x1="${x.toFixed(1)}" y1="${whole ? 28 : 34}" x2="${x.toFixed(1)}" y2="${whole ? 60 : 54}" stroke="${INK}" stroke-width="${whole ? 3.5 : 2}"/>`;
+    if (whole) body += `<text x="${x.toFixed(1)}" y="86" font-size="22" font-weight="800" fill="${INK}" text-anchor="middle">${i / m.den}</text>`;
+  }
+  const x = 30 + m.at * step;
+  body += `<circle cx="${x.toFixed(1)}" cy="44" r="10" fill="${RED}" stroke="#fff" stroke-width="3"/>`;
+  return S('0 0 600 96', body, 'mm-fracline');
+}
+
+// a rectangle with its sides labelled ("6 cm"), drawn to scale
+function rect(m) {
+  const u = Math.min(30, 220 / Math.max(m.w, m.h));
+  const [w, h] = [m.w * u, m.h * u];
+  const label = (x, y, t, anchor = 'middle') => `<text x="${x}" y="${y}" font-size="18" font-weight="800" fill="${INK}" text-anchor="${anchor}">${t}</text>`;
+  return S(
+    `0 0 ${w + 110} ${h + 70}`,
+    `<rect x="40" y="20" width="${w}" height="${h}" fill="#C7F0D8" stroke="${INK}" stroke-width="4"/>${label(40 + w / 2, 14, `${m.w} ${m.unit}`)}${label(48 + w, 26 + h / 2, `${m.h} ${m.unit}`, 'start')}${label(40 + w / 2, h + 44, m.labelAll ? `${m.w} ${m.unit}` : '')}`,
+    'mm-rect',
+  );
+}
+
+// a polygon with its sides labelled; a side that is null is the "?"
+function poly(m) {
+  const k = m.sides.length;
+  const pts = Array.from({ length: k }, (_, i) => {
+    const a = -Math.PI / 2 + (i / k) * 2 * Math.PI + (k === 4 ? Math.PI / 4 : 0);
+    return [150 + 90 * Math.cos(a), 112 + 82 * Math.sin(a)];
+  });
+  let body = `<polygon points="${pts.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(' ')}" fill="#DCEBFF" stroke="${INK}" stroke-width="4" stroke-linejoin="round"/>`;
+  m.sides.forEach((s, i) => {
+    const [x1, y1] = pts[i];
+    const [x2, y2] = pts[(i + 1) % k];
+    const [mx, my] = [(x1 + x2) / 2, (y1 + y2) / 2];
+    const [dx, dy] = [mx - 150, my - 112];
+    const d = Math.hypot(dx, dy) || 1;
+    const [lx, ly] = [mx + (dx / d) * 26, my + (dy / d) * 22 + 6];
+    body += `<text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" font-size="18" font-weight="800" fill="${s === null ? BLUE : INK}" text-anchor="middle">${s === null ? '?' : `${s} ${m.unit}`}</text>`;
+  });
+  return S('0 0 300 230', body, 'mm-poly');
+}
+
+// a measuring jug marked in litres, filled to `v`
+function beaker(m) {
+  const [x0, y0, w, h] = [60, 20, 120, 200];
+  const lvl = y0 + h - (m.v / m.max) * h;
+  let marks = '';
+  for (let i = 1; i <= m.max; i++) {
+    const y = y0 + h - (i / m.max) * h;
+    marks += `<line x1="${x0}" y1="${y.toFixed(1)}" x2="${x0 + 24}" y2="${y.toFixed(1)}" stroke="${INK}" stroke-width="2.5"/><text x="${x0 + 30}" y="${(y + 6).toFixed(1)}" font-size="16" font-weight="800" fill="${INK}">${i}</text>`;
+  }
+  return S(
+    '0 0 240 240',
+    `<rect x="${x0}" y="${lvl.toFixed(1)}" width="${w}" height="${(y0 + h - lvl).toFixed(1)}" fill="#7CC4FF" opacity="0.85"/><path d="M${x0} ${y0} V${y0 + h} H${x0 + w} V${y0}" fill="none" stroke="${INK}" stroke-width="4"/><path d="M${x0 + w} ${y0 + 40} q34 10 0 90" fill="none" stroke="${INK}" stroke-width="4"/>${marks}<text x="${x0 + w - 6}" y="${y0 + h - 8}" font-size="15" font-weight="800" fill="#1d3b8b" text-anchor="end">L</text>`,
+    'mm-beaker',
+  );
+}
+
+// the long-division bracket: the divisor outside, the dividend under the bar
+function longdiv(m) {
+  const digits = String(m.dividend);
+  const w = digits.length * 26 + 30;
+  return S(
+    `0 0 ${w + 60} 92`,
+    `<text x="34" y="66" font-size="34" font-weight="800" fill="${INK}" text-anchor="middle">${m.divisor}</text><path d="M56 26 Q66 50 56 80" fill="none" stroke="${INK}" stroke-width="4"/><line x1="56" y1="26" x2="${w + 52}" y2="26" stroke="${INK}" stroke-width="4"/><text x="70" y="66" font-size="34" font-weight="800" fill="${INK}" letter-spacing="4">${digits}</text><text x="70" y="18" font-size="16" font-weight="700" fill="${BLUE}">?</text>`,
+    'mm-longdiv',
+  );
+}
+// an angle of `deg` degrees: one arm flat, the other turned; a protractor behind it, or a split into two parts
+function angle(m) {
+  const [cx, cy, r] = [150, 170, 120];
+  const at = (d, rr = r) => [cx + rr * Math.cos((-d * Math.PI) / 180), cy + rr * Math.sin((-d * Math.PI) / 180)].map((v) => v.toFixed(1));
+  let body = '';
+  if (m.protractor) {
+    body += `<path d="M${cx - 140} ${cy} A140 140 0 0 1 ${cx + 140} ${cy} Z" fill="#FFF6D6" stroke="#D9A400" stroke-width="2"/>`;
+    for (let d = 0; d <= 180; d += 10) {
+      const [x1, y1] = at(d, 140);
+      const [x2, y2] = at(d, d % 30 === 0 ? 120 : 128);
+      body += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#9A6B00" stroke-width="${d % 30 === 0 ? 2 : 1}"/>`;
+      if (d % 30 === 0) {
+        const [tx, ty] = at(d, 108);
+        body += `<text x="${tx}" y="${(Number(ty) + 5).toFixed(1)}" font-size="13" font-weight="700" fill="#9A6B00" text-anchor="middle">${d}</text>`;
+      }
+    }
+  }
+  const [ex, ey] = at(m.deg);
+  const arc = (from, to, rr, color) => {
+    const [x1, y1] = at(from, rr);
+    const [x2, y2] = at(to, rr);
+    return `<path d="M${x1} ${y1} A${rr} ${rr} 0 ${to - from > 180 ? 1 : 0} 0 ${x2} ${y2}" fill="none" stroke="${color}" stroke-width="4"/>`;
+  };
+  if (m.split) {
+    const [sx, sy] = at(m.split);
+    body += arc(0, m.split, 40, RED) + arc(m.split, m.deg, 52, BLUE) + `<line x1="${cx}" y1="${cy}" x2="${sx}" y2="${sy}" stroke="${INK}" stroke-width="4" stroke-dasharray="8 6"/>`;
+    const [lx, ly] = at(m.split / 2, 70);
+    body += `<text x="${lx}" y="${ly}" font-size="16" font-weight="800" fill="${RED}" text-anchor="middle">${m.split}°</text>`;
+    const [qx, qy] = at((m.split + m.deg) / 2, 80);
+    body += `<text x="${qx}" y="${qy}" font-size="18" font-weight="800" fill="${BLUE}" text-anchor="middle">?</text>`;
+  } else if (m.deg === 90 && !m.protractor) body += `<path d="M${cx + 22} ${cy} V${cy - 22} H${cx}" fill="none" stroke="${RED}" stroke-width="3"/>`;
+  else body += arc(0, m.deg, 36, RED);
+  body += `<line x1="${cx}" y1="${cy}" x2="${cx + r + 10}" y2="${cy}" stroke="${INK}" stroke-width="5" stroke-linecap="round"/><line x1="${cx}" y1="${cy}" x2="${ex}" y2="${ey}" stroke="${INK}" stroke-width="5" stroke-linecap="round"/><circle cx="${cx}" cy="${cy}" r="6" fill="${INK}"/>`;
+  return S('0 0 300 190', body, 'mm-angle');
+}
+// two lines: parallel, perpendicular, or just crossing
+function lines(m) {
+  const l = (x1, y1, x2, y2, c) => `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${c}" stroke-width="6" stroke-linecap="round"/>`;
+  const body = {
+    parallel: l(14, 30, 106, 50, RED) + l(14, 70, 106, 90, BLUE),
+    perpendicular: l(60, 12, 60, 108, RED) + l(12, 60, 108, 60, BLUE) + `<path d="M60 48 H72 V60" fill="none" stroke="${INK}" stroke-width="2.5"/>`,
+    intersecting: l(14, 20, 106, 100, RED) + l(14, 74, 106, 46, BLUE),
+  }[m.type];
+  return S('0 0 120 120', body, 'mm-lines');
+}
+// 23 × 14 as four boxes: 20 × 10, 20 × 4, 3 × 10, 3 × 4
+function areamodel(m) {
+  const [at, ao, bt, bo] = [Math.floor(m.a / 10) * 10, m.a % 10, Math.floor(m.b / 10) * 10, m.b % 10];
+  const [W, H] = [240, 160];
+  const wx = ao ? (W * at) / m.a : W;
+  const hy = bo ? (H * bt) / m.b : H;
+  const cell = (x, y, w, h, c, t) => (w > 0 && h > 0 ? `<rect x="${x}" y="${y}" width="${w.toFixed(1)}" height="${h.toFixed(1)}" fill="${c}" stroke="${INK}" stroke-width="2.5"/><text x="${(x + w / 2).toFixed(1)}" y="${(y + h / 2 + 6).toFixed(1)}" font-size="16" font-weight="800" fill="${INK}" text-anchor="middle">${t}</text>` : '');
+  const x0 = 40;
+  const y0 = 30;
+  let body = cell(x0, y0, wx, hy, '#DCEBFF', `${at}×${bt}`) + cell(x0 + wx, y0, W - wx, hy, '#C7F0D8', `${ao}×${bt}`) + cell(x0, y0 + hy, wx, H - hy, '#FFE9A8', `${at}×${bo}`) + cell(x0 + wx, y0 + hy, W - wx, H - hy, '#FFD6E0', `${ao}×${bo}`);
+  body += `<text x="${x0 + wx / 2}" y="20" font-size="16" font-weight="800" fill="${INK}" text-anchor="middle">${at}</text>${ao ? `<text x="${x0 + wx + (W - wx) / 2}" y="20" font-size="16" font-weight="800" fill="${INK}" text-anchor="middle">${ao}</text>` : ''}<text x="30" y="${y0 + hy / 2 + 6}" font-size="16" font-weight="800" fill="${INK}" text-anchor="end">${bt}</text>${bo ? `<text x="30" y="${y0 + hy + (H - hy) / 2 + 6}" font-size="16" font-weight="800" fill="${INK}" text-anchor="end">${bo}</text>` : ''}`;
+  return S('0 0 300 200', body, 'mm-areamodel');
+}
+
 // ---------- entry ----------
 
-const KINDS = { objects, queue, bond, array, grid, ruler, money, bars, rupee, dots, tenframe, base10, compare10, numberline, sequence, shape, position, bar, tower, balance, clock, coin, graph, match, parts, compose, pic: (m) => `<span class="mm-pic">${pic(m.pic)}</span>` };
+const KINDS = { objects, queue, bond, array, grid, ruler, money, bars, rupee, frac, fracline, rect, poly, beaker, longdiv, angle, lines, areamodel, dots, tenframe, base10, compare10, numberline, sequence, shape, position, bar, tower, balance, clock, coin, graph, match, parts, compose, pic: (m) => `<span class="mm-pic">${pic(m.pic)}</span>` };
 
 export function mathModel(model) {
   if (!model) return '';

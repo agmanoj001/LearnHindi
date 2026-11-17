@@ -1,10 +1,10 @@
 # Khel Khel Mein · खेल-खेल में
 
-*"Learning through play."* An offline web app (PWA) where children learn **Hindi** from Toddler to Grade 4 (with comics and grammar for Grades 7 and 8), and **English phonics** in Kindergarten and Grade 1 and **math in English** from Kindergarten to Grade 2. There are 26 animated worlds, at least three in every grade from Kindergarten to Grade 4, five in Grade 7 and four in Grade 8, each with its own guide character, a path of short lessons, stars to earn and a collection to fill. Every world is tagged with what it teaches (Phonics, Grammar, Stories, Math …).
+*"Learning through play."* An offline web app (PWA) where children learn **Hindi** from Toddler to Grade 4 (with comics and grammar for Grades 7 and 8), and **English phonics** in Kindergarten and Grade 1 and **math in English** from Kindergarten to Grade 4. There are 28 animated worlds, at least three in every grade from Kindergarten to Grade 4, five in Grade 7 and four in Grade 8, each with its own guide character, a path of short lessons, stars to earn and a collection to fill. Every world is tagged with what it teaches (Phonics, Grammar, Stories, Math …).
 
 - **Hindi** follows India's NIPUN Bharat targets and the themes of the NCERT books (*Sarangi*, *Veena*). From Grade 2 each grade has a phonics-and-reading world, a grammar-and-writing world and a stories-and-poems world.
 - **English phonics** follows the **North Carolina Standard Course of Study, Reading: Foundational Skills** for Kindergarten and Grade 1.
-- **Math** follows the **North Carolina Standard Course of Study** from Kindergarten to Grade 2, in English only.
+- **Math** follows the **North Carolina Standard Course of Study** from Kindergarten to Grade 4, in English (with lakh and crore, the Indian way of grouping big numbers, in Grade 4); Hindi worlds teach days, months, telling the time, rupees and पहाड़े.
 - **Grades 7 and 8** have Hindi comic series (four in Grade 7, three in Grade 8) and a grammar world each: 120 comics in all (fifty of them longer reads of 16–20 panels), from Akbar–Birbal and Vikram–Betal to a robot who takes every idiom literally and an eleven-year-old girl in a city colony. The grammar follows the व्याकरण CBSE schools teach with NCERT's *मल्हार*.
 - **Every lesson adapts** while the child plays: it gets harder after a run of right answers and easier after misses.
 
@@ -56,6 +56,8 @@ Thinking of rebuilding it in an app builder? [docs/PLATFORM-EVALUATION.md](docs/
 | Grade 1 | **Kiki's Phonics Castle** | Kiki the dragon | English | English, Phonics, Reading | Short vowels, sh ch wh ck, blends, magic e, vowel teams, bossy r, syllables, -s and -es, tricky words |
 | Grade 1 | **Tiko's Number Carnival** | Tiko the owl | Math (English) | Math, Counting, Shapes | Counting to 150, tens and ones, > = <, facts to 20, story problems, time, coins, graphs, halves and fourths |
 | Grade 2 | **Gilu's Number Bazaar** | Gilu the squirrel | Math (English) | Math, Counting, Shapes | Hundreds, tens and ones, adding and taking away to 1,000, story problems, odd and even, arrays, time to five minutes, money, rulers, bar graphs, thirds |
+| Grade 3 | **Robu's Number Factory** | Robu the robot | Math (English) | Math, Counting, Shapes | Multiplication and division to 100, rounding, fractions on a number line, time to the minute, area and perimeter, scaled graphs, quadrilaterals |
+| Grade 4 | **Jugnu's Number Observatory** | Jugnu the firefly | Math (English) | Math, Counting, Shapes | Numbers to a million, lakh and crore, long division, factors, equal fractions, decimals, conversions, angles, symmetry |
 | Grade 2 (7–8) | **Dino Valley** · डायनो घाटी | Dumdum the dinosaur | Hindi | Phonics, Reading, Spelling | Half letters, the shapes of र, ि and ी, ड and ड़, home words, all the matras, गिनती 51 to 100 |
 | Grade 2 | **Desert Fair** · रेगिस्तान का मेला | Ooty the camel | Hindi | Grammar, Writing, Vocabulary | Action words, living and non-living, opposites, one and many, । and ?, times of day and seasons, sentences |
 | Grade 2 | **Bholu's Story Forest** · भोलू का कहानी वन | Bholu the bear | Hindi | Stories, Poems, Listening | A lesson for each of the 8 Grade 2 stories, two poems, rhymes |
