@@ -120,7 +120,7 @@ Found by looking at about 30 screens (Kindergarten and Grade 7 on a phone, Grade
 
 ## 9. Hindi stories and poems to add
 
-What is there today: Toddler 6 stories; Kindergarten 40 stories and 7 rhymes; Grade 1 31 stories (10 of them decodable); Grade 2 16 and 2 poems; Grade 3 15 and 2; Grade 4 13 and 2; Grades 7–8 120 comics and **no prose at all**. The thinnest shelves are Toddler, poems everywhere, and prose for the oldest. Titles below are not in the app yet. Older authors are suggested where their work is out of copyright in India (60 years after the author's death); check each text before using it, and retell rather than copy any modern version.
+When this review was written: Toddler 6 stories; Kindergarten 40 stories and 7 rhymes; Grade 1 31 stories (10 of them decodable); Grade 2 16 and 2 poems; Grade 3 15 and 2; Grade 4 13 and 2; Grades 7–8 120 comics and **no prose at all**. The thinnest shelves are Toddler, poems everywhere, and prose for the oldest. Titles below are not in the app yet. Older authors are suggested where their work is out of copyright in India (60 years after the author's death); check each text before using it, and retell rather than copy any modern version.
 
 | | What to add | Why |
 | --- | --- | --- |
@@ -139,7 +139,7 @@ What is there today: Toddler 6 stories; Kindergarten 40 stories and 7 rhymes; Gr
 
 ## 10. Maths to add
 
-What is there today: one English maths world each for Kindergarten (21 lessons) and Grade 1 (21 lessons), following the North Carolina standards, one episode of Show time, and nothing after Grade 1. Every lesson is the same kind of game (a question and answer cards). Hindi numbers exist in the content but are not taught as maths.
+When this review was written: one English maths world each for Kindergarten (21 lessons) and Grade 1 (21 lessons), following the North Carolina standards, one episode of Show time, and nothing after Grade 1. Every lesson is the same kind of game (a question and answer cards). Hindi numbers exist in the content but are not taught as maths.
 
 | | What to add | Why |
 | --- | --- | --- |
@@ -148,7 +148,7 @@ What is there today: one English maths world each for Kindergarten (21 lessons) 
 | ✅ | **गिनती: Hindi numbers as their own strand.** Done: the numbers now go to 100 (words, English, Devanagari digits, all recorded), and a new game teaches them in ten kinds of round (count by tapping, find the group, hear and find, Devanagari digits, what comes next, read the word, ज़्यादा / कम / बराबर, जोड़ो, घटाओ, आधा). Units: 1–10 on the farm, 1–20 in Kindergarten, 21–50 and the maths words in Grade 1, 51–100 in Grade 2 | For a child growing up abroad, Hindi numbers past ten are among the first things lost; the content already holds them but no lesson teaches them |
 | ➡️ 4 | **Fill the gaps in Kindergarten and Grade 1**: counting back from 10 and 20, first–second–third, patterns (AB, AAB), skip counting by 2s and 5s, doubles and near-doubles, a number-bond game to 10 and to 20, and fluency practice with no timer | These are the skills the two worlds touch least, and the ones Grade 2 leans on |
 | ➡️ 5 | **A Grade 2 maths world** (about 24 lessons): hundreds, tens and ones; adding and subtracting within 100, then 1,000; odd and even; equal groups and arrays; time to five minutes; inches, feet and centimetres; money problems; halves, thirds and fourths; bar graphs | Maths simply stops after Grade 1; a child who finishes the carnival has nowhere to go |
-| ➡️ 6 | **Days, months, time and money in Hindi**: सोमवार to रविवार, the months and seasons, "कितने बजे हैं?", and a market with rupees and paise (the English world uses US coins) | Everyday number talk at home is in these words; they are vocabulary and maths at once |
+| ➡️ 6 | **Days, months, time and money in Hindi**: सोमवार to रविवार, the months and seasons, "कितने बजे हैं?", and a market with rupees and paise (the English world uses US coins) *Partly there: a Grade 4 quiz on the days and months (7 questions). Left: days, months and seasons for younger children, telling the time in Hindi, and rupees and paise* | Everyday number talk at home is in these words; they are vocabulary and maths at once |
 | ➡️ 7 | **पहाड़े: times tables sung the Hindi way** ("दो एकम दो, दो दूनी चार"), 2 to 10, with a beat, then a game | Chanted tables are how generations learned them, they are fun to sing along to, and they prepare Grade 3 |
 | ➡️ 8 | **Grade 3 and Grade 4 maths worlds**: multiplication and division, fractions on a number line, area and perimeter, elapsed time, rounding (Grade 3); multi-digit multiplication, long division, equal fractions, decimals, angles, factors, and the Indian number system of lakh and crore (Grade 4) | Completes the path, so the app grows with the child instead of being left behind at age 7 |
 | ➡️ 9 | **Maths stories and puzzles for older children** (Grades 3–8): the grains of rice on the chessboard (doubling), the seventeen camels (fractions), Aryabhata and zero, Ramanujan and the taxi number 1729, Shakuntala Devi, Birbal and Tenali number puzzles, and logic puzzles inside the detective comics | Shows maths as something people did and enjoyed; the oldest reader gets maths through the comics she already likes |
