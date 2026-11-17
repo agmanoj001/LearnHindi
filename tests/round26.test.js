@@ -691,3 +691,25 @@ test('the duel is in the corner, the top half faces the other player, and the wi
   assert.doesNotMatch(read('js/duel.js'), /जीत गए|जीत गई|हार गए|हार गई/);
   for (const k of ['duelTopWins', 'duelBottomWins', 'duelDraw']) assert.doesNotMatch(content.phrases[k].hi, /जीता|जीती|हारा|हारी/);
 });
+
+// ---- 8.1 and 2.4: the browser checks on every push and pull request ----
+test('the browser check plays one lesson from each grade offline, and draws screens that exist', () => {
+  const tool = read('tools/browser-check.mjs');
+  const lessons = Object.fromEntries([...tool.match(/OFFLINE_LESSONS = \{([^}]+)\}/)[1].matchAll(/(\w+): '([\w-]+)'/g)].map((m) => [m[1], m[2]]));
+  const all = content.worlds.flatMap((w) => w.units.flatMap((u) => u.lessons.map((l) => ({ ...l, level: w.level }))));
+  // every grade with lessons is played
+  for (const lv of new Set(content.worlds.map((w) => w.level))) {
+    const l = all.find((x) => x.id === lessons[lv]);
+    assert.ok(l, `${lv} has a lesson in the offline check`);
+    assert.equal(l.level, lv, `${lessons[lv]} is a ${lv} lesson`);
+    // one a bot can finish by tapping
+    assert.ok(['busdepot', 'quiz', 'firstsound', 'read', 'math'].includes(l.game), `${lessons[lv]} (${l.game}) can be finished by taps`);
+  }
+  // the screens open routes the app has
+  const app = read('js/app.js');
+  for (const m of tool.matchAll(/\['(\w+)', \{/g)) if (m[1] !== 'lesson') assert.ok(app.includes(`case '${m[1]}':`), `route ${m[1]}`);
+  const ci = read('.github/workflows/test.yml');
+  assert.match(ci, /playwright install --with-deps chromium/);
+  assert.match(ci, /--root \.\.\/before --screens-only/);
+  assert.match(ci, /upload-artifact/);
+});

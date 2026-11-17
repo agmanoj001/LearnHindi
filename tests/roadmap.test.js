@@ -84,6 +84,8 @@ const DONE = {
     (content.idioms || []).length >= 30 &&
     /cornerButton\(api\)/.test(read('js/screens.js')) &&
     ['corner', 'idiom', 'comicmaker', 'duel'].every((r) => read('js/app.js').includes(`case '${r}':`)),
+  'Automated checks on every pull request': () => exists('tools/browser-check.mjs') && /browser-check\.mjs --compare/.test(read('.github/workflows/test.yml')) && /pull_request/.test(read('.github/workflows/test.yml')),
+  'An airplane-mode check in every release': () => /setOffline\(true\)/.test(read('tools/browser-check.mjs')) && /OFFLINE_LESSONS/.test(read('tools/browser-check.mjs')) && /browser-check\.mjs --out/.test(read('.github/workflows/test.yml')),
   'More Show time': () =>
     (content.showSeries || []).length >= 3 &&
     content.showSeries.every((sr) => {

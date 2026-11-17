@@ -31,5 +31,5 @@ Each prompt has `hi` and `en`. Write the Hindi addressed to the child so it fits
 The user's usage limit can stop work part-way (it resets after 5 hours), and the cloud machine is reclaimed when idle, so:
 
 1. For work with several parts (for example, more than one roadmap item), commit and push to the working branch after **each** finished piece (one roadmap item, with its ✅ tick and its check), not once at the end. Run `npm test` before each push.
-2. At the start of such work, schedule a restart check-in about 5 hours ahead (`send_later`) that tells this session to continue any unfinished task from the last pushed step, or do nothing if all is done. If work is still going when it fires, schedule the next one.
+2. **Always**, at the start of any task that may take more than a few minutes (not only roadmap work, and without being asked), schedule a restart check-in about 5 hours ahead (`send_later`) that names the task and its order of pieces, and tells this session to continue any unfinished piece from the last pushed step, or do nothing if all is done. If work is still going when it fires, schedule the next one. When everything is done, cancel any check-in still pending.
 3. Opening or merging a pull request still waits for the user to ask.
