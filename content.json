@@ -71,7 +71,9 @@
     "dayDone": { "hi": "वाह! आज के तीनों पूरे! यह लो आज का स्टिकर।", "en": "Wow! All three done today! Here's today's sticker." },
     "weekDone": { "hi": "पूरे हफ़्ते के स्टिकर! शाबाश!", "en": "A sticker for every day this week! Well done!" },
     "newPrize": { "hi": "तारों से नया इनाम खुल गया!", "en": "Your stars opened a new prize!" },
-    "prizesHello": { "hi": "ये रहे तुम्हारे इनाम! जो पसंद हो, चुनो।", "en": "Here are your prizes! Pick the ones you like." }
+    "prizesHello": { "hi": "ये रहे तुम्हारे इनाम! जो पसंद हो, चुनो।", "en": "Here are your prizes! Pick the ones you like." },
+    "bookTell": { "hi": "अपनी तस्वीर की कहानी सुनाओ! माइक दबाओ और बोलो।", "en": "Tell the story of your picture! Press the microphone and talk." },
+    "bookSaved": { "hi": "तुम्हारी किताब बन गई! यह पुस्तकालय में रखी है।", "en": "Your book is ready! It is in the library now." }
   },
   "words": {
     "digger": { "hi": "खुदाई मशीन", "translit": "khudaai mashin", "en": "digger", "picture": "digger" },

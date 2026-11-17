@@ -210,3 +210,35 @@ test('rhymes are sung along: a ball on each word, a clap, the guide dances, the 
   const poems = content.stories.filter((s) => s.kind === 'poem');
   assert.ok(poems.length >= 30 && poems.some((s) => s.lang === 'en') && poems.some((s) => s.lang !== 'en'));
 });
+
+// ---- 7.8 make-your-own story ----
+import { newBook, bookKey, booksOf, MYBOOKS_MAX, RECORD_MAX_MS } from '../js/mybooks.js';
+
+test('a sticker picture and the child\'s voice become their own book', () => {
+  const town = content.worlds.find((w) => w.id === 'town');
+  const b = newBook(town, [{ id: 'car', x: 30.04, y: 70.26 }, { id: 'bus', x: 65, y: 80 }], 1700000000000);
+  assert.match(b.id, /^b[0-9a-z]+$/);
+  assert.equal(b.world, 'town');
+  assert.deepEqual(b.stickers[0], { id: 'car', x: 30, y: 70.3 });
+  assert.equal(bookKey('kid1', b.id), `mybook:kid1:${b.id}`, 'the voice is kept per child, on the device');
+  // kept cleanly with the progress (the picture), the voice in the device's recordings store
+  const p = normalizeProgress({ myBooks: [b, { id: 'bad id', world: 'town', stickers: [] }, { id: 'b1', world: 'town', stickers: [{ id: 'car', x: 500, y: -4 }] }] }, content);
+  assert.equal(p.myBooks.length, 2);
+  assert.deepEqual(p.myBooks[1].stickers[0], { id: 'car', x: 100, y: 0 });
+  assert.deepEqual(defaultProgress(content).myBooks, []);
+  assert.equal(booksOf(p, 'town').length, 2);
+  assert.equal(MYBOOKS_MAX, 30);
+  assert.equal(RECORD_MAX_MS, 60000, 'a story is at most a minute');
+});
+
+test('the sticker picture has a record button, and the library a "My books" shelf', () => {
+  const screens = read('js/screens.js');
+  assert.match(screens, /recordBook\(api, w, placed, artOf\)/);
+  assert.match(screens, /myShelf\(api, \(\) => library\(api, w\)\)/);
+  const books = read('js/mybooks.js');
+  assert.match(books, /clips\.put\(bookKey\(/, 'the voice goes to the device recordings store');
+  assert.doesNotMatch(books, /fetch\(|XMLHttpRequest|sendBeacon/, 'and nowhere else');
+  for (const k of ['bookTell', 'bookSaved']) assert.ok(content.phrases[k]?.hi && content.phrases[k]?.en, k);
+  assert.match(css, /\.mybook-actions \[hidden\] \{\s*display: none !important;/);
+  assert.match(read('sw.js'), /'js\/mybooks\.js'/);
+});

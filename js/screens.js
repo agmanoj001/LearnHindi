@@ -3,6 +3,7 @@
 import { el, sleep, bounce, animate, sparkleAt, flyTo, ICONS, infoButton, forGrownups } from './ui.js';
 import { createMascot, mascotSvg, MASCOTS, MASCOT_IDS, setOutfit, currentOutfit } from './mascot.js';
 import { REWARDS, REWARD_KINDS, unlockedRewards, nextReward, styleFor } from './rewards.js';
+import { recordBook, playBook, bookPicture } from './mybooks.js';
 import { sceneSvg } from './art-scenes.js';
 import { PLACEMENT_LEVELS, placementQuestions, placementResult } from './placement.js';
 import { picture, pictureForWord, specialVehicle } from './art.js';
@@ -1015,7 +1016,14 @@ function stickerScene(api, w, owned, col, artOf, sayOf) {
   }
   // stickers still to find: a "?" each, so a child can see there is more
   for (const id of col.items.filter((x) => !ok.has(x)).slice(0, 4)) tray.append(el('button', { class: 'tray-sticker locked', 'aria-label': 'not found yet', html: '<span>?</span>', onclick: () => api.sfx.boing() }));
-  return el('main', { class: 'scene-play' }, [stage, tray]);
+  // make-your-own story (roadmap 7.8): tell a story about the picture, and it becomes a book
+  const tell = el('button', { class: 'bubble tell-story', 'aria-label': 'Tell a story about my picture' }, [el('span', { 'aria-hidden': 'true', text: '🎙️' }), el('span', {}, said(api, { hi: 'मेरी कहानी', en: 'My story' }, 'hi', 'b'))]);
+  tell.addEventListener('click', () => {
+    if (!placed.length) return api.sayLines({ hi: 'पहले कुछ स्टिकर तस्वीर में लगाओ!', en: 'First put some stickers in the picture!' });
+    api.sfx.pop();
+    recordBook(api, w, placed, artOf);
+  });
+  return el('main', { class: 'scene-play' }, [stage, el('div', { class: 'scene-actions' }, [tell]), tray]);
 }
 
 // ---------- story library ----------
@@ -1070,12 +1078,33 @@ export function library(api, w) {
           : [el('span', { class: 'world-name-hi', lang: 'hi', text: `${guide.hi} का पुस्तकालय` }), el('span', { class: 'world-name-en', text: `${guide.en}'s library · ${stories.length} books` })]),
         el('span', { class: 'round-spacer' }),
       ]),
-      el('main', { class: 'shelf' }, [hero, ...books]),
+      el('main', { class: 'shelf' }, [myShelf(api, () => library(api, w)), hero, ...books]),
       el('div', { class: 'mascot-corner' }, [mascot.node]),
     ]),
   );
   setTimeout(() => mascot.react('wave'), 400);
   api.sayLines({ hi: `${guide.hi} के पुस्तकालय में स्वागत है! कौन सी कहानी पढ़ें?`, en: `Welcome to ${guide.en}'s library! Which story shall we read?` });
+}
+
+// The child's own books (roadmap 7.8): every picture they told a story about, newest first
+function myShelf(api, redraw) {
+  const books = api.state.progress.myBooks || [];
+  if (!books.length) return null;
+  const artOf = (id) => (id === 'special' ? specialVehicle(api.state.special) : api.word(id) ? pictureForWord(api.word(id)) : '');
+  return el('section', { class: 'my-shelf' }, [
+    el('h3', {}, said(api, { hi: 'मेरी किताबें', en: 'My books' }, 'hi', 'span')),
+    el(
+      'div',
+      { class: 'my-books' },
+      books.map((b) => {
+        const world = api.state.content.worlds.find((x) => x.id === b.world);
+        if (!world) return null;
+        const btn = el('button', { class: 'my-book', 'aria-label': 'My book' }, [bookPicture(world, b, artOf, { cls: 'small' })]);
+        btn.addEventListener('click', () => (api.sfx.page(), playBook(api, world, b, artOf, { onDelete: redraw })));
+        return btn;
+      }),
+    ),
+  ]);
 }
 
 // ---------- parent gate: press and hold ----------

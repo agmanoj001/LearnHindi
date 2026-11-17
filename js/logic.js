@@ -484,7 +484,7 @@ export function normalizeSettings(saved, content) {
 export function defaultProgress(content) {
   const collected = {};
   for (const [id, col] of Object.entries(content.collections || {})) collected[id] = col.items.slice(0, col.start || 0);
-  return { lessons: {}, collected, days: [], trainPos: {}, storyPos: {}, comicPos: {}, stats: {}, time: {}, shows: {}, scenes: {}, coached: [], favs: [], trail: {}, style: { outfit: null, backdrop: null, sound: null } };
+  return { lessons: {}, collected, days: [], trainPos: {}, storyPos: {}, comicPos: {}, stats: {}, time: {}, shows: {}, scenes: {}, coached: [], favs: [], trail: {}, style: { outfit: null, backdrop: null, sound: null }, myBooks: [] };
 }
 
 export function normalizeProgress(saved, content) {
@@ -529,6 +529,11 @@ export function normalizeProgress(saved, content) {
         .map(([id, r]) => [id, { panel: Math.min(r.panel, 99), solved: r.solved === true }]),
     ),
     stats: obj(saved.stats),
+    // the child's own books: a sticker picture and (on the device) their voice (js/mybooks.js, roadmap 7.8)
+    myBooks: (Array.isArray(saved.myBooks) ? saved.myBooks : [])
+      .filter((b) => b && /^b[0-9a-z]+$/.test(b.id) && typeof b.world === 'string' && Array.isArray(b.stickers))
+      .slice(0, 30)
+      .map((b) => ({ id: b.id, world: b.world, made: Number.isFinite(b.made) ? b.made : 0, stickers: b.stickers.filter((s) => s && typeof s.id === 'string' && Number.isFinite(s.x) && Number.isFinite(s.y)).slice(0, 30).map((s) => ({ id: s.id, x: Math.max(0, Math.min(100, s.x)), y: Math.max(0, Math.min(100, s.y)) })) })),
     // what the child chose to wear and use (js/rewards.js, roadmap 7.5)
     style: Object.fromEntries(['outfit', 'backdrop', 'sound'].map((k) => [k, typeof obj(saved.style)[k] === 'string' ? obj(saved.style)[k] : null])),
     // today's path, kept for the day (curriculum.js stickyPlan, roadmap 7.4)
