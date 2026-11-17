@@ -12072,3 +12072,164 @@ body:has(.game-grammar) .caption-bar,
     top: 0;
   }
 }
+/* the quiz duel: two halves facing each other across the phone, the top one turned round */
+.duel-card {
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+  background: linear-gradient(180deg, #fff0f0, #eef4ff);
+}
+.duel-peek {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  font-size: 40px;
+}
+.duel-peek b {
+  font: 800 26px 'Fredoka', var(--font);
+  color: var(--brand-ink);
+}
+.duel-setup-main {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 8px 4px 40px;
+  text-align: center;
+}
+.duel-how {
+  display: grid;
+  grid-template-rows: auto auto auto;
+  justify-items: center;
+  font-size: 40px;
+  line-height: 1.1;
+}
+.duel-p.p2 {
+  transform: rotate(180deg);
+}
+.duel-phone {
+  font-size: 54px;
+}
+.duel-tip {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-width: 460px;
+  margin: 0;
+}
+.duel-tip span {
+  font-size: 13px;
+  color: var(--muted);
+}
+.duel-start {
+  margin-top: 6px;
+}
+.screen.duel {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto minmax(0, 1fr);
+  height: 100%;
+  padding: 0;
+  touch-action: manipulation;
+  user-select: none;
+}
+.duel-half {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 0;
+  padding: 12px 14px;
+  overflow: hidden;
+  transition: background 0.3s;
+}
+.duel-half.bottom {
+  background: #e8f0ff;
+}
+.duel-half.top {
+  background: #ffecec;
+  transform: rotate(180deg);
+}
+.duel-half.won {
+  background: #dcfce7;
+}
+.duel-half.locked {
+  opacity: 0.6;
+}
+.duel-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 22px;
+}
+.duel-score {
+  min-width: 40px;
+  padding: 2px 12px;
+  border-radius: 999px;
+  font: 800 22px 'Fredoka', var(--font);
+  text-align: center;
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+}
+.duel-q {
+  margin: 0;
+  font-size: clamp(17px, 4.6vw, 22px);
+  font-weight: 700;
+  line-height: 1.4;
+}
+.duel-opts {
+  display: grid;
+  gap: 8px;
+}
+.duel-opt {
+  min-height: 46px;
+  padding: 6px 12px;
+  border: 2px solid rgba(31, 35, 64, 0.12);
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: left;
+  background: #fff;
+  cursor: pointer;
+}
+.duel-opt.wrong {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+.duel-opt.right {
+  border-color: var(--good);
+  color: #fff;
+  background: var(--good);
+}
+.duel-note {
+  margin: 0;
+  min-height: 1.4em;
+  font-weight: 700;
+}
+.duel-final {
+  font: 800 54px 'Fredoka', var(--font);
+  text-align: center;
+}
+.duel-half.over .duel-q {
+  font-size: 30px;
+  text-align: center;
+}
+.duel-mid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 6px;
+  background: #1f2340;
+  color: #fff;
+}
+.duel-count {
+  font: 800 18px 'Fredoka', var(--font);
+}
+/* a tablet: the halves side by side would be wrong (players sit opposite), so wider options instead */
+@media (min-width: 760px) {
+  .duel-opts {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}

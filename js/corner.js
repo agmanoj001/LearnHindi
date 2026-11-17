@@ -259,6 +259,17 @@ function makerCard(api) {
   return b;
 }
 
+// the quiz duel's card: two players, one phone
+function duelCard(api) {
+  const b = el('button', { class: 'corner-card duel-card', 'aria-label': 'Quiz duel for two' }, [
+    el('span', { class: 'corner-card-head' }, [el('span', { class: 'corner-emoji', 'aria-hidden': 'true', text: '⚔️' }), el('span', { class: 'corner-title' }, [el('b', { lang: 'hi', text: 'क्विज़ मुक़ाबला' }), el('small', { text: 'Quiz duel for two' })])]),
+    el('span', { class: 'duel-peek', 'aria-hidden': 'true' }, [el('span', { text: '🔴' }), el('b', { text: 'VS' }), el('span', { text: '🔵' })]),
+    el('span', { class: 'idiom-go', lang: 'hi', text: 'दो खिलाड़ी, एक फ़ोन ›' }),
+  ]);
+  b.addEventListener('click', () => (api.sfx.pop(), api.go('duel')));
+  return b;
+}
+
 // ---------- the corner ----------
 export function cornerScreen(api) {
   const head = el('header', { class: 'game-head' }, [
@@ -266,7 +277,7 @@ export function cornerScreen(api) {
     el('div', { class: 'head-title' }, [el('span', { class: 'world-name-hi', lang: 'hi', text: 'मस्ती कोना' }), el('span', { class: 'world-name-en', text: 'Fun corner' })]),
     el('span', { class: 'round-spacer' }),
   ]);
-  api.app.replaceChildren(el('div', { class: 'screen corner enter' }, [head, el('main', { class: 'corner-main' }, [riddleCard(api), idiomCard(api), makerCard(api)])]));
+  api.app.replaceChildren(el('div', { class: 'screen corner enter' }, [head, el('main', { class: 'corner-main' }, [riddleCard(api), idiomCard(api), makerCard(api), duelCard(api)])]));
   api.say('cornerHello');
 }
 

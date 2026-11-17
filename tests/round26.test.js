@@ -641,3 +641,53 @@ test('the comic maker is in the corner, typed words are shown as text, and the f
   for (const k of ['makerHello', 'makerSaved']) assert.ok(content.phrases[k]?.hi, k);
   for (const c of ['.maker-shelf', '.maker-preview', '.maker-pick', '.maker-words']) assert.ok(css.includes(c), c);
 });
+
+import { duelQuestions, newDuel, tap, timeUp, nextRound, duelWinner, DUEL_ROUNDS, BOTTOM, TOP } from '../js/duel.js';
+
+test('a quiz duel: ten questions from the grade, first right tap scores, a wrong tap is out for that question', () => {
+  let n = 0;
+  const rng = () => ((n = (n * 9301 + 49297) % 233280) / 233280);
+  for (const level of ['grade7', 'grade8']) {
+    const qs = duelQuestions(content, level, DUEL_ROUNDS, rng);
+    assert.equal(qs.length, DUEL_ROUNDS);
+    assert.equal(new Set(qs.map((q) => q.hi)).size, DUEL_ROUNDS, 'no question twice');
+    for (const q of qs) assert.ok(q.options.includes(q.answer) && q.hi);
+  }
+  const qs = duelQuestions(content, 'grade7', 3, rng);
+  let d = newDuel(qs);
+  const wrong = (q) => q.options.find((o) => o !== q.answer);
+  // round 1: bottom right first, then top's tap is too late
+  ({ duel: d } = tap(d, BOTTOM, qs[0].answer));
+  assert.equal(d.won, BOTTOM);
+  assert.equal(tap(d, TOP, qs[0].answer).result, 'ignored');
+  d = nextRound(d);
+  // round 2: top wrong (out), top again ignored, bottom right
+  let r = tap(d, TOP, wrong(qs[1]));
+  assert.equal(r.result, 'wrong');
+  d = r.duel;
+  assert.equal(tap(d, TOP, qs[1].answer).result, 'ignored');
+  ({ duel: d } = tap(d, BOTTOM, qs[1].answer));
+  assert.deepEqual(d.score, [2, 0]);
+  d = nextRound(d);
+  // round 3: both wrong, nobody scores; or time runs out
+  ({ duel: d } = tap(d, BOTTOM, wrong(qs[2])));
+  ({ duel: d } = tap(d, TOP, wrong(qs[2])));
+  assert.equal(d.won, -1);
+  assert.deepEqual(timeUp(newDuel(qs)).won, -1);
+  d = nextRound(d);
+  assert.ok(d.done);
+  assert.equal(duelWinner(d), BOTTOM);
+  assert.equal(duelWinner({ score: [3, 3] }), -1);
+  assert.equal(duelWinner({ score: [1, 4] }), TOP);
+});
+
+test('the duel is in the corner, the top half faces the other player, and the winner is said without gender', () => {
+  assert.match(read('js/corner.js'), /duelCard\(api\)/);
+  assert.match(read('js/app.js'), /case 'duel':[\s\S]{0,60}duelScreen\(api\)/);
+  assert.match(css, /\.duel-half\.top \{[^}]*rotate\(180deg\)/);
+  assert.match(read('sw.js'), /'js\/duel\.js'/);
+  for (const k of ['duelHello', 'duelTopWins', 'duelBottomWins', 'duelDraw']) assert.ok(content.phrases[k]?.hi, k);
+  // the winner's words fit a boy or a girl
+  assert.doesNotMatch(read('js/duel.js'), /जीत गए|जीत गई|हार गए|हार गई/);
+  for (const k of ['duelTopWins', 'duelBottomWins', 'duelDraw']) assert.doesNotMatch(content.phrases[k].hi, /जीता|जीती|हारा|हारी/);
+});

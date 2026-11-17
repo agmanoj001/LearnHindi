@@ -120,6 +120,15 @@ For confident readers, seven comic series in Hindi, 120 comics in all, in the sp
 
 Comics scroll panel by panel (one column on a phone, a two-column comic page on a tablet), with speech and thought bubbles, narration boxes and sound effects. A comic left half-read opens with **“Continue from panel 13”** (a mystery already solved stays solved), and the **अ+** button makes the text bigger and remembers it. **Tap a bubble** to hear it; each character has their own voice pitch. The speaker button reads the whole comic aloud. **Underlined words** show their meaning in Hindi and English. Mysteries, Birbal's tricks, Betal's riddles, Chippu's idioms and Masterji's science all **stop before the reveal** so the reader answers first (a wrong guess gets a hint). Every comic ends with its word list and three questions, and each world has an **idiom quiz** built from its comics. Finishing a comic collects a character card.
 
+### The fun corner (मस्ती कोना, Grades 7 and 8)
+
+Once the comics are read, a reason to come back each day. It is on the Grade 7–8 home screen, with a dot while today's riddle waits.
+
+- **Riddle of the day (आज की पहेली)**: 30 for each grade, one a day in turn: folk riddles for Grade 7, word play and trick questions for Grade 8. Pick one of three answers; the right one shows why it fits.
+- **Idiom of the day (आज का मुहावरा)**: 15 for each grade, each a three-panel strip with the comic cast. Chippu the robot takes the idiom literally, and the last panel, where Kavya, Nani or Montu set him right, waits until the child picks the real meaning. Then the meaning and a sentence that uses it. Every bubble is read in its character's own voice.
+- **Comic maker (कॉमिक बनाओ)**: three panels, each with a place, up to two characters from all seven series (their face and pose) and what they say, shout, whisper or think, plus a caption. "My comics" keeps them with the child's progress (on this device and in the backup) and reads them aloud.
+- **Quiz duel (क्विज़ मुक़ाबला)**: two players face each other with the phone flat between them; the top half is turned round. There are ten questions from the grade's idiom quizzes: the first right tap scores, a wrong tap is out for that question, and then a winner, a draw, or a rematch.
+
 ### Grammar (Grades 7 and 8)
 
 Two grammar worlds follow the व्याकरण that CBSE schools teach alongside NCERT's मल्हार textbooks: twelve topics a grade (see [CURRICULUM.md](CURRICULUM.md)). Each topic is one lesson in two parts:

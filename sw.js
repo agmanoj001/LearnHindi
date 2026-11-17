@@ -30,6 +30,7 @@ const SHELL = [
   'js/wordbook.js',
   'js/corner.js',
   'js/comicmaker.js',
+  'js/duel.js',
   'js/logic.js',
   'js/validate.js',
   'js/art.js',

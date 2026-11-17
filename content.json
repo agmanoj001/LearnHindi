@@ -100,6 +100,13 @@
       "en": "Make your own comic! Pick a place, pick the characters, and give them something funny to say."
     },
     "makerSaved": { "hi": "वाह! तुम्हारा कॉमिक तैयार है।", "en": "Wow! Your comic is ready." },
+    "duelHello": {
+      "hi": "आमने-सामने बैठो, फ़ोन बीच में रखो। जो पहले सही जवाब दबाए, अंक उसका!",
+      "en": "Sit face to face with the phone between you. First to tap the right answer gets the point!"
+    },
+    "duelTopWins": { "hi": "जीत ऊपर वाले खिलाड़ी की! शाबाश!", "en": "The player at the top wins! Well done!" },
+    "duelBottomWins": { "hi": "जीत नीचे वाले खिलाड़ी की! शाबाश!", "en": "The player at the bottom wins! Well done!" },
+    "duelDraw": { "hi": "मुक़ाबला बराबर रहा! दोनों ने कमाल किया।", "en": "It's a draw! You were both brilliant." },
     "wordsEmpty": { "hi": "खेलते रहो! जो शब्द तुम्हें आ जाएगा, वह इस किताब में आ जाएगा।", "en": "Keep playing! Every word you learn comes into this book." }
   },
   "words": {

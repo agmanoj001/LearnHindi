@@ -78,6 +78,12 @@ const DONE = {
   'An older child reads to a younger one': () => exists('js/readfor.js') && /readByRibbon\(story\.id\)/.test(read('js/games/story.js')) && /function missionCard/.test(read('js/screens.js')),
   'Festivals and seasons that arrive on their day': () => exists('js/festivals.js') && /export function festivalNow/.test(read('js/festivals.js')) && content.stories.some((x) => x.id === 'k3-eid'),
   'A surprise each day': () => exists('js/surprise.js') && /function giftBox/.test(read('js/screens.js')) && /\.gift-box/.test(css),
+  'For Grades 7–8': () =>
+    ['riddleOfDay', 'idiomOfDay', 'comicMaker', 'duelScreen'].every((f) => js.includes(f)) &&
+    (content.riddles || []).length >= 60 &&
+    (content.idioms || []).length >= 30 &&
+    /cornerButton\(api\)/.test(read('js/screens.js')) &&
+    ['corner', 'idiom', 'comicmaker', 'duel'].every((r) => read('js/app.js').includes(`case '${r}':`)),
   'More Show time': () =>
     (content.showSeries || []).length >= 3 &&
     content.showSeries.every((sr) => {
@@ -98,8 +104,6 @@ const WATCH = {
   'पहाड़े: times tables sung the Hindi way': () => /पहाड़े/.test(JSON.stringify(content.worlds)),
   // (a Grade 4 quiz on days and months is already there; the row stays open for time and money)
   'Days, months, time and money in Hindi': () => /बजे|पैसे/.test(JSON.stringify(content.worlds.filter((w) => w.subject === 'hindi')) + JSON.stringify(content.quizzes || {})),
-  // all four parts of 7.16 built: the row must be ticked
-  'For Grades 7–8': () => ['riddleOfDay', 'idiomOfDay', 'comicMaker', 'duelScreen'].every((f) => js.includes(f)),
   'A reading-comfort option': () => /readingComfort|reading-comfort/.test(js + css),
 };
 
