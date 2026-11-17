@@ -9983,3 +9983,73 @@ body:has(.game-grammar) .caption-bar,
   left: 12px;
   right: auto;
 }
+
+/* ---- tablets (roadmap 4.7): the hub's top in two columns, bigger world cards, a map that uses the width ---- */
+@media (min-width: 760px) and (min-height: 600px) {
+  .hub-top {
+    display: grid;
+    grid-template-columns: minmax(0, 1.55fr) minmax(250px, 1fr);
+    gap: 16px;
+    align-items: stretch;
+    margin-bottom: 14px;
+  }
+  .hub-top > :first-child {
+    margin-bottom: 0;
+  }
+  .hub-side {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .hub-side .showtime-row {
+    flex: 2;
+    grid-template-columns: 1fr;
+    margin: 0;
+  }
+  .hub-side .showtime-btn {
+    padding: 16px 18px;
+  }
+  .hub-side .together-btn {
+    flex: 1;
+    width: 100%;
+    margin: 0;
+    justify-content: flex-start;
+  }
+  /* beside the big play button they keep their own height */
+  .hub.simple .hub-side {
+    justify-content: center;
+  }
+  .hub.simple .hub-side .showtime-row,
+  .hub.simple .hub-side .together-btn {
+    flex: none;
+  }
+  .hub.simple .hub-side .showtime-btn {
+    padding: 20px 18px;
+  }
+  .world-cards {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+    gap: 20px;
+  }
+  .world-card {
+    min-height: 210px;
+  }
+  /* the map: bigger stops, a wider winding path */
+  .path {
+    max-width: 760px;
+  }
+  .node-row {
+    transform: translateX(calc(var(--x) * clamp(96px, 14vw, 150px)));
+    margin-bottom: 14px;
+  }
+  .node {
+    width: 124px;
+    height: 124px;
+  }
+  .node-icon {
+    width: 88px;
+    height: 72px;
+  }
+  .node-title {
+    font-size: 1.12em;
+  }
+}

@@ -259,10 +259,18 @@ export function hub(api) {
         ]),
       ]),
       el('div', { class: 'hub-scroll' }, [
-        filter ? null : (simple ? playHero : todayCard)(api, todayPlan(content, progress, all.filter((w) => w.level === settings.level)), all),
+        // today's path (or the big play button), and beside it on a tablet: Show time, Story radio and
+        // Play together (roadmap 4.7); on a phone they stack as before
+        filter
+          ? null
+          : el('div', { class: 'hub-top' }, [
+              (simple ? playHero : todayCard)(api, todayPlan(content, progress, all.filter((w) => w.level === settings.level)), all),
+              el('div', { class: 'hub-side' }, [
+                showtime,
+                el('button', { class: 'together-btn', 'aria-label': 'Play together', onclick: () => (api.sfx.pop(), api.go('together')) }, [el('span', { class: 'together-icon', 'aria-hidden': 'true', text: '👫' }), el('span', {}, said(api, { hi: 'साथ खेलो', en: 'Play together' }, 'hi', 'b'))]),
+              ]),
+            ]),
         filter ? null : voiceTip,
-        filter ? null : showtime,
-        filter ? null : el('button', { class: 'together-btn', 'aria-label': 'Play together', onclick: () => (api.sfx.pop(), api.go('together')) }, [el('span', { class: 'together-icon', 'aria-hidden': 'true', text: '👫' }), el('span', {}, said(api, { hi: 'साथ खेलो', en: 'Play together' }, 'hi', 'b'))]),
         !simple && usedTags.length > 1 ? el('div', { class: 'tag-filters', role: 'toolbar', 'aria-label': 'Show worlds about' }, [tagBtn(null, null), ...usedTags.map(([id, t]) => tagBtn(id, t))]) : null,
         mine.length && !simple ? el('h2', { class: 'hub-section' }, said(api, level(settings.level).name)) : null,
         el('div', { class: 'world-cards' }, mine.map(card)),

@@ -172,3 +172,18 @@ test('notes for grown-ups on child screens sit behind an ⓘ', () => {
   // no long English sentence for grown-ups is left showing on Show time's cards
   assert.doesNotMatch(shows, /el\('span', \{ text: 'Story radio: stories and rhymes/);
 });
+
+// ---- 4.7 tablet layouts ----
+test('on a tablet the hub top is two columns, world cards are bigger and the map stops grow', () => {
+  const screens = read('js/screens.js');
+  assert.match(screens, /el\('div', \{ class: 'hub-top' \}, \[\s*\(simple \? playHero : todayCard\)/, "today's path first");
+  assert.match(screens, /el\('div', \{ class: 'hub-side' \}, \[\s*showtime,/, 'Show time, Story radio and Play together beside it');
+  const tablet = css.slice(css.indexOf('/* ---- tablets (roadmap 4.7)'));
+  assert.match(tablet, /@media \(min-width: 760px\) and \(min-height: 600px\)/);
+  assert.match(tablet, /\.hub-top \{[^}]*grid-template-columns: minmax\(0, 1\.55fr\) minmax\(250px, 1fr\)/);
+  assert.match(tablet, /\.world-cards \{[^}]*minmax\(min\(100%, 340px\), 1fr\)/);
+  assert.match(tablet, /\.node \{[^}]*width: 124px/);
+  // phones keep their layout: none of it applies below the breakpoint
+  const before = css.slice(0, css.indexOf('/* ---- tablets (roadmap 4.7)'));
+  assert.doesNotMatch(before, /\.hub-top \{/);
+});

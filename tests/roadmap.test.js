@@ -63,6 +63,7 @@ const DONE = {
   'The hint button in every game': () => /export function stepHint/.test(read('js/games/kit.js')) && ['construction', 'sentence', 'sequence', 'matra', 'railway', 'trace'].every((g) => read(`js/games/${g}.js`).includes('stepHint(')),
   'A 30-second "tap here" guide': () => exists('js/coach.js') && /coach\(how\.kind/.test(read('js/app.js')) && Object.keys(content.phrases).filter((k) => k.startsWith('coach')).length >= 6,
   'Move grown-up text off child screens': () => /export function infoButton/.test(read('js/ui.js')) && /forGrownups\(el\('p', \{ class: 'mode-note'/.test(read('js/shows.js')) && /forGrownups\(el\('p', \{ class: 'comic-howto'/.test(read('js/games/comic.js')),
+  'Tablet layouts for the maps and the hub': () => /class: 'hub-top'/.test(read('js/screens.js')) && /@media \(min-width: 760px\) and \(min-height: 600px\) \{\s*\.hub-top/.test(css),
   'Free play between lessons': () => exists('js/freeplay.js') && /freeplayDue\(/.test(read('js/screens.js')) && ['drive', 'feed', 'colour'].every((m) => read('js/freeplay.js').includes(`'${m}'`)),
 };
 
