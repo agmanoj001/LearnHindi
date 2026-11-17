@@ -57,7 +57,9 @@
     "driveIt": { "hi": "उँगली से गाड़ी चलाओ!", "en": "Drive with your finger!" },
     "feedIt": { "hi": "जानवरों को खाना खिलाओ!", "en": "Feed the animals!" },
     "yum": { "hi": "हम-हम! मज़ा आ गया!", "en": "Yum yum! Delicious!" },
-    "noThanks": { "hi": "ऊँहूँ! यह मुझे पसंद नहीं।", "en": "Hmm, I don't like that one." }
+    "noThanks": { "hi": "ऊँहूँ! यह मुझे पसंद नहीं।", "en": "Hmm, I don't like that one." },
+    "hintTrace": { "hi": "चमकती जगह पर गाड़ी चलाओ!", "en": "Drive over the shining spots!" },
+    "hintAny": { "hi": "कोई भी चुन लो!", "en": "Pick any one!" }
   },
   "words": {
     "digger": { "hi": "खुदाई मशीन", "translit": "khudaai mashin", "en": "digger", "picture": "digger" },

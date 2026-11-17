@@ -1,8 +1,8 @@
 // Trace the road: pick a vehicle, then drive it along a big letter with a finger.
 // Works for any script because the "road" is the letter itself drawn on a canvas;
 // tracing is complete once enough of the letter has been driven over.
-import { sample, traceCoverage, thinPoints } from '../logic.js';
-import { el, sleep, runRounds, cheer, bounce, animate } from './kit.js';
+import { sample, traceCoverage, thinPoints, uncoveredPoints } from '../logic.js';
+import { el, sleep, runRounds, cheer, bounce, animate, stepHint } from './kit.js';
 
 export default {
   start(ctx) {
@@ -15,6 +15,7 @@ export default {
       b.addEventListener('click', () => {
         if (started) return;
         started = true;
+        pickHint.done();
         ctx.sfx.vroom();
         bounce(b);
         if (id === 'special') ctx.say('special');
@@ -24,6 +25,8 @@ export default {
       return b;
     });
     ctx.stage.replaceChildren(el('div', { class: 'choices pick-grid' }, btns));
+    // any vehicle is right: the 💡 just shows one
+    const pickHint = stepHint(ctx, () => btns[0], { say: 'hintAny', autoAfter: 0 });
     ctx.setRepeat(() => ctx.say('pickVehicle'));
     ctx.say('pickVehicle');
   },
@@ -146,6 +149,7 @@ function traceLetter(ctx, letter, canvas, car) {
     };
     const finish = async () => {
       done = true;
+      hint.done();
       canvas.removeEventListener('pointerdown', down);
       canvas.removeEventListener('pointermove', move);
       canvas.removeEventListener('pointerup', up);
@@ -169,6 +173,25 @@ function traceLetter(ctx, letter, canvas, car) {
     canvas.addEventListener('pointermove', move);
     canvas.addEventListener('pointerup', up);
     canvas.addEventListener('pointercancel', up);
+
+    // 💡: shining spots on the parts of the letter not driven over yet
+    const hint = stepHint(ctx, () => (done ? null : thinPoints(uncoveredPoints(targets, trail, brush * 1.2), 24)), {
+      say: 'hintTrace',
+      autoAfter: 0,
+      show: (spots) => {
+        g.save();
+        for (const p of spots) {
+          g.beginPath();
+          g.arc(p.x, p.y, Math.max(7, brush * 0.45), 0, Math.PI * 2);
+          g.fillStyle = '#FFF6C8';
+          g.fill();
+          g.lineWidth = 3;
+          g.strokeStyle = '#FF9F1C';
+          g.stroke();
+        }
+        g.restore();
+      },
+    });
 
     const prompt = () => ctx.say('trace', null, [letter.lang]).then(() => ctx.alive() && !done && ctx.sayItem(letter));
     ctx.setRepeat(prompt);

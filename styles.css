@@ -8517,9 +8517,13 @@ body:has(.game-grammar) .caption-bar,
   transform: scale(0.94);
   transition: opacity 0.4s, transform 0.4s;
 }
-.card.hint {
+.card.hint,
+.mound.hint {
   box-shadow: 0 0 0 6px #ffd34d, 0 0 26px 6px rgba(255, 201, 60, 0.75), var(--shadow-lg);
   animation: hint-glow 1.1s ease-in-out infinite;
+}
+.mound.hint {
+  border-radius: 28px;
 }
 @keyframes hint-glow {
   50% {
@@ -8527,7 +8531,8 @@ body:has(.game-grammar) .caption-bar,
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .card.hint {
+  .card.hint,
+  .mound.hint {
     animation: none;
   }
 }

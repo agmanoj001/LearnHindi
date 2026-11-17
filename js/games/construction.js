@@ -1,7 +1,7 @@
 // Construction site: dig up letters (digger), deliver blocks to the matching sound (dump truck),
 // build words with the crane. The cement mixer and bulldozer just play when tapped.
 import { pickChoices, sample, splitTiles, createBuild, placeTile, tileChoices, langForRound } from '../logic.js';
-import { el, sleep, choose, runRounds, cheer, vehicleEl, activityMenu, flyTo, animate, bounce, wobble, ICONS } from './kit.js';
+import { el, sleep, choose, runRounds, cheer, vehicleEl, activityMenu, flyTo, animate, bounce, wobble, ICONS, stepHint } from './kit.js';
 
 const MOUND =
   '<svg viewBox="0 0 120 80" aria-hidden="true"><ellipse cx="60" cy="76" rx="54" ry="4" fill="#1E1B4B" opacity="0.08"/><path d="M6 76 Q60 -12 114 76 Z" fill="#B9876B"/><path d="M6 76 Q60 -12 114 76 Q70 40 6 76 Z" fill="#A47864"/><circle cx="44" cy="54" r="5" fill="#8A5A44"/><circle cx="74" cy="42" r="4" fill="#8A5A44"/><circle cx="86" cy="62" r="6" fill="#8A5A44"/></svg>';
@@ -54,6 +54,8 @@ async function dig(ctx) {
   ctx.say('dig');
 
   let dug = 0;
+  // 💡: the next pile still to dig glows
+  const hint = stepHint(ctx, () => mounds.find((m) => !m.dataset.dug), { say: 'dig', autoAfter: 0 });
   await new Promise((resolve) =>
     mounds.forEach((m, i) =>
       m.addEventListener('click', async () => {
@@ -66,6 +68,7 @@ async function dig(ctx) {
           return;
         }
         m.dataset.dug = '1';
+        hint.step();
         ctx.sfx.thud();
         animate(digger, [{ transform: 'rotate(0)' }, { transform: 'rotate(-6deg)' }, { transform: 'rotate(0)' }], { duration: 350 });
         await animate(m, [{ transform: 'scale(1)' }, { transform: 'scaleY(0.2)', opacity: 0.2 }], { duration: 300 });
@@ -85,6 +88,7 @@ async function dig(ctx) {
       }),
     ),
   );
+  hint.done();
   await sleep(2500);
   ctx.complete();
 }
@@ -157,6 +161,8 @@ async function build(ctx) {
     prompt();
 
     let mistakes = 0;
+    // 💡: the next letter the word needs glows
+    const hint = stepHint(ctx, () => ground.find((b) => !b.classList.contains('used') && b.tile === tiles[state.placed]));
     await new Promise((resolve) => {
       for (const b of ground) {
         b.addEventListener('click', async () => {
@@ -166,9 +172,11 @@ async function build(ctx) {
           if (!r.ok) {
             mistakes++;
             ctx.miss();
+            hint.miss();
             return void wobble(b);
           }
           state = r.state;
+          hint.step();
           const slot = slots[state.placed - 1];
           b.classList.add('lifting');
           ctx.sfx.pop();
@@ -182,7 +190,8 @@ async function build(ctx) {
         });
       }
     });
-    ctx.record(w, mistakes === 0);
+    hint.done();
+    ctx.record(w, mistakes === 0 && !hint.used);
     await sleep(400);
     await cheer(ctx, pic);
     await ctx.sayItem(w, [lang]);

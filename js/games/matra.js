@@ -3,7 +3,7 @@
 // 2. Rounds alternate: "Find की" among syllables of the same consonant, and
 //    "add the right matra" to a word with one matra missing (म_र -> मोर).
 import { barakhadi, maskMatra, pickChoices, shuffle } from '../logic.js';
-import { el, sleep, choose, runRounds, cheer, flyTo, bounce } from './kit.js';
+import { el, sleep, choose, runRounds, cheer, flyTo, bounce, stepHint } from './kit.js';
 
 const DOTTED = '◌'; // ◌ : shows a matra sign on its own
 
@@ -27,9 +27,12 @@ export default {
     const introduce = () => ctx.sayText(row.map((r) => r.text).join(' '), 'hi');
     ctx.setRepeat(introduce);
     introduce();
+    // 💡: a syllable not heard yet glows
+    const hint = stepHint(ctx, () => tiles.find((t) => !t.classList.contains('heard')), { autoAfter: 0 });
     await new Promise((resolve) =>
       tiles.forEach((t, i) =>
         t.addEventListener('click', () => {
+          hint.step();
           ctx.sfx.pop();
           bounce(t);
           car.querySelector('.matra-sticker').textContent = row[i].text;
@@ -41,6 +44,7 @@ export default {
         }),
       ),
     );
+    hint.done();
     if (!ctx.alive()) return;
     await cheer(ctx, car);
     await sleep(900);

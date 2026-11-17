@@ -248,6 +248,12 @@ export function makeOppositeRound(pairs, rng = Math.random, previous = null) {
 // ---- Trace the road ----
 
 // Fraction of target points that have a traced point within `radius`.
+// The points of a letter not yet driven over (for the tracing hint).
+export function uncoveredPoints(targets, trace, radius) {
+  const r2 = radius * radius;
+  return targets.filter((t) => !trace.some((p) => (t.x - p.x) ** 2 + (t.y - p.y) ** 2 <= r2));
+}
+
 export function traceCoverage(targets, trace, radius) {
   if (!targets.length) return 1;
   const r2 = radius * radius;

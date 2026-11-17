@@ -60,6 +60,7 @@ const DONE = {
   '"Ask me" prompts for the grown-up': () => content.stories.every((s) => ['complete', 'recall', 'open', 'why', 'you'].every((t) => s.talk?.some((p) => p.type === t && p.hi && p.en))) && /export function showTalk/.test(read('js/screens.js')),
   'Shared play for a grown-up and child': () => exists('js/games/together.js') && /export function togetherQuestion/.test(read('js/together.js')) && /together-btn/.test(read('js/screens.js')) && content.stories.every((s) => s.talk?.length === 5),
   'The counting game': () => /export const busSeats/.test(read('js/games/busdepot.js')) && /\.count-tag/.test(css),
+  'The hint button in every game': () => /export function stepHint/.test(read('js/games/kit.js')) && ['construction', 'sentence', 'sequence', 'matra', 'railway', 'trace'].every((g) => read(`js/games/${g}.js`).includes('stepHint(')),
   'Free play between lessons': () => exists('js/freeplay.js') && /freeplayDue\(/.test(read('js/screens.js')) && ['drive', 'feed', 'colour'].every((m) => read('js/freeplay.js').includes(`'${m}'`)),
 };
 

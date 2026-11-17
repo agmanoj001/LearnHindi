@@ -54,6 +54,9 @@ export default {
 
       let misses = 0;
       const right = await choose(btns, (b) => b.opt.value === p.answer, {
+        ctx,
+        record: false,
+        hintSay: (n, kind) => (p.hint && n === 0 ? ctx.sayText(p.hint, 'en') : ctx.say(kind === 'out' ? 'hintOne' : 'hintLook', null, ['en'])),
         onWrong: (b) => {
           misses++;
           b.classList.add('tried');
