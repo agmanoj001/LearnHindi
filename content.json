@@ -95,6 +95,11 @@
     "riddleTry": { "hi": "ऊँहूँ, फिर से सोचो!", "en": "Hmm, think again!" },
     "idiomGuess": { "hi": "चिप्पू से पहले तुम बताओ: इसका असली मतलब क्या है?", "en": "Before Chippu does, tell me: what does it really mean?" },
     "idiomRight": { "hi": "बिल्कुल सही! तुमने चिप्पू से पहले समझ लिया!", "en": "Exactly right! You got it before Chippu did!" },
+    "makerHello": {
+      "hi": "अपना कॉमिक बनाओ! जगह चुनो, किरदार चुनो, और उनसे कुछ मज़ेदार बुलवाओ।",
+      "en": "Make your own comic! Pick a place, pick the characters, and give them something funny to say."
+    },
+    "makerSaved": { "hi": "वाह! तुम्हारा कॉमिक तैयार है।", "en": "Wow! Your comic is ready." },
     "wordsEmpty": { "hi": "खेलते रहो! जो शब्द तुम्हें आ जाएगा, वह इस किताब में आ जाएगा।", "en": "Keep playing! Every word you learn comes into this book." }
   },
   "words": {

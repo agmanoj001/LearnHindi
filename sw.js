@@ -29,6 +29,7 @@ const SHELL = [
   'js/surprise.js',
   'js/wordbook.js',
   'js/corner.js',
+  'js/comicmaker.js',
   'js/logic.js',
   'js/validate.js',
   'js/art.js',

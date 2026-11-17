@@ -27,6 +27,7 @@ import { giftSoundToday } from './surprise.js';
 import { readForScreen } from './readfor.js';
 import { wordBook } from './wordbook.js';
 import { cornerScreen, idiomScreen } from './corner.js';
+import { comicMaker } from './comicmaker.js';
 import { initAudio, setVoicePack, preload, play, stop, isSpeaking, wordSegs, letterSegs, numberSegs, soundSegs, sentenceSegs, phraseSegs, setVoicePrefs } from './audio.js';
 import { KEYS, load, save, normalizeProfiles, profileKey, keepStorage } from './storage.js';
 import { sfx, music, FEEDBACK } from './sfx.js';
@@ -302,6 +303,9 @@ function render(route) {
     case 'idiom':
       enterWorld(null);
       return idiomScreen(api);
+    case 'comicmaker':
+      enterWorld(null);
+      return comicMaker(api);
     case 'freeplay':
       return world ? freeplay(api, world) : goHome();
     case 'show': {

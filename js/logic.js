@@ -533,6 +533,27 @@ export function normalizeProgress(saved, content) {
     ...(saved.gift && typeof saved.gift === 'object' && /^\d{4}-\d\d-\d\d$/.test(saved.gift.day) && ['sticker', 'joke', 'sound'].includes(saved.gift.kind) ? { gift: { day: saved.gift.day, kind: saved.gift.kind, value: saved.gift.value } } : {}),
     // riddles of the day solved: { riddleId: the day } (js/corner.js, roadmap 7.16)
     riddles: Object.fromEntries(Object.entries(obj(saved.riddles)).filter(([k, v]) => /^[a-z0-9]+$/.test(k) && /^\d{4}-\d\d-\d\d$/.test(v)).slice(-200)),
+    // the comics this child made (js/comicmaker.js): three panels of the cast, places and their words
+    myComics: (Array.isArray(saved.myComics) ? saved.myComics : [])
+      .filter((m) => m && /^m[0-9a-z]+$/.test(m.id) && Array.isArray(m.panels) && m.panels.length)
+      .slice(0, 20)
+      .map((m) => ({
+        id: m.id,
+        title: typeof m.title === 'string' ? m.title.slice(0, 40) : '',
+        made: Number.isFinite(m.made) ? m.made : 0,
+        panels: m.panels.slice(0, 4).map((p) => {
+          const cast = (Array.isArray(p?.cast) ? p.cast : [])
+            .filter((c) => c && /^[a-z]+$/.test(c.who))
+            .slice(0, 2)
+            .map((c) => ({ who: c.who, at: Number.isFinite(c.at) ? Math.max(0, Math.min(100, c.at)) : 50, ...(/^[a-z]+$/.test(c.face) ? { face: c.face } : {}), ...(/^[a-z]+$/.test(c.arms) ? { arms: c.arms } : {}) }));
+          const who = new Set(cast.map((c) => c.who));
+          const say = (Array.isArray(p?.say) ? p.say : [])
+            .filter((b) => b && who.has(b.who) && typeof b.text === 'string' && b.text.trim())
+            .slice(0, 2)
+            .map((b) => ({ who: b.who, text: b.text.slice(0, 90), ...(['shout', 'whisper', 'think'].includes(b.kind) ? { kind: b.kind } : {}) }));
+          return { bg: /^[a-z]+$/.test(p?.bg) ? p.bg : 'room', cast, say, ...(typeof p?.cap === 'string' && p.cap.trim() ? { cap: p.cap.slice(0, 90) } : {}) };
+        }),
+      })),
     // idioms of the day understood: { idiomId: the day }
     idioms: Object.fromEntries(Object.entries(obj(saved.idioms)).filter(([k, v]) => /^[a-z0-9]+$/.test(k) && /^\d{4}-\d\d-\d\d$/.test(v)).slice(-200)),
     // festival stickers, one a festival a year: { 'diwali-2026': 'lamp' } (js/festivals.js, roadmap 7.11)

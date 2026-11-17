@@ -580,3 +580,64 @@ test('the idiom screen hides the last panel until the meaning is found; the vali
   assert.match(errs, /"nobody" is not in the cast/);
   assert.match(errs, /options must include its meaning/);
 });
+
+import { newComic, keepComic, setLine, setCast, lineOf, hasWords, comicsOf, MAKER_CAST, MAKER_BGS, MAKER_MAX, TEXT_MAX, MAKER_FACES, MAKER_ARMS } from '../js/comicmaker.js';
+import { CAST, BACKGROUND_IDS, FACES, ARMS } from '../js/art-comic.js';
+
+test('a new comic is three panels of the cast; words and characters can be set and changed', () => {
+  const c = newComic(1763380000000);
+  assert.equal(c.panels.length, 3);
+  assert.match(c.id, /^m[0-9a-z]+$/);
+  for (const id of MAKER_CAST) assert.ok(CAST[id]?.name, `${id} is a named character`);
+  for (const bg of MAKER_BGS) assert.ok(BACKGROUND_IDS.includes(bg), bg);
+  let p = c.panels[0];
+  p = setLine(p, 'chippu', 'आदेश मिला!', 'shout');
+  p = setLine(p, 'kavya', 'चलो चिप्पू!');
+  assert.deepEqual(p.say.map((b) => b.who), ['kavya', 'chippu'], 'bubbles in the order the characters stand');
+  assert.equal(p.say[1].kind, 'shout');
+  assert.equal(setLine(p, 'kavya', 'x'.repeat(200)).say[0].text.length, TEXT_MAX);
+  // a new character in a slot takes over that slot's words
+  p = setCast(p, 1, 'birbal');
+  assert.deepEqual(p.cast.map((x) => x.who), ['kavya', 'birbal']);
+  assert.equal(lineOf(p, 'birbal'), 'आदेश मिला!');
+  // taking the second one out puts the first in the middle, and its words go
+  p = setCast(p, 1, null);
+  assert.deepEqual(p.cast.map((x) => [x.who, x.at]), [['kavya', 50]]);
+  assert.deepEqual(p.say.map((b) => b.who), ['kavya']);
+  // the same character can't stand twice
+  assert.equal(setCast(c.panels[0], 1, 'kavya').cast.length, 1);
+  // an empty line removes the bubble
+  assert.equal(setLine(p, 'kavya', '   ').say.length, 0);
+  assert.ok(!hasWords(newComic()));
+});
+
+test('my comics are kept with the progress, newest first, cleaned when loaded', () => {
+  let list = [];
+  for (let i = 0; i < MAKER_MAX + 3; i++) list = keepComic(list, { ...newComic(1763380000000 + i), title: `c${i}` });
+  assert.equal(list.length, MAKER_MAX);
+  assert.equal(list[0].title, `c${MAKER_MAX + 2}`);
+  const one = { ...newComic(1763380000000), title: 'मेरा पहला कॉमिक' };
+  one.panels[0] = setLine(one.panels[0], 'kavya', 'नमस्ते!');
+  const dirty = { ...one, panels: [{ ...one.panels[0], say: [...one.panels[0].say, { who: 'ghost', text: 'boo' }], cast: [...one.panels[0].cast, { who: 'BAD!', at: 9 }] }, ...one.panels.slice(1)] };
+  const p = normalizeProgress({ myComics: [dirty, { id: 'not an id', panels: [] }] }, content);
+  assert.equal(comicsOf(p).length, 1);
+  assert.deepEqual(p.myComics[0].panels[0].say, [{ who: 'kavya', text: 'नमस्ते!' }]);
+  assert.deepEqual(p.myComics[0].panels[0].cast.map((x) => x.who), ['kavya', 'chippu']);
+  assert.equal(p.myComics[0].title, 'मेरा पहला कॉमिक');
+  assert.deepEqual(defaultProgress(content).myComics ?? [], []);
+});
+
+test('the comic maker is in the corner, typed words are shown as text, and the faces and poses are real ones', () => {
+  const maker = read('js/comicmaker.js');
+  const corner = read('js/corner.js');
+  assert.match(corner, /makerCard\(api\)/);
+  assert.match(read('js/app.js'), /case 'comicmaker':[\s\S]{0,60}comicMaker\(api\)/);
+  assert.match(read('sw.js'), /'js\/comicmaker\.js'/);
+  // what a child types never goes in as HTML
+  assert.match(corner, /comic-bubble[^]*?text: b\.text/);
+  assert.doesNotMatch(maker, /html: [a-z.]*text/i);
+  for (const [f] of MAKER_FACES) assert.ok(FACES.includes(f), f);
+  for (const [a] of MAKER_ARMS) assert.ok(ARMS.includes(a), a);
+  for (const k of ['makerHello', 'makerSaved']) assert.ok(content.phrases[k]?.hi, k);
+  for (const c of ['.maker-shelf', '.maker-preview', '.maker-pick', '.maker-words']) assert.ok(css.includes(c), c);
+});

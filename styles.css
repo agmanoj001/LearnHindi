@@ -11819,3 +11819,256 @@ body:has(.game-grammar) .caption-bar,
     grid-template-columns: 1fr 1fr;
   }
 }
+/* the comic maker (Grades 7–8): the shelf of my comics, and making one panel at a time */
+.maker-card-big {
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+  background: linear-gradient(180deg, #fdf0ff, #fff);
+}
+.maker-cast-peek {
+  display: flex;
+  justify-content: center;
+  height: 92px;
+}
+.maker-cast-peek span {
+  width: 64px;
+  height: 92px;
+  margin-left: -10px;
+}
+.maker-cast-peek svg {
+  width: 100%;
+  height: 100%;
+}
+.maker-main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 2px 40px;
+}
+.maker-shelf {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 12px;
+}
+.maker-new,
+.maker-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 10px;
+  border: 0;
+  border-radius: 20px;
+  text-align: center;
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+}
+.maker-new {
+  justify-content: center;
+  border: 3px dashed var(--brand);
+  background: #f4f2ff;
+}
+.maker-new-plus {
+  font: 800 44px/1 'Fredoka', var(--font);
+  color: var(--brand);
+}
+.maker-new small,
+.maker-card small {
+  color: var(--muted);
+}
+.maker-thumb {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border: 2px solid #1f2340;
+  border-radius: 6px;
+}
+.maker-thumb-bg,
+.maker-thumb-bg svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.maker-thumb-char {
+  position: absolute;
+  bottom: 4%;
+  width: 34%;
+  height: 72%;
+  transform: translateX(-50%);
+}
+.maker-thumb-char svg {
+  width: 100%;
+  height: 100%;
+}
+.maker-title {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px 14px;
+  border: 2px solid #e5e2f5;
+  border-radius: 16px;
+  font: inherit;
+  font-size: 18px;
+  background: #fff;
+}
+.maker-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.maker-tab {
+  position: relative;
+  flex: 1;
+  max-width: 120px;
+  padding: 4px;
+  border: 3px solid transparent;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+}
+.maker-tab.on {
+  border-color: var(--brand);
+}
+.maker-tab b {
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-size: 13px;
+  line-height: 24px;
+  color: #fff;
+  background: var(--brand);
+}
+.maker-work {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+}
+.maker-controls,
+.maker-slot,
+.maker-row {
+  min-width: 0;
+}
+.maker-preview {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  padding-bottom: 6px;
+  background: var(--bg, #f6f4ff);
+}
+.maker-preview .comic-panel {
+  min-height: 230px;
+}
+.maker-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.maker-slot {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 12px;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+}
+.maker-row {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: thin;
+}
+.maker-pick {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 4px 6px;
+  border: 2px solid #e5e2f5;
+  border-radius: 12px;
+  font-size: 20px;
+  background: #fff;
+  cursor: pointer;
+}
+.maker-pick.on {
+  border-color: var(--brand);
+  background: #f0eeff;
+}
+.maker-pick small {
+  font-size: 11px;
+  white-space: nowrap;
+}
+.maker-pick.kind {
+  font-size: 14px;
+  font-weight: 700;
+}
+.maker-face {
+  width: 44px;
+  height: 56px;
+}
+.maker-face svg,
+.maker-bg svg {
+  width: 100%;
+  height: 100%;
+}
+.maker-bg {
+  display: block;
+  width: 72px;
+  height: 48px;
+  overflow: hidden;
+  border-radius: 6px;
+}
+.maker-pick.bg {
+  padding: 3px;
+}
+.maker-none {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 56px;
+  font-size: 22px;
+  color: var(--muted);
+}
+.maker-words,
+.maker-cap {
+  width: 100%;
+  padding: 8px 12px;
+  border: 2px solid #e5e2f5;
+  border-radius: 14px;
+  font: inherit;
+  font-size: 17px;
+  resize: none;
+}
+.maker-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+.maker-actions .bubble {
+  width: auto;
+  padding: 0 18px;
+  font-size: 17px;
+}
+/* a tablet: the panel being made beside its controls */
+@media (min-width: 860px) {
+  .maker-work {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+  }
+  .maker-preview {
+    position: sticky;
+    top: 0;
+  }
+}

@@ -113,7 +113,8 @@ export const idiomDoneToday = (progress, x, now = Date.now()) => !!x && progress
 export const castLine = (who, text) => ({ text, lang: 'hi', pitch: CAST[who]?.pitch ?? 1, voice: who });
 
 // One panel of a strip, drawn like the comics (js/games/comic.js): background, cast, caption, bubbles.
-function stripPanel(p, i, onBubble) {
+// The comic maker (js/comicmaker.js) draws the child's panels with it too.
+export function stripPanel(p, i, onBubble) {
   const bubbles = (p.say || []).map((b) => {
     const node = el('div', { class: `comic-bubble ${b.kind || 'say'}`, lang: 'hi', tabindex: '0', 'data-who': b.who, 'aria-label': `${CAST[b.who]?.name?.hi || ''}: ${b.text}`, text: b.text });
     node.addEventListener('click', () => onBubble(node, castLine(b.who, b.text)));
@@ -123,13 +124,13 @@ function stripPanel(p, i, onBubble) {
     el('div', { class: 'comic-bg', html: comicBg(p.bg) }),
     el('div', { class: 'comic-top' }, [p.cap ? el('div', { class: 'comic-cap', lang: 'hi', text: p.cap }) : null, bubbles.length ? el('div', { class: 'comic-bubbles' }, bubbles) : null]),
     el('div', { class: 'comic-stage' }, [
-      ...(p.cast || []).map((ch) => el('div', { class: `comic-char${ch.flip ? ' flip' : ''}`, style: { left: `${ch.at}%` }, 'data-who': ch.who, html: castSvg(ch.who, { face: ch.face, arms: ch.arms, hold: ch.hold }) })),
+      ...(p.cast || []).map((ch) => el('div', { class: `comic-char${ch.flip ? ' flip' : ''}`, style: { left: `${ch.at}%` }, 'data-who': ch.who, html: CAST[ch.who] ? castSvg(ch.who, { face: ch.face, arms: ch.arms, hold: ch.hold }) : '' })),
       p.sfx ? el('div', { class: 'comic-sfx', lang: 'hi', text: p.sfx }) : null,
     ]),
   ]);
 }
 // point each bubble's tail at whoever is speaking
-function aimTails(panels) {
+export function aimTails(panels) {
   for (const panel of panels)
     for (const b of panel.querySelectorAll('.comic-bubble')) {
       const who = panel.querySelector(`.comic-char[data-who="${CSS.escape(b.dataset.who || '')}"]`);
@@ -246,6 +247,18 @@ function idiomCard(api) {
   return b;
 }
 
+// the comic maker's card: the cast waiting, and how many comics have been made
+function makerCard(api) {
+  const n = (api.state.progress.myComics || []).length;
+  const b = el('button', { class: 'corner-card maker-card-big', 'aria-label': 'Make a comic' }, [
+    el('span', { class: 'corner-card-head' }, [el('span', { class: 'corner-emoji', 'aria-hidden': 'true', text: '🎨' }), el('span', { class: 'corner-title' }, [el('b', { lang: 'hi', text: 'कॉमिक बनाओ' }), el('small', { text: 'Make a comic' })]), n ? el('small', { class: 'corner-count', text: `✓ ${n}` }) : null]),
+    el('span', { class: 'maker-cast-peek', 'aria-hidden': 'true' }, ['mishti', 'birbal', 'chippu', 'dadi', 'betal'].map((who, i) => el('span', { style: { '--i': String(i) }, html: castSvg(who, { face: i % 2 ? 'laugh' : 'grin', arms: i === 2 ? 'wave' : 'down' }) }))),
+    el('span', { class: 'idiom-go', lang: 'hi', text: 'अपनी कहानी, अपने किरदार ›' }),
+  ]);
+  b.addEventListener('click', () => (api.sfx.pop(), api.go('comicmaker')));
+  return b;
+}
+
 // ---------- the corner ----------
 export function cornerScreen(api) {
   const head = el('header', { class: 'game-head' }, [
@@ -253,7 +266,7 @@ export function cornerScreen(api) {
     el('div', { class: 'head-title' }, [el('span', { class: 'world-name-hi', lang: 'hi', text: 'मस्ती कोना' }), el('span', { class: 'world-name-en', text: 'Fun corner' })]),
     el('span', { class: 'round-spacer' }),
   ]);
-  api.app.replaceChildren(el('div', { class: 'screen corner enter' }, [head, el('main', { class: 'corner-main' }, [riddleCard(api), idiomCard(api)])]));
+  api.app.replaceChildren(el('div', { class: 'screen corner enter' }, [head, el('main', { class: 'corner-main' }, [riddleCard(api), idiomCard(api), makerCard(api)])]));
   api.say('cornerHello');
 }
 
