@@ -17,7 +17,7 @@ import { worldLessons, lessonRecord, isUnlocked, currentLesson, nextLesson, worl
 import { SHOW_ICONS } from './show-icons.js';
 import { greeting, timeSlot, HELLO, milestoneLine, totalStars } from './guide.js';
 import { playersFrom, GROWN_UP } from './together.js';
-import { load, KEYS, profileKey } from './storage.js';
+import { load, KEYS, profileKey, backupReminderDue } from './storage.js';
 import { freeplayDue } from './freeplay.js';
 import { heartButton, favStories, storyWorld, HOME_FAVS } from './favourites.js';
 import { homeWorld } from './curriculum.js';
@@ -274,7 +274,8 @@ export function hub(api) {
     return c;
   };
 
-  const gate = parentGate(api);
+  // a dot on the grown-ups' button when a monthly backup is due (roadmap 2.2)
+  const gate = parentGate(api, { cls: backupReminderDue() ? 'backup-due' : '' });
   api.state.showRun = 0;
   const voiceTip = el('div', { class: 'voice-tip-slot' });
   checkHindiVoice(api, voiceTip);

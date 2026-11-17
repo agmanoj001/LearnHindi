@@ -842,3 +842,61 @@ test('patterns as answer cards: what comes next is always one of the choices', (
   assert.match(errs, /activity must be one of/);
   assert.match(errs, /"k-juggling" is not a math skill/);
 });
+
+// ---- 2.2 share the backup, and a reminder once a month ----
+import { backupDue, backupWorth, backupLaterUntil, shareBackup, canShareFiles, makeBackup, readBackup, BACKUP_WORTH, BACKUP_EVERY_DAYS, BACKUP_LATER_DAYS } from '../js/storage.js';
+import { translateText } from '../js/parent-hi.js';
+
+test('a backup reminder comes once a month when there are stars worth keeping, and can wait a week', () => {
+  const day = 86400000;
+  const now = Date.UTC(2026, 10, 17, 12);
+  const progress = (n) => ({ data: { 'vt.progress': { lessons: Object.fromEntries(Array.from({ length: n }, (_, i) => [`l${i}`, { stars: 2 }])) }, 'vt.progress:p2': { lessons: { x: { stars: 0 } } } } });
+  assert.equal(backupWorth(progress(5)), 5);
+  assert.equal(backupWorth(progress(0)), 0);
+  // nothing worth keeping yet: no reminder
+  assert.equal(backupDue({ worth: BACKUP_WORTH - 1, now }), false);
+  // worth keeping, never backed up: due
+  assert.equal(backupDue({ worth: BACKUP_WORTH, now }), true);
+  // backed up a week ago: not due; a month ago: due
+  assert.equal(backupDue({ worth: 10, lastAt: new Date(now - 7 * day).toISOString(), now }), false);
+  assert.equal(backupDue({ worth: 10, lastAt: new Date(now - BACKUP_EVERY_DAYS * day).toISOString(), now }), true);
+  // "remind me next week"
+  const later = backupLaterUntil(now);
+  assert.equal(Date.parse(later) - now, BACKUP_LATER_DAYS * day);
+  assert.equal(backupDue({ worth: 10, laterUntil: later, now: now + 3 * day }), false);
+  assert.equal(backupDue({ worth: 10, laterUntil: later, now: now + 8 * day }), true);
+});
+
+test('sharing sends the backup as a text file through the share sheet; without it, the file is saved', async () => {
+  const backup = makeBackup((k) => ({ 'vt.progress': { lessons: { a: { stars: 3 } } }, 'vt.settings': { level: 'kg' } })[k], ['vt.progress', 'vt.settings', 'vt.backupAt'], new Date(Date.UTC(2026, 10, 17)));
+  let sent = null;
+  const phone = { canShare: (d) => !!d?.files?.length, share: async (d) => (sent = d) };
+  assert.equal(await shareBackup(backup, { nav: phone }), 'shared');
+  assert.equal(sent.files[0].name, 'khel-khel-mein-backup-2026-11-17.txt');
+  assert.equal(sent.files[0].type, 'text/plain');
+  // the shared file is the backup itself, and Restore takes it back
+  const back = readBackup(JSON.parse(await sent.files[0].text()));
+  assert.ok(!back.error);
+  assert.deepEqual(Object.fromEntries(back.entries)['vt.progress'], { lessons: { a: { stars: 3 } } });
+  assert.ok(canShareFiles(phone));
+  // the grown-up closes the share sheet: nothing is recorded
+  const closed = { canShare: () => true, share: async () => Promise.reject(Object.assign(new Error('no'), { name: 'AbortError' })) };
+  assert.equal(await shareBackup(backup, { nav: closed }), 'cancelled');
+  // no file sharing (a laptop): the file is saved instead
+  let saved = null;
+  assert.equal(await shareBackup(backup, { nav: { share: async () => {} }, save: (name, text) => (saved = { name, text }) }), 'saved');
+  assert.equal(saved.name, 'khel-khel-mein-backup-2026-11-17.json');
+  assert.equal(JSON.parse(saved.text).app, 'khel-khel-mein');
+  assert.ok(!canShareFiles({ share: async () => {} }));
+});
+
+test('the reminder is in the grown-ups\' area (in Hindi too), with a dot on the home screen\'s grown-ups button', () => {
+  const parent = read('js/parent.js');
+  assert.match(parent, /backupReminder\(api\),\n\s+childrenSection\(api\)/);
+  assert.match(parent, /accept: 'application\/json,\.json,text\/plain,\.txt'/);
+  assert.match(read('js/screens.js'), /parentGate\(api, \{ cls: backupReminderDue\(\) \? 'backup-due' : '' \}\)/);
+  assert.match(css, /\.gate\.backup-due::after/);
+  for (const t of ['Share the backup', 'Time for a backup', 'Share the backup now', 'Save a backup file now', 'Remind me next week', 'No backup from this device yet.']) assert.ok(translateText(t) && translateText(t) !== t, `Hindi for "${t}"`);
+  // the first screen doesn't load the grown-ups' area to know about the dot
+  assert.doesNotMatch(read('js/screens.js'), /from '\.\/parent\.js'/);
+});

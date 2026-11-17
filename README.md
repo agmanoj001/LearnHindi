@@ -16,7 +16,7 @@ It's plain HTML, CSS and JavaScript with no build step, so it runs on GitHub Pag
 
 **Yes, after the first visit.** The first time the app is opened online, it saves all its files on the device (the pages, every picture, the fonts and the lessons: about 55 files). After that it opens and plays with no internet at all: every lesson, story, game, recording and setting works offline, and progress is saved on the device. Updates download in the background the next time it is online; when a new version is ready, a small bar on the home screen offers to refresh (never in the middle of a lesson).
 
-Because the stars live only on the device, the grown-ups' area has a **Backup** section: save one small file with the stars, settings and children (not the photo or voice recordings), and restore it on a new phone or after the browser has been cleared. It also says whether the browser has agreed to keep the app's saves when space runs low.
+Because the stars live only on the device, the grown-ups' area has a **Backup** section: save one small file with the stars, settings and children (not the photo or voice recordings), and restore it on a new phone or after the browser has been cleared. On a phone, **Share the backup** sends that file through the phone's share sheet to the family's own WhatsApp, Drive or email, so it is safe even if the phone is lost; once a month, when there are stars worth keeping, the grown-ups' button on the home screen shows a dot and the grown-ups' area opens with a reminder (share now, or remind me next week). It also says whether the browser has agreed to keep the app's saves when space runs low.
 
 What would make it world class, with offline as the rule: [docs/ROADMAP.md](docs/ROADMAP.md).
 

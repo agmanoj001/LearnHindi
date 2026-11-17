@@ -9,7 +9,7 @@ import { worldStars, worldLessons, lessonRecord, weekSummary, dueReviews, learni
 import { refreshClipKeys, voicesFor, setVoicePrefs, hasVoice, play, setVoicePack } from './audio.js';
 import { loadIndex, savedVoiceKeys, savedAudioVersion, packFiles, bundlesFor, downloadVoices, removeVoices, formatMB } from './voicepack.js';
 import { deviceKind, VOICE_SETUP } from './logic.js';
-import { KEYS, save, load, clips, resizeImage, addProfile, removeProfile, MAX_PROFILES, makeBackup, readBackup, localKeys, keepOffline, exportClips, readClipsFile } from './storage.js';
+import { KEYS, save, load, clips, resizeImage, addProfile, removeProfile, MAX_PROFILES, makeBackup, readBackup, localKeys, keepOffline, exportClips, readClipsFile, BACKUP_AT, BACKUP_LATER, backupReminderDue, backupLaterUntil, shareBackup, canShareFiles } from './storage.js';
 import { MASCOTS, MASCOT_IDS, mascotSvg } from './mascot.js';
 import { specialVehicle, pictureForWord } from './art.js';
 import { levelCard } from './screens.js';
@@ -194,6 +194,8 @@ export function showParent(api) {
   api.app.replaceChildren(
     el('div', { class: 'screen settings enter' }, [
       el('div', { class: 'settings-head' }, [el('button', { class: 'round-btn', 'aria-label': 'Done', html: ICONS.back, onclick: () => api.back() }), el('h1', { text: 'Grown-ups' }), parentLangSwitch(api)]),
+      // once a month: share a backup (roadmap 2.2)
+      backupReminder(api),
       childrenSection(api),
       section('Grade', levels, el('button', { class: 'btn', text: 'Not sure? Quick check (2 minutes)', onclick: () => api.go('placement') })),
       section(
@@ -672,6 +674,53 @@ function storyVoicesSection(api) {
 }
 
 // Save the stars somewhere safe, and bring them back on a new phone or after the browser was cleared.
+const saveFile = (name, text) => {
+  const a = el('a', { href: URL.createObjectURL(new Blob([text], { type: 'application/json' })), download: name });
+  document.body.append(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+};
+// share (or, where sharing files isn't offered, save) a backup now, and remember when
+async function shareNow() {
+  const r = await shareBackup(makeBackup(load, localKeys()), { save: saveFile });
+  if (r !== 'cancelled') save(BACKUP_AT, new Date().toISOString());
+  return r;
+}
+const lastBackupText = (api) => {
+  const at = load(BACKUP_AT);
+  const hi = api?.state.settings.parentLang === 'hi';
+  if (!at) return hi ? 'इस फ़ोन से अभी कोई बैकअप नहीं बना।' : 'No backup from this device yet.';
+  const day = new Date(at).toLocaleDateString();
+  return hi ? `इस फ़ोन से पिछला बैकअप: ${day}` : `Last backup from this device: ${day}.`;
+};
+// the monthly reminder, at the top of the grown-ups' area
+function backupReminder(api) {
+  if (!backupReminderDue()) return null;
+  const card = el('section', { class: 'backup-reminder' }, [
+    el('h2', { text: 'Time for a backup' }),
+    el('p', { class: 'note', text: 'The stars and settings are kept on this device only. Share a backup to your own WhatsApp, Drive or email once a month, so a lost phone or a cleared browser loses nothing.' }),
+    el('div', { class: 'btn-row' }, [
+      el('button', {
+        class: 'btn primary',
+        text: canShareFiles() ? 'Share the backup now' : 'Save a backup file now',
+        onclick: async () => {
+          if ((await shareNow()) !== 'cancelled') card.replaceWith(el('p', { class: 'note backup-done', text: lastBackupText(api) }));
+        },
+      }),
+      el('button', {
+        class: 'btn',
+        text: 'Remind me next week',
+        onclick: () => {
+          save(BACKUP_LATER, backupLaterUntil());
+          card.remove();
+        },
+      }),
+    ]),
+  ]);
+  return card;
+}
+
 function backupSection(api) {
   const status = el('p', { class: 'note', text: 'Checking whether this device keeps the app…' });
   keepOffline().then((kept) => {
@@ -680,18 +729,22 @@ function backupSection(api) {
       : 'This browser may clear the app’s saves if the device runs low on space. Installing the app (Add to Home Screen) and keeping a backup protects them.';
     status.textContent = (api.state.settings.parentLang === 'hi' && translateText(text)) || text;
   });
+  const last = el('p', { class: 'note backup-last', text: lastBackupText(api) });
   const download = () => {
     const backup = makeBackup(load, localKeys());
-    const blob = new Blob([JSON.stringify(backup)], { type: 'application/json' });
-    const a = el('a', { href: URL.createObjectURL(blob), download: `khel-khel-mein-backup-${backup.savedAt.slice(0, 10)}.json` });
-    document.body.append(a);
-    a.click();
-    a.remove();
-    setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+    saveFile(`khel-khel-mein-backup-${backup.savedAt.slice(0, 10)}.json`, JSON.stringify(backup));
+    save(BACKUP_AT, new Date().toISOString());
+    last.textContent = lastBackupText(api);
+  };
+  // the share sheet: to the family's own WhatsApp, Drive or email (roadmap 2.2)
+  const canShare = canShareFiles();
+  const share = async () => {
+    await shareNow();
+    last.textContent = lastBackupText(api);
   };
   const file = el('input', {
     type: 'file',
-    accept: 'application/json,.json',
+    accept: 'application/json,.json,text/plain,.txt',
     class: 'visually-hidden',
     onchange: async (e) => {
       const f = e.target.files?.[0];
@@ -713,7 +766,14 @@ function backupSection(api) {
   return el('section', {}, [
     el('h2', { text: 'Backup' }),
     el('p', { class: 'note', text: 'Everything is saved on this device only. Keep a backup file (stars, settings and children; not the photo or voice recordings) to move to a new device or recover after the browser is cleared.' }),
-    el('div', { class: 'btn-row' }, [el('button', { class: 'btn', text: 'Save a backup file', onclick: download }), el('button', { class: 'btn', text: 'Restore from a file', onclick: () => file.click() }), file]),
+    el('div', { class: 'btn-row' }, [
+      canShare ? el('button', { class: 'btn primary', text: 'Share the backup', onclick: share }) : null,
+      el('button', { class: 'btn', text: 'Save a backup file', onclick: download }),
+      el('button', { class: 'btn', text: 'Restore from a file', onclick: () => file.click() }),
+      file,
+    ]),
+    canShare ? el('p', { class: 'note', text: 'Share sends the file to your own WhatsApp, Drive or email, so it is safe even if this phone is lost. A reminder comes here once a month.' }) : null,
+    last,
     status,
   ]);
 }

@@ -84,6 +84,7 @@ const DONE = {
     (content.idioms || []).length >= 30 &&
     /cornerButton\(api\)/.test(read('js/screens.js')) &&
     ['corner', 'idiom', 'comicmaker', 'duel'].every((r) => read('js/app.js').includes(`case '${r}':`)),
+  'Share the backup': () => /nav\.share\(\{ files/.test(read('js/storage.js')) && /backupReminder\(api\)/.test(read('js/parent.js')) && /backupReminderDue\(\)/.test(read('js/screens.js')),
   'Maths games you do with your hands': () => exists('js/games/handson.js') && ['tenframe', 'numberline', 'pattern', 'shapes', 'measure', 'balance', 'shop', 'clock'].every((a) => content.worlds.some((w) => w.subject === 'math' && w.units.some((u) => u.lessons.some((l) => l.game === 'handson' && l.config.activity === a)))),
   'Performance budget': () => exists('tools/perf-budget.mjs') && exists('docs/PERFORMANCE.md') && /modulepreload/.test(read('index.html')) && /drawWhenSeen/.test(read('js/screens.js')) && /perf-budget\.mjs/.test(read('.github/workflows/test.yml')),
   'Split the content by grade': () => exists('content/core.json') && exists('js/packs.js') && /content\/core\.json/.test(read('sw.js')) && !/fetch\('content\.json'/.test(read('js/app.js')),
@@ -102,7 +103,6 @@ const DONE = {
 
 // title of an open row -> a sign in the code that it has been built (then its row must be ✅)
 const WATCH = {
-  'Share the backup': () => /navigator\.share\(/.test(js),
   'A "what\'s new" note': () => /whatsNew|changelog/i.test(js),
   'More decodable books for Grade 1': () => content.stories.filter((s) => s.decodable != null).length >= 25,
   'A Grade 2 maths world': () => content.worlds.some((w) => w.subject === 'math' && w.level === 'grade2'),

@@ -33,6 +33,16 @@ const HI = {
   'Everything is saved on this device only. Keep a backup file (stars, settings and children; not the photo or voice recordings) to move to a new device or recover after the browser is cleared.':
     'सब कुछ सिर्फ़ इसी फ़ोन में रहता है। एक बैकअप फ़ाइल रख लें (सितारे, सेटिंग और बच्चे; फ़ोटो और आवाज़ें नहीं), ताकि नए फ़ोन पर ले जा सकें या ब्राउज़र साफ़ होने पर वापस ला सकें।',
   'Save a backup file': 'बैकअप फ़ाइल बनाएँ',
+  'Share the backup': 'बैकअप भेजें',
+  'Time for a backup': 'बैकअप का समय',
+  'The stars and settings are kept on this device only. Share a backup to your own WhatsApp, Drive or email once a month, so a lost phone or a cleared browser loses nothing.':
+    'सितारे और सेटिंग सिर्फ़ इसी फ़ोन पर रहते हैं। महीने में एक बार बैकअप अपने WhatsApp, Drive या ईमेल पर भेज दें, ताकि फ़ोन खोने या ब्राउज़र साफ़ होने पर भी कुछ न खोए।',
+  'Share the backup now': 'अभी बैकअप भेजें',
+  'Save a backup file now': 'अभी बैकअप फ़ाइल बनाएँ',
+  'Remind me next week': 'अगले हफ़्ते याद दिलाएँ',
+  'Share sends the file to your own WhatsApp, Drive or email, so it is safe even if this phone is lost. A reminder comes here once a month.':
+    'भेजें दबाने पर फ़ाइल आपके अपने WhatsApp, Drive या ईमेल पर जाती है, ताकि फ़ोन खो जाए तब भी वह सुरक्षित रहे। महीने में एक बार यहाँ याद दिलाया जाएगा।',
+  'No backup from this device yet.': 'इस फ़ोन से अभी कोई बैकअप नहीं बना।',
   'Restore from a file': 'फ़ाइल से वापस लाएँ',
   'Checking whether this device keeps the app…': 'देख रहे हैं कि यह फ़ोन ऐप को सँभालकर रखता है या नहीं…',
   'This device keeps the app and its saves, even when space runs low.': 'यह फ़ोन ऐप और उसकी बचत सँभालकर रखता है, जगह कम होने पर भी।',
