@@ -265,3 +265,61 @@ test('lighter animations drop what stuttered and keep what teaches', () => {
   assert.match(css, /\.path > \.unit \{\s*content-visibility: auto;/);
   assert.doesNotMatch(screens, /mini-star [^']*', html: ICONS\.star/, 'CSS stars');
 });
+
+// ---- 5.6 Hindi text animation ----
+import { strokeOrder, skeleton } from '../js/logic.js';
+import { sayPieces } from '../js/games/kit.js';
+
+test('a thick shape thins to its one-cell centre line', () => {
+  // a bar 5 cells tall and 20 long becomes a line one cell tall
+  const w = 24;
+  const h = 9;
+  const mask = new Uint8Array(w * h);
+  for (let y = 2; y <= 6; y++) for (let x = 2; x <= 21; x++) mask[y * w + x] = 1;
+  const thin = skeleton(mask, w, h);
+  const rows = new Set();
+  let n = 0;
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) if (thin[y * w + x]) (rows.add(y), n++);
+  assert.equal(rows.size, 1, 'one row');
+  assert.ok(n >= 12, 'most of the length is kept');
+  assert.equal(mask.reduce((a, v) => a + v, 0), 100, 'the input is untouched');
+});
+
+test('a Hindi letter is written body first, then the standing line, then the top line, then marks above', () => {
+  const step = 6;
+  const pts = [];
+  for (let x = 0; x <= 120; x += step) pts.push({ x, y: 30 }); // the top line
+  for (let y = 36; y <= 150; y += step) pts.push({ x: 102, y }); // the standing line
+  for (let y = 36; y <= 96; y += step) pts.push({ x: 18, y }); // the body: down the left...
+  for (let x = 24; x <= 84; x += step) pts.push({ x, y: 96 }); // ...and along the bottom
+  for (let y = 0; y <= 18; y += step) pts.push({ x: 60, y }); // a mark above the top line
+  const s = strokeOrder(pts, { step });
+  assert.deepEqual(s.map((t) => t.kind), ['body', 'stem', 'line', 'mark']);
+  const [body, stem, line] = s;
+  assert.deepEqual(body.pts[0], { x: 18, y: 36 }, 'the body starts at its loose end, top left');
+  assert.ok(stem.pts[0].y < stem.pts.at(-1).y, 'the standing line goes down');
+  assert.ok(line.pts[0].x < line.pts.at(-1).x, 'the top line goes left to right');
+  // a Latin letter is only its pen paths
+  assert.ok(strokeOrder(pts, { step, devanagari: false }).every((t) => t.kind === 'body'));
+  assert.deepEqual(strokeOrder([], { step }), []);
+});
+
+test('the tracing letter writes itself first, and syllables pop as they are said', async () => {
+  const trace = read('js/games/trace.js');
+  assert.match(trace, /const strokes = strokeOrder\(centre, \{ step: cell, devanagari: letter\.lang === 'hi' \}\)/);
+  assert.match(trace, /writeItself\(\);\s*prompt\(\);/);
+  assert.match(trace, /prefers-reduced-motion: reduce/, 'not with reduce motion');
+  assert.match(read('js/games/matra.js'), /sayPieces\(ctx, tiles, row\.map\(\(r\) => r\.text\), 'hi'/);
+  assert.match(read('js/games/construction.js'), /await sayPieces\(ctx, slots, tiles, lang\);/);
+  assert.match(css, /@keyframes say-pop/);
+  // sayPieces says each piece in turn, and stops when asked
+  const said = [];
+  const node = () => ({ classList: { add() {}, remove() {} }, offsetWidth: 0 });
+  const ctx = { alive: () => true, sayText: async (t) => said.push(t) };
+  assert.equal(await sayPieces(ctx, [node(), node()], ['ब', 'स'], 'hi'), true);
+  assert.deepEqual(said, ['ब', 'स']);
+  let go = true;
+  ctx.sayText = async (t) => (said.push(t), (go = false));
+  assert.equal(await sayPieces(ctx, [node(), node()], ['क', 'ल'], 'hi', () => go), false);
+  assert.deepEqual(said, ['ब', 'स', 'क']);
+});

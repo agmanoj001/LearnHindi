@@ -1,7 +1,7 @@
 // Construction site: dig up letters (digger), deliver blocks to the matching sound (dump truck),
 // build words with the crane. The cement mixer and bulldozer just play when tapped.
 import { pickChoices, sample, splitTiles, createBuild, placeTile, tileChoices, langForRound } from '../logic.js';
-import { el, sleep, choose, runRounds, cheer, vehicleEl, activityMenu, flyTo, animate, bounce, wobble, ICONS, stepHint } from './kit.js';
+import { el, sleep, choose, runRounds, cheer, vehicleEl, activityMenu, flyTo, animate, bounce, wobble, ICONS, stepHint, sayPieces } from './kit.js';
 
 const MOUND =
   '<svg viewBox="0 0 120 80" aria-hidden="true"><ellipse cx="60" cy="76" rx="54" ry="4" fill="#1E1B4B" opacity="0.08"/><path d="M6 76 Q60 -12 114 76 Z" fill="#B9876B"/><path d="M6 76 Q60 -12 114 76 Q70 40 6 76 Z" fill="#A47864"/><circle cx="44" cy="54" r="5" fill="#8A5A44"/><circle cx="74" cy="42" r="4" fill="#8A5A44"/><circle cx="86" cy="62" r="6" fill="#8A5A44"/></svg>';
@@ -192,7 +192,9 @@ async function build(ctx) {
     });
     hint.done();
     ctx.record(w, mistakes === 0 && !hint.used);
-    await sleep(400);
+    await sleep(300);
+    // the word, piece by piece (each one pops), then all together: "ब… स… बस"
+    await sayPieces(ctx, slots, tiles, lang);
     await cheer(ctx, pic);
     await ctx.sayItem(w, [lang]);
     await sleep(400);

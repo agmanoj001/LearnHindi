@@ -248,6 +248,130 @@ export function makeOppositeRound(pairs, rng = Math.random, previous = null) {
 // ---- Trace the road ----
 
 // Fraction of target points that have a traced point within `radius`.
+// A shape thinned to its centre line, one cell wide (Zhang–Suen thinning). `mask` is a Uint8Array of
+// w × h cells (1 = inside the letter); returns a new mask. Used to find the pen path of a letter.
+export function skeleton(mask, w, h) {
+  const m = Uint8Array.from(mask);
+  const at = (x, y) => (x < 0 || y < 0 || x >= w || y >= h ? 0 : m[y * w + x]);
+  let changed = true;
+  while (changed) {
+    changed = false;
+    for (const pass of [0, 1]) {
+      const off = [];
+      for (let y = 0; y < h; y++)
+        for (let x = 0; x < w; x++) {
+          if (!m[y * w + x]) continue;
+          const n = [at(x, y - 1), at(x + 1, y - 1), at(x + 1, y), at(x + 1, y + 1), at(x, y + 1), at(x - 1, y + 1), at(x - 1, y), at(x - 1, y - 1)];
+          const b = n.reduce((a, v) => a + v, 0);
+          if (b < 2 || b > 6) continue;
+          let a = 0;
+          for (let k = 0; k < 8; k++) if (!n[k] && n[(k + 1) % 8]) a++;
+          if (a !== 1) continue;
+          if (pass === 0 ? n[0] * n[2] * n[4] || n[2] * n[4] * n[6] : n[0] * n[2] * n[6] || n[0] * n[4] * n[6]) continue;
+          off.push(y * w + x);
+        }
+      for (const i of off) m[i] = 0;
+      if (off.length) changed = true;
+    }
+  }
+  return m;
+}
+
+// The order a letter is written in (docs/ROADMAP.md 5.6), worked out from the points of its shape, so it
+// works for every letter in any font: for Hindi, the body first (one pen path, lifting the pen only where
+// the shape breaks), then the standing line (खड़ी पाई) top to bottom, then the top line (शिरोरेखा) left to
+// right, then any mark above it (ई's curl, the dot of ं). Latin letters are just their pen paths.
+// `points` are {x, y} on a grid of `step`; returns [{ kind: 'body' | 'stem' | 'line' | 'mark', pts }].
+export function strokeOrder(points, { step = 6, devanagari = true } = {}) {
+  if (!points.length) return [];
+  const xs = points.map((p) => p.x);
+  const ys = points.map((p) => p.y);
+  const [minX, maxX, minY, maxY] = [Math.min(...xs), Math.max(...xs), Math.min(...ys), Math.max(...ys)];
+  const W = maxX - minX + step;
+  const H = maxY - minY + step;
+  const rows = new Map();
+  for (const p of points) rows.set(p.y, (rows.get(p.y) || 0) + 1);
+  // the top line: the widest band of rows in the top half, spanning most of the letter
+  let line = new Set();
+  if (devanagari) {
+    const wide = [...rows.entries()].filter(([y, n]) => y <= minY + H * 0.5 && n * step >= W * 0.55).map(([y]) => y).sort((a, b) => a - b);
+    // the contiguous group with the most points
+    let best = [];
+    let cur = [];
+    for (const y of wide) {
+      if (cur.length && y - cur[cur.length - 1] > step * 1.5) cur = [];
+      cur.push(y);
+      const sum = (g) => g.reduce((a, r) => a + rows.get(r), 0);
+      if (sum(cur) > sum(best)) best = [...cur];
+    }
+    line = new Set(best);
+  }
+  const lineY = line.size ? Math.max(...line) : minY - 1;
+  const inLine = (p) => line.has(p.y);
+  const above = (p) => line.size && p.y < Math.min(...line);
+  // standing lines: columns in the right part that run most of the way down below the top line
+  const below = points.filter((p) => !inLine(p) && !above(p));
+  const bH = Math.max(...below.map((p) => p.y), lineY) - lineY;
+  const cols = new Map();
+  for (const p of below) cols.set(p.x, (cols.get(p.x) || 0) + 1);
+  const stemX = devanagari && line.size ? new Set([...cols.entries()].filter(([x, n]) => x >= minX + W * 0.4 && n * step >= bH * 0.7).map(([x]) => x)) : new Set();
+  const groups = [];
+  for (const x of [...stemX].sort((a, b) => a - b)) {
+    const g = groups[groups.length - 1];
+    if (g && x - g[g.length - 1] <= step * 1.5) g.push(x);
+    else groups.push([x]);
+  }
+  const inStem = (p) => stemX.has(p.x) && !inLine(p) && !above(p);
+  const body = below.filter((p) => !inStem(p));
+  // the body as pen paths: start at a loose end near its top left, always go to the nearest point not yet
+  // drawn; a jump further than a few grid steps lifts the pen, and the next piece starts at the loose end
+  // nearest to where the pen was
+  const near = (a, b) => (a.x - b.x) ** 2 + (a.y - b.y) ** 2 <= 2 * step * step + 1;
+  const looseEnds = (left) => left.map((p, k) => [p, k]).filter(([p]) => left.filter((q) => q !== p && near(p, q)).length <= 1);
+  const walk = (pts) => {
+    const left = pts.slice();
+    const out = [];
+    if (!left.length) return out;
+    const score = (p) => p.x - minX + (p.y - minY) * 0.7;
+    const ends0 = looseEnds(left);
+    let i = (ends0.length ? ends0 : left.map((p, k) => [p, k])).reduce((b, c) => (score(c[0]) < score(b[0]) ? c : b))[1];
+    let stroke = [];
+    while (left.length) {
+      const p = left.splice(i, 1)[0];
+      stroke.push(p);
+      if (!left.length) break;
+      let bi = -1;
+      let bd = Infinity;
+      for (let k = 0; k < left.length; k++) {
+        const d = (left[k].x - p.x) ** 2 + (left[k].y - p.y) ** 2;
+        if (d < bd) [bd, bi] = [d, k];
+      }
+      if (bd > (step * 3) ** 2) {
+        // lift the pen: the next piece starts at the loose end nearest to here
+        if (stroke.length > 1) out.push(stroke);
+        stroke = [];
+        const ends = looseEnds(left);
+        if (ends.length) bi = ends.reduce((b, c) => ((c[0].x - p.x) ** 2 + (c[0].y - p.y) ** 2 < (b[0].x - p.x) ** 2 + (b[0].y - p.y) ** 2 ? c : b))[1];
+      }
+      i = bi;
+    }
+    if (stroke.length > 1) out.push(stroke);
+    return out;
+  };
+  // a straight stroke through a band of points: one point per row (or column), averaged across it
+  const straight = (pts, along) => {
+    const by = new Map();
+    for (const p of pts) by.set(p[along], [...(by.get(p[along]) || []), p]);
+    const other = along === 'x' ? 'y' : 'x';
+    return [...by.keys()].sort((a, b) => a - b).map((k) => ({ [along]: k, [other]: by.get(k).reduce((a, p) => a + p[other], 0) / by.get(k).length }));
+  };
+  const strokes = walk(body).map((pts) => ({ kind: 'body', pts }));
+  for (const g of groups) strokes.push({ kind: 'stem', pts: straight(below.filter((p) => g.includes(p.x)), 'y') });
+  if (line.size) strokes.push({ kind: 'line', pts: straight(points.filter(inLine), 'x') });
+  for (const pts of walk(points.filter(above))) strokes.push({ kind: 'mark', pts });
+  return strokes.filter((s) => s.pts.length > 1);
+}
+
 // The points of a letter not yet driven over (for the tracing hint).
 export function uncoveredPoints(targets, trace, radius) {
   const r2 = radius * radius;

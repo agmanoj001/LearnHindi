@@ -10213,3 +10213,25 @@ body:has(.game-grammar) .caption-bar,
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
 }
+
+/* ---- a syllable pops as it is said (roadmap 5.6, kit.js popSay) ---- */
+.say-pop {
+  animation: say-pop 0.5s var(--spring);
+  z-index: 2;
+}
+.say-pop .glyph,
+.say-pop.slot {
+  color: var(--brand);
+}
+@keyframes say-pop {
+  35% {
+    transform: scale(1.22) translateY(-6px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .say-pop {
+    animation: none;
+    outline: 4px solid var(--sun);
+    outline-offset: 2px;
+  }
+}

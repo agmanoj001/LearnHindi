@@ -3,7 +3,7 @@
 // 2. Rounds alternate: "Find की" among syllables of the same consonant, and
 //    "add the right matra" to a word with one matra missing (म_र -> मोर).
 import { barakhadi, maskMatra, pickChoices, shuffle } from '../logic.js';
-import { el, sleep, choose, runRounds, cheer, flyTo, bounce, stepHint } from './kit.js';
+import { el, sleep, choose, runRounds, cheer, flyTo, bounce, stepHint, sayPieces } from './kit.js';
 
 const DOTTED = '◌'; // ◌ : shows a matra sign on its own
 
@@ -24,7 +24,12 @@ export default {
     const heard = new Set();
     const tiles = row.map((r) => el('button', { class: 'card tile syllable', lang: 'hi', 'aria-label': r.text }, [el('span', { class: 'glyph', text: r.text })]));
     ctx.stage.replaceChildren(el('div', { class: 'scene' }, [car]), el('div', { class: 'choices barakhadi' }, tiles));
-    const introduce = () => ctx.sayText(row.map((r) => r.text).join(' '), 'hi');
+    // the row is said one syllable at a time, each tile popping as it is said; a tap stops it
+    let run = 0;
+    const introduce = () => {
+      const mine = ++run;
+      return sayPieces(ctx, tiles, row.map((r) => r.text), 'hi', () => mine === run);
+    };
     ctx.setRepeat(introduce);
     introduce();
     // 💡: a syllable not heard yet glows
@@ -32,6 +37,7 @@ export default {
     await new Promise((resolve) =>
       tiles.forEach((t, i) =>
         t.addEventListener('click', () => {
+          run++; // the child's own tap wins over the row being read
           hint.step();
           ctx.sfx.pop();
           bounce(t);

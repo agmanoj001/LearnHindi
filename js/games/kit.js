@@ -115,6 +115,23 @@ export function stepHint(ctx, next, { show, say = 'hintLook', autoAfter = 2, coa
   };
 }
 
+// A syllable, letter or word pops as it is said (roadmap 5.6): say each piece in turn while its tile
+// grows and lights up. `alive()` stops it early (the child tapped, or left).
+export function popSay(node) {
+  node.classList.remove('say-pop');
+  void node.offsetWidth;
+  node.classList.add('say-pop');
+  setTimeout(() => node.classList.remove('say-pop'), 520);
+}
+export async function sayPieces(ctx, nodes, texts, lang, alive = () => true) {
+  for (let i = 0; i < nodes.length; i++) {
+    if (!ctx.alive() || !alive()) return false;
+    popSay(nodes[i]);
+    await ctx.sayText(texts[i], lang);
+  }
+  return true;
+}
+
 export function waitTap(node) {
   return new Promise((resolve) => node.addEventListener('click', () => resolve(node), { once: true }));
 }
