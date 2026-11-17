@@ -373,7 +373,8 @@ export function world(api, w) {
       const stars = el(
         'span',
         { class: 'node-stars' },
-        [0, 1, 2].map((k) => el('span', { class: `mini-star ${k < rec.stars ? 'on' : ''}`, html: ICONS.star })),
+        // drawn by CSS, not 144 little SVGs on a big map (the motion budget, roadmap 5.5)
+        [0, 1, 2].map((k) => el('span', { class: `mini-star ${k < rec.stars ? 'on' : ''}` })),
       );
       const x = SNAKE[i % SNAKE.length];
       const row = el('div', { class: `node-row ${cls} ${x > 0 ? 'guide-left' : ''}`, style: { '--x': String(x) } }, [
@@ -429,9 +430,16 @@ export function world(api, w) {
     el('div', { class: `screen world-map theme-${w.theme} enter`, style: { '--place': w.color } }, [backdrop(w), head, el('div', { class: 'path-scroll' }, [path])]),
   );
   const walked = Math.max(0, lessons.findIndex((l) => l.id === current.id));
-  const draw = () => drawTrail(path, walked);
-  draw();
+  // The trail is measured from the laid-out stops, which forces a full layout of the map. It is drawn in
+  // a task of its own once the map has painted (and again, at most once a frame, when the map resizes),
+  // never in the frame that builds the map: on a slow phone that frame was the longest in the app (5.5).
+  let pending = 0;
+  const draw = () => {
+    if (pending) return;
+    pending = requestAnimationFrame(() => setTimeout(() => ((pending = 0), drawTrail(path, walked)), 0));
+  };
   if (typeof ResizeObserver === 'function') new ResizeObserver(draw).observe(path);
+  else draw();
   requestAnimationFrame(() => currentNode?.scrollIntoView({ block: 'center' }));
   const unit = w.units.find((u) => u.lessons.some((l) => l.id === current.id));
   setTimeout(() => {

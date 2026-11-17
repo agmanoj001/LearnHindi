@@ -52,6 +52,8 @@ export const bounce = (node) =>
 // A little burst of sparkles over a node (a right answer, a lit star). Nothing with reduced motion.
 export function sparkleAt(node, { count = 10, colors = ['#FFC93C', '#2EC27E', '#6C63FF', '#FF5A5F', '#3D7BFF', '#FF8FB1'] } = {}) {
   if (!node?.getBoundingClientRect || typeof document === 'undefined') return;
+  // lighter animations (js/motion.js): a few sparkles instead of a burst
+  if (document.documentElement.classList.contains('lite')) count = Math.min(count, 4);
   if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
   const b = node.getBoundingClientRect();
   if (!b.width) return;

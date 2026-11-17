@@ -21,6 +21,7 @@ import { freeplay } from './freeplay.js';
 import { validateContent } from './validate.js';
 import { pictureExists, picture, pictureForWord, specialVehicle } from './art.js';
 import { showCoach, needsCoach, coachKey, COACH_KINDS, COACH_MAX } from './coach.js';
+import { applyMotion, liteMotion, slowDevice, watchMotion, isLite } from './motion.js';
 import { initAudio, setVoicePack, preload, play, stop, isSpeaking, wordSegs, letterSegs, numberSegs, soundSegs, sentenceSegs, phraseSegs, setVoicePrefs } from './audio.js';
 import { KEYS, load, save, normalizeProfiles, profileKey, keepStorage } from './storage.js';
 import { sfx, music } from './sfx.js';
@@ -101,6 +102,7 @@ function initParallax() {
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   let raf = 0;
   const set = (x, y) => {
+    if (isLite()) return; // lighter animations: the background stays still
     cancelAnimationFrame(raf);
     raf = requestAnimationFrame(() => {
       document.documentElement.style.setProperty('--px', Math.max(-1, Math.min(1, x)).toFixed(3));
@@ -144,7 +146,11 @@ function loadProfile() {
   setVoicePack(null, state.settings.storyVoices);
   sfx.enabled = state.settings.sfx;
   music.enabled = state.settings.music;
+  applyMotion(liteMotion(state.settings.motion, slowDevice()));
 }
+
+// the motion budget (js/motion.js, roadmap 5.5): the first few screens of each start are timed
+const motionCheck = watchMotion(() => state.settings.motion);
 
 function saveProfiles(profiles) {
   state.profiles = normalizeProfiles(profiles, MASCOT_IDS);
@@ -179,7 +185,7 @@ function homeRoute() {
 // shrinks the screen into the card again (roadmap 5.4): the card and the screen share a view-transition
 // name, so the browser morphs one into the other. Browsers without View Transitions, and "reduce
 // motion", keep the usual slide-in.
-const canGrow = () => typeof document.startViewTransition === 'function' && !window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+const canGrow = () => typeof document.startViewTransition === 'function' && !isLite() && !window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 function grow(change, from, to) {
   if (!from?.isConnected || !canGrow()) return change();
   from.style.viewTransitionName = 'grow';
@@ -221,6 +227,7 @@ function render(route) {
   state.depth = route.depth || 0;
   state.route = route.name;
   state.current = route;
+  if (route.name !== 'splash') setTimeout(motionCheck, 600);
   // quieter music in lessons and shows, where children need to hear every sound
   music.setMood(route.name === 'lesson' || route.name === 'show' ? 'lesson' : 'free');
   // the "new version" bar only lives on calm screens; it comes back on the next calm one

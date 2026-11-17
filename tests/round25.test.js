@@ -221,3 +221,47 @@ test('a tapped world, lesson, story or episode grows into its screen, and shrink
   assert.match(css, /::view-transition-group\(grow\) \{[^}]*animation-duration: 0\.42s/);
   assert.match(css, /\.growing \.enter \{\s*animation: none;/);
 });
+
+// ---- 5.5 the motion budget ----
+import { tooSlow, liteMotion, MOTION_MODES } from '../js/motion.js';
+import { normalizeSettings, defaultSettings } from '../js/logic.js';
+
+test('a device is slow when frames run under 40 a second, or a fifth miss the budget; hidden-tab gaps do not count', () => {
+  const run = (ms, n = 120) => Array(n).fill(ms);
+  assert.equal(tooSlow(run(16.7)), false, '60 fps');
+  assert.equal(tooSlow(run(22)), false, '45 fps');
+  assert.equal(tooSlow(run(30)), true, '33 fps');
+  assert.equal(tooSlow([...run(16.7, 90), ...run(50, 30)]), true, 'a quarter of the frames janky');
+  assert.equal(tooSlow([...run(16.7, 110), ...run(50, 10)]), false, 'a few janky frames');
+  assert.equal(tooSlow([...run(16.7, 100), ...run(5000, 40)]), false, 'the tab was in the background');
+  assert.equal(tooSlow(run(40, 20)), false, 'too few frames to say');
+});
+
+test('lighter animations: chosen, or automatic on a slow device; the setting is kept cleanly', () => {
+  assert.deepEqual(MOTION_MODES, ['auto', 'full', 'lite']);
+  assert.equal(liteMotion('auto', false), false);
+  assert.equal(liteMotion('auto', true), true);
+  assert.equal(liteMotion('full', true), false, 'full always wins');
+  assert.equal(liteMotion('lite', false), true);
+  assert.equal(defaultSettings(content).motion, 'auto');
+  assert.equal(normalizeSettings({ motion: 'lite' }, content).motion, 'lite');
+  assert.equal(normalizeSettings({ motion: 'turbo' }, content).motion, 'auto');
+});
+
+test('lighter animations drop what stuttered and keep what teaches', () => {
+  const lite = css.slice(css.indexOf('/* lighter animations (html.lite'));
+  for (const sel of ['.lite .backdrop *', '.lite .world-card-mascot *', '.lite .life', '.lite .layer', '.lite .glass']) assert.ok(lite.includes(sel), sel);
+  assert.ok(!/\.lite \.scene|\.lite \.mascot-corner|\.lite \.stage/.test(lite), 'story scenes, the guide and the games keep moving');
+  const app = read('js/app.js');
+  assert.match(app, /const canGrow = \(\) => [^;]*!isLite\(\)/, 'no grow transition');
+  assert.match(app, /if \(isLite\(\)\) return; \/\/ lighter animations: the background stays still/, 'no parallax');
+  assert.match(read('js/ui.js'), /contains\('lite'\)\) count = Math\.min\(count, 4\)/, 'fewer sparkles');
+  assert.match(read('js/parent.js'), /'Lighter \(for slower phones\)'/);
+  assert.match(read('sw.js'), /'js\/motion\.js'/);
+  // cheaper maps for everyone
+  const screens = read('js/screens.js');
+  assert.match(screens, /new ResizeObserver\(draw\)\.observe\(path\)/);
+  assert.match(screens, /requestAnimationFrame\(\(\) => setTimeout\(\(\) => \(\(pending = 0\), drawTrail\(path, walked\)\), 0\)\)/, 'the trail is drawn after the map paints');
+  assert.match(css, /\.path > \.unit \{\s*content-visibility: auto;/);
+  assert.doesNotMatch(screens, /mini-star [^']*', html: ICONS\.star/, 'CSS stars');
+});

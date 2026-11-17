@@ -2141,13 +2141,14 @@ svg {
   margin-top: 2px;
 }
 .mini-star {
+  display: inline-block;
   width: 18px;
   height: 18px;
-  color: rgba(31, 35, 64, 0.15);
+  background: rgba(31, 35, 64, 0.15);
+  clip-path: polygon(50% 4%, 61.8% 36%, 96% 37%, 69% 58%, 79% 92%, 50% 72%, 21% 92%, 31% 58%, 4% 37%, 38.2% 36%);
 }
 .mini-star.on {
-  color: var(--sun);
-  filter: drop-shadow(0 1px 0 #c9901e);
+  background: var(--sun);
 }
 .node-guide {
   position: absolute;
@@ -10180,4 +10181,35 @@ body:has(.game-grammar) .caption-bar,
 /* while a screen grows out of its card, the usual slide-in would only get in the way */
 .growing .enter {
   animation: none;
+}
+
+/* ---- motion budget (roadmap 5.5) ---- */
+/* a world map renders only the units near the screen: building a 17-unit map was the longest frame on a slow phone */
+.path > .unit {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 640px;
+}
+/* lighter animations (html.lite, js/motion.js): still backgrounds, no ambient life, no blur behind panels.
+   Story scenes, the guide, answer feedback and every game keep moving. */
+.lite .backdrop *,
+.lite .world-card-scene *,
+.lite .world-card-mascot *,
+.lite .show-thumb *,
+.lite .tag-filter,
+.lite .today-step {
+  animation: none !important;
+}
+.lite .life {
+  display: none;
+}
+.lite .layer {
+  transform: none !important;
+  transition: none !important;
+}
+.lite .glass,
+.lite .round-btn,
+.lite .world-title,
+.lite .head-title {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
