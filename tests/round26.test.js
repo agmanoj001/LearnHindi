@@ -48,3 +48,29 @@ test('the heart is on every library book and after a story; the home screen has 
   assert.match(css, /\.book-wrap\.next-book-wrap \{\s*grid-column: 1 \/ -1;/);
   assert.match(read('sw.js'), /'js\/favourites\.js'/);
 });
+
+// ---- 7.3 Story radio: sleep timer, picture tiles, play again ----
+import { SLEEP_STEPS, nextSleep, sleepLabel } from '../js/shows.js';
+
+test('the sleep timer goes off, end of this story, 10, 20, 30 minutes, and round again', () => {
+  assert.deepEqual(SLEEP_STEPS, [0, 'story', 10, 20, 30]);
+  let m = 0;
+  const seen = [];
+  for (let i = 0; i < 6; i++) seen.push((m = nextSleep(m)));
+  assert.deepEqual(seen, ['story', 10, 20, 30, 0, 'story']);
+  assert.deepEqual(sleepLabel(0), { hi: 'बंद', en: 'Off' });
+  assert.deepEqual(sleepLabel('story'), { hi: 'यह कहानी', en: 'This story' });
+  assert.deepEqual(sleepLabel(20, 19 * 60000 + 1), { hi: '20 मिनट', en: '20 min' }, 'rounds up');
+  assert.deepEqual(sleepLabel(10, 5), { hi: '1 मिनट', en: '1 min' }, 'never 0 minutes while still running');
+});
+
+test('Story radio can pick a story from picture tiles, play one again, and say good night', () => {
+  const shows = read('js/shows.js');
+  assert.match(shows, /list\.map\(\(s, i\) => \{[\s\S]*class: `radio-tile\$\{i === index \? ' now' : ''\}`/);
+  assert.match(shows, /if \(again\) \{\s*again = false;\s*continue; \/\/ the same story from the start/);
+  assert.match(shows, /if \(sleepMode === 'story'\) \{\s*asleep = true;/);
+  assert.match(shows, /await api\.say\('radioGoodnight'\)/);
+  assert.match(shows, /lock\?\.release\?\.\(\)/, 'the phone may sleep');
+  assert.ok(content.phrases.radioGoodnight?.hi && content.phrases.radioGoodnight?.en);
+  assert.match(css, /\.radio-pick \{[^}]*position: fixed;[^}]*z-index: 30/);
+});

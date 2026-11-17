@@ -691,6 +691,16 @@ async function recap(api, show, { screen, wordLangs, watch, alive }) {
 
 // ---------- Story radio: stories and rhymes to listen to, screen dark ----------
 
+// Story radio's sleep timer (docs/ROADMAP.md 7.3): off, at the end of this story, or after so many minutes.
+export const SLEEP_STEPS = [0, 'story', 10, 20, 30];
+export const nextSleep = (now) => SLEEP_STEPS[(SLEEP_STEPS.indexOf(now) + 1) % SLEEP_STEPS.length];
+export const sleepLabel = (mode, msLeft = 0) =>
+  mode === 0
+    ? { hi: 'बंद', en: 'Off' }
+    : mode === 'story'
+      ? { hi: 'यह कहानी', en: 'This story' }
+      : { hi: `${Math.max(1, Math.ceil(msLeft / 60000))} मिनट`, en: `${Math.max(1, Math.ceil(msLeft / 60000))} min` };
+
 export async function radio(api) {
   const { content, settings } = api.state;
   const token = api.state.token;
@@ -715,13 +725,25 @@ export async function radio(api) {
   const darkBtn = el('button', { class: `round-btn small radio-dark${settings.radioDark ? ' on' : ''}`, 'aria-label': 'Dark screen', 'aria-pressed': String(!!settings.radioDark), html: MOON });
   const prevBtn = el('button', { class: 'radio-btn', 'aria-label': 'Previous story', html: ICONS.back });
   const nextBtn = el('button', { class: 'radio-btn', 'aria-label': 'Next story', html: ICONS.next });
+  // "play this one again", pick a story from its picture, and a sleep timer (roadmap 7.3)
+  const againBtn = el('button', { class: 'radio-btn small', 'aria-label': 'Play this one again', html: ICONS.replay });
+  const pickBtn = el('button', { class: 'radio-chip pick', 'aria-label': 'Pick a story' }, [el('span', { class: 'chip-icon', 'aria-hidden': 'true', text: '🖼️' }), el('span', { lang: 'hi', text: 'कहानी चुनो' })]);
+  const sleepText = el('span', { class: 'sleep-text' });
+  const sleepBtn = el('button', { class: 'radio-chip sleep', 'aria-label': 'Sleep timer' }, [el('span', { class: 'chip-icon', 'aria-hidden': 'true', text: '😴' }), sleepText]);
   const screen = el('div', { class: 'screen radio-screen enter' }, [
     el('header', { class: 'game-head' }, [
       el('button', { class: 'round-btn small', 'aria-label': 'Back', html: ICONS.back, onclick: () => api.back() }),
       el('div', { class: 'head-title' }, [el('span', { class: 'world-name-hi', lang: 'hi', text: 'कहानी रेडियो' }), el('span', { class: 'world-name-en', text: 'Story radio' })]),
       darkBtn,
     ]),
-    el('div', { class: 'radio-body' }, [el('div', { class: 'radio-host' }, [el('span', { class: 'waves' }), host.node]), cover, title, status, el('div', { class: 'radio-controls' }, [prevBtn, playBtn, nextBtn])]),
+    el('div', { class: 'radio-body' }, [
+      el('div', { class: 'radio-host' }, [el('span', { class: 'waves' }), host.node]),
+      cover,
+      title,
+      status,
+      el('div', { class: 'radio-controls' }, [againBtn, prevBtn, playBtn, nextBtn]),
+      el('div', { class: 'radio-extras' }, [pickBtn, sleepBtn]),
+    ]),
   ]);
   // how the dark screen works is for grown-ups (roadmap 4.6)
   screen.append(el('div', { class: 'radio-info' }, [infoButton(screen), forGrownups(el('p', { class: 'radio-note' }))]));
@@ -782,7 +804,105 @@ export async function radio(api) {
     gen++;
     stopSpeech();
   };
+  // ---- again, pick, sleep ----
+  let again = false;
+  let pick = -1;
+  let asleep = false;
+  let wakeUp = null;
+  let sleepMode = 0;
+  let sleepAt = 0;
+  const drawSleep = () => {
+    const l = sleepLabel(sleepMode, sleepAt - Date.now());
+    sleepText.textContent = settings.lang === 'en' ? l.en : `${l.hi} · ${l.en}`;
+    sleepBtn.classList.toggle('on', sleepMode !== 0);
+  };
+  drawSleep();
+  sleepBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    sleepMode = nextSleep(sleepMode);
+    sleepAt = typeof sleepMode === 'number' && sleepMode ? Date.now() + sleepMode * 60000 : 0;
+    api.sfx.feel?.('select');
+    drawSleep();
+  });
+  const sleepTick = setInterval(() => {
+    if (!sleepAt) return;
+    drawSleep();
+    if (Date.now() >= sleepAt) goToSleep();
+  }, 1000);
+  function goToSleep() {
+    sleepAt = 0;
+    asleep = true;
+    if (paused) {
+      paused = false;
+      waiters.forEach((r) => r());
+      waiters = [];
+    }
+    interrupt();
+  }
+  againBtn.addEventListener('click', () => {
+    again = true;
+    interrupt();
+    if (paused) playBtn.click();
+  });
+  // every story as a picture tile; tap one to hear it
+  pickBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const sheet = el('div', { class: 'radio-pick', role: 'dialog', 'aria-label': 'Pick a story' });
+    const close = () => sheet.remove();
+    sheet.append(
+      el('div', { class: 'radio-pick-card' }, [
+        el('header', {}, [el('b', { lang: 'hi', text: 'कहानी चुनो' }), el('small', { text: 'Pick a story' }), el('button', { class: 'round-btn small', 'aria-label': 'Close', html: ICONS.check, onclick: close })]),
+        el(
+          'div',
+          { class: 'radio-tiles' },
+          list.map((s, i) => {
+            const coverId = s.panels ? `comic-${SERIES[s.series]?.hero}` : s.cover;
+            const t = el('button', { class: `radio-tile${i === index ? ' now' : ''}`, 'aria-label': s.title.en }, [
+              el('span', { class: 'radio-tile-pic', html: picture(api.word(coverId)?.picture || coverId) }),
+              el('span', { class: 'radio-tile-title', lang: s.lang === 'en' ? 'en' : 'hi', text: s.lang === 'en' ? s.title.en : s.title.hi }),
+            ]);
+            t.addEventListener('click', () => {
+              close();
+              pick = i;
+              interrupt();
+              if (paused) playBtn.click();
+              if (asleep) wakeUp?.();
+            });
+            return t;
+          }),
+        ),
+      ]),
+    );
+    sheet.addEventListener('click', (ev) => ev.target === sheet && close());
+    screen.append(sheet);
+    sheet.querySelector('.radio-tile.now')?.scrollIntoView({ block: 'center' });
+  });
+  // the sleep timer ran out: good night, a dark screen, and the phone may sleep; play starts again
+  const goodnight = async () => {
+    stopSpeech();
+    sleepMode = 0;
+    drawSleep();
+    screen.classList.add('asleep');
+    host.react?.('wave');
+    title.replaceChildren(el('b', { lang: 'hi', text: 'शुभ रात्रि!' }), el('span', { text: 'Good night!' }));
+    status.textContent = '';
+    playBtn.innerHTML = ICONS.play;
+    playBtn.setAttribute('aria-label', 'Play');
+    await api.say('radioGoodnight');
+    lock?.release?.().catch?.(() => {});
+    lock = null;
+    if (alive()) screen.classList.add('dim');
+    await new Promise((r) => (wakeUp = r));
+    wakeUp = null;
+    asleep = false;
+    screen.classList.remove('asleep', 'dim');
+    playBtn.innerHTML = PAUSE;
+    playBtn.setAttribute('aria-label', 'Pause');
+    wake();
+  };
+
   playBtn.addEventListener('click', () => {
+    if (asleep) return wakeUp?.();
     paused = !paused;
     playBtn.innerHTML = paused ? ICONS.play : PAUSE;
     playBtn.setAttribute('aria-label', paused ? 'Play' : 'Pause');
@@ -816,7 +936,9 @@ export async function radio(api) {
     if (cleaned) return;
     cleaned = true;
     clearInterval(watchdog);
+    clearInterval(sleepTick);
     clearTimeout(dimTimer);
+    wakeUp?.();
     document.removeEventListener('visibilitychange', onVisible);
     lock?.release?.().catch?.(() => {});
     waiters.forEach((r) => r());
@@ -827,6 +949,10 @@ export async function radio(api) {
   if (!list.length) status.textContent = 'No stories for this grade yet.';
   try {
     while (alive() && list.length) {
+      if (asleep) {
+        await goodnight();
+        if (!alive()) break;
+      }
       const story = list[index];
       api.state.radioAt = story.id;
       showStory(story);
@@ -835,7 +961,7 @@ export async function radio(api) {
       while (step < steps.length && alive()) {
         await untilResumed();
         if (!alive()) break;
-        if (skip) break;
+        if (skip || again || pick >= 0 || asleep) break;
         const my = gen;
         const st = steps[step];
         screen.classList.toggle('thinking', st.show === 'think');
@@ -849,6 +975,19 @@ export async function radio(api) {
         step++;
       }
       if (!alive()) break;
+      if (again) {
+        again = false;
+        continue; // the same story from the start
+      }
+      if (pick >= 0) {
+        [index, pick, skip] = [pick, -1, 0];
+        continue;
+      }
+      if (asleep) continue;
+      if (sleepMode === 'story') {
+        asleep = true; // the timer said "at the end of this story"
+        continue;
+      }
       const d = skip || 1;
       skip = 0;
       index = (index + d + list.length) % list.length;

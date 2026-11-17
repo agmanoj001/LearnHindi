@@ -10354,3 +10354,118 @@ body:has(.game-grammar) .caption-bar,
 .hub-side .read-again {
   margin: 0;
 }
+
+/* ---- Story radio: again, pick a story, sleep timer (roadmap 7.3) ---- */
+.radio-controls {
+  gap: 14px;
+}
+.radio-btn.small {
+  width: 50px;
+  height: 50px;
+  padding: 13px;
+}
+.radio-extras {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+.radio-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 8px 16px;
+  border: 0;
+  border-radius: 999px;
+  color: #fff;
+  font: 700 15px var(--font);
+  background: rgba(255, 255, 255, 0.14);
+  cursor: pointer;
+}
+.radio-chip.on {
+  background: #8b5cf6;
+  box-shadow: 0 4px 0 #5b21b6;
+}
+.chip-icon {
+  font-size: 20px;
+}
+.radio-pick {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: grid;
+  place-items: end center;
+  background: rgba(10, 8, 30, 0.55);
+  animation: fade-in 0.2s ease-out;
+}
+.radio-pick-card {
+  width: min(100%, 760px);
+  max-height: 82vh;
+  display: flex;
+  flex-direction: column;
+  border-radius: 28px 28px 0 0;
+  background: #1e1b3a;
+  color: #fff;
+  padding: 14px 14px max(14px, env(safe-area-inset-bottom));
+}
+.radio-pick-card header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 4px 10px;
+}
+.radio-pick-card header b {
+  font-size: 20px;
+}
+.radio-pick-card header small {
+  flex: 1;
+  opacity: 0.7;
+}
+.radio-tiles {
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+  gap: 10px;
+}
+.radio-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 6px;
+  border: 0;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  cursor: pointer;
+}
+.radio-tile.now {
+  outline: 3px solid #fbbf24;
+}
+.radio-tile-pic {
+  width: 78px;
+  height: 62px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.92);
+}
+.radio-tile-pic svg {
+  width: 100%;
+  height: 100%;
+}
+.radio-tile-title {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: center;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.radio-screen.asleep .radio-cover {
+  opacity: 0.25;
+}

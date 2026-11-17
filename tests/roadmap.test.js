@@ -70,13 +70,13 @@ const DONE = {
   'Hindi text animation': () => /export function strokeOrder/.test(read('js/logic.js')) && /writeItself/.test(read('js/games/trace.js')) && /export async function sayPieces/.test(read('js/games/kit.js')),
   'Haptics and sound polish': () => /export const FEEDBACK/.test(read('js/sfx.js')) && /export const sfxLevel/.test(read('js/sfx.js')) && /sfx\.feel\('wrong'\)/.test(read('js/app.js')),
   'Favourites and "read again"': () => exists('js/favourites.js') && /function readAgain\(api\)/.test(read('js/screens.js')) && /heartButton\(api, s, \{ cls: 'on-book' \}\)/.test(read('js/screens.js')),
+  'Story radio': () => /export const SLEEP_STEPS/.test(read('js/shows.js')) && /class: 'radio-chip pick'/.test(read('js/shows.js')) && /'Play this one again'/.test(read('js/shows.js')),
   'Free play between lessons': () => exists('js/freeplay.js') && /freeplayDue\(/.test(read('js/screens.js')) && ['drive', 'feed', 'colour'].every((m) => read('js/freeplay.js').includes(`'${m}'`)),
 };
 
 // title of an open row -> a sign in the code that it has been built (then its row must be ✅)
 const WATCH = {
   'Share the backup': () => /navigator\.share\(/.test(js),
-  'Story radio': () => /sleepTimer|sleep-timer/.test(js),
   'A "what\'s new" note': () => /whatsNew|changelog/i.test(js),
   'Sing-along rhymes': () => /singAlong|sing-along/i.test(js + css),
   'A surprise each day': () => /dailySurprise|gift-box/.test(js + css),
