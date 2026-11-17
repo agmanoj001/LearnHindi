@@ -519,6 +519,29 @@ export const SKILLS = {
       };
     },
   },
+  // a pattern: what comes next? (the hands-on pattern train, js/games/handson.js, builds them)
+  'k-pattern': {
+    code: 'K.MP.7',
+    name: 'Patterns: what comes next',
+    gen(t, rng, n) {
+      const unit = [['AB'], ['AAB', 'ABB'], ['ABC', 'AABB']][t][Math.floor(rng() * [1, 2, 2][t])];
+      const kinds = [...new Set(unit)];
+      const pics = shuffle(THINGS, rng).slice(0, Math.max(kinds.length + 1, Math.min(n, 4)));
+      // every kind in the pattern is a choice, so the answer always is
+      const of = (ch) => pics[kinds.indexOf(ch)][0];
+      const shown = unit.length * 2 + (t === 2 ? 1 : 0);
+      const seq = Array.from({ length: shown + 1 }, (_, i) => of(unit[i % unit.length]));
+      const answer = seq[shown];
+      return {
+        ask: 'What comes next?',
+        model: { kind: 'objects', groups: seq.slice(0, shown).map((pic) => ({ n: 1, pic })), layout: 'mixed' },
+        options: shuffle(pics.slice(0, Math.max(kinds.length, Math.min(n, pics.length))), rng).map(([pic, one]) => ({ value: pic, say: one, model: { kind: 'pic', pic } })),
+        answer,
+        explain: `${seq.map((p) => THINGS.find((x) => x[0] === p)[1]).join(', ')}. The pattern goes on!`,
+        hint: 'Say the pattern out loud. What comes after that?',
+      };
+    },
+  },
   'k-sort': {
     code: 'NC.K.MD.3',
     name: 'Sort and count groups',

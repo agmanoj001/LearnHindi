@@ -467,6 +467,8 @@ Phonics lessons list skills from [`js/phonicsgen.js`](js/phonicsgen.js), for exa
 
 Math lessons list skills from [`js/mathgen.js`](js/mathgen.js), for example `{ "game": "math", "config": { "skills": ["k-make10", "k-teens"] } }`. Each skill carries its NC standard code and makes problems at three levels. Kindergarten skills start with `k-`, Grade 1 skills with `g1-`. [CURRICULUM.md](CURRICULUM.md) lists them all. To add a new kind of problem, add a skill to `SKILLS` in `mathgen.js` (and a drawing to `js/art-math.js` if it needs a new picture); the tests check every skill at every level.
 
+Maths you do with your hands (`"game": "handson"`, [`js/games/handson.js`](js/games/handson.js)) names one activity and the skill it records: `{ "activity": "tenframe", "skill": "k-make10", "rounds": 5 }`. The activities: `tenframe` (fill the ten-frame), `numberline` (frog hops), `pattern` (the pattern train), `shapes` (build a picture from shapes), `measure` (lay cubes along a thing), `balance` (make both sides equal), `shop` (pay with coins) and `clock` (turn the hands). Each round ends when the thing is made right and ✓ is pressed; the 💡 shows the next step.
+
 ## Run it locally
 
 ```bash

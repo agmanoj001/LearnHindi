@@ -84,6 +84,7 @@ const DONE = {
     (content.idioms || []).length >= 30 &&
     /cornerButton\(api\)/.test(read('js/screens.js')) &&
     ['corner', 'idiom', 'comicmaker', 'duel'].every((r) => read('js/app.js').includes(`case '${r}':`)),
+  'Maths games you do with your hands': () => exists('js/games/handson.js') && ['tenframe', 'numberline', 'pattern', 'shapes', 'measure', 'balance', 'shop', 'clock'].every((a) => content.worlds.some((w) => w.subject === 'math' && w.units.some((u) => u.lessons.some((l) => l.game === 'handson' && l.config.activity === a)))),
   'Performance budget': () => exists('tools/perf-budget.mjs') && exists('docs/PERFORMANCE.md') && /modulepreload/.test(read('index.html')) && /drawWhenSeen/.test(read('js/screens.js')) && /perf-budget\.mjs/.test(read('.github/workflows/test.yml')),
   'Split the content by grade': () => exists('content/core.json') && exists('js/packs.js') && /content\/core\.json/.test(read('sw.js')) && !/fetch\('content\.json'/.test(read('js/app.js')),
   'Automated checks on every pull request': () => exists('tools/browser-check.mjs') && /browser-check\.mjs --compare/.test(read('.github/workflows/test.yml')) && /pull_request/.test(read('.github/workflows/test.yml')),

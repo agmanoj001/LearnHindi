@@ -92,8 +92,9 @@ test('the Kindergarten world teaches K skills and the Grade 1 world Grade 1 skil
   for (const w of math) {
     const prefix = w.level === 'kg' ? 'k-' : 'g1-';
     for (const lesson of worldLessons(w)) {
-      assert.equal(lesson.game, 'math');
-      for (const s of lesson.config.skills) {
+      // answer cards (math) and maths with the hands (handson, docs/ROADMAP.md 10.1)
+      assert.ok(['math', 'handson'].includes(lesson.game), lesson.id);
+      for (const s of lesson.game === 'math' ? lesson.config.skills : [lesson.config.skill]) {
         assert.ok(s.startsWith(prefix), `${w.id}: ${s}`);
         used.add(s);
       }

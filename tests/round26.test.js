@@ -796,3 +796,49 @@ test('long lists draw their pictures as they come near the screen', () => {
   assert.match(screens, /drawWhenSeen\('span', \{ class: 'book-cover' \}/);
   assert.match(read('docs/PERFORMANCE.md'), /\| The first screen on a \*\*first open over 4G\*\*/);
 });
+
+// ---- 10.1 maths with the hands ----
+import { ACTIVITIES, ACTIVITY_SKILL, DESIGNS } from '../js/games/handson.js';
+import { HANDS_ACTIVITIES } from '../js/validate.js';
+import { SKILLS, makeProblem } from '../js/mathgen.js';
+
+test('eight hands-on maths activities, each a lesson in the maths world of its grade, recording a skill of that grade', () => {
+  assert.deepEqual(ACTIVITIES, HANDS_ACTIVITIES);
+  const math = content.worlds.filter((w) => w.subject === 'math');
+  for (const a of ACTIVITIES) {
+    const found = math.flatMap((w) => w.units.flatMap((u) => u.lessons.filter((l) => l.game === 'handson' && l.config.activity === a).map((l) => ({ l, w }))));
+    assert.equal(found.length, 1, `one ${a} lesson`);
+    const { l, w } = found[0];
+    const skill = l.config.skill || ACTIVITY_SKILL[a];
+    assert.ok(SKILLS[skill], `${l.id}: ${skill} is a maths skill`);
+    assert.ok(skill.startsWith(w.level === 'kg' ? 'k-' : 'g1-'), `${l.id} records a ${w.level} skill`);
+    assert.ok(l.title.hi && l.title.en && l.icon);
+  }
+  assert.match(read('sw.js'), /'js\/games\/handson\.js'/);
+});
+
+test('the shape builder\'s pictures can be built from the pieces, and every level has some', () => {
+  for (const d of DESIGNS) {
+    assert.ok(d.slots.length >= 2 && d.say && d.name, d.id);
+    for (const s of d.slots) assert.ok(['triangle', 'square', 'rectangle', 'circle'].includes(s.shape), `${d.id}: ${s.shape}`);
+  }
+  for (const t of [0, 1, 2]) assert.ok(DESIGNS.some((d) => d.tier <= t && d.tier >= t - 1), `tier ${t} has a picture`);
+});
+
+test('patterns as answer cards: what comes next is always one of the choices', () => {
+  let s = 7;
+  const rng = () => ((s = (s * 16807) % 2147483647) / 2147483647);
+  for (let i = 0; i < 300; i++) {
+    const p = makeProblem('k-pattern', { tier: i % 3, n: 2 + (i % 3), rng });
+    assert.ok(p.options.some((o) => o.value === p.answer), JSON.stringify(p.options));
+    assert.ok(p.model.groups.length >= 4);
+  }
+  // a hands-on lesson with no activity, or an unknown skill, is caught
+  const broken = structuredClone(content);
+  const l = broken.worlds.flatMap((w) => w.units.flatMap((u) => u.lessons)).find((x) => x.game === 'handson');
+  l.config.activity = 'juggling';
+  l.config.skill = 'k-juggling';
+  const errs = validateContent(broken, { themes: THEMES, mascots: MASCOT_IDS }).errors.join('\n');
+  assert.match(errs, /activity must be one of/);
+  assert.match(errs, /"k-juggling" is not a math skill/);
+});

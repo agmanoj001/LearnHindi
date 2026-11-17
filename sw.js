@@ -64,6 +64,7 @@ const SHELL = [
   'js/ui.js',
   'js/games/comic.js',
   'js/games/grammar.js',
+  'js/games/handson.js',
   'js/games/ginti.js',
   'js/games/together.js',
   'js/games/kit.js',
