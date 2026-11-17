@@ -686,6 +686,10 @@ export function appVoiceLines(content) {
   for (const [id, w] of Object.entries(content.words || {})) for (const l of ['hi', 'en']) if (w[l]) out.push({ key: `${id}_${l}`, text: w[l], lang: l });
   for (const w of Object.values(content.words || {})) if (w.syn) out.push({ key: textKey('hi', synLine(w)), text: synLine(w), lang: 'hi' });
   (content.mascotLines || []).forEach((m, i) => ['hi', 'en'].forEach((l) => m[l] && out.push({ key: `mascot-${i + 1}_${l}`, text: m[l], lang: l })));
+  // the guide's greetings and milestone cheers (js/guide.js)
+  const g = content.guide || {};
+  const guideAll = [...Object.values(g.greet || {}).flat(), ...(g.first || []), ...(g.back || []), ...(g.milestones || [])];
+  for (const m of guideAll) for (const l of ['hi', 'en']) if (m[l]) out.push({ key: `guide-${m.id}_${l}`, text: m[l], lang: l });
   return out;
 }
 

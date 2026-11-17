@@ -1,12 +1,16 @@
 // Story scenes: each page of a little one's story can say how its picture moves, so the screen follows the
 // story (Hanuman flies up to the sun, rain falls, the goats bump on the bridge, the lamps flicker at Diwali).
-// A page's "act" is { move, fx, with, sky, sound, mood }:
+// A page's "act" is { move, fx, with, sky, sound, mood, count, of }:
 //   move  how the page's picture moves (MOVES below)
 //   fx    what happens around it (FX below): one, or a list of two
 //   with  a second picture (a word id) that shares the page, e.g. the mother Krishna runs to
 //   sky   the backdrop (SKIES below)
 //   sound a sound effect to play instead of the move's own
 //   mood  how the characters feel (MOODS below): it changes their faces and arms
+//   count how many to show and count (0 to 10): the picture appears that many times, one by one, each
+//         with its number (the counting stories)
+//   of    what is counted, when it isn't the page's picture (the wheels of a bus): the page's picture
+//         stays at the top and the counted things line up under it
 // Pure: no DOM here, so the validator and tests can use it. The story game turns this into HTML and CSS
 // does the moving; under "reduce motion" everything stands still.
 
@@ -109,19 +113,27 @@ function fxHtml(name, front) {
 
 // The scene's inside, for a page's act: the backdrop, the picture(s) and the effects.
 // `art(wordId)` draws a word's picture as SVG.
+export const COUNT_MAX = 10;
+// up to four in a row; from five, two rows (so each thing stays big enough to see and count)
+const countHtml = (n, id, art) =>
+  `<div class="count-row${n > 4 ? ' two-rows' : ''}" style="--n:${n};--per:${n > 4 ? Math.ceil(n / 2) : n}">${Array.from({ length: n }, (_, k) => `<span class="count-item" style="--k:${k}"><span class="count-pic">${art(id)}</span><b class="count-num">${k + 1}</b></span>`).join('')}</div>`;
+
 export function sceneHtml(act, mainWord, art) {
   const actor = (role, id) => `<div class="actor ${role}"><div class="body">${art(id)}</div></div>`;
+  const n = Number.isInteger(act.count) ? act.count : null;
   return [
     `<div class="scene-ground" aria-hidden="true"></div>`,
     ...fxList(act).map((f) => fxHtml(f, false)),
     act.with ? actor('partner', act.with) : '',
-    actor('main', mainWord),
+    // counting the page's own picture: the counted copies take its place
+    n === null || n === 0 || act.of ? actor('main', mainWord) : '',
+    n ? countHtml(n, act.of || mainWord, art) : '',
     ...fxList(act).map((f) => fxHtml(f, true)),
   ].join('');
 }
 
 export const sceneClass = (act) =>
-  `scene sky-${act.sky || 'day'} mv-${act.move || 'enter'}${act.with ? ' duo' : ''}${moodOf(act) ? ` mood-${moodOf(act)}` : ''}${fxList(act).map((f) => ` has-${f}`).join('')}`;
+  `scene sky-${act.sky || 'day'} mv-${act.move || 'enter'}${act.with ? ' duo' : ''}${moodOf(act) ? ` mood-${moodOf(act)}` : ''}${act.count ? ` counting${act.of ? ' has-of' : ''}` : ''}${fxList(act).map((f) => ` has-${f}`).join('')}`;
 
 // the sound a page makes as it opens: its own, else its move's, else its effect's
 export const sceneSound = (act) => act.sound || MOVES[act.move] || fxList(act).map((f) => FX[f]?.sound).find(Boolean) || null;
@@ -130,7 +142,7 @@ export const sceneSound = (act) => act.sound || MOVES[act.move] || fxList(act).m
 export function actProblems(act, hasWord) {
   const out = [];
   if (act === null || typeof act !== 'object' || Array.isArray(act)) return ['must be an object like { "move": "jump" }'];
-  for (const k of Object.keys(act)) if (!['move', 'fx', 'with', 'sky', 'sound', 'mood'].includes(k)) out.push(`has an unknown field "${k}"`);
+  for (const k of Object.keys(act)) if (!['move', 'fx', 'with', 'sky', 'sound', 'mood', 'count', 'of'].includes(k)) out.push(`has an unknown field "${k}"`);
   if (act.move !== undefined && !(act.move in MOVES)) out.push(`move "${act.move}" is not one of ${Object.keys(MOVES).join(', ')}`);
   const fx = fxList(act);
   if (act.fx !== undefined && (!fx.length || fx.length > 2 || new Set(fx).size < fx.length)) out.push('fx must be one effect or a list of two different ones');
@@ -138,6 +150,9 @@ export function actProblems(act, hasWord) {
   if (act.sky !== undefined && !SKIES.includes(act.sky)) out.push(`sky "${act.sky}" is not one of ${SKIES.join(', ')}`);
   if (act.with !== undefined && !hasWord(act.with)) out.push(`with "${act.with}" is not a word id`);
   if (['approach', 'bump', 'orbit', 'climb'].includes(act.move) && !act.with) out.push(`move "${act.move}" needs a partner ("with")`);
+  if (act.count !== undefined && !(Number.isInteger(act.count) && act.count >= 0 && act.count <= COUNT_MAX)) out.push(`count must be a whole number from 0 to ${COUNT_MAX}`);
+  if (act.of !== undefined && !hasWord(act.of)) out.push(`of "${act.of}" is not a word id`);
+  if (act.of !== undefined && act.count === undefined) out.push('"of" needs a "count"');
   if (act.mood !== undefined && !MOODS.includes(act.mood)) out.push(`mood "${act.mood}" is not one of ${MOODS.join(', ')}`);
   if (act.sound !== undefined && !SOUNDS.includes(act.sound)) out.push(`sound "${act.sound}" is not a sound effect`);
   return out;

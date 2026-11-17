@@ -31,7 +31,11 @@ export const GAME_TYPES = [
   'sequence',
   'comic',
   'grammar',
+  'ginti',
 ];
+// the kinds of round in the Hindi numbers game (js/games/ginti.js)
+export const GINTI_MODES = ['count', 'show', 'hear', 'digits', 'next', 'compare', 'read', 'add', 'take', 'half'];
+export const NUMBERS_MAX = 100;
 export const GRAMMAR_KINDS = ['mcq', 'tap', 'sort'];
 export const OPPOSITE_KINDS = ['size', 'height', 'speed'];
 export const PAIR_KINDS = ['opposite', 'plural', 'female'];
@@ -197,7 +201,7 @@ export function validateContent(c, { knownPictures = null, pictureExists = null,
   }
 
   // numbers
-  if (!Array.isArray(c.numbers) || c.numbers.length !== 10) err('numbers must list 1 to 10');
+  if (!Array.isArray(c.numbers) || c.numbers.length !== NUMBERS_MAX) err(`numbers must list 1 to ${NUMBERS_MAX}`);
   else {
     c.numbers.forEach((n, i) => {
       const at = `numbers[${i}]`;
@@ -487,6 +491,11 @@ export function validateContent(c, { knownPictures = null, pictureExists = null,
         else for (const s of x.skills) if (!SKILLS[s]) err(`${at}: "${s}" is not a math skill (see js/mathgen.js)`);
         if (x.rounds !== undefined) count('rounds');
         break;
+      case 'ginti':
+        if (!Array.isArray(x.modes) || !x.modes.length || !x.modes.every((m) => GINTI_MODES.includes(m))) err(`${at}.modes must list kinds of round: ${GINTI_MODES.join(', ')}`);
+        if (!isPosInt(x.from) || !isPosInt(x.to) || x.from >= x.to || x.to > NUMBERS_MAX) err(`${at}: "from" and "to" must be numbers from 1 to ${NUMBERS_MAX}, "from" smaller`);
+        if (x.rounds !== undefined) count('rounds');
+        break;
       case 'sequence':
         if (x.story !== undefined && !(c.stories || []).some((st) => st.id === x.story)) err(`${at}.story "${x.story}" is not a story id`);
         if (x.rounds !== undefined) count('rounds');
@@ -605,6 +614,21 @@ export function validateContent(c, { knownPictures = null, pictureExists = null,
   }
 
   // what a mascot says when tapped
+  // the guide's greetings and milestone cheers (js/guide.js): every line has an id and both languages
+  if (c.guide !== undefined) {
+    if (!isObj(c.guide)) err('guide must be an object');
+    else {
+      const g = c.guide;
+      const lines = [...Object.values(isObj(g.greet) ? g.greet : {}).flat(), ...(g.first || []), ...(g.back || []), ...(g.milestones || [])];
+      const ids = new Set();
+      for (const l of lines) {
+        if (!isObj(l) || !isStr(l.id) || !hasText(l)) err(`guide: every line needs an "id", "hi" and "en" (${JSON.stringify(l).slice(0, 60)})`);
+        else if (ids.has(l.id)) err(`guide: duplicate line id "${l.id}"`);
+        else ids.add(l.id);
+      }
+      for (const slot of ['morning', 'day', 'evening', 'night']) if (!Array.isArray(g.greet?.[slot]) || !g.greet[slot].length) err(`guide.greet.${slot} needs at least one line`);
+    }
+  }
   if (c.mascotLines !== undefined) {
     if (!Array.isArray(c.mascotLines)) err('mascotLines must be a list');
     else c.mascotLines.forEach((m, i) => !hasText(m) && err(`mascotLines[${i}] needs "hi" and "en"`));

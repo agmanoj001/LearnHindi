@@ -9071,3 +9071,230 @@ body:has(.game-grammar) .caption-bar,
   background: #fff3d6;
   color: #9a6b00;
 }
+
+/* ---- counting in a story scene (js/scene.js "count"): the things appear one by one, each with its number ---- */
+.scene .count-row {
+  position: absolute;
+  left: 3%;
+  right: 3%;
+  bottom: 5%;
+  height: 74%;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-end;
+  justify-content: center;
+  gap: 9% 2%;
+  z-index: 3;
+}
+.scene.has-of .count-row {
+  height: 56%;
+}
+.scene.has-of .actor.main {
+  left: 30%;
+  width: 40%;
+  bottom: 58%;
+  height: 40%;
+}
+.scene .count-item {
+  position: relative;
+  width: min(30%, calc((100% - (var(--per) - 1) * 2.2%) / var(--per)));
+  aspect-ratio: 200 / 140;
+}
+.scene.has-of .count-item {
+  width: min(24%, calc((100% - (var(--per) - 1) * 2.2%) / var(--per)));
+}
+.scene .count-pic,
+.scene .count-pic svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.scene .count-num {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  translate: -50% 10%;
+  min-width: 1.5em;
+  padding: 0 0.3em;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--glyph);
+  font: 800 clamp(11px, 2.8vmin, 18px) / 1.3 'Fredoka', var(--font);
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+}
+.scene.play .count-item {
+  animation: count-pop 0.45s var(--spring) both;
+  animation-delay: calc(0.5s + var(--k) * 0.55s);
+}
+@keyframes count-pop {
+  from {
+    opacity: 0;
+    transform: translateY(30%) scale(0.4);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---- गिनती, the Hindi numbers game (js/games/ginti.js) ---- */
+.ginti-field {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(8px, 2vmin, 18px);
+  max-width: min(94vw, 760px);
+}
+.ginti-thing {
+  position: relative;
+  display: inline-block;
+  width: clamp(40px, 9vmin, 64px);
+  aspect-ratio: 200 / 140;
+}
+.ginti-thing svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.ginti-thing.big {
+  width: clamp(76px, min(17vw, 13vh), 140px);
+  border: 0;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 20px;
+  padding: 6px;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+}
+.ginti-tag {
+  position: absolute;
+  top: -10px;
+  right: -8px;
+  min-width: 30px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: var(--good);
+  color: #fff;
+  font: 800 18px 'Fredoka', var(--font);
+  animation: pop-in 0.3s var(--spring);
+}
+.ginti-group {
+  display: grid;
+  grid-template-columns: repeat(min(var(--n), 5), auto);
+  gap: 4px;
+  justify-content: center;
+}
+.card.ginti-card {
+  padding: 14px;
+  min-height: calc(var(--tap) * 0.8);
+}
+.ginti-choices {
+  align-items: stretch;
+}
+.ginti-ear {
+  font-size: clamp(56px, 14vmin, 110px);
+  line-height: 1;
+}
+.ginti-big {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 34px;
+  border-radius: 28px;
+  background: #fff;
+  box-shadow: var(--shadow);
+  font: 800 clamp(64px, min(20vw, 16vh), 150px) / 1 'Fredoka', 'Baloo 2', var(--font);
+  color: var(--glyph);
+}
+.ginti-big small {
+  font: 700 clamp(24px, 6vmin, 44px) 'Baloo 2', var(--font);
+  color: var(--muted);
+}
+.ginti-row {
+  display: flex;
+  gap: clamp(10px, 3vmin, 24px);
+}
+.ginti-row span {
+  min-width: 1.6em;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+  font: 800 clamp(40px, 11vmin, 84px) / 1.1 'Fredoka', var(--font);
+  color: var(--glyph);
+  text-align: center;
+}
+.ginti-row .gap {
+  border: 4px dashed var(--brand);
+  color: var(--brand);
+  animation: pulse 1.4s ease-in-out infinite;
+}
+.ginti-row .gap.done {
+  border: 0;
+  background: var(--good-soft);
+  color: #158a55;
+  animation: pop-in 0.4s ease-out;
+}
+.ginti-sum {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: var(--shadow);
+}
+.ginti-sum > b {
+  font: 800 clamp(36px, 9vmin, 64px) 'Fredoka', var(--font);
+  color: var(--brand);
+}
+.ginti-sum .ginti-group.take .ginti-thing {
+  transition: transform 1.2s ease-in, opacity 1.2s ease-in;
+}
+.ginti-sum .ginti-thing.gone {
+  transform: translateY(-60vh) rotate(-12deg);
+  opacity: 0;
+}
+.card.ginti-equal .word-text {
+  font: 800 clamp(40px, 10vmin, 72px) / 1 'Fredoka', var(--font);
+  color: var(--glyph);
+}
+.card.ginti-equal small {
+  font: 700 18px 'Baloo 2', var(--font);
+  color: var(--muted);
+}
+.card.ginti-card.half .pic {
+  clip-path: inset(0 50% 0 0);
+}
+.card.ginti-word .word-text {
+  font-size: clamp(24px, 6vmin, 40px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .ginti-sum .ginti-thing.gone {
+    transform: none;
+    opacity: 0.15;
+  }
+}
+
+/* a milestone on the results card: the guide cheers (js/guide.js) */
+.milestone {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 18px;
+  background: linear-gradient(120deg, #fff6d6, #ffe7f0);
+  box-shadow: 0 0 0 3px #ffc93c;
+  color: var(--glyph);
+  animation: pop-in 0.5s var(--spring) both;
+  animation-delay: 1.4s;
+}
+.milestone b {
+  font: 800 clamp(16px, 4.2vmin, 22px) 'Baloo 2', var(--font);
+}
+.milestone .milestone-icon {
+  width: 26px;
+  height: 26px;
+  color: #e0a100;
+  flex: none;
+}

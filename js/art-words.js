@@ -8,7 +8,7 @@ const mirror = (body) => `<g transform="translate(200 0) scale(-1 1)">${body}</g
 const SKIN = '#F6B99A';
 
 // Things that rest on the ground get a soft shadow; things in the air (kite, sun ...) do not.
-export const FLOATING = new Set(['sun', 'moon', 'kite', 'butterfly', 'balloon', 'fly', 'garland', 'arrow', 'eye', 'envelope', 'river']);
+export const FLOATING = new Set(['sun', 'moon', 'kite', 'butterfly', 'balloon', 'fly', 'garland', 'arrow', 'eye', 'envelope', 'river', 'hand', 'toothbrush']);
 
 export const WORD_ART = {
   // ---------- KG: words without matras ----------
@@ -569,6 +569,129 @@ export const WORD_ART = {
     rect(88, 84, 30, 14, '#2EC27E', 2) +
     wheel(50, 108, 16) +
     wheel(150, 108, 16),
+
+  // ---------- a toddler's day, the rhymes and the counting stories ----------
+  toothbrush: () =>
+    rot(
+      -16,
+      100,
+      74,
+      rect(18, 70, 120, 16, '#3D7BFF', 8) +
+        rect(30, 74, 70, 5, '#7FB0FF', 3) +
+        rect(124, 64, 56, 26, '#3D7BFF', 9) +
+        rect(130, 42, 46, 24, '#F3F4F8', 4) +
+        [0, 1, 2, 3, 4].map((k) => line(136 + k * 9, 46, 136 + k * 9, 62, '#D9DEE7', 3)).join('') +
+        path('M128 40 Q136 26 146 34 Q154 24 162 34 Q172 26 178 40 Z', '#7FD3FF') +
+        path('M134 38 Q142 30 150 36 Q158 30 166 36', 'none', stroke('#fff', 3)),
+    ),
+  soap: () =>
+    rect(42, 66, 116, 50, '#FF8FB1', 24) +
+    rect(54, 72, 92, 12, '#FFC2D4', 6) +
+    ell(100, 98, 30, 8, '#FF6FA0', 'opacity="0.5"') +
+    [
+      [150, 46, 14],
+      [124, 34, 9],
+      [170, 26, 8],
+      [60, 44, 10],
+      [80, 26, 7],
+    ]
+      .map(([x, y, r]) => circ(x, y, r, '#E8F7FF', 'stroke="#9ED8FF" stroke-width="2.5"') + circ(x - r * 0.35, y - r * 0.35, r * 0.25, '#fff'))
+      .join(''),
+  shirt: () =>
+    path('M64 26 L84 18 Q100 34 116 18 L136 26 L174 54 L152 78 L138 66 V126 H62 V66 L48 78 L26 54 Z', '#2EC27E') +
+    path('M84 18 Q100 34 116 18 L110 16 Q100 26 90 16 Z', '#1F9D63') +
+    [50, 72, 94].map((y) => circ(100, y + 4, 3.5, '#fff')).join('') +
+    rect(112, 70, 18, 16, '#1F9D63', 4),
+  dal: () =>
+    path('M84 42 Q76 30 84 18 M104 40 Q96 28 104 16 M124 42 Q116 30 124 18', 'none', stroke('#C4C9D4', 4)) +
+    path('M34 64 H166 Q162 120 100 120 Q38 120 34 64 Z', '#C4C9D4') +
+    path('M44 74 H156 Q150 112 100 112 Q50 112 44 74 Z', '#A0A7B4', 'opacity="0.35"') +
+    ell(100, 64, 66, 14, '#FFC93C') +
+    ell(100, 64, 54, 9, '#FFD666') +
+    [
+      [76, 62],
+      [104, 66],
+      [126, 60],
+      [92, 58],
+    ]
+      .map(([x, y]) => ell(x, y, 5, 3, '#2EC27E'))
+      .join('') +
+    circ(114, 60, 3, '#E2583E'),
+  hand: () =>
+    rect(66, 64, 70, 62, SKIN, 28) +
+    rect(68, 26, 15, 52, SKIN, 7) +
+    rect(86, 16, 15, 58, SKIN, 7) +
+    rect(104, 18, 15, 56, SKIN, 7) +
+    rect(121, 30, 14, 46, SKIN, 7) +
+    rot(-42, 62, 96, rect(40, 88, 40, 16, SKIN, 8)) +
+    [
+      [75, 30],
+      [93, 20],
+      [111, 22],
+      [128, 34],
+    ]
+      .map(([x, y]) => ell(x, y + 3, 4.5, 3.5, '#FBD5C2'))
+      .join('') +
+    path('M84 92 Q100 100 118 92', 'none', stroke('#E59A7A', 3)),
+  slide: () =>
+    rect(44, 22, 44, 9, '#FFC93C', 4) +
+    line(50, 28, 40, 126, '#3D7BFF', 6) +
+    line(80, 28, 70, 126, '#3D7BFF', 6) +
+    [44, 64, 84, 104].map((y) => line(48 - (y - 28) * 0.1, y, 78 - (y - 28) * 0.1, y, '#3D7BFF', 4)).join('') +
+    path('M84 24 H100 L180 116 Q184 124 176 126 H156 Z', '#FF5A5F') +
+    path('M92 28 L168 116', 'none', stroke('#FF9A9C', 4)),
+  ball: () =>
+    circ(100, 74, 46, '#FF5A5F') +
+    path('M56 62 Q100 86 144 62', 'none', stroke('#fff', 7)) +
+    path('M58 94 Q100 70 142 94', 'none', stroke('#FFD43B', 7)) +
+    ell(82, 50, 12, 7, '#fff', 'opacity="0.45"'),
+  tomato: () =>
+    ell(100, 80, 50, 42, '#F0453A') +
+    ell(76, 66, 12, 8, '#fff', 'opacity="0.35"') +
+    path('M100 44 L88 30 L100 38 L104 24 L110 38 L124 32 L114 46 Z', '#2EC27E') +
+    rect(98, 22, 5, 14, '#1F9D63', 2),
+  grass: () =>
+    [20, 44, 68, 92, 116, 140, 164]
+      .map((x, i) => path(`M${x} 124 Q${x - 8} ${86 - (i % 3) * 10} ${x - 4} ${54 - (i % 2) * 14} Q${x + 4} ${86} ${x + 10} 124 Z M${x + 8} 124 Q${x + 18} ${92} ${x + 26} ${70 - (i % 3) * 8} Q${x + 20} ${100} ${x + 22} 124 Z`, i % 2 ? '#2EC27E' : '#4CB963'))
+      .join('') +
+    rect(10, 118, 180, 10, '#3FA956', 5) +
+    circ(58, 78, 6, '#FFD43B') +
+    circ(140, 70, 6, '#FF8FB1'),
+  rasgulla: () =>
+    path('M32 66 H168 Q164 122 100 122 Q36 122 32 66 Z', '#7DD3FC') +
+    ell(100, 66, 68, 14, '#FFE9A8') +
+    [
+      [72, 62],
+      [100, 56],
+      [128, 62],
+    ]
+      .map(([x, y]) => circ(x, y, 20, '#FFFDF5', 'stroke="#EADFC2" stroke-width="2"') + ell(x - 6, y - 7, 6, 4, '#fff'))
+      .join('') +
+    path('M44 84 H156', 'none', stroke('#BDE7FB', 4)),
+  // one laddoo, for counting (the "laddoo" picture is a little pile of three)
+  'laddoo-one': () => circ(100, 70, 44, '#FFB52E') + circ(86, 56, 10, '#FFD27A') + [0, 1, 2, 3, 4, 5].map((k) => circ(76 + k * 10, 78 + (k % 2) * 10, 3, '#E8902E')).join('') + ell(100, 122, 50, 6, '#E3E6ED'),
+  peanut: () =>
+    rot(
+      -12,
+      100,
+      72,
+      ell(72, 74, 34, 27, '#D9A066') +
+        ell(128, 70, 34, 27, '#D9A066') +
+        ell(100, 72, 16, 18, '#D9A066') +
+        [56, 72, 88, 112, 128, 144].map((x) => path(`M${x} ${56} Q${x + 4} 72 ${x} 88`, 'none', stroke('#B9824A', 2.5))).join(''),
+    ) +
+    ell(150, 116, 12, 9, '#C8743C') +
+    ell(124, 118, 12, 9, '#B9622E'),
+  grain: () =>
+    rot(-24, 100, 72, ell(100, 72, 54, 26, '#FFF8E7', 'stroke="#E8DCC0" stroke-width="4"') + ell(84, 62, 18, 7, '#fff')) + ell(48, 108, 12, 6, '#FFF3D6') + ell(156, 112, 10, 5, '#FFF3D6'),
+  wheel: () => {
+    let s = circ(100, 70, 54, '#2B2D42') + circ(100, 70, 36, '#D9DEE7') + circ(100, 70, 30, '#B8C2D1');
+    for (let k = 0; k < 6; k++) {
+      const a = (Math.PI / 3) * k;
+      s += line(100, 70, 100 + Math.cos(a) * 30, 70 + Math.sin(a) * 30, '#8B93A7', 4);
+    }
+    return s + circ(100, 70, 9, '#6E768A');
+  },
 };
 
 // ---------- new places on the town map (200x160) ----------

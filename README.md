@@ -48,14 +48,14 @@ Thinking of rebuilding it in an app builder? [docs/PLATFORM-EVALUATION.md](docs/
 
 | Grade | World | Guide | Subject | Tags | What it teaches |
 | --- | --- | --- | --- | --- | --- |
-| Toddler (2–3) | **Animal Farm** · पशु फ़ार्म | Kuku the chick | Hindi | Listening, Vocabulary, Counting | Animals and their sounds, colours, shapes, big and small, counting to 5, vehicles, six tiny moving stories |
-| Kindergarten (3–6) | **Vehicle Town** · गाड़ी नगर | Gappu the elephant | Hindi | Letters, Phonics, Reading | Hearing sounds, स्वर and व्यंजन, tracing, the alphabet train, two- and three-letter words, counting to 10, rhymes, and eight first stories (Hanuman, Krishna, Ganesh, folk tales) |
+| Toddler (2–3) | **Animal Farm** · पशु फ़ार्म | Kuku the chick | Hindi | Listening, Vocabulary, Counting | Animals and their sounds, colours, shapes, big and small, गिनती to 10, vehicles, 18 tiny moving stories (12 about the child's own day), four little songs |
+| Kindergarten (3–6) | **Vehicle Town** · गाड़ी नगर | Gappu the elephant | Hindi | Letters, Phonics, Reading | Hearing sounds, स्वर and व्यंजन, tracing, the alphabet train, two- and three-letter words, गिनती to 20 with Devanagari digits and ज़्यादा / कम / बराबर, eight counting stories, rhymes and eight play rhymes (अक्कड़ बक्कड़, पोशम पा …), and first stories (Hanuman, Krishna, Ganesh, folk tales) |
 | Kindergarten | **Buzz's Letter Garden** | Buzz the bee | English | English, Phonics, Letters | Letters big and small, first and last sounds, rhyming, clapping syllables, reading CVC words, short vowels, sight words |
 | Kindergarten | **Pip's Number Igloo** | Pip the penguin | Math (English) | Math, Counting, Shapes | Counting, numbers to 100, comparing, adding and taking away, making 10, teen numbers, shapes, positions, measuring |
-| Grade 1 (6–7) | **Jolly Jungle** · मस्त जंगल | Chiku the monkey | Hindi | Phonics, Reading, Vocabulary, Stories | Every matra, the barakhadi, words with matras, family, food and festival words, rhymes, little sentences, first stories, tales from the Ramayana and folk tales |
+| Grade 1 (6–7) | **Jolly Jungle** · मस्त जंगल | Chiku the monkey | Hindi | Phonics, Reading, Vocabulary, Stories | Every matra, the barakhadi, words with matras, family, food and festival words, rhymes, little sentences, first stories, ten decodable books, tales from the Ramayana and folk tales, गिनती 21 to 50, जोड़, घटाना and आधा |
 | Grade 1 | **Kiki's Phonics Castle** | Kiki the dragon | English | English, Phonics, Reading | Short vowels, sh ch wh ck, blends, magic e, vowel teams, bossy r, syllables, -s and -es, tricky words |
 | Grade 1 | **Tiko's Number Carnival** | Tiko the owl | Math (English) | Math, Counting, Shapes | Counting to 150, tens and ones, > = <, facts to 20, story problems, time, coins, graphs, halves and fourths |
-| Grade 2 (7–8) | **Dino Valley** · डायनो घाटी | Dumdum the dinosaur | Hindi | Phonics, Reading, Spelling | Half letters, the shapes of र, ि and ी, ड and ड़, home words, all the matras |
+| Grade 2 (7–8) | **Dino Valley** · डायनो घाटी | Dumdum the dinosaur | Hindi | Phonics, Reading, Spelling | Half letters, the shapes of र, ि and ी, ड and ड़, home words, all the matras, गिनती 51 to 100 |
 | Grade 2 | **Desert Fair** · रेगिस्तान का मेला | Ooty the camel | Hindi | Grammar, Writing, Vocabulary | Action words, living and non-living, opposites, one and many, । and ?, times of day and seasons, sentences |
 | Grade 2 | **Bholu's Story Forest** · भोलू का कहानी वन | Bholu the bear | Hindi | Stories, Poems, Listening | A lesson for each of the 8 Grade 2 stories, two poems, rhymes |
 | Grade 3 (8–9) | **Space Trip** · अंतरिक्ष यात्रा | Zoomi the robot | Hindi | Grammar, Vocabulary | लिंग, वचन, विलोम, नाम and काम, पर्यायवाची, punctuation, space words |
@@ -300,6 +300,7 @@ Built-in drawings are in `js/art.js`, `js/art-words.js`, `js/art-creatures.js` a
 | `sequence` | Story order: tap a story's pictures in the order things happened | `levels` or `story`, `rounds` |
 | `comic` | A Hindi comic with word meanings and questions (Grades 7 and 8) | `comic` (a `comics` id) |
 | `grammar` | Rule cards, then practice with a "क्यों?" after each answer (Grades 7 and 8) | `topic` (a `grammar` id), or `topics` for a mixed review; `rounds` (default 8) |
+| `ginti` | गिनती, Hindi numbers 1–100: count by tapping, find the group, hear and find, Devanagari digits, what comes next, read the word, ज़्यादा / कम / बराबर, जोड़ो, घटाओ, आधा | `modes` (`count`, `show`, `hear`, `digits`, `next`, `compare`, `read`, `add`, `take`, `half`), `from`, `to` (1–100), `rounds` |
 
 Every game also takes `choices`: how many options to show at each of the three levels, e.g. `[2, 3, 4]` (the default). `letters` can name a range: `{ "sets": ["hindiConsonants"], "from": 0, "to": 10 }`.
 
@@ -354,6 +355,9 @@ A page can also carry an `act`, which makes its picture a small moving scene (us
 - `fx`: what happens around it, one or a list of two: `rain`, `snow`, `splash`, `sparkles`, `stars`, `hearts`, `wind`, `music`, `zzz`, `lamps`, `leaves`, `bubbles`, `confetti`, `glow`, `dust`, `steam`.
 - `sky`: the backdrop: `day`, `night`, `dawn`, `rain`, `sky`, `field`, `river`, `sea`, `underwater`, `snow`, `home`.
 - `sound`: a sound effect instead of the move's own (`toot`, `sneeze`, `chime` …).
+- `mood`: how the characters feel: `happy`, `sad`, `surprised`, `scared`, `sleepy`.
+- `count`: how many to show and count, 0 to 10 (the counting stories): the picture appears that many times, one by one, each with its number.
+- `of`: what is counted when it isn't the page's picture (a word id, e.g. the `wheel`s of a `truck`); the page's picture stays above them.
 
 The lists live in [`js/scene.js`](js/scene.js); the validator rejects anything not on them.
 
