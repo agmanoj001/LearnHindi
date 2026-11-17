@@ -291,6 +291,10 @@ const STYLES = {
   village: { root: 62, scale: [0, 2, 4, 7, 9], bpm: 98, inst: 'marimba' },
   mountain: { root: 59, scale: [0, 2, 5, 7, 9], bpm: 80, inst: 'bell', hats: false },
   city: { root: 65, scale: [0, 2, 4, 7, 11], bpm: 112, inst: 'kalimba' },
+  // the maths worlds for Grades 2–4
+  bazaar: { root: 62, scale: [0, 2, 4, 7, 9], bpm: 110, inst: 'marimba' },
+  factory: { root: 60, scale: [0, 2, 4, 7, 9], bpm: 104, inst: 'kalimba' },
+  jantar: { root: 57, scale: [0, 2, 5, 7, 9], bpm: 82, inst: 'bell', hats: false },
   // the Grade 7 and 8 worlds: comics and grammar
   kasba: { root: 62, scale: [0, 2, 4, 7, 9], bpm: 106, inst: 'marimba' },
   colony: { root: 64, scale: [0, 2, 4, 7, 9], bpm: 110, inst: 'kalimba' },

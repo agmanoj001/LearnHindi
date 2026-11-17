@@ -147,6 +147,54 @@ const HEAVY = [
   ['buffalo', 'duck'],
 ];
 
+// ---------- Grade 2 and up ----------
+
+const ONES_W = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen'];
+const TENS_W = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
+// 342 → "three hundred forty-two" (and on into the thousands)
+export function numberWords(v) {
+  if (v < 20) return ONES_W[v];
+  if (v < 100) return TENS_W[Math.floor(v / 10)] + (v % 10 ? `-${ONES_W[v % 10]}` : '');
+  if (v < 1000) return `${ONES_W[Math.floor(v / 100)]} hundred${v % 100 ? ` ${numberWords(v % 100)}` : ''}`;
+  if (v < 1000000) return `${numberWords(Math.floor(v / 1000))} thousand${v % 1000 ? ` ${numberWords(v % 1000)}` : ''}`;
+  return `${numberWords(Math.floor(v / 1000000))} million${v % 1000000 ? ` ${numberWords(v % 1000000)}` : ''}`;
+}
+// the answer and n−1 wrong numbers that look like it: the tricky ones first, then a ten, one or a hundred off
+function bigOptions(answer, n, rng, tricky = []) {
+  const seen = new Set([answer]);
+  const keep = (list) => list.filter((v) => Number.isInteger(v) && v >= 0 && !seen.has(v) && seen.add(v));
+  const wrong = [...shuffle(keep(tricky), rng), ...shuffle(keep([10, 1, 100, 2, 20].flatMap((d) => [answer + d, answer - d])), rng)];
+  return [answer, ...wrong.slice(0, n - 1)].sort((a, b) => a - b).map((v) => ({ value: v, label: String(v) }));
+}
+// 4:05, and how it is said
+const clockLabel = (h, m) => `${h}:${String(m).padStart(2, '0')}`;
+const clockSay = (h, m) => (m === 0 ? `${h} o'clock` : m < 10 ? `${h} oh ${m}` : `${h} ${m}`);
+// a day's times for a.m. and p.m.: [what you do, the hour, a.m. or p.m.]
+const DAY_TIMES = [
+  ['eat breakfast', 7, 'a.m.'],
+  ['wake up', 6, 'a.m.'],
+  ['go to school', 8, 'a.m.'],
+  ['eat lunch', 12, 'p.m.'],
+  ['eat dinner', 7, 'p.m.'],
+  ['go to sleep', 9, 'p.m.'],
+  ['look at the stars', 10, 'p.m.'],
+  ['brush your teeth before school', 7, 'a.m.'],
+];
+const UNIT_CHOICES = [
+  ['a door', 'feet'],
+  ['a crayon', 'inches'],
+  ['a bed', 'feet'],
+  ['a spoon', 'inches'],
+  ['a car', 'feet'],
+  ['an eraser', 'inches'],
+  ['a classroom', 'feet'],
+  ['a leaf', 'inches'],
+];
+// money in cents (a dollar is a bill)
+const MONEY = { dollar: 100, quarter: 25, dime: 10, nickel: 5, penny: 1 };
+// shapes by their number of sides
+const POLY_SIDES = { triangle: 3, square: 4, rectangle: 4, rhombus: 4, trapezoid: 4, pentagon: 5, hexagon: 6 };
+
 export const SKILLS = {
   // ======================= Kindergarten =======================
   'k-count': {
@@ -1388,6 +1436,731 @@ export const SKILLS = {
         answer,
         explain: `${a} ${plus ? 'plus' : 'minus'} ${b} is ${answer}.`,
         hint: plus ? 'Start with the bigger number and count on.' : `Think: ${b} plus what makes ${a}?`,
+      };
+    },
+  },
+  // ======================= Grade 2 (docs/ROADMAP.md 10.5) =======================
+  'g2-place': {
+    code: 'NC.2.NBT.1',
+    name: 'Hundreds, tens and ones',
+    gen(t, rng, n) {
+      if (t === 0) {
+        const [h, te, o] = [int(rng, 1, 3), int(rng, 0, 9), int(rng, 0, 9)];
+        const v = h * 100 + te * 10 + o;
+        return {
+          ask: 'What number is this?',
+          model: { kind: 'base10', hundreds: h, tens: te, ones: o },
+          options: bigOptions(v, n, rng, [h * 100 + o * 10 + te, h + te + o]),
+          answer: v,
+          explain: `${h} hundreds, ${te} tens and ${o} ones make ${v}.`,
+          hint: 'A big square is a hundred, a long bar is a ten, a little cube is a one.',
+        };
+      }
+      if (t === 1) {
+        // what one digit is worth (the three digits all different, so the question is clear)
+        let d;
+        do d = [int(rng, 1, 9), int(rng, 0, 9), int(rng, 0, 9)];
+        while (new Set(d).size < 3);
+        const v = d[0] * 100 + d[1] * 10 + d[2];
+        const k = pick(rng, [0, 1, 2].filter((i) => d[i] > 0));
+        const value = d[k] * [100, 10, 1][k];
+        const others = shuffle(
+          [...new Set([d[k], d[k] * 10, d[k] * 100, v])].filter((x) => x !== value),
+          rng,
+        ).slice(0, n - 1);
+        return {
+          ask: `What is the ${d[k]} worth in ${v}?`,
+          say: `In ${v}, what is the ${d[k]} worth?`,
+          options: [value, ...others].sort((a, b) => a - b).map((x) => ({ value: x, label: String(x) })),
+          answer: value,
+          explain: `In ${v} the ${d[k]} is in the ${['hundreds', 'tens', 'ones'][k]} place. It is worth ${value}.`,
+          hint: 'Hundreds, tens, ones: which place is it in?',
+        };
+      }
+      // expanded form, often with a zero: 400 + 6 is 406, not 46
+      const h = int(rng, 1, 9);
+      const o = int(rng, 1, 9);
+      const te = rng() < 0.6 ? 0 : int(rng, 1, 9);
+      const v = h * 100 + te * 10 + o;
+      return {
+        ask: 'What number is this?',
+        eq: te ? `${h * 100} + ${te * 10} + ${o} = ?` : `${h * 100} + ${o} = ?`,
+        options: bigOptions(v, n, rng, te ? [h * 100 + o * 10 + te] : [h * 10 + o, h * 100 + o * 10, h * 1000 + o]),
+        answer: v,
+        explain: te ? `${h} hundreds, ${te} tens and ${o} ones make ${v}.` : `${h} hundreds, no tens and ${o} ones: ${v}. The zero keeps the tens place.`,
+        hint: 'Write the hundreds, then the tens, then the ones. No tens? Put a 0 there.',
+      };
+    },
+  },
+  'g2-readwrite': {
+    code: 'NC.2.NBT.3',
+    name: 'Read and write numbers to 1,000',
+    gen(t, rng, n) {
+      const h = int(rng, 1, 9);
+      const te = t === 2 && rng() < 0.6 ? 0 : int(rng, 1, 9);
+      const o = int(rng, t === 2 ? 1 : 0, 9);
+      const v = h * 100 + te * 10 + o;
+      if (t === 0)
+        return {
+          ask: `Find ${numberWords(v)}.`,
+          options: bigOptions(v, n, rng, [h * 100 + o * 10 + te, h * 10 + te]),
+          answer: v,
+          explain: `${numberWords(v)[0].toUpperCase()}${numberWords(v).slice(1)} is ${v}.`,
+          hint: 'Hundreds first, then tens, then ones.',
+        };
+      if (t === 1)
+        return {
+          ask: 'Which number is this?',
+          eq: `${h * 100} + ${te * 10} + ${o} = ?`,
+          options: bigOptions(v, n, rng, [h * 100 + o * 10 + te, o * 100 + te * 10 + h]),
+          answer: v,
+          explain: `${h * 100} and ${te * 10} and ${o} make ${v}.`,
+          hint: 'The hundreds digit, then the tens digit, then the ones digit.',
+        };
+      // the number, and its name in words
+      const others = [...new Set([h * 100 + o * 10 + (te || 0), h * 10 + o, h * 100 + (te + 1) * 10 + o, (h + 1) * 100 + te * 10 + o].filter((x) => x !== v && x < 1000).map(numberWords))];
+      return {
+        ask: `Which words say ${v}?`,
+        options: textOptions(numberWords(v), others, n, rng),
+        answer: numberWords(v),
+        explain: `${v} is ${numberWords(v)}.`,
+        hint: te ? 'Read the hundreds, then the last two digits together.' : 'There are no tens: say the hundreds, then the ones.',
+      };
+    },
+  },
+  'g2-compare': {
+    code: 'NC.2.NBT.4',
+    name: 'Compare three-digit numbers (> = <)',
+    gen(t, rng) {
+      const a = int(rng, 100, 999);
+      // the closer the numbers, the more digits to look at
+      let b = t === 0 ? int(rng, 100, 999) : t === 1 ? Math.floor(a / 100) * 100 + int(rng, 0, 99) : Math.floor(a / 10) * 10 + int(rng, 0, 9);
+      if (t === 2 && rng() < 0.3) b = Math.floor(a / 100) * 100 + (a % 10) * 10 + Math.floor((a % 100) / 10);
+      if (t > 0 && rng() < 0.12) b = a;
+      if (t === 0) {
+        while (b === a) b = int(rng, 100, 999);
+        return {
+          ask: 'Which number is greater?',
+          options: [a, b].sort((x, y) => x - y).map((v) => ({ value: v, label: String(v) })),
+          answer: Math.max(a, b),
+          explain: `${Math.max(a, b)} is greater than ${Math.min(a, b)}.`,
+          hint: 'Look at the hundreds first.',
+        };
+      }
+      const answer = a > b ? '>' : a < b ? '<' : '=';
+      const words = { '>': 'is greater than', '<': 'is less than', '=': 'is equal to' };
+      return {
+        ask: 'Greater than, less than or equal?',
+        eq: `${a} ? ${b}`,
+        say: `${a}… ${b}. Which sign goes in the middle?`,
+        options: [
+          { value: '>', label: '>', say: 'greater than' },
+          { value: '=', label: '=', say: 'equal to' },
+          { value: '<', label: '<', say: 'less than' },
+        ],
+        answer,
+        explain: `${a} ${words[answer]} ${b}.`,
+        hint: 'Hundreds first. Same hundreds? Look at the tens, then the ones.',
+      };
+    },
+  },
+  'g2-skip': {
+    code: 'NC.2.NBT.2',
+    name: 'Skip count by 5s, 10s and 100s to 1,000',
+    gen(t, rng, n) {
+      const step = t === 0 ? 100 : t === 1 ? 10 : pick(rng, [5, 10]);
+      // tier 1 and 2 cross a hundred: 270, 280, 290, 300
+      const start = t === 0 ? int(rng, 1, 5) * 100 : t === 1 ? int(rng, 1, 9) * 100 - int(rng, 2, 3) * 10 : int(rng, 2, 9) * 100 - int(rng, 2, 3) * step;
+      const s = sequence(rng, { start, step, len: 5, gapAtEnd: t === 0 });
+      const near = shuffle([s.answer - step, s.answer + step, s.answer + 2 * step, s.answer - 2 * step, s.answer + 1].filter((v) => v > 0), rng).slice(0, n - 1);
+      return {
+        ...s,
+        ask: `Count by ${step}s. ${s.ask}`,
+        options: [s.answer, ...near].sort((a, b) => a - b).map((v) => ({ value: v, label: String(v) })),
+        explain: `Each jump is ${step} more. ${s.answer}!`,
+        hint: step === 100 ? 'Only the hundreds digit changes.' : `Add ${step}. After 9 tens comes a new hundred.`,
+      };
+    },
+  },
+  'g2-tenmore': {
+    code: 'NC.2.NBT.8',
+    name: '10 or 100 more and less',
+    gen(t, rng, n) {
+      const d = t === 0 ? 10 : pick(rng, [10, 100]);
+      const more = rng() < 0.5;
+      const [h, o] = [int(rng, more ? 1 : 2, 8), int(rng, 0, 9)];
+      // tier 2 crosses a hundred: 10 more than 395 is 405
+      const te = t === 2 && d === 10 ? (more ? 9 : 0) : int(rng, 1, 8);
+      const v = h * 100 + te * 10 + o;
+      const answer = more ? v + d : v - d;
+      const other = d === 10 ? 100 : 10;
+      return {
+        ask: `What is ${d} ${more ? 'more' : 'less'} than ${v}?`,
+        model: t === 0 ? { kind: 'base10', hundreds: h, tens: te, ones: o } : null,
+        options: bigOptions(answer, n, rng, [more ? v + other : v - other, more ? v + 1 : v - 1]),
+        answer,
+        explain: `${d} ${more ? 'more' : 'less'} than ${v} is ${answer}.${Math.floor(answer / 100) !== h && d === 10 ? ' The tens went past a hundred, so the hundreds changed too.' : ''}`,
+        hint: d === 10 ? 'Change the tens digit by one.' : 'Change the hundreds digit by one.',
+      };
+    },
+  },
+  'g2-facts': {
+    code: 'NC.2.OA.2',
+    name: 'Add and subtract within 20 in your head',
+    gen(t, rng, n) {
+      const plus = t === 0 ? true : t === 1 ? false : rng() < 0.5;
+      // make-ten facts: 8 + 5, 9 + 7
+      const a = int(rng, 6, 9);
+      const b = int(rng, 11 - a, 9);
+      const sum = a + b;
+      if (t === 2 && rng() < 0.4) {
+        return {
+          ask: 'What is missing?',
+          eq: `${a} + ? = ${sum}`,
+          model: null,
+          options: numberOptions(b, n, rng, { min: 1, max: 12 }),
+          answer: b,
+          explain: `${a} + ${b} = ${sum}.`,
+          hint: `Count on from ${a} to ${sum}.`,
+        };
+      }
+      return {
+        ask: plus ? 'Add!' : 'Take away!',
+        say: plus ? `${a} plus ${b}?` : `${sum} minus ${b}?`,
+        eq: plus ? `${a} + ${b} = ?` : `${sum} − ${b} = ?`,
+        model: null,
+        options: numberOptions(plus ? sum : a, n, rng, { min: 0, max: 20 }),
+        answer: plus ? sum : a,
+        explain: plus ? `${a} + ${b} = ${sum}. ${a} and ${10 - a} make ten, and ${sum - 10} more.` : `${sum} − ${b} = ${a}, because ${a} + ${b} = ${sum}.`,
+        hint: plus ? `Make a ten: ${a} + ${10 - a} = 10, then add the rest.` : `Think addition: ${b} plus what makes ${sum}?`,
+      };
+    },
+  },
+  'g2-add100': {
+    code: 'NC.2.NBT.5',
+    name: 'Add two-digit numbers',
+    gen(t, rng, n) {
+      const regroup = t === 1 || (t === 2 && rng() < 0.6);
+      let a;
+      let b;
+      do {
+        a = int(rng, 12, 68);
+        b = int(rng, 11, 49);
+      } while (a + b > 99 || (a % 10) + (b % 10) >= 10 !== regroup || b % 10 === 0);
+      const answer = a + b;
+      const [at, ao, bt, bo] = [Math.floor(a / 10), a % 10, Math.floor(b / 10), b % 10];
+      return {
+        ask: 'Add them!',
+        say: `${a} plus ${b}?`,
+        eq: `${a} + ${b} = ?`,
+        model: t === 2 ? null : { kind: 'base10', tens: at, ones: ao, addTens: bt, addOnes: bo },
+        options: bigOptions(answer, n, rng, regroup ? [answer - 10, Number(`${at + bt}${ao + bo}`)] : [answer + 10, answer - 1]),
+        answer,
+        explain: regroup ? `${ao} + ${bo} = ${ao + bo}: ten ones make a new ten! ${a} + ${b} = ${answer}.` : `${at + bt} tens and ${ao + bo} ones: ${answer}.`,
+        hint: 'Add the tens, then the ones. Ten ones make a new ten.',
+      };
+    },
+  },
+  'g2-sub100': {
+    code: 'NC.2.NBT.5',
+    name: 'Subtract two-digit numbers',
+    gen(t, rng, n) {
+      const regroup = t > 0 && (t === 1 || rng() < 0.7);
+      let a;
+      let b;
+      do {
+        a = int(rng, 31, 99);
+        b = int(rng, 11, a - 5);
+      } while ((a % 10 < b % 10) !== regroup || b % 10 === 0);
+      const answer = a - b;
+      const [at, ao, bt, bo] = [Math.floor(a / 10), a % 10, Math.floor(b / 10), b % 10];
+      // a common slip: taking the smaller ones from the bigger (52 − 27 → 35)
+      const slip = (at - bt) * 10 + Math.abs(ao - bo);
+      return {
+        ask: 'Take away!',
+        say: `${a} minus ${b}?`,
+        eq: `${a} − ${b} = ?`,
+        model: t === 0 ? { kind: 'base10', tens: at, ones: ao, goneTens: bt, goneOnes: bo } : null,
+        options: bigOptions(answer, n, rng, regroup ? [slip, answer + 10] : [answer + 10, answer - 10]),
+        answer,
+        explain: regroup ? `Not enough ones, so break a ten: ${ao + 10} − ${bo} = ${ao + 10 - bo}. ${a} − ${b} = ${answer}.` : `${at - bt} tens and ${ao - bo} ones: ${answer}.`,
+        hint: regroup ? 'Not enough ones? Break a ten into 10 ones.' : 'Take away the tens, then the ones.',
+      };
+    },
+  },
+  'g2-add1000': {
+    code: 'NC.2.NBT.7',
+    name: 'Add and subtract within 1,000',
+    gen(t, rng, n) {
+      const plus = rng() < 0.55;
+      let a;
+      let b;
+      if (t === 0) {
+        a = int(rng, 1, 6) * 100;
+        b = int(rng, 1, plus ? 9 - a / 100 : a / 100 - 1 || 1) * 100;
+        if (!plus && b >= a) b = 100;
+      } else if (t === 1) {
+        // a hundreds, tens and ones number, and some tens or hundreds: no regrouping
+        a = int(rng, 2, 7) * 100 + int(rng, 1, 5) * 10 + int(rng, 1, 9);
+        b = pick(rng, [int(rng, 1, 3) * 10, int(rng, 1, 2) * 100]);
+      } else {
+        do {
+          a = int(rng, 150, 850);
+          b = int(rng, 110, plus ? 999 - a : a - 20);
+        } while (b < 100);
+      }
+      if (!plus && b > a) [a, b] = [b, a];
+      const answer = plus ? a + b : a - b;
+      return {
+        ask: plus ? 'Add them!' : 'Take away!',
+        say: `${a} ${plus ? 'plus' : 'minus'} ${b}?`,
+        eq: `${a} ${plus ? '+' : '−'} ${b} = ?`,
+        options: bigOptions(answer, n, rng, plus ? [answer - 100, answer + 10] : [answer + 100, answer - 10]),
+        answer,
+        explain: `${a} ${plus ? 'plus' : 'minus'} ${b} is ${answer}.`,
+        hint: 'Hundreds with hundreds, tens with tens, ones with ones.',
+      };
+    },
+  },
+  'g2-story': {
+    code: 'NC.2.OA.1',
+    name: 'Story problems in one and two steps',
+    gen(t, rng, n) {
+      const [A, B] = shuffle(['Gilu', 'Pip', 'Tiko', 'Kuku'], rng);
+      const [one, many] = pick(rng, [
+        ['mango', 'mangoes'],
+        ['marble', 'marbles'],
+        ['sticker', 'stickers'],
+        ['kite', 'kites'],
+        ['laddoo', 'laddoos'],
+        ['shell', 'shells'],
+      ]);
+      const top = t === 0 ? 50 : 100;
+      const kind = t === 2 ? pick(rng, ['two', 'two', 'start']) : pick(rng, t === 0 ? ['join', 'take'] : ['join', 'take', 'compare']);
+      let say;
+      let answer;
+      let eq = null;
+      let tricky = [];
+      if (kind === 'join') {
+        const a = int(rng, 10, top - 15);
+        const b = int(rng, 5, top - a);
+        answer = a + b;
+        say = `${A} has ${a} ${many}. ${A} gets ${b} more. How many ${many} does ${A} have now?`;
+        eq = `${a} + ${b} = ?`;
+        tricky = [a - b > 0 ? a - b : a + b + 10];
+      } else if (kind === 'take') {
+        const a = int(rng, 20, top);
+        const b = int(rng, 5, a - 5);
+        answer = a - b;
+        say = `${A} has ${a} ${many}. ${A} gives ${b} to ${B}. How many ${many} are left?`;
+        eq = `${a} − ${b} = ?`;
+        tricky = [a + b];
+      } else if (kind === 'compare') {
+        const a = int(rng, 20, top);
+        const b = int(rng, 5, a - 3);
+        answer = a - b;
+        say = `${A} has ${a} ${many}. ${B} has ${b}. How many more ${many} does ${A} have than ${B}?`;
+        tricky = [a + b];
+      } else if (kind === 'start') {
+        const start = int(rng, 10, 60);
+        const b = int(rng, 5, 30);
+        answer = start;
+        say = `${A} had some ${many}. ${B} gave ${A} ${b} more. Now ${A} has ${start + b}. How many did ${A} have at first?`;
+        tricky = [start + 2 * b];
+      } else {
+        const a = int(rng, 15, 60);
+        const b = int(rng, 5, 30);
+        const c = int(rng, 5, a + b - 5);
+        answer = a + b - c;
+        say = `${A} has ${a} ${many}. ${A} finds ${b} more, then gives ${c} to ${B}. How many ${many} does ${A} have now?`;
+        tricky = [a + b, a - c];
+      }
+      return {
+        ask: say,
+        eq: t === 0 ? eq : null,
+        options: numberOptions(answer, n, rng, { min: 0, max: 130, tricky }),
+        answer,
+        explain: `${answer} ${answer === 1 ? one : many}!`,
+        hint: kind === 'two' ? 'Two steps: first add what was found, then take away what was given.' : kind === 'compare' ? 'How many more? Take the smaller number from the bigger one.' : kind === 'start' ? 'Think backwards: take away what was given.' : 'Is it getting more, or less?',
+      };
+    },
+  },
+  'g2-oddeven': {
+    code: 'NC.2.OA.3',
+    name: 'Odd and even',
+    gen(t, rng, n) {
+      const oe = [
+        { value: 'even', label: 'even' },
+        { value: 'odd', label: 'odd' },
+      ];
+      if (t === 2 && rng() < 0.6) {
+        const wantEven = rng() < 0.5;
+        let vals;
+        do vals = Array.from({ length: Math.max(2, Math.min(n, 4)) }, () => int(rng, 11, 99));
+        while (new Set(vals).size !== vals.length || vals.filter((v) => (v % 2 === 0) === wantEven).length !== 1);
+        const answer = vals.find((v) => (v % 2 === 0) === wantEven);
+        return {
+          ask: `Which number is ${wantEven ? 'even' : 'odd'}?`,
+          options: vals.sort((a, b) => a - b).map((v) => ({ value: v, label: String(v) })),
+          answer,
+          explain: `${answer} ends in ${answer % 10}, so it is ${wantEven ? 'even' : 'odd'}.`,
+          hint: 'Look at the ones digit: 0, 2, 4, 6 and 8 are even.',
+        };
+      }
+      const v = t === 0 ? int(rng, 2, 12) : int(rng, 5, t === 2 ? 99 : 20);
+      const even = v % 2 === 0;
+      const th = thing(rng);
+      return {
+        ask: t === 0 ? `${v} ${th.many}: odd or even?` : `Is ${v} odd or even?`,
+        model: t === 0 ? { kind: 'objects', groups: [{ n: v, pic: th.pic }], layout: 'rows', cols: 2, countable: true } : null,
+        options: oe,
+        answer: even ? 'even' : 'odd',
+        explain: even ? `${v} is even: every one has a partner. ${v / 2} + ${v / 2} = ${v}.` : `${v} is odd: one is left over without a partner.`,
+        hint: t === 0 ? 'Make pairs. Is one left over?' : 'Look at the ones digit: 0, 2, 4, 6 and 8 are even.',
+      };
+    },
+  },
+  'g2-arrays': {
+    code: 'NC.2.OA.4',
+    name: 'Arrays: rows and columns',
+    gen(t, rng, n) {
+      const rows = int(rng, 2, t === 0 ? 3 : 5);
+      const cols = int(rng, 2, t === 0 ? 4 : 5);
+      const total = rows * cols;
+      const th = thing(rng);
+      const sum = Array.from({ length: rows }, () => cols).join(' + ');
+      if (t === 2 && rng() < 0.5) {
+        const wrong = [`${rows} + ${cols}`, Array.from({ length: rows + 1 }, () => cols).join(' + '), Array.from({ length: rows }, () => cols + 1).join(' + ')];
+        return {
+          ask: 'Which adding sentence matches the rows?',
+          model: { kind: 'array', rows, cols, pic: th.pic },
+          options: textOptions(sum, wrong, Math.min(n, 4), rng),
+          answer: sum,
+          explain: `${rows} rows of ${cols}: ${sum} = ${total}.`,
+          hint: 'Count how many are in one row. How many rows are there?',
+        };
+      }
+      return {
+        ask: `${rows} rows of ${cols}. How many in all?`,
+        eq: `${sum} = ?`,
+        model: { kind: 'array', rows, cols, pic: th.pic },
+        options: numberOptions(total, n, rng, { min: 4, max: 30, tricky: [rows + cols] }),
+        answer: total,
+        explain: `${sum} = ${total}. ${total} ${th.many}!`,
+        hint: `Count by ${cols}s, one row at a time.`,
+      };
+    },
+  },
+  'g2-time': {
+    code: 'NC.2.MD.7',
+    name: 'Tell time to five minutes; a.m. and p.m.',
+    gen(t, rng, n) {
+      if (t === 2 && rng() < 0.4) {
+        const [what, h, half] = pick(rng, DAY_TIMES);
+        return {
+          ask: `You ${what} at ${h}:${String(0).padStart(2, '0')}. Is it a.m. or p.m.?`,
+          say: `You ${what} at ${h} o'clock. Is it a.m. or p.m.?`,
+          options: [
+            { value: 'a.m.', label: 'a.m.', say: 'a m, in the morning' },
+            { value: 'p.m.', label: 'p.m.', say: 'p m, after noon' },
+          ],
+          answer: half,
+          explain: half === 'a.m.' ? `${h} a.m. is in the morning.` : `${h} p.m. is after noon${h >= 7 && h !== 12 ? ', in the evening' : ''}.`,
+          hint: 'a.m. is from midnight to noon. p.m. is from noon to midnight.',
+        };
+      }
+      const h = int(rng, 1, 12);
+      const m = t === 0 ? pick(rng, [0, 15, 30, 45]) : int(rng, 0, 11) * 5;
+      const label = clockLabel(h, m);
+      // the slips children make: the hands swapped, the hour after, the minutes read as the number pointed to
+      const pool = [clockLabel(m / 5 || 12, (h % 12) * 5), clockLabel((h % 12) + 1, m), clockLabel(h, m / 5), clockLabel(h, (m + 5) % 60), clockLabel(((h + 10) % 12) + 1, m), clockLabel(h, (m + 30) % 60)];
+      const wrong = shuffle([...new Set(pool)].filter((x) => x !== label), rng).slice(0, n - 1);
+      const opts = shuffle([label, ...wrong], rng);
+      const parse = (s) => s.split(':').map(Number);
+      if (t === 2)
+        return {
+          ask: `Which clock shows ${label}?`,
+          say: `Which clock shows ${clockSay(h, m)}?`,
+          options: opts.map((s) => ({ value: s, say: clockSay(...parse(s)), model: { kind: 'clock', h: parse(s)[0], m: parse(s)[1], small: true } })),
+          answer: label,
+          explain: `The long hand on the ${m / 5 || 12} means ${m} minutes. It's ${clockSay(h, m)}.`,
+          hint: 'Count by fives for the long hand: 5, 10, 15…',
+        };
+      return {
+        ask: 'What time is it?',
+        model: { kind: 'clock', h, m },
+        options: opts.map((s) => ({ value: s, label: s, say: clockSay(...parse(s)) })),
+        answer: label,
+        explain: m ? `The short hand is just past ${h}. The long hand is on the ${m / 5}: ${m / 5} fives make ${m} minutes. It's ${clockSay(h, m)}.` : `It's ${h} o'clock!`,
+        hint: 'The short hand shows the hour. Count by fives for the long hand: 5, 10, 15…',
+      };
+    },
+  },
+  'g2-money': {
+    code: 'NC.2.MD.8',
+    name: 'Count money: coins and dollars',
+    gen(t, rng, n) {
+      const kinds = t === 0 ? ['dime', 'nickel', 'penny'] : t === 1 ? ['quarter', 'dime', 'nickel', 'penny'] : ['quarter', 'dime', 'nickel', 'penny'];
+      const coins = Array.from({ length: int(rng, t === 0 ? 2 : 3, t === 0 ? 5 : 6) }, () => pick(rng, kinds));
+      const bills = t === 2 ? int(rng, 1, 2) : 0;
+      const items = [...Array.from({ length: bills }, () => 'dollar'), ...coins.sort((a, b) => MONEY[b] - MONEY[a])];
+      const total = items.reduce((s, k) => s + MONEY[k], 0);
+      const label = (v) => (v >= 100 ? `$${(v / 100).toFixed(2)}` : `${v}¢`);
+      const near = shuffle([1, 5, 10, 25, 100].flatMap((d) => [total + d, total - d]).filter((v) => v > 0 && v !== total), rng);
+      const tricky = t === 0 ? [items.length] : [];
+      const others = [...new Set([...tricky, ...near])].filter((v) => v !== total && v > 0).slice(0, n - 1);
+      let run = 0;
+      const steps = items.map((k) => (run += MONEY[k]));
+      const asText = t > 0 && rng() < 0.3;
+      const countOf = (k) => items.filter((x) => x === k).length;
+      const list = Object.keys(MONEY)
+        .filter((k) => countOf(k))
+        .map((k) => `${countOf(k)} ${k === 'penny' && countOf(k) > 1 ? 'pennies' : countOf(k) > 1 ? `${k}s` : k}`)
+        .join(', ');
+      return {
+        ask: asText ? `You have ${list}. How much money is that?` : 'How much money?',
+        model: asText ? null : { kind: 'money', items },
+        options: [total, ...others].sort((a, b) => a - b).map((v) => ({ value: v, label: label(v), say: v >= 100 ? `${Math.floor(v / 100)} dollar${v >= 200 ? 's' : ''} and ${v % 100} cents` : `${v} cents` })),
+        answer: total,
+        explain: `${steps.join(', ')}. ${label(total)}!`,
+        hint: 'Start with the one worth the most, then count on.',
+      };
+    },
+  },
+  'g2-length': {
+    code: 'NC.2.MD.1',
+    name: 'Measure with a ruler: inches and centimetres',
+    gen(t, rng, n) {
+      const th = pick(rng, ['pencil', 'snake', 'train', 'ribbon']);
+      if (t === 1 && rng() < 0.3) {
+        const [what, unit] = pick(rng, UNIT_CHOICES);
+        return {
+          ask: `Would you measure ${what} in inches or in feet?`,
+          options: [
+            { value: 'inches', label: 'inches' },
+            { value: 'feet', label: 'feet' },
+          ],
+          answer: unit,
+          explain: unit === 'feet' ? `${what[0].toUpperCase()}${what.slice(1)} is big: feet!` : `${what[0].toUpperCase()}${what.slice(1)} is small: inches!`,
+          hint: 'An inch is about as long as the top of your thumb. A foot is as long as a big ruler.',
+        };
+      }
+      if (t === 2 && rng() < 0.4) {
+        // how much longer (NC.2.MD.4)
+        const a = int(rng, 8, 20);
+        const b = int(rng, 3, a - 2);
+        const [x, y] = shuffle(['ribbon', 'pencil', 'snake', 'worm', 'stick'], rng);
+        return {
+          ask: `The ${x} is ${a} cm long. The ${y} is ${b} cm long. How much longer is the ${x}?`,
+          eq: `${a} − ${b} = ?`,
+          options: numberOptions(a - b, n, rng, { min: 1, max: 20, tricky: [a + b] }),
+          answer: a - b,
+          explain: `${a} − ${b} = ${a - b}. The ${x} is ${a - b} centimetres longer.`,
+          hint: 'How much longer? Take the shorter length from the longer one.',
+        };
+      }
+      const unit = t === 0 ? 'in' : pick(rng, ['in', 'cm']);
+      const len = unit === 'in' ? int(rng, 2, 6) : int(rng, 4, 13);
+      // at the top level the thing does not start at 0
+      const start = t === 2 ? int(rng, 1, 3) : 0;
+      const word = unit === 'in' ? 'inches' : 'centimetres';
+      return {
+        ask: `How long is the ${th}?`,
+        say: `How many ${word} long is the ${th}?`,
+        model: { kind: 'ruler', unit, len, start, thing: th, color: pick(rng, COLORS) },
+        options: numberOptions(len, n, rng, { min: 1, max: 16, tricky: start ? [start + len] : [] }).map((o) => ({ ...o, label: `${o.value} ${unit}`, say: `${o.value} ${word}` })),
+        answer: len,
+        explain: start ? `It starts at ${start} and ends at ${start + len}: ${len} ${word}.` : `The ${th} is ${len} ${word} long.`,
+        hint: start ? 'It does not start at 0! Count the spaces from one end to the other.' : 'Start at 0 and read the number at the end.',
+      };
+    },
+  },
+  'g2-shapes': {
+    code: 'NC.2.G.1',
+    name: 'Shapes by their sides, angles and faces',
+    gen(t, rng, n) {
+      if (t === 2 && rng() < 0.4) {
+        const [q, answer] = pick(rng, [
+          ['faces does a cube have', 6],
+          ['corners does a cube have', 8],
+          ['angles does a pentagon have', 5],
+          ['angles does a hexagon have', 6],
+        ]);
+        const solid = q.includes('cube');
+        return {
+          ask: `How many ${q}?`,
+          model: { kind: 'shape', shape: solid ? 'cube' : q.split(' ').at(-2), color: pick(rng, COLORS), marks: solid ? undefined : 'corners' },
+          options: numberOptions(answer, n, rng, { min: 3, max: 12 }),
+          answer,
+          explain: `A ${solid ? 'cube' : q.split(' ').at(-2)} has ${answer} ${q.split(' ')[0]}.`,
+          hint: solid ? 'Picture a dice: count every side, even the ones you cannot see.' : 'An angle is a corner: count them.',
+        };
+      }
+      if (t === 0) {
+        const s = pick(rng, ['triangle', 'pentagon', 'hexagon', 'trapezoid', 'rhombus']);
+        return {
+          ask: `How many sides does this ${s} have?`,
+          model: { kind: 'shape', shape: s, color: pick(rng, COLORS), marks: 'sides' },
+          options: numberOptions(POLY_SIDES[s], n, rng, { min: 3, max: 8 }),
+          answer: POLY_SIDES[s],
+          explain: `A ${s} has ${POLY_SIDES[s]} sides.`,
+          hint: 'Touch each side and count.',
+        };
+      }
+      const want = pick(rng, ['triangle', 'quadrilateral', 'pentagon', 'hexagon']);
+      const sides = { triangle: 3, quadrilateral: 4, pentagon: 5, hexagon: 6 }[want];
+      const fits = Object.keys(POLY_SIDES).filter((s) => POLY_SIDES[s] === sides);
+      const right = pick(rng, fits);
+      const others = shuffle(
+        Object.keys(POLY_SIDES).filter((s) => POLY_SIDES[s] !== sides),
+        rng,
+      );
+      // never two of the same number of sides among the wrong ones' kinds… and never another right one
+      const wrong = [];
+      for (const s of others) if (wrong.length < n - 1 && !wrong.some((w) => POLY_SIDES[w] === POLY_SIDES[s])) wrong.push(s);
+      return {
+        ask: `Which one is a ${want}?`,
+        options: shuffle([right, ...wrong], rng).map((s, i) => ({ value: s, say: `the ${s}`, model: { kind: 'shape', shape: s, color: COLORS[i % COLORS.length] } })),
+        answer: right,
+        explain: `A ${want} has ${sides} sides. This ${right} has ${sides}!`,
+        hint: `A ${want} has ${sides} sides. Count the sides of each.`,
+      };
+    },
+  },
+  'g2-partition': {
+    code: 'NC.2.G.2',
+    name: 'Rows and columns of squares',
+    gen(t, rng, n) {
+      const rows = int(rng, 2, t === 0 ? 2 : 4);
+      const cols = int(rng, 2, t === 0 ? 3 : 5);
+      if (t === 2) {
+        const key = (r, c) => `${r}x${c}`;
+        const cands = [
+          [rows, cols],
+          [cols, rows],
+          [rows, cols + 1],
+          [rows + 1, cols],
+        ].filter(([r, c], i, a) => a.findIndex(([r2, c2]) => key(r, c) === key(r2, c2)) === i);
+        const [right, ...rest] = cands;
+        const opts = [right, ...shuffle(rest, rng).slice(0, n - 1)];
+        return {
+          ask: `Which is cut into ${rows} rows of ${cols} squares?`,
+          options: shuffle(opts, rng).map(([r, c]) => ({ value: key(r, c), say: `${r} rows of ${c}`, model: { kind: 'grid', rows: r, cols: c, small: true } })),
+          answer: key(rows, cols),
+          explain: `${rows} rows, ${cols} squares in each: ${rows * cols} squares.`,
+          hint: 'Rows go across. Count the rows, then the squares in one row.',
+        };
+      }
+      return {
+        ask: 'How many squares?',
+        model: { kind: 'grid', rows, cols },
+        options: numberOptions(rows * cols, n, rng, { min: 2, max: 25, tricky: [rows + cols] }),
+        answer: rows * cols,
+        explain: `${rows} rows of ${cols}: ${Array.from({ length: rows }, () => cols).join(' + ')} = ${rows * cols}.`,
+        hint: 'Count one row, then count by that number for each row.',
+      };
+    },
+  },
+  'g2-fractions': {
+    code: 'NC.2.G.3',
+    name: 'Halves, thirds and fourths',
+    gen(t, rng, n) {
+      const NAMES = { 2: ['halves', 'a half'], 3: ['thirds', 'a third'], 4: ['fourths', 'a fourth'] };
+      const shape = pick(rng, ['circle', 'rect']);
+      if (t === 0) {
+        const k = pick(rng, [2, 3, 4]);
+        const cands = [
+          { parts: k, equal: true },
+          ...shuffle(
+            [2, 3, 4].filter((x) => x !== k).map((x) => ({ parts: x, equal: true })),
+            rng,
+          ),
+          { parts: k, equal: false },
+        ];
+        const opts = [cands[0], ...shuffle(cands.slice(1), rng).slice(0, n - 1)];
+        return {
+          ask: `Which shows ${NAMES[k][0]}?`,
+          options: shuffle(opts, rng).map((c) => ({ value: `${c.parts}${c.equal ? '' : 'u'}`, say: 'this one', model: { kind: 'parts', shape, parts: c.parts, equal: c.equal } })),
+          answer: `${k}`,
+          explain: `${k} equal parts: ${NAMES[k][0]}!`,
+          hint: 'Count the parts. Are they all the same size?',
+        };
+      }
+      const k = pick(rng, [2, 3, 4]);
+      if (t === 2 && rng() < 0.5) {
+        return {
+          ask: `How many ${NAMES[k][0]} make a whole?`,
+          model: { kind: 'parts', shape, parts: k, equal: true },
+          options: numberOptions(k, n, rng, { min: 1, max: 6 }),
+          answer: k,
+          explain: `${k} ${NAMES[k][0]} make one whole.`,
+          hint: 'Count the equal parts in the whole shape.',
+        };
+      }
+      return {
+        ask: 'The shape is cut into equal parts. What is the orange part called?',
+        model: { kind: 'parts', shape, parts: k, equal: true, shade: 1 },
+        options: textOptions(NAMES[k][1], ['a half', 'a third', 'a fourth'], Math.min(n, 3), rng),
+        answer: NAMES[k][1],
+        explain: `${k} equal parts, so each part is ${NAMES[k][1]}.`,
+        hint: 'Count all the equal parts: 2 is halves, 3 is thirds, 4 is fourths.',
+      };
+    },
+  },
+  'g2-graph': {
+    code: 'NC.2.MD.10',
+    name: 'Bar graphs',
+    gen(t, rng, n) {
+      const cats = t === 0 ? 3 : 4;
+      const picked = shuffle(THINGS.slice(0, 12), rng).slice(0, cats);
+      let counts;
+      do counts = picked.map(() => int(rng, 1, t === 0 ? 6 : 10));
+      while (new Set(counts).size !== cats);
+      const model = { kind: 'bars', rows: picked.map(([pic, , many], i) => ({ pic, label: many, n: counts[i] })), max: t === 0 ? 6 : 10 };
+      const name = (i) => picked[i][2];
+      const q = t === 0 ? pick(rng, ['count', 'most']) : t === 1 ? pick(rng, ['count', 'more', 'fewest']) : pick(rng, ['more', 'total', 'fewer']);
+      if (q === 'most' || q === 'fewest') {
+        const target = counts.indexOf(q === 'most' ? Math.max(...counts) : Math.min(...counts));
+        return {
+          ask: `Which has the ${q}?`,
+          model,
+          options: picked.map(([pic, , many]) => ({ value: pic, say: many, model: { kind: 'pic', pic } })).slice(0, Math.max(n, 2)).concat(picked.slice(Math.max(n, 2)).map(([pic, , many]) => ({ value: pic, say: many, model: { kind: 'pic', pic } }))).slice(0, 4),
+          answer: picked[target][0],
+          explain: `${name(target)}: ${counts[target]}. That's the ${q}!`,
+          hint: q === 'most' ? 'Find the tallest bar.' : 'Find the shortest bar.',
+        };
+      }
+      const [i, j] = shuffle([0, 1, 2, 3].slice(0, cats), rng);
+      if (q === 'more' || q === 'fewer') {
+        const [big, small] = counts[i] > counts[j] ? [i, j] : [j, i];
+        const answer = counts[big] - counts[small];
+        return {
+          ask: q === 'more' ? `How many more ${name(big)} than ${name(small)}?` : `How many fewer ${name(small)} than ${name(big)}?`,
+          model,
+          options: numberOptions(answer, n, rng, { min: 1, max: 10, tricky: [counts[big] + counts[small]] }),
+          answer,
+          explain: `${counts[big]} − ${counts[small]} = ${answer}.`,
+          hint: 'Read both bars, then take the smaller from the bigger.',
+        };
+      }
+      if (q === 'total') {
+        const answer = counts[i] + counts[j];
+        return {
+          ask: `How many ${name(i)} and ${name(j)} in all?`,
+          model,
+          options: numberOptions(answer, n, rng, { min: 2, max: 20 }),
+          answer,
+          explain: `${counts[i]} + ${counts[j]} = ${answer}.`,
+          hint: 'Read both bars and add them.',
+        };
+      }
+      return {
+        ask: `How many ${name(i)}?`,
+        model,
+        options: numberOptions(counts[i], n, rng, { min: 1, max: 10 }),
+        answer: counts[i],
+        explain: `The bar for ${name(i)} goes up to ${counts[i]}.`,
+        hint: 'Follow the top of the bar across to the numbers.',
       };
     },
   },

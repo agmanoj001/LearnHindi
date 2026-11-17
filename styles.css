@@ -12764,3 +12764,88 @@ body:has(.game-grammar) .caption-bar,
     animation: none;
   }
 }
+
+/* the Grade 2–4 maths pictures (roadmap 10.5, 10.8) */
+.mm-base10 {
+  max-width: 100%;
+}
+.mm-array {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.mm-arr-row {
+  display: flex;
+  gap: 6px;
+}
+.mm-cell {
+  display: grid;
+  place-items: center;
+  width: clamp(28px, calc(56vw / var(--cols)), 50px);
+  aspect-ratio: 1;
+}
+.mm-cell svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.mm-grid {
+  width: min(64vw, 240px);
+  height: auto;
+}
+.mm-grid.small {
+  width: clamp(70px, 18vmin, 110px);
+}
+.mm-ruler {
+  width: min(92vw, 600px);
+  height: auto;
+}
+.mm-money {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  max-width: min(92vw, 520px);
+}
+.mm-money-item .mm-coin {
+  width: clamp(64px, 17vmin, 92px);
+}
+.mm-money-item .mm-bill {
+  width: clamp(100px, 24vmin, 140px);
+}
+.mm-bars {
+  width: min(92vw, 440px);
+  height: auto;
+}
+.mm-barfill {
+  transform-box: fill-box;
+  transform-origin: left center;
+  animation: mm-grow 0.5s ease-out both;
+}
+@keyframes mm-grow {
+  from {
+    transform: scaleX(0);
+  }
+}
+/* jumps of ten and one, and building an array (Grade 2 hands-on) */
+.jl-line {
+  width: min(92vw, 620px);
+}
+.jl-line svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.ar-pic {
+  display: grid;
+  place-items: center;
+  min-height: 120px;
+}
+.sh-coin.bill {
+  width: 112px;
+}
+.sh-coin.paid.bill {
+  width: 90px;
+}

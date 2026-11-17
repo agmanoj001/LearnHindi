@@ -10926,6 +10926,10 @@
         "house",
         "balloon"
       ]
+    },
+    "bazaar": {
+      "name": { "hi": "बाज़ार की चीज़ें", "en": "Market finds" },
+      "items": ["mango", "banana", "grapes", "peanut", "rasgulla", "laddoo", "pot", "drum", "umbrella", "squirrel"]
     }
   },
   "worlds": [
@@ -13206,6 +13210,244 @@
       ],
       "tags": ["phonics", "reading", "spelling"],
       "helpers": { "courier": "pterodactyl", "vendor": "triceratops", "lifter": "brachiosaurus", "engine": "stegosaurus", "holder": "stegosaurus" }
+    },
+    {
+      "id": "bazaar",
+      "level": "grade2",
+      "subject": "math",
+      "lang": "en",
+      "theme": "bazaar",
+      "mascot": "gilu",
+      "color": "#F97316",
+      "collection": "bazaar",
+      "name": { "hi": "गिलू का गिनती बाज़ार", "en": "Gilu's Number Bazaar" },
+      "tags": ["math", "counting", "shapes"],
+      "letterSets": [],
+      "units": [
+        {
+          "id": "g2m-place",
+          "title": { "hi": "सैकड़ा, दहाई, इकाई", "en": "Let's learn hundreds, tens and ones" },
+          "skill": "Place value to 1,000 · NC.2.NBT.1, 3, 4",
+          "icon": "letter:100",
+          "lessons": [
+            {
+              "id": "g2m-place-1",
+              "game": "math",
+              "icon": "letter:342",
+              "title": { "hi": "सैकड़ा, दहाई, इकाई", "en": "Hundreds, tens and ones" },
+              "config": { "skills": ["g2-place"] }
+            },
+            {
+              "id": "g2m-place-2",
+              "game": "math",
+              "icon": "letter:abc",
+              "title": { "hi": "शब्दों में गिनती", "en": "Numbers in words" },
+              "config": { "skills": ["g2-readwrite"] }
+            },
+            {
+              "id": "g2m-place-3",
+              "game": "math",
+              "icon": "letter:>",
+              "title": { "hi": "बड़ा या छोटा?", "en": "Greater or less?" },
+              "config": { "skills": ["g2-compare"] }
+            }
+          ]
+        },
+        {
+          "id": "g2m-count",
+          "title": { "hi": "1000 तक गिनती", "en": "Let's count to 1,000" },
+          "skill": "Skip counting, 10 and 100 more · NC.2.NBT.2, 8",
+          "icon": "letter:1000",
+          "lessons": [
+            {
+              "id": "g2m-count-1",
+              "game": "math",
+              "icon": "letter:5,10",
+              "title": { "hi": "पाँच-पाँच, दस-दस, सौ-सौ", "en": "Count by 5s, 10s and 100s" },
+              "config": { "skills": ["g2-skip"] }
+            },
+            {
+              "id": "g2m-count-2",
+              "game": "math",
+              "icon": "letter:+100",
+              "title": { "hi": "10 या 100 ज़्यादा", "en": "10 or 100 more" },
+              "config": { "skills": ["g2-tenmore"] }
+            }
+          ]
+        },
+        {
+          "id": "g2m-add",
+          "title": { "hi": "100 तक जोड़-घटाव", "en": "Let's add and subtract to 100" },
+          "skill": "Facts to 20, two-digit numbers · NC.2.OA.2, NBT.5",
+          "icon": "letter:+",
+          "lessons": [
+            {
+              "id": "g2m-add-1",
+              "game": "math",
+              "icon": "letter:9+7",
+              "title": { "hi": "झटपट जोड़, आराम से", "en": "Quick facts, no hurry" },
+              "config": { "skills": ["g2-facts"], "rounds": 10, "retry": true }
+            },
+            {
+              "id": "g2m-add-2",
+              "game": "math",
+              "icon": "letter:+",
+              "title": { "hi": "दो अंकों का जोड़", "en": "Add two-digit numbers" },
+              "config": { "skills": ["g2-add100"] }
+            },
+            {
+              "id": "g2m-add-3",
+              "game": "math",
+              "icon": "letter:−",
+              "title": { "hi": "दो अंकों का घटाव", "en": "Subtract two-digit numbers" },
+              "config": { "skills": ["g2-sub100"] }
+            },
+            {
+              "id": "g2m-add-4",
+              "game": "handson",
+              "icon": "frog",
+              "title": { "hi": "दस की छलाँग", "en": "Jumps of ten" },
+              "config": { "rounds": 4, "activity": "jumps", "skill": "g2-add100" }
+            }
+          ]
+        },
+        {
+          "id": "g2m-big",
+          "title": { "hi": "बड़े जोड़ और कहानियाँ", "en": "Let's solve big sums and story problems" },
+          "skill": "Within 1,000; story problems · NC.2.NBT.7, OA.1",
+          "icon": "letter:1000",
+          "lessons": [
+            {
+              "id": "g2m-big-1",
+              "game": "math",
+              "icon": "letter:300+",
+              "title": { "hi": "1000 तक जोड़-घटाव", "en": "Add and subtract to 1,000" },
+              "config": { "skills": ["g2-add1000"] }
+            },
+            { "id": "g2m-big-2", "game": "math", "icon": "kite", "title": { "hi": "कहानी के सवाल", "en": "Story problems" }, "config": { "skills": ["g2-story"] } }
+          ]
+        },
+        {
+          "id": "g2m-groups",
+          "title": { "hi": "सम, विषम और कतारें", "en": "Let's find odd, even and equal groups" },
+          "skill": "Odd and even, arrays · NC.2.OA.3–4",
+          "icon": "apple",
+          "lessons": [
+            {
+              "id": "g2m-groups-1",
+              "game": "math",
+              "icon": "letter:2,4,6",
+              "title": { "hi": "सम या विषम?", "en": "Odd or even?" },
+              "config": { "skills": ["g2-oddeven"] }
+            },
+            { "id": "g2m-groups-2", "game": "math", "icon": "apple", "title": { "hi": "कतारें", "en": "Rows and columns" }, "config": { "skills": ["g2-arrays"] } },
+            {
+              "id": "g2m-groups-3",
+              "game": "handson",
+              "icon": "laddoo",
+              "title": { "hi": "कतारें बनाओ", "en": "Build an array" },
+              "config": { "rounds": 4, "activity": "array", "skill": "g2-arrays" }
+            }
+          ]
+        },
+        {
+          "id": "g2m-time",
+          "title": { "hi": "समय और पैसे", "en": "Let's tell time and count money" },
+          "skill": "Time to five minutes, money · NC.2.MD.7–8",
+          "icon": "clock",
+          "lessons": [
+            {
+              "id": "g2m-time-1",
+              "game": "math",
+              "icon": "clock",
+              "title": { "hi": "पाँच-पाँच मिनट", "en": "Time to five minutes" },
+              "config": { "skills": ["g2-time"] }
+            },
+            { "id": "g2m-time-2", "game": "math", "icon": "coins", "title": { "hi": "पैसे गिनो", "en": "Count the money" }, "config": { "skills": ["g2-money"] } },
+            {
+              "id": "g2m-time-3",
+              "game": "handson",
+              "icon": "clock",
+              "title": { "hi": "घड़ी घुमाओ", "en": "Turn the clock" },
+              "config": { "rounds": 4, "activity": "clock", "minutes": 5, "skill": "g2-time" }
+            },
+            {
+              "id": "g2m-time-4",
+              "game": "handson",
+              "icon": "coins",
+              "title": { "hi": "बाज़ार की दुकान", "en": "Market shop" },
+              "config": { "rounds": 4, "activity": "shop", "dollars": true, "skill": "g2-money" }
+            }
+          ]
+        },
+        {
+          "id": "g2m-measure",
+          "title": { "hi": "नाप और ग्राफ़", "en": "Let's measure and read graphs" },
+          "skill": "Length and bar graphs · NC.2.MD.1–4, 10",
+          "icon": "letter:cm",
+          "lessons": [
+            {
+              "id": "g2m-measure-1",
+              "game": "math",
+              "icon": "letter:in",
+              "title": { "hi": "स्केल से नापो", "en": "Measure with a ruler" },
+              "config": { "skills": ["g2-length"] }
+            },
+            { "id": "g2m-measure-2", "game": "math", "icon": "balloon", "title": { "hi": "बार ग्राफ़", "en": "Bar graphs" }, "config": { "skills": ["g2-graph"] } }
+          ]
+        },
+        {
+          "id": "g2m-shapes",
+          "title": { "hi": "आकार और बराबर हिस्से", "en": "Let's explore shapes and equal parts" },
+          "skill": "Shapes and fractions · NC.2.G.1–3",
+          "icon": "shape-triangle",
+          "lessons": [
+            {
+              "id": "g2m-shapes-1",
+              "game": "math",
+              "icon": "shape-triangle",
+              "title": { "hi": "भुजाएँ और कोने", "en": "Sides and angles" },
+              "config": { "skills": ["g2-shapes"] }
+            },
+            {
+              "id": "g2m-shapes-2",
+              "game": "math",
+              "icon": "shape-square",
+              "title": { "hi": "खानों की कतारें", "en": "Rows of squares" },
+              "config": { "skills": ["g2-partition"] }
+            },
+            {
+              "id": "g2m-shapes-3",
+              "game": "math",
+              "icon": "roti",
+              "title": { "hi": "आधा, तिहाई, चौथाई", "en": "Halves, thirds, fourths" },
+              "config": { "skills": ["g2-fractions"] }
+            }
+          ]
+        },
+        {
+          "id": "g2m-review",
+          "title": { "hi": "बाज़ार चुनौती", "en": "Bazaar challenge" },
+          "skill": "Review · mixed practice",
+          "icon": "squirrel",
+          "lessons": [
+            {
+              "id": "g2m-review-1",
+              "game": "math",
+              "icon": "squirrel",
+              "title": { "hi": "चुनौती 1", "en": "Challenge 1" },
+              "config": { "skills": ["g2-place", "g2-add100", "g2-sub100", "g2-time", "g2-oddeven", "g2-fractions", "g2-skip"], "rounds": 8 }
+            },
+            {
+              "id": "g2m-review-2",
+              "game": "math",
+              "icon": "mango",
+              "title": { "hi": "चुनौती 2", "en": "Challenge 2" },
+              "config": { "skills": ["g2-compare", "g2-add1000", "g2-story", "g2-money", "g2-arrays", "g2-length", "g2-graph", "g2-shapes", "g2-partition"], "rounds": 8 }
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "desert",

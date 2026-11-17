@@ -131,3 +131,62 @@ test('10.4: the number-bond bubbles make 10 in Kindergarten and 20 in Grade 1', 
   bad.worlds.flatMap((w) => w.units).flatMap((u) => u.lessons).find((l) => l.id === 'km-ten-bubbles').config.target = 12;
   assert.ok(validateContent(bad).errors.some((e) => e.includes('target must be 10 or 20')));
 });
+
+// ---- 10.5 the Grade 2 maths world ----
+import { numberWords } from '../js/mathgen.js';
+import { MASCOT_IDS } from '../js/mascot.js';
+import { THEMES } from '../js/art-scenes.js';
+
+test('10.5: Gilu\'s Number Bazaar: a Grade 2 maths world of about 24 lessons, with its own guide, scene and prizes', () => {
+  const w = content.worlds.find((x) => x.id === 'bazaar');
+  assert.equal(w.level, 'grade2');
+  assert.equal(w.subject, 'math');
+  assert.equal(w.lang, 'en');
+  assert.ok(MASCOT_IDS.includes(w.mascot) && THEMES.includes(w.theme));
+  assert.ok(content.collections[w.collection].items.every((id) => content.words[id]));
+  const ls = w.units.flatMap((u) => u.lessons);
+  assert.ok(ls.length >= 24, `${ls.length} lessons`);
+  const skills = new Set(ls.flatMap((l) => (l.game === 'math' ? l.config.skills : [l.config.skill])));
+  const g2 = Object.keys(SKILLS).filter((s) => s.startsWith('g2-'));
+  assert.ok(g2.length >= 19);
+  for (const s of g2) assert.ok(skills.has(s), `${s} is taught`);
+  // the standards the roadmap names
+  const codes = new Set(g2.map((s) => SKILLS[s].code));
+  for (const c of ['NC.2.NBT.1', 'NC.2.NBT.5', 'NC.2.NBT.7', 'NC.2.OA.3', 'NC.2.OA.4', 'NC.2.MD.7', 'NC.2.MD.1', 'NC.2.MD.8', 'NC.2.G.3', 'NC.2.MD.10']) assert.ok(codes.has(c), c);
+  // four hands-on games, each recording a Grade 2 skill
+  const hands = ls.filter((l) => l.game === 'handson');
+  assert.deepEqual(hands.map((l) => l.config.activity).sort(), ['array', 'clock', 'jumps', 'shop']);
+  assert.ok(hands.every((l) => l.config.skill.startsWith('g2-')));
+  assert.equal(hands.find((l) => l.config.activity === 'clock').config.minutes, 5);
+  assert.equal(hands.find((l) => l.config.activity === 'shop').config.dollars, true);
+});
+
+test('10.5: place value with a zero, the slips as wrong answers, and numbers in words', () => {
+  assert.equal(numberWords(406), 'four hundred six');
+  assert.equal(numberWords(342), 'three hundred forty-two');
+  assert.equal(numberWords(1729), 'one thousand seven hundred twenty-nine');
+  const rng = seeded(17);
+  let zero = 0;
+  for (let i = 0; i < 60; i++) {
+    const p = makeProblem('g2-place', { tier: 2, n: 4, rng });
+    if (/^\d00 \+ \d = \?$/.test(p.eq)) {
+      zero++;
+      // 400 + 6: 46 is among the wrong answers
+      const [h, o] = p.eq.match(/\d+/g).map(Number);
+      assert.ok(p.options.some((x) => x.value === (h / 100) * 10 + o), p.eq);
+    }
+    const s = makeProblem('g2-sub100', { tier: 1, n: 4, rng });
+    const [a, b] = s.eq.match(/\d+/g).map(Number);
+    assert.equal(s.answer, a - b);
+    assert.ok(a % 10 < b % 10, 'tier 1 always breaks a ten');
+  }
+  assert.ok(zero > 10);
+  // base-ten pictures with hundreds, money with a dollar bill, a ruler, arrays, grids and bar graphs draw
+  assert.match(mathModel({ kind: 'base10', hundreds: 2, tens: 3, ones: 4 }), /mm-flat/);
+  assert.match(mathModel({ kind: 'money', items: ['dollar', 'quarter', 'dime'] }), /mm-bill[\s\S]*25¢/);
+  assert.match(mathModel({ kind: 'ruler', unit: 'cm', len: 6, start: 2, thing: 'pencil' }), /cm/);
+  assert.equal((mathModel({ kind: 'array', rows: 3, cols: 4, pic: 'apple' }).match(/mm-cell/g) || []).length, 12);
+  assert.match(mathModel({ kind: 'grid', rows: 2, cols: 3 }), /mm-grid/);
+  assert.match(mathModel({ kind: 'bars', rows: [{ pic: 'apple', n: 3 }], max: 6 }), /mm-barfill/);
+  assert.match(mathModel({ kind: 'parts', shape: 'circle', parts: 3, equal: true, shade: 1 }), /mm-parts/);
+});

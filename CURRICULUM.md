@@ -102,6 +102,22 @@ Every story page from Toddler to Grade 2 is a small moving scene that follows th
 | Let's explore shapes | NC.1.G.1–3: sides and corners, put two shapes together, halves and fourths (a half is bigger than a fourth) |
 | Carnival challenge | Mixed review of the year |
 
+### Grade 2 · Gilu's Number Bazaar (math, English)
+
+*A market street of stalls, with Gilu the squirrel (docs/ROADMAP.md 10.5).*
+
+| Unit | Standards |
+| --- | --- |
+| Let's learn hundreds, tens and ones | NC.2.NBT.1, 3, 4: hundreds flats, tens and ones; what a digit is worth; 400 + 6 is 406, not 46; numbers in words; compare with >, = and < |
+| Let's count to 1,000 | NC.2.NBT.2, 8: skip count by 5s, 10s and 100s across a hundred; 10 and 100 more and less |
+| Let's add and subtract to 100 | NC.2.OA.2, NBT.5: facts to 20 with no hurry (make a ten); two-digit adding and taking away, with base-ten blocks first; the common slips (forgetting the new ten, taking the smaller ones from the bigger) are among the wrong answers; jumps of ten and one on a number line |
+| Let's solve big sums and story problems | NC.2.NBT.7, OA.1: adding and taking away within 1,000; story problems in one and two steps (add to, take from, compare, start unknown) |
+| Let's find odd, even and equal groups | NC.2.OA.3–4: odd or even by making pairs, then by the ones digit; arrays as rows of the same and their adding sentence; build an array |
+| Let's tell time and count money | NC.2.MD.7–8: time to five minutes, a.m. or p.m.; count coins and dollar bills; turn the clock's hands; pay in the market shop |
+| Let's measure and read graphs | NC.2.MD.1–4, 10: read a ruler in inches and centimetres (also when the thing doesn't start at 0), inches or feet, how much longer; bar graphs |
+| Let's explore shapes and equal parts | NC.2.G.1–3: sides and angles, faces of a cube; rows and columns of squares; halves, thirds and fourths |
+| Bazaar challenge | Mixed review of the year |
+
 ### Kindergarten · Buzz's Letter Garden (English phonics)
 
 | Unit | Standards |
@@ -266,6 +282,25 @@ Each skill makes problems at three levels: level 1 uses small numbers with objec
 | `g1-doubles` | NC.1.OA.6 | Doubles and near doubles | Let's add and subtract to 20, Carnival challenge |
 | `g1-bond20` | NC.1.OA.6 | Number bonds to 20 | Let's add and subtract to 20 (and the make-20 bubbles), Carnival challenge |
 | `g1-fluency` | NC.1.OA.6 | Facts within 10 (and 20), no hurry | Let's add and subtract to 20 |
+| `g2-place` | NC.2.NBT.1 | Hundreds, tens and ones | Let's learn hundreds, tens and ones, Bazaar challenge |
+| `g2-readwrite` | NC.2.NBT.3 | Read and write numbers to 1,000 | Let's learn hundreds, tens and ones |
+| `g2-compare` | NC.2.NBT.4 | Compare three-digit numbers (> = <) | Let's learn hundreds, tens and ones, Bazaar challenge |
+| `g2-skip` | NC.2.NBT.2 | Skip count by 5s, 10s and 100s to 1,000 | Let's count to 1,000, Bazaar challenge |
+| `g2-tenmore` | NC.2.NBT.8 | 10 or 100 more and less | Let's count to 1,000 |
+| `g2-facts` | NC.2.OA.2 | Add and subtract within 20 in your head | Let's add and subtract to 100 |
+| `g2-add100` | NC.2.NBT.5 | Add two-digit numbers | Let's add and subtract to 100 (and jumps of ten), Bazaar challenge |
+| `g2-sub100` | NC.2.NBT.5 | Subtract two-digit numbers | Let's add and subtract to 100, Bazaar challenge |
+| `g2-add1000` | NC.2.NBT.7 | Add and subtract within 1,000 | Let's solve big sums and story problems, Bazaar challenge |
+| `g2-story` | NC.2.OA.1 | Story problems in one and two steps | Let's solve big sums and story problems, Bazaar challenge |
+| `g2-oddeven` | NC.2.OA.3 | Odd and even | Let's find odd, even and equal groups, Bazaar challenge |
+| `g2-arrays` | NC.2.OA.4 | Arrays: rows and columns | Let's find odd, even and equal groups (and build an array), Bazaar challenge |
+| `g2-time` | NC.2.MD.7 | Tell time to five minutes; a.m. and p.m. | Let's tell time and count money (and turn the clock), Bazaar challenge |
+| `g2-money` | NC.2.MD.8 | Count money: coins and dollars | Let's tell time and count money (and the market shop), Bazaar challenge |
+| `g2-length` | NC.2.MD.1 | Measure with a ruler: inches and centimetres | Let's measure and read graphs, Bazaar challenge |
+| `g2-graph` | NC.2.MD.10 | Bar graphs | Let's measure and read graphs, Bazaar challenge |
+| `g2-shapes` | NC.2.G.1 | Shapes by their sides, angles and faces | Let's explore shapes and equal parts, Bazaar challenge |
+| `g2-partition` | NC.2.G.2 | Rows and columns of squares | Let's explore shapes and equal parts, Bazaar challenge |
+| `g2-fractions` | NC.2.G.3 | Halves, thirds and fourths | Let's explore shapes and equal parts, Bazaar challenge |
 
 **Not covered yet:** NC.K.G.4–6 (comparing, building and composing shapes with real materials), NC.K.CC.4's one-to-one counting of real objects (the app's tap-to-count is the closest), and NC.1.OA.3's properties of operations as a separate skill. These are better done with blocks, beads and paper shapes at a table.
 

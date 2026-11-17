@@ -306,6 +306,85 @@ const SCENES = {
     ]) +
     cloud(300, 140, 0.7),
   // Word City (Grade 4): towers, a flyover, lit windows and a kite
+  // the maths worlds for Grades 2–4 (docs/ROADMAP.md 10.5, 10.8)
+  // Gilu's Number Bazaar: a street of stalls with striped awnings, heaps of fruit and strings of lamps
+  bazaar: (id) => {
+    const awnings = ['#FF5A5F', '#2EC27E', '#FFB020', '#3D7BFF'];
+    const stall = (x, i) => {
+      const c = awnings[i % awnings.length];
+      let stripes = '';
+      for (let k = 0; k < 4; k++) stripes += `<rect x="${x + k * 22}" y="440" width="11" height="34" fill="#fff" opacity="0.85"/>`;
+      let scallops = '';
+      for (let k = 0; k < 8; k++) scallops += `<circle cx="${x + 5.5 + k * 11}" cy="474" r="5.5" fill="${c}"/>`;
+      const heap = ['#FF8A3D', '#FFD43B', '#7BC950', '#E2463F'][i % 4];
+      let fruit = '';
+      for (let k = 0; k < 6; k++) fruit += `<circle cx="${x + 16 + (k % 3) * 22 + (k > 2 ? 11 : 0)}" cy="${k > 2 ? 506 : 520}" r="10" fill="${heap}"/>`;
+      return `<rect x="${x + 4}" y="474" width="80" height="80" fill="#F4E3C3"/><rect x="${x}" y="440" width="88" height="34" fill="${c}"/>${stripes}${scallops}<rect x="${x + 4}" y="474" width="4" height="80" fill="#B9773E"/><rect x="${x + 80}" y="474" width="4" height="80" fill="#B9773E"/><rect x="${x}" y="526" width="88" height="10" rx="3" fill="#B9773E"/>${fruit}`;
+    };
+    let lamps = '';
+    for (let i = 0; i < 9; i++) lamps += `<circle cx="${R(20 + i * 45)}" cy="${R(330 + 18 * Math.sin((i / 8) * Math.PI))}" r="6" fill="${awnings[i % 4]}" class="${i % 3 ? '' : 'twinkle'}"/>`;
+    return (
+      sky(id, '#FFE6B8', '#FFF7E6') +
+      `<circle cx="80" cy="150" r="44" fill="#FFD166"/><circle cx="80" cy="150" r="66" fill="#FFD166" opacity="0.25"/>` +
+      cloud(280, 140, 0.8) +
+      cloud(120, 250, 0.55) +
+      `<path d="M0 320 Q200 360 400 320" fill="none" stroke="#B9773E" stroke-width="2"/>` +
+      lamps +
+      [0, 100, 200, 300].map((x, i) => stall(x + 6, i)).join('') +
+      `<rect x="0" y="554" width="400" height="246" fill="#E8C99B"/><path d="M0 600 H400" stroke="#D9B27C" stroke-width="6" stroke-dasharray="30 20"/>` +
+      `<g class="sway" style="--d:6s"><path d="M330 600 l14 -40 l14 40 z" fill="#FF7AB6"/><path d="M344 600 v40" stroke="#8A5A44" stroke-width="3"/></g>`
+    );
+  },
+  // Robu's Number Factory: gears turning, a belt carrying boxes, and puffs from the chimney
+  factory: (id) => {
+    const gear = (x, y, r, c, teeth = 10) => {
+      let t = '';
+      for (let i = 0; i < teeth; i++) t += `<rect x="${-r * 0.16}" y="${-r - 9}" width="${R(r * 0.32)}" height="14" rx="3" fill="${c}" transform="rotate(${R((360 / teeth) * i)})"/>`;
+      return `<g transform="translate(${x} ${y})"><g class="turn">${t}<circle r="${r}" fill="${c}"/><circle r="${R(r * 0.38)}" fill="#EEF2FF"/></g></g>`;
+    };
+    let boxes = '';
+    for (let i = 0; i < 4; i++) boxes += `<rect x="${i * 110}" y="0" width="44" height="40" rx="5" fill="${['#FFB020', '#FF7AB6', '#2EC27E', '#3D7BFF'][i]}"/><path d="M${i * 110} 14 H${i * 110 + 44}" stroke="#fff" stroke-width="3" opacity="0.6"/>`;
+    return (
+      sky(id, '#D6E6FF', '#F2F7FF') +
+      cloud(90, 120, 0.8) +
+      `<rect x="290" y="150" width="44" height="200" fill="#8EA2BA"/><rect x="284" y="140" width="56" height="16" rx="4" fill="#5B6B80"/>` +
+      `<g class="puff">${[0, 1, 2].map((i) => `<circle cx="${312 + i * 12}" cy="${118 - i * 34}" r="${16 + i * 6}" fill="#fff" opacity="0.85" style="animation-delay:${i * 0.8}s"/>`).join('')}</g>` +
+      `<rect x="20" y="300" width="360" height="300" rx="16" fill="#C9D6EA"/><rect x="20" y="300" width="360" height="26" rx="10" fill="#9FB3CF"/>` +
+      [60, 140, 220, 300].map((x) => `<rect x="${x}" y="350" width="44" height="54" rx="6" fill="#EAF2FB"/><path d="M${x + 22} 350 V404 M${x} 377 H${x + 44}" stroke="#C9D6EA" stroke-width="3"/>`).join('') +
+      gear(110, 480, 40, '#FFB020') +
+      gear(176, 452, 24, '#FF5A5F', 8) +
+      gear(300, 490, 34, '#3D7BFF') +
+      `<rect x="0" y="600" width="400" height="200" fill="#A9B8CF"/><rect x="0" y="560" width="400" height="22" rx="11" fill="#5B6B80"/>${[20, 80, 140, 200, 260, 320, 380].map((x) => `<circle cx="${x}" cy="571" r="7" fill="#8EA2BA"/>`).join('')}` +
+      `<g class="swim" style="--d:16s"><g transform="translate(-60 518)">${boxes}</g></g>`
+    );
+  },
+  // Jugnu's Number Observatory: an open-air observatory at dusk, with a giant stone sundial, a round
+  // instrument with steps, the first stars and fireflies
+  jantar: (id) => {
+    const r = rnd(21);
+    let stars = '';
+    for (let i = 0; i < 26; i++) stars += `<circle cx="${R(r() * 400)}" cy="${R(r() * 280)}" r="${R(0.8 + r() * 1.8)}" fill="#fff" class="twinkle" style="animation-delay:${R(r() * 3)}s"/>`;
+    let flies = '';
+    for (let i = 0; i < 10; i++) flies += `<circle class="twinkle" cx="${R(r() * 400)}" cy="${R(420 + r() * 260)}" r="3" fill="#FFF59D" style="animation-delay:${R(r() * 3)}s"/>`;
+    let steps = '';
+    for (let i = 0; i < 9; i++) steps += `<rect x="${150 + i * 9}" y="${R(560 - (i + 1) * 30)}" width="9" height="${R((i + 1) * 30)}" fill="${i % 2 ? '#E9A57A' : '#F2B48C'}"/>`;
+    let ticks = '';
+    for (let i = 0; i <= 12; i++) {
+      const a = Math.PI + (i / 12) * Math.PI;
+      ticks += `<line x1="${R(80 + 52 * Math.cos(a))}" y1="${R(560 + 52 * Math.sin(a))}" x2="${R(80 + 62 * Math.cos(a))}" y2="${R(560 + 62 * Math.sin(a))}" stroke="#8A4B2A" stroke-width="2"/>`;
+    }
+    return (
+      sky(id, '#4C3B8F', '#FFB38A') +
+      stars +
+      `<circle cx="320" cy="150" r="26" fill="#FFF3C4"/><circle cx="330" cy="142" r="24" fill="#5A4699" opacity="0.9"/>` +
+      `<path d="M150 560 L231 290 L231 560 Z" fill="#F6C2A0"/>` +
+      steps +
+      `<path d="M20 560 A60 60 0 0 1 140 560 Z" fill="#E9A57A"/><path d="M30 560 A50 50 0 0 1 130 560" fill="none" stroke="#FFE0C2" stroke-width="3"/>${ticks}` +
+      `<g transform="translate(320 470)"><ellipse cx="0" cy="90" rx="62" ry="16" fill="#D98C63"/><path d="M-62 90 V30 A62 18 0 0 1 62 30 V90" fill="#F2B48C"/>${[-44, -22, 0, 22, 44].map((x) => `<rect x="${x - 6}" y="34" width="12" height="56" fill="#E9A57A"/>`).join('')}<ellipse cx="0" cy="30" rx="62" ry="18" fill="none" stroke="#FFE0C2" stroke-width="3"/></g>` +
+      `<rect x="0" y="560" width="400" height="240" fill="#C98A64"/><rect x="0" y="560" width="400" height="10" fill="#B07250"/>` +
+      flies
+    );
+  },
   city: (id) => {
     const r = rnd(17);
     const towers = [
@@ -525,6 +604,7 @@ const LIFE = {
   forest: ['birds', 'leaves'],
   village: ['birds', 'butterflies'],
   carnival: ['birds'],
+  bazaar: ['birds'],
   castle: ['birds'],
   mountain: ['birds'],
   desert: ['birds'],

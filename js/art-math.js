@@ -112,18 +112,30 @@ function base10(m) {
     `<g class="mm-rod${gone ? ' gone' : ''}">${Array.from({ length: 10 }, (_, i) => `<rect x="${x}" y="${8 + i * 16}" width="16" height="16" fill="${color}" stroke="#fff" stroke-width="1.5"/>`).join('')}${gone ? `<path d="M${x - 3} 6 L${x + 19} 170 M${x + 19} 6 L${x - 3} 170" stroke="${INK}" stroke-width="3"/>` : ''}</g>`;
   const cube = (x, y, color) => `<rect x="${x}" y="${y}" width="16" height="16" fill="${color}" stroke="#fff" stroke-width="1.5"/>`;
   let x = 6;
+  // hundreds: a flat of 10 × 10 (Grade 2)
+  for (let i = 0; i < (m.hundreds || 0); i++) {
+    let g = `<rect x="${x}" y="8" width="160" height="160" fill="#A66BFF" stroke="#fff" stroke-width="1.5"/>`;
+    for (let k = 1; k < 10; k++) g += `<path d="M${x + k * 16} 8 V168 M${x} ${8 + k * 16} H${x + 160}" stroke="#fff" stroke-width="1.2" opacity="0.7"/>`;
+    rods.push(`<g class="mm-flat">${g}</g>`);
+    x += 168;
+  }
   for (let i = 0; i < m.tens; i++) {
     rods.push(rod(x, BLUE, m.goneTens && i >= m.tens - m.goneTens));
     x += 22;
   }
-  const cubes = (n, color) => {
+  const cubes = (n, color, gone = 0) => {
     let s = '';
     const x0 = x + 4;
-    for (let i = 0; i < n; i++) s += cube(x0 + (i % 2) * 18, 152 - Math.floor(i / 2) * 18, color);
+    for (let i = 0; i < n; i++) {
+      const [cx, cy] = [x0 + (i % 2) * 18, 152 - Math.floor(i / 2) * 18];
+      s += cube(cx, cy, color);
+      // the ones taken away are crossed out (the last ones)
+      if (i >= n - gone) s += `<path d="M${cx - 1} ${cy - 1} L${cx + 17} ${cy + 17} M${cx + 17} ${cy - 1} L${cx - 1} ${cy + 17}" stroke="${INK}" stroke-width="2.4"/>`;
+    }
     if (n) x = x0 + (n > 1 ? 40 : 22);
     return s;
   };
-  let body = rods.join('') + cubes(m.ones, YELLOW);
+  let body = rods.join('') + cubes(m.ones, YELLOW, m.goneOnes || 0);
   if (m.addTens || m.addOnes) {
     body += `<text x="${x + 10}" y="100" font-size="34" font-weight="800" fill="${INK}" text-anchor="middle">+</text>`;
     x += 26;
@@ -197,6 +209,36 @@ function shapeBody(shape, color, { stretch = 1, marks } = {}) {
     }
     case 'hexagon':
       pts = Array.from({ length: 6 }, (_, i) => [60 + 48 * Math.cos((Math.PI / 3) * i), 60 + 48 * Math.sin((Math.PI / 3) * i)]);
+      break;
+    case 'pentagon':
+      pts = Array.from({ length: 5 }, (_, i) => [60 + 50 * Math.sin(((2 * Math.PI) / 5) * i), 64 - 50 * Math.cos(((2 * Math.PI) / 5) * i)]);
+      break;
+    case 'octagon':
+      pts = Array.from({ length: 8 }, (_, i) => [60 + 50 * Math.cos((Math.PI / 4) * i + Math.PI / 8), 60 + 50 * Math.sin((Math.PI / 4) * i + Math.PI / 8)]);
+      break;
+    case 'trapezoid':
+      pts = [
+        [36, 30],
+        [84, 30],
+        [110, 92],
+        [10, 92],
+      ];
+      break;
+    case 'rhombus':
+      pts = [
+        [60, 8],
+        [104, 60],
+        [60, 112],
+        [16, 60],
+      ];
+      break;
+    case 'parallelogram':
+      pts = [
+        [34, 30],
+        [112, 30],
+        [86, 92],
+        [8, 92],
+      ];
       break;
     case 'cube':
       body = `<path d="M24 40 L60 22 L96 40 L60 58 Z" fill="${tint(color, 0.35)}"/><path d="M24 40 L60 58 V102 L24 84 Z" fill="${color}"/><path d="M96 40 L60 58 V102 L96 84 Z" fill="${tint(color, -0.25)}"/>`;
@@ -313,6 +355,8 @@ const COIN = {
   quarter: { r: 54, fill: '#CED4DC', rim: '#9AA3B0', text: '25¢', ridged: true },
 };
 function coin(m) {
+  // a dollar is a green bill
+  if (m.coin === 'dollar') return S('0 0 150 72', `<rect x="3" y="3" width="144" height="66" rx="6" fill="#CDE8C4" stroke="#5E9B57" stroke-width="3"/><rect x="12" y="11" width="126" height="50" rx="4" fill="none" stroke="#8DBF85" stroke-width="2"/><ellipse cx="75" cy="36" rx="18" ry="20" fill="#A9D4A0"/><text x="75" y="45" font-size="26" font-weight="800" fill="#2F6B2A" text-anchor="middle">$1</text><text x="24" y="30" font-size="14" font-weight="800" fill="#2F6B2A">1</text><text x="118" y="58" font-size="14" font-weight="800" fill="#2F6B2A">1</text>`, 'mm-coin mm-bill');
   const c = COIN[m.coin];
   const star = (r) => {
     let d = '';
@@ -348,6 +392,23 @@ function parts(m) {
   let outline;
   let lines = '';
   let shaded = '';
+  // thirds (Grade 2): three slices of a circle, or a bar cut in three
+  if (m.parts === 3) {
+    if (m.shape === 'circle') {
+      outline = `<circle cx="60" cy="60" r="48" fill="${fill}" stroke="${INK}" stroke-width="4"/>`;
+      const angles = m.equal ? [-90, 30, 150] : [-90, 0, 60];
+      const at = (a) => [60 + 48 * Math.cos((a * Math.PI) / 180), 60 + 48 * Math.sin((a * Math.PI) / 180)].map((v) => v.toFixed(1));
+      lines = angles.map((a) => `<line x1="60" y1="60" x2="${at(a)[0]}" y2="${at(a)[1]}" stroke="${INK}" stroke-width="4"/>`).join('');
+      if (m.shade) shaded = `<path d="M60 60 L${at(angles[0]).join(' ')} A48 48 0 0 1 ${at(angles[1]).join(' ')} Z" fill="${shadeFill}"/>`;
+    } else {
+      const [x0, y0, w, h] = [6, 28, 108, 64];
+      outline = `<rect x="${x0}" y="${y0}" width="${w}" height="${h}" fill="${fill}" stroke="${INK}" stroke-width="4" rx="3"/>`;
+      const cuts = m.equal ? [1 / 3, 2 / 3] : [0.2, 0.55];
+      lines = cuts.map((c) => `<line x1="${(x0 + w * c).toFixed(1)}" y1="${y0}" x2="${(x0 + w * c).toFixed(1)}" y2="${y0 + h}" stroke="${INK}" stroke-width="4"/>`).join('');
+      if (m.shade) shaded = `<rect x="${x0}" y="${y0}" width="${(w * cuts[0]).toFixed(1)}" height="${h}" fill="${shadeFill}"/>`;
+    }
+    return S('0 0 120 120', outline + shaded + lines + outline.replace(/fill="[^"]+"/, 'fill="none"'), 'mm-parts');
+  }
   if (m.shape === 'circle') {
     outline = `<circle cx="60" cy="60" r="48" fill="${fill}" stroke="${INK}" stroke-width="4"/>`;
     if (m.parts === 2) {
@@ -419,9 +480,71 @@ function bond(m) {
   return S(`0 0 300 ${m.dots ? 216 : 190}`, body, 'mm-bond');
 }
 
+// ---------- Grade 2 and up: arrays, grids, rulers, money and bar graphs ----------
+
+// rows and columns of things (or dots)
+function array(m) {
+  const cell = (k) => `<span class="mm-cell" data-i="${k}">${m.pic ? pic(m.pic) : `<i class="mm-dot" style="--c:${RED}"></i>`}</span>`;
+  let k = 0;
+  const rows = Array.from({ length: m.rows }, () => `<div class="mm-arr-row">${Array.from({ length: m.cols }, () => cell(k++)).join('')}</div>`);
+  return `<div class="mm-array" style="--cols:${m.cols}">${rows.join('')}</div>`;
+}
+// a rectangle cut into rows and columns of equal squares
+function grid(m) {
+  const u = 34;
+  const [w, h] = [m.cols * u, m.rows * u];
+  let body = `<rect x="4" y="4" width="${w}" height="${h}" fill="#C7F0D8" stroke="${INK}" stroke-width="4"/>`;
+  for (let c = 1; c < m.cols; c++) body += `<line x1="${4 + c * u}" y1="4" x2="${4 + c * u}" y2="${4 + h}" stroke="${INK}" stroke-width="2.5"/>`;
+  for (let r = 1; r < m.rows; r++) body += `<line x1="4" y1="${4 + r * u}" x2="${4 + w}" y2="${4 + r * u}" stroke="${INK}" stroke-width="2.5"/>`;
+  if (m.shade) for (let i = 0; i < m.shade; i++) body += `<rect x="${4 + (i % m.cols) * u}" y="${4 + Math.floor(i / m.cols) * u}" width="${u}" height="${u}" fill="#FF8A3D" opacity="0.85"/>`;
+  return S(`0 0 ${w + 8} ${h + 8}`, body, `mm-grid${m.small ? ' small' : ''}`);
+}
+// a ruler in inches or centimetres, with a thing lying along it from `start` for `len`
+function ruler(m) {
+  const N = m.unit === 'in' ? 8 : 15;
+  const u = 560 / N;
+  const x0 = 20;
+  const thing = thingBar(m.thing, m.len * u, 270, m.color || BLUE);
+  let ticks = '';
+  const sub = m.unit === 'in' ? 4 : 2;
+  for (let i = 0; i <= N * sub; i++) {
+    const x = x0 + (i / sub) * u;
+    const whole = i % sub === 0;
+    ticks += `<line x1="${x.toFixed(1)}" y1="62" x2="${x.toFixed(1)}" y2="${whole ? 86 : i % 2 === 0 && sub === 4 ? 80 : 74}" stroke="${INK}" stroke-width="${whole ? 2.6 : 1.4}"/>`;
+    if (whole) ticks += `<text x="${x.toFixed(1)}" y="106" font-size="${N > 10 ? 15 : 18}" font-weight="700" fill="${INK}" text-anchor="middle">${i / sub}</text>`;
+  }
+  return S(
+    '0 0 600 120',
+    `<g transform="translate(${(x0 + m.start * u - 10).toFixed(1)} 16)">${thing}</g><rect x="8" y="60" width="584" height="56" rx="6" fill="#FFE9A8" stroke="#D9A400" stroke-width="2"/>${ticks}<text x="586" y="78" font-size="13" font-weight="700" fill="#9A6B00" text-anchor="end">${m.unit === 'in' ? 'inches' : 'cm'}</text>`,
+    'mm-ruler',
+  );
+}
+// coins and dollar bills laid out to count, the biggest first
+function money(m) {
+  return `<div class="mm-money">${m.items.map((k) => `<span class="mm-money-item">${coin({ coin: k, label: true })}</span>`).join('')}</div>`;
+}
+// a bar graph with a scale, one bar per thing
+function bars(m) {
+  const H = 26;
+  const w = 26;
+  const x0 = 76;
+  const rows = m.rows.length;
+  let body = '';
+  for (let i = 0; i <= m.max; i++) {
+    const x = x0 + i * w;
+    body += `<line x1="${x}" y1="6" x2="${x}" y2="${10 + rows * (H + 12)}" stroke="#D9DEEA" stroke-width="1.5"/><text x="${x}" y="${30 + rows * (H + 12)}" font-size="14" font-weight="700" fill="${INK}" text-anchor="middle">${i}</text>`;
+  }
+  m.rows.forEach((r, i) => {
+    const y = 12 + i * (H + 12);
+    body += `${nest(r.pic, 6, y - 6, 52, 38)}<rect class="mm-barfill" x="${x0}" y="${y}" width="${r.n * w}" height="${H}" rx="5" fill="${[RED, BLUE, GREEN, YELLOW, '#A66BFF'][i % 5]}"/>`;
+  });
+  body += `<line x1="${x0}" y1="4" x2="${x0}" y2="${12 + rows * (H + 12)}" stroke="${INK}" stroke-width="3"/>`;
+  return S(`0 0 ${x0 + m.max * w + 16} ${40 + rows * (H + 12)}`, body, 'mm-bars');
+}
+
 // ---------- entry ----------
 
-const KINDS = { objects, queue, bond, dots, tenframe, base10, compare10, numberline, sequence, shape, position, bar, tower, balance, clock, coin, graph, match, parts, compose, pic: (m) => `<span class="mm-pic">${pic(m.pic)}</span>` };
+const KINDS = { objects, queue, bond, array, grid, ruler, money, bars, dots, tenframe, base10, compare10, numberline, sequence, shape, position, bar, tower, balance, clock, coin, graph, match, parts, compose, pic: (m) => `<span class="mm-pic">${pic(m.pic)}</span>` };
 
 export function mathModel(model) {
   if (!model) return '';

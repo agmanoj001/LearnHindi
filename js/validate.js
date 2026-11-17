@@ -36,7 +36,7 @@ export const GAME_TYPES = [
   'together', // started from the home screen, not a map (js/together.js)
 ];
 // the hands-on maths activities (js/games/handson.js ACTIVITIES)
-export const HANDS_ACTIVITIES = ['tenframe', 'numberline', 'pattern', 'shapes', 'measure', 'balance', 'shop', 'clock', 'bonds'];
+export const HANDS_ACTIVITIES = ['tenframe', 'numberline', 'pattern', 'shapes', 'measure', 'balance', 'shop', 'clock', 'bonds', 'jumps', 'array'];
 // the kinds of round in the Hindi numbers game (js/games/ginti.js)
 export const GINTI_MODES = ['count', 'show', 'hear', 'digits', 'next', 'compare', 'read', 'add', 'take', 'half'];
 export const NUMBERS_MAX = 100;
@@ -510,6 +510,9 @@ export function validateContent(c, { knownPictures = null, pictureExists = null,
         if (x.skill !== undefined && !SKILLS[x.skill]) err(`${at}: "${x.skill}" is not a math skill (see js/mathgen.js)`);
         // the number the bubbles make (bonds)
         if (x.target !== undefined && ![10, 20].includes(x.target)) err(`${at}.target must be 10 or 20`);
+        // the clock to five minutes, and the shop with dollar bills (Grade 2)
+        if (x.minutes !== undefined && x.minutes !== 5) err(`${at}.minutes must be 5`);
+        if (x.dollars !== undefined && typeof x.dollars !== 'boolean') err(`${at}.dollars must be true or false`);
         if (x.rounds !== undefined) count('rounds');
         break;
       case 'ginti':

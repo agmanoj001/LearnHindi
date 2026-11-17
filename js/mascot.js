@@ -480,6 +480,67 @@ add(
     `<rect x="40" y="74" width="40" height="7" rx="3.5" fill="#E63946"/><circle cx="60" cy="84" r="4" fill="#FFD43B" stroke="#2B2D42" stroke-width="1.2"/>`,
 );
 
+// The guides of the maths worlds for Grades 2–4 (docs/ROADMAP.md 10.5 and 10.8)
+// Gilu, the quick little squirrel who keeps the stalls of the Number Bazaar (Grade 2)
+MASCOTS.gilu = {
+  name: { hi: 'गिलू', en: 'Gilu' },
+  pitch: 1.3,
+  art: () =>
+    svg(
+      `<path class="m-tail" d="M74 104 Q116 100 112 62 Q108 28 82 34 Q98 46 94 66 Q90 86 72 92 Z" fill="#C46A2E"/><path d="M84 92 Q104 84 104 62 Q102 44 90 40" fill="none" stroke="#F0B27A" stroke-width="5" stroke-linecap="round" opacity="0.7"/>` +
+        `<ellipse cx="54" cy="92" rx="22" ry="19" fill="#D9823F"/><ellipse cx="54" cy="96" rx="13" ry="13" fill="#F7D9B5"/>` +
+        `<ellipse cx="44" cy="110" rx="9" ry="5" fill="#B9622A"/><ellipse cx="64" cy="110" rx="9" ry="5" fill="#B9622A"/>` +
+        `<g class="m-arm-l"><ellipse cx="40" cy="86" rx="6" ry="10" fill="#C46A2E" transform="rotate(30 40 86)"/></g>` +
+        `<g class="m-arm-r"><ellipse cx="68" cy="86" rx="6" ry="10" fill="#C46A2E" transform="rotate(-30 68 86)"/><ellipse cx="62" cy="80" rx="7" ry="8" fill="#9C5A2B"/><path d="M54 76 Q62 68 70 76 Z" fill="#6E3D1C"/></g>` +
+        `<path d="M34 34 L30 12 L48 28 Z M82 34 L88 12 L70 28 Z" fill="#D9823F"/><path d="M36 30 L33 18 L44 28 Z M80 30 L84 18 L73 28 Z" fill="#F6B8C8"/>` +
+        `<circle cx="58" cy="50" r="28" fill="#D9823F"/>` +
+        `<ellipse cx="58" cy="62" rx="17" ry="12" fill="#F7D9B5"/>` +
+        eye(47, 48, 7, '#D9823F') +
+        eye(69, 48, 7, '#D9823F') +
+        cheeks(38, 78, 60) +
+        `<ellipse cx="58" cy="57" rx="3.6" ry="2.6" fill="#5A2E14"/>` +
+        mouth(58, 64, 10) +
+        `<rect class="m-mouth-closed" x="55.5" y="65" width="5" height="4" rx="1" fill="#fff"/>`,
+    ),
+};
+// Robu, the friendly robot who runs the Number Factory (Grade 3): its chest screen shows ×
+MASCOTS.robu = {
+  name: { hi: 'रोबू', en: 'Robu' },
+  pitch: 0.95,
+  art: () =>
+    svg(
+      `<rect x="44" y="100" width="12" height="12" rx="3" fill="#5B6B80"/><rect x="64" y="100" width="12" height="12" rx="3" fill="#5B6B80"/>` +
+        `<g class="m-arm-l"><path d="M36 80 Q22 84 22 98" fill="none" stroke="#7C8FA6" stroke-width="7" stroke-linecap="round"/><path d="M16 98 Q22 108 28 98" fill="none" stroke="#FFB020" stroke-width="5" stroke-linecap="round"/></g>` +
+        `<g class="m-arm-r"><path d="M84 80 Q98 84 98 98" fill="none" stroke="#7C8FA6" stroke-width="7" stroke-linecap="round"/><path d="M92 98 Q98 108 104 98" fill="none" stroke="#FFB020" stroke-width="5" stroke-linecap="round"/></g>` +
+        `<rect x="34" y="70" width="52" height="34" rx="10" fill="#8EA2BA"/><rect x="44" y="76" width="32" height="20" rx="5" fill="#1E2A44"/><path d="M54 80 L66 92 M66 80 L54 92" stroke="#7CF2C2" stroke-width="3.4" stroke-linecap="round"/>` +
+        `<path d="M60 22 V12" stroke="#5B6B80" stroke-width="3"/><circle class="m-light" cx="60" cy="10" r="5" fill="#FF5A5F"/>` +
+        `<rect x="24" y="40" width="8" height="16" rx="3" fill="#FFB020"/><rect x="88" y="40" width="8" height="16" rx="3" fill="#FFB020"/>` +
+        `<ellipse cx="60" cy="46" rx="30" ry="25" fill="#B7C7DA"/><rect x="38" y="34" width="44" height="26" rx="12" fill="#EAF2FB"/>` +
+        eye(50, 46, 6.5, '#EAF2FB') +
+        eye(70, 46, 6.5, '#EAF2FB') +
+        cheeks(42, 78, 56) +
+        mouth(60, 62, 11),
+    ),
+};
+// Jugnu, the firefly whose tail lights up the stone instruments of the Number Observatory (Grade 4)
+MASCOTS.jugnu = {
+  name: { hi: 'जुगनू', en: 'Jugnu' },
+  pitch: 1.15,
+  art: () =>
+    svg(
+      `<g class="m-arm-l"><ellipse cx="30" cy="64" rx="22" ry="12" fill="#CFE8FF" opacity="0.85" transform="rotate(-25 30 64)"/><ellipse cx="30" cy="64" rx="14" ry="6" fill="#fff" opacity="0.6" transform="rotate(-25 30 64)"/></g>` +
+        `<g class="m-arm-r"><ellipse cx="90" cy="64" rx="22" ry="12" fill="#CFE8FF" opacity="0.85" transform="rotate(25 90 64)"/><ellipse cx="90" cy="64" rx="14" ry="6" fill="#fff" opacity="0.6" transform="rotate(25 90 64)"/></g>` +
+        `<g class="m-tail"><circle cx="60" cy="96" r="20" fill="#FFE27A" opacity="0.35"/><ellipse cx="60" cy="94" rx="15" ry="14" fill="#FFD43B"/><ellipse cx="60" cy="90" rx="9" ry="7" fill="#FFF3B0"/></g>` +
+        `<ellipse cx="60" cy="74" rx="17" ry="12" fill="#3B4A8C"/><path d="M45 72 H75 M46 78 H74" stroke="#5567B8" stroke-width="2.4"/>` +
+        `<path d="M50 30 Q42 14 34 14 M70 30 Q78 14 86 14" fill="none" stroke="#2B2D42" stroke-width="2.6" stroke-linecap="round"/><circle cx="34" cy="14" r="4" fill="#FFD43B"/><circle cx="86" cy="14" r="4" fill="#FFD43B"/>` +
+        `<circle cx="60" cy="46" r="24" fill="#4B5FB0"/>` +
+        eye(51, 44, 7.5, '#4B5FB0') +
+        eye(69, 44, 7.5, '#4B5FB0') +
+        cheeks(44, 76, 55) +
+        mouth(60, 58, 10),
+    ),
+};
+
 export const MASCOT_IDS = Object.keys(MASCOTS);
 
 // ---- outfits (docs/ROADMAP.md 7.5, js/rewards.js): every guide wears what the child chose ----
