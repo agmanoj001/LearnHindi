@@ -20,6 +20,7 @@ const SHELL = [
   'js/freeplay.js',
   'js/coach.js',
   'js/motion.js',
+  'js/favourites.js',
   'js/logic.js',
   'js/validate.js',
   'js/art.js',

@@ -11,6 +11,7 @@ import { greeting, timeSlot, HELLO, milestoneLine } from './guide.js';
 import { playersFrom, GROWN_UP } from './together.js';
 import { load, KEYS, profileKey } from './storage.js';
 import { freeplayDue } from './freeplay.js';
+import { heartButton, favStories, storyWorld, HOME_FAVS } from './favourites.js';
 import { homeWorld } from './curriculum.js';
 import { voicesReady, hasVoice } from './audio.js';
 import { deviceKind, VOICE_SETUP, readable } from './logic.js';
@@ -41,6 +42,31 @@ const said = (api, t, lead = 'hi', mainTag = 'span') => {
 };
 const one = (api, t, lead = 'hi') => sayText(langMode(api), t, lead).main;
 const UNIT = { hi: 'भाग', en: 'Unit' };
+
+// "Read again": the favourite stories, one tap from reading (roadmap 7.2)
+function readAgain(api) {
+  const { content, settings, progress } = api.state;
+  const favs = favStories(content, progress).slice(0, HOME_FAVS);
+  if (!favs.length) return null;
+  return el('section', { class: 'read-again', 'aria-label': 'Read again' }, [
+    el('h3', {}, [el('span', { class: 'read-again-heart', 'aria-hidden': 'true', text: '❤' }), ...said(api, { hi: 'फिर से पढ़ो', en: 'Read again' })]),
+    el(
+      'div',
+      { class: 'read-again-books' },
+      favs.map((s) => {
+        const b = el('button', { class: 'fav-book', 'data-grow': `story:${s.id}`, 'aria-label': `Read again: ${s.title.en}` }, [
+          el('span', { class: 'fav-cover', html: pictureForWord(api.word(s.cover)) }),
+          el('span', { class: 'fav-title', lang: s.lang === 'en' ? 'en' : 'hi', text: s.lang === 'en' ? s.title.en : s.title.hi }),
+        ]);
+        b.addEventListener('click', () => {
+          api.sfx.page();
+          api.go('lesson', { worldId: storyWorld(content, settings, s).id, storyId: s.id }, { from: b });
+        });
+        return b;
+      }),
+    ),
+  ]);
+}
 
 // put children into an element made earlier (one an ⓘ button needs to know about)
 const fill = (node, kids) => {
@@ -267,6 +293,7 @@ export function hub(api) {
               (simple ? playHero : todayCard)(api, todayPlan(content, progress, all.filter((w) => w.level === settings.level)), all),
               el('div', { class: 'hub-side' }, [
                 showtime,
+                readAgain(api),
                 el('button', { class: 'together-btn', 'aria-label': 'Play together', onclick: () => (api.sfx.pop(), api.go('together')) }, [el('span', { class: 'together-icon', 'aria-hidden': 'true', text: '👫' }), el('span', {}, said(api, { hi: 'साथ खेलो', en: 'Play together' }, 'hi', 'b'))]),
               ]),
             ]),
@@ -546,7 +573,7 @@ export async function results(api, { world, lesson, result, collection, session,
         result.unitComplete ? el('div', { class: 'unit-complete' }, [el('span', { html: ICONS.trophy }), el('span', { text: 'Unit complete!' })]) : null,
         milestone ? el('div', { class: 'milestone' }, [el('span', { class: 'milestone-icon', html: ICONS.sparkle }), ...said(api, milestone, english(world) ? 'en' : 'hi', 'b')]) : null,
         reward,
-        talkStory ? talkButton(api, talkStory) : null,
+        talkStory ? el('div', { class: 'story-after' }, [heartButton(api, talkStory, { cls: 'big' }), talkButton(api, talkStory)]) : null,
         btns,
       ]),
     ]),
@@ -918,7 +945,8 @@ export function library(api, w) {
       api.sfx.page();
       api.go('lesson', { worldId: w.id, storyId: s.id }, { from: b });
     });
-    return b;
+    // a heart on every book (roadmap 7.2); a sibling of the book, not inside its button
+    return el('div', { class: `book-wrap${hero ? ' next-book-wrap' : ''}` }, [b, heartButton(api, s, { cls: 'on-book' })]);
   };
   // while learning to read, the books a child can read come first, then those needing the fewest new matras
   const order = decoding ? stories.map((s, i) => [s, canRead(s).missing.length, i]).sort((a, b) => a[1] - b[1] || a[2] - b[2]).map((x) => x[0]) : stories;

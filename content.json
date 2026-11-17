@@ -65,7 +65,8 @@
     "coachEach": { "hi": "हर एक पर टैप करो!", "en": "Tap each one!" },
     "coachDrag": { "hi": "उँगली रखो और अक्षर पर चलाते जाओ!", "en": "Put your finger down and drive along the letter!" },
     "coachAny": { "hi": "जो पसंद हो, उस पर टैप करो!", "en": "Tap the one you like!" },
-    "coachPage": { "hi": "अगला पन्ना देखने के लिए यहाँ टैप करो!", "en": "Tap here to turn the page!" }
+    "coachPage": { "hi": "अगला पन्ना देखने के लिए यहाँ टैप करो!", "en": "Tap here to turn the page!" },
+    "favAdded": { "hi": "यह कहानी पसंदीदा में आ गई!", "en": "This story is one of your favourites now!" }
   },
   "words": {
     "digger": { "hi": "खुदाई मशीन", "translit": "khudaai mashin", "en": "digger", "picture": "digger" },
