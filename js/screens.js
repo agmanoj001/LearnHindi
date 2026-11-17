@@ -5,6 +5,7 @@ import { createMascot, mascotSvg, MASCOTS, MASCOT_IDS, setOutfit, currentOutfit 
 import { REWARDS, REWARD_KINDS, unlockedRewards, nextReward, styleFor } from './rewards.js';
 import { recordBook, playBook, bookPicture } from './mybooks.js';
 import { MISSION_LEVELS, missionStories, readByAll } from './readfor.js';
+import { festivalBanner, FESTIVALS } from './festivals.js';
 import { sceneSvg } from './art-scenes.js';
 import { PLACEMENT_LEVELS, placementQuestions, placementResult } from './placement.js';
 import { picture, pictureForWord, specialVehicle } from './art.js';
@@ -297,6 +298,16 @@ export function hub(api) {
         ]),
       ]),
       el('div', { class: 'hub-scroll' }, [
+        // a festival near today: decorations, its story, its sticker (roadmap 7.11)
+        filter
+          ? null
+          : festivalBanner(api, {
+              art: (id) => (api.word(id) ? pictureForWord(api.word(id)) : ''),
+              openStory: (id, from) => {
+                const s = content.stories.find((x) => x.id === id);
+                if (s) api.go('lesson', { worldId: storyWorld(content, settings, s).id, storyId: id }, { from });
+              },
+            }),
         // today's path (or the big play button), and beside it on a tablet: Show time, Story radio and
         // Play together (roadmap 4.7); on a phone they stack as before
         filter
@@ -717,6 +728,18 @@ export function rewards(api, { quiet = false } = {}) {
       el('main', { class: 'rewards-main' }, [
         next ? el('p', { class: 'prize-next' }, said(api, { hi: `अगला इनाम ${next.stars} तारों पर: ${next.name.hi}`, en: `Next prize at ${next.stars} stars: ${next.name.en}` })) : el('p', { class: 'prize-next' }, said(api, { hi: 'सारे इनाम मिल गए!', en: 'Every prize found!' })),
         ...REWARD_KINDS.map((k) => el('section', { class: 'prize-shelf' }, [el('h3', {}, said(api, KIND_NAME[k], 'hi', 'span')), el('div', { class: 'prize-tiles' }, REWARDS.filter((r) => r.kind === k).map(tile))])),
+        // the festival stickers collected (roadmap 7.11): each festival's, the ones still to come greyed
+        el('section', { class: 'prize-shelf' }, [
+          el('h3', {}, said(api, { hi: 'त्योहार के स्टिकर', en: 'Festival stickers' }, 'hi', 'span')),
+          el(
+            'div',
+            { class: 'prize-tiles' },
+            FESTIVALS.map((f) => {
+              const got = Object.keys(api.state.progress.festStickers || {}).some((k) => k.startsWith(`${f.id}-`));
+              return el('div', { class: `prize-tile fest-tile${got ? '' : ' locked'}`, role: 'img', 'aria-label': `${f.name.en}${got ? '' : ' (comes on the festival)'}` }, [el('span', { class: 'prize-pic', html: api.word(f.sticker) ? pictureForWord(api.word(f.sticker)) : '' }), el('b', { lang: 'hi', text: one(api, f.name) })]);
+            }),
+          ),
+        ]),
       ]),
     ]),
   );

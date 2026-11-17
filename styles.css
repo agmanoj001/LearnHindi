@@ -11055,3 +11055,110 @@ body:has(.game-grammar) .caption-bar,
 .read-by small {
   opacity: 0.85;
 }
+
+/* ---- festivals on their day (roadmap 7.11): a string of pictures, the greeting, the story, the sticker ---- */
+.fest-banner {
+  position: relative;
+  margin-bottom: 14px;
+  padding: 58px 14px 14px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: linear-gradient(160deg, #fff4d6, #ffe1ec);
+  box-shadow: var(--shadow-sm);
+}
+.fest-diwali {
+  background: radial-gradient(circle at 20% 10%, #fff3b0, transparent 40%), linear-gradient(160deg, #3b1d6e, #7a2e8e);
+  color: #fff;
+}
+.fest-holi {
+  background: radial-gradient(circle at 15% 80%, #ffd1e8 0 18%, transparent 19%), radial-gradient(circle at 85% 30%, #c9f2d8 0 16%, transparent 17%), radial-gradient(circle at 60% 90%, #d6e4ff 0 14%, transparent 15%), #fffaf0;
+}
+.fest-eid {
+  background: linear-gradient(160deg, #0f4c5c, #1f7a6d);
+  color: #fff;
+}
+.fest-christmas {
+  background: linear-gradient(160deg, #e9f7ef, #fdecec);
+}
+.fest-lohri {
+  background: linear-gradient(160deg, #2b1b3d, #8a3b12);
+  color: #fff;
+}
+.fest-pongal,
+.fest-onam {
+  background: linear-gradient(160deg, #fff8dc, #e8f7d4);
+}
+.fest-bunting {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 56px;
+}
+.fest-string {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 40px;
+}
+.fest-string svg {
+  width: 100%;
+  height: 100%;
+}
+.fest-flag {
+  position: absolute;
+  width: 40px;
+  height: 30px;
+  transform: translateX(-50%);
+  transform-origin: 50% 0;
+  animation: fest-sway 2.4s ease-in-out infinite;
+}
+.fest-flag svg {
+  width: 100%;
+  height: 100%;
+}
+@keyframes fest-sway {
+  50% {
+    transform: translateX(-50%) rotate(6deg);
+  }
+}
+.fest-body {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.fest-sticker {
+  flex: none;
+  width: 72px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.92);
+}
+.fest-sticker svg {
+  width: 100%;
+  height: 100%;
+}
+.fest-sticker.new {
+  animation: fav-beat 0.8s var(--spring) 0.9s both;
+  box-shadow: 0 0 0 3px #ffd34d;
+}
+.fest-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+.fest-text b {
+  font-size: 20px;
+}
+.fest-text small {
+  opacity: 0.8;
+}
+.fest-read {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 14px;
+}
+.lite .fest-flag {
+  animation: none;
+}

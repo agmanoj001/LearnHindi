@@ -76,6 +76,7 @@ const DONE = {
   'Sing-along rhymes': () => /class: 'sing-ball'/.test(read('js/games/story.js')) && /m === 'sing'/.test(read('js/sfx.js')) && /\.sing-ball\.hop/.test(css),
   'Make-your-own story': () => exists('js/mybooks.js') && /recordBook\(api, w, placed, artOf\)/.test(read('js/screens.js')) && /function myShelf/.test(read('js/screens.js')),
   'An older child reads to a younger one': () => exists('js/readfor.js') && /readByRibbon\(story\.id\)/.test(read('js/games/story.js')) && /function missionCard/.test(read('js/screens.js')),
+  'Festivals and seasons that arrive on their day': () => exists('js/festivals.js') && /export function festivalNow/.test(read('js/festivals.js')) && content.stories.some((x) => x.id === 'k3-eid'),
   'Free play between lessons': () => exists('js/freeplay.js') && /freeplayDue\(/.test(read('js/screens.js')) && ['drive', 'feed', 'colour'].every((m) => read('js/freeplay.js').includes(`'${m}'`)),
 };
 
@@ -85,7 +86,6 @@ const WATCH = {
   'A "what\'s new" note': () => /whatsNew|changelog/i.test(js),
   'A surprise each day': () => /dailySurprise|gift-box/.test(js + css),
   '"Words I know" book': () => /wordsKnown|words-i-know/.test(js + css),
-  'Festivals and seasons that arrive on their day': () => /FESTIVAL_DATES|festivalToday/.test(js),
   'More decodable books for Grade 1': () => content.stories.filter((s) => s.decodable != null).length >= 25,
   'A Grade 2 maths world': () => content.worlds.some((w) => w.subject === 'math' && w.level === 'grade2'),
   'पहाड़े: times tables sung the Hindi way': () => /पहाड़े/.test(JSON.stringify(content.worlds)),

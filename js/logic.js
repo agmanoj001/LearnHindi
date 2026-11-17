@@ -484,7 +484,7 @@ export function normalizeSettings(saved, content) {
 export function defaultProgress(content) {
   const collected = {};
   for (const [id, col] of Object.entries(content.collections || {})) collected[id] = col.items.slice(0, col.start || 0);
-  return { lessons: {}, collected, days: [], trainPos: {}, storyPos: {}, comicPos: {}, stats: {}, time: {}, shows: {}, scenes: {}, coached: [], favs: [], trail: {}, style: { outfit: null, backdrop: null, sound: null }, myBooks: [] };
+  return { lessons: {}, collected, days: [], trainPos: {}, storyPos: {}, comicPos: {}, stats: {}, time: {}, shows: {}, scenes: {}, coached: [], favs: [], trail: {}, style: { outfit: null, backdrop: null, sound: null }, myBooks: [], festStickers: {} };
 }
 
 export function normalizeProgress(saved, content) {
@@ -529,6 +529,8 @@ export function normalizeProgress(saved, content) {
         .map(([id, r]) => [id, { panel: Math.min(r.panel, 99), solved: r.solved === true }]),
     ),
     stats: obj(saved.stats),
+    // festival stickers, one a festival a year: { 'diwali-2026': 'lamp' } (js/festivals.js, roadmap 7.11)
+    festStickers: Object.fromEntries(Object.entries(obj(saved.festStickers)).filter(([k, v]) => /^[a-z]+-\d{4}$/.test(k) && typeof v === 'string').slice(-60)),
     // the child's own books: a sticker picture and (on the device) their voice (js/mybooks.js, roadmap 7.8)
     myBooks: (Array.isArray(saved.myBooks) ? saved.myBooks : [])
       .filter((b) => b && /^b[0-9a-z]+$/.test(b.id) && typeof b.world === 'string' && Array.isArray(b.stickers))

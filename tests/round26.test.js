@@ -277,3 +277,58 @@ test('the story says who read it, and the mission is on the Grade 7–8 home scr
   for (const k of ['readForHello', 'readForHow', 'readForDone']) assert.ok(content.phrases[k]?.hi && content.phrases[k]?.en, k);
   assert.match(read('sw.js'), /'js\/readfor\.js'/);
 });
+
+// ---- 7.11 festivals on their day ----
+import { FESTIVALS, festivalNow, festivalDay, festKey, FEST_BEFORE, FEST_AFTER } from '../js/festivals.js';
+import { pictureExists } from '../js/art.js';
+
+const at = (iso) => new Date(`${iso}T10:00:00`).getTime();
+
+test('each festival comes near its day, from the device date alone', () => {
+  assert.deepEqual(FESTIVALS.map((f) => f.id), ['diwali', 'holi', 'rakhi', 'eid', 'christmas', 'lohri', 'pongal', 'onam']);
+  assert.equal(festivalNow(at('2026-11-08')).festival.id, 'diwali');
+  assert.equal(festivalNow(at('2026-11-06')).diff, 2, 'two days to go');
+  assert.equal(festivalNow(at('2026-11-10')).diff, -2, 'and two days after');
+  assert.equal(festivalNow(at('2026-11-11')), null);
+  assert.equal(festivalNow(at('2026-11-04')).festival.id, 'diwali', `${FEST_BEFORE} days before`);
+  assert.equal(festivalNow(at('2026-12-25')).festival.id, 'christmas');
+  assert.equal(festivalNow(at('2027-12-23')).festival.id, 'christmas', 'every year');
+  assert.equal(festivalNow(at('2027-03-10')).festival.id, 'eid');
+  assert.equal(festivalNow(at('2027-03-22')).festival.id, 'holi');
+  // Lohri and Pongal are a day apart: the nearer one
+  assert.equal(festivalNow(at('2027-01-13')).festival.id, 'lohri');
+  assert.equal(festivalNow(at('2027-01-14')).festival.id, 'pongal');
+  // across the new year
+  assert.equal(festivalNow(at('2027-01-01')), null);
+  assert.equal(festivalDay(FESTIVALS.find((f) => f.id === 'onam'), 2040), null, 'no date known: it doesn\'t come');
+  assert.equal(festKey('holi', 2027), 'holi-2027');
+  assert.equal(FEST_AFTER, 2);
+});
+
+test('every festival has its story, its sticker and its greeting', () => {
+  for (const f of FESTIVALS) {
+    const s = content.stories.find((x) => x.id === f.story);
+    assert.ok(s, `${f.id}: story ${f.story}`);
+    assert.equal(s.level, 'kg', `${f.id}: a story the youngest can hear`);
+    assert.ok(content.words[f.sticker] && pictureExists(content.words[f.sticker].picture), `${f.id}: sticker ${f.sticker}`);
+    assert.ok(content.phrases[`fest_${f.id}`]?.hi && content.phrases[`fest_${f.id}`]?.en, `${f.id}: greeting`);
+    for (const md of [f.every, ...Object.values(f.dates || {})].filter(Boolean)) assert.match(md, /^(0[1-9]|1[0-2])-([0-2]\d|3[01])$/, `${f.id}: ${md}`);
+  }
+  assert.ok(content.phrases.festSticker?.hi);
+  // the five new festival stories: moving scenes, questions, a lesson, talk prompts; in their own unit
+  const unit = content.worlds.find((w) => w.id === 'town').units.find((u) => u.id === 'k-parv');
+  assert.deepEqual(unit.lessons.map((l) => l.config.story), ['k3-eid', 'k3-christmas', 'k3-lohri', 'k3-pongal', 'k3-onam']);
+  for (const id of ['k3-eid', 'k3-christmas', 'k3-lohri', 'k3-pongal', 'k3-onam']) {
+    const s = content.stories.find((x) => x.id === id);
+    assert.ok(s.pages.every((p) => p.act && content.words[p.word]), id);
+    assert.equal(s.questions.length, 2);
+    assert.equal(s.talk.length, 5);
+  }
+  // kept with the progress, and shown on the home screen and in the wardrobe
+  assert.deepEqual(normalizeProgress({ festStickers: { 'diwali-2026': 'lamp', bad: 'x', 'holi-26': 'gulal' } }, content).festStickers, { 'diwali-2026': 'lamp' });
+  const screens = read('js/screens.js');
+  assert.match(screens, /festivalBanner\(api, \{/);
+  assert.match(screens, /'त्योहार के स्टिकर'/);
+  assert.match(read('sw.js'), /'js\/festivals\.js'/);
+  assert.match(read('sw.js'), /'js\/art-festival\.js'/);
+});
