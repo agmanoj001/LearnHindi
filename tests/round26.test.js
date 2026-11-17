@@ -631,7 +631,7 @@ test('the comic maker is in the corner, typed words are shown as text, and the f
   const maker = read('js/comicmaker.js');
   const corner = read('js/corner.js');
   assert.match(corner, /makerCard\(api\)/);
-  assert.match(read('js/app.js'), /case 'comicmaker':[\s\S]{0,60}comicMaker\(api\)/);
+  assert.match(read('js/app.js'), /case 'comicmaker':[\s\S]{0,120}comicMaker\(api\)/);
   assert.match(read('sw.js'), /'js\/comicmaker\.js'/);
   // what a child types never goes in as HTML
   assert.match(corner, /comic-bubble[^]*?text: b\.text/);
@@ -683,11 +683,220 @@ test('a quiz duel: ten questions from the grade, first right tap scores, a wrong
 
 test('the duel is in the corner, the top half faces the other player, and the winner is said without gender', () => {
   assert.match(read('js/corner.js'), /duelCard\(api\)/);
-  assert.match(read('js/app.js'), /case 'duel':[\s\S]{0,60}duelScreen\(api\)/);
+  assert.match(read('js/app.js'), /case 'duel':[\s\S]{0,120}duelScreen\(api\)/);
   assert.match(css, /\.duel-half\.top \{[^}]*rotate\(180deg\)/);
   assert.match(read('sw.js'), /'js\/duel\.js'/);
   for (const k of ['duelHello', 'duelTopWins', 'duelBottomWins', 'duelDraw']) assert.ok(content.phrases[k]?.hi, k);
   // the winner's words fit a boy or a girl
   assert.doesNotMatch(read('js/duel.js'), /जीत गए|जीत गई|हार गए|हार गई/);
   for (const k of ['duelTopWins', 'duelBottomWins', 'duelDraw']) assert.doesNotMatch(content.phrases[k].hi, /जीता|जीती|हारा|हारी/);
+});
+
+// ---- 8.1 and 2.4: the browser checks on every push and pull request ----
+test('the browser check plays one lesson from each grade offline, and draws screens that exist', () => {
+  const tool = read('tools/browser-check.mjs');
+  const lessons = Object.fromEntries([...tool.match(/OFFLINE_LESSONS = \{([^}]+)\}/)[1].matchAll(/(\w+): '([\w-]+)'/g)].map((m) => [m[1], m[2]]));
+  const all = content.worlds.flatMap((w) => w.units.flatMap((u) => u.lessons.map((l) => ({ ...l, level: w.level }))));
+  // every grade with lessons is played
+  for (const lv of new Set(content.worlds.map((w) => w.level))) {
+    const l = all.find((x) => x.id === lessons[lv]);
+    assert.ok(l, `${lv} has a lesson in the offline check`);
+    assert.equal(l.level, lv, `${lessons[lv]} is a ${lv} lesson`);
+    // one a bot can finish by tapping
+    assert.ok(['busdepot', 'quiz', 'firstsound', 'read', 'math'].includes(l.game), `${lessons[lv]} (${l.game}) can be finished by taps`);
+  }
+  // the screens open routes the app has
+  const app = read('js/app.js');
+  for (const m of tool.matchAll(/\['(\w+)', \{/g)) if (m[1] !== 'lesson') assert.ok(app.includes(`case '${m[1]}':`), `route ${m[1]}`);
+  const ci = read('.github/workflows/test.yml');
+  assert.match(ci, /playwright install --with-deps chromium/);
+  assert.match(ci, /--root \.\.\/before --screens-only/);
+  assert.match(ci, /upload-artifact/);
+});
+
+// ---- 2.1 content split by grade ----
+import { splitContent, mergeContent, firstPacks, PACKED } from '../js/packs.js';
+import { readdirSync } from 'node:fs';
+
+test('content/ is content.json split into a core and a pack per grade, and nothing is lost', () => {
+  const files = splitContent(content);
+  // what is in the folder is exactly the split of content.json (run tools/split-content.mjs after editing it)
+  const onDisk = readdirSync(new URL('../content/', import.meta.url)).filter((f) => f.endsWith('.json')).sort();
+  assert.deepEqual(onDisk, Object.keys(files).sort(), 'content/ is out of step with content.json: run node tools/split-content.mjs');
+  for (const f of onDisk) assert.equal(read(`content/${f}`), files[f], `content/${f} is out of step: run node tools/split-content.mjs`);
+  const core = JSON.parse(files['core.json']);
+  for (const k of PACKED) assert.equal(core[k], undefined, `${k} is in the packs, not the core`);
+  // putting the packs back together gives content.json, in the same order
+  const all = mergeContent(core, core.packs.map((p) => JSON.parse(files[p.file])));
+  for (const k of Object.keys(content)) assert.deepEqual(all[k], content[k], k);
+  // a pack per grade that has any, small enough for a slow first open
+  assert.ok(core.packs.length >= 8);
+  assert.ok(files['core.json'].length < 450 * 1024, `core.json is ${files['core.json'].length} bytes`);
+  // the packs missing just leave those parts out
+  const toddler = mergeContent(core, firstPacks(core, 'toddler').map((p) => JSON.parse(files[p.file])));
+  assert.ok(toddler.stories.length && toddler.stories.every((s) => s.level === 'toddler'));
+  assert.deepEqual(toddler.comics, []);
+  assert.deepEqual(firstPacks(core, 'grade7').map((p) => p.level).sort(), ['grade7', 'kg']);
+  // every story is still known, for favourites
+  assert.equal(core.storyIds.length, content.stories.length);
+});
+
+test('the app loads the core and its grade first, the service worker saves every pack, and favourites survive', () => {
+  const app = read('js/app.js');
+  assert.match(app, /getJSON\('core\.json'\)/);
+  assert.match(app, /EARLY_ROUTES = \['splash', 'onboard', 'placement', 'hub'\]/);
+  assert.doesNotMatch(app, /fetch\('content\.json'/);
+  const sw = read('sw.js');
+  assert.match(sw, /'content\/core\.json'/);
+  assert.match(sw, /core\.packs/);
+  assert.doesNotMatch(sw, /^  'content\.json',$/m);
+  const files = splitContent(content);
+  const core = JSON.parse(files['core.json']);
+  const partial = mergeContent(core, firstPacks(core, 'toddler').map((p) => JSON.parse(files[p.file])));
+  const grade3Story = content.stories.find((s) => s.level === 'grade3').id;
+  assert.deepEqual(normalizeProgress({ favs: [grade3Story, 'no-such-story'] }, partial).favs, [grade3Story]);
+});
+
+// ---- 8.5 the performance budget ----
+test("index.html preloads exactly the modules the first screen imports, and starts the content's download", () => {
+  // the first screen's modules: everything app.js imports statically, followed through
+  const seen = new Set();
+  const walk = (f) => {
+    if (seen.has(f)) return;
+    seen.add(f);
+    const src = read(f);
+    for (const m of src.matchAll(/^import\s[^;]*?from\s+'(\.[^']+)'/gms)) {
+      const parts = f.split('/').slice(0, -1);
+      for (const seg of m[1].split('/')) seg === '..' ? parts.pop() : seg !== '.' && parts.push(seg);
+      walk(parts.join('/'));
+    }
+  };
+  walk('js/app.js');
+  const html = read('index.html');
+  const pre = [...html.matchAll(/<link rel="modulepreload" href="([^"]+)"/g)].map((m) => m[1]);
+  assert.deepEqual([...pre].sort(), [...seen].filter((f) => f !== 'js/app.js').sort(), 'the modulepreload list in index.html is out of step with the imports');
+  // what is left out of the first screen loads when its screen opens
+  for (const m of ['shows.js', 'parent.js', 'validate.js', 'comicmaker.js', 'duel.js']) assert.ok(!seen.has(`js/${m}`), `${m} is not needed for the first screen`);
+  assert.match(read('js/app.js'), /import\('\.\/shows\.js'\)/);
+  assert.match(read('js/app.js'), /import\('\.\/validate\.js'\)/);
+  // the content starts downloading before the code has loaded, and the fonts don't compete with it
+  assert.match(html, /window\.__early = early/);
+  assert.doesNotMatch(html, /rel="preload"[^>]*font/);
+  assert.match(read('js/app.js'), /window\.__early/);
+  // the other grades' packs wait until the first screen is up
+  assert.match(read('js/app.js'), /requestAnimationFrame\(\(\) => setTimeout\(state\.startRest/);
+});
+
+test('long lists draw their pictures as they come near the screen', () => {
+  const ui = read('js/ui.js');
+  assert.match(ui, /export function drawWhenSeen/);
+  assert.match(ui, /IntersectionObserver/);
+  const screens = read('js/screens.js');
+  assert.match(screens, /drawWhenSeen\('div', \{ class: 'world-card-scene' \}/);
+  assert.match(screens, /drawWhenSeen\('span', \{ class: 'book-cover' \}/);
+  assert.match(read('docs/PERFORMANCE.md'), /\| The first screen on a \*\*first open over 4G\*\*/);
+});
+
+// ---- 10.1 maths with the hands ----
+import { ACTIVITIES, ACTIVITY_SKILL, DESIGNS } from '../js/games/handson.js';
+import { HANDS_ACTIVITIES } from '../js/validate.js';
+import { SKILLS, makeProblem } from '../js/mathgen.js';
+
+test('eight hands-on maths activities, each a lesson in the maths world of its grade, recording a skill of that grade', () => {
+  assert.deepEqual(ACTIVITIES, HANDS_ACTIVITIES);
+  const math = content.worlds.filter((w) => w.subject === 'math');
+  for (const a of ACTIVITIES) {
+    const found = math.flatMap((w) => w.units.flatMap((u) => u.lessons.filter((l) => l.game === 'handson' && l.config.activity === a).map((l) => ({ l, w }))));
+    assert.equal(found.length, 1, `one ${a} lesson`);
+    const { l, w } = found[0];
+    const skill = l.config.skill || ACTIVITY_SKILL[a];
+    assert.ok(SKILLS[skill], `${l.id}: ${skill} is a maths skill`);
+    assert.ok(skill.startsWith(w.level === 'kg' ? 'k-' : 'g1-'), `${l.id} records a ${w.level} skill`);
+    assert.ok(l.title.hi && l.title.en && l.icon);
+  }
+  assert.match(read('sw.js'), /'js\/games\/handson\.js'/);
+});
+
+test('the shape builder\'s pictures can be built from the pieces, and every level has some', () => {
+  for (const d of DESIGNS) {
+    assert.ok(d.slots.length >= 2 && d.say && d.name, d.id);
+    for (const s of d.slots) assert.ok(['triangle', 'square', 'rectangle', 'circle'].includes(s.shape), `${d.id}: ${s.shape}`);
+  }
+  for (const t of [0, 1, 2]) assert.ok(DESIGNS.some((d) => d.tier <= t && d.tier >= t - 1), `tier ${t} has a picture`);
+});
+
+test('patterns as answer cards: what comes next is always one of the choices', () => {
+  let s = 7;
+  const rng = () => ((s = (s * 16807) % 2147483647) / 2147483647);
+  for (let i = 0; i < 300; i++) {
+    const p = makeProblem('k-pattern', { tier: i % 3, n: 2 + (i % 3), rng });
+    assert.ok(p.options.some((o) => o.value === p.answer), JSON.stringify(p.options));
+    assert.ok(p.model.groups.length >= 4);
+  }
+  // a hands-on lesson with no activity, or an unknown skill, is caught
+  const broken = structuredClone(content);
+  const l = broken.worlds.flatMap((w) => w.units.flatMap((u) => u.lessons)).find((x) => x.game === 'handson');
+  l.config.activity = 'juggling';
+  l.config.skill = 'k-juggling';
+  const errs = validateContent(broken, { themes: THEMES, mascots: MASCOT_IDS }).errors.join('\n');
+  assert.match(errs, /activity must be one of/);
+  assert.match(errs, /"k-juggling" is not a math skill/);
+});
+
+// ---- 2.2 share the backup, and a reminder once a month ----
+import { backupDue, backupWorth, backupLaterUntil, shareBackup, canShareFiles, makeBackup, readBackup, BACKUP_WORTH, BACKUP_EVERY_DAYS, BACKUP_LATER_DAYS } from '../js/storage.js';
+import { translateText } from '../js/parent-hi.js';
+
+test('a backup reminder comes once a month when there are stars worth keeping, and can wait a week', () => {
+  const day = 86400000;
+  const now = Date.UTC(2026, 10, 17, 12);
+  const progress = (n) => ({ data: { 'vt.progress': { lessons: Object.fromEntries(Array.from({ length: n }, (_, i) => [`l${i}`, { stars: 2 }])) }, 'vt.progress:p2': { lessons: { x: { stars: 0 } } } } });
+  assert.equal(backupWorth(progress(5)), 5);
+  assert.equal(backupWorth(progress(0)), 0);
+  // nothing worth keeping yet: no reminder
+  assert.equal(backupDue({ worth: BACKUP_WORTH - 1, now }), false);
+  // worth keeping, never backed up: due
+  assert.equal(backupDue({ worth: BACKUP_WORTH, now }), true);
+  // backed up a week ago: not due; a month ago: due
+  assert.equal(backupDue({ worth: 10, lastAt: new Date(now - 7 * day).toISOString(), now }), false);
+  assert.equal(backupDue({ worth: 10, lastAt: new Date(now - BACKUP_EVERY_DAYS * day).toISOString(), now }), true);
+  // "remind me next week"
+  const later = backupLaterUntil(now);
+  assert.equal(Date.parse(later) - now, BACKUP_LATER_DAYS * day);
+  assert.equal(backupDue({ worth: 10, laterUntil: later, now: now + 3 * day }), false);
+  assert.equal(backupDue({ worth: 10, laterUntil: later, now: now + 8 * day }), true);
+});
+
+test('sharing sends the backup as a text file through the share sheet; without it, the file is saved', async () => {
+  const backup = makeBackup((k) => ({ 'vt.progress': { lessons: { a: { stars: 3 } } }, 'vt.settings': { level: 'kg' } })[k], ['vt.progress', 'vt.settings', 'vt.backupAt'], new Date(Date.UTC(2026, 10, 17)));
+  let sent = null;
+  const phone = { canShare: (d) => !!d?.files?.length, share: async (d) => (sent = d) };
+  assert.equal(await shareBackup(backup, { nav: phone }), 'shared');
+  assert.equal(sent.files[0].name, 'khel-khel-mein-backup-2026-11-17.txt');
+  assert.equal(sent.files[0].type, 'text/plain');
+  // the shared file is the backup itself, and Restore takes it back
+  const back = readBackup(JSON.parse(await sent.files[0].text()));
+  assert.ok(!back.error);
+  assert.deepEqual(Object.fromEntries(back.entries)['vt.progress'], { lessons: { a: { stars: 3 } } });
+  assert.ok(canShareFiles(phone));
+  // the grown-up closes the share sheet: nothing is recorded
+  const closed = { canShare: () => true, share: async () => Promise.reject(Object.assign(new Error('no'), { name: 'AbortError' })) };
+  assert.equal(await shareBackup(backup, { nav: closed }), 'cancelled');
+  // no file sharing (a laptop): the file is saved instead
+  let saved = null;
+  assert.equal(await shareBackup(backup, { nav: { share: async () => {} }, save: (name, text) => (saved = { name, text }) }), 'saved');
+  assert.equal(saved.name, 'khel-khel-mein-backup-2026-11-17.json');
+  assert.equal(JSON.parse(saved.text).app, 'khel-khel-mein');
+  assert.ok(!canShareFiles({ share: async () => {} }));
+});
+
+test('the reminder is in the grown-ups\' area (in Hindi too), with a dot on the home screen\'s grown-ups button', () => {
+  const parent = read('js/parent.js');
+  assert.match(parent, /backupReminder\(api\),\n\s+childrenSection\(api\)/);
+  assert.match(parent, /accept: 'application\/json,\.json,text\/plain,\.txt'/);
+  assert.match(read('js/screens.js'), /parentGate\(api, \{ cls: backupReminderDue\(\) \? 'backup-due' : '' \}\)/);
+  assert.match(css, /\.gate\.backup-due::after/);
+  for (const t of ['Share the backup', 'Time for a backup', 'Share the backup now', 'Save a backup file now', 'Remind me next week', 'No backup from this device yet.']) assert.ok(translateText(t) && translateText(t) !== t, `Hindi for "${t}"`);
+  // the first screen doesn't load the grown-ups' area to know about the dot
+  assert.doesNotMatch(read('js/screens.js'), /from '\.\/parent\.js'/);
 });

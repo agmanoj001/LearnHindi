@@ -32,8 +32,11 @@ export const GAME_TYPES = [
   'comic',
   'grammar',
   'ginti',
+  'handson', // maths with the hands (js/games/handson.js)
   'together', // started from the home screen, not a map (js/together.js)
 ];
+// the hands-on maths activities (js/games/handson.js ACTIVITIES)
+export const HANDS_ACTIVITIES = ['tenframe', 'numberline', 'pattern', 'shapes', 'measure', 'balance', 'shop', 'clock'];
 // the kinds of round in the Hindi numbers game (js/games/ginti.js)
 export const GINTI_MODES = ['count', 'show', 'hear', 'digits', 'next', 'compare', 'read', 'add', 'take', 'half'];
 export const NUMBERS_MAX = 100;
@@ -498,6 +501,11 @@ export function validateContent(c, { knownPictures = null, pictureExists = null,
       case 'math':
         if (!Array.isArray(x.skills) || !x.skills.length) err(`${at}.skills must list math skills`);
         else for (const s of x.skills) if (!SKILLS[s]) err(`${at}: "${s}" is not a math skill (see js/mathgen.js)`);
+        if (x.rounds !== undefined) count('rounds');
+        break;
+      case 'handson':
+        if (!HANDS_ACTIVITIES.includes(x.activity)) err(`${at}.activity must be one of ${HANDS_ACTIVITIES.join(', ')}`);
+        if (x.skill !== undefined && !SKILLS[x.skill]) err(`${at}: "${x.skill}" is not a math skill (see js/mathgen.js)`);
         if (x.rounds !== undefined) count('rounds');
         break;
       case 'ginti':

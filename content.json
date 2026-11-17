@@ -11905,6 +11905,13 @@
               "icon": "penguin",
               "title": { "hi": "गिनो और देखो", "en": "Count and look" },
               "config": { "skills": ["k-count", "k-quick"] }
+            },
+            {
+              "id": "km-count-hands",
+              "game": "handson",
+              "icon": "train",
+              "title": { "hi": "पैटर्न की रेल", "en": "Pattern train" },
+              "config": { "activity": "pattern", "skill": "k-pattern", "rounds": 5 }
             }
           ]
         },
@@ -11943,7 +11950,14 @@
           "lessons": [
             { "id": "km-add-1", "game": "math", "icon": "duck", "title": { "hi": "जोड़ की कहानियाँ", "en": "Adding stories" }, "config": { "skills": ["k-add"] } },
             { "id": "km-add-2", "game": "math", "icon": "balloon", "title": { "hi": "घटाव की कहानियाँ", "en": "Take-away stories" }, "config": { "skills": ["k-sub"] } },
-            { "id": "km-add-3", "game": "math", "icon": "letter:+", "title": { "hi": "5 तक के जोड़", "en": "Quick facts to 5" }, "config": { "skills": ["k-facts5"] } }
+            { "id": "km-add-3", "game": "math", "icon": "letter:+", "title": { "hi": "5 तक के जोड़", "en": "Quick facts to 5" }, "config": { "skills": ["k-facts5"] } },
+            {
+              "id": "km-add-hands",
+              "game": "handson",
+              "icon": "frog",
+              "title": { "hi": "मेंढक की छलाँग", "en": "Frog hops" },
+              "config": { "activity": "numberline", "skill": "k-add", "rounds": 5 }
+            }
           ]
         },
         {
@@ -11960,7 +11974,14 @@
               "config": { "skills": ["k-partner"] }
             },
             { "id": "km-ten-2", "game": "math", "icon": "letter:10", "title": { "hi": "10 बनाओ", "en": "Make 10" }, "config": { "skills": ["k-make10"] } },
-            { "id": "km-ten-3", "game": "math", "icon": "letter:14", "title": { "hi": "11 से 19", "en": "Teen numbers" }, "config": { "skills": ["k-teens"] } }
+            { "id": "km-ten-3", "game": "math", "icon": "letter:14", "title": { "hi": "11 से 19", "en": "Teen numbers" }, "config": { "skills": ["k-teens"] } },
+            {
+              "id": "km-ten-hands",
+              "game": "handson",
+              "icon": "letter:10",
+              "title": { "hi": "दस का डिब्बा भरो", "en": "Fill the ten-frame" },
+              "config": { "activity": "tenframe", "skill": "k-make10", "rounds": 5 }
+            }
           ]
         },
         {
@@ -11977,6 +11998,13 @@
               "icon": "shape-square",
               "title": { "hi": "सपाट या ठोस?", "en": "Flat or solid?" },
               "config": { "skills": ["k-solids"] }
+            },
+            {
+              "id": "km-shapes-hands",
+              "game": "handson",
+              "icon": "shape-triangle",
+              "title": { "hi": "आकार जोड़ो", "en": "Shape builder" },
+              "config": { "activity": "shapes", "skill": "k-shapes", "rounds": 5 }
             }
           ]
         },
@@ -11993,7 +12021,14 @@
               "title": { "hi": "लंबा या ऊँचा?", "en": "Longer or taller?" },
               "config": { "skills": ["k-measure"] }
             },
-            { "id": "km-measure-2", "game": "math", "icon": "fish", "title": { "hi": "छाँटो और गिनो", "en": "Sort and count" }, "config": { "skills": ["k-sort"] } }
+            { "id": "km-measure-2", "game": "math", "icon": "fish", "title": { "hi": "छाँटो और गिनो", "en": "Sort and count" }, "config": { "skills": ["k-sort"] } },
+            {
+              "id": "km-measure-hands",
+              "game": "handson",
+              "icon": "snake",
+              "title": { "hi": "घनों से नापो", "en": "Measure with cubes" },
+              "config": { "activity": "measure", "skill": "k-measure", "rounds": 5 }
+            }
           ]
         },
         {
@@ -12007,7 +12042,7 @@
               "game": "math",
               "icon": "snowman",
               "title": { "hi": "मिला-जुला 1", "en": "Party mix 1" },
-              "config": { "skills": ["k-count", "k-add", "k-make10", "k-shapes", "k-next"], "rounds": 8 }
+              "config": { "skills": ["k-count", "k-add", "k-make10", "k-shapes", "k-next", "k-pattern"], "rounds": 8 }
             },
             {
               "id": "km-party-2",
@@ -12656,7 +12691,14 @@
               "title": { "hi": "तीन नंबर जोड़ो", "en": "Three numbers" },
               "config": { "skills": ["g1-three"] }
             },
-            { "id": "g1m-facts-3", "game": "math", "icon": "letter:?", "title": { "hi": "छूटा नंबर", "en": "Missing numbers" }, "config": { "skills": ["g1-missing"] } }
+            { "id": "g1m-facts-3", "game": "math", "icon": "letter:?", "title": { "hi": "छूटा नंबर", "en": "Missing numbers" }, "config": { "skills": ["g1-missing"] } },
+            {
+              "id": "g1m-facts-hands",
+              "game": "handson",
+              "icon": "letter:=",
+              "title": { "hi": "तराज़ू बराबर करो", "en": "Balance it" },
+              "config": { "activity": "balance", "skill": "g1-equal", "rounds": 5 }
+            }
           ]
         },
         {
@@ -12711,6 +12753,13 @@
               "icon": "clock",
               "title": { "hi": "कितने बजे हैं?", "en": "What time is it?" },
               "config": { "skills": ["g1-time"] }
+            },
+            {
+              "id": "g1m-measure-hands",
+              "game": "handson",
+              "icon": "clock",
+              "title": { "hi": "घड़ी की सुइयाँ घुमाओ", "en": "Turn the clock" },
+              "config": { "activity": "clock", "skill": "g1-time", "rounds": 5 }
             }
           ]
         },
@@ -12727,6 +12776,13 @@
               "icon": "balloon",
               "title": { "hi": "तस्वीर वाला ग्राफ़", "en": "Picture graphs" },
               "config": { "skills": ["g1-graph"] }
+            },
+            {
+              "id": "g1m-money-hands",
+              "game": "handson",
+              "icon": "coins",
+              "title": { "hi": "सिक्कों की दुकान", "en": "Coin shop" },
+              "config": { "activity": "shop", "skill": "g1-coins", "rounds": 5 }
             }
           ]
         },

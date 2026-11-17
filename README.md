@@ -16,7 +16,7 @@ It's plain HTML, CSS and JavaScript with no build step, so it runs on GitHub Pag
 
 **Yes, after the first visit.** The first time the app is opened online, it saves all its files on the device (the pages, every picture, the fonts and the lessons: about 55 files). After that it opens and plays with no internet at all: every lesson, story, game, recording and setting works offline, and progress is saved on the device. Updates download in the background the next time it is online; when a new version is ready, a small bar on the home screen offers to refresh (never in the middle of a lesson).
 
-Because the stars live only on the device, the grown-ups' area has a **Backup** section: save one small file with the stars, settings and children (not the photo or voice recordings), and restore it on a new phone or after the browser has been cleared. It also says whether the browser has agreed to keep the app's saves when space runs low.
+Because the stars live only on the device, the grown-ups' area has a **Backup** section: save one small file with the stars, settings and children (not the photo or voice recordings), and restore it on a new phone or after the browser has been cleared. On a phone, **Share the backup** sends that file through the phone's share sheet to the family's own WhatsApp, Drive or email, so it is safe even if the phone is lost; once a month, when there are stars worth keeping, the grown-ups' button on the home screen shows a dot and the grown-ups' area opens with a reminder (share now, or remind me next week). It also says whether the browser has agreed to keep the app's saves when space runs low.
 
 What would make it world class, with offline as the rule: [docs/ROADMAP.md](docs/ROADMAP.md).
 
@@ -238,8 +238,9 @@ Files with names the app doesn't recognise are listed so you can rename them. Wh
 
 ## Editing `content.json` (no coding needed)
 
-Worlds, units, lessons, words, letters, stories, quizzes and phrases all live in [`content.json`](content.json). Edit it in any text editor or on GitHub with the pencil icon, then check it:
+Worlds, units, lessons, words, letters, stories, quizzes and phrases all live in [`content.json`](content.json). Edit it in any text editor or on GitHub with the pencil icon, then split it and check it:
 
+- run `node tools/split-content.mjs`: the app doesn't load `content.json` itself but `content/core.json` and a pack per grade made from it, so a first open on a slow connection only fetches what that child's grade needs (`npm test` fails until the split is redone), then
 - run `npm test` (Node 20+, nothing to install), **or**
 - open the app: if something is wrong it lists the problems instead of starting.
 
@@ -466,6 +467,8 @@ Phonics lessons list skills from [`js/phonicsgen.js`](js/phonicsgen.js), for exa
 
 Math lessons list skills from [`js/mathgen.js`](js/mathgen.js), for example `{ "game": "math", "config": { "skills": ["k-make10", "k-teens"] } }`. Each skill carries its NC standard code and makes problems at three levels. Kindergarten skills start with `k-`, Grade 1 skills with `g1-`. [CURRICULUM.md](CURRICULUM.md) lists them all. To add a new kind of problem, add a skill to `SKILLS` in `mathgen.js` (and a drawing to `js/art-math.js` if it needs a new picture); the tests check every skill at every level.
 
+Maths you do with your hands (`"game": "handson"`, [`js/games/handson.js`](js/games/handson.js)) names one activity and the skill it records: `{ "activity": "tenframe", "skill": "k-make10", "rounds": 5 }`. The activities: `tenframe` (fill the ten-frame), `numberline` (frog hops), `pattern` (the pattern train), `shapes` (build a picture from shapes), `measure` (lay cubes along a thing), `balance` (make both sides equal), `shop` (pay with coins) and `clock` (turn the hands). Each round ends when the thing is made right and ✓ is pressed; the 💡 shows the next step.
+
 ## Run it locally
 
 ```bash
@@ -479,6 +482,13 @@ npm test
 ```
 
 runs the unit tests (Node 20+, no dependencies).
+
+```bash
+npm install --no-save playwright && npx playwright install chromium
+node tools/browser-check.mjs
+```
+
+runs the browser checks that every push and pull request runs too (`.github/workflows/test.yml`): install the app, go offline, play a lesson from each grade, restart and check the stars, then draw the main screens into `browser-check/screens`. `node tools/browser-check.mjs --compare BEFORE --with AFTER` compares two sets of screens; on a pull request, CI compares the screens before and after the change and lists what changed in the job summary. `node tools/perf-budget.mjs` times the first screen on an emulated mid-range phone against the budget in [docs/PERFORMANCE.md](docs/PERFORMANCE.md) (CI reports it too).
 
 ## Deploy on GitHub Pages
 
@@ -513,7 +523,8 @@ See [docs/LEARNING-REVIEW.md](docs/LEARNING-REVIEW.md) for a full review against
 ```
 index.html            page shell
 styles.css            all styles
-content.json          everything the child sees and hears
+content.json          everything the child sees and hears (the source; the tests and tools read it)
+content/              what the app loads: core.json and a pack per grade (made by tools/split-content.mjs)
 manifest.webmanifest  PWA install info
 sw.js                 offline cache (add new js files to SHELL)
 icons/                app icons

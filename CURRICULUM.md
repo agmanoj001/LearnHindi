@@ -212,6 +212,8 @@ Sounds are always said with a key word ("c, as in cat"): text-to-speech can't sa
 
 ## Math skills
 
+Besides the answer cards, each unit with a hands-on game (docs/ROADMAP.md 10.1) ends with one: fill a ten-frame (Let's make 10), frog hops on a number line (Let's add and take away), the pattern train (Let's count!), a shape builder (Let's find shapes) and measuring with cubes (Let's measure and sort) in Kindergarten; a balance for "equal" (Let's add and subtract to 20), a coin shop (Let's learn coins and graphs) and a clock with hands to turn (Let's measure and tell time) in Grade 1. They record the skill of the unit, so the grown-ups' area counts them with the rest.
+
 Each skill makes problems at three levels: level 1 uses small numbers with objects to count, level 2 uses bigger numbers and pictorial models (ten frames, number lines, base-ten blocks), level 3 uses the biggest numbers with fewer pictures (concrete → pictorial → abstract).
 
 | Skill | Standard | What it practises | Unit |
@@ -234,6 +236,7 @@ Each skill makes problems at three levels: level 1 uses small numbers with objec
 | `k-solids` | NC.K.G.3 | Flat (2D) and solid (3D) shapes | Let's find shapes |
 | `k-measure` | NC.K.MD.2 | Longer, taller, heavier | Let's measure and sort, Number party! |
 | `k-sort` | NC.K.MD.3 | Sort and count groups | Let's measure and sort |
+| `k-pattern` | K.MP.7 | Patterns: what comes next (AB, AAB, ABC) | Let's count! (the pattern train), Number party! |
 | `g1-count150` | NC.1.NBT.1 | Count to 150 from any number | Let's count to 150 |
 | `g1-numerals` | NC.1.NBT.1 | Read numbers to 150 | Let's count to 150 |
 | `g1-place` | NC.1.NBT.2 | Tens and ones | Let's learn tens and ones, Carnival challenge |

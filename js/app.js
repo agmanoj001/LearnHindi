@@ -18,7 +18,7 @@ import {
 import { findLesson, lessonRecord, lessonLetters, applyLessonResult, adaptTier, addPlayTime, isoDay, worldLessons } from './curriculum.js';
 import { milestones, totalStars } from './guide.js';
 import { freeplay } from './freeplay.js';
-import { validateContent } from './validate.js';
+import { mergeContent, firstPacks } from './packs.js';
 import { pictureExists, picture, pictureForWord, specialVehicle } from './art.js';
 import { showCoach, needsCoach, coachKey, COACH_KINDS, COACH_MAX } from './coach.js';
 import { applyMotion, liteMotion, slowDevice, watchMotion, isLite } from './motion.js';
@@ -27,16 +27,12 @@ import { giftSoundToday } from './surprise.js';
 import { readForScreen } from './readfor.js';
 import { wordBook } from './wordbook.js';
 import { cornerScreen, idiomScreen } from './corner.js';
-import { comicMaker } from './comicmaker.js';
-import { duelScreen } from './duel.js';
 import { initAudio, setVoicePack, preload, play, stop, isSpeaking, wordSegs, letterSegs, numberSegs, soundSegs, sentenceSegs, phraseSegs, setVoicePrefs } from './audio.js';
 import { KEYS, load, save, normalizeProfiles, profileKey, keepStorage } from './storage.js';
 import { sfx, music, FEEDBACK } from './sfx.js';
 import { el, sleep, bounce, ICONS } from './ui.js';
 import { createMascot, MASCOT_IDS, setOutfit } from './mascot.js';
 import * as screens from './screens.js';
-import * as shows from './shows.js';
-import { showParent } from './parent.js';
 
 const app = document.getElementById('app');
 const state = { content: null, settings: null, progress: null, special: null, warnings: [], token: 0, lang: 'both', depth: 0 };
@@ -44,20 +40,76 @@ const rng = makeRng();
 
 // ---------- boot ----------
 
-async function boot() {
-  let content;
-  try {
-    const res = await fetch('content.json', { cache: 'no-cache' });
-    content = await res.json();
-  } catch (e) {
-    return showError(['Could not load content.json: ' + e.message]);
-  }
+// The content comes as a core and a pack per grade (js/packs.js, roadmap 2.1). When every pack is already
+// saved on this device they all load before the first screen. On a first open only the child's own grade
+// does, the home screen comes up, and the rest follows; any other screen waits for it (render() below).
+const getJSON = async (file) => {
+  const res = await fetch(`content/${file}`, { cache: 'no-cache' });
+  if (!res.ok) throw new Error(`${file}: ${res.status}`);
+  return res.json();
+};
+async function loadContent(level) {
+  // index.html may have started these already
+  const early = window.__early || {};
+  const core = await (early.core || getJSON('core.json')).catch(() => getJSON('core.json'));
+  const all = core.packs || [];
+  const saved = typeof caches !== 'undefined' && navigator.serviceWorker?.controller ? (await Promise.all(all.map((p) => caches.match(`content/${p.file}`)))).every(Boolean) : false;
+  const first = saved ? all : firstPacks(core, level);
+  const loaded = await Promise.all(first.map((p) => (early.packs?.[p.file] || getJSON(p.file)).catch(() => getJSON(p.file))));
+  const rest = all.filter((p) => !first.includes(p));
+  return { core, loaded, rest };
+}
+// the checks are only needed once all the content is here, so their code loads then (roadmap 8.5)
+const checkContent = async (content) => {
+  const { validateContent } = await import('./validate.js');
   const { errors, warnings } = validateContent(content, { pictureExists });
-  if (errors.length) return showError(errors);
+  state.warnings = warnings;
+  return errors;
+};
+// a screen whose code loads the first time it is opened, not before the first screen (roadmap 8.5)
+const later = (load, draw) => {
+  const t = state.token;
+  load()
+    .then((m) => t === state.token && draw(m))
+    .catch((e) => showError([`Could not open this screen: ${e.message}`]));
+};
+const showsCode = () => import('./shows.js');
+
+async function boot() {
+  let pieces;
+  // the grade of the child last playing, to load their pack first
+  const profiles = normalizeProfiles(load(KEYS.profiles), MASCOT_IDS);
+  const level = load(profileKey(KEYS.settings, profiles.current))?.level || 'kg';
+  try {
+    pieces = await loadContent(level);
+  } catch (e) {
+    return showError(['Could not load the content: ' + e.message]);
+  }
+  const content = mergeContent(pieces.core, pieces.loaded);
   for (const [id, w] of Object.entries(content.words)) w.id = id;
   state.content = content;
-  state.warnings = warnings;
-  state.profiles = normalizeProfiles(load(KEYS.profiles), MASCOT_IDS);
+  if (!pieces.rest.length) {
+    const errors = await checkContent(content);
+    if (errors.length) return showError(errors);
+    state.contentComplete = true;
+    state.contentReady = Promise.resolve(true);
+  } else {
+    // the other grades' packs start once the first screen is up, so they don't slow it down
+    let go;
+    state.contentReady = new Promise((r) => (go = r))
+      .then(() => Promise.all(pieces.rest.map((p) => getJSON(p.file))))
+      .then(async (more) => {
+        // everything else uses the same content object, so it is filled in where it is
+        Object.assign(state.content, mergeContent(pieces.core, [...pieces.loaded, ...more]));
+        const errors = await checkContent(state.content);
+        if (errors.length) showError(errors);
+        return !errors.length;
+      })
+      .catch(() => false);
+    state.startRest = go;
+  }
+  state.contentReady.then((ok) => (state.contentComplete = ok));
+  state.profiles = profiles;
   loadProfile();
   state.special = load(KEYS.special);
   await initAudio();
@@ -76,6 +128,8 @@ async function boot() {
     render(route);
   });
   render({ name: 'splash', depth: 0 });
+  // a first open: now fetch the rest of the content (roadmap 2.1 and 8.5)
+  if (state.startRest) requestAnimationFrame(() => setTimeout(state.startRest, 50));
 }
 
 // ---------- play time and the daily limit ----------
@@ -241,7 +295,20 @@ function goHome() {
   go(r.name, r.params, { replace: true });
 }
 
+// screens that can come up before every grade's content is here (a first open)
+const EARLY_ROUTES = ['splash', 'onboard', 'placement', 'hub'];
 function render(route) {
+  if (!state.contentComplete && !EARLY_ROUTES.includes(route.name)) {
+    // wait for the rest of the content (a moment, on a first open), then open the screen asked for
+    const t = ++state.token;
+    app.querySelector('.screen')?.classList.add('waiting');
+    state.contentReady.then((ok) => {
+      if (t !== state.token) return;
+      if (ok) state.contentComplete = true;
+      render(route);
+    });
+    return;
+  }
   state.token++;
   stop();
   state.depth = route.depth || 0;
@@ -285,7 +352,7 @@ function render(route) {
       return overLimit() ? screens.rest(api) : startLesson(p);
     case 'shows':
       enterWorld(null);
-      return shows.showsHome(api);
+      return later(showsCode, (m) => m.showsHome(api));
     case 'together':
       enterWorld(null);
       return screens.together(api);
@@ -306,23 +373,23 @@ function render(route) {
       return idiomScreen(api);
     case 'comicmaker':
       enterWorld(null);
-      return comicMaker(api);
+      return later(() => import('./comicmaker.js'), (m) => m.comicMaker(api));
     case 'duel':
       enterWorld(null);
-      return duelScreen(api);
+      return later(() => import('./duel.js'), (m) => m.duelScreen(api));
     case 'freeplay':
       return world ? freeplay(api, world) : goHome();
     case 'show': {
       const show = (state.content.shows || []).find((s) => s.id === p.showId);
       if (!show) return goHome();
       enterWorld(worldById(show.world));
-      return overLimit() ? screens.rest(api) : shows.showPlayer(api, show);
+      return overLimit() ? screens.rest(api) : later(showsCode, (m) => m.showPlayer(api, show));
     }
     case 'radio':
       enterWorld(null);
-      return overLimit() ? screens.rest(api) : shows.radio(api);
+      return overLimit() ? screens.rest(api) : later(showsCode, (m) => m.radio(api));
     case 'parent':
-      return showParent(api);
+      return later(() => import('./parent.js'), (m) => m.showParent(api));
     default:
       return goHome();
   }

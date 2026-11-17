@@ -13,3 +13,38 @@ jobs:
         with:
           node-version: 22
       - run: npm test
+
+  # In a real browser (docs/ROADMAP.md 8.1): install the app, go offline, play a lesson from each grade,
+  # restart and check the stars; then draw the main screens, and on a pull request compare them with the
+  # same screens drawn from the base branch on this same machine.
+  browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install --no-save playwright@1.63.0
+      - run: npx playwright install --with-deps chromium
+      - name: Offline check, and the screens after this change
+        run: node tools/browser-check.mjs --out out/after
+      - name: The same screens before this change
+        if: github.event_name == 'pull_request'
+        run: |
+          git worktree add ../before ${{ github.event.pull_request.base.sha }}
+          node tools/browser-check.mjs --root ../before --screens-only --out out/before
+      - name: Performance budget (docs/PERFORMANCE.md)
+        # timings on a shared machine vary: over budget is a warning in the summary, not a failure
+        continue-on-error: true
+        run: node tools/perf-budget.mjs --runs 3 --summary "$GITHUB_STEP_SUMMARY"
+      - name: Compare the screens
+        if: github.event_name == 'pull_request'
+        run: node tools/browser-check.mjs --compare out/before/screens --with out/after/screens --out out --summary "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: screens
+          path: out/
+          if-no-files-found: ignore

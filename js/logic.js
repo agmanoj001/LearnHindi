@@ -572,7 +572,8 @@ export function normalizeProgress(saved, content) {
     // the week-long sticker trail (curriculum.js, roadmap 7.4): a sticker for each day today's path was finished
     trail: Object.fromEntries(Object.entries(obj(saved.trail)).filter(([d, id]) => /^\d{4}-\d\d-\d\d$/.test(d) && typeof id === 'string' && /^[a-z-]+$/.test(id)).sort().slice(-60)),
     // favourite stories, newest first (js/favourites.js): only stories that exist, each once
-    favs: Array.isArray(saved.favs) ? [...new Set(saved.favs.filter((id) => (content.stories || []).some((s) => s.id === id)))].slice(0, 50) : [],
+    // (content.storyIds lists every story, also those in grade packs not loaded yet: js/packs.js)
+    favs: Array.isArray(saved.favs) ? [...new Set(saved.favs.filter((id) => (content.storyIds || (content.stories || []).map((s) => s.id)).includes(id)))].slice(0, 50) : [],
     // the "how to play" hands already shown (js/coach.js): "game:kind"
     coached: Array.isArray(saved.coached) ? [...new Set(saved.coached.filter((k) => typeof k === 'string' && /^[a-z]+:[a-z]+$/.test(k)))].slice(-100) : [],
     time,

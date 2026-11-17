@@ -152,6 +152,53 @@ export function readBackup(backup) {
   return { entries, savedAt: typeof backup.savedAt === 'string' ? backup.savedAt : null };
 }
 
+// ---- sharing the backup, and a reminder once a month (docs/ROADMAP.md 2.2) ----
+// A backup only helps if it is made, and kept somewhere other than this phone: the share sheet sends it to
+// the family's own WhatsApp, Drive or email. Nothing is sent anywhere else, and only when a grown-up chooses.
+export const BACKUP_AT = 'vt.backupAt'; // when a backup was last saved or shared from this device
+export const BACKUP_LATER = 'vt.backupLater'; // "remind me later": no reminder before this time
+export const BACKUP_EVERY_DAYS = 30;
+export const BACKUP_LATER_DAYS = 7;
+const DAY_MS = 86400000;
+// lessons with stars, in all the children's progress in a backup: is there something worth keeping?
+export const backupWorth = (backup) => Object.entries(backup?.data || {}).filter(([k]) => k.startsWith('vt.progress')).reduce((n, [, p]) => n + Object.values(p?.lessons || {}).filter((r) => r?.stars > 0).length, 0);
+export const BACKUP_WORTH = 3; // lessons with stars before the first reminder
+// a reminder is due: there is progress worth keeping, no backup for a month (or ever), and no "later" waiting
+export function backupDue({ lastAt = null, laterUntil = null, worth = 0, now = Date.now() } = {}) {
+  if (worth < BACKUP_WORTH) return false;
+  if (laterUntil && now < Date.parse(laterUntil)) return false;
+  return !lastAt || !(now - Date.parse(lastAt) < BACKUP_EVERY_DAYS * DAY_MS);
+}
+export const backupLaterUntil = (now = Date.now()) => new Date(now + BACKUP_LATER_DAYS * DAY_MS).toISOString();
+// on this device, now (the home screen's grown-ups button shows a dot; the grown-ups' area, the reminder)
+export const backupReminderDue = (now = Date.now()) => backupDue({ lastAt: load(BACKUP_AT), laterUntil: load(BACKUP_LATER), worth: backupWorth(makeBackup(load, localKeys())), now });
+// can this browser share a file (as a phone's share sheet does)?
+export function canShareFiles(nav = typeof navigator !== 'undefined' ? navigator : null) {
+  try {
+    return typeof File === 'function' && !!nav?.share && !!nav?.canShare?.({ files: [new File(['x'], 'x.txt', { type: 'text/plain' })] });
+  } catch {
+    return false;
+  }
+}
+// Share the backup with the phone's share sheet. Android's Chrome shares text files but not .json ones, so
+// the shared file is a .txt holding the same JSON (Restore reads both). Where sharing files isn't offered,
+// the file is saved instead. Returns 'shared', 'saved' or 'cancelled' (the grown-up closed the sheet).
+export async function shareBackup(backup, { nav = typeof navigator !== 'undefined' ? navigator : null, save: saveFile } = {}) {
+  const text = JSON.stringify(backup);
+  const day = backup.savedAt.slice(0, 10);
+  const file = typeof File === 'function' ? new File([text], `khel-khel-mein-backup-${day}.txt`, { type: 'text/plain' }) : null;
+  if (file && nav?.canShare?.({ files: [file] })) {
+    try {
+      await nav.share({ files: [file], title: 'Khel Khel Mein backup', text: `Khel Khel Mein backup, ${day}. Keep this file: open the app's Grown-ups area and choose "Restore from a file" to bring the stars back.` });
+      return 'shared';
+    } catch (e) {
+      if (e?.name === 'AbortError') return 'cancelled';
+    }
+  }
+  saveFile?.(`khel-khel-mein-backup-${day}.json`, text);
+  return 'saved';
+}
+
 export function localKeys() {
   try {
     return Array.from({ length: localStorage.length }, (_, i) => localStorage.key(i)).filter(Boolean);
