@@ -1098,6 +1098,12 @@ export function comicVoiceLines(content, voiceNameOf) {
       add({ text: `${w.hi}। ${w.mean}`, lang: 'hi' }, comic.level);
     }
   }
+  // the fun corner's idiom strips (js/corner.js): each character in their own voice
+  for (const x of content.idioms || [])
+    for (const p of x.strip || []) {
+      if (p.cap) add({ text: p.cap, lang: 'hi' }, x.level);
+      for (const b of p.say || []) add({ text: b.text, lang: 'hi', voice: b.who }, x.level);
+    }
   return [...out.values()].filter((l) => !l.voiceName || l.voiceName);
 }
 

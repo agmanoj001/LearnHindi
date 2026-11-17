@@ -93,6 +93,8 @@
     "cornerHello": { "hi": "मस्ती कोने में स्वागत है! आज की पहेली तैयार है।", "en": "Welcome to the fun corner! Today's riddle is ready." },
     "riddleRight": { "hi": "सही जवाब! वाह, क्या दिमाग़ पाया है!", "en": "Right answer! What a brain!" },
     "riddleTry": { "hi": "ऊँहूँ, फिर से सोचो!", "en": "Hmm, think again!" },
+    "idiomGuess": { "hi": "चिप्पू से पहले तुम बताओ: इसका असली मतलब क्या है?", "en": "Before Chippu does, tell me: what does it really mean?" },
+    "idiomRight": { "hi": "बिल्कुल सही! तुमने चिप्पू से पहले समझ लिया!", "en": "Exactly right! You got it before Chippu did!" },
     "wordsEmpty": { "hi": "खेलते रहो! जो शब्द तुम्हें आ जाएगा, वह इस किताब में आ जाएगा।", "en": "Keep playing! Every word you learn comes into this book." }
   },
   "words": {
@@ -18302,6 +18304,833 @@
       "answer": "ज़ुकाम",
       "options": ["ज़ुकाम", "गेंद", "मछली"],
       "why": { "hi": "ज़ुकाम पकड़ लेते हैं, पर उसे छू नहीं सकते!", "en": "You can catch a cold, but you can never touch it!" },
+      "level": "grade8"
+    }
+  ],
+  "idioms": [
+    {
+      "id": "petchuhe",
+      "hi": "पेट में चूहे दौड़ना",
+      "meaning": { "hi": "बहुत ज़ोर की भूख लगना", "en": "to be very hungry" },
+      "example": { "hi": "खेलकर लौटते ही मोंटू के पेट में चूहे दौड़ने लगते हैं।", "en": "As soon as Montu comes back from playing, he is starving." },
+      "options": ["बहुत ज़ोर की भूख लगना", "पेट में दर्द होना", "बहुत डर जाना"],
+      "strip": [
+        {
+          "bg": "kitchen",
+          "cast": [{ "who": "montu", "at": 30, "face": "worried", "arms": "hips" }, { "who": "nani", "at": 74, "face": "smile" }],
+          "say": [{ "who": "montu", "text": "नानी, जल्दी खाना दो! मेरे पेट में चूहे दौड़ रहे हैं!" }]
+        },
+        {
+          "bg": "kitchen",
+          "cast": [{ "who": "chippu", "at": 34, "face": "shock", "arms": "up", "hold": "magnifier" }, { "who": "montu", "at": 76, "face": "laugh" }],
+          "say": [{ "who": "chippu", "text": "चूहे? पेट के अंदर? ख़तरा! मैं अभी पकड़ता हूँ!", "kind": "shout" }],
+          "sfx": "बीप-बीप!"
+        },
+        {
+          "bg": "kitchen",
+          "cast": [{ "who": "kavya", "at": 28, "face": "laugh", "arms": "point" }, { "who": "chippu", "at": 72, "face": "think", "arms": "chin" }],
+          "say": [
+            { "who": "kavya", "text": "चिप्पू, कोई चूहा नहीं है! मतलब है, बहुत ज़ोर की भूख लगी है।" },
+            { "who": "chippu", "text": "समझ गया! तो इलाज है रोटी, चूहेदानी नहीं!" }
+          ]
+        }
+      ],
+      "level": "grade7"
+    },
+    {
+      "id": "aankhontara",
+      "hi": "आँखों का तारा",
+      "meaning": { "hi": "बहुत प्यारा", "en": "the apple of one's eye; very dear" },
+      "example": { "hi": "मोंटू अपनी नानी की आँखों का तारा है।", "en": "Montu is the apple of his grandmother's eye." },
+      "options": ["बहुत प्यारा", "आँखों में चमक होना", "दूर का तारा"],
+      "strip": [
+        {
+          "bg": "room",
+          "cast": [{ "who": "nani", "at": 30, "face": "smile", "arms": "wave" }, { "who": "montu", "at": 72, "face": "grin" }],
+          "say": [{ "who": "nani", "text": "मेरा मोंटू तो मेरी आँखों का तारा है!" }]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "chippu", "at": 32, "face": "think", "arms": "up", "hold": "magnifier" }, { "who": "nani", "at": 74, "face": "shock" }],
+          "say": [{ "who": "chippu", "text": "तारा? आँखों में? जाँच कर रहा हूँ... कोई तारा नहीं मिला!" }]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "kavya", "at": 28, "face": "smile", "arms": "point" }, { "who": "chippu", "at": 72, "face": "grin", "arms": "wave" }],
+          "say": [{ "who": "kavya", "text": "चिप्पू, आँखों का तारा मतलब बहुत प्यारा!" }, { "who": "chippu", "text": "तो क्या मैं भी किसी की आँखों का तारा हूँ?" }]
+        }
+      ],
+      "level": "grade7"
+    },
+    {
+      "id": "haathparhaath",
+      "hi": "हाथ पर हाथ धरे बैठना",
+      "meaning": { "hi": "कुछ काम न करना, ख़ाली बैठे रहना", "en": "to sit idle, doing nothing" },
+      "example": { "hi": "परीक्षा पास है, हाथ पर हाथ धरे बैठने से काम नहीं चलेगा।", "en": "The exam is near; sitting idle will not do." },
+      "options": ["कुछ काम न करना, ख़ाली बैठे रहना", "हाथ जोड़कर माफ़ी माँगना", "किसी की मदद करना"],
+      "strip": [
+        {
+          "bg": "school",
+          "cast": [{ "who": "kavya", "at": 28, "face": "angry", "arms": "hips" }, { "who": "montu", "at": 72, "face": "sly" }],
+          "say": [{ "who": "kavya", "text": "मोंटू, कल परीक्षा है और तुम हाथ पर हाथ धरे बैठे हो?" }]
+        },
+        {
+          "bg": "school",
+          "cast": [{ "who": "chippu", "at": 34, "face": "grin", "arms": "up" }, { "who": "montu", "at": 74, "face": "laugh" }],
+          "say": [{ "who": "chippu", "text": "मैं भी बैठ गया! देखो, हाथ पर हाथ रख लिया। अब आगे क्या करूँ?" }]
+        },
+        {
+          "bg": "school",
+          "cast": [{ "who": "kavya", "at": 28, "face": "laugh", "arms": "point" }, { "who": "chippu", "at": 72, "face": "shock" }],
+          "say": [
+            { "who": "kavya", "text": "अरे, इसका मतलब है कुछ काम न करना!" },
+            { "who": "chippu", "text": "काम न करना? पर मैं तो रोबोट हूँ, मेरा काम ही काम करना है!" }
+          ]
+        }
+      ],
+      "level": "grade7"
+    },
+    {
+      "id": "ghodebechkar",
+      "hi": "घोड़े बेचकर सोना",
+      "meaning": { "hi": "बेफ़िक्र होकर गहरी नींद सोना", "en": "to sleep very soundly, without a care" },
+      "example": { "hi": "परीक्षा ख़त्म होते ही मोंटू घोड़े बेचकर सोया।", "en": "When the exams were over, Montu slept like a log." },
+      "options": ["बेफ़िक्र होकर गहरी नींद सोना", "घोड़ों का व्यापार करना", "बहुत जल्दी उठना"],
+      "strip": [
+        {
+          "bg": "room",
+          "cast": [{ "who": "montu", "at": 30, "face": "sleep" }, { "who": "nani", "at": 74, "face": "smile" }],
+          "say": [{ "who": "nani", "text": "देखो, मोंटू घोड़े बेचकर सो रहा है।", "kind": "whisper" }],
+          "sfx": "खर्र... खर्र..."
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "chippu", "at": 34, "face": "shock", "arms": "up" }, { "who": "montu", "at": 74, "face": "sleep" }],
+          "say": [{ "who": "chippu", "text": "घोड़े बेचे? कितने में? पैसे कहाँ हैं? हिसाब नहीं मिल रहा!" }]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "kavya", "at": 28, "face": "laugh", "arms": "point" }, { "who": "chippu", "at": 72, "face": "smile", "arms": "chin" }],
+          "say": [
+            { "who": "kavya", "text": "श्श्श! मतलब है, बिना चिंता के गहरी नींद सोना।", "kind": "whisper" },
+            { "who": "chippu", "text": "समझ गया। तो आज मैं भी बैटरी बेचकर सोऊँगा!" }
+          ]
+        }
+      ],
+      "level": "grade7"
+    },
+    {
+      "id": "munhpaani",
+      "hi": "मुँह में पानी आना",
+      "meaning": { "hi": "कोई चीज़ देखकर खाने का बहुत मन करना", "en": "to make one's mouth water" },
+      "example": { "hi": "गरम जलेबियाँ देखकर सबके मुँह में पानी आ गया।", "en": "Seeing the hot jalebis made everyone's mouth water." },
+      "options": ["कोई चीज़ देखकर खाने का बहुत मन करना", "प्यास लगना", "रोना आना"],
+      "strip": [
+        {
+          "bg": "fair",
+          "cast": [{ "who": "montu", "at": 30, "face": "grin", "arms": "point" }, { "who": "kavya", "at": 72, "face": "smile" }],
+          "say": [{ "who": "montu", "text": "वाह, गोलगप्पे! मेरे तो मुँह में पानी आ गया!" }]
+        },
+        {
+          "bg": "fair",
+          "cast": [{ "who": "chippu", "at": 34, "face": "worried", "arms": "up", "hold": "umbrella" }, { "who": "montu", "at": 74, "face": "shock" }],
+          "say": [{ "who": "chippu", "text": "पानी? मुँह में? बाढ़ का ख़तरा! यह लो छाता!", "kind": "shout" }]
+        },
+        {
+          "bg": "fair",
+          "cast": [{ "who": "kavya", "at": 28, "face": "laugh", "arms": "point" }, { "who": "chippu", "at": 72, "face": "think", "arms": "chin" }],
+          "say": [
+            { "who": "kavya", "text": "छाता नहीं चाहिए! मतलब है, खाने का बहुत मन करना।" },
+            { "who": "chippu", "text": "मेरे मुँह में तो कभी पानी नहीं आता... बस तेल की याद आती है!" }
+          ]
+        }
+      ],
+      "level": "grade7"
+    },
+    {
+      "id": "eidkachaand",
+      "hi": "ईद का चाँद होना",
+      "meaning": { "hi": "बहुत दिनों बाद दिखाई देना", "en": "to be seen very rarely" },
+      "example": { "hi": "मामा जी इतने दिनों बाद आए, सच में ईद का चाँद हो गए हैं।", "en": "Uncle came after so long; he has become a rare sight." },
+      "options": ["बहुत दिनों बाद दिखाई देना", "बहुत सुंदर दिखना", "रात में घूमना"],
+      "strip": [
+        {
+          "bg": "street",
+          "cast": [{ "who": "nani", "at": 30, "face": "smile", "arms": "wave" }, { "who": "kavya", "at": 72, "face": "grin" }],
+          "say": [{ "who": "nani", "text": "अरे काव्या! इतने दिनों बाद? तुम तो ईद का चाँद हो गई हो!" }]
+        },
+        {
+          "bg": "terrace",
+          "cast": [{ "who": "chippu", "at": 34, "face": "think", "arms": "up" }, { "who": "kavya", "at": 74, "face": "shock" }],
+          "say": [{ "who": "chippu", "text": "काव्या चाँद? पर काव्या न गोल है, न रात में चमकती है!" }]
+        },
+        {
+          "bg": "street",
+          "cast": [{ "who": "kavya", "at": 28, "face": "laugh", "arms": "point" }, { "who": "chippu", "at": 72, "face": "grin", "arms": "wave" }],
+          "say": [
+            { "who": "kavya", "text": "चिप्पू, मतलब है, बहुत दिनों बाद दिखाई देना!" },
+            { "who": "chippu", "text": "तो मैं ईद का चाँद कभी नहीं बनूँगा। मैं रोज़ दिखूँगा!" }
+          ]
+        }
+      ],
+      "level": "grade7"
+    },
+    {
+      "id": "tedhikheer",
+      "hi": "टेढ़ी खीर",
+      "meaning": { "hi": "बहुत कठिन काम", "en": "a very difficult task" },
+      "example": { "hi": "मोंटू को चुप कराना टेढ़ी खीर है।", "en": "Getting Montu to be quiet is a tough job." },
+      "options": ["बहुत कठिन काम", "मीठा पकवान", "टेढ़ा रास्ता"],
+      "strip": [
+        {
+          "bg": "school",
+          "cast": [{ "who": "kavya", "at": 30, "face": "worried", "arms": "chin", "hold": "notebook" }, { "who": "chippu", "at": 74, "face": "smile" }],
+          "say": [{ "who": "kavya", "text": "उफ़! गणित का यह सवाल तो टेढ़ी खीर है!" }]
+        },
+        {
+          "bg": "kitchen",
+          "cast": [{ "who": "chippu", "at": 34, "face": "grin", "arms": "point", "hold": "plate" }, { "who": "nani", "at": 74, "face": "shock" }],
+          "say": [{ "who": "chippu", "text": "टेढ़ी खीर? मैं चम्मच से सीधी कर देता हूँ... अरे, खीर तो बह गई!" }],
+          "sfx": "छपाक!"
+        },
+        {
+          "bg": "kitchen",
+          "cast": [{ "who": "nani", "at": 28, "face": "laugh" }, { "who": "kavya", "at": 72, "face": "smile", "arms": "point" }],
+          "say": [{ "who": "nani", "text": "चिप्पू, टेढ़ी खीर मतलब बहुत कठिन काम!" }, { "who": "kavya", "text": "और अब यह फ़र्श साफ़ करना भी टेढ़ी खीर है!" }]
+        }
+      ],
+      "level": "grade7"
+    },
+    {
+      "id": "chaarchaand",
+      "hi": "चार चाँद लगाना",
+      "meaning": { "hi": "शोभा या सुंदरता बहुत बढ़ा देना", "en": "to add greatly to the beauty or glory of something" },
+      "example": { "hi": "रंगोली ने दीवाली की सजावट में चार चाँद लगा दिए।", "en": "The rangoli made the Diwali decorations even more beautiful." },
+      "options": ["शोभा या सुंदरता बहुत बढ़ा देना", "रात भर जागना", "चार बार कोशिश करना"],
+      "strip": [
+        {
+          "bg": "room",
+          "cast": [{ "who": "nani", "at": 30, "face": "smile", "arms": "down", "hold": "diya" }, { "who": "kavya", "at": 72, "face": "grin" }],
+          "say": [{ "who": "nani", "text": "काव्या की रंगोली ने तो घर में चार चाँद लगा दिए!" }]
+        },
+        {
+          "bg": "terrace",
+          "cast": [{ "who": "chippu", "at": 34, "face": "shock", "arms": "up" }, { "who": "kavya", "at": 74, "face": "laugh" }],
+          "say": [{ "who": "chippu", "text": "चार चाँद? आसमान में तो एक ही है! बाक़ी तीन कहाँ से लाऊँ?" }],
+          "dark": true
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "kavya", "at": 28, "face": "laugh", "arms": "point" }, { "who": "chippu", "at": 72, "face": "grin", "arms": "wave" }],
+          "say": [{ "who": "kavya", "text": "चिप्पू, मतलब है, सुंदरता बहुत बढ़ जाना!" }, { "who": "chippu", "text": "तो मेरी नई चमक ने भी घर में चार चाँद लगा दिए!" }]
+        }
+      ],
+      "level": "grade7"
+    },
+    {
+      "id": "ullubanana",
+      "hi": "उल्लू बनाना",
+      "meaning": { "hi": "मूर्ख बनाना, धोखा देना", "en": "to make a fool of someone" },
+      "example": { "hi": "मोंटू ने नक़ली मकड़ी दिखाकर सबको उल्लू बना दिया।", "en": "Montu fooled everyone with a fake spider." },
+      "options": ["मूर्ख बनाना, धोखा देना", "रात को जागना", "किसी को पढ़ाना"],
+      "strip": [
+        {
+          "bg": "room",
+          "cast": [{ "who": "montu", "at": 30, "face": "sly", "arms": "point" }, { "who": "kavya", "at": 72, "face": "angry", "arms": "hips" }],
+          "say": [{ "who": "montu", "text": "हा हा! मैंने दीदी को उल्लू बना दिया!" }]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "chippu", "at": 34, "face": "worried", "arms": "up" }, { "who": "kavya", "at": 74, "face": "shock" }],
+          "say": [{ "who": "chippu", "text": "उल्लू? काव्या के पंख तो नहीं निकले? आँखें गोल तो नहीं हुईं?" }]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "kavya", "at": 28, "face": "laugh", "arms": "point" }, { "who": "chippu", "at": 72, "face": "think", "arms": "chin" }],
+          "say": [
+            { "who": "kavya", "text": "मैं उल्लू नहीं बनी, चिप्पू! मतलब है, मूर्ख बनाना।" },
+            { "who": "chippu", "text": "समझ गया। अब मुझे कोई उल्लू नहीं बना सकता!" }
+          ]
+        }
+      ],
+      "level": "grade7"
+    },
+    {
+      "id": "aasmaanbaatein",
+      "hi": "आसमान से बातें करना",
+      "meaning": { "hi": "बहुत ऊँचा होना", "en": "to be very tall; to touch the sky" },
+      "example": { "hi": "शहर की नई इमारत आसमान से बातें करती है।", "en": "The new building in the city touches the sky." },
+      "options": ["बहुत ऊँचा होना", "अकेले बड़बड़ाना", "मौसम बताना"],
+      "strip": [
+        {
+          "bg": "ground",
+          "cast": [{ "who": "kavya", "at": 30, "face": "grin", "arms": "up", "hold": "kite" }, { "who": "montu", "at": 72, "face": "laugh" }],
+          "say": [{ "who": "kavya", "text": "देखो, मेरी पतंग आसमान से बातें कर रही है!" }]
+        },
+        {
+          "bg": "ground",
+          "cast": [{ "who": "chippu", "at": 34, "face": "think", "arms": "down", "hold": "phone" }, { "who": "montu", "at": 74, "face": "grin" }],
+          "say": [{ "who": "chippu", "text": "हैलो, आसमान? पतंग क्या कह रही है? ...कोई जवाब नहीं।" }]
+        },
+        {
+          "bg": "ground",
+          "cast": [{ "who": "montu", "at": 28, "face": "laugh", "arms": "point" }, { "who": "kavya", "at": 72, "face": "smile" }],
+          "say": [{ "who": "montu", "text": "चिप्पू, आसमान फ़ोन नहीं उठाता!" }, { "who": "kavya", "text": "मतलब है, बहुत ऊँचाई पर होना।" }]
+        }
+      ],
+      "level": "grade7"
+    },
+    {
+      "id": "kaankhade",
+      "hi": "कान खड़े होना",
+      "meaning": { "hi": "चौकन्ना हो जाना, सावधान होना", "en": "to prick up your ears; to become alert" },
+      "example": { "hi": "रात को आहट सुनकर नानी के कान खड़े हो गए।", "en": "Hearing a noise at night, Nani became alert." },
+      "options": ["चौकन्ना हो जाना, सावधान होना", "कान में दर्द होना", "ज़ोर से सुनना"],
+      "strip": [
+        {
+          "bg": "room",
+          "cast": [{ "who": "nani", "at": 30, "face": "worried" }, { "who": "kavya", "at": 72, "face": "shock" }],
+          "say": [{ "who": "nani", "text": "आहट सुनकर मेरे तो कान खड़े हो गए!", "kind": "whisper" }],
+          "dark": true,
+          "sfx": "खट-खट!"
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "chippu", "at": 34, "face": "shock", "arms": "up" }, { "who": "nani", "at": 74, "face": "worried" }],
+          "say": [{ "who": "chippu", "text": "कान खड़े हुए? पर नानी बैठी हैं, और कान भी अपनी जगह पर हैं!" }],
+          "dark": true
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "kavya", "at": 28, "face": "smile", "arms": "point" }, { "who": "montu", "at": 72, "face": "laugh" }],
+          "say": [{ "who": "kavya", "text": "मतलब है, सावधान हो जाना। चलो, देखें कौन है!" }, { "who": "montu", "text": "म्याऊँ! हा हा, यह तो बस बिल्ली थी!" }]
+        }
+      ],
+      "level": "grade7"
+    },
+    {
+      "id": "daantkhatte",
+      "hi": "दाँत खट्टे करना",
+      "meaning": { "hi": "बुरी तरह हरा देना", "en": "to defeat someone thoroughly" },
+      "example": { "hi": "हमारी टीम ने फ़ाइनल में विरोधी टीम के दाँत खट्टे कर दिए।", "en": "Our team crushed the other team in the final." },
+      "options": ["बुरी तरह हरा देना", "खट्टा खाना", "दाँत साफ़ करना"],
+      "strip": [
+        {
+          "bg": "ground",
+          "cast": [{ "who": "kavya", "at": 30, "face": "laugh", "arms": "up", "hold": "trophy" }, { "who": "montu", "at": 72, "face": "grin" }],
+          "say": [{ "who": "kavya", "text": "जीत गए! हमने कबड्डी में उनके दाँत खट्टे कर दिए!" }]
+        },
+        {
+          "bg": "kitchen",
+          "cast": [{ "who": "chippu", "at": 34, "face": "grin", "arms": "point", "hold": "lemon" }, { "who": "nani", "at": 74, "face": "shock" }],
+          "say": [{ "who": "chippu", "text": "दाँत खट्टे करने हैं? यह लो नींबू, सबको खिलाओ!" }]
+        },
+        {
+          "bg": "ground",
+          "cast": [{ "who": "montu", "at": 28, "face": "laugh" }, { "who": "kavya", "at": 72, "face": "smile", "arms": "point" }],
+          "say": [{ "who": "montu", "text": "हा हा, नींबू नहीं चाहिए!" }, { "who": "kavya", "text": "मतलब है, बुरी तरह हरा देना।" }]
+        }
+      ],
+      "level": "grade7"
+    },
+    {
+      "id": "paanipaani",
+      "hi": "पानी-पानी होना",
+      "meaning": { "hi": "बहुत शर्मिंदा होना", "en": "to be deeply ashamed" },
+      "example": { "hi": "झूठ पकड़ा गया तो मोंटू पानी-पानी हो गया।", "en": "When his lie was caught, Montu felt deeply ashamed." },
+      "options": ["बहुत शर्मिंदा होना", "भीग जाना", "प्यास लगना"],
+      "strip": [
+        {
+          "bg": "kitchen",
+          "cast": [{ "who": "nani", "at": 30, "face": "angry", "arms": "hips" }, { "who": "montu", "at": 72, "face": "sad" }],
+          "say": [{ "who": "nani", "text": "मोंटू, चीनी का डिब्बा किसने ख़ाली किया?" }, { "who": "montu", "text": "जी... मैंने..." }]
+        },
+        {
+          "bg": "kitchen",
+          "cast": [{ "who": "kavya", "at": 28, "face": "smile" }, { "who": "chippu", "at": 72, "face": "shock", "arms": "up" }],
+          "say": [{ "who": "kavya", "text": "बेचारा मोंटू तो पानी-पानी हो गया।" }, { "who": "chippu", "text": "पानी? मोंटू पिघल रहा है? पोछा लाओ!", "kind": "shout" }]
+        },
+        {
+          "bg": "kitchen",
+          "cast": [{ "who": "kavya", "at": 28, "face": "laugh", "arms": "point" }, { "who": "chippu", "at": 72, "face": "think", "arms": "chin" }],
+          "say": [
+            { "who": "kavya", "text": "नहीं, चिप्पू! मतलब है, बहुत शर्मिंदा होना।" },
+            { "who": "chippu", "text": "शर्म का पानी... मेरे सेंसर यह नहीं पकड़ पाते!" }
+          ]
+        }
+      ],
+      "level": "grade7"
+    },
+    {
+      "id": "baalbaal",
+      "hi": "बाल-बाल बचना",
+      "meaning": { "hi": "बड़ी मुश्किल से बचना", "en": "to have a narrow escape" },
+      "example": { "hi": "गेंद खिड़की के पास से निकली, शीशा बाल-बाल बचा।", "en": "The ball flew past the window; the glass had a narrow escape." },
+      "options": ["बड़ी मुश्किल से बचना", "बाल कटवाना", "बालों में कंघी करना"],
+      "strip": [
+        {
+          "bg": "street",
+          "cast": [{ "who": "montu", "at": 30, "face": "shock", "arms": "up" }, { "who": "kavya", "at": 72, "face": "worried" }],
+          "say": [{ "who": "montu", "text": "उफ़! साइकिल गड्ढे में गिरते-गिरते बची। मैं बाल-बाल बचा!" }]
+        },
+        {
+          "bg": "street",
+          "cast": [{ "who": "chippu", "at": 34, "face": "think", "arms": "down", "hold": "magnifier" }, { "who": "montu", "at": 74, "face": "shock" }],
+          "say": [{ "who": "chippu", "text": "बालों की गिनती: एक, दो, तीन... सारे बाल सही-सलामत हैं!" }]
+        },
+        {
+          "bg": "street",
+          "cast": [{ "who": "kavya", "at": 28, "face": "laugh", "arms": "point" }, { "who": "chippu", "at": 72, "face": "grin" }],
+          "say": [{ "who": "kavya", "text": "चिप्पू, मतलब है, बड़ी मुश्किल से बचना!" }, { "who": "chippu", "text": "तो गिनती रोकता हूँ। वैसे, कुल नौ हज़ार बाल थे!" }]
+        }
+      ],
+      "level": "grade7"
+    },
+    {
+      "id": "makkhiyan",
+      "hi": "मक्खियाँ मारना",
+      "meaning": { "hi": "ख़ाली बैठे रहना, कोई काम न होना", "en": "to idle away time; to have nothing to do" },
+      "example": {
+        "hi": "बारिश में दुकान पर कोई नहीं आया, दुकानदार दिन भर मक्खियाँ मारता रहा।",
+        "en": "No customers came in the rain; the shopkeeper sat idle all day."
+      },
+      "options": ["ख़ाली बैठे रहना, कोई काम न होना", "सफ़ाई करना", "बहुत मेहनत करना"],
+      "strip": [
+        {
+          "bg": "bazaar",
+          "cast": [{ "who": "kavya", "at": 28, "face": "think", "arms": "chin" }, { "who": "laddoolal", "at": 74, "face": "sad" }],
+          "say": [{ "who": "kavya", "text": "आज बाज़ार में कोई नहीं आया। लड्डू वाले चाचा मक्खियाँ मार रहे हैं।" }]
+        },
+        {
+          "bg": "bazaar",
+          "cast": [{ "who": "chippu", "at": 34, "face": "grin", "arms": "up", "hold": "bat" }, { "who": "laddoolal", "at": 74, "face": "shock" }],
+          "say": [{ "who": "chippu", "text": "मक्खियाँ मारनी हैं? मैं मदद करता हूँ!", "kind": "shout" }],
+          "sfx": "धड़ाम!"
+        },
+        {
+          "bg": "bazaar",
+          "cast": [{ "who": "laddoolal", "at": 30, "face": "shock", "arms": "up" }, { "who": "kavya", "at": 72, "face": "laugh", "arms": "point" }],
+          "say": [{ "who": "laddoolal", "text": "अरे रे, मेरे लड्डू!" }, { "who": "kavya", "text": "चिप्पू, मतलब है, ख़ाली बैठे रहना!" }]
+        }
+      ],
+      "level": "grade7"
+    },
+    {
+      "id": "kulhadi",
+      "hi": "अपने पाँव पर कुल्हाड़ी मारना",
+      "meaning": { "hi": "अपना नुक़सान ख़ुद करना", "en": "to harm yourself by your own actions" },
+      "example": { "hi": "पढ़ाई टालकर मोंटू अपने पाँव पर कुल्हाड़ी मार रहा है।", "en": "By putting off his studies, Montu is hurting himself." },
+      "options": ["अपना नुक़सान ख़ुद करना", "पेड़ काटना", "बहुत मेहनत करना"],
+      "strip": [
+        {
+          "bg": "room",
+          "cast": [{ "who": "kavya", "at": 30, "face": "worried", "arms": "chin" }, { "who": "montu", "at": 72, "face": "sly" }],
+          "say": [{ "who": "kavya", "text": "मोंटू रोज़ होमवर्क टालता है। अपने पाँव पर कुल्हाड़ी मार रहा है!" }]
+        },
+        {
+          "bg": "workshop",
+          "cast": [{ "who": "chippu", "at": 34, "face": "shock", "arms": "up" }, { "who": "montu", "at": 74, "face": "laugh" }],
+          "say": [{ "who": "chippu", "text": "कुल्हाड़ी? ख़तरा! सारी कुल्हाड़ियाँ छिपा दो! पाँव बचाओ!", "kind": "shout" }],
+          "sfx": "बीप-बीप!"
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "kavya", "at": 28, "face": "laugh", "arms": "point" }, { "who": "montu", "at": 72, "face": "sad" }],
+          "say": [
+            { "who": "kavya", "text": "असली कुल्हाड़ी नहीं, चिप्पू! मतलब है, अपना नुक़सान ख़ुद करना।" },
+            { "who": "montu", "text": "ठीक है दीदी, आज से होमवर्क पहले!" }
+          ]
+        }
+      ],
+      "level": "grade8"
+    },
+    {
+      "id": "lohechane",
+      "hi": "लोहे के चने चबाना",
+      "meaning": { "hi": "बहुत कठिन काम करना", "en": "to do something extremely hard" },
+      "example": { "hi": "पहाड़ पर सड़क बनाना लोहे के चने चबाने जैसा था।", "en": "Building a road on the mountain was extremely hard." },
+      "options": ["बहुत कठिन काम करना", "सख़्त चीज़ें खाना", "बहुत ताक़तवर होना"],
+      "strip": [
+        {
+          "bg": "school",
+          "cast": [{ "who": "kavya", "at": 30, "face": "worried", "arms": "chin", "hold": "book" }, { "who": "chippu", "at": 74, "face": "smile" }],
+          "say": [{ "who": "kavya", "text": "बोर्ड की तैयारी? यह तो लोहे के चने चबाना है!" }]
+        },
+        {
+          "bg": "workshop",
+          "cast": [{ "who": "chippu", "at": 34, "face": "grin", "arms": "point", "hold": "plate" }, { "who": "montu", "at": 74, "face": "shock" }],
+          "say": [{ "who": "chippu", "text": "लोहे के चने? मेरा मनपसंद नाश्ता! कुरकुरे हैं!" }],
+          "sfx": "कड़-कड़!"
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "nani", "at": 28, "face": "laugh" }, { "who": "kavya", "at": 72, "face": "smile", "arms": "point" }],
+          "say": [
+            { "who": "nani", "text": "चिप्पू, मतलब है, बहुत कठिन काम करना। इंसान लोहा नहीं चबाते!" },
+            { "who": "kavya", "text": "पर मेहनत से लोहे के चने भी चब जाते हैं!" }
+          ]
+        }
+      ],
+      "level": "grade8"
+    },
+    {
+      "id": "daantontale",
+      "hi": "दाँतों तले उँगली दबाना",
+      "meaning": { "hi": "बहुत हैरान होना", "en": "to be utterly astonished" },
+      "example": { "hi": "जादूगर के करतब देखकर सबने दाँतों तले उँगली दबा ली।", "en": "Everyone was astonished at the magician's tricks." },
+      "options": ["बहुत हैरान होना", "उँगली में चोट लगना", "डरकर चुप रहना"],
+      "strip": [
+        {
+          "bg": "stage",
+          "cast": [{ "who": "kavya", "at": 30, "face": "shock", "arms": "chin" }, { "who": "montu", "at": 72, "face": "shock", "arms": "up" }],
+          "say": [{ "who": "kavya", "text": "जादूगर ने टोपी से कबूतर निकाला! सबने दाँतों तले उँगली दबा ली!" }],
+          "cap": "स्कूल के मेले में जादू का खेल।"
+        },
+        {
+          "bg": "stage",
+          "cast": [{ "who": "chippu", "at": 34, "face": "worried", "arms": "up" }, { "who": "kavya", "at": 74, "face": "shock" }],
+          "say": [{ "who": "chippu", "text": "उँगली दबाई? दर्द होगा! मरहम-पट्टी तैयार!", "kind": "shout" }]
+        },
+        {
+          "bg": "stage",
+          "cast": [{ "who": "kavya", "at": 28, "face": "laugh", "arms": "point" }, { "who": "chippu", "at": 72, "face": "think", "arms": "chin" }],
+          "say": [
+            { "who": "kavya", "text": "चिप्पू, मतलब है, बहुत हैरान होना!" },
+            { "who": "chippu", "text": "मेरे दाँत नहीं हैं, तो मैं हैरान होकर बस बीप करूँगा। बीप!" }
+          ]
+        }
+      ],
+      "level": "grade8"
+    },
+    {
+      "id": "aagbabula",
+      "hi": "आग बबूला होना",
+      "meaning": { "hi": "बहुत ग़ुस्सा होना", "en": "to be furious" },
+      "example": { "hi": "टूटा गमला देखकर पड़ोसी आग बबूला हो गए।", "en": "Seeing the broken flowerpot, the neighbour was furious." },
+      "options": ["बहुत ग़ुस्सा होना", "आग जलाना", "बुलबुले बनाना"],
+      "strip": [
+        {
+          "bg": "colony",
+          "cast": [{ "who": "colonel", "at": 32, "face": "angry", "arms": "hips" }, { "who": "montu", "at": 74, "face": "worried" }],
+          "say": [{ "who": "colonel", "text": "किसने मेरी खिड़की पर गेंद मारी?", "kind": "shout" }]
+        },
+        {
+          "bg": "colony",
+          "cast": [{ "who": "kavya", "at": 28, "face": "worried" }, { "who": "chippu", "at": 72, "face": "shock", "arms": "up" }],
+          "say": [
+            { "who": "kavya", "text": "कर्नल साहब तो आग बबूला हो गए!", "kind": "whisper" },
+            { "who": "chippu", "text": "आग? अग्निशमन चालू! पानी की बौछार!", "kind": "shout" }
+          ],
+          "sfx": "फ़्स्स्स!"
+        },
+        {
+          "bg": "colony",
+          "cast": [{ "who": "colonel", "at": 30, "face": "shock", "arms": "up" }, { "who": "kavya", "at": 72, "face": "laugh", "arms": "point" }],
+          "say": [{ "who": "colonel", "text": "अरे! मुझे भिगो दिया!" }, { "who": "kavya", "text": "चिप्पू! मतलब था, बहुत ग़ुस्सा होना!" }]
+        }
+      ],
+      "level": "grade8"
+    },
+    {
+      "id": "gagarsagar",
+      "hi": "गागर में सागर भरना",
+      "meaning": { "hi": "थोड़े शब्दों में बड़ी बात कह देना", "en": "to say a great deal in a few words" },
+      "example": { "hi": "कबीर के दोहे गागर में सागर भर देते हैं।", "en": "Kabir's couplets say a great deal in a few words." },
+      "options": ["थोड़े शब्दों में बड़ी बात कह देना", "घड़े में पानी भरना", "बहुत बातें करना"],
+      "strip": [
+        {
+          "bg": "classroom",
+          "cast": [{ "who": "teacher", "at": 30, "face": "smile", "arms": "point" }, { "who": "kavya", "at": 72, "face": "think", "arms": "chin" }],
+          "say": [{ "who": "teacher", "text": "कबीर के दोहे गागर में सागर भर देते हैं।" }]
+        },
+        {
+          "bg": "river",
+          "cast": [{ "who": "chippu", "at": 34, "face": "grin", "arms": "down", "hold": "pot" }, { "who": "montu", "at": 74, "face": "laugh" }],
+          "say": [{ "who": "chippu", "text": "आदेश मिला! सागर घड़े में भर रहा हूँ... घड़ा भर गया, पर सागर वहीं का वहीं!" }]
+        },
+        {
+          "bg": "classroom",
+          "cast": [{ "who": "kavya", "at": 28, "face": "laugh", "arms": "point" }, { "who": "chippu", "at": 72, "face": "think", "arms": "chin" }],
+          "say": [
+            { "who": "kavya", "text": "चिप्पू, मतलब है, थोड़े शब्दों में बड़ी बात!" },
+            { "who": "chippu", "text": "जैसे: \"चिप्पू समझ गया।\" दो शब्द, पूरी बात!" }
+          ]
+        }
+      ],
+      "level": "grade8"
+    },
+    {
+      "id": "dhooljhonkna",
+      "hi": "आँखों में धूल झोंकना",
+      "meaning": { "hi": "धोखा देना", "en": "to deceive; to pull the wool over someone's eyes" },
+      "example": { "hi": "चोर पहरेदार की आँखों में धूल झोंककर भाग गया।", "en": "The thief tricked the guard and ran away." },
+      "options": ["धोखा देना", "आँखें साफ़ करना", "आँधी चलना"],
+      "strip": [
+        {
+          "bg": "bazaar",
+          "cast": [{ "who": "kavya", "at": 30, "face": "angry", "arms": "point" }, { "who": "laddoolal", "at": 74, "face": "sad" }],
+          "say": [{ "who": "kavya", "text": "उस ठग ने चाचा की आँखों में धूल झोंक दी! नक़ली नोट दे गया!" }]
+        },
+        {
+          "bg": "bazaar",
+          "cast": [{ "who": "chippu", "at": 34, "face": "shock", "arms": "up" }, { "who": "laddoolal", "at": 74, "face": "shock" }],
+          "say": [{ "who": "chippu", "text": "धूल? आँखों में? पानी से धोओ! धूल वाला चश्मा पहनो!", "kind": "shout" }]
+        },
+        {
+          "bg": "bazaar",
+          "cast": [{ "who": "kavya", "at": 28, "face": "smile", "arms": "point" }, { "who": "chippu", "at": 72, "face": "grin", "arms": "down", "hold": "camera" }],
+          "say": [
+            { "who": "kavya", "text": "मतलब है, धोखा देना। चलो, पुलिस को बताएँ!" },
+            { "who": "chippu", "text": "मेरे कैमरे में ठग की तस्वीर है! मेरी आँखों में कोई धूल नहीं झोंक सकता!" }
+          ]
+        }
+      ],
+      "level": "grade8"
+    },
+    {
+      "id": "khayalipulao",
+      "hi": "ख़याली पुलाव पकाना",
+      "meaning": { "hi": "बिना मेहनत के बड़े-बड़े सपने देखना", "en": "to build castles in the air" },
+      "example": { "hi": "काम कुछ नहीं करता, बस ख़याली पुलाव पकाता रहता है।", "en": "He does no work; he just daydreams." },
+      "options": ["बिना मेहनत के बड़े-बड़े सपने देखना", "खाना पकाना", "सोच-समझकर काम करना"],
+      "strip": [
+        {
+          "bg": "terrace",
+          "cast": [{ "who": "montu", "at": 30, "face": "grin", "arms": "chin" }, { "who": "kavya", "at": 72, "face": "smile" }],
+          "say": [{ "who": "montu", "text": "मैं बड़ा होकर क्रिकेट का सितारा बनूँगा, फिर चाँद पर घर, फिर..." }]
+        },
+        {
+          "bg": "kitchen",
+          "cast": [{ "who": "nani", "at": 28, "face": "laugh" }, { "who": "chippu", "at": 72, "face": "grin", "arms": "point", "hold": "plate" }],
+          "say": [{ "who": "nani", "text": "यह तो ख़याली पुलाव पका रहा है!" }, { "who": "chippu", "text": "पुलाव? कहाँ? मुझे तो कोई ख़ुशबू नहीं आ रही!" }]
+        },
+        {
+          "bg": "terrace",
+          "cast": [{ "who": "kavya", "at": 28, "face": "smile", "arms": "point" }, { "who": "montu", "at": 72, "face": "laugh", "arms": "up", "hold": "bat" }],
+          "say": [{ "who": "kavya", "text": "मतलब है, बिना मेहनत के बड़े सपने। मोंटू, पहले बल्ला उठाओ!" }, { "who": "montu", "text": "ठीक है! चलो, अभ्यास करते हैं!" }]
+        }
+      ],
+      "level": "grade8"
+    },
+    {
+      "id": "oontzeera",
+      "hi": "ऊँट के मुँह में ज़ीरा",
+      "meaning": { "hi": "ज़रूरत से बहुत कम चीज़", "en": "far too little; a drop in the ocean" },
+      "example": { "hi": "पहलवान के लिए एक केला ऊँट के मुँह में ज़ीरा है।", "en": "One banana is far too little for a wrestler." },
+      "options": ["ज़रूरत से बहुत कम चीज़", "ऊँट को खाना खिलाना", "स्वादिष्ट मसाला"],
+      "strip": [
+        {
+          "bg": "kitchen",
+          "cast": [{ "who": "montu", "at": 30, "face": "sad", "arms": "down", "hold": "plate" }, { "who": "nani", "at": 74, "face": "smile" }],
+          "say": [{ "who": "montu", "text": "बस एक रोटी? यह तो ऊँट के मुँह में ज़ीरा है!" }]
+        },
+        {
+          "bg": "desert",
+          "cast": [{ "who": "chippu", "at": 34, "face": "grin", "arms": "point" }, { "who": "kavya", "at": 74, "face": "shock" }],
+          "say": [{ "who": "chippu", "text": "ऊँट ढूँढ लिया! अब इसके मुँह में ज़ीरा डालता हूँ... ऊँट तो नाराज़ हो गया!" }],
+          "sfx": "घुर्र!"
+        },
+        {
+          "bg": "kitchen",
+          "cast": [{ "who": "nani", "at": 28, "face": "laugh" }, { "who": "montu", "at": 72, "face": "grin" }],
+          "say": [{ "who": "nani", "text": "मतलब है, ज़रूरत से बहुत कम। लो मोंटू, दो रोटी और!" }, { "who": "montu", "text": "धन्यवाद, नानी!" }]
+        }
+      ],
+      "level": "grade8"
+    },
+    {
+      "id": "daalmekaala",
+      "hi": "दाल में काला होना",
+      "meaning": { "hi": "कुछ गड़बड़ या शक की बात होना", "en": "something fishy going on" },
+      "example": { "hi": "मोंटू इतना चुप क्यों है? ज़रूर दाल में कुछ काला है।", "en": "Why is Montu so quiet? Something fishy is going on." },
+      "options": ["कुछ गड़बड़ या शक की बात होना", "दाल जल जाना", "काली दाल बनाना"],
+      "strip": [
+        {
+          "bg": "room",
+          "cast": [{ "who": "kavya", "at": 30, "face": "sly", "arms": "chin" }, { "who": "chippu", "at": 74, "face": "smile" }],
+          "say": [{ "who": "kavya", "text": "मोंटू इतनी देर से चुप है... ज़रूर दाल में कुछ काला है!" }]
+        },
+        {
+          "bg": "kitchen",
+          "cast": [{ "who": "chippu", "at": 34, "face": "think", "arms": "down", "hold": "magnifier" }, { "who": "nani", "at": 74, "face": "laugh" }],
+          "say": [{ "who": "chippu", "text": "दाल की जाँच: पीली... पीली... कुछ काला नहीं मिला!" }]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "montu", "at": 30, "face": "shock", "arms": "up", "hold": "laddoo" }, { "who": "kavya", "at": 72, "face": "laugh", "arms": "point" }],
+          "say": [{ "who": "montu", "text": "पकड़ा गया!" }, { "who": "kavya", "text": "मतलब था, कुछ गड़बड़ है! और गड़बड़ है, लड्डू की चोरी!" }]
+        }
+      ],
+      "level": "grade8"
+    },
+    {
+      "id": "ekaurek",
+      "hi": "एक और एक ग्यारह होना",
+      "meaning": { "hi": "मिलकर काम करने से ताक़त बढ़ जाना", "en": "unity is strength" },
+      "example": {
+        "hi": "भाई-बहन ने मिलकर पूरा कमरा सजा दिया; एक और एक ग्यारह होते हैं।",
+        "en": "Brother and sister decorated the whole room together; together they are stronger."
+      },
+      "options": ["मिलकर काम करने से ताक़त बढ़ जाना", "गिनती में ग़लती होना", "गणित का पहाड़ा"],
+      "strip": [
+        {
+          "bg": "room",
+          "cast": [{ "who": "kavya", "at": 30, "face": "worried", "arms": "hips" }, { "who": "montu", "at": 72, "face": "grin", "arms": "up" }],
+          "say": [{ "who": "kavya", "text": "इतनी भारी अलमारी अकेले नहीं हिलेगी।" }, { "who": "montu", "text": "चलो, मिलकर! एक और एक ग्यारह!" }]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "chippu", "at": 34, "face": "shock", "arms": "up" }, { "who": "montu", "at": 74, "face": "laugh" }],
+          "say": [{ "who": "chippu", "text": "त्रुटि! एक और एक दो होते हैं! गणित की किताब देखो!", "kind": "shout" }]
+        },
+        {
+          "bg": "room",
+          "cast": [
+            { "who": "kavya", "at": 22, "face": "laugh", "arms": "point" },
+            { "who": "chippu", "at": 52, "face": "grin", "arms": "up" },
+            { "who": "montu", "at": 80, "face": "laugh" }
+          ],
+          "say": [{ "who": "kavya", "text": "मतलब है, मिलकर ताक़त बढ़ जाती है। चिप्पू, तुम भी आओ!" }, { "who": "chippu", "text": "तो एक, एक और एक... एक सौ ग्यारह!" }]
+        }
+      ],
+      "level": "grade8"
+    },
+    {
+      "id": "angoorkhatte",
+      "hi": "अंगूर खट्टे हैं",
+      "meaning": { "hi": "जो चीज़ न मिले, उसे बुरा बताना", "en": "sour grapes: calling something bad because you can't have it" },
+      "example": {
+        "hi": "टीम में जगह नहीं मिली तो बोला, क्रिकेट तो बोरिंग है। यानी अंगूर खट्टे हैं!",
+        "en": "He did not make the team and said cricket is boring. Sour grapes!"
+      },
+      "options": ["जो चीज़ न मिले, उसे बुरा बताना", "फल का स्वाद ख़राब होना", "खट्टा खाना पसंद करना"],
+      "strip": [
+        {
+          "bg": "ground",
+          "cast": [{ "who": "montu", "at": 30, "face": "sad" }, { "who": "kavya", "at": 72, "face": "sly", "arms": "chin" }],
+          "say": [{ "who": "montu", "text": "टीम में मेरा नाम नहीं आया। वैसे भी क्रिकेट बोरिंग है!" }, { "who": "kavya", "text": "अच्छा? यानी अंगूर खट्टे हैं!" }]
+        },
+        {
+          "bg": "kitchen",
+          "cast": [{ "who": "chippu", "at": 34, "face": "think", "arms": "down", "hold": "plate" }, { "who": "nani", "at": 74, "face": "laugh" }],
+          "say": [{ "who": "chippu", "text": "अंगूर की जाँच: मीठे हैं! खट्टे बिल्कुल नहीं!" }]
+        },
+        {
+          "bg": "ground",
+          "cast": [{ "who": "kavya", "at": 28, "face": "smile", "arms": "point" }, { "who": "montu", "at": 72, "face": "grin", "arms": "up", "hold": "bat" }],
+          "say": [
+            { "who": "kavya", "text": "मतलब है, जो न मिले, उसे बुरा कहना। अगली बार और अभ्यास!" },
+            { "who": "montu", "text": "ठीक है! अगली बार टीम में मेरा नाम पक्का!" }
+          ]
+        }
+      ],
+      "level": "grade8"
+    },
+    {
+      "id": "sonepesuhaga",
+      "hi": "सोने पे सुहागा",
+      "meaning": { "hi": "अच्छी चीज़ के साथ और अच्छा हो जाना", "en": "the icing on the cake" },
+      "example": { "hi": "छुट्टी का दिन, बारिश और गरम पकौड़े, यह तो सोने पे सुहागा है!", "en": "A holiday, rain and hot pakoras: the icing on the cake!" },
+      "options": ["अच्छी चीज़ के साथ और अच्छा हो जाना", "सोना ख़रीदना", "बहुत महँगा होना"],
+      "strip": [
+        {
+          "bg": "room",
+          "cast": [{ "who": "kavya", "at": 30, "face": "laugh", "arms": "up", "hold": "trophy" }, { "who": "nani", "at": 72, "face": "smile" }],
+          "say": [{ "who": "kavya", "text": "पहला इनाम मिला, और आज मेरा जन्मदिन भी! सोने पे सुहागा!" }]
+        },
+        {
+          "bg": "street",
+          "cast": [{ "who": "chippu", "at": 34, "face": "think", "arms": "down", "hold": "coins" }, { "who": "montu", "at": 74, "face": "laugh" }],
+          "say": [{ "who": "chippu", "text": "सोना? सुहागा? सुनार की दुकान का पता खोज रहा हूँ..." }]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "nani", "at": 28, "face": "smile", "arms": "down", "hold": "laddoo" }, { "who": "chippu", "at": 72, "face": "grin", "arms": "wave" }],
+          "say": [
+            { "who": "nani", "text": "मतलब है, अच्छे के साथ और अच्छा! लो, जन्मदिन के लड्डू!" },
+            { "who": "chippu", "text": "लड्डू के साथ लड्डू! सोने पे सुहागा!" }
+          ]
+        }
+      ],
+      "level": "grade8"
+    },
+    {
+      "id": "kaanbharna",
+      "hi": "कान भरना",
+      "meaning": { "hi": "किसी के बारे में चुगली करना, झूठी बातें बताना", "en": "to poison someone's mind against another" },
+      "example": { "hi": "किसी ने टीचर के कान भर दिए कि खिड़की मोंटू ने तोड़ी।", "en": "Someone poisoned the teacher's mind, saying Montu broke the window." },
+      "options": ["किसी के बारे में चुगली करना, झूठी बातें बताना", "कान में दवा डालना", "ज़ोर से बोलना"],
+      "strip": [
+        {
+          "bg": "school",
+          "cast": [{ "who": "kavya", "at": 30, "face": "angry", "arms": "hips" }, { "who": "chippu", "at": 74, "face": "smile" }],
+          "say": [{ "who": "kavya", "text": "किसी ने टीचर के कान भर दिए कि मैंने नक़ल की!" }]
+        },
+        {
+          "bg": "school",
+          "cast": [{ "who": "chippu", "at": 34, "face": "shock", "arms": "up", "hold": "glass" }, { "who": "kavya", "at": 74, "face": "shock" }],
+          "say": [{ "who": "chippu", "text": "कान भरे? पानी से? टीचर के कान सुखाने पड़ेंगे!", "kind": "shout" }]
+        },
+        {
+          "bg": "classroom",
+          "cast": [{ "who": "kavya", "at": 28, "face": "smile", "arms": "point" }, { "who": "chippu", "at": 72, "face": "grin", "arms": "down", "hold": "phone" }],
+          "say": [
+            { "who": "kavya", "text": "मतलब है, किसी के बारे में झूठी बातें बताना।" },
+            { "who": "chippu", "text": "सच मेरी रिकॉर्डिंग में है! चलो, टीचर को सुनाते हैं।" }
+          ]
+        }
+      ],
+      "level": "grade8"
+    },
+    {
+      "id": "batangad",
+      "hi": "बात का बतंगड़ बनाना",
+      "meaning": { "hi": "छोटी सी बात को बहुत बढ़ा-चढ़ाकर कहना", "en": "to make a mountain out of a molehill" },
+      "example": { "hi": "एक गिलास गिरा, और पूरे मोहल्ले में बात का बतंगड़ बन गया।", "en": "One glass fell, and the whole neighbourhood made a huge fuss of it." },
+      "options": ["छोटी सी बात को बहुत बढ़ा-चढ़ाकर कहना", "बहुत बातें करना", "कहानी लिखना"],
+      "strip": [
+        {
+          "bg": "colony",
+          "cast": [{ "who": "montu", "at": 30, "face": "shock", "arms": "up" }, { "who": "nani", "at": 72, "face": "laugh" }],
+          "say": [{ "who": "montu", "text": "सुना? नानी के घर में भूकंप आया!", "kind": "shout" }, { "who": "nani", "text": "अरे, बस एक कटोरी गिरी थी!" }]
+        },
+        {
+          "bg": "colony",
+          "cast": [{ "who": "chippu", "at": 34, "face": "worried", "arms": "up" }, { "who": "montu", "at": 74, "face": "laugh" }],
+          "say": [{ "who": "chippu", "text": "भूकंप! सब बाहर निकलो! अलार्म चालू!", "kind": "shout" }],
+          "sfx": "वीं-वीं!"
+        },
+        {
+          "bg": "colony",
+          "cast": [{ "who": "kavya", "at": 28, "face": "laugh", "arms": "point" }, { "who": "chippu", "at": 72, "face": "think", "arms": "chin" }],
+          "say": [{ "who": "kavya", "text": "रुको, चिप्पू! मोंटू बात का बतंगड़ बना रहा है।" }, { "who": "chippu", "text": "यानी छोटी बात को बड़ा बनाना। अलार्म बंद!" }]
+        }
+      ],
+      "level": "grade8"
+    },
+    {
+      "id": "jaleparnamak",
+      "hi": "जले पर नमक छिड़कना",
+      "meaning": { "hi": "दुखी को और दुखी करना", "en": "to rub salt in someone's wounds" },
+      "example": { "hi": "मैच हारने के बाद उसका मज़ाक़ उड़ाना जले पर नमक छिड़कना है।", "en": "Mocking him after he lost the match is rubbing salt in his wounds." },
+      "options": ["दुखी को और दुखी करना", "खाने में नमक डालना", "आग बुझाना"],
+      "strip": [
+        {
+          "bg": "ground",
+          "cast": [{ "who": "montu", "at": 30, "face": "sad" }, { "who": "rocky", "at": 72, "face": "sly", "arms": "point" }],
+          "say": [{ "who": "montu", "text": "हम मैच हार गए..." }, { "who": "rocky", "text": "हा हा! तुम तो हारोगे ही!" }]
+        },
+        {
+          "bg": "ground",
+          "cast": [{ "who": "kavya", "at": 28, "face": "angry", "arms": "hips" }, { "who": "chippu", "at": 72, "face": "think", "arms": "chin" }],
+          "say": [{ "who": "kavya", "text": "रॉकी, जले पर नमक मत छिड़को!" }, { "who": "chippu", "text": "नमक? जला कहाँ है? पहले मरहम लगाओ!" }]
+        },
+        {
+          "bg": "ground",
+          "cast": [{ "who": "kavya", "at": 22, "face": "smile", "arms": "point" }, { "who": "rocky", "at": 52, "face": "sad" }, { "who": "montu", "at": 80, "face": "grin" }],
+          "say": [{ "who": "kavya", "text": "मतलब है, दुखी को और दुखी करना।" }, { "who": "rocky", "text": "सॉरी, मोंटू। अगला मैच साथ खेलें?" }]
+        }
+      ],
       "level": "grade8"
     }
   ],

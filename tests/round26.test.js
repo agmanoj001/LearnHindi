@@ -525,3 +525,58 @@ test('a solved riddle is kept with the progress, and the home screen has the cor
   for (const k of ['cornerHello', 'riddleRight', 'riddleTry']) assert.ok(content.phrases[k]?.hi, k);
   for (const c of ['.corner-btn', '.riddle-card', '.riddle-opt', '.riddle-why']) assert.ok(css.includes(c), c);
 });
+
+import { idiomOfDay, idiomsFor, idiomChoices, idiomsLearnt, idiomDoneToday, castLine } from '../js/corner.js';
+import { comicVoiceLines } from '../js/shows.js';
+import { castVoiceName } from '../js/castvoices.js';
+import { textKey } from '../js/logic.js';
+
+test('an idiom a day for each grade, in turn, each with a strip where Chippu takes it literally', () => {
+  for (const level of CORNER_LEVELS) {
+    const list = idiomsFor(content, level);
+    assert.ok(list.length >= 15, `${level}: ${list.length} idioms`);
+    const days = Array.from({ length: list.length }, (_, i) => idiomOfDay(content, level, Date.UTC(2026, 10, 1 + i, 12)).id);
+    assert.equal(new Set(days).size, list.length);
+  }
+  for (const x of content.idioms) {
+    assert.equal(x.strip.length, 3, `${x.id}: three panels`);
+    const who = x.strip.flatMap((p) => (p.say || []).map((b) => b.who));
+    assert.ok(who.includes('chippu'), `${x.id}: Chippu takes it literally`);
+    // the last panel sets him right: it says what it means
+    assert.match(x.strip.at(-1).say.map((b) => b.text).join(' '), /मतलब|यानी/, `${x.id}: the last panel explains it`);
+    assert.deepEqual([...idiomChoices(x)].sort(), [...x.options].sort());
+    assert.ok(x.options.includes(x.meaning.hi) && x.example.hi.length > 10 && x.example.en);
+  }
+});
+
+test('the strips speak in the characters\' voices, the meanings in the narrator\'s; progress keeps what was learnt', () => {
+  const voiced = new Map(comicVoiceLines(content, castVoiceName).map((l) => [l.key, l]));
+  for (const x of content.idioms)
+    for (const p of x.strip)
+      for (const b of p.say) {
+        const seg = castLine(b.who, b.text);
+        assert.ok(voiced.has(textKey(`hi.${seg.voice}`, seg.text)), `${x.id}: "${b.text}" is recorded in ${b.who}'s voice`);
+      }
+  const narr = new Set(lessonVoiceLines(content).map((l) => l.text));
+  for (const x of content.idioms) assert.ok(narr.has(x.hi) && narr.has(`${x.hi}: ${x.meaning.hi}`), x.id);
+  const x = idiomOfDay(content, 'grade8', Date.UTC(2026, 10, 17, 12));
+  const p = normalizeProgress({ idioms: { [x.id]: '2026-11-17', 'X Y': '2026-11-17' } }, content);
+  assert.deepEqual(p.idioms, { [x.id]: '2026-11-17' });
+  assert.equal(idiomsLearnt(p), 1);
+  assert.ok(idiomDoneToday(p, x, new Date(2026, 10, 17, 9).getTime()));
+});
+
+test('the idiom screen hides the last panel until the meaning is found; the validator checks the strips', () => {
+  const corner = read('js/corner.js');
+  assert.match(corner, /last\.classList\.add\('locked'\)/);
+  assert.match(corner, /idiomCard\(api\)/);
+  assert.match(read('js/app.js'), /case 'idiom':[\s\S]{0,60}idiomScreen\(api\)/);
+  for (const c of ['.idiom-card', '.idiom-strip', '.strip-panel.locked', '.idiom-guess', '.idiom-meaning']) assert.ok(css.includes(c), c);
+  for (const k of ['idiomGuess', 'idiomRight']) assert.ok(content.phrases[k]?.hi, k);
+  const broken = structuredClone(content);
+  broken.idioms[0].strip[1].cast.push({ who: 'nobody', at: 50 });
+  broken.idioms[1].options = [broken.idioms[1].options[1], broken.idioms[1].options[2], 'कुछ और'];
+  const errs = validateContent(broken, { themes: THEMES, mascots: MASCOT_IDS }).errors.join('\n');
+  assert.match(errs, /"nobody" is not in the cast/);
+  assert.match(errs, /options must include its meaning/);
+});

@@ -11690,3 +11690,132 @@ body:has(.game-grammar) .caption-bar,
   font-size: 13px;
   color: var(--muted);
 }
+/* the idiom of the day: its card, and the strip with "what does it really mean?" before the last panel */
+.idiom-card {
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+  background: linear-gradient(180deg, #eef6ff, #fff);
+}
+.idiom-peek {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.idiom-peek-pic {
+  flex: none;
+  width: 72px;
+  height: 84px;
+}
+.idiom-peek-pic svg {
+  width: 100%;
+  height: 100%;
+}
+.idiom-peek b {
+  font-size: 24px;
+  line-height: 1.3;
+}
+.idiom-go {
+  align-self: flex-end;
+  font-weight: 700;
+  color: var(--brand);
+}
+.idiom-main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 2px 40px;
+}
+.idiom-title {
+  width: fit-content;
+  max-width: 100%;
+  margin: 4px auto 14px;
+  padding: 6px 18px;
+  border: 3px solid #1f2340;
+  border-radius: 8px;
+  font-size: clamp(24px, 6.5vw, 36px);
+  line-height: 1.3;
+  text-align: center;
+  background: #ffe680;
+  box-shadow: 4px 4px 0 #1f2340;
+  transform: rotate(-1deg);
+}
+.idiom-strip {
+  display: grid;
+  gap: 16px;
+}
+.strip-panel.locked {
+  pointer-events: none;
+}
+.strip-panel.locked > * {
+  filter: blur(9px) grayscale(0.5);
+}
+.strip-panel.locked::after {
+  content: '?';
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: grid;
+  place-items: center;
+  font: 800 96px 'Fredoka', var(--font);
+  color: #1f2340;
+}
+.idiom-guess {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px;
+  border: 3px dashed #c98a00;
+  border-radius: 18px;
+  background: #fff6d6;
+}
+.idiom-guess > small {
+  color: var(--muted);
+}
+.idiom-guess.done {
+  border-style: solid;
+  border-color: var(--good);
+  background: #e9fbef;
+}
+.idiom-meaning {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+.idiom-meaning[hidden] {
+  display: none;
+}
+.idiom-meaning p {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+}
+.idiom-meaning small {
+  font-weight: 700;
+  color: var(--brand);
+}
+.idiom-meaning b {
+  font-size: 19px;
+  line-height: 1.4;
+}
+.idiom-meaning span {
+  font-size: 13px;
+  color: var(--muted);
+}
+/* a tablet: the panels side by side, the question under them */
+@media (min-width: 760px) {
+  .idiom-strip {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .idiom-guess {
+    grid-column: 1 / -1;
+    order: 9;
+  }
+  .idiom-meaning {
+    grid-template-columns: 1fr 1fr;
+  }
+}
