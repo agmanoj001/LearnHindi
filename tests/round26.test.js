@@ -631,7 +631,7 @@ test('the comic maker is in the corner, typed words are shown as text, and the f
   const maker = read('js/comicmaker.js');
   const corner = read('js/corner.js');
   assert.match(corner, /makerCard\(api\)/);
-  assert.match(read('js/app.js'), /case 'comicmaker':[\s\S]{0,60}comicMaker\(api\)/);
+  assert.match(read('js/app.js'), /case 'comicmaker':[\s\S]{0,120}comicMaker\(api\)/);
   assert.match(read('sw.js'), /'js\/comicmaker\.js'/);
   // what a child types never goes in as HTML
   assert.match(corner, /comic-bubble[^]*?text: b\.text/);
@@ -683,7 +683,7 @@ test('a quiz duel: ten questions from the grade, first right tap scores, a wrong
 
 test('the duel is in the corner, the top half faces the other player, and the winner is said without gender', () => {
   assert.match(read('js/corner.js'), /duelCard\(api\)/);
-  assert.match(read('js/app.js'), /case 'duel':[\s\S]{0,60}duelScreen\(api\)/);
+  assert.match(read('js/app.js'), /case 'duel':[\s\S]{0,120}duelScreen\(api\)/);
   assert.match(css, /\.duel-half\.top \{[^}]*rotate\(180deg\)/);
   assert.match(read('sw.js'), /'js\/duel\.js'/);
   for (const k of ['duelHello', 'duelTopWins', 'duelBottomWins', 'duelDraw']) assert.ok(content.phrases[k]?.hi, k);
@@ -755,4 +755,44 @@ test('the app loads the core and its grade first, the service worker saves every
   const partial = mergeContent(core, firstPacks(core, 'toddler').map((p) => JSON.parse(files[p.file])));
   const grade3Story = content.stories.find((s) => s.level === 'grade3').id;
   assert.deepEqual(normalizeProgress({ favs: [grade3Story, 'no-such-story'] }, partial).favs, [grade3Story]);
+});
+
+// ---- 8.5 the performance budget ----
+test("index.html preloads exactly the modules the first screen imports, and starts the content's download", () => {
+  // the first screen's modules: everything app.js imports statically, followed through
+  const seen = new Set();
+  const walk = (f) => {
+    if (seen.has(f)) return;
+    seen.add(f);
+    const src = read(f);
+    for (const m of src.matchAll(/^import\s[^;]*?from\s+'(\.[^']+)'/gms)) {
+      const parts = f.split('/').slice(0, -1);
+      for (const seg of m[1].split('/')) seg === '..' ? parts.pop() : seg !== '.' && parts.push(seg);
+      walk(parts.join('/'));
+    }
+  };
+  walk('js/app.js');
+  const html = read('index.html');
+  const pre = [...html.matchAll(/<link rel="modulepreload" href="([^"]+)"/g)].map((m) => m[1]);
+  assert.deepEqual([...pre].sort(), [...seen].filter((f) => f !== 'js/app.js').sort(), 'the modulepreload list in index.html is out of step with the imports');
+  // what is left out of the first screen loads when its screen opens
+  for (const m of ['shows.js', 'parent.js', 'validate.js', 'comicmaker.js', 'duel.js']) assert.ok(!seen.has(`js/${m}`), `${m} is not needed for the first screen`);
+  assert.match(read('js/app.js'), /import\('\.\/shows\.js'\)/);
+  assert.match(read('js/app.js'), /import\('\.\/validate\.js'\)/);
+  // the content starts downloading before the code has loaded, and the fonts don't compete with it
+  assert.match(html, /window\.__early = early/);
+  assert.doesNotMatch(html, /rel="preload"[^>]*font/);
+  assert.match(read('js/app.js'), /window\.__early/);
+  // the other grades' packs wait until the first screen is up
+  assert.match(read('js/app.js'), /requestAnimationFrame\(\(\) => setTimeout\(state\.startRest/);
+});
+
+test('long lists draw their pictures as they come near the screen', () => {
+  const ui = read('js/ui.js');
+  assert.match(ui, /export function drawWhenSeen/);
+  assert.match(ui, /IntersectionObserver/);
+  const screens = read('js/screens.js');
+  assert.match(screens, /drawWhenSeen\('div', \{ class: 'world-card-scene' \}/);
+  assert.match(screens, /drawWhenSeen\('span', \{ class: 'book-cover' \}/);
+  assert.match(read('docs/PERFORMANCE.md'), /\| The first screen on a \*\*first open over 4G\*\*/);
 });

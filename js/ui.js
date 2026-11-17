@@ -17,6 +17,35 @@ export function el(tag, props = {}, children = []) {
 
 export const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
+// A picture drawn only when it comes near the screen (docs/ROADMAP.md 8.5): long lists (the home screen's
+// world cards, the library's books) build their art as they scroll close, not all before the first frame.
+// `now` draws it at once (the first few, which are on screen anyway). The margins start drawing a little
+// before a picture scrolls into view, so it is there when it arrives.
+let seer = null;
+const toDraw = new WeakMap();
+export function drawWhenSeen(tag, props, draw, { now = false } = {}) {
+  const node = el(tag, props);
+  if (now || typeof IntersectionObserver !== 'function') {
+    node.innerHTML = draw();
+    return node;
+  }
+  seer ||= new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        const d = toDraw.get(e.target);
+        if (d) e.target.innerHTML = d();
+        toDraw.delete(e.target);
+        seer.unobserve(e.target);
+      }
+    },
+    { rootMargin: '400px 0px', scrollMargin: '400px 0px' },
+  );
+  toDraw.set(node, draw);
+  seer.observe(node);
+  return node;
+}
+
 // Text for grown-ups on a child's screen (docs/ROADMAP.md 4.6) is marked with forGrownups() and stays
 // hidden inside `scope` until its ⓘ is tapped; the button shows or hides all of it at once.
 const INFO_SVG =

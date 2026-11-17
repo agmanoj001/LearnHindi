@@ -486,7 +486,7 @@ npm install --no-save playwright && npx playwright install chromium
 node tools/browser-check.mjs
 ```
 
-runs the browser checks that every push and pull request runs too (`.github/workflows/test.yml`): install the app, go offline, play a lesson from each grade, restart and check the stars, then draw the main screens into `browser-check/screens`. `node tools/browser-check.mjs --compare BEFORE --with AFTER` compares two sets of screens; on a pull request, CI compares the screens before and after the change and lists what changed in the job summary.
+runs the browser checks that every push and pull request runs too (`.github/workflows/test.yml`): install the app, go offline, play a lesson from each grade, restart and check the stars, then draw the main screens into `browser-check/screens`. `node tools/browser-check.mjs --compare BEFORE --with AFTER` compares two sets of screens; on a pull request, CI compares the screens before and after the change and lists what changed in the job summary. `node tools/perf-budget.mjs` times the first screen on an emulated mid-range phone against the budget in [docs/PERFORMANCE.md](docs/PERFORMANCE.md) (CI reports it too).
 
 ## Deploy on GitHub Pages
 

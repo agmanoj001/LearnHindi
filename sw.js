@@ -17,6 +17,7 @@ const SHELL = [
   'fonts/fredoka-latin.woff2',
   'js/app.js',
   'js/packs.js',
+  'js/show-icons.js',
   'js/guide.js',
   'js/together.js',
   'js/freeplay.js',

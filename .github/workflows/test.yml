@@ -35,6 +35,10 @@ jobs:
         run: |
           git worktree add ../before ${{ github.event.pull_request.base.sha }}
           node tools/browser-check.mjs --root ../before --screens-only --out out/before
+      - name: Performance budget (docs/PERFORMANCE.md)
+        # timings on a shared machine vary: over budget is a warning in the summary, not a failure
+        continue-on-error: true
+        run: node tools/perf-budget.mjs --runs 3 --summary "$GITHUB_STEP_SUMMARY"
       - name: Compare the screens
         if: github.event_name == 'pull_request'
         run: node tools/browser-check.mjs --compare out/before/screens --with out/after/screens --out out --summary "$GITHUB_STEP_SUMMARY"

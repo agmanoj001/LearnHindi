@@ -3,6 +3,7 @@
 // builds every scene from the app's own drawings, so an episode weighs a few kilobytes and works
 // offline. Every line can be spoken by a family recording (Grown-ups › Record your voice › Shows).
 import { el, sleep, bounce, wobble, ICONS, infoButton, forGrownups } from './ui.js';
+import { TV, RADIO, SHOW_ICONS } from './show-icons.js';
 import { createMascot, mascotSvg } from './mascot.js';
 import { sceneSvg } from './art-scenes.js';
 import { picture, pictureForWord } from './art.js';
@@ -161,11 +162,9 @@ export function radioSteps(story, langs, words = {}) {
 
 // ---------- shared bits ----------
 
-const TV = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="3"/><path d="M8 3l4 4 4-4"/><path d="M10 11v5l4-2.5z" fill="currentColor"/></svg>';
-const RADIO = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="12" rx="3"/><path d="M7 8l10-5"/><circle cx="15.5" cy="14" r="2.6"/><path d="M6.5 12.5h4M6.5 15.5h4"/></svg>';
 const PAUSE = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><rect x="6.5" y="5" width="4" height="14" rx="1.5"/><rect x="13.5" y="5" width="4" height="14" rx="1.5"/></svg>';
 const EAR = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3" fill="currentColor"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4"/></svg>';
-export const SHOW_ICONS = { tv: TV, radio: RADIO };
+export { SHOW_ICONS };
 
 const levelName = (api, id) => api.state.content.levels.find((l) => l.id === id)?.name || { hi: id, en: id };
 const worldOf = (api, show) => api.state.content.worlds.find((w) => w.id === show.world);

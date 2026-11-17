@@ -1,6 +1,6 @@
 // Screens outside a lesson: splash, onboarding, the world hub, a world's path map,
 // results, the sticker collection and the story library.
-import { el, sleep, bounce, animate, sparkleAt, flyTo, ICONS, infoButton, forGrownups } from './ui.js';
+import { el, sleep, bounce, animate, sparkleAt, flyTo, ICONS, infoButton, forGrownups, drawWhenSeen } from './ui.js';
 import { createMascot, mascotSvg, MASCOTS, MASCOT_IDS, setOutfit, currentOutfit } from './mascot.js';
 import { REWARDS, REWARD_KINDS, unlockedRewards, nextReward, styleFor } from './rewards.js';
 import { recordBook, playBook, bookPicture } from './mybooks.js';
@@ -14,7 +14,7 @@ import { PLACEMENT_LEVELS, placementQuestions, placementResult } from './placeme
 import { picture, pictureForWord, specialVehicle } from './art.js';
 import { weekDays, trailSticker, dayFinished, weekFull, isoDay, stickyPlan } from './curriculum.js';
 import { worldLessons, lessonRecord, isUnlocked, currentLesson, nextLesson, worldStars, hubWorlds, streak, nextCollectible, todayPlan, storyLang, worldStoryLang, storyNeeds, taughtMatras, decodability, nextDecodable, MATRA_SIGNS } from './curriculum.js';
-import { SHOW_ICONS } from './shows.js';
+import { SHOW_ICONS } from './show-icons.js';
 import { greeting, timeSlot, HELLO, milestoneLine, totalStars } from './guide.js';
 import { playersFrom, GROWN_UP } from './together.js';
 import { load, KEYS, profileKey } from './storage.js';
@@ -243,12 +243,15 @@ export function hub(api) {
   const level = (id) => content.levels.find((l) => l.id === id);
   const days = streak(progress.days, Date.now());
 
+  // the first two cards are drawn at once; the rest as they come near the screen (roadmap 8.5)
+  let drawn = 0;
   const card = (world) => {
+    const now = drawn++ < 2;
     const st = worldStars(progress, world);
     const sub = subjectName(world);
     const c = el('button', { class: `world-card theme-${world.theme}`, style: { '--place': world.color }, 'data-grow': `world:${world.id}`, 'aria-label': `${world.name.en}, ${level(world.level).name.en}` }, [
-      el('div', { class: 'world-card-scene', html: sceneSvg(world.theme, { crop: 'bottom' }) }),
-      el('div', { class: 'world-card-mascot', html: mascotSvg(world.mascot) }),
+      drawWhenSeen('div', { class: 'world-card-scene' }, () => sceneSvg(world.theme, { crop: 'bottom' }), { now }),
+      drawWhenSeen('div', { class: 'world-card-mascot' }, () => mascotSvg(world.mascot), { now }),
       el('div', { class: 'world-card-text' }, [
         el('span', { class: 'chips' }, [el('span', { class: 'chip grade', text: one(api, level(world.level).name) }), el('span', { class: `chip subject ${world.subject}`, text: one(api, sub, english(world) ? 'en' : 'hi') })]),
         bigName(world, world.name, 'world-name-hi'),
@@ -1132,13 +1135,14 @@ export function library(api, w) {
   const taught = decoding ? taughtMatras(content, progress, api.state.settings.level) : null;
   const canRead = (s) => decodability(storyNeeds(s), taught);
   const next = decoding ? nextDecodable(stories, taught, isRead) : null;
+  let shown = 0;
   const book = (s, { hero = false } = {}) => {
     const read = isRead(s);
     const d = decoding ? canRead(s) : null;
     const b = el('button', { class: `book ${read ? 'read' : ''} ${s.kind === 'poem' ? 'poem' : ''}${hero ? ' next-book' : ''}`, 'data-grow': `story:${s.id}`, 'aria-label': s.title.en }, [
       hero ? el('span', { class: 'next-ribbon' }, said(api, { hi: 'अब यह पढ़ो!', en: 'Read this next!' })) : null,
       s.kind === 'poem' ? el('span', { class: 'poem-ribbon', text: s.lang === 'en' ? 'Rhyme' : 'कविता · Poem' }) : null,
-      el('span', { class: 'book-cover', html: pictureForWord(api.word(s.cover)) }),
+      drawWhenSeen('span', { class: 'book-cover' }, () => pictureForWord(api.word(s.cover)), { now: hero || shown++ < 6 }),
       // English rhymes lead with their English title
       s.lang === 'en' ? el('span', { class: 'book-title latin', text: s.title.en }) : el('span', { class: 'book-title', lang: 'hi', text: s.title.hi }),
       el('span', { class: 'book-title-en', lang: s.lang === 'en' ? 'hi' : 'en', text: s.lang === 'en' ? s.title.hi : s.title.en }),
