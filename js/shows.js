@@ -26,11 +26,37 @@ export function showOrder(content, level) {
   return (content.shows || []).map((s, i) => ({ s, i })).sort((a, b) => rank(a.s) - rank(b.s) || a.i - b.i).map((x) => x.s);
 }
 
+// A guide's series (docs/ROADMAP.md 7.15): its episodes in order, and the one after this one.
+export const seriesEpisodes = (content, seriesId) => (content.shows || []).filter((s) => s.series === seriesId).sort((a, b) => a.ep - b.ep);
+export const nextInSeries = (content, show) => (show?.series ? seriesEpisodes(content, show.series).find((s) => s.ep === show.ep + 1) || null : null);
+// The Show time shelves: each series (this grade's first), with the episode to watch next (the first not watched).
+export function seriesShelves(content, level, progress) {
+  const shelves = [];
+  for (const s of showOrder(content, level)) {
+    const key = s.series || `one:${s.id}`;
+    let shelf = shelves.find((x) => x.key === key);
+    if (!shelf) {
+      const info = (content.showSeries || []).find((x) => x.id === s.series) || null;
+      shelf = { key, info, shows: [] };
+      shelves.push(shelf);
+    }
+    shelf.shows.push(s);
+  }
+  for (const shelf of shelves) {
+    shelf.shows.sort((a, b) => (a.ep || 0) - (b.ep || 0));
+    shelf.upNext = shelf.shows.find((s) => !progress?.shows?.[s.id]) || null;
+    shelf.watched = shelf.shows.filter((s) => progress?.shows?.[s.id]).length;
+  }
+  return shelves;
+}
+
 export function nextShow(content, level, id, progress) {
   const list = showOrder(content, level);
   const at = list.findIndex((s) => s.id === id);
   const rest = [...list.slice(at + 1), ...list.slice(0, Math.max(0, at))];
-  return rest.find((s) => !progress?.shows?.[s.id]) || rest[0] || null;
+  const fresh = (s) => !progress?.shows?.[s.id];
+  // one not watched yet, from this grade if there is one
+  return rest.find((s) => fresh(s) && s.level === level) || rest.find(fresh) || rest[0] || null;
 }
 
 // Split Hindi into letter clusters (क्ष, ना …) so a syllable can be lit without breaking the script.
@@ -197,7 +223,6 @@ const splitWords = (text) => text.split(/(\s+)/).map((w) => (/^\s+$/.test(w) ? d
 export function showsHome(api) {
   const { content, settings, progress } = api.state;
   api.state.showRun = 0;
-  const list = showOrder(content, settings.level);
   const mode = settings.showMode === 'play' ? 'play' : 'watch';
   const modeBtn = (value, hi, en) =>
     el('button', {
@@ -210,11 +235,12 @@ export function showsHome(api) {
         showsHome(api);
       },
     }, [el('b', { lang: 'hi', text: hi }), el('span', { text: en })]);
-  const card = (show) => {
+  const card = (show, upNext = false) => {
     const w = worldOf(api, show);
     const seen = progress.shows?.[show.id];
     const first = show.scenes[0];
-    const b = el('button', { class: `show-card theme-${first.bg}`, style: { '--place': w?.color || '#6C63FF' }, 'data-grow': `show:${show.id}`, 'aria-label': show.title.en }, [
+    const b = el('button', { class: `show-card theme-${first.bg}${upNext ? ' up-next' : ''}`, style: { '--place': w?.color || '#6C63FF' }, 'data-grow': `show:${show.id}`, 'aria-label': `${show.ep ? `Episode ${show.ep}: ` : ''}${show.title.en}` }, [
+      show.ep ? el('span', { class: 'show-ep' }, [el('b', { lang: 'hi', text: `भाग ${show.ep}` }), upNext ? el('span', { text: 'अब यह!' }) : null]) : null,
       el('span', { class: 'show-thumb', html: sceneSvg(first.bg, { crop: 'bottom' }) }, [el('span', { class: 'show-thumb-guide', html: mascotSvg(w?.mascot || 'gappu') }), el('span', { class: 'show-play', html: ICONS.play })]),
       el('span', { class: 'show-card-text' }, [
         el('span', { class: 'chips' }, [el('span', { class: 'chip grade', text: levelName(api, show.level).en }), el('span', { class: `chip subject ${show.lang === 'en' ? 'math' : 'hindi'}`, text: show.lang === 'en' ? 'English' : 'हिन्दी' })]),
@@ -251,7 +277,26 @@ export function showsHome(api) {
     el('div', { class: 'shows-scroll' }, [
       el('div', { class: 'mode-row', role: 'group', 'aria-label': 'How to watch' }, [modeBtn('watch', 'देखो', 'Just watch'), modeBtn('play', 'साथ खेलो', 'Play along')]),
       forGrownups(el('p', { class: 'mode-note', text: mode === 'watch' ? 'Questions wait a few seconds, then the answer is shown. Good for trips.' : 'Questions wait until your child taps an answer.' })),
-      el('div', { class: 'show-cards' }, list.map(card)),
+      ...seriesShelves(content, settings.level, progress).map((shelf) => {
+        const g = shelf.info?.guide;
+        const row = el('div', { class: `show-cards${shelf.info ? ' series-row' : ''}` }, shelf.shows.map((s) => card(s, s === shelf.upNext)));
+        // open the shelf at the episode to watch next
+        if (shelf.upNext && shelf.info)
+          requestAnimationFrame(() => {
+            const c = row.querySelector('.up-next');
+            if (c) row.scrollLeft = c.offsetLeft - row.offsetLeft - (row.clientWidth - c.offsetWidth) / 2;
+          });
+        return el('section', { class: 'show-series', 'aria-label': shelf.info?.title.en || shelf.shows[0].title.en }, [
+          shelf.info
+            ? el('header', { class: 'series-head' }, [
+                el('span', { class: 'series-guide', 'aria-hidden': 'true', html: mascotSvg(g) }),
+                el('span', { class: 'series-name' }, [el('b', { lang: 'hi', text: shelf.info.title.hi }), el('small', { text: shelf.info.title.en })]),
+                el('span', { class: 'series-count', text: `${shelf.watched}/${shelf.shows.length}` }),
+              ])
+            : null,
+          row,
+        ]);
+      }),
       radioCard,
     ]),
   );
@@ -515,6 +560,10 @@ export async function showPlayer(api, show) {
       propAt('tenframe', el('div', { class: 'show-math', html: mathModel({ kind: 'tenframe', frames: b.tenframe }) }), b.at ?? 50);
       api.sfx.pop();
       await sleep(600);
+    } else if (k === 'model') {
+      propAt('model', el('div', { class: `show-math model-${b.model.kind}`, html: mathModel(b.model) }), b.at ?? 50);
+      api.sfx.pop();
+      await sleep(700);
     } else if (k === 'number') {
       propAt('number', el('div', { class: 'show-number', text: String(b.number) }), b.at ?? 50);
       api.sfx.pop();
@@ -617,11 +666,26 @@ export async function showPlayer(api, show) {
     await speak(b, b.echo, showBubble(who, b.echo, { big: true }));
   };
 
+  // a series episode: the guide answers the last episode's question first, and ends on the next one's
+  const guide = (content.showSeries || []).find((x) => x.id === show.series)?.guide || world?.mascot || null;
+  const guideSays = async (text, react, cls) => {
+    await untilResumed();
+    if (!alive() || !guide) return;
+    const a = actorEl(guide);
+    if (a.x < 0 || a.x > 100) await walkTo(a, 50);
+    a.m.react(react);
+    const shown = showBubble(guide, text);
+    bubble.classList.add(cls);
+    await speak(text, text, shown);
+    bubble.classList.remove(cls);
+  };
+
   // ---- play it ----
   await sleep(300);
   for (let s = 0; s < show.scenes.length; s++) {
     if (!alive()) return;
     await setScene(s);
+    if (s === 0 && show.answer) await guideSays(show.answer, 'happy', 'answer');
     const beats = show.scenes[s].beats;
     for (let i = 0; i < beats.length; i++) {
       if (!alive()) return;
@@ -633,16 +697,23 @@ export async function showPlayer(api, show) {
     }
   }
   if (!alive()) return;
+  if (show.next) {
+    await guideSays(show.next, 'oops', 'teaser');
+    await sleep(1200); // a moment to think about it
+    if (!alive()) return;
+  }
   hideBubble();
   markWatched(api, show);
   recap(api, show, { screen, wordLangs, main, sub, watch, alive });
 }
 
 // After the episode: the words again, then practise them in a game or watch the next episode.
-async function recap(api, show, { screen, wordLangs, watch, alive }) {
+async function recap(api, show, { screen, wordLangs, main, sub, watch, alive }) {
   const { content, settings, progress } = api.state;
   api.state.showRun = (api.state.showRun || 0) + 1;
-  const next = nextShow(content, settings.level, show.id, progress);
+  // in a series the next episode is the one that answers this one's question
+  const inSeries = nextInSeries(content, show);
+  const next = inSeries || nextShow(content, settings.level, show.id, progress);
   const lesson = show.lesson ? content.worlds.flatMap((w) => w.units.flatMap((u) => u.lessons)).find((l) => l.id === show.lesson) : null;
   const tired = api.state.showRun >= AUTOPLAY_MAX;
   const items = show.recap?.words
@@ -659,9 +730,21 @@ async function recap(api, show, { screen, wordLangs, watch, alive }) {
         return { node: b, say: sayIt };
       });
   const nextBtn = next ? el('button', { class: 'bubble green big recap-next', 'aria-label': `Next: ${next.title.en}`, html: ICONS.next }) : null;
+  const q = show.next;
+  const teaser =
+    inSeries && q
+      ? el('div', { class: 'recap-teaser' }, [
+          el('small', { lang: show.lang === 'en' ? 'en' : 'hi', text: show.lang === 'en' ? `Episode ${inSeries.ep} has the answer!` : `इसका जवाब भाग ${inSeries.ep} में!` }),
+          el('b', { lang: q[main] ? main : 'en', text: q[main] || q.en }),
+          sub && q[sub] ? el('span', { text: q[sub] }) : null,
+        ])
+      : show.series && !inSeries
+        ? el('p', { class: 'recap-teaser done' }, [el('b', { lang: 'hi', text: 'पूरी सीरीज़ देख ली! शाबाश!' }), el('span', { text: 'You watched the whole series!' })])
+        : null;
   const card = el('div', { class: 'show-recap' }, [
     el('h2', {}, show.lang === 'en' ? [el('span', { text: 'Remember!' })] : [el('span', { lang: 'hi', text: 'क्या तुमने देखा?' }), el('small', { text: 'Did you spot them?' })]),
     el('div', { class: 'recap-items' }, items.map((x) => x.node)),
+    teaser,
     tired ? el('p', { class: 'recap-stretch' }, [el('b', { lang: 'hi', text: 'तीन कार्टून हो गए! अब उठो और खिंचाव करो।' }), el('span', { text: "That's three shows! Time to stand up and stretch." })]) : null,
     el('div', { class: 'recap-buttons' }, [
       el('button', { class: 'bubble ghost', 'aria-label': 'All shows', html: TV, onclick: () => api.back() }),

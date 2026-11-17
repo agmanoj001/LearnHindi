@@ -575,12 +575,16 @@ export function normalizeProgress(saved, content) {
 // The beats an episode script can use (see README › Show time), and every spoken line in order
 // with the key a family recording uses: show-<id>-<n>_hi / _en.
 // Checked in this order: a beat can carry extra fields (a "letter" beat names its "word", a "say" beat may "do" something).
-export const BEAT_KINDS = ['say', 'narrate', 'ask', 'echo', 'letter', 'build', 'enter', 'move', 'exit', 'do', 'show', 'word', 'glyph', 'tenframe', 'number', 'clear', 'sfx', 'wait'];
+export const BEAT_KINDS = ['say', 'narrate', 'ask', 'echo', 'letter', 'build', 'enter', 'move', 'exit', 'do', 'show', 'word', 'glyph', 'tenframe', 'number', 'clear', 'sfx', 'wait', 'model'];
+// the maths pictures a Show time "model" beat can draw (js/art-math.js)
+export const SHOW_MODELS = ['tenframe', 'base10', 'compare10', 'clock', 'shape', 'parts', 'objects', 'measure', 'numberline', 'coin'];
 export const beatKind = (b) => BEAT_KINDS.find((k) => b && b[k] !== undefined) || null;
 
 export function showLines(show) {
   const lines = [];
   const add = (text, beat) => text && (text.hi || text.en) && lines.push({ key: `show-${show.id}-${lines.length + 1}`, hi: text.hi || '', en: text.en || '', beat });
+  // a series episode opens by answering the last one's question (docs/ROADMAP.md 7.15)
+  add(show.answer, show.answer);
   for (const scene of show.scenes || [])
     for (const b of scene.beats || []) {
       const k = beatKind(b);
@@ -590,6 +594,8 @@ export function showLines(show) {
         add(b.then, b);
       } else if (k === 'echo') add(b.echo, b);
     }
+  // ... and ends on the question the next one answers (last, so the pilots' keys stay as they were)
+  add(show.next, show.next);
   return lines;
 }
 

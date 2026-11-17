@@ -11422,3 +11422,131 @@ body:has(.game-grammar) .caption-bar,
     flex-basis: 100%;
   }
 }
+
+/* ---- Show time series (roadmap 7.15): a shelf per guide, the episode to watch next, and the question that leads on ---- */
+.show-series {
+  margin-bottom: 22px;
+}
+.series-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 4px 8px;
+}
+.series-guide {
+  flex: none;
+  width: 52px;
+  height: 52px;
+}
+.series-guide svg {
+  width: 100%;
+  height: 100%;
+}
+.series-name {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+.series-name b {
+  font-size: 20px;
+}
+.series-name small {
+  font: 600 13px 'Fredoka', var(--font);
+  color: var(--muted);
+}
+.series-count {
+  margin-left: auto;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font: 700 13px 'Fredoka', var(--font);
+  color: var(--muted);
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+}
+.show-cards.series-row {
+  display: flex;
+  gap: 14px;
+  margin: 0 -4px;
+  padding: 6px 4px 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+}
+.series-row .show-card {
+  flex: 0 0 min(80%, 290px);
+  scroll-snap-align: center;
+}
+.show-card {
+  position: relative;
+}
+.show-ep {
+  position: absolute;
+  z-index: 2;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 15px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: var(--shadow-sm);
+}
+.show-ep span {
+  padding: 0 8px;
+  border-radius: 999px;
+  font-size: 13px;
+  color: #fff;
+  background: var(--good);
+}
+.show-card.up-next {
+  outline: 4px solid var(--good);
+  outline-offset: 2px;
+}
+/* the guide answering last time's question, and asking the next */
+.show-bubble.answer,
+.show-bubble.teaser {
+  border-color: #c98a00;
+  background: #fff6d6;
+}
+.show-bubble.answer::after,
+.show-bubble.teaser::after {
+  border-right-color: #c98a00;
+  border-bottom-color: #c98a00;
+  background: #fff6d6;
+}
+.recap-teaser {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  max-width: 480px;
+  margin: 10px auto 2px;
+  padding: 10px 16px;
+  border-radius: 18px;
+  text-align: center;
+  background: #fff6d6;
+}
+.recap-teaser small {
+  font-weight: 700;
+  color: #9a6a00;
+}
+.recap-teaser b {
+  font-size: 18px;
+  line-height: 1.3;
+}
+.recap-teaser span {
+  font-size: 13px;
+  color: var(--muted);
+}
+.recap-teaser.done {
+  background: #e9fbef;
+}
+/* maths pictures in an episode (the clock, tens and ones, shapes and halves keep their own sizes) */
+.show-math.model-measure svg {
+  width: min(74vw, 340px);
+}
+.show-math.model-objects {
+  max-width: min(60vw, 340px);
+}

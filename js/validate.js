@@ -1,7 +1,7 @@
 // Validates content.json. Pure function: used by the app at startup and by tests.
 import { SKILLS } from './mathgen.js';
 import { PHONICS } from './phonicsgen.js';
-import { BEAT_KINDS, beatKind, tapTokens } from './logic.js';
+import { BEAT_KINDS, beatKind, tapTokens, SHOW_MODELS } from './logic.js';
 import { CAST, CAST_IDS, FACES, ARMS, PROPS, BACKGROUND_IDS } from './art-comic.js';
 import { actProblems } from './scene.js';
 
@@ -722,9 +722,45 @@ export function validateContent(c, { knownPictures = null, pictureExists = null,
             if (kind === 'echo') text(b.echo, `${bat}.echo`);
             if (kind === 'sfx' && !SOUNDS.includes(b.sfx)) err(`${bat}.sfx must be one of ${SOUNDS.join(', ')}`);
             if (kind === 'wait' && !(typeof b.wait === 'number' && b.wait > 0 && b.wait <= 10000)) err(`${bat}.wait must be milliseconds (up to 10000)`);
+            if (kind === 'model') {
+              const m = b.model;
+              if (!isObj(m) || !SHOW_MODELS.includes(m.kind)) err(`${bat}.model must be a maths picture: {"kind": one of ${SHOW_MODELS.join(', ')}}`);
+              else if (m.kind === 'measure' && !['pencil', 'snake', 'train', 'ribbon'].includes(m.thing)) err(`${bat}.model.thing must be pencil, snake, train or ribbon`);
+              else if (m.kind === 'clock' && !(Number.isInteger(m.h) && m.h >= 1 && m.h <= 12 && [0, 30].includes(m.m))) err(`${bat}.model: a clock needs h (1 to 12) and m (0 or 30)`);
+              else if (m.kind === 'base10' && !(Number.isInteger(m.tens) && Number.isInteger(m.ones) && m.tens >= 0 && m.tens <= 9 && m.ones >= 0 && m.ones <= 9)) err(`${bat}.model: base10 needs tens and ones from 0 to 9`);
+              else if (m.kind === 'objects' && !(Array.isArray(m.groups) && m.groups.every((g) => isObj(g) && Number.isInteger(g.n) && g.n >= 0 && g.n <= 20))) err(`${bat}.model: objects needs groups like [{"n": 5, "pic": "apple"}]`);
+            }
           });
         });
+        // a series (roadmap 7.15): its number in the series, the answer to the last episode's question, the next question
+        if (show.series !== undefined) {
+          if (!(c.showSeries || []).some((x) => x?.id === show.series)) err(`${sat}.series "${show.series}" is not one of showSeries`);
+          if (!Number.isInteger(show.ep) || show.ep < 1) err(`${sat}.ep must be its number in the series (1, 2, …)`);
+        }
+        if (show.answer !== undefined) text(show.answer, `${sat}.answer`);
+        if (show.next !== undefined) text(show.next, `${sat}.next`);
       });
+      // each series runs 1, 2, 3 … with no gaps; every episode but the last ends on a question, and every one but the first answers it
+      const seriesIds = new Set();
+      for (const sr of Array.isArray(c.showSeries) ? c.showSeries : []) {
+        if (!isObj(sr) || !isStr(sr.id) || !isObj(sr.title) || !isStr(sr.title.en) || !isStr(sr.title.hi)) {
+          err('showSeries: each needs an id and a title with "hi" and "en"');
+          continue;
+        }
+        if (seriesIds.has(sr.id)) err(`showSeries: duplicate id "${sr.id}"`);
+        seriesIds.add(sr.id);
+        if (mascots && !mascots.includes(sr.guide)) err(`showSeries "${sr.id}": guide "${sr.guide}" is not a guide`);
+        const eps = c.shows.filter((s) => s?.series === sr.id).sort((a, b) => a.ep - b.ep);
+        if (!eps.length) err(`showSeries "${sr.id}" has no episodes`);
+        eps.forEach((s, k) => {
+          if (s.ep !== k + 1) err(`showSeries "${sr.id}": episode ${k + 1} is missing (found ${s.ep}, "${s.id}")`);
+          const last = k === eps.length - 1;
+          if (!last && !s.next) err(`shows "${s.id}" needs "next": the question episode ${s.ep + 1} answers`);
+          if (last && s.next) err(`shows "${s.id}" is the last of its series, so it has no "next"`);
+          if (k > 0 && !s.answer) err(`shows "${s.id}" needs "answer": the answer to episode ${s.ep - 1}'s question`);
+          if (k === 0 && s.answer) err(`shows "${s.id}" is the first of its series, so it has no "answer"`);
+        });
+      }
     }
   }
 

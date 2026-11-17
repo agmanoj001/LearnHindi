@@ -17715,9 +17715,27 @@
     "comics": { "hi": "कॉमिक्स", "en": "Comics", "color": "#F97316" },
     "science": { "hi": "विज्ञान", "en": "Science", "color": "#0D9488" }
   },
+  "showSeries": [
+    {
+      "id": "gappu",
+      "guide": "gappu",
+      "title": { "hi": "गप्पू की अक्षर बस", "en": "Gappu's letter bus" },
+      "about": "Kindergarten: the consonants क to ह, a few each episode"
+    },
+    { "id": "chiku", "guide": "chiku", "title": { "hi": "चीकू का जादुई डंडा", "en": "Chiku's magic stick" }, "about": "Grade 1: the matras, from ा to the bindi" },
+    {
+      "id": "tiko",
+      "guide": "tiko",
+      "title": { "hi": "टीको का नंबर मेला", "en": "Tiko's number carnival" },
+      "about": "Grade 1 maths in English: tens and ones, comparing, story sums, length, time and shapes"
+    }
+  ],
   "shows": [
     {
       "id": "gappu-bus",
+      "series": "gappu",
+      "ep": 1,
+      "next": { "hi": "अगली बार बस में नए अक्षर आएँगे। सोचो: च से क्या होता है?", "en": "Next time new letters will ride the bus. Think: what starts with cha?" },
       "level": "kg",
       "world": "town",
       "lang": "hi",
@@ -17813,6 +17831,12 @@
     },
     {
       "id": "chiku-aa",
+      "series": "chiku",
+      "ep": 1,
+      "next": {
+        "hi": "अगली बार जादुई डंडा मुड़कर अक्षर के आगे खड़ा होगा! सोचो: दिल में कौन सी मात्रा है?",
+        "en": "Next time the magic stick bends and stands in front of the letter! Think: which matra is in dil, heart?"
+      },
       "level": "grade1",
       "world": "jungle",
       "lang": "hi",
@@ -17932,6 +17956,9 @@
     },
     {
       "id": "tiko-ten",
+      "series": "tiko",
+      "ep": 1,
+      "next": { "en": "Next time Pip brings bags of ten! Two bags of ten balloons, and three more. How many is that?" },
       "level": "grade1",
       "world": "carnival",
       "lang": "en",
@@ -18018,6 +18045,1867 @@
             { "say": "tiko", "en": "Six and four. Seven and three. Five and five. They all make ten!" },
             { "say": "tiko", "en": "Hoo hoo! You're a ten-maker now. Bye!", "do": "dance" },
             { "do": "wave", "who": "pip" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gappu-cha",
+      "series": "gappu",
+      "ep": 2,
+      "level": "kg",
+      "world": "town",
+      "lang": "hi",
+      "title": { "hi": "गप्पू की बारिश वाली सैर", "en": "Gappu's rainy ride" },
+      "teaches": { "hi": "च छ ज झ: चूहा, चम्मच, छाता, जहाज़, झूला", "en": "च छ ज झ (cha chha ja jha): mouse, spoon, umbrella, ship, swing" },
+      "lesson": "k-cons1-4",
+      "recap": { "words": ["mouse", "spoon", "umbrella", "ship", "swing"] },
+      "answer": {
+        "hi": "पिछली बार पूछा था: च से क्या होता है? च से चूहा! च से चम्मच! च से चाँद!",
+        "en": "Last time I asked: what starts with cha? Cha for choohaa, the mouse! Cha for chammach, the spoon! Cha for chaand, the moon!"
+      },
+      "next": {
+        "hi": "अगली बार एक नया अक्षर आएगा: ट! बताओ, सिर पर क्या पहनते हैं जो ट से शुरू होता है?",
+        "en": "Next time a new letter is coming: ta! Tell me, what do we wear on our head that starts with ta?"
+      },
+      "scenes": [
+        {
+          "bg": "town",
+          "beats": [
+            { "narrate": true, "hi": "गाड़ी नगर में अक्षर बस फिर आ गई। पीं पीं!", "en": "The letter bus is back in Vehicle Town. Beep beep!" },
+            { "show": "bus", "at": 28, "from": "left" },
+            { "sfx": "toot" },
+            { "enter": "gappu", "at": 66, "from": "right" },
+            { "say": "gappu", "hi": "आज की पहली सवारी... कौन है? चूँ चूँ!", "en": "Today's first rider is... who? Squeak squeak!" },
+            { "letter": "च", "word": "mouse", "at": 66 },
+            {
+              "say": "gappu",
+              "hi": "च से चूहा! चूहा बस में सबसे आगे बैठा।",
+              "en": "Cha for choohaa, the mouse! The mouse sat right at the front of the bus.",
+              "do": "happy"
+            },
+            { "echo": { "hi": "च से चूहा", "en": "Cha for choohaa" } },
+            {
+              "ask": { "hi": "चूहा चम्मच से खीर खाएगा। चम्मच कौन सा है?", "en": "The mouse will eat kheer with a spoon. Which one is the spoon?" },
+              "who": "gappu",
+              "options": ["spoon", "fork", "cup"],
+              "answer": "spoon",
+              "then": { "hi": "चम्मच! च से चम्मच!", "en": "The spoon! Cha for chammach!" }
+            }
+          ]
+        },
+        {
+          "bg": "village",
+          "actors": { "gappu": 70 },
+          "beats": [
+            { "show": "bus", "at": 28, "from": "left" },
+            { "narrate": true, "hi": "बस गाँव पहुँची, और टप टप बारिश होने लगी!", "en": "The bus reached the village, and pitter-patter, the rain began!" },
+            { "say": "gappu", "hi": "अरे! भीगना नहीं है। हमें चाहिए...", "en": "Oh! We mustn't get wet. We need...", "do": "oops" },
+            { "letter": "छ", "word": "umbrella", "at": 66 },
+            {
+              "say": "gappu",
+              "hi": "छ से छाता! छाता खोलो, बारिश रोको!",
+              "en": "Chha for chhaataa, the umbrella! Open the umbrella, keep off the rain!",
+              "do": "cheer"
+            },
+            { "echo": { "hi": "छ से छाता", "en": "Chha for chhaataa" } }
+          ]
+        },
+        {
+          "bg": "ocean",
+          "actors": { "gappu": 70 },
+          "beats": [
+            {
+              "narrate": true,
+              "hi": "बारिश रुकी। बस समुद्र के किनारे पहुँची। वहाँ पानी पर कौन तैर रहा है?",
+              "en": "The rain stopped. The bus reached the seaside. What is floating on the water?"
+            },
+            { "letter": "ज", "word": "ship", "at": 66 },
+            { "say": "gappu", "hi": "ज से जहाज़! भों भों, जहाज़ का भोंपू!", "en": "Ja for jahaaz, the ship! Honk honk goes the ship's horn!", "do": "happy" },
+            { "echo": { "hi": "ज से जहाज़", "en": "Ja for jahaaz" } },
+            {
+              "ask": { "hi": "ज से और क्या? लंबी गर्दन वाला!", "en": "What else starts with ja? The one with a long neck!" },
+              "who": "gappu",
+              "options": ["giraffe", "camel", "horse"],
+              "answer": "giraffe",
+              "then": { "hi": "जिराफ़! ज से जिराफ़!", "en": "The giraffe! Ja for jiraaf!" }
+            }
+          ]
+        },
+        {
+          "bg": "garden",
+          "actors": { "gappu": 70 },
+          "beats": [
+            { "show": "bus", "at": 28, "from": "left" },
+            {
+              "narrate": true,
+              "hi": "आख़िर में बस बगीचे में रुकी। वहाँ कुछ आगे-पीछे झूल रहा था।",
+              "en": "At last the bus stopped at the garden. Something was swinging back and forth."
+            },
+            { "letter": "झ", "word": "swing", "at": 66 },
+            { "say": "gappu", "hi": "झ से झूला! ऊपर, नीचे, ऊपर, नीचे!", "en": "Jha for jhoolaa, the swing! Up, down, up, down!", "do": "dance" },
+            { "echo": { "hi": "झ से झूला", "en": "Jha for jhoolaa" } },
+            { "clear": true },
+            { "say": "gappu", "hi": "आज बस में आए: च, छ, ज, झ!", "en": "Today the bus carried: cha, chha, ja, jha!", "do": "cheer" },
+            { "echo": { "hi": "च, छ, ज, झ", "en": "Cha, chha, ja, jha" } },
+            { "say": "gappu", "hi": "टाटा! कल फिर आना!", "en": "Bye-bye! Come again tomorrow!", "do": "wave" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gappu-ta",
+      "series": "gappu",
+      "ep": 3,
+      "level": "kg",
+      "world": "town",
+      "lang": "hi",
+      "title": { "hi": "गप्पू का ढोल", "en": "Gappu's drum" },
+      "teaches": { "hi": "ट ठ ड ढ: टोपी, टमाटर, ठंडा, डिब्बा, ढोल", "en": "ट ठ ड ढ (ta tha da dha): cap, tomato, cold, box, drum" },
+      "lesson": "k-cons2-5",
+      "recap": { "words": ["cap", "tomato", "snowman", "box", "drum"] },
+      "answer": { "hi": "पिछली बार पूछा था: सिर पर क्या पहनते हैं? ट से टोपी!", "en": "Last time I asked: what do we wear on our head? Ta for topee, the cap!" },
+      "next": {
+        "hi": "अगली बार: त से कौन सा पक्षी? हरा-हरा है, और हमारी तरह बोलता भी है!",
+        "en": "Next time: which bird starts with त (ta)? It is green, and it talks like us too!"
+      },
+      "scenes": [
+        {
+          "bg": "town",
+          "beats": [
+            {
+              "narrate": true,
+              "hi": "आज गाड़ी नगर में मेला है! अक्षर बस मेले की ओर चली।",
+              "en": "There is a fair in Vehicle Town today! The letter bus set off for the fair."
+            },
+            { "show": "bus", "at": 28, "from": "left" },
+            { "sfx": "toot" },
+            { "enter": "gappu", "at": 66, "from": "right" },
+            { "say": "gappu", "hi": "मेले में धूप है। मैं टोपी पहनूँगा!", "en": "It's sunny at the fair. I'll wear a cap!", "do": "happy" },
+            { "letter": "ट", "word": "cap", "at": 66 },
+            { "say": "gappu", "hi": "ट से टोपी! देखो, मेरी नई टोपी!", "en": "Ta for topee, the cap! Look, my new cap!", "do": "dance" },
+            { "echo": { "hi": "ट से टोपी", "en": "Ta for topee" } }
+          ]
+        },
+        {
+          "bg": "farm",
+          "actors": { "gappu": 70 },
+          "beats": [
+            { "show": "bus", "at": 28, "from": "left" },
+            { "narrate": true, "hi": "रास्ते में खेत आया। वहाँ लाल-लाल कुछ उगा था।", "en": "On the way there was a farm. Something red was growing there." },
+            {
+              "ask": { "hi": "यह लाल-लाल क्या है? ट से शुरू होता है!", "en": "What is this red thing? It starts with ta!" },
+              "who": "gappu",
+              "options": ["tomato", "apple", "carrot"],
+              "answer": "tomato",
+              "then": { "hi": "टमाटर! ट से टमाटर!", "en": "A tomato! Ta for tamaatar!" }
+            },
+            { "word": "tomato" },
+            { "clear": true },
+            { "say": "gappu", "hi": "ब्र्र्र! अचानक ठंडी हवा चली।", "en": "Brrr! Suddenly a cold wind blew.", "do": "oops" },
+            { "letter": "ठ", "at": 66 },
+            { "show": "snowman", "at": 30 },
+            { "say": "gappu", "hi": "ठ से ठंडा! बर्फ़ का पुतला भी ठंडा है।", "en": "Tha for thandaa, cold! The snowman is cold too.", "do": "silly" },
+            { "echo": { "hi": "ठ से ठंडा", "en": "Tha for thandaa" } }
+          ]
+        },
+        {
+          "bg": "carnival",
+          "actors": { "gappu": 70 },
+          "beats": [
+            {
+              "narrate": true,
+              "hi": "मेले में पहुँचकर बस रुकी। वहाँ एक बड़ा सा डिब्बा रखा था।",
+              "en": "At the fair the bus stopped. There was a big box there."
+            },
+            { "letter": "ड", "word": "box", "at": 66 },
+            { "say": "gappu", "hi": "ड से डिब्बा! डिब्बे में क्या है? खोलो!", "en": "Da for dibbaa, the box! What is in the box? Open it!", "do": "oops" },
+            { "echo": { "hi": "ड से डिब्बा", "en": "Da for dibbaa" } },
+            { "sfx": "pop" },
+            { "letter": "ढ", "word": "drum", "at": 66 },
+            { "say": "gappu", "hi": "ढ से ढोल! ढम, ढम, ढम!", "en": "Dha for dhol, the drum! Dham, dham, dham!", "do": "dance" },
+            { "echo": { "hi": "ढ से ढोल", "en": "Dha for dhol" } },
+            {
+              "ask": { "hi": "ढोल बजा, तो पानी में कौन उछला? ड से शुरू होता है!", "en": "The drum played, so who jumped in the water? It starts with da!" },
+              "who": "gappu",
+              "options": ["dolphin", "fish", "duck"],
+              "answer": "dolphin",
+              "then": { "hi": "डॉल्फ़िन! ड से डॉल्फ़िन!", "en": "The dolphin! Da for dolphin!" }
+            },
+            { "clear": true },
+            { "say": "gappu", "hi": "आज के अक्षर: ट, ठ, ड, ढ!", "en": "Today's letters: ta, tha, da, dha!", "do": "cheer" },
+            { "echo": { "hi": "ट, ठ, ड, ढ", "en": "Ta, tha, da, dha" } }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gappu-tota",
+      "series": "gappu",
+      "ep": 4,
+      "level": "kg",
+      "world": "town",
+      "lang": "hi",
+      "title": { "hi": "गप्पू और बातूनी तोता", "en": "Gappu and the chatty parrot" },
+      "teaches": { "hi": "त थ द ध: तोता, तितली, थैला, दूध, दीया, धनुष", "en": "त थ द ध (ta tha da dha): parrot, butterfly, bag, milk, lamp, bow" },
+      "lesson": "k-cons2-4",
+      "recap": { "words": ["parrot", "butterfly", "bag", "milk", "bow"] },
+      "answer": {
+        "hi": "पिछली बार पूछा था: कौन सा पक्षी हरा है और बोलता है? त से तोता!",
+        "en": "Last time I asked: which bird is green and talks? त (ta) for totaa, the parrot!"
+      },
+      "next": {
+        "hi": "अगली बार: न से क्या? पानी पर चलती है, और उसमें पहिए नहीं होते!",
+        "en": "Next time: what starts with न (na)? It goes on water, and it has no wheels!"
+      },
+      "scenes": [
+        {
+          "bg": "garden",
+          "beats": [
+            {
+              "narrate": true,
+              "hi": "बगीचे में एक पेड़ पर कोई बोल रहा था: नमस्ते! नमस्ते!",
+              "en": "In the garden, someone in a tree was talking: Namaste! Namaste!"
+            },
+            { "show": "tree", "at": 28 },
+            { "enter": "gappu", "at": 66, "from": "right" },
+            { "letter": "त", "word": "parrot", "at": 66 },
+            { "say": "gappu", "hi": "त से तोता! तोता मेरी बस में बैठेगा!", "en": "त (ta) for totaa, the parrot! The parrot will ride my bus!", "do": "happy" },
+            { "echo": { "hi": "त से तोता", "en": "Ta for totaa" } },
+            {
+              "ask": { "hi": "तोते के साथ कौन उड़कर आई? रंग-बिरंगे पंख, त से!", "en": "Who flew in with the parrot? Colourful wings, starting with त!" },
+              "who": "gappu",
+              "options": ["butterfly", "bee", "bird"],
+              "answer": "butterfly",
+              "then": { "hi": "तितली! त से तितली!", "en": "The butterfly! त for titlee!" }
+            }
+          ]
+        },
+        {
+          "bg": "town",
+          "actors": { "gappu": 70 },
+          "beats": [
+            { "show": "bus", "at": 28, "from": "left" },
+            { "narrate": true, "hi": "बस बाज़ार पहुँची। गप्पू को सामान ख़रीदना था।", "en": "The bus reached the market. Gappu had shopping to do." },
+            { "say": "gappu", "hi": "सामान किसमें रखूँ?", "en": "What shall I carry the shopping in?", "do": "oops" },
+            { "letter": "थ", "word": "bag", "at": 66 },
+            { "say": "gappu", "hi": "थ से थैला! थैले में सब आ जाएगा।", "en": "Tha for thailaa, the bag! Everything fits in the bag." },
+            { "echo": { "hi": "थ से थैला", "en": "Tha for thailaa" } },
+            { "letter": "द", "word": "milk", "at": 66 },
+            { "say": "gappu", "hi": "द से दूध! एक गिलास दूध, रोज़!", "en": "Da for doodh, milk! A glass of milk, every day!", "do": "cheer" },
+            { "echo": { "hi": "द से दूध", "en": "Da for doodh" } }
+          ]
+        },
+        {
+          "bg": "village",
+          "actors": { "gappu": 70 },
+          "beats": [
+            {
+              "narrate": true,
+              "hi": "शाम को गाँव में दशहरे का मेला था। वहाँ धनुष और तीर थे।",
+              "en": "In the evening the village had a Dussehra fair. There were bows and arrows."
+            },
+            { "letter": "ध", "word": "bow", "at": 66 },
+            {
+              "say": "gappu",
+              "hi": "ध से धनुष! धनुष से तीर चलता है। सर्र!",
+              "en": "Dha for dhanush, the bow! The bow shoots an arrow. Whoosh!",
+              "do": "happy"
+            },
+            { "sfx": "whoosh" },
+            { "echo": { "hi": "ध से धनुष", "en": "Dha for dhanush" } },
+            {
+              "ask": { "hi": "द से क्या? रात को जलता है, रोशनी देता है!", "en": "What starts with द? It burns at night and gives light!" },
+              "who": "gappu",
+              "options": ["lamp", "sun", "star"],
+              "answer": "lamp",
+              "then": { "hi": "दीया! द से दीया!", "en": "A lamp! द for deeyaa!" }
+            },
+            { "clear": true },
+            { "say": "gappu", "hi": "आज के अक्षर: त, थ, द, ध!", "en": "Today's letters: ta, tha, da, dha!", "do": "dance" },
+            { "echo": { "hi": "त, थ, द, ध", "en": "Ta, tha, da, dha" } }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gappu-nav",
+      "series": "gappu",
+      "ep": 5,
+      "level": "kg",
+      "world": "town",
+      "lang": "hi",
+      "title": { "hi": "गप्पू की नाव", "en": "Gappu's boat" },
+      "teaches": { "hi": "न प फ ब: नाव, पतंग, पंखा, फूल, बंदर", "en": "न प फ ब (na pa pha ba): boat, kite, fan, flower, monkey" },
+      "lesson": "k-cons3-5",
+      "recap": { "words": ["boat", "kite", "fan", "flower", "monkey"] },
+      "answer": { "hi": "पिछली बार पूछा था: पानी पर क्या चलता है? न से नाव!", "en": "Last time I asked: what goes on water? न (na) for naav, the boat!" },
+      "next": {
+        "hi": "अगली बार: भ से कौन सा जानवर? बड़ा है, भूरा है, और शहद खाता है!",
+        "en": "Next time: which animal starts with भ (bha)? Big, brown, and it eats honey!"
+      },
+      "scenes": [
+        {
+          "bg": "ocean",
+          "beats": [
+            {
+              "narrate": true,
+              "hi": "आज अक्षर बस नदी के किनारे रुकी। आगे का पुल टूटा था!",
+              "en": "Today the letter bus stopped by the river. The bridge ahead was broken!"
+            },
+            { "show": "bus", "at": 28, "from": "left" },
+            { "enter": "gappu", "at": 66, "from": "right" },
+            { "say": "gappu", "hi": "अब नदी कैसे पार करें?", "en": "How do we cross the river now?", "do": "oops" },
+            { "letter": "न", "word": "boat", "at": 66 },
+            { "say": "gappu", "hi": "न से नाव! नाव में बैठो, चलो!", "en": "न (na) for naav, the boat! Sit in the boat, let's go!", "do": "cheer" },
+            { "echo": { "hi": "न से नाव", "en": "Na for naav" } }
+          ]
+        },
+        {
+          "bg": "mountain",
+          "actors": { "gappu": 70 },
+          "beats": [
+            {
+              "narrate": true,
+              "hi": "नदी के पार पहाड़ था। ऊपर आसमान में कुछ उड़ रहा था।",
+              "en": "Across the river was a mountain. Something was flying in the sky."
+            },
+            { "letter": "प", "word": "kite", "at": 66 },
+            { "say": "gappu", "hi": "प से पतंग! हवा में ऊँची उड़ती पतंग!", "en": "Pa for patang, the kite! A kite flying high in the wind!", "do": "happy" },
+            { "echo": { "hi": "प से पतंग", "en": "Pa for patang" } },
+            {
+              "ask": { "hi": "प से और क्या? हवा करता है, गोल-गोल घूमता है!", "en": "What else starts with प? It makes a breeze and spins round and round!" },
+              "who": "gappu",
+              "options": ["fan", "wheel", "ball"],
+              "answer": "fan",
+              "then": { "hi": "पंखा! प से पंखा!", "en": "A fan! प for pankhaa!" }
+            }
+          ]
+        },
+        {
+          "bg": "garden",
+          "actors": { "gappu": 70 },
+          "beats": [
+            { "narrate": true, "hi": "पहाड़ से उतरकर वे एक बगीचे में पहुँचे।", "en": "Coming down the mountain, they reached a garden." },
+            { "letter": "फ", "word": "flower", "at": 66 },
+            {
+              "say": "gappu",
+              "hi": "फ से फूल! सूँघो... कितनी अच्छी ख़ुशबू!",
+              "en": "Pha for phool, the flower! Smell it... what a lovely smell!",
+              "do": "happy"
+            },
+            { "echo": { "hi": "फ से फूल", "en": "Pha for phool" } },
+            {
+              "ask": { "hi": "फ से और क्या? पेड़ पर लगता है, और मीठा होता है!", "en": "What else starts with फ? It grows on trees, and it is sweet!" },
+              "who": "gappu",
+              "options": ["fruit", "leaf", "stone"],
+              "answer": "fruit",
+              "then": { "hi": "फल! फ से फल!", "en": "Fruit! फ for phal!" }
+            },
+            { "clear": true },
+            { "enter": "chiku", "at": 30, "from": "left" },
+            { "say": "chiku", "hi": "ही ही! बताओ, मैं कौन हूँ? ब से...", "en": "Hee hee! Tell me, who am I? Ba for...", "do": "silly" },
+            { "letter": "ब", "word": "monkey", "at": 66 },
+            { "say": "gappu", "hi": "ब से बंदर! अरे, यह तो चीकू है!", "en": "Ba for bandar, the monkey! Oh, it's Chiku!", "do": "cheer" },
+            { "echo": { "hi": "ब से बंदर", "en": "Ba for bandar" } },
+            { "say": "gappu", "hi": "आज के अक्षर: न, प, फ, ब!", "en": "Today's letters: na, pa, pha, ba!", "do": "dance" },
+            { "echo": { "hi": "न, प, फ, ब", "en": "Na, pa, pha, ba" } }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gappu-bhalu",
+      "series": "gappu",
+      "ep": 6,
+      "level": "kg",
+      "world": "town",
+      "lang": "hi",
+      "title": { "hi": "गप्पू और भालू की दावत", "en": "Gappu and the bear's feast" },
+      "teaches": { "hi": "भ म य र: भालू, भुट्टा, मछली, मोर, यात्रा, रेलगाड़ी", "en": "भ म य र (bha ma ya ra): bear, corn, fish, peacock, journey, train" },
+      "lesson": "k-cons3-2",
+      "recap": { "words": ["bear", "corn", "fish", "peacock", "train"] },
+      "answer": { "hi": "पिछली बार पूछा था: कौन शहद खाता है? भ से भालू!", "en": "Last time I asked: who eats honey? भ (bha) for bhaaloo, the bear!" },
+      "next": { "hi": "अगली बार: ल से कौन सा रंग? टमाटर इसी रंग का होता है!", "en": "Next time: which colour starts with ल (la)? A tomato is this colour!" },
+      "scenes": [
+        {
+          "bg": "forest",
+          "beats": [
+            {
+              "narrate": true,
+              "hi": "जंगल के किनारे भालू ने दावत रखी। अक्षर बस मेहमान लेकर आई।",
+              "en": "At the edge of the forest, the bear threw a feast. The letter bus brought the guests."
+            },
+            { "show": "bus", "at": 28, "from": "left" },
+            { "enter": "gappu", "at": 66, "from": "right" },
+            { "letter": "भ", "word": "bear", "at": 66 },
+            { "say": "gappu", "hi": "भ से भालू! भालू जी, नमस्ते!", "en": "Bha for bhaaloo, the bear! Hello, Mr Bear!", "do": "wave" },
+            { "echo": { "hi": "भ से भालू", "en": "Bha for bhaaloo" } },
+            {
+              "ask": { "hi": "दावत में भालू ने भुट्टा भूना। भुट्टा कौन सा है?", "en": "At the feast the bear roasted corn. Which one is the corn?" },
+              "who": "gappu",
+              "options": ["corn", "carrot", "banana"],
+              "answer": "corn",
+              "then": { "hi": "भुट्टा! भ से भुट्टा!", "en": "The corn! भ for bhuttaa!" }
+            }
+          ]
+        },
+        {
+          "bg": "ocean",
+          "actors": { "gappu": 70 },
+          "beats": [
+            { "narrate": true, "hi": "दावत के लिए तालाब से भी कोई आया। छपाक!", "en": "Someone came from the pond for the feast too. Splash!" },
+            { "sfx": "whoosh" },
+            { "letter": "म", "word": "fish", "at": 66 },
+            { "say": "gappu", "hi": "म से मछली! मछली जल की रानी है!", "en": "Ma for machhlee, the fish! The fish is the queen of the water!", "do": "happy" },
+            { "echo": { "hi": "म से मछली", "en": "Ma for machhlee" } },
+            { "show": "peacock", "at": 30 },
+            {
+              "say": "gappu",
+              "hi": "और देखो, पंख फैलाकर कौन नाचा? म से मोर!",
+              "en": "And look, who danced with its feathers spread? Ma for mor, the peacock!",
+              "do": "dance"
+            }
+          ]
+        },
+        {
+          "bg": "city",
+          "actors": { "gappu": 70 },
+          "beats": [
+            { "narrate": true, "hi": "रात हुई। मेहमानों को घर जाना था।", "en": "Night came. The guests had to go home." },
+            { "letter": "य", "at": 66 },
+            { "say": "gappu", "hi": "य से यात्रा! यात्रा मतलब सफ़र।", "en": "Ya for yaatraa, a journey! A yaatraa is a trip." },
+            { "echo": { "hi": "य से यात्रा", "en": "Ya for yaatraa" } },
+            {
+              "ask": {
+                "hi": "लंबी यात्रा के लिए क्या लें? र से शुरू होती है, छुक-छुक करती है!",
+                "en": "What shall we take for a long journey? It starts with र (ra) and goes choo-choo!"
+              },
+              "who": "gappu",
+              "options": ["train", "bus", "boat"],
+              "answer": "train",
+              "then": { "hi": "रेलगाड़ी! र से रेलगाड़ी!", "en": "The train! र for relgaadee!" }
+            },
+            { "word": "train" },
+            { "echo": { "hi": "र से रेलगाड़ी", "en": "Ra for relgaadee" } },
+            { "clear": true },
+            { "say": "gappu", "hi": "आज के अक्षर: भ, म, य, र!", "en": "Today's letters: bha, ma, ya, ra!", "do": "cheer" },
+            { "echo": { "hi": "भ, म, य, र", "en": "Bha, ma, ya, ra" } }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gappu-lal",
+      "series": "gappu",
+      "ep": 7,
+      "level": "kg",
+      "world": "town",
+      "lang": "hi",
+      "title": { "hi": "गप्पू और शेर की दहाड़", "en": "Gappu and the lion's roar" },
+      "teaches": { "hi": "ल व श स: लाल, लड्डू, व्हेल, शेर, साँप, सूरज", "en": "ल व श स (la va sha sa): red, laddoo, whale, lion, snake, sun" },
+      "lesson": "k-cons3-4",
+      "recap": { "words": ["red", "laddoo", "whale", "lion", "snake", "sun"] },
+      "answer": { "hi": "पिछली बार पूछा था: टमाटर किस रंग का है? ल से लाल!", "en": "Last time I asked: what colour is a tomato? ल (la) for laal, red!" },
+      "next": {
+        "hi": "अगली बार आख़िरी अक्षर: ह! बताओ, किसकी लंबी सूँड है और बड़े-बड़े कान?",
+        "en": "Next time, the last letter: ha! Tell me, who has a long trunk and big, big ears?"
+      },
+      "scenes": [
+        {
+          "bg": "town",
+          "beats": [
+            { "narrate": true, "hi": "आज अक्षर बस को लाल रंग से सजाया गया।", "en": "Today the letter bus was decorated in red." },
+            { "show": "bus", "at": 28, "from": "left" },
+            { "enter": "gappu", "at": 66, "from": "right" },
+            { "letter": "ल", "word": "red", "at": 66 },
+            { "say": "gappu", "hi": "ल से लाल! मेरी बस लाल-लाल!", "en": "La for laal, red! My bus is all red!", "do": "happy" },
+            { "echo": { "hi": "ल से लाल", "en": "La for laal" } },
+            {
+              "ask": { "hi": "बस में मिठाई आई! गोल-गोल, ल से... कौन सी?", "en": "Sweets on the bus! Round and round, starting with ल... which one?" },
+              "who": "gappu",
+              "options": ["laddoo", "cake", "rasgulla"],
+              "answer": "laddoo",
+              "then": { "hi": "लड्डू! ल से लड्डू! मम्म!", "en": "A laddoo! ल for laddoo! Mmm!" }
+            }
+          ]
+        },
+        {
+          "bg": "ocean",
+          "actors": { "gappu": 70 },
+          "beats": [
+            {
+              "narrate": true,
+              "hi": "बस समुद्र के किनारे पहुँची। पानी में से एक फ़व्वारा निकला!",
+              "en": "The bus reached the sea. A fountain shot up out of the water!"
+            },
+            { "sfx": "whoosh" },
+            { "letter": "व", "word": "whale", "at": 66 },
+            { "say": "gappu", "hi": "व से व्हेल! समुद्र का सबसे बड़ा जानवर!", "en": "Va for whale! The biggest animal in the sea!", "do": "cheer" },
+            { "echo": { "hi": "व से व्हेल", "en": "Va for whale" } }
+          ]
+        },
+        {
+          "bg": "jungle",
+          "actors": { "gappu": 70 },
+          "beats": [
+            { "narrate": true, "hi": "फिर बस जंगल से गुज़री। अचानक... दहाड़!", "en": "Then the bus went through the jungle. Suddenly... a roar!" },
+            { "sfx": "thud" },
+            { "say": "gappu", "hi": "अरे बाप रे! कौन दहाड़ा?", "en": "Oh my! Who roared?", "do": "oops" },
+            { "letter": "श", "word": "lion", "at": 66 },
+            { "say": "gappu", "hi": "श से शेर! पर यह शेर तो मुस्कुरा रहा है!", "en": "Sha for sher, the lion! But this lion is smiling!", "do": "happy" },
+            { "echo": { "hi": "श से शेर", "en": "Sha for sher" } },
+            { "letter": "स", "word": "snake", "at": 66 },
+            {
+              "say": "gappu",
+              "hi": "स से साँप! सर्र, सर्र... साँप से दूर रहना!",
+              "en": "Sa for saanp, the snake! Sss, sss... stay away from snakes!",
+              "do": "oops"
+            },
+            { "echo": { "hi": "स से साँप", "en": "Sa for saanp" } },
+            {
+              "ask": { "hi": "स से और क्या? सुबह आसमान में निकलता है!", "en": "What else starts with स? It rises in the sky in the morning!" },
+              "who": "gappu",
+              "options": ["sun", "moon", "star"],
+              "answer": "sun",
+              "then": { "hi": "सूरज! स से सूरज!", "en": "The sun! स for sooraj!" }
+            },
+            { "clear": true },
+            { "say": "gappu", "hi": "आज के अक्षर: ल, व, श, स!", "en": "Today's letters: la, va, sha, sa!", "do": "dance" },
+            { "echo": { "hi": "ल, व, श, स", "en": "La, va, sha, sa" } }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gappu-parade",
+      "series": "gappu",
+      "ep": 8,
+      "level": "kg",
+      "world": "town",
+      "lang": "hi",
+      "title": { "hi": "गप्पू की अक्षर परेड", "en": "Gappu's letter parade" },
+      "teaches": {
+        "hi": "ह, और क से ह तक के अक्षर दोबारा: हाथी, हवाई जहाज़, हिरन, कबूतर, टोपी, नाव",
+        "en": "ह (ha), and the letters from क to ह again: elephant, plane, deer, pigeon, cap, boat"
+      },
+      "lesson": "k-cons3-1",
+      "recap": { "words": ["elephant", "plane", "deer", "dove", "cap", "boat"] },
+      "answer": {
+        "hi": "पिछली बार पूछा था: लंबी सूँड किसकी है? ह से हाथी! और हाथी... मैं हूँ! मैं, गप्पू!",
+        "en": "Last time I asked: who has a long trunk? Ha for haathee, the elephant! And the elephant... is me! Me, Gappu!"
+      },
+      "scenes": [
+        {
+          "bg": "town",
+          "beats": [
+            { "narrate": true, "hi": "आज गाड़ी नगर में अक्षरों की परेड है!", "en": "Today there is a letter parade in Vehicle Town!" },
+            { "sfx": "cheer" },
+            { "enter": "gappu", "at": 66, "from": "right" },
+            { "letter": "ह", "word": "elephant", "at": 66 },
+            { "say": "gappu", "hi": "ह से हाथी! मैं परेड में सबसे आगे चलूँगा।", "en": "Ha for haathee, the elephant! I will lead the parade.", "do": "dance" },
+            { "echo": { "hi": "ह से हाथी", "en": "Ha for haathee" } },
+            {
+              "ask": {
+                "hi": "आसमान से परेड कौन देखेगा? ह से शुरू होता है, और उड़ता है!",
+                "en": "Who will watch the parade from the sky? It starts with ha, and it flies!"
+              },
+              "who": "gappu",
+              "options": ["plane", "kite", "bird"],
+              "answer": "plane",
+              "then": { "hi": "हवाई जहाज़! ह से हवाई जहाज़!", "en": "The aeroplane! Ha for havaaee jahaaz!" }
+            }
+          ]
+        },
+        {
+          "bg": "forest",
+          "actors": { "gappu": 70 },
+          "beats": [
+            { "narrate": true, "hi": "परेड में जंगल से एक मेहमान कूदता हुआ आया।", "en": "A guest came leaping from the forest to join the parade." },
+            { "show": "deer", "at": 30 },
+            { "say": "gappu", "hi": "ह से हिरन! हिरन फुर्र से दौड़ता है।", "en": "Ha for hiran, the deer! The deer runs so fast.", "do": "cheer" },
+            { "echo": { "hi": "ह से हिरन", "en": "Ha for hiran" } },
+            { "clear": true },
+            {
+              "say": "gappu",
+              "hi": "अब परेड में पुराने दोस्त भी आएँगे। पहचानो!",
+              "en": "Now old friends are joining the parade too. Spot them!",
+              "do": "happy"
+            },
+            {
+              "ask": { "hi": "क से कौन? गुटर गूँ करता है!", "en": "Who starts with क? It goes gutar-goo!" },
+              "who": "gappu",
+              "options": ["dove", "cow", "house"],
+              "answer": "dove",
+              "then": { "hi": "कबूतर! क से कबूतर!", "en": "The pigeon! Ka for kabootar!" }
+            }
+          ]
+        },
+        {
+          "bg": "town",
+          "actors": { "gappu": 70 },
+          "beats": [
+            { "narrate": true, "hi": "परेड चलती रही, और सारे अक्षर साथ गाने लगे।", "en": "The parade went on, and all the letters began to sing together." },
+            {
+              "ask": { "hi": "ट से क्या? सिर पर पहनते हैं!", "en": "What starts with ट? We wear it on our head!" },
+              "who": "gappu",
+              "options": ["cap", "shoe", "umbrella"],
+              "answer": "cap",
+              "then": { "hi": "टोपी! ट से टोपी!", "en": "The cap! Ta for topee!" }
+            },
+            {
+              "ask": { "hi": "न से क्या? पानी पर चलती है!", "en": "What starts with न? It goes on water!" },
+              "who": "gappu",
+              "options": ["boat", "bus", "train"],
+              "answer": "boat",
+              "then": { "hi": "नाव! न से नाव!", "en": "The boat! Na for naav!" }
+            },
+            { "clear": true },
+            { "say": "gappu", "hi": "क से ह तक, सारे अक्षर तुम्हारे दोस्त हैं!", "en": "From ka to ha, all the letters are your friends!", "do": "dance" },
+            { "echo": { "hi": "क, ख, ग... से ह तक!", "en": "Ka, kha, ga... all the way to ha!" } },
+            {
+              "say": "gappu",
+              "hi": "शाबाश! तुम अक्षर बस की सबसे अच्छी सवारी हो। टाटा!",
+              "en": "Well done! You are the letter bus's best rider. Bye-bye!",
+              "do": "wave"
+            },
+            { "sfx": "toot" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chiku-i",
+      "series": "chiku",
+      "ep": 2,
+      "level": "grade1",
+      "world": "jungle",
+      "lang": "hi",
+      "title": { "hi": "चीकू और छोटी इ", "en": "Chiku and the little i" },
+      "teaches": { "hi": "छोटी इ की मात्रा (ि): दिल, तितली, किताब, खिड़की", "en": "The ि (i) matra, written before the letter: heart, butterfly, book, window" },
+      "lesson": "g1-m1-1",
+      "recap": { "mark": "ि", "words": ["heart", "butterfly", "book", "window"] },
+      "answer": {
+        "hi": "पिछली बार पूछा था: दिल में कौन सी मात्रा है? छोटी इ की मात्रा! दि... दिल!",
+        "en": "Last time I asked: which matra is in dil? The little i matra! di... dil!"
+      },
+      "next": {
+        "hi": "छोटी इ आगे लगती है। तो सोचो, बड़ी ई की मात्रा कहाँ लगती होगी: आगे या पीछे?",
+        "en": "The little i goes in front. So think: where does the big ee matra go, in front or behind?"
+      },
+      "scenes": [
+        {
+          "bg": "jungle",
+          "beats": [
+            {
+              "narrate": true,
+              "hi": "मस्त जंगल में सुबह हुई। चीकू का जादुई डंडा आज कुछ अलग था।",
+              "en": "Morning in Jolly Jungle. Chiku's magic stick looked different today."
+            },
+            { "enter": "chiku", "at": 32 },
+            { "glyph": "ि", "at": 66 },
+            {
+              "say": "chiku",
+              "hi": "देखो! डंडे के ऊपर एक टोपी, जो पीछे मुड़ी है। यह छोटी इ की मात्रा है।",
+              "en": "Look! A stick with a cap that curls back. This is the little i matra.",
+              "do": "happy"
+            },
+            {
+              "say": "chiku",
+              "hi": "यह अक्षर से पहले लिखी जाती है, पर बोली अक्षर के बाद जाती है!",
+              "en": "It is written before the letter, but said after it!"
+            },
+            { "build": ["द", "ि"], "hi": "द के साथ छोटी इ की मात्रा... दि!", "en": "da, with the little i matra... di!" },
+            { "word": "heart", "mark": "ि" },
+            { "say": "chiku", "hi": "दि... दिल! मेरा दिल ख़ुश है!", "en": "di... dil, heart! My heart is happy!", "do": "dance" },
+            { "echo": { "hi": "छोटी इ, आगे लगती है!", "en": "Little i goes in front!" } }
+          ]
+        },
+        {
+          "bg": "garden",
+          "actors": { "chiku": 24, "kuku": 72 },
+          "beats": [
+            {
+              "narrate": true,
+              "hi": "बगीचे में कूकू इंतज़ार कर रहा था। फूलों पर कुछ उड़ रहा था।",
+              "en": "Kuku was waiting in the garden. Something was flying over the flowers."
+            },
+            { "say": "kuku", "hi": "चीकू, देखो! रंग-बिरंगे पंख!", "en": "Chiku, look! Colourful wings!", "do": "cheer" },
+            {
+              "ask": { "hi": "रंग-बिरंगे पंखों वाली कौन है?", "en": "Who has colourful wings?" },
+              "who": "chiku",
+              "options": ["butterfly", "crow", "bee"],
+              "answer": "butterfly",
+              "then": {
+                "hi": "तितली! ति... तली! पहले ति में छोटी इ की मात्रा!",
+                "en": "The butterfly, titlee! ti... tlee! The first part, ti, has the little i matra!"
+              }
+            },
+            { "build": ["त", "ि"], "hi": "त के साथ छोटी इ... ति!", "en": "ta, with the little i... ti!" },
+            { "word": "butterfly", "mark": "ि" },
+            { "say": "kuku", "hi": "तितली के पास एक किताब थी!", "en": "The butterfly had a book!", "do": "silly" },
+            { "build": ["क", "ि"], "hi": "क के साथ छोटी इ... कि!", "en": "ka, with the little i... ki!" },
+            { "word": "book", "mark": "ि" },
+            { "say": "chiku", "hi": "कि... किताब! किताब में कहानियाँ हैं।", "en": "ki... kitaab, a book! There are stories in the book." }
+          ]
+        },
+        {
+          "bg": "village",
+          "actors": { "chiku": 24, "kuku": 74 },
+          "beats": [
+            { "narrate": true, "hi": "शाम हुई। दोनों एक घर के पास पहुँचे।", "en": "Evening came. The two of them reached a house." },
+            {
+              "ask": { "hi": "घर के अंदर से बाहर कैसे झाँकें?", "en": "How do we peek outside from inside the house?" },
+              "who": "kuku",
+              "options": ["window", "door", "tap"],
+              "answer": "window",
+              "then": { "hi": "खिड़की! खि... ड़की! खि में छोटी इ की मात्रा।", "en": "The window, khidkee! khi... dkee! khi has the little i matra." }
+            },
+            { "word": "window", "mark": "ि" },
+            {
+              "ask": { "hi": "\"किताब\" में छोटी इ की मात्रा कितनी बार है?", "en": "How many times is the little i matra in kitaab?" },
+              "who": "kuku",
+              "kind": "number",
+              "options": [1, 2, 3],
+              "answer": 1,
+              "then": { "hi": "एक बार! कि... ताब।", "en": "Once! ki... taab." }
+            },
+            { "clear": true },
+            {
+              "say": "chiku",
+              "hi": "आज हमने छोटी इ सीखी: दिल, तितली, किताब, खिड़की!",
+              "en": "Today we learned the little i: dil, titlee, kitaab, khidkee!",
+              "do": "cheer"
+            },
+            { "echo": { "hi": "छोटी इ, आगे लगती है!", "en": "Little i goes in front!" } },
+            { "say": "chiku", "hi": "फिर मिलेंगे! टाटा!", "en": "See you again! Bye-bye!", "do": "wave" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chiku-ii",
+      "series": "chiku",
+      "ep": 3,
+      "level": "grade1",
+      "world": "jungle",
+      "lang": "hi",
+      "title": { "hi": "चीकू और बड़ी ई", "en": "Chiku and the big ee" },
+      "teaches": {
+        "hi": "बड़ी ई की मात्रा (ी): पीला, नीला, खीरा, तीर, सीटी",
+        "en": "The ी (ee) matra, written after the letter: yellow, blue, cucumber, arrow, whistle"
+      },
+      "lesson": "g1-m1-3",
+      "recap": { "mark": "ी", "words": ["yellow", "blue", "cucumber", "arrow", "whistle"] },
+      "answer": {
+        "hi": "पिछली बार पूछा था: बड़ी ई कहाँ लगती है? पीछे! बड़ी ई की मात्रा अक्षर के बाद लगती है।",
+        "en": "Last time I asked: where does the big ee go? Behind! The big ee matra comes after the letter."
+      },
+      "next": {
+        "hi": "अगली बार मात्रा अक्षर के नीचे लटकेगी! सोचो: गुलाब में ग के नीचे क्या है?",
+        "en": "Next time a matra hangs under the letter! Think: what is under the ga in gulaab, the rose?"
+      },
+      "scenes": [
+        {
+          "bg": "jungle",
+          "beats": [
+            {
+              "narrate": true,
+              "hi": "चीकू का डंडा फिर बदला। अब उसकी टोपी आगे की ओर मुड़ी है।",
+              "en": "Chiku's stick changed again. Now its cap curls forward."
+            },
+            { "enter": "chiku", "at": 32 },
+            { "glyph": "ी", "at": 66 },
+            {
+              "say": "chiku",
+              "hi": "यह बड़ी ई की मात्रा है। यह अक्षर के बाद आती है, और लंबी बोली जाती है: ईईई!",
+              "en": "This is the big ee matra. It comes after the letter, and is said long: eeee!",
+              "do": "happy"
+            },
+            { "build": ["प", "ी"], "hi": "प के बाद बड़ी ई... पी!", "en": "pa, then the big ee... pee!" },
+            { "word": "yellow", "mark": "ी" },
+            { "say": "chiku", "hi": "पी... पीला! केले जैसा पीला!", "en": "pee... peelaa, yellow! Yellow like a banana!", "do": "cheer" },
+            { "echo": { "hi": "बड़ी ई, पीछे लगती है!", "en": "Big ee goes behind!" } }
+          ]
+        },
+        {
+          "bg": "ocean",
+          "actors": { "chiku": 24, "kuku": 74 },
+          "beats": [
+            {
+              "narrate": true,
+              "hi": "चीकू और कूकू नदी किनारे पहुँचे। पानी चमक रहा था।",
+              "en": "Chiku and Kuku reached the riverbank. The water was sparkling."
+            },
+            {
+              "ask": { "hi": "पानी किस रंग का है?", "en": "What colour is the water?" },
+              "who": "kuku",
+              "options": ["blue", "red", "yellow"],
+              "answer": "blue",
+              "then": { "hi": "नीला! नी... ला! नी में बड़ी ई।", "en": "Blue, neelaa! nee... laa! nee has the big ee." }
+            },
+            { "build": ["न", "ी"], "hi": "न के बाद बड़ी ई... नी!", "en": "na, then the big ee... nee!" },
+            { "word": "blue", "mark": "ी" },
+            { "say": "kuku", "hi": "मुझे भूख लगी! कुछ ठंडा, हरा-हरा खाना है।", "en": "I'm hungry! I want something cool and green to eat.", "do": "oops" },
+            {
+              "ask": { "hi": "हरा-हरा, ठंडा, कुरकुरा... क्या है?", "en": "Green, cool and crunchy... what is it?" },
+              "who": "chiku",
+              "options": ["cucumber", "cake", "roti"],
+              "answer": "cucumber",
+              "then": { "hi": "खीरा! खी... रा! खी में बड़ी ई।", "en": "A cucumber, kheeraa! khee... raa! khee has the big ee." }
+            },
+            { "word": "cucumber", "mark": "ी" }
+          ]
+        },
+        {
+          "bg": "forest",
+          "actors": { "chiku": 24, "kuku": 74 },
+          "beats": [
+            {
+              "narrate": true,
+              "hi": "जंगल में खेल का मैदान था। वहाँ निशाना लगाने का खेल चल रहा था।",
+              "en": "There was a playground in the forest, with a target game going on."
+            },
+            { "show": "bow", "at": 50 },
+            { "say": "chiku", "hi": "धनुष से निकलेगा... तीर!", "en": "Out of the bow comes... an arrow!", "do": "happy" },
+            { "sfx": "whoosh" },
+            { "word": "arrow", "mark": "ी" },
+            { "say": "kuku", "hi": "ती... तीर! बड़ी ई फिर से!", "en": "tee... teer! The big ee again!", "do": "cheer" },
+            { "say": "chiku", "hi": "खेल ख़त्म! सीटी बजाओ: सी... सीटी!", "en": "Game over! Blow the whistle: see... seetee!", "do": "dance" },
+            { "sfx": "jingle" },
+            { "word": "whistle", "mark": "ी" },
+            {
+              "ask": { "hi": "\"सीटी\" में बड़ी ई कितनी बार है?", "en": "How many times is the big ee in seetee?" },
+              "who": "kuku",
+              "kind": "number",
+              "options": [1, 2, 3],
+              "answer": 2,
+              "then": { "hi": "दो बार! सी... टी!", "en": "Two times! see... tee!" }
+            },
+            { "clear": true },
+            {
+              "say": "chiku",
+              "hi": "आज की बड़ी ई: पीला, नीला, खीरा, तीर, सीटी!",
+              "en": "Today's big ee: peelaa, neelaa, kheeraa, teer, seetee!",
+              "do": "cheer"
+            },
+            { "echo": { "hi": "बड़ी ई, पीछे लगती है!", "en": "Big ee goes behind!" } }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chiku-u",
+      "series": "chiku",
+      "ep": 4,
+      "level": "grade1",
+      "world": "jungle",
+      "lang": "hi",
+      "title": { "hi": "चीकू का गुलाब", "en": "Chiku's rose" },
+      "teaches": { "hi": "छोटे उ की मात्रा (ु): गुलाब, कुत्ता, पुल, मुकुट, कुर्सी", "en": "The ु (u) matra, under the letter: rose, dog, bridge, crown, chair" },
+      "lesson": "g1-m2-1",
+      "recap": { "mark": "ु", "words": ["rose", "dog", "bridge", "crown", "chair"] },
+      "answer": {
+        "hi": "पिछली बार पूछा था: गुलाब में ग के नीचे क्या है? छोटे उ की मात्रा! गु... गुलाब!",
+        "en": "Last time I asked: what is under the ga in gulaab? The little u matra! gu... gulaab!"
+      },
+      "next": {
+        "hi": "अगली बार हुक दूसरी तरफ़ मुड़ेगा! सोचो: फूल में कौन सा उ है, छोटा या बड़ा?",
+        "en": "Next time the hook bends the other way! Think: which u is in phool, flower: the little one or the big one?"
+      },
+      "scenes": [
+        {
+          "bg": "garden",
+          "beats": [
+            { "narrate": true, "hi": "बगीचे में एक लाल गुलाब खिला।", "en": "A red rose bloomed in the garden." },
+            { "enter": "chiku", "at": 32 },
+            { "glyph": "ु", "at": 66 },
+            {
+              "say": "chiku",
+              "hi": "आज मात्रा अक्षर के नीचे लटकती है! यह छोटे उ की मात्रा है, एक छोटा सा हुक।",
+              "en": "Today the matra hangs under the letter! This is the little u matra, a tiny hook.",
+              "do": "happy"
+            },
+            { "build": ["ग", "ु"], "hi": "ग के नीचे छोटा उ... गु!", "en": "ga, with the little u below... gu!" },
+            { "word": "rose", "mark": "ु" },
+            { "say": "chiku", "hi": "गु... गुलाब! इसकी ख़ुशबू कितनी मीठी!", "en": "gu... gulaab, a rose! It smells so sweet!", "do": "dance" },
+            { "echo": { "hi": "छोटा उ, नीचे लटके!", "en": "Little u hangs below!" } }
+          ]
+        },
+        {
+          "bg": "village",
+          "actors": { "chiku": 24, "kuku": 74 },
+          "beats": [
+            { "narrate": true, "hi": "गाँव में कोई भौंक रहा था। भौं भौं!", "en": "In the village someone was barking. Woof woof!" },
+            {
+              "ask": { "hi": "भौं भौं कौन करता है?", "en": "Who goes woof woof?" },
+              "who": "kuku",
+              "options": ["dog", "cat", "cow"],
+              "answer": "dog",
+              "then": { "hi": "कुत्ता! कु... त्ता! क के नीचे छोटा उ।", "en": "The dog, kuttaa! ku... ttaa! ka has the little u below." }
+            },
+            { "word": "dog", "mark": "ु" },
+            { "say": "kuku", "hi": "कुत्ता नदी के पार जाना चाहता है।", "en": "The dog wants to cross the river.", "do": "oops" },
+            { "build": ["प", "ु"], "hi": "प के नीचे छोटा उ... पु!", "en": "pa, with the little u below... pu!" },
+            { "word": "bridge", "mark": "ु" },
+            { "say": "chiku", "hi": "पु... पुल! पुल पर से चलो!", "en": "pu... pul, a bridge! Walk across the bridge!", "do": "cheer" }
+          ]
+        },
+        {
+          "bg": "palace",
+          "actors": { "chiku": 24, "kuku": 74 },
+          "beats": [
+            { "narrate": true, "hi": "पुल के पार एक महल था। राजा ने चीकू को बुलाया!", "en": "Across the bridge was a palace. The king invited Chiku!" },
+            {
+              "ask": { "hi": "राजा के सिर पर क्या चमकता है?", "en": "What shines on the king's head?" },
+              "who": "chiku",
+              "options": ["crown", "cap", "hat"],
+              "answer": "crown",
+              "then": { "hi": "मुकुट! मु... कु... ट! राजा का मुकुट।", "en": "A crown, mukut! mu... ku... t! The king's crown." }
+            },
+            { "word": "crown", "mark": "ु" },
+            {
+              "ask": { "hi": "\"मुकुट\" में छोटा उ कितनी बार है?", "en": "How many times is the little u in mukut?" },
+              "who": "kuku",
+              "kind": "number",
+              "options": [1, 2, 3],
+              "answer": 2,
+              "then": { "hi": "दो बार! मु... कु... ट।", "en": "Two times! mu... ku... t." }
+            },
+            { "say": "chiku", "hi": "और राजा बैठे हैं... कुर्सी पर! कु... कुर्सी!", "en": "And the king sits... on a chair! ku... kursee!", "do": "silly" },
+            { "word": "chair", "mark": "ु" },
+            { "clear": true },
+            {
+              "say": "chiku",
+              "hi": "आज का छोटा उ: गुलाब, कुत्ता, पुल, मुकुट, कुर्सी!",
+              "en": "Today's little u: gulaab, kuttaa, pul, mukut, kursee!",
+              "do": "cheer"
+            },
+            { "echo": { "hi": "छोटा उ, नीचे लटके!", "en": "Little u hangs below!" } }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chiku-uu",
+      "series": "chiku",
+      "ep": 5,
+      "level": "grade1",
+      "world": "jungle",
+      "lang": "hi",
+      "title": { "hi": "चीकू का खोया जूता", "en": "Chiku's missing shoe" },
+      "teaches": { "hi": "बड़े ऊ की मात्रा (ू): जूता, फूल, चूहा, दूध, सूरज", "en": "The ू (oo) matra, under the letter: shoe, flower, mouse, milk, sun" },
+      "lesson": "g1-m2-2",
+      "recap": { "mark": "ू", "words": ["shoe", "flower", "mouse", "milk", "sun"] },
+      "answer": {
+        "hi": "पिछली बार पूछा था: फूल में कौन सा उ है? बड़ा ऊ! फू... फूल! हुक दूसरी तरफ़ मुड़ा है।",
+        "en": "Last time I asked: which u is in phool? The big oo! phoo... phool! The hook bends the other way."
+      },
+      "next": {
+        "hi": "अगली बार मात्रा अक्षर के ऊपर चढ़ेगी! सोचो: मेज़ में म के ऊपर क्या है?",
+        "en": "Next time a matra climbs on top of the letter! Think: what is on top of the ma in mez, table?"
+      },
+      "scenes": [
+        {
+          "bg": "jungle",
+          "beats": [
+            { "narrate": true, "hi": "सुबह चीकू उठा, तो उसका एक जूता ग़ायब था!", "en": "When Chiku woke up, one of his shoes was missing!" },
+            { "enter": "chiku", "at": 32 },
+            { "say": "chiku", "hi": "मेरा जूता कहाँ गया?", "en": "Where did my shoe go?", "do": "oops" },
+            { "glyph": "ू", "at": 66 },
+            {
+              "say": "chiku",
+              "hi": "जूता! जू में ज के नीचे बड़े ऊ की मात्रा है। लंबा बोलो: ऊऊऊ!",
+              "en": "Shoe, jootaa! In joo, ja has the big oo matra below. Say it long: oooo!"
+            },
+            { "build": ["ज", "ू"], "hi": "ज के नीचे बड़ा ऊ... जू!", "en": "ja, with the big oo below... joo!" },
+            { "word": "shoe", "mark": "ू" },
+            { "echo": { "hi": "बड़ा ऊ, लंबा बोले!", "en": "Big oo, say it long!" } }
+          ]
+        },
+        {
+          "bg": "garden",
+          "actors": { "chiku": 24, "kuku": 74 },
+          "beats": [
+            { "narrate": true, "hi": "चीकू और कूकू जूता ढूँढने निकले। बगीचे में...", "en": "Chiku and Kuku set off to find the shoe. In the garden..." },
+            { "say": "kuku", "hi": "यहाँ जूता नहीं, पर कितने सुंदर फूल हैं!", "en": "No shoe here, but such pretty flowers!", "do": "happy" },
+            { "word": "flower", "mark": "ू" },
+            { "say": "chiku", "hi": "फू... फूल! फ के नीचे बड़ा ऊ।", "en": "phoo... phool! pha has the big oo below." },
+            { "sfx": "pop" },
+            { "say": "kuku", "hi": "श्श्श! फूलों के पीछे कुछ हिला। चूँ चूँ!", "en": "Shh! Something moved behind the flowers. Squeak squeak!", "do": "oops" },
+            {
+              "ask": { "hi": "चूँ चूँ कौन करता है?", "en": "Who goes squeak squeak?" },
+              "who": "chiku",
+              "options": ["mouse", "cat", "dog"],
+              "answer": "mouse",
+              "then": { "hi": "चूहा! चू... हा! चूहे के पास मेरा जूता है!", "en": "The mouse, choohaa! choo... haa! The mouse has my shoe!" }
+            },
+            { "word": "mouse", "mark": "ू" }
+          ]
+        },
+        {
+          "bg": "village",
+          "actors": { "chiku": 24, "kuku": 74 },
+          "beats": [
+            { "narrate": true, "hi": "चूहा जूते को घर बनाकर सो रहा था!", "en": "The mouse had made the shoe its house and was fast asleep!" },
+            {
+              "say": "chiku",
+              "hi": "ओहो! चूहे को घर चाहिए था। ठीक है, जूता तुम्हारा!",
+              "en": "Oho! The mouse needed a home. All right, the shoe is yours!",
+              "do": "happy"
+            },
+            {
+              "ask": {
+                "hi": "चूहे को नाश्ते में क्या दें? सफ़ेद है, गिलास में आता है!",
+                "en": "What shall we give the mouse for breakfast? It is white and comes in a glass!"
+              },
+              "who": "kuku",
+              "options": ["milk", "tea", "water"],
+              "answer": "milk",
+              "then": { "hi": "दूध! दू... ध! द के नीचे बड़ा ऊ।", "en": "Milk, doodh! doo... dh! da has the big oo below." }
+            },
+            { "word": "milk", "mark": "ू" },
+            { "say": "kuku", "hi": "देखो, सूरज भी जाग गया!", "en": "Look, the sun is awake too!", "do": "cheer" },
+            { "word": "sun", "mark": "ू" },
+            { "say": "chiku", "hi": "सू... सूरज! स के नीचे बड़ा ऊ।", "en": "soo... sooraj! sa has the big oo below." },
+            { "clear": true },
+            {
+              "say": "chiku",
+              "hi": "आज का बड़ा ऊ: जूता, फूल, चूहा, दूध, सूरज!",
+              "en": "Today's big oo: jootaa, phool, choohaa, doodh, sooraj!",
+              "do": "cheer"
+            },
+            { "echo": { "hi": "बड़ा ऊ, लंबा बोले!", "en": "Big oo, say it long!" } }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chiku-e",
+      "series": "chiku",
+      "ep": 6,
+      "level": "grade1",
+      "world": "jungle",
+      "lang": "hi",
+      "title": { "hi": "चीकू की दुकान", "en": "Chiku's stall" },
+      "teaches": {
+        "hi": "ए और ऐ की मात्रा (े ै): मेज़, केला, सेब, पैर, बैल",
+        "en": "The े (e) and ै (ai) matras, on top of the letter: table, banana, apple, foot, ox"
+      },
+      "lesson": "g1-m3-1",
+      "recap": { "mark": "े", "words": ["table", "banana", "apple", "foot", "ox"] },
+      "answer": {
+        "hi": "पिछली बार पूछा था: मेज़ में म के ऊपर क्या है? ए की मात्रा! मे... मेज़! ऊपर एक तिरछी लकीर।",
+        "en": "Last time I asked: what is on top of the ma in mez? The e matra! me... mez! A slanting line on top."
+      },
+      "next": {
+        "hi": "अगली बार: मोर में कौन सी मात्रा है? खड़ा डंडा, और ऊपर एक लकीर!",
+        "en": "Next time: which matra is in mor, the peacock? A standing stick, with a line on top!"
+      },
+      "scenes": [
+        {
+          "bg": "carnival",
+          "beats": [
+            { "narrate": true, "hi": "जंगल में मेला लगा! चीकू ने एक दुकान खोली।", "en": "A fair came to the jungle! Chiku opened a stall." },
+            { "enter": "chiku", "at": 32 },
+            { "glyph": "े", "at": 66 },
+            {
+              "say": "chiku",
+              "hi": "यह ए की मात्रा है: अक्षर के ऊपर एक तिरछी लकीर।",
+              "en": "This is the e matra: a slanting line on top of the letter.",
+              "do": "happy"
+            },
+            { "build": ["म", "े"], "hi": "म के ऊपर ए की मात्रा... मे!", "en": "ma, with the e matra on top... me!" },
+            { "word": "table", "mark": "े" },
+            { "say": "chiku", "hi": "मे... मेज़! मेरी दुकान की मेज़।", "en": "me... mez! My stall's table." },
+            { "build": ["क", "े"], "hi": "क के ऊपर ए की मात्रा... के!", "en": "ka, with the e matra on top... ke!" },
+            { "word": "banana", "mark": "े" },
+            { "say": "chiku", "hi": "के... केला! केले ले लो, केले!", "en": "ke... kelaa! Bananas, get your bananas!", "do": "cheer" },
+            { "echo": { "hi": "ए की मात्रा, एक लकीर ऊपर!", "en": "The e matra, one line on top!" } }
+          ]
+        },
+        {
+          "bg": "carnival",
+          "actors": { "chiku": 24, "kuku": 74 },
+          "beats": [
+            { "narrate": true, "hi": "कूकू ख़रीदारी करने आया।", "en": "Kuku came to do some shopping." },
+            {
+              "ask": { "hi": "लाल-लाल, गोल फल, स से... कौन सा?", "en": "A round red fruit, starting with sa... which one?" },
+              "who": "kuku",
+              "options": ["apple", "tomato", "mango"],
+              "answer": "apple",
+              "then": { "hi": "सेब! से... ब! स के ऊपर ए की मात्रा।", "en": "An apple, seb! se... b! sa has the e matra on top." }
+            },
+            { "word": "apple", "mark": "े" },
+            { "say": "chiku", "hi": "अब देखो, दो लकीरें! यह ऐ की मात्रा है।", "en": "Now look, two lines! This is the ai matra.", "do": "silly" },
+            { "glyph": "ै", "at": 66 },
+            { "build": ["प", "ै"], "hi": "प के ऊपर ऐ की मात्रा... पै!", "en": "pa, with the ai matra on top... pai!" },
+            { "word": "foot", "mark": "ै" },
+            { "say": "kuku", "hi": "पै... पैर! मेरे दो पैर!", "en": "pai... pair, foot! I have two feet!", "do": "dance" },
+            { "echo": { "hi": "ऐ की मात्रा, दो लकीरें ऊपर!", "en": "The ai matra, two lines on top!" } }
+          ]
+        },
+        {
+          "bg": "farm",
+          "actors": { "chiku": 24, "kuku": 74 },
+          "beats": [
+            {
+              "narrate": true,
+              "hi": "मेले से लौटते हुए खेत में कोई खड़ा था। उसके बड़े-बड़े सींग थे!",
+              "en": "On the way back from the fair, someone was standing in the field. It had big horns!"
+            },
+            {
+              "ask": { "hi": "बड़े सींग, खेत में काम करता है... कौन?", "en": "Big horns, works in the field... who is it?" },
+              "who": "chiku",
+              "options": ["ox", "goat", "horse"],
+              "answer": "ox",
+              "then": { "hi": "बैल! बै... ल! ब के ऊपर दो लकीरें: ऐ की मात्रा।", "en": "An ox, bail! bai... l! ba has two lines on top: the ai matra." }
+            },
+            { "word": "ox", "mark": "ै" },
+            {
+              "ask": { "hi": "किसमें एक लकीर है, ए की मात्रा?", "en": "Which one has one line, the e matra?" },
+              "who": "kuku",
+              "options": ["banana", "foot", "ox"],
+              "answer": "banana",
+              "then": { "hi": "केला! के में एक लकीर।", "en": "The banana! ke has one line." }
+            },
+            { "clear": true },
+            {
+              "say": "chiku",
+              "hi": "एक लकीर: ए, जैसे केला, सेब। दो लकीरें: ऐ, जैसे पैर, बैल!",
+              "en": "One line: e, like kelaa and seb. Two lines: ai, like pair and bail!",
+              "do": "cheer"
+            },
+            { "echo": { "hi": "एक लकीर ए, दो लकीरें ऐ!", "en": "One line e, two lines ai!" } }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chiku-o",
+      "series": "chiku",
+      "ep": 7,
+      "level": "grade1",
+      "world": "jungle",
+      "lang": "hi",
+      "title": { "hi": "चीकू और नाचता मोर", "en": "Chiku and the dancing peacock" },
+      "teaches": { "hi": "ओ और औ की मात्रा (ो ौ): मोर, घोड़ा, टोपी, कौआ, पौधा", "en": "The ो (o) and ौ (au) matras: peacock, horse, cap, crow, plant" },
+      "lesson": "g1-m4-1",
+      "recap": { "mark": "ो", "words": ["peacock", "horse", "cap", "crow", "plant"] },
+      "answer": {
+        "hi": "पिछली बार पूछा था: मोर में कौन सी मात्रा है? ओ की मात्रा! खड़े डंडे पर एक लकीर: मो... मोर!",
+        "en": "Last time I asked: which matra is in mor? The o matra! A line on the standing stick: mo... mor!"
+      },
+      "next": {
+        "hi": "अगली बार एक बिंदी आएगी! सोचो: अंगूर में अ के ऊपर क्या है?",
+        "en": "Next time a dot is coming! Think: what is on top of the a in angoor, grapes?"
+      },
+      "scenes": [
+        {
+          "bg": "jungle",
+          "beats": [
+            { "narrate": true, "hi": "बादल गरजे, और जंगल में मोर नाचने लगा।", "en": "Thunder rumbled, and a peacock began to dance in the jungle." },
+            { "sfx": "thud" },
+            { "enter": "chiku", "at": 32 },
+            { "glyph": "ो", "at": 66 },
+            {
+              "say": "chiku",
+              "hi": "यह ओ की मात्रा है: खड़ा डंडा, ऊपर एक लकीर।",
+              "en": "This is the o matra: a standing stick with one line on top.",
+              "do": "happy"
+            },
+            { "build": ["म", "ो"], "hi": "म के बाद ओ की मात्रा... मो!", "en": "ma, then the o matra... mo!" },
+            { "word": "peacock", "mark": "ो" },
+            { "say": "chiku", "hi": "मो... मोर! हमारा राष्ट्रीय पक्षी!", "en": "mo... mor! India's national bird!", "do": "dance" },
+            { "echo": { "hi": "ओ की मात्रा: डंडा और एक लकीर!", "en": "The o matra: a stick and one line!" } }
+          ]
+        },
+        {
+          "bg": "village",
+          "actors": { "chiku": 24, "kuku": 74 },
+          "beats": [
+            {
+              "narrate": true,
+              "hi": "मोर को देखने गाँव से कोई दौड़ता हुआ आया। टप टप टप!",
+              "en": "Someone came galloping from the village to see the peacock. Clip clop, clip clop!"
+            },
+            {
+              "ask": { "hi": "टप टप दौड़ता कौन आया?", "en": "Who came galloping, clip clop?" },
+              "who": "kuku",
+              "options": ["horse", "donkey", "ox"],
+              "answer": "horse",
+              "then": { "hi": "घोड़ा! घो... ड़ा! घ के बाद ओ की मात्रा।", "en": "A horse, ghodaa! gho... daa! gha, then the o matra." }
+            },
+            { "word": "horse", "mark": "ो" },
+            { "say": "kuku", "hi": "घोड़े ने टोपी पहनी है! हा हा!", "en": "The horse is wearing a cap! Ha ha!", "do": "silly" },
+            { "word": "cap", "mark": "ो" },
+            { "say": "chiku", "hi": "टो... टोपी! ट के बाद ओ की मात्रा।", "en": "to... topee! ta, then the o matra." }
+          ]
+        },
+        {
+          "bg": "farm",
+          "actors": { "chiku": 24, "kuku": 74 },
+          "beats": [
+            { "narrate": true, "hi": "फिर एक काला पक्षी आया: काँव, काँव!", "en": "Then a black bird came: caw, caw!" },
+            { "say": "chiku", "hi": "अब दो लकीरें! यह औ की मात्रा है।", "en": "Now two lines! This is the au matra.", "do": "oops" },
+            { "glyph": "ौ", "at": 66 },
+            {
+              "ask": { "hi": "काँव काँव कौन करता है?", "en": "Who goes caw caw?" },
+              "who": "kuku",
+              "options": ["crow", "parrot", "peacock"],
+              "answer": "crow",
+              "then": { "hi": "कौआ! कौ... आ! क के बाद औ की मात्रा।", "en": "A crow, kauaa! kau... aa! ka, then the au matra." }
+            },
+            { "word": "crow", "mark": "ौ" },
+            { "say": "kuku", "hi": "कौए ने एक बीज बोया, और उग आया...", "en": "The crow planted a seed, and up came...", "do": "happy" },
+            { "word": "plant", "mark": "ौ" },
+            { "say": "chiku", "hi": "पौ... पौधा! प के बाद औ की मात्रा।", "en": "pau... paudhaa, a plant! pa, then the au matra." },
+            {
+              "ask": { "hi": "किसमें दो लकीरें हैं, औ की मात्रा?", "en": "Which one has two lines, the au matra?" },
+              "who": "chiku",
+              "options": ["crow", "peacock", "horse"],
+              "answer": "crow",
+              "then": { "hi": "कौआ! कौ में दो लकीरें।", "en": "The crow! kau has two lines." }
+            },
+            { "clear": true },
+            {
+              "say": "chiku",
+              "hi": "एक लकीर: ओ, जैसे मोर, घोड़ा, टोपी। दो लकीरें: औ, जैसे कौआ, पौधा!",
+              "en": "One line: o, like mor, ghodaa, topee. Two lines: au, like kauaa, paudhaa!",
+              "do": "cheer"
+            },
+            { "echo": { "hi": "एक लकीर ओ, दो लकीरें औ!", "en": "One line o, two lines au!" } }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chiku-bindi",
+      "series": "chiku",
+      "ep": 8,
+      "level": "grade1",
+      "world": "jungle",
+      "lang": "hi",
+      "title": { "hi": "चीकू का जन्मदिन", "en": "Chiku's birthday" },
+      "teaches": {
+        "hi": "बिंदी (ं) और चंद्रबिंदु (ँ): अंगूर, बंदर, पतंग, घंटी, चाँद, ऊँट; और सारी मात्राएँ दोबारा",
+        "en": "The bindi (ं) and chandrabindu (ँ): grapes, monkey, kite, bell, moon, camel; and all the matras again"
+      },
+      "lesson": "g1-m5-1",
+      "recap": { "mark": "ं", "words": ["grapes", "monkey", "kite", "bell", "moon", "camel"] },
+      "answer": {
+        "hi": "पिछली बार पूछा था: अंगूर में अ के ऊपर क्या है? एक बिंदी! अं... अंगूर!",
+        "en": "Last time I asked: what is on top of the a in angoor? A dot! an... angoor!"
+      },
+      "scenes": [
+        {
+          "bg": "jungle",
+          "beats": [
+            {
+              "narrate": true,
+              "hi": "आज चीकू का जन्मदिन है! जंगल में दावत होगी।",
+              "en": "It's Chiku's birthday today! There will be a feast in the jungle."
+            },
+            { "sfx": "jingle" },
+            { "enter": "chiku", "at": 32 },
+            { "glyph": "ं", "at": 66 },
+            {
+              "say": "chiku",
+              "hi": "यह बिंदी है। बिंदी लगाओ, तो आवाज़ नाक से निकलती है: अं!",
+              "en": "This is the bindi, a dot. Add the dot and the sound comes through your nose: ung!",
+              "do": "happy"
+            },
+            { "word": "grapes", "mark": "ं" },
+            { "say": "chiku", "hi": "अं... अंगूर! मेरी दावत के मीठे अंगूर।", "en": "an... angoor, grapes! Sweet grapes for my feast.", "do": "dance" },
+            { "word": "monkey", "mark": "ं" },
+            {
+              "say": "chiku",
+              "hi": "और मैं कौन हूँ? बं... बंदर! बंदर में भी बिंदी!",
+              "en": "And who am I? ban... bandar, a monkey! Bandar has a dot too!",
+              "do": "silly"
+            },
+            { "echo": { "hi": "बिंदी लगी, नाक से बोली!", "en": "Add a dot, say it through your nose!" } }
+          ]
+        },
+        {
+          "bg": "mountain",
+          "actors": { "chiku": 24, "kuku": 74 },
+          "beats": [
+            {
+              "narrate": true,
+              "hi": "कूकू एक तोहफ़ा लेकर आया। यह तोहफ़ा हवा में उड़ता है!",
+              "en": "Kuku came with a present. This present flies in the wind!"
+            },
+            {
+              "ask": { "hi": "हवा में उड़ने वाला तोहफ़ा क्या है?", "en": "What present flies in the wind?" },
+              "who": "kuku",
+              "options": ["kite", "balloon", "bird"],
+              "answer": "kite",
+              "then": { "hi": "पतंग! प... तं... ग! त के ऊपर बिंदी।", "en": "A kite, patang! pa... tan... g! ta has a dot on top." }
+            },
+            { "word": "kite", "mark": "ं" },
+            {
+              "say": "chiku",
+              "hi": "धन्यवाद कूकू! चलो, घंटी बजाओ, दावत शुरू!",
+              "en": "Thank you, Kuku! Come, ring the bell, the feast begins!",
+              "do": "cheer"
+            },
+            { "word": "bell", "mark": "ं" },
+            { "sfx": "jingle" }
+          ]
+        },
+        {
+          "bg": "space",
+          "actors": { "chiku": 24, "kuku": 74 },
+          "beats": [
+            { "narrate": true, "hi": "रात हुई, और आसमान में कुछ चमका।", "en": "Night came, and something shone in the sky." },
+            { "glyph": "ँ", "at": 66 },
+            {
+              "say": "chiku",
+              "hi": "देखो, बिंदी के नीचे एक छोटा सा चाँद! यह चंद्रबिंदु है।",
+              "en": "Look, a little moon under the dot! This is the chandrabindu, the moon dot.",
+              "do": "happy"
+            },
+            {
+              "ask": { "hi": "आसमान में क्या चमक रहा है, जिसके नाम में ही चंद्रबिंदु है?", "en": "What is shining in the sky, with a moon dot in its own name?" },
+              "who": "kuku",
+              "options": ["moon", "sun", "star"],
+              "answer": "moon",
+              "then": { "hi": "चाँद! चाँ... द! आ की मात्रा पर चंद्रबिंदु।", "en": "The moon, chaand! chaan... d! A moon dot on the aa matra." }
+            },
+            { "word": "moon", "mark": "ँ" },
+            {
+              "say": "kuku",
+              "hi": "और चाँदनी में कौन आया? लंबी गर्दन, पीठ पर कूबड़!",
+              "en": "And who came in the moonlight? A long neck and a hump on its back!",
+              "do": "oops"
+            },
+            { "word": "camel", "mark": "ँ" },
+            { "say": "chiku", "hi": "ऊँ... ऊँट! ऊ पर चंद्रबिंदु।", "en": "oon... oont, a camel! A moon dot on the oo." },
+            {
+              "ask": { "hi": "अब बताओ, किसमें आ की मात्रा है, खड़ा डंडा?", "en": "Now tell me, which one has the aa matra, the standing stick?" },
+              "who": "chiku",
+              "options": ["boat", "dog", "peacock"],
+              "answer": "boat",
+              "then": { "hi": "नाव! ना में खड़ा डंडा। हमारी पहली मात्रा!", "en": "The boat, naav! naa has the standing stick. Our very first matra!" }
+            },
+            { "clear": true },
+            {
+              "say": "chiku",
+              "hi": "आ, इ, ई, उ, ऊ, ए, ऐ, ओ, औ, और बिंदी! सारी मात्राएँ हमारी दोस्त हैं!",
+              "en": "aa, i, ee, u, oo, e, ai, o, au, and the dot! All the matras are our friends!",
+              "do": "dance"
+            },
+            { "echo": { "hi": "मात्रा लगाओ, शब्द बनाओ!", "en": "Add a matra, make a word!" } },
+            { "say": "chiku", "hi": "जन्मदिन की सबसे अच्छी दावत! टाटा!", "en": "The best birthday feast ever! Bye-bye!", "do": "wave" },
+            { "do": "dance", "who": "kuku" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tiko-tens",
+      "series": "tiko",
+      "ep": 2,
+      "level": "grade1",
+      "world": "carnival",
+      "lang": "en",
+      "title": { "hi": "टीको के दस-दस के थैले", "en": "Tiko's bags of ten" },
+      "teaches": { "en": "Tens and ones: 23 is 2 tens and 3 ones; 34; 40 (NC.1.NBT.2)" },
+      "lesson": "g1m-place-1",
+      "recap": { "lines": ["23 = 2 tens and 3 ones", "34 = 3 tens and 4 ones", "40 = 4 tens and 0 ones"] },
+      "answer": { "en": "Last time I asked: two bags of ten and three more. That's twenty-three! Two tens and three ones." },
+      "next": { "en": "Next time: which is more, forty-two or twenty-four? Think about the tens!" },
+      "scenes": [
+        {
+          "bg": "carnival",
+          "beats": [
+            { "narrate": true, "en": "The carnival opens today, and Pip has brought LOTS of balloons." },
+            { "enter": "tiko", "at": 26 },
+            { "say": "tiko", "en": "Hoo hoo! Counting them one by one takes too long. Let's put them in bags of ten!", "do": "happy" },
+            { "model": { "kind": "base10", "tens": 2, "ones": 3 }, "at": 62 },
+            { "say": "tiko", "en": "Each tall stick is a bag of ten. Each little cube is one." },
+            { "say": "tiko", "en": "Ten, twenty... and one, two, three. Twenty-three!" },
+            { "number": "23", "at": 62 },
+            { "echo": { "en": "Two tens and three ones make twenty-three!" } }
+          ]
+        },
+        {
+          "bg": "carnival",
+          "actors": { "tiko": 26 },
+          "beats": [
+            { "enter": "pip", "at": 74, "from": "right" },
+            { "say": "pip", "en": "Tiko! I found more balloons!", "do": "cheer" },
+            { "model": { "kind": "base10", "tens": 3, "ones": 4 }, "at": 62 },
+            {
+              "ask": { "en": "Three tens and four ones. What number is that?" },
+              "who": "tiko",
+              "kind": "number",
+              "options": [34, 43, 7],
+              "answer": 34,
+              "then": { "en": "Thirty-four! Three tens make thirty, and four more." }
+            },
+            { "number": "34", "at": 62 },
+            { "echo": { "en": "Three tens, four ones, thirty-four!" } },
+            { "exit": "pip", "to": "right" }
+          ]
+        },
+        {
+          "bg": "carnival",
+          "actors": { "tiko": 26 },
+          "beats": [
+            { "narrate": true, "en": "Then Buzz flew in with a question." },
+            { "enter": "buzz", "at": 76, "from": "right" },
+            { "say": "buzz", "en": "Bzzz! I have four bags of ten and NO loose balloons. How many is that?", "do": "oops" },
+            { "model": { "kind": "base10", "tens": 4, "ones": 0 }, "at": 62 },
+            {
+              "ask": { "en": "Four tens and zero ones make...?" },
+              "who": "tiko",
+              "kind": "number",
+              "options": [4, 14, 40],
+              "answer": 40,
+              "then": { "en": "Forty! The zero says there are no ones." }
+            },
+            { "number": "40", "at": 62 },
+            { "echo": { "en": "Tens first, then ones!" } },
+            { "clear": true },
+            { "say": "tiko", "en": "Twenty-three, thirty-four, forty. Count the tens, then the ones. Hoo hoo!", "do": "dance" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tiko-compare",
+      "series": "tiko",
+      "ep": 3,
+      "level": "grade1",
+      "world": "carnival",
+      "lang": "en",
+      "title": { "hi": "टीको की बड़ी गिनती", "en": "Tiko's bigger number contest" },
+      "teaches": { "en": "Comparing two-digit numbers: look at the tens first, then the ones (NC.1.NBT.3)" },
+      "lesson": "g1m-place-2",
+      "recap": { "lines": ["42 is more than 24", "53 is more than 35", "68 is more than 61", "19 is less than 21"] },
+      "answer": { "en": "Last time I asked: which is more, forty-two or twenty-four? Forty-two! It has four tens. Twenty-four has only two." },
+      "next": { "en": "Next time: what is ten more than thirty-four? Think: just one more bag of ten!" },
+      "scenes": [
+        {
+          "bg": "carnival",
+          "beats": [
+            { "narrate": true, "en": "It's the Big Number Contest at the carnival!" },
+            { "enter": "tiko", "at": 26 },
+            { "say": "tiko", "en": "Hoo! To find the bigger number, look at the tens first.", "do": "happy" },
+            { "model": { "kind": "compare10", "a": 42, "b": 24 }, "at": 62 },
+            { "say": "tiko", "en": "Forty-two has four tens. Twenty-four has two tens. Four tens is more!" },
+            { "number": "42 > 24", "at": 62 },
+            { "say": "tiko", "en": "The open mouth faces the bigger number. Forty-two is greater than twenty-four." },
+            { "echo": { "en": "Look at the tens first!" } }
+          ]
+        },
+        {
+          "bg": "carnival",
+          "actors": { "tiko": 26 },
+          "beats": [
+            { "enter": "pip", "at": 76, "from": "right" },
+            { "say": "pip", "en": "My turn! Thirty-five or fifty-three?", "do": "cheer" },
+            { "model": { "kind": "compare10", "a": 35, "b": 53 }, "at": 56 },
+            {
+              "ask": { "en": "Which is greater?" },
+              "who": "tiko",
+              "kind": "number",
+              "options": [35, 53],
+              "answer": 53,
+              "then": { "en": "Fifty-three! Five tens beat three tens." }
+            },
+            { "say": "pip", "en": "Now a tricky one: sixty-one or sixty-eight?", "do": "oops" },
+            { "model": { "kind": "compare10", "a": 61, "b": 68 }, "at": 56 },
+            { "say": "tiko", "en": "Both have six tens! When the tens are the same, look at the ones." },
+            {
+              "ask": { "en": "Which is greater, sixty-one or sixty-eight?" },
+              "who": "tiko",
+              "kind": "number",
+              "options": [61, 68],
+              "answer": 68,
+              "then": { "en": "Sixty-eight! Eight ones are more than one." }
+            },
+            { "echo": { "en": "Same tens? Look at the ones!" } }
+          ]
+        },
+        {
+          "bg": "carnival",
+          "actors": { "tiko": 26, "pip": 76 },
+          "beats": [
+            { "narrate": true, "en": "The winner of the contest gets the biggest balloon." },
+            {
+              "ask": { "en": "Last one! Which number is less, nineteen or twenty-one?" },
+              "who": "pip",
+              "kind": "number",
+              "options": [19, 21],
+              "answer": 19,
+              "then": { "en": "Nineteen! It has only one ten." }
+            },
+            { "clear": true },
+            { "say": "tiko", "en": "Tens first, then ones. You are a number judge!", "do": "dance" },
+            { "do": "cheer", "who": "pip" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tiko-tenmore",
+      "series": "tiko",
+      "ep": 4,
+      "level": "grade1",
+      "world": "carnival",
+      "lang": "en",
+      "title": { "hi": "टीको की दस की छलाँग", "en": "Tiko's jumps of ten" },
+      "teaches": { "en": "Ten more and ten less than a number, without counting (NC.1.NBT.5)" },
+      "lesson": "g1m-100-1",
+      "recap": { "lines": ["10 more than 34 is 44", "10 more than 25 is 35", "10 less than 50 is 40"] },
+      "answer": { "en": "Last time I asked: what is ten more than thirty-four? Forty-four! Just one more bag of ten." },
+      "next": { "en": "Next time: Pip has five apples and eats two. How many are left? Have a think!" },
+      "scenes": [
+        {
+          "bg": "carnival",
+          "beats": [
+            { "narrate": true, "en": "At the carnival there is a giant number hopscotch." },
+            { "enter": "tiko", "at": 26 },
+            { "model": { "kind": "base10", "tens": 3, "ones": 4 }, "at": 62 },
+            { "say": "tiko", "en": "Thirty-four. Now add one bag of ten...", "do": "happy" },
+            { "model": { "kind": "base10", "tens": 4, "ones": 4 }, "at": 62 },
+            { "say": "tiko", "en": "Forty-four! Only the tens change. The ones stay the same." },
+            { "echo": { "en": "Ten more: the tens go up by one!" } }
+          ]
+        },
+        {
+          "bg": "carnival",
+          "actors": { "tiko": 26 },
+          "beats": [
+            { "enter": "pip", "at": 76, "from": "right" },
+            { "say": "pip", "en": "I have twenty-five tickets. And I just won ten more!", "do": "cheer" },
+            { "model": { "kind": "base10", "tens": 2, "ones": 5 }, "at": 62 },
+            {
+              "ask": { "en": "What is ten more than twenty-five?" },
+              "who": "tiko",
+              "kind": "number",
+              "options": [26, 35, 45],
+              "answer": 35,
+              "then": { "en": "Thirty-five! Two tens became three tens." }
+            },
+            { "model": { "kind": "base10", "tens": 3, "ones": 5 }, "at": 62 },
+            { "echo": { "en": "Twenty-five, thirty-five!" } }
+          ]
+        },
+        {
+          "bg": "carnival",
+          "actors": { "tiko": 26, "pip": 76 },
+          "beats": [
+            { "narrate": true, "en": "Then Pip spent ten tickets on the big wheel." },
+            { "say": "pip", "en": "I had fifty tickets. I gave away ten.", "do": "oops" },
+            { "model": { "kind": "base10", "tens": 5, "ones": 0, "goneTens": 1 }, "at": 62 },
+            {
+              "ask": { "en": "What is ten less than fifty?" },
+              "who": "tiko",
+              "kind": "number",
+              "options": [40, 49, 60],
+              "answer": 40,
+              "then": { "en": "Forty! Take away one ten." }
+            },
+            { "echo": { "en": "Ten less: the tens go down by one!" } },
+            { "clear": true },
+            { "say": "tiko", "en": "Ten more, up a ten. Ten less, down a ten. Hoo hoo!", "do": "dance" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tiko-story",
+      "series": "tiko",
+      "ep": 5,
+      "level": "grade1",
+      "world": "carnival",
+      "lang": "en",
+      "title": { "hi": "टीको के कहानी वाले सवाल", "en": "Tiko's story sums" },
+      "teaches": { "en": "Story problems: adding to, taking away, and finding the missing number (NC.1.OA.1, NC.1.OA.8)" },
+      "lesson": "g1m-story-1",
+      "recap": { "lines": ["5 - 2 = 3", "4 + 3 = 7", "8 + 2 = 10"] },
+      "answer": { "en": "Last time I asked: Pip has five apples and eats two. How many are left? Three! Five take away two is three." },
+      "next": { "en": "Next time: how can we find out how long a snake is, without a ruler? Think about it!" },
+      "scenes": [
+        {
+          "bg": "carnival",
+          "beats": [
+            { "narrate": true, "en": "Snack time at the carnival!" },
+            { "enter": "tiko", "at": 26 },
+            { "model": { "kind": "objects", "groups": [{ "n": 5, "pic": "apple" }], "layout": "rows" }, "at": 62 },
+            { "say": "tiko", "en": "Pip had five apples.", "do": "happy" },
+            { "model": { "kind": "objects", "groups": [{ "n": 5, "pic": "apple", "gone": 2 }], "layout": "rows" }, "at": 62 },
+            { "say": "tiko", "en": "Crunch, crunch! Pip ate two. Count the apples that are left." },
+            { "number": "5 - 2 = 3", "at": 62 },
+            { "echo": { "en": "Five take away two is three!" } }
+          ]
+        },
+        {
+          "bg": "carnival",
+          "actors": { "tiko": 26 },
+          "beats": [
+            { "enter": "buzz", "at": 76, "from": "right" },
+            { "say": "buzz", "en": "Bzzz! I had four balloons, and I found three more!", "do": "cheer" },
+            { "model": { "kind": "objects", "groups": [{ "n": 4, "pic": "balloon" }, { "n": 3, "pic": "balloon", "arrive": true }], "op": "+", "layout": "rows" }, "at": 58 },
+            {
+              "ask": { "en": "Four balloons and three more. How many now?" },
+              "who": "tiko",
+              "kind": "number",
+              "options": [6, 7, 8],
+              "answer": 7,
+              "then": { "en": "Seven! Four and three more make seven." }
+            },
+            { "number": "4 + 3 = 7", "at": 62 },
+            { "echo": { "en": "Adding to: we get more!" } }
+          ]
+        },
+        {
+          "bg": "carnival",
+          "actors": { "tiko": 26, "buzz": 76 },
+          "beats": [
+            { "narrate": true, "en": "The big wheel costs ten tickets." },
+            { "tenframe": [{ "a": 8 }], "at": 62 },
+            { "say": "tiko", "en": "I have eight tickets. Hmm, I need ten.", "do": "oops" },
+            {
+              "ask": { "en": "Eight and how many more make ten?" },
+              "who": "buzz",
+              "kind": "number",
+              "options": [1, 2, 3],
+              "answer": 2,
+              "then": { "en": "Two! Eight and two make ten." }
+            },
+            { "tenframe": [{ "a": 8, "b": 2 }], "at": 62 },
+            { "clear": true },
+            { "say": "tiko", "en": "Read the story, picture it, then add or take away!", "do": "dance" },
+            { "echo": { "en": "Picture the story!" } }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tiko-measure",
+      "series": "tiko",
+      "ep": 6,
+      "level": "grade1",
+      "world": "carnival",
+      "lang": "en",
+      "title": { "hi": "टीको का नापने वाला खेल", "en": "Tiko measures up" },
+      "teaches": { "en": "Comparing lengths, and measuring with cubes laid end to end (NC.1.MD.1, NC.1.MD.2)" },
+      "lesson": "g1m-measure-2",
+      "recap": { "lines": ["snake: 6 cubes", "train: 9 cubes", "pen: 4 cubes"] },
+      "answer": { "en": "Last time I asked: how can we measure a snake without a ruler? With cubes! Line them up end to end, and count them." },
+      "next": { "en": "Next time: the short hand points to three, and the long hand points to twelve. What time is it?" },
+      "scenes": [
+        {
+          "bg": "carnival",
+          "beats": [
+            { "narrate": true, "en": "The carnival has a Longest Snake contest!" },
+            { "enter": "tiko", "at": 26 },
+            { "model": { "kind": "measure", "len": 6, "thing": "snake" }, "at": 60 },
+            { "say": "tiko", "en": "Line up the cubes from one end of the snake to the other. No gaps!", "do": "happy" },
+            {
+              "ask": { "en": "How many cubes long is the snake?" },
+              "who": "tiko",
+              "kind": "number",
+              "options": [5, 6, 7],
+              "answer": 6,
+              "then": { "en": "Six cubes long!" }
+            },
+            { "echo": { "en": "Cubes end to end, no gaps!" } }
+          ]
+        },
+        {
+          "bg": "carnival",
+          "actors": { "tiko": 26 },
+          "beats": [
+            { "enter": "pip", "at": 76, "from": "right" },
+            { "say": "pip", "en": "My toy train is longer!", "do": "cheer" },
+            { "model": { "kind": "measure", "len": 9, "thing": "train" }, "at": 60 },
+            { "ask": { "en": "How many cubes long is the train?" }, "who": "tiko", "kind": "number", "options": [8, 9, 10], "answer": 9, "then": { "en": "Nine cubes!" } },
+            {
+              "ask": { "en": "The train is nine cubes and the snake is six. How many cubes longer is the train?" },
+              "who": "pip",
+              "kind": "number",
+              "options": [2, 3, 4],
+              "answer": 3,
+              "then": { "en": "Three cubes longer! Nine take away six is three." }
+            },
+            { "exit": "pip", "to": "right" }
+          ]
+        },
+        {
+          "bg": "carnival",
+          "actors": { "tiko": 26 },
+          "beats": [
+            { "narrate": true, "en": "Then Buzz brought a pen to measure." },
+            { "enter": "buzz", "at": 76, "from": "right" },
+            { "model": { "kind": "measure", "len": 4, "thing": "pencil" }, "at": 60 },
+            { "say": "buzz", "en": "My pen is four cubes long. Bzzz!", "do": "happy" },
+            {
+              "ask": { "en": "Which one is the shortest?" },
+              "who": "tiko",
+              "options": ["pen", "snake", "train"],
+              "answer": "pen",
+              "then": { "en": "The pen! Four cubes is the fewest." }
+            },
+            { "clear": true },
+            { "say": "tiko", "en": "Longest or shortest? Just line them up and count the cubes!", "do": "dance" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tiko-time",
+      "series": "tiko",
+      "ep": 7,
+      "level": "grade1",
+      "world": "carnival",
+      "lang": "en",
+      "title": { "hi": "टीको की घड़ी", "en": "Tiko's clock" },
+      "teaches": { "en": "Telling time to the hour and the half hour (NC.1.MD.3)" },
+      "lesson": "g1m-measure-3",
+      "recap": { "lines": ["3 o'clock", "5 o'clock", "half past 5"] },
+      "answer": { "en": "Last time I asked: the short hand on three, the long hand on twelve. It's three o'clock!" },
+      "next": { "en": "Next time: how many corners does a triangle have? Count them on your fingers!" },
+      "scenes": [
+        {
+          "bg": "carnival",
+          "beats": [
+            { "narrate": true, "en": "The carnival clock tower chimes every hour. Bong!" },
+            { "sfx": "chime" },
+            { "enter": "tiko", "at": 26 },
+            { "model": { "kind": "clock", "h": 3, "m": 0 }, "at": 62 },
+            { "say": "tiko", "en": "The short hand tells the hour. The long hand on twelve means o'clock.", "do": "happy" },
+            { "say": "tiko", "en": "The short hand is on three. It's three o'clock!" },
+            { "echo": { "en": "Long hand on twelve, it's o'clock!" } }
+          ]
+        },
+        {
+          "bg": "carnival",
+          "actors": { "tiko": 26 },
+          "beats": [
+            { "enter": "pip", "at": 76, "from": "right" },
+            { "say": "pip", "en": "When does the puppet show start? Look at the clock!", "do": "cheer" },
+            { "model": { "kind": "clock", "h": 5, "m": 0 }, "at": 56 },
+            {
+              "ask": { "en": "The long hand is on twelve. What o'clock is it?" },
+              "who": "tiko",
+              "kind": "number",
+              "options": [4, 5, 6],
+              "answer": 5,
+              "then": { "en": "Five o'clock! Time for the puppet show." }
+            }
+          ]
+        },
+        {
+          "bg": "carnival",
+          "actors": { "tiko": 26, "pip": 76 },
+          "beats": [
+            { "narrate": true, "en": "The show went on, and the long hand went halfway round." },
+            { "model": { "kind": "clock", "h": 5, "m": 30 }, "at": 56 },
+            { "say": "tiko", "en": "Now the long hand points to six. That means half past!", "do": "happy" },
+            { "say": "tiko", "en": "The short hand is between five and six. It is half past five." },
+            {
+              "ask": { "en": "Half past what? Which hour did we just pass?" },
+              "who": "pip",
+              "kind": "number",
+              "options": [5, 6, 7],
+              "answer": 5,
+              "then": { "en": "Five! It's half past five." }
+            },
+            { "echo": { "en": "Long hand on six, half past!" } },
+            { "clear": true },
+            { "say": "tiko", "en": "O'clock and half past. Now you can read the clock! Hoo hoo!", "do": "dance" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tiko-shapes",
+      "series": "tiko",
+      "ep": 8,
+      "level": "grade1",
+      "world": "carnival",
+      "lang": "en",
+      "title": { "hi": "टीको के आकार", "en": "Tiko's shapes and halves" },
+      "teaches": { "en": "Sides and corners of shapes; halves and fourths of a circle (NC.1.G.1, NC.1.G.3); and a goodbye quiz" },
+      "lesson": "g1m-shapes-3",
+      "recap": { "lines": ["triangle: 3 sides, 3 corners", "square: 4 sides, 4 corners", "2 halves make 1 whole", "4 fourths make 1 whole"] },
+      "answer": { "en": "Last time I asked: how many corners does a triangle have? Three! Tri means three." },
+      "scenes": [
+        {
+          "bg": "carnival",
+          "beats": [
+            { "narrate": true, "en": "On the last night of the carnival, Tiko makes shape flags." },
+            { "enter": "tiko", "at": 26 },
+            { "model": { "kind": "shape", "shape": "triangle", "color": "#FF8A3D", "marks": "corners" }, "at": 62 },
+            { "say": "tiko", "en": "A triangle has three sides and three corners.", "do": "happy" },
+            { "echo": { "en": "Triangle: three sides, three corners!" } },
+            { "model": { "kind": "shape", "shape": "square", "color": "#3D7BFF", "marks": "corners" }, "at": 62 },
+            {
+              "ask": { "en": "How many corners does a square have?" },
+              "who": "tiko",
+              "kind": "number",
+              "options": [3, 4, 5],
+              "answer": 4,
+              "then": { "en": "Four! A square has four sides and four corners." }
+            }
+          ]
+        },
+        {
+          "bg": "carnival",
+          "actors": { "tiko": 26 },
+          "beats": [
+            { "enter": "pip", "at": 76, "from": "right" },
+            { "say": "pip", "en": "Dinner time! Let's share a round roti.", "do": "cheer" },
+            { "model": { "kind": "parts", "shape": "circle", "parts": 2, "equal": true, "shade": 1 }, "at": 60 },
+            { "say": "tiko", "en": "Two equal parts. Each part is one half." },
+            {
+              "ask": { "en": "How many halves make the whole roti?" },
+              "who": "pip",
+              "kind": "number",
+              "options": [1, 2, 4],
+              "answer": 2,
+              "then": { "en": "Two halves make one whole!" }
+            },
+            { "model": { "kind": "parts", "shape": "circle", "parts": 4, "equal": true, "shade": 1 }, "at": 60 },
+            { "say": "tiko", "en": "Four equal parts. Each part is one fourth, or a quarter." },
+            {
+              "ask": { "en": "How many fourths make the whole roti?" },
+              "who": "tiko",
+              "kind": "number",
+              "options": [2, 3, 4],
+              "answer": 4,
+              "then": { "en": "Four fourths make one whole!" }
+            },
+            { "echo": { "en": "Equal parts: halves and fourths!" } }
+          ]
+        },
+        {
+          "bg": "carnival",
+          "actors": { "tiko": 26, "pip": 76 },
+          "beats": [
+            { "narrate": true, "en": "The carnival is ending. Everyone gathers for the fireworks." },
+            { "sfx": "sparkle" },
+            { "say": "tiko", "en": "We made tens, compared numbers, jumped by ten, solved stories, measured, read clocks and cut halves!", "do": "cheer" },
+            { "tenframe": [{ "a": 6 }], "at": 56 },
+            {
+              "ask": { "en": "One more, for old times! Six and how many more make ten?" },
+              "who": "pip",
+              "kind": "number",
+              "options": [3, 4, 5],
+              "answer": 4,
+              "then": { "en": "Four! Just like in our very first show." }
+            },
+            { "tenframe": [{ "a": 6, "b": 4 }], "at": 56 },
+            { "clear": true },
+            { "say": "tiko", "en": "You're a carnival maths star. Hoo hoo, goodbye!", "do": "dance" },
+            { "do": "wave", "who": "pip" },
+            { "sfx": "cheer" }
           ]
         }
       ]

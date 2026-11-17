@@ -393,3 +393,85 @@ test('the home screen has the count, and the book flips, says the word, and show
   for (const k of ['wordsHello', 'wordsEmpty']) assert.ok(content.phrases[k]?.hi && content.phrases[k]?.en, k);
   for (const c of ['.words-chip', '.words-page', '.words-grid', '.words-cell', '.words-empty']) assert.ok(css.includes(c), c);
 });
+
+// ---- 7.15 more Show time: a series of eight per guide, each ending on the question the next answers ----
+import { seriesEpisodes, nextInSeries, seriesShelves, nextShow } from '../js/shows.js';
+import { showLines, SHOW_MODELS } from '../js/logic.js';
+import { validateContent } from '../js/validate.js';
+import { THEMES } from '../js/art-scenes.js';
+
+test('each guide has a series of 8 to 10 episodes, numbered in order, in its own world', () => {
+  assert.deepEqual(
+    content.showSeries.map((s) => s.id),
+    ['gappu', 'chiku', 'tiko'],
+  );
+  for (const sr of content.showSeries) {
+    const eps = seriesEpisodes(content, sr.id);
+    assert.ok(eps.length >= 8 && eps.length <= 10, `${sr.id}: ${eps.length} episodes`);
+    assert.deepEqual(
+      eps.map((s) => s.ep),
+      eps.map((_, i) => i + 1),
+    );
+    const world = content.worlds.find((w) => w.id === eps[0].world);
+    assert.equal(world.mascot, sr.guide, `${sr.id} is in its guide's world`);
+    assert.ok(eps.every((s) => s.world === eps[0].world && s.level === eps[0].level && s.lang === eps[0].lang));
+    // a different lesson to play after each, and something new each time
+    assert.ok(new Set(eps.map((s) => s.lesson)).size >= eps.length - 1, `${sr.id}: the episodes lead to different games`);
+    assert.equal(new Set(eps.map((s) => s.title.en)).size, eps.length);
+  }
+});
+
+test('every episode but the last ends on a question, and the next one opens with its answer', () => {
+  for (const sr of content.showSeries) {
+    const eps = seriesEpisodes(content, sr.id);
+    eps.forEach((s, i) => {
+      const last = i === eps.length - 1;
+      assert.equal(!!s.next, !last, `${s.id} ${last ? 'ends the series' : 'ends on a question'}`);
+      if (!last) assert.match(s.next.en, /\?/, `${s.id}: the next line is a question`);
+      if (i > 0) assert.match(s.answer.en, /^Last time I asked/, `${s.id} answers the last question`);
+      assert.equal(nextInSeries(content, s)?.id ?? null, last ? null : eps[i + 1].id);
+      // the lines are spoken (recorded): the answer first, the question last
+      const lines = showLines(s);
+      if (s.answer) assert.equal(lines[0].en, s.answer.en);
+      if (s.next) assert.equal(lines.at(-1).en, s.next.en);
+    });
+  }
+  // the pilots keep their recorded lines: the question is added after them
+  const pilot = content.shows.find((s) => s.id === 'gappu-bus');
+  assert.equal(showLines(pilot)[0].key, 'show-gappu-bus-1');
+  assert.equal(showLines(pilot)[0].hi, pilot.scenes[0].beats[0].hi);
+});
+
+test('Show time has a shelf per series, open at the episode to watch next', () => {
+  const seen = { shows: { 'gappu-bus': { views: 1, last: '2026-11-01' }, 'gappu-cha': { views: 2, last: '2026-11-02' } } };
+  const shelves = seriesShelves(content, 'kg', seen);
+  assert.equal(shelves[0].info.id, 'gappu', "this grade's series first");
+  assert.equal(shelves[0].upNext.id, 'gappu-ta');
+  assert.equal(shelves[0].watched, 2);
+  assert.equal(shelves.length, 3);
+  // after a series ends, the next one to watch is from the same grade
+  const all = Object.fromEntries(seriesEpisodes(content, 'tiko').map((s) => [s.id, { views: 1 }]));
+  assert.equal(nextShow(content, 'grade1', 'tiko-shapes', { shows: all }).level, 'grade1');
+  const shows = read('js/shows.js');
+  assert.match(shows, /guideSays\(show\.answer/);
+  assert.match(shows, /guideSays\(show\.next/);
+  assert.match(shows, /recap-teaser/);
+  for (const c of ['.series-row', '.show-ep', '.up-next', '.recap-teaser', '.show-bubble.teaser']) assert.ok(css.includes(c), c);
+});
+
+test('the validator keeps a series whole, and checks the maths pictures', () => {
+  const opts = { themes: THEMES, mascots: MASCOT_IDS };
+  const clean = validateContent(content, opts).errors.filter((e) => /show/i.test(e));
+  assert.deepEqual(clean, []);
+  const broken = structuredClone(content);
+  broken.shows = broken.shows.filter((s) => s.id !== 'chiku-u'); // a gap at episode 4
+  delete broken.shows.find((s) => s.id === 'gappu-ta').next;
+  delete broken.shows.find((s) => s.id === 'tiko-time').answer;
+  broken.shows.find((s) => s.id === 'tiko-tens').scenes[0].beats.push({ model: { kind: 'hologram' } });
+  const errs = validateContent(broken, opts).errors.join('\n');
+  assert.match(errs, /episode 4 is missing/);
+  assert.match(errs, /gappu-ta" needs "next"/);
+  assert.match(errs, /tiko-time" needs "answer"/);
+  assert.match(errs, /model must be a maths picture/);
+  assert.ok(SHOW_MODELS.includes('clock') && SHOW_MODELS.includes('base10'));
+});

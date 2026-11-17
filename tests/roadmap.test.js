@@ -78,6 +78,13 @@ const DONE = {
   'An older child reads to a younger one': () => exists('js/readfor.js') && /readByRibbon\(story\.id\)/.test(read('js/games/story.js')) && /function missionCard/.test(read('js/screens.js')),
   'Festivals and seasons that arrive on their day': () => exists('js/festivals.js') && /export function festivalNow/.test(read('js/festivals.js')) && content.stories.some((x) => x.id === 'k3-eid'),
   'A surprise each day': () => exists('js/surprise.js') && /function giftBox/.test(read('js/screens.js')) && /\.gift-box/.test(css),
+  'More Show time': () =>
+    (content.showSeries || []).length >= 3 &&
+    content.showSeries.every((sr) => {
+      const eps = content.shows.filter((s) => s.series === sr.id);
+      return eps.length >= 8 && eps.length <= 10 && eps.filter((s) => s.next).length === eps.length - 1 && eps.filter((s) => s.answer).length === eps.length - 1;
+    }) &&
+    /guideSays\(show\.next/.test(read('js/shows.js')),
   '"Words I know" book': () => exists('js/wordbook.js') && /wordsChip\(api\)/.test(read('js/screens.js')) && /case 'words'/.test(read('js/app.js')) && /\.words-page/.test(css),
   'Free play between lessons': () => exists('js/freeplay.js') && /freeplayDue\(/.test(read('js/screens.js')) && ['drive', 'feed', 'colour'].every((m) => read('js/freeplay.js').includes(`'${m}'`)),
 };
