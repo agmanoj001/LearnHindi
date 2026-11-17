@@ -236,6 +236,8 @@ export const sfx = {
     if (k === 'marimba') return marimba(midi(C5), 0, { vol: 0.13, dur: 0.25 });
     if (k === 'bubble') return tone(480, 0, 0.09, { to: 1150, vol: 0.08 });
     if (k === 'kalimba') return kalimba(midi(C5 + 7), 0, { vol: 0.11 });
+    // today's surprise sound (js/surprise.js, roadmap 7.12)
+    if (['boing', 'toot', 'whoosh', 'splash'].includes(k)) return sfx[k]();
     tone(1250, 0, 0.04, { type: 'triangle', to: 900, vol: 0.05 });
     noise(0, 0.02, { from: 3000, to: 5000, vol: 0.02 });
   }),

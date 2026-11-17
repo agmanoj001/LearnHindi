@@ -529,6 +529,8 @@ export function normalizeProgress(saved, content) {
         .map(([id, r]) => [id, { panel: Math.min(r.panel, 99), solved: r.solved === true }]),
     ),
     stats: obj(saved.stats),
+    // today's surprise, once opened (js/surprise.js, roadmap 7.12)
+    ...(saved.gift && typeof saved.gift === 'object' && /^\d{4}-\d\d-\d\d$/.test(saved.gift.day) && ['sticker', 'joke', 'sound'].includes(saved.gift.kind) ? { gift: { day: saved.gift.day, kind: saved.gift.kind, value: saved.gift.value } } : {}),
     // festival stickers, one a festival a year: { 'diwali-2026': 'lamp' } (js/festivals.js, roadmap 7.11)
     festStickers: Object.fromEntries(Object.entries(obj(saved.festStickers)).filter(([k, v]) => /^[a-z]+-\d{4}$/.test(k) && typeof v === 'string').slice(-60)),
     // the child's own books: a sticker picture and (on the device) their voice (js/mybooks.js, roadmap 7.8)

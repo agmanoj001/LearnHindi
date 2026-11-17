@@ -179,7 +179,7 @@ test('every outfit fits on every guide, every background and sound exists', () =
 test('a new prize shows on the results screen; the wardrobe is a tap from home', () => {
   const app = read('js/app.js');
   assert.match(app, /rewards: newRewards\(totalStars\(before\), totalStars\(state\.progress\)\)/);
-  assert.match(app, /setOutfit\(st\.outfit\);\s*sfx\.tapSound = st\.sound;/);
+  assert.match(app, /setOutfit\(st\.outfit\);[\s\S]{0,120}sfx\.tapSound = giftSoundToday\(state\.progress\) \|\| st\.sound;/);
   assert.match(app, /case 'rewards':/);
   const screens = read('js/screens.js');
   assert.match(screens, /\.\.\.rewards\.map\(\(r\) => newPrizeCard\(api, r\)\)/);
@@ -331,4 +331,37 @@ test('every festival has its story, its sticker and its greeting', () => {
   assert.match(screens, /'त्योहार के स्टिकर'/);
   assert.match(read('sw.js'), /'js\/festivals\.js'/);
   assert.match(read('sw.js'), /'js\/art-festival\.js'/);
+});
+
+// ---- 7.12 a surprise each day ----
+import { pickGift, giftDue, giftSoundToday, riddleIndexes, GIFT_KINDS, GIFT_SOUNDS } from '../js/surprise.js';
+
+test('a gift box once a day, with one small thing that changes from day to day', () => {
+  const day = (i) => `2026-12-${String(i + 1).padStart(2, '0')}`;
+  const jokes = riddleIndexes(content.mascotLines);
+  assert.ok(jokes.length >= 5 && jokes.every((i) => /\?/.test(content.mascotLines[i].hi)));
+  const kinds = new Set();
+  for (let i = 0; i < 20; i++) {
+    const g = pickGift(day(i), { sticker: 'car', jokes });
+    assert.ok(GIFT_KINDS.includes(g.kind));
+    kinds.add(g.kind);
+    assert.deepEqual(pickGift(day(i), { sticker: 'car', jokes }), g, 'the same all day');
+    if (g.kind === 'sound') assert.ok(GIFT_SOUNDS.includes(g.value));
+    if (g.kind === 'joke') assert.ok(jokes.includes(g.value));
+  }
+  assert.equal(kinds.size, 3, 'stickers, riddles and sounds all turn up');
+  // no sticker left to find: something else
+  for (let i = 0; i < 20; i++) assert.notEqual(pickGift(day(i), { sticker: null, jokes }).kind, 'sticker');
+  // once a day
+  const now = new Date(2026, 11, 3, 10).getTime();
+  assert.ok(giftDue({}, now));
+  assert.ok(!giftDue({ gift: { day: '2026-12-03', kind: 'joke', value: 1 } }, now));
+  assert.ok(giftDue({ gift: { day: '2026-12-02', kind: 'joke', value: 1 } }, now));
+  assert.equal(giftSoundToday({ gift: { day: '2026-12-03', kind: 'sound', value: 'boing' } }, now), 'boing');
+  assert.equal(giftSoundToday({ gift: { day: '2026-12-02', kind: 'sound', value: 'boing' } }, now), null, 'just for the day');
+  assert.deepEqual(normalizeProgress({ gift: { day: '2026-12-03', kind: 'sound', value: 'toot' } }, content).gift, { day: '2026-12-03', kind: 'sound', value: 'toot' });
+  assert.equal(normalizeProgress({ gift: { day: 'x', kind: 'gold' } }, content).gift, undefined);
+  for (const s of GIFT_SOUNDS) assert.match(read('js/sfx.js'), new RegExp(`'${s}'`));
+  assert.match(read('js/screens.js'), /giftDue\(api\.state\.progress\) && lesson\.id !== 'together' \? giftBox\(/);
+  for (const k of ['giftHere', 'giftSticker', 'giftSound']) assert.ok(content.phrases[k]?.hi, k);
 });

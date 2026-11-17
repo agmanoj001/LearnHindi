@@ -23,6 +23,7 @@ import { pictureExists, picture, pictureForWord, specialVehicle } from './art.js
 import { showCoach, needsCoach, coachKey, COACH_KINDS, COACH_MAX } from './coach.js';
 import { applyMotion, liteMotion, slowDevice, watchMotion, isLite } from './motion.js';
 import { styleFor, newRewards } from './rewards.js';
+import { giftSoundToday } from './surprise.js';
 import { readForScreen } from './readfor.js';
 import { initAudio, setVoicePack, preload, play, stop, isSpeaking, wordSegs, letterSegs, numberSegs, soundSegs, sentenceSegs, phraseSegs, setVoicePrefs } from './audio.js';
 import { KEYS, load, save, normalizeProfiles, profileKey, keepStorage } from './storage.js';
@@ -159,7 +160,8 @@ function loadProfile() {
 function applyStyle() {
   const st = styleFor(state.progress, totalStars(state.progress));
   setOutfit(st.outfit);
-  sfx.tapSound = st.sound;
+  // today's surprise may be a funny sound for the buttons (roadmap 7.12)
+  sfx.tapSound = giftSoundToday(state.progress) || st.sound;
   return st;
 }
 

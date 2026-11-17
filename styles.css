@@ -11162,3 +11162,111 @@ body:has(.game-grammar) .caption-bar,
 .lite .fest-flag {
   animation: none;
 }
+
+/* ---- a surprise each day (roadmap 7.12): the gift box on the first results of the day ---- */
+.gift {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin: 6px 0;
+}
+.gift-box {
+  position: relative;
+  width: 112px;
+  height: 104px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  animation: gift-wiggle 1.6s ease-in-out infinite;
+}
+.gift-body {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 22px;
+  height: 52px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, transparent 42%, #ffd34d 42% 58%, transparent 58%), #ff5a7a;
+  box-shadow: 0 4px 0 #c2385a;
+}
+.gift-lid {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  top: 12px;
+  height: 20px;
+  border-radius: 6px;
+  background: linear-gradient(90deg, transparent 42%, #ffd34d 42% 58%, transparent 58%), #ff7a94;
+  box-shadow: 0 3px 0 #c2385a;
+  transition: transform 0.45s var(--spring);
+}
+.gift-lid::before,
+.gift-lid::after {
+  content: '';
+  position: absolute;
+  top: -14px;
+  width: 22px;
+  height: 16px;
+  border: 5px solid #ffd34d;
+  border-radius: 50% 50% 0 50%;
+}
+.gift-lid::before {
+  left: calc(50% - 24px);
+}
+.gift-lid::after {
+  left: calc(50% + 2px);
+  border-radius: 50% 50% 50% 0;
+}
+.gift-label {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  font-size: 13px;
+  white-space: nowrap;
+}
+.gift-box.open {
+  animation: none;
+}
+.gift-box.open .gift-lid {
+  transform: translate(26px, -34px) rotate(28deg);
+}
+@keyframes gift-wiggle {
+  0%,
+  70%,
+  100% {
+    transform: none;
+  }
+  76% {
+    transform: rotate(-6deg);
+  }
+  82% {
+    transform: rotate(6deg);
+  }
+  88% {
+    transform: rotate(-4deg);
+  }
+}
+.gift-inside {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  max-width: 280px;
+  text-align: center;
+  animation: pop-in 0.4s var(--spring);
+}
+.gift-pic {
+  width: 84px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+}
+.gift-pic svg {
+  width: 100%;
+  height: 100%;
+}
+.gift-pic.emoji {
+  font-size: 44px;
+}

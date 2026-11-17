@@ -85,7 +85,10 @@
     "fest_lohri": { "hi": "लोहड़ी की लख-लख बधाइयाँ!", "en": "Happy Lohri!" },
     "fest_pongal": { "hi": "पोंगल की शुभकामनाएँ!", "en": "Happy Pongal!" },
     "fest_onam": { "hi": "ओणम की शुभकामनाएँ!", "en": "Happy Onam!" },
-    "festSticker": { "hi": "यह लो, त्योहार का ख़ास स्टिकर!", "en": "Here is a special festival sticker for you!" }
+    "festSticker": { "hi": "यह लो, त्योहार का ख़ास स्टिकर!", "en": "Here is a special festival sticker for you!" },
+    "giftHere": { "hi": "आज का तोहफ़ा! खोलकर देखो!", "en": "Today's present! Open it!" },
+    "giftSticker": { "hi": "तोहफ़े में एक नया स्टिकर!", "en": "A new sticker in the present!" },
+    "giftSound": { "hi": "आज बटनों की नई आवाज़! दबाकर देखो!", "en": "The buttons have a new sound today! Try them!" }
   },
   "words": {
     "digger": { "hi": "खुदाई मशीन", "translit": "khudaai mashin", "en": "digger", "picture": "digger" },

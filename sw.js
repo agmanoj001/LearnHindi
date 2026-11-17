@@ -26,6 +26,7 @@ const SHELL = [
   'js/readfor.js',
   'js/festivals.js',
   'js/art-festival.js',
+  'js/surprise.js',
   'js/logic.js',
   'js/validate.js',
   'js/art.js',

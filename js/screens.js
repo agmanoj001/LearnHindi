@@ -6,6 +6,7 @@ import { REWARDS, REWARD_KINDS, unlockedRewards, nextReward, styleFor } from './
 import { recordBook, playBook, bookPicture } from './mybooks.js';
 import { MISSION_LEVELS, missionStories, readByAll } from './readfor.js';
 import { festivalBanner, FESTIVALS } from './festivals.js';
+import { giftDue, pickGift, riddleIndexes } from './surprise.js';
 import { sceneSvg } from './art-scenes.js';
 import { PLACEMENT_LEVELS, placementQuestions, placementResult } from './placement.js';
 import { picture, pictureForWord, specialVehicle } from './art.js';
@@ -605,6 +606,7 @@ export async function results(api, { world, lesson, result, collection, session,
         reward,
         talkStory ? el('div', { class: 'story-after' }, [heartButton(api, talkStory, { cls: 'big' }), talkButton(api, talkStory)]) : null,
         ...rewards.map((r) => newPrizeCard(api, r)),
+        giftDue(api.state.progress) && lesson.id !== 'together' ? giftBox(api, world, collection, mascot) : null,
         btns,
       ]),
     ]),
@@ -638,6 +640,55 @@ export async function results(api, { world, lesson, result, collection, session,
     api.sfx.jingle();
     await api.say('newPrize');
   }
+}
+
+// ---------- a surprise each day (roadmap 7.12, js/surprise.js) ----------
+// After the first lesson of the day: a gift box to open. Inside, one small thing.
+function giftBox(api, world, collection, mascot) {
+  const box = el('button', { class: 'gift-box', 'aria-label': "Open today's present" }, [
+    el('span', { class: 'gift-lid', 'aria-hidden': 'true' }),
+    el('span', { class: 'gift-body', 'aria-hidden': 'true' }),
+    el('span', { class: 'gift-label' }, said(api, { hi: 'आज का तोहफ़ा!', en: "Today's present!" }, 'hi', 'b')),
+  ]);
+  const wrap = el('div', { class: 'gift' }, [box]);
+  setTimeout(() => wrap.isConnected && !box.classList.contains('open') && api.say('giftHere'), 2600);
+  box.addEventListener('click', async () => {
+    if (box.classList.contains('open')) return;
+    const { content } = api.state;
+    const day = isoDay(Date.now());
+    const col = collection?.items ? collection : null;
+    const sticker = col ? col.items.find((id) => !(api.state.progress.collected?.[col.id] || []).includes(id)) : null;
+    const lines = content.mascotLines || [];
+    const gift = pickGift(day, { sticker, jokes: riddleIndexes(lines) });
+    const progress = { ...api.state.progress, gift };
+    if (gift.kind === 'sticker') progress.collected = { ...progress.collected, [col.id]: [...(progress.collected?.[col.id] || []), sticker] };
+    api.state.progress = progress;
+    api.persistProgress();
+    api.applyStyle();
+    box.classList.add('open');
+    api.sfx.feel?.('reward');
+    sparkleAt(box, { count: 14 });
+    await sleep(500);
+    let inside;
+    if (gift.kind === 'sticker') {
+      inside = el('div', { class: 'gift-inside' }, [el('span', { class: 'gift-pic', html: pictureForWord(api.word(sticker)) }), ...said(api, { hi: 'नया स्टिकर!', en: 'A new sticker!' }, 'hi', 'b')]);
+      wrap.append(inside);
+      await api.say('giftSticker');
+      api.sayItem(api.word(sticker));
+    } else if (gift.kind === 'joke') {
+      const line = lines[gift.value];
+      inside = el('div', { class: 'gift-inside' }, [el('span', { class: 'gift-pic emoji', text: '😄' }), el('b', { lang: 'hi', text: line.hi }), el('small', { text: line.en })]);
+      wrap.append(inside);
+      mascot.react('silly');
+      await api.sayLines(line, `mascot-${gift.value + 1}`);
+    } else {
+      inside = el('div', { class: 'gift-inside' }, [el('span', { class: 'gift-pic emoji', text: '🔔' }), ...said(api, { hi: 'आज बटनों की नई आवाज़!', en: 'A new sound for the buttons today!' }, 'hi', 'b')]);
+      wrap.append(inside);
+      api.sfx.tick();
+      await api.say('giftSound');
+    }
+  });
+  return wrap;
 }
 
 // ---------- little rewards that aren't stars (roadmap 7.5, js/rewards.js) ----------
