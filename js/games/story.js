@@ -6,6 +6,7 @@ import { el, sleep, choose, runRounds, cheer, waitTap, bounce, ICONS, readChoice
 import { clips } from '../storage.js';
 import { sceneHtml, sceneClass, sceneSound, speaks } from '../scene.js';
 import { loadWordTimes, timesFor } from '../voicepack.js';
+import { readByRibbon } from '../readfor.js';
 
 const bare = (token) => token.replace(/[।.!?,"“”‘’]/g, '');
 
@@ -43,6 +44,8 @@ export default {
       : null;
     ctx.stage.replaceChildren(
       el('div', { class: 'story-cover' }, [
+        // read by a brother or sister (roadmap 7.9)
+        readByRibbon(story.id),
         el('div', { class: 'pic', html: ctx.picture(coverWord) }),
         ...lines(story.title).map((t) => el('div', { class: `story-title ${t.lang}`, lang: t.lang, text: t.text })),
       ]),

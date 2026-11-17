@@ -23,6 +23,7 @@ import { pictureExists, picture, pictureForWord, specialVehicle } from './art.js
 import { showCoach, needsCoach, coachKey, COACH_KINDS, COACH_MAX } from './coach.js';
 import { applyMotion, liteMotion, slowDevice, watchMotion, isLite } from './motion.js';
 import { styleFor, newRewards } from './rewards.js';
+import { readForScreen } from './readfor.js';
 import { initAudio, setVoicePack, preload, play, stop, isSpeaking, wordSegs, letterSegs, numberSegs, soundSegs, sentenceSegs, phraseSegs, setVoicePrefs } from './audio.js';
 import { KEYS, load, save, normalizeProfiles, profileKey, keepStorage } from './storage.js';
 import { sfx, music, FEEDBACK } from './sfx.js';
@@ -285,6 +286,9 @@ function render(route) {
     case 'rewards':
       enterWorld(null);
       return screens.rewards(api);
+    case 'readfor':
+      enterWorld(null);
+      return readForScreen(api, p);
     case 'freeplay':
       return world ? freeplay(api, world) : goHome();
     case 'show': {

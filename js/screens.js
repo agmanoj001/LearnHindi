@@ -4,6 +4,7 @@ import { el, sleep, bounce, animate, sparkleAt, flyTo, ICONS, infoButton, forGro
 import { createMascot, mascotSvg, MASCOTS, MASCOT_IDS, setOutfit, currentOutfit } from './mascot.js';
 import { REWARDS, REWARD_KINDS, unlockedRewards, nextReward, styleFor } from './rewards.js';
 import { recordBook, playBook, bookPicture } from './mybooks.js';
+import { MISSION_LEVELS, missionStories, readByAll } from './readfor.js';
 import { sceneSvg } from './art-scenes.js';
 import { PLACEMENT_LEVELS, placementQuestions, placementResult } from './placement.js';
 import { picture, pictureForWord, specialVehicle } from './art.js';
@@ -306,6 +307,7 @@ export function hub(api) {
                 showtime,
                 readAgain(api),
                 prizesButton(api),
+                missionCard(api),
                 el('button', { class: 'together-btn', 'aria-label': 'Play together', onclick: () => (api.sfx.pop(), api.go('together')) }, [el('span', { class: 'together-icon', 'aria-hidden': 'true', text: '👫' }), el('span', {}, said(api, { hi: 'साथ खेलो', en: 'Play together' }, 'hi', 'b'))]),
               ]),
             ]),
@@ -663,6 +665,16 @@ function newPrizeCard(api, r) {
     el('span', { class: 'prize-pic', html: prizePicture(api, r) }),
     el('b', { lang: 'hi', text: one(api, r.name) }),
     use,
+  ]);
+}
+// Grades 7–8: read a story for a little brother or sister (roadmap 7.9)
+function missionCard(api) {
+  if (!MISSION_LEVELS.includes(api.state.settings.level)) return null;
+  const done = Object.keys(readByAll()).filter((id) => missionStories(api.state.content).some((s) => s.id === id)).length;
+  return el('button', { class: 'mission-card', 'aria-label': 'Read to your brother or sister', onclick: () => (api.sfx.pop(), api.go('readfor')) }, [
+    el('span', { class: 'mission-icon', 'aria-hidden': 'true', text: '📖' }),
+    el('span', { class: 'mission-text' }, [el('b', { lang: 'hi', text: 'छोटों के लिए कहानी पढ़ो' }), el('small', { text: 'Read a story for your brother or sister' })]),
+    done ? el('small', { class: 'prizes-count', text: `✓ ${done}` }) : null,
   ]);
 }
 function prizesButton(api) {

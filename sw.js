@@ -23,6 +23,7 @@ const SHELL = [
   'js/favourites.js',
   'js/rewards.js',
   'js/mybooks.js',
+  'js/readfor.js',
   'js/logic.js',
   'js/validate.js',
   'js/art.js',

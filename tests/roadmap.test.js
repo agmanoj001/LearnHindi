@@ -75,6 +75,7 @@ const DONE = {
   "Little rewards that aren't stars": () => exists('js/rewards.js') && /export const OUTFITS/.test(read('js/mascot.js')) && /export function rewards\(api/.test(read('js/screens.js')),
   'Sing-along rhymes': () => /class: 'sing-ball'/.test(read('js/games/story.js')) && /m === 'sing'/.test(read('js/sfx.js')) && /\.sing-ball\.hop/.test(css),
   'Make-your-own story': () => exists('js/mybooks.js') && /recordBook\(api, w, placed, artOf\)/.test(read('js/screens.js')) && /function myShelf/.test(read('js/screens.js')),
+  'An older child reads to a younger one': () => exists('js/readfor.js') && /readByRibbon\(story\.id\)/.test(read('js/games/story.js')) && /function missionCard/.test(read('js/screens.js')),
   'Free play between lessons': () => exists('js/freeplay.js') && /freeplayDue\(/.test(read('js/screens.js')) && ['drive', 'feed', 'colour'].every((m) => read('js/freeplay.js').includes(`'${m}'`)),
 };
 

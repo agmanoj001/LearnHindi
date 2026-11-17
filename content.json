@@ -73,7 +73,10 @@
     "newPrize": { "hi": "तारों से नया इनाम खुल गया!", "en": "Your stars opened a new prize!" },
     "prizesHello": { "hi": "ये रहे तुम्हारे इनाम! जो पसंद हो, चुनो।", "en": "Here are your prizes! Pick the ones you like." },
     "bookTell": { "hi": "अपनी तस्वीर की कहानी सुनाओ! माइक दबाओ और बोलो।", "en": "Tell the story of your picture! Press the microphone and talk." },
-    "bookSaved": { "hi": "तुम्हारी किताब बन गई! यह पुस्तकालय में रखी है।", "en": "Your book is ready! It is in the library now." }
+    "bookSaved": { "hi": "तुम्हारी किताब बन गई! यह पुस्तकालय में रखी है।", "en": "Your book is ready! It is in the library now." },
+    "readForHello": { "hi": "चलो, छोटे भाई-बहन के लिए एक कहानी पढ़ें!", "en": "Let's read a story for your little brother or sister!" },
+    "readForHow": { "hi": "हर पन्ने के लिए: माइक दबाओ, पढ़ो, फिर रोको।", "en": "For each page: press the microphone, read, then stop." },
+    "readForDone": { "hi": "शाबाश! अब यह कहानी तुम्हारी आवाज़ में सुनाई देगी।", "en": "Well done! Now the story plays in your voice." }
   },
   "words": {
     "digger": { "hi": "खुदाई मशीन", "translit": "khudaai mashin", "en": "digger", "picture": "digger" },

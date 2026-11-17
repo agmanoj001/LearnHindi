@@ -242,3 +242,38 @@ test('the sticker picture has a record button, and the library a "My books" shel
   assert.match(css, /\.mybook-actions \[hidden\] \{\s*display: none !important;/);
   assert.match(read('sw.js'), /'js\/mybooks\.js'/);
 });
+
+// ---- 7.9 an older child reads to a younger one ----
+import { missionStories, missionLines, readerName, MISSION_LEVELS, READ_BY_KEY } from '../js/readfor.js';
+import { storyVoiceLines } from '../js/logic.js';
+
+test('the older child records a Kindergarten story, in the keys the story voice uses', () => {
+  assert.deepEqual(MISSION_LEVELS, ['grade7', 'grade8']);
+  const stories = missionStories(content);
+  assert.ok(stories.length >= 20);
+  assert.ok(stories.every((s) => s.level === 'kg' && s.lang !== 'en'));
+  const s = stories.find((x) => x.moral) || stories[0];
+  const lines = missionLines(content, s);
+  // the title, every page, the lesson: in Hindi, in reading order, none of the questions
+  assert.equal(lines.length, 1 + s.pages.length + (s.moral ? 1 : 0));
+  assert.equal(lines[0].key, `story-${s.id}-title_hi`);
+  assert.equal(lines[1].key, `story-${s.id}-1_hi`);
+  assert.ok(lines.every((l) => l.lang === 'hi' && !/-q\d+_/.test(l.key)));
+  // exactly the keys the story reader plays, so the story then plays in that voice
+  const all = new Set(storyVoiceLines(content).map((l) => l.key));
+  assert.ok(lines.every((l) => all.has(l.key)));
+});
+
+test('the story says who read it, and the mission is on the Grade 7–8 home screen', () => {
+  assert.deepEqual(readerName('Asha'), { hi: 'Asha', en: 'Asha' });
+  assert.deepEqual(readerName('  '), { hi: 'बड़े भाई-बहन', en: 'your big brother or sister' });
+  assert.equal(READ_BY_KEY, 'vt.readBy');
+  assert.match(read('js/games/story.js'), /readByRibbon\(story\.id\)/);
+  assert.match(read('js/screens.js'), /if \(!MISSION_LEVELS\.includes\(api\.state\.settings\.level\)\) return null;/);
+  assert.match(read('js/app.js'), /case 'readfor':/);
+  const rf = read('js/readfor.js');
+  assert.match(rf, /clips\.put\(key, new Blob/, 'recordings stay on the device');
+  assert.doesNotMatch(rf, /fetch\(|XMLHttpRequest|sendBeacon/);
+  for (const k of ['readForHello', 'readForHow', 'readForDone']) assert.ok(content.phrases[k]?.hi && content.phrases[k]?.en, k);
+  assert.match(read('sw.js'), /'js\/readfor\.js'/);
+});
