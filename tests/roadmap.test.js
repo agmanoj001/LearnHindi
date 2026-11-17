@@ -101,6 +101,7 @@ const DONE = {
   'Free play between lessons': () => exists('js/freeplay.js') && /freeplayDue\(/.test(read('js/screens.js')) && ['drive', 'feed', 'colour'].every((m) => read('js/freeplay.js').includes(`'${m}'`)),
   'Fill the gaps in Kindergarten and Grade 1': () => ['k-countback', 'k-ordinal', 'k-bond10', 'g1-countback', 'g1-skip', 'g1-doubles', 'g1-bond20', 'g1-fluency'].every((s) => JSON.stringify(content.worlds).includes(`"${s}"`)) && /"target":20/.test(JSON.stringify(content.worlds)) && /retry/.test(read('js/games/math.js')),
   'A Grade 2 maths world': () => (content.worlds.find((w) => w.subject === 'math' && w.level === 'grade2')?.units || []).reduce((n, u) => n + u.lessons.length, 0) >= 24,
+  'Days, months, time and money in Hindi': () => exists('js/games/samay.js') && ['days', 'months', 'seasons', 'clock', 'pay'].every((m) => JSON.stringify(content.worlds.filter((w) => w.subject === 'hindi')).includes(`"${m}"`)) && /ढाई|डेढ़/.test(read('js/samay.js')) && /पैसे/.test(read('js/samay.js')),
 };
 
 // title of an open row -> a sign in the code that it has been built (then its row must be ✅)
@@ -108,8 +109,6 @@ const WATCH = {
   'A "what\'s new" note': () => /whatsNew|changelog/i.test(js),
   'More decodable books for Grade 1': () => content.stories.filter((s) => s.decodable != null).length >= 25,
   'पहाड़े: times tables sung the Hindi way': () => /पहाड़े/.test(JSON.stringify(content.worlds)),
-  // (a Grade 4 quiz on days and months is already there; the row stays open for time and money)
-  'Days, months, time and money in Hindi': () => /बजे|पैसे/.test(JSON.stringify(content.worlds.filter((w) => w.subject === 'hindi')) + JSON.stringify(content.quizzes || {})),
   'A reading-comfort option': () => /readingComfort|reading-comfort/.test(js + css),
 };
 

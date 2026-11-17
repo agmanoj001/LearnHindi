@@ -12582,7 +12582,11 @@ body:has(.game-grammar) .caption-bar,
 }
 .sh-purse {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
   gap: 8px;
+  max-width: min(94vw, 640px);
 }
 .sh-coin {
   width: 64px;
@@ -12848,4 +12852,103 @@ body:has(.game-grammar) .caption-bar,
 }
 .sh-coin.paid.bill {
   width: 90px;
+}
+
+/* समय और पैसे: days, months, seasons, the clock and rupees in Hindi (roadmap 10.6, js/games/samay.js) */
+.samay-strip {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  max-width: min(94vw, 640px);
+  padding: 10px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: var(--shadow-lg);
+}
+.samay-chip {
+  padding: 6px 12px;
+  border-radius: 14px;
+  font: 600 clamp(16px, 4.2vw, 22px) var(--font-hi, var(--font));
+  color: #3b3f58;
+  background: #eef1fb;
+}
+/* the week train: each day a carriage */
+.samay-strip.days .samay-chip {
+  border-bottom: 5px solid #8a93ad;
+  border-radius: 10px 10px 4px 4px;
+}
+.samay-chip.today {
+  color: #fff;
+  background: var(--brand);
+}
+.samay-chip.gap {
+  min-width: 3.5em;
+  border: 3px dashed var(--brand);
+  color: var(--brand);
+  background: #fff;
+  text-align: center;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+.samay-chip.gap.done {
+  border-color: transparent;
+  color: #0f5132;
+  background: var(--good-soft);
+  animation: none;
+}
+.samay-chip.veiled {
+  color: transparent;
+  background: #e3e7f2;
+}
+.samay-q {
+  max-width: min(92vw, 560px);
+  margin: 0;
+  padding: 14px 18px;
+  border-radius: 24px;
+  font: 600 clamp(20px, 5vw, 28px) var(--font-hi, var(--font));
+  text-align: center;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: var(--shadow-lg);
+}
+.samay-q small {
+  display: block;
+  margin-top: 4px;
+  font: 500 14px var(--font);
+  color: var(--muted);
+}
+.samay-card small {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+}
+.samay-card .pic svg {
+  width: clamp(48px, 13vmin, 72px);
+  height: auto;
+}
+.samay-choices.clock .samay-card .word-text {
+  font-size: clamp(18px, 4.6vw, 24px);
+}
+.samay-clock .mm-clock {
+  width: min(56vw, 230px);
+  height: auto;
+}
+.samay-money {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  max-width: min(94vw, 560px);
+  padding: 12px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.92);
+}
+.samay-coin .mm-rupee {
+  width: clamp(86px, 23vmin, 116px);
+}
+.samay-coin .mm-note {
+  width: clamp(104px, 26vmin, 140px);
+}
+.samay-num .glyph {
+  font-size: clamp(22px, 5.6vw, 32px);
 }

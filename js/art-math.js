@@ -542,9 +542,38 @@ function bars(m) {
   return S(`0 0 ${x0 + m.max * w + 16} ${40 + rows * (H + 12)}`, body, 'mm-bars');
 }
 
+// ---------- Indian money (docs/ROADMAP.md 10.6): coins of 50 paise, ₹1, ₹2, ₹5 and ₹10, notes of ₹10, ₹20, ₹50 and ₹100 ----------
+// Drawn simply in each one's colour and size, so a child can tell them apart; not copies of the real designs.
+const RUPEE_ART = {
+  c50: { r: 30, fill: '#D9DDE3', rim: '#9AA3B0', text: '50', sub: 'पैसे' },
+  c1: { r: 38, fill: '#D3D8DF', rim: '#9AA3B0', text: '₹1' },
+  c2: { r: 42, fill: '#C8CFD8', rim: '#8E98A6', text: '₹2' },
+  c5: { r: 40, fill: '#EBC566', rim: '#C2952B', text: '₹5' },
+  c10: { r: 46, fill: '#D3D8DF', rim: '#E2B84E', text: '₹10', ring: true },
+  n10: { fill: '#CFA57A', ink: '#5B3A1E', text: '₹10' },
+  n20: { fill: '#D5DF7E', ink: '#56601A', text: '₹20' },
+  n50: { fill: '#93D5EF', ink: '#1F5B73', text: '₹50' },
+  n100: { fill: '#C9B8EE', ink: '#4B3A86', text: '₹100' },
+};
+function rupee(m) {
+  const a = RUPEE_ART[m.id];
+  if (!a) return '';
+  if (m.id.startsWith('n'))
+    return S(
+      '0 0 150 72',
+      `<rect x="3" y="3" width="144" height="66" rx="6" fill="${a.fill}" stroke="${a.ink}" stroke-width="2" stroke-opacity="0.45"/><rect x="11" y="10" width="128" height="52" rx="4" fill="none" stroke="${a.ink}" stroke-width="1.5" opacity="0.3"/><circle cx="114" cy="36" r="17" fill="#fff" opacity="0.4"/><path d="M106 36 h16 M114 28 v16" stroke="${a.ink}" stroke-width="2" opacity="0.35"/><text x="58" y="46" font-size="28" font-weight="800" fill="${a.ink}" text-anchor="middle">${a.text}</text>`,
+      'mm-coin mm-bill mm-note',
+    );
+  const ring = a.ring ? `<circle cx="60" cy="60" r="${a.r}" fill="${a.rim}"/><circle cx="60" cy="60" r="${a.r * 0.68}" fill="${a.fill}"/>` : `<circle cx="60" cy="60" r="${a.r}" fill="${a.rim}"/><circle cx="60" cy="60" r="${a.r - 5}" fill="${a.fill}"/>`;
+  const text = a.sub
+    ? `<text x="60" y="62" font-size="${a.r * 0.7}" font-weight="800" fill="#4A5160" text-anchor="middle">${a.text}</text><text x="60" y="${62 + a.r * 0.42}" font-size="${a.r * 0.36}" font-weight="700" fill="#4A5160" text-anchor="middle">${a.sub}</text>`
+    : `<text x="60" y="${60 + a.r * 0.22}" font-size="${a.r * (a.text.length > 3 ? 0.5 : 0.6)}" font-weight="800" fill="#4A5160" text-anchor="middle">${a.text}</text>`;
+  return S('0 0 120 120', `<circle cx="60" cy="62" r="${a.r}" fill="#1E1B4B" opacity="0.12"/>${ring}${text}`, 'mm-coin mm-rupee');
+}
+
 // ---------- entry ----------
 
-const KINDS = { objects, queue, bond, array, grid, ruler, money, bars, dots, tenframe, base10, compare10, numberline, sequence, shape, position, bar, tower, balance, clock, coin, graph, match, parts, compose, pic: (m) => `<span class="mm-pic">${pic(m.pic)}</span>` };
+const KINDS = { objects, queue, bond, array, grid, ruler, money, bars, rupee, dots, tenframe, base10, compare10, numberline, sequence, shape, position, bar, tower, balance, clock, coin, graph, match, parts, compose, pic: (m) => `<span class="mm-pic">${pic(m.pic)}</span>` };
 
 export function mathModel(model) {
   if (!model) return '';

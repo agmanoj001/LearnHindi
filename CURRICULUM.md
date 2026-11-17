@@ -226,6 +226,19 @@ Sounds are always said with a key word ("c, as in cat"): text-to-speech can't sa
 | `g1-read-words` | NC.1.RF.3b | Read words with blends and digraphs | Let's learn blends, Castle challenge |
 | `g1-sight` | NC.1.RF.3g | Tricky sight words | Let's learn tricky words, Castle challenge |
 
+### समय और पैसे: days, months, time and money in Hindi (Kindergarten to Grade 3)
+
+*Everyday number talk at home is in these words (docs/ROADMAP.md 10.6). One game, js/games/samay.js, in seven kinds of round; every sentence is fixed and recorded.*
+
+| Grade · world | Unit | What the child does |
+| --- | --- | --- |
+| Kindergarten · Vehicle Town | सात दिन | The week train: what comes after सोमवार? (all seven carriages shown) |
+| Grade 1 · Jolly Jungle | दिन, मौसम और घड़ी | आज सोमवार है: कल कौन-सा दिन होगा, कल कौन-सा दिन था? (the tense tells tomorrow from yesterday); which season (rain, sweaters, mangoes, Holi, flowers), with pictures; कितने बजे हैं? to the hour, then साढ़े |
+| Grade 2 · Desert | महीने, घड़ी और बाज़ार | The months in order, the first and the last; साढ़े, डेढ़ and ढाई; count coins and notes; the market: pay the exact price in rupees |
+| Grade 3 · Village | ऋतुएँ, घड़ी और रुपये-पैसे | The six ऋतुएँ in order; सवा and पौने; rupees and paise (₹12.50 is बारह रुपये पचास पैसे) |
+
+The Grade 4 quiz on days and months (दिन और महीने) stays.
+
 ## Math skills
 
 Besides the answer cards, each unit with a hands-on game (docs/ROADMAP.md 10.1) ends with one: fill a ten-frame (Let's make 10), frog hops on a number line (Let's add and take away), the pattern train (Let's count!), a shape builder (Let's find shapes) and measuring with cubes (Let's measure and sort) in Kindergarten; a balance for "equal" (Let's add and subtract to 20), a coin shop (Let's learn coins and graphs) and a clock with hands to turn (Let's measure and tell time) in Grade 1. They record the skill of the unit, so the grown-ups' area counts them with the rest. Number-bond bubbles (docs/ROADMAP.md 10.4) are a ninth: pop two bubbles that make 10 (Let's make 10) or 20 (Let's add and subtract to 20).

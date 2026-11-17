@@ -190,3 +190,54 @@ test('10.5: place value with a zero, the slips as wrong answers, and numbers in 
   assert.match(mathModel({ kind: 'bars', rows: [{ pic: 'apple', n: 3 }], max: 6 }), /mm-barfill/);
   assert.match(mathModel({ kind: 'parts', shape: 'circle', parts: 3, equal: true, shade: 1 }), /mm-parts/);
 });
+
+// ---- 10.6 days, months, time and money in Hindi ----
+import { DAYS, MONTHS, SEASONS, SEASON_QS, RITU, timeHi, samayLines, RUPEES, rupeeLabel, MONEY_LEVELS, SAMAY_MODES, SAMAY_SKILLS, MARKET } from '../js/samay.js';
+import { textKey } from '../js/logic.js';
+import { existsSync } from 'node:fs';
+
+test('10.6: the time the Hindi way: सवा, साढ़े, पौने, डेढ़ and ढाई', () => {
+  assert.equal(timeHi(1, 0), 'एक बजा है');
+  assert.equal(timeHi(3, 0), 'तीन बजे हैं');
+  assert.equal(timeHi(3, 15), 'सवा तीन बजे हैं');
+  assert.equal(timeHi(3, 30), 'साढ़े तीन बजे हैं');
+  assert.equal(timeHi(1, 30), 'डेढ़ बजे हैं');
+  assert.equal(timeHi(2, 30), 'ढाई बजे हैं');
+  assert.equal(timeHi(3, 45), 'पौने चार बजे हैं');
+  assert.equal(timeHi(12, 45), 'पौने एक बजे हैं');
+  assert.equal(DAYS.length, 7);
+  assert.equal(MONTHS.length, 12);
+  assert.equal(RITU.length, 6);
+  for (const [, , id] of SEASON_QS) assert.ok(SEASONS.some((s) => s.id === id));
+  for (const s of SEASONS) assert.ok(content.words[s.pic], s.pic);
+  for (const id of MARKET) assert.ok(content.words[id], id);
+});
+
+test('10.6: rupees and paise: labels, levels and drawings', () => {
+  assert.equal(rupeeLabel(1500), '₹15');
+  assert.equal(rupeeLabel(1250), '₹12.50');
+  assert.equal(rupeeLabel(50), '50 पैसे');
+  for (const lv of MONEY_LEVELS) for (const k of lv.kinds) assert.ok(RUPEES[k], k);
+  assert.ok(MONEY_LEVELS[2].kinds.includes('c50'), 'paise at the top level');
+  for (const k of Object.keys(RUPEES)) assert.match(mathModel({ kind: 'rupee', id: k }), RUPEES[k].note ? /mm-note/ : /mm-rupee/, k);
+});
+
+test('10.6: lessons from Kindergarten to Grade 3, every sentence recorded, the skills named for grown-ups', () => {
+  const samay = lessons.filter((l) => l.game === 'samay');
+  const levels = new Set(samay.map((l) => l.world.level));
+  for (const lv of ['kg', 'grade1', 'grade2', 'grade3']) assert.ok(levels.has(lv), lv);
+  assert.ok(samay.every((l) => l.world.subject === 'hindi'));
+  const modes = new Set(samay.flatMap((l) => l.config.modes));
+  for (const m of Object.keys(SAMAY_MODES)) assert.ok(modes.has(m), `${m} is played`);
+  for (const s of new Set(Object.values(SAMAY_MODES))) assert.ok(SAMAY_SKILLS[s], s);
+  // every fixed sentence has a recording in the voice pack
+  const index = JSON.parse(read('voices/index.json'));
+  const files = new Set(Object.keys(index.files || {}));
+  const missing = samayLines().filter((t) => !files.has(textKey('hi', t)) && !existsSync(new URL(`../voices/${textKey('hi', t)}.mp3`, import.meta.url)));
+  assert.deepEqual(missing, [], 'run tools/make-voices.mjs');
+  assert.match(read('js/parent.js'), /SAMAY_SKILLS\[id\]/);
+  assert.match(read('sw.js'), /'js\/games\/samay\.js'/);
+  const bad = structuredClone(content);
+  bad.worlds.flatMap((w) => w.units).flatMap((u) => u.lessons).find((l) => l.game === 'samay').config.modes = ['weather'];
+  assert.ok(validateContent(bad).errors.some((e) => e.includes('kinds of round')));
+});

@@ -11879,6 +11879,13 @@
             },
             { "id": "k-dadi-8", "game": "story", "icon": "kite", "title": { "hi": "पतंग उड़ी", "en": "The kite flies free" }, "config": { "story": "k2-kite" } }
           ]
+        },
+        {
+          "id": "k-din",
+          "title": { "hi": "सात दिन", "en": "Seven days" },
+          "skill": "Vocabulary",
+          "icon": "train",
+          "lessons": [{ "id": "k-din-1", "game": "samay", "icon": "train", "title": { "hi": "हफ़्ते की रेल", "en": "The week train" }, "config": { "rounds": 5, "modes": ["days"] } }]
         }
       ],
       "tags": ["letters", "phonics", "reading"]
@@ -12672,6 +12679,35 @@
               "icon": "roti",
               "title": { "hi": "आधा और बराबर", "en": "Half and the same" },
               "config": { "rounds": 6, "modes": ["half", "compare"], "from": 1, "to": 10 }
+            }
+          ]
+        },
+        {
+          "id": "g1-samay",
+          "title": { "hi": "दिन, मौसम और घड़ी", "en": "Days, seasons and the clock" },
+          "skill": "Vocabulary",
+          "icon": "clock",
+          "lessons": [
+            {
+              "id": "g1-samay-1",
+              "game": "samay",
+              "icon": "train",
+              "title": { "hi": "आज और कल", "en": "Today and tomorrow" },
+              "config": { "rounds": 6, "modes": ["days"] }
+            },
+            {
+              "id": "g1-samay-2",
+              "game": "samay",
+              "icon": "raincloud",
+              "title": { "hi": "कौन-सा मौसम?", "en": "Which season?" },
+              "config": { "rounds": 6, "modes": ["seasons"] }
+            },
+            {
+              "id": "g1-samay-3",
+              "game": "samay",
+              "icon": "clock",
+              "title": { "hi": "कितने बजे हैं?", "en": "What's the time?" },
+              "config": { "rounds": 6, "modes": ["clock"] }
             }
           ]
         }
@@ -13533,6 +13569,42 @@
               "config": { "levels": ["grade1", "grade2"], "rounds": 4 }
             }
           ]
+        },
+        {
+          "id": "g2-samay",
+          "title": { "hi": "महीने, घड़ी और बाज़ार", "en": "Months, the clock and the market" },
+          "skill": "Vocabulary",
+          "icon": "coins",
+          "lessons": [
+            {
+              "id": "g2-samay-1",
+              "game": "samay",
+              "icon": "letter:12",
+              "title": { "hi": "साल के महीने", "en": "The months of the year" },
+              "config": { "rounds": 6, "modes": ["months"] }
+            },
+            {
+              "id": "g2-samay-2",
+              "game": "samay",
+              "icon": "clock",
+              "title": { "hi": "साढ़े, डेढ़ और ढाई", "en": "Half past, the Hindi way" },
+              "config": { "rounds": 6, "modes": ["clock"], "minLevel": 1 }
+            },
+            {
+              "id": "g2-samay-3",
+              "game": "samay",
+              "icon": "coins",
+              "title": { "hi": "कितने रुपये हैं?", "en": "How many rupees?" },
+              "config": { "rounds": 6, "modes": ["count"] }
+            },
+            {
+              "id": "g2-samay-4",
+              "game": "samay",
+              "icon": "mango",
+              "title": { "hi": "बाज़ार चलें", "en": "Let's go to the market" },
+              "config": { "rounds": 4, "modes": ["pay"] }
+            }
+          ]
         }
       ],
       "helpers": { "engine": "camel" }
@@ -14044,6 +14116,35 @@
               "icon": "talk:buffalo",
               "title": { "hi": "वाक्य", "en": "Sentences" },
               "config": { "levels": ["grade2", "grade3"], "rounds": 4 }
+            }
+          ]
+        },
+        {
+          "id": "g3-samay",
+          "title": { "hi": "ऋतुएँ, घड़ी और रुपये-पैसे", "en": "Seasons, the clock, rupees and paise" },
+          "skill": "Vocabulary",
+          "icon": "flower",
+          "lessons": [
+            {
+              "id": "g3-samay-1",
+              "game": "samay",
+              "icon": "flower",
+              "title": { "hi": "छह ऋतुएँ", "en": "The six seasons" },
+              "config": { "rounds": 6, "modes": ["ritu", "seasons"] }
+            },
+            {
+              "id": "g3-samay-2",
+              "game": "samay",
+              "icon": "clock",
+              "title": { "hi": "सवा, साढ़े, पौने", "en": "Quarter past, half past, quarter to" },
+              "config": { "rounds": 6, "modes": ["clock"], "minLevel": 2 }
+            },
+            {
+              "id": "g3-samay-3",
+              "game": "samay",
+              "icon": "coins",
+              "title": { "hi": "रुपये और पैसे", "en": "Rupees and paise" },
+              "config": { "rounds": 6, "modes": ["count", "pay"], "minLevel": 2 }
             }
           ]
         }
