@@ -5,6 +5,7 @@ import { BEAT_KINDS, beatKind, tapTokens, SHOW_MODELS } from './logic.js';
 import { CAST, CAST_IDS, FACES, ARMS, PROPS, BACKGROUND_IDS } from './art-comic.js';
 import { actProblems } from './scene.js';
 import { SAMAY_MODES } from './samay.js';
+import { TABLES } from './pahade.js';
 
 export const COMIC_SERIES = ['mishti', 'dadi', 'birbal', 'chippu', 'betal', 'murari', 'rimjhim'];
 // Errors stop the app from using the content; warnings are shown in parent settings.
@@ -35,6 +36,7 @@ export const GAME_TYPES = [
   'ginti',
   'handson', // maths with the hands (js/games/handson.js)
   'samay', // days, months, seasons, time and rupees in Hindi (js/games/samay.js)
+  'pahade', // the times tables chanted the Hindi way (js/games/pahade.js)
   'together', // started from the home screen, not a map (js/together.js)
 ];
 // the hands-on maths activities (js/games/handson.js ACTIVITIES)
@@ -517,6 +519,12 @@ export function validateContent(c, { knownPictures = null, pictureExists = null,
         if (x.dollars !== undefined && typeof x.dollars !== 'boolean') err(`${at}.dollars must be true or false`);
         if (x.rounds !== undefined) count('rounds');
         break;
+      case 'pahade': {
+        const ts = x.tables || [x.table];
+        if (!Array.isArray(ts) || !ts.length || !ts.every((t) => TABLES.includes(t))) err(`${at}: "table" (or "tables") must be from ${TABLES[0]} to ${TABLES.at(-1)}`);
+        if (x.rounds !== undefined) count('rounds');
+        break;
+      }
       case 'samay':
         if (!Array.isArray(x.modes) || !x.modes.length || !x.modes.every((m) => SAMAY_MODES[m])) err(`${at}.modes must list kinds of round: ${Object.keys(SAMAY_MODES).join(', ')}`);
         if (x.minLevel !== undefined && ![0, 1, 2].includes(x.minLevel)) err(`${at}.minLevel must be 0, 1 or 2`);

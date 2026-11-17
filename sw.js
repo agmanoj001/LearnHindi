@@ -68,6 +68,8 @@ const SHELL = [
   'js/games/ginti.js',
   'js/games/samay.js',
   'js/samay.js',
+  'js/games/pahade.js',
+  'js/pahade.js',
   'js/games/together.js',
   'js/games/kit.js',
   'js/games/construction.js',

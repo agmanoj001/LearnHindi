@@ -12952,3 +12952,73 @@ body:has(.game-grammar) .caption-bar,
 .samay-num .glyph {
   font-size: clamp(22px, 5.6vw, 32px);
 }
+
+/* पहाड़े: the table chanted line by line, then the gap to fill (roadmap 10.7, js/games/pahade.js) */
+.ph-card {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: min(94vw, 520px);
+  padding: 12px 14px;
+  border-radius: 26px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: var(--shadow-lg);
+}
+.ph-title {
+  margin: 0 0 4px;
+  font: 700 clamp(20px, 5vw, 26px) var(--font-hi, var(--font));
+  text-align: center;
+  color: var(--brand-ink);
+}
+.ph-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 3px 12px;
+  border-radius: 12px;
+  font: 600 clamp(16px, 4.2vw, 21px) var(--font-hi, var(--font));
+  color: #3b3f58;
+  transition: background 0.2s, transform 0.2s;
+}
+.ph-digits {
+  font: 600 14px 'Fredoka', var(--font);
+  color: var(--muted);
+}
+.ph-row.sung {
+  color: #1d3b8b;
+}
+.ph-row.now {
+  color: #fff;
+  background: var(--brand);
+  transform: scale(1.04);
+}
+.ph-row.now .ph-digits {
+  color: #fff;
+}
+/* the child's turn to say it back */
+.ph-row.echo {
+  background: #ffe9a8;
+  animation: pulse 0.86s ease-in-out infinite;
+}
+.ph-row.veiled .ph-words,
+.ph-row.veiled .ph-digits {
+  color: transparent;
+}
+.ph-row.veiled {
+  background: #f1f3f9;
+}
+.ph-row.gap {
+  border: 3px dashed var(--brand);
+  background: #fff;
+}
+.ph-skip {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+}
+.ph-opt small {
+  display: block;
+  font-size: 12px;
+  color: var(--muted);
+}

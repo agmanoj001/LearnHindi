@@ -239,6 +239,18 @@ Sounds are always said with a key word ("c, as in cat"): text-to-speech can't sa
 
 The Grade 4 quiz on days and months (दिन और महीने) stays.
 
+### पहाड़े: the times tables chanted the Hindi way (Grades 2–4)
+
+*Chanted tables are how generations learned them (docs/ROADMAP.md 10.7). js/games/pahade.js.*
+
+| Grade · world | Unit | What the child does |
+| --- | --- | --- |
+| Grade 2 · Forest | पहाड़े गाओ | The 2, 3, 4 and 5 tables: chanted call and response over a dhol beat ("दो एकम दो, दो दूनी चार …"), then the gaps to fill |
+| Grade 3 · Palace | पहाड़े गाओ | The 6, 7, 8, 9 and 10 tables, the same way |
+| Grade 4 · Mountain | पहाड़ों की दौड़ | Mixed races: tables 2–5, and 6–10, in any order |
+
+The multipliers are said the traditional way: एकम, दूनी, तिया, चौके, पंजे, छक्के, सत्ते, अट्ठे, नवें, दहाई.
+
 ## Math skills
 
 Besides the answer cards, each unit with a hands-on game (docs/ROADMAP.md 10.1) ends with one: fill a ten-frame (Let's make 10), frog hops on a number line (Let's add and take away), the pattern train (Let's count!), a shape builder (Let's find shapes) and measuring with cubes (Let's measure and sort) in Kindergarten; a balance for "equal" (Let's add and subtract to 20), a coin shop (Let's learn coins and graphs) and a clock with hands to turn (Let's measure and tell time) in Grade 1. They record the skill of the unit, so the grown-ups' area counts them with the rest. Number-bond bubbles (docs/ROADMAP.md 10.4) are a ninth: pop two bubbles that make 10 (Let's make 10) or 20 (Let's add and subtract to 20).

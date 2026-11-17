@@ -222,6 +222,16 @@ export const sfx = {
     tone(300, 0, 0.15, { to: 900, vol: 0.05 });
   }),
   toot: on(() => (tone(440, 0, 0.3, { type: 'square', vol: 0.04 }), tone(440, 0.4, 0.5, { type: 'square', vol: 0.04 }))),
+  // a dhol for chanting the tables (roadmap 10.7): a deep "dha" on the first beat of a bar, a light "ta" on the others
+  dhol: on((strong = false) => {
+    if (strong) {
+      tone(96, 0, 0.32, { to: 58, vol: 0.2 });
+      noise(0, 0.08, { from: 240, to: 120, vol: 0.08, type: 'lowpass' });
+    } else {
+      tone(330, 0, 0.09, { to: 250, vol: 0.07 });
+      noise(0, 0.04, { from: 2200, to: 3600, q: 1, vol: 0.05 });
+    }
+  }),
   // a hand clap for singing along (roadmap 7.7)
   clap: on(() => {
     noise(0, 0.05, { from: 900, to: 2600, q: 0.8, vol: 0.12 });

@@ -13785,6 +13785,42 @@
               "config": { "story": "farmer-bear" }
             }
           ]
+        },
+        {
+          "id": "g2-pahade",
+          "title": { "hi": "पहाड़े गाओ", "en": "Sing the times tables" },
+          "skill": "Maths in Hindi",
+          "icon": "drum",
+          "lessons": [
+            {
+              "id": "g2-pahade-2",
+              "game": "pahade",
+              "icon": "letter:2×",
+              "title": { "hi": "दो का पहाड़ा", "en": "The 2 times table" },
+              "config": { "table": 2, "rounds": 6 }
+            },
+            {
+              "id": "g2-pahade-3",
+              "game": "pahade",
+              "icon": "letter:3×",
+              "title": { "hi": "तीन का पहाड़ा", "en": "The 3 times table" },
+              "config": { "table": 3, "rounds": 6 }
+            },
+            {
+              "id": "g2-pahade-4",
+              "game": "pahade",
+              "icon": "letter:4×",
+              "title": { "hi": "चार का पहाड़ा", "en": "The 4 times table" },
+              "config": { "table": 4, "rounds": 6 }
+            },
+            {
+              "id": "g2-pahade-5",
+              "game": "pahade",
+              "icon": "letter:5×",
+              "title": { "hi": "पाँच का पहाड़ा", "en": "The 5 times table" },
+              "config": { "table": 5, "rounds": 6 }
+            }
+          ]
         }
       ],
       "helpers": { "vendor": "squirrel" }
@@ -14050,6 +14086,49 @@
               "config": { "story": "birbal-well" }
             },
             { "id": "g3-birbal-2", "game": "story", "icon": "pen", "title": { "hi": "छोटी लकीर", "en": "The shorter line" }, "config": { "story": "birbal-line" } }
+          ]
+        },
+        {
+          "id": "g3-pahade",
+          "title": { "hi": "पहाड़े गाओ", "en": "Sing the times tables" },
+          "skill": "Maths in Hindi",
+          "icon": "drum",
+          "lessons": [
+            {
+              "id": "g3-pahade-6",
+              "game": "pahade",
+              "icon": "letter:6×",
+              "title": { "hi": "छह का पहाड़ा", "en": "The 6 times table" },
+              "config": { "table": 6, "rounds": 6 }
+            },
+            {
+              "id": "g3-pahade-7",
+              "game": "pahade",
+              "icon": "letter:7×",
+              "title": { "hi": "सात का पहाड़ा", "en": "The 7 times table" },
+              "config": { "table": 7, "rounds": 6 }
+            },
+            {
+              "id": "g3-pahade-8",
+              "game": "pahade",
+              "icon": "letter:8×",
+              "title": { "hi": "आठ का पहाड़ा", "en": "The 8 times table" },
+              "config": { "table": 8, "rounds": 6 }
+            },
+            {
+              "id": "g3-pahade-9",
+              "game": "pahade",
+              "icon": "letter:9×",
+              "title": { "hi": "नौ का पहाड़ा", "en": "The 9 times table" },
+              "config": { "table": 9, "rounds": 6 }
+            },
+            {
+              "id": "g3-pahade-10",
+              "game": "pahade",
+              "icon": "letter:10×",
+              "title": { "hi": "दस का पहाड़ा", "en": "The 10 times table" },
+              "config": { "table": 10, "rounds": 6 }
+            }
           ]
         }
       ]
@@ -14381,6 +14460,28 @@
               "icon": "cucumber",
               "title": { "hi": "बोतल में खीरा", "en": "The cucumber in the bottle" },
               "config": { "story": "birbal-bottle" }
+            }
+          ]
+        },
+        {
+          "id": "g4-pahade",
+          "title": { "hi": "पहाड़ों की दौड़", "en": "Times tables race" },
+          "skill": "Maths in Hindi",
+          "icon": "drum",
+          "lessons": [
+            {
+              "id": "g4-pahade-1",
+              "game": "pahade",
+              "icon": "letter:2–5",
+              "title": { "hi": "दो से पाँच तक", "en": "Tables 2 to 5, mixed" },
+              "config": { "tables": [2, 3, 4, 5], "rounds": 8 }
+            },
+            {
+              "id": "g4-pahade-2",
+              "game": "pahade",
+              "icon": "letter:6–10",
+              "title": { "hi": "छह से दस तक", "en": "Tables 6 to 10, mixed" },
+              "config": { "tables": [6, 7, 8, 9, 10], "rounds": 10 }
             }
           ]
         }

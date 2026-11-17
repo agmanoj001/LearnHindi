@@ -241,3 +241,34 @@ test('10.6: lessons from Kindergarten to Grade 3, every sentence recorded, the s
   bad.worlds.flatMap((w) => w.units).flatMap((u) => u.lessons).find((l) => l.game === 'samay').config.modes = ['weather'];
   assert.ok(validateContent(bad).errors.some((e) => e.includes('kinds of round')));
 });
+
+// ---- 10.7 पहाड़े ----
+import { MULT, TABLES, chantLine, askLine, pahadaLines, pahadaName } from '../js/pahade.js';
+
+test('10.7: पहाड़े chanted the Hindi way, 2 to 10, with every line recorded', () => {
+  const word = (n) => content.numbers[n - 1].hi;
+  assert.deepEqual(TABLES, [2, 3, 4, 5, 6, 7, 8, 9, 10]);
+  assert.equal(MULT.length, 10);
+  assert.equal(chantLine(2, 1, word), 'दो एकम दो');
+  assert.equal(chantLine(2, 2, word), 'दो दूनी चार');
+  assert.equal(chantLine(2, 3, word), 'दो तिया छह');
+  assert.equal(chantLine(7, 7, word), 'सात सत्ते उनचास');
+  assert.equal(chantLine(10, 10, word), 'दस दहाई सौ');
+  assert.equal(askLine(2, 6, word), 'दो छक्के?');
+  assert.equal(pahadaName('pahada-7'), '7 का पहाड़ा · the 7 times table');
+  // every table is a lesson (or in a mixed race), in Grades 2–4
+  const ph = lessons.filter((l) => l.game === 'pahade');
+  for (const t of TABLES) assert.ok(ph.some((l) => l.config.table === t), `the ${t} table has its own lesson`);
+  assert.deepEqual([...new Set(ph.map((l) => l.world.level))].sort(), ['grade2', 'grade3', 'grade4']);
+  const index = JSON.parse(read('voices/index.json'));
+  const missing = pahadaLines(word).filter((t) => !index.files[textKey('hi', t)]);
+  assert.deepEqual(missing, [], 'run tools/make-voices.mjs');
+  // the beat, and the game's call and response
+  assert.match(read('js/sfx.js'), /dhol: on\(/);
+  const game = read('js/games/pahade.js');
+  assert.match(game, /classList\.add\('echo'\)/);
+  assert.match(game, /ctx\.sfx\.dhol\?\.\(beat % 4 === 0\)/);
+  const bad = structuredClone(content);
+  bad.worlds.flatMap((w) => w.units).flatMap((u) => u.lessons).find((l) => l.game === 'pahade').config.table = 13;
+  assert.ok(validateContent(bad).errors.some((e) => e.includes('"table"')));
+});
