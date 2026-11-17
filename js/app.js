@@ -15,7 +15,8 @@ import {
   comboText,
   synLine,
 } from './logic.js';
-import { findLesson, lessonRecord, lessonLetters, applyLessonResult, adaptTier, addPlayTime, isoDay } from './curriculum.js';
+import { findLesson, lessonRecord, lessonLetters, applyLessonResult, adaptTier, addPlayTime, isoDay, worldLessons } from './curriculum.js';
+import { milestones } from './guide.js';
 import { validateContent } from './validate.js';
 import { pictureExists, picture, pictureForWord, specialVehicle } from './art.js';
 import { initAudio, setVoicePack, preload, play, stop, wordSegs, letterSegs, numberSegs, soundSegs, sentenceSegs, phraseSegs, setVoicePrefs } from './audio.js';
@@ -371,6 +372,16 @@ function persistProgress() {
   save(profileKey(KEYS.progress, state.profiles.current), state.progress);
 }
 
+// lesson id -> story id, for counting the stories read (the guide cheers at 1, 5, 10 …)
+let storyLessons = null;
+function storyLessonMap() {
+  if (!storyLessons) {
+    storyLessons = new Map();
+    for (const w of state.content.worlds) for (const l of worldLessons(w)) if (l.game === 'story' && l.config?.story) storyLessons.set(l.id, l.config.story);
+  }
+  return storyLessons;
+}
+
 // ---------- lesson frame ----------
 
 function startLesson({ lessonId, worldId, storyId }) {
@@ -557,10 +568,12 @@ function startLesson({ lessonId, worldId, storyId }) {
     complete() {
       if (!ctx.alive()) return;
       state.token++;
+      const before = state.progress;
       const result = applyLessonResult(state.progress, { world, lesson, collection, firstTry: session.firstTry, answered: session.answered, tier: live.tier });
       state.progress = result.progress;
       persistProgress();
-      screens.results(api, { world, lesson, result, collection, session });
+      const reached = milestones(before, state.progress, { storyLessons: storyLessonMap(), worldLessonIds: worldLessons(world).map((l) => l.id) });
+      screens.results(api, { world, lesson, result, collection, session, milestones: reached });
     },
   };
   import(`./games/${lesson.game}.js`).then((mod) => {

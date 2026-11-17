@@ -37,7 +37,17 @@
     "unitDone": { "hi": "वाह! यह भाग पूरा हो गया!", "en": "Hooray! You finished this unit!" },
     "startsWith": { "hi": "कौन सा शब्द {w} से शुरू होता है?", "en": "Which word starts with {w}?" },
     "hintOne": { "hi": "एक ग़लत जवाब हटा दिया। फिर से कोशिश करो!", "en": "One wrong answer is gone. Have another go!" },
-    "hintLook": { "hi": "इसे देखो!", "en": "Look at this one!" }
+    "hintLook": { "hi": "इसे देखो!", "en": "Look at this one!" },
+    "gintiCount": { "hi": "गिनो! कितने हैं?", "en": "Count them! How many?" },
+    "gintiRead": { "hi": "यह कौन सा नंबर है?", "en": "Which number is this?" },
+    "numAfter": { "hi": "{w} के बाद कौन सा नंबर आता है?", "en": "What comes after {w}?" },
+    "gintiMore": { "hi": "किसमें ज़्यादा हैं?", "en": "Which has more?" },
+    "gintiFewer": { "hi": "किसमें कम हैं?", "en": "Which has fewer?" },
+    "gintiEqual": { "hi": "दोनों बराबर हैं!", "en": "They are the same!" },
+    "gintiAdd": { "hi": "जोड़ो! कुल कितने हुए?", "en": "Add them up! How many in all?" },
+    "gintiTake": { "hi": "कुछ गुब्बारे उड़ गए! अब कितने बचे?", "en": "Some balloons flew away! How many are left?" },
+    "gintiHalf": { "hi": "आधा कौन सा है?", "en": "Which one is half?" },
+    "gintiHalfIs": { "hi": "यह आधा है!", "en": "That one is half!" }
   },
   "words": {
     "digger": { "hi": "खुदाई मशीन", "translit": "khudaai mashin", "en": "digger", "picture": "digger" },
@@ -376,7 +386,21 @@
     "stone": { "hi": "पत्थर", "translit": "patthar", "en": "stone", "picture": "stone" },
     "ring": { "hi": "अँगूठी", "translit": "angoothee", "en": "ring", "picture": "ring" },
     "cotton": { "hi": "रुई", "translit": "ruee", "en": "cotton", "picture": "cotton" },
-    "golden-deer": { "hi": "सोने का हिरण", "translit": "sone ka hiran", "en": "golden deer", "picture": "golden-deer" }
+    "golden-deer": { "hi": "सोने का हिरण", "translit": "sone ka hiran", "en": "golden deer", "picture": "golden-deer" },
+    "toothbrush": { "hi": "ब्रश", "translit": "brash", "en": "toothbrush", "picture": "toothbrush" },
+    "soap": { "hi": "साबुन", "translit": "saabun", "en": "soap", "picture": "soap" },
+    "shirt": { "hi": "कमीज़", "translit": "kameez", "en": "shirt", "picture": "shirt" },
+    "dal": { "hi": "दाल", "translit": "daal", "en": "dal", "picture": "dal" },
+    "hand": { "hi": "हाथ", "translit": "haath", "en": "hand", "picture": "hand" },
+    "slide": { "hi": "फिसलपट्टी", "translit": "phisalpatti", "en": "slide", "picture": "slide" },
+    "ball": { "hi": "गेंद", "translit": "gend", "en": "ball", "picture": "ball" },
+    "tomato": { "hi": "टमाटर", "translit": "tamaatar", "en": "tomato", "picture": "tomato" },
+    "grass": { "hi": "घास", "translit": "ghaas", "en": "grass", "picture": "grass" },
+    "rasgulla": { "hi": "रसगुल्ला", "translit": "rasgulla", "en": "rasgulla", "picture": "rasgulla" },
+    "wheel": { "hi": "पहिया", "translit": "pahiya", "en": "wheel", "picture": "wheel" },
+    "peanut": { "hi": "मूँगफली", "translit": "moongphali", "en": "peanut", "picture": "peanut" },
+    "grain": { "hi": "दाना", "translit": "daana", "en": "grain", "picture": "grain" },
+    "laddoo-one": { "hi": "लड्डू", "translit": "laddoo", "en": "laddoo", "picture": "laddoo-one" }
   },
   "sentences": [
     { "id": "bus-here", "about": "bus", "hi": "बस आई!", "translit": "bas aai", "en": "The bus is here!", "level": "grade2" },
@@ -576,7 +600,97 @@
     { "value": 7, "hi": "सात", "translit": "saat", "en": "seven", "digitHi": "७" },
     { "value": 8, "hi": "आठ", "translit": "aath", "en": "eight", "digitHi": "८" },
     { "value": 9, "hi": "नौ", "translit": "nau", "en": "nine", "digitHi": "९" },
-    { "value": 10, "hi": "दस", "translit": "das", "en": "ten", "digitHi": "१०" }
+    { "value": 10, "hi": "दस", "translit": "das", "en": "ten", "digitHi": "१०" },
+    { "value": 11, "hi": "ग्यारह", "translit": "gyaarah", "en": "eleven", "digitHi": "११" },
+    { "value": 12, "hi": "बारह", "translit": "baarah", "en": "twelve", "digitHi": "१२" },
+    { "value": 13, "hi": "तेरह", "translit": "terah", "en": "thirteen", "digitHi": "१३" },
+    { "value": 14, "hi": "चौदह", "translit": "chaudah", "en": "fourteen", "digitHi": "१४" },
+    { "value": 15, "hi": "पंद्रह", "translit": "pandrah", "en": "fifteen", "digitHi": "१५" },
+    { "value": 16, "hi": "सोलह", "translit": "solah", "en": "sixteen", "digitHi": "१६" },
+    { "value": 17, "hi": "सत्रह", "translit": "satrah", "en": "seventeen", "digitHi": "१७" },
+    { "value": 18, "hi": "अठारह", "translit": "athaarah", "en": "eighteen", "digitHi": "१८" },
+    { "value": 19, "hi": "उन्नीस", "translit": "unnees", "en": "nineteen", "digitHi": "१९" },
+    { "value": 20, "hi": "बीस", "translit": "bees", "en": "twenty", "digitHi": "२०" },
+    { "value": 21, "hi": "इक्कीस", "translit": "ikkees", "en": "twenty-one", "digitHi": "२१" },
+    { "value": 22, "hi": "बाईस", "translit": "baaees", "en": "twenty-two", "digitHi": "२२" },
+    { "value": 23, "hi": "तेईस", "translit": "teyees", "en": "twenty-three", "digitHi": "२३" },
+    { "value": 24, "hi": "चौबीस", "translit": "chaubees", "en": "twenty-four", "digitHi": "२४" },
+    { "value": 25, "hi": "पच्चीस", "translit": "pachchees", "en": "twenty-five", "digitHi": "२५" },
+    { "value": 26, "hi": "छब्बीस", "translit": "chhabbees", "en": "twenty-six", "digitHi": "२६" },
+    { "value": 27, "hi": "सत्ताईस", "translit": "sattaaees", "en": "twenty-seven", "digitHi": "२७" },
+    { "value": 28, "hi": "अट्ठाईस", "translit": "atthaaees", "en": "twenty-eight", "digitHi": "२८" },
+    { "value": 29, "hi": "उनतीस", "translit": "untees", "en": "twenty-nine", "digitHi": "२९" },
+    { "value": 30, "hi": "तीस", "translit": "tees", "en": "thirty", "digitHi": "३०" },
+    { "value": 31, "hi": "इकतीस", "translit": "iktees", "en": "thirty-one", "digitHi": "३१" },
+    { "value": 32, "hi": "बत्तीस", "translit": "battees", "en": "thirty-two", "digitHi": "३२" },
+    { "value": 33, "hi": "तैंतीस", "translit": "taintees", "en": "thirty-three", "digitHi": "३३" },
+    { "value": 34, "hi": "चौंतीस", "translit": "chauntees", "en": "thirty-four", "digitHi": "३४" },
+    { "value": 35, "hi": "पैंतीस", "translit": "paintees", "en": "thirty-five", "digitHi": "३५" },
+    { "value": 36, "hi": "छत्तीस", "translit": "chhattees", "en": "thirty-six", "digitHi": "३६" },
+    { "value": 37, "hi": "सैंतीस", "translit": "saintees", "en": "thirty-seven", "digitHi": "३७" },
+    { "value": 38, "hi": "अड़तीस", "translit": "adtees", "en": "thirty-eight", "digitHi": "३८" },
+    { "value": 39, "hi": "उनतालीस", "translit": "untaalees", "en": "thirty-nine", "digitHi": "३९" },
+    { "value": 40, "hi": "चालीस", "translit": "chaalees", "en": "forty", "digitHi": "४०" },
+    { "value": 41, "hi": "इकतालीस", "translit": "iktaalees", "en": "forty-one", "digitHi": "४१" },
+    { "value": 42, "hi": "बयालीस", "translit": "bayaalees", "en": "forty-two", "digitHi": "४२" },
+    { "value": 43, "hi": "तैंतालीस", "translit": "taintaalees", "en": "forty-three", "digitHi": "४३" },
+    { "value": 44, "hi": "चवालीस", "translit": "chavaalees", "en": "forty-four", "digitHi": "४४" },
+    { "value": 45, "hi": "पैंतालीस", "translit": "paintaalees", "en": "forty-five", "digitHi": "४५" },
+    { "value": 46, "hi": "छियालीस", "translit": "chhiyaalees", "en": "forty-six", "digitHi": "४६" },
+    { "value": 47, "hi": "सैंतालीस", "translit": "saintaalees", "en": "forty-seven", "digitHi": "४७" },
+    { "value": 48, "hi": "अड़तालीस", "translit": "adtaalees", "en": "forty-eight", "digitHi": "४८" },
+    { "value": 49, "hi": "उनचास", "translit": "unchaas", "en": "forty-nine", "digitHi": "४९" },
+    { "value": 50, "hi": "पचास", "translit": "pachaas", "en": "fifty", "digitHi": "५०" },
+    { "value": 51, "hi": "इक्यावन", "translit": "ikyaavan", "en": "fifty-one", "digitHi": "५१" },
+    { "value": 52, "hi": "बावन", "translit": "baavan", "en": "fifty-two", "digitHi": "५२" },
+    { "value": 53, "hi": "तिरपन", "translit": "tirpan", "en": "fifty-three", "digitHi": "५३" },
+    { "value": 54, "hi": "चौवन", "translit": "chauvan", "en": "fifty-four", "digitHi": "५४" },
+    { "value": 55, "hi": "पचपन", "translit": "pachpan", "en": "fifty-five", "digitHi": "५५" },
+    { "value": 56, "hi": "छप्पन", "translit": "chhappan", "en": "fifty-six", "digitHi": "५६" },
+    { "value": 57, "hi": "सत्तावन", "translit": "sattaavan", "en": "fifty-seven", "digitHi": "५७" },
+    { "value": 58, "hi": "अट्ठावन", "translit": "atthaavan", "en": "fifty-eight", "digitHi": "५८" },
+    { "value": 59, "hi": "उनसठ", "translit": "unsath", "en": "fifty-nine", "digitHi": "५९" },
+    { "value": 60, "hi": "साठ", "translit": "saath", "en": "sixty", "digitHi": "६०" },
+    { "value": 61, "hi": "इकसठ", "translit": "iksath", "en": "sixty-one", "digitHi": "६१" },
+    { "value": 62, "hi": "बासठ", "translit": "baasath", "en": "sixty-two", "digitHi": "६२" },
+    { "value": 63, "hi": "तिरसठ", "translit": "tirsath", "en": "sixty-three", "digitHi": "६३" },
+    { "value": 64, "hi": "चौंसठ", "translit": "chaunsath", "en": "sixty-four", "digitHi": "६४" },
+    { "value": 65, "hi": "पैंसठ", "translit": "painsath", "en": "sixty-five", "digitHi": "६५" },
+    { "value": 66, "hi": "छियासठ", "translit": "chhiyaasath", "en": "sixty-six", "digitHi": "६६" },
+    { "value": 67, "hi": "सड़सठ", "translit": "sadsath", "en": "sixty-seven", "digitHi": "६७" },
+    { "value": 68, "hi": "अड़सठ", "translit": "adsath", "en": "sixty-eight", "digitHi": "६८" },
+    { "value": 69, "hi": "उनहत्तर", "translit": "unhattar", "en": "sixty-nine", "digitHi": "६९" },
+    { "value": 70, "hi": "सत्तर", "translit": "sattar", "en": "seventy", "digitHi": "७०" },
+    { "value": 71, "hi": "इकहत्तर", "translit": "ikhattar", "en": "seventy-one", "digitHi": "७१" },
+    { "value": 72, "hi": "बहत्तर", "translit": "bahattar", "en": "seventy-two", "digitHi": "७२" },
+    { "value": 73, "hi": "तिहत्तर", "translit": "tihattar", "en": "seventy-three", "digitHi": "७३" },
+    { "value": 74, "hi": "चौहत्तर", "translit": "chauhattar", "en": "seventy-four", "digitHi": "७४" },
+    { "value": 75, "hi": "पचहत्तर", "translit": "pachhattar", "en": "seventy-five", "digitHi": "७५" },
+    { "value": 76, "hi": "छिहत्तर", "translit": "chhihattar", "en": "seventy-six", "digitHi": "७६" },
+    { "value": 77, "hi": "सतहत्तर", "translit": "sathattar", "en": "seventy-seven", "digitHi": "७७" },
+    { "value": 78, "hi": "अठहत्तर", "translit": "athhattar", "en": "seventy-eight", "digitHi": "७८" },
+    { "value": 79, "hi": "उन्यासी", "translit": "unyaasi", "en": "seventy-nine", "digitHi": "७९" },
+    { "value": 80, "hi": "अस्सी", "translit": "assi", "en": "eighty", "digitHi": "८०" },
+    { "value": 81, "hi": "इक्यासी", "translit": "ikyaasi", "en": "eighty-one", "digitHi": "८१" },
+    { "value": 82, "hi": "बयासी", "translit": "bayaasi", "en": "eighty-two", "digitHi": "८२" },
+    { "value": 83, "hi": "तिरासी", "translit": "tiraasi", "en": "eighty-three", "digitHi": "८३" },
+    { "value": 84, "hi": "चौरासी", "translit": "chauraasi", "en": "eighty-four", "digitHi": "८४" },
+    { "value": 85, "hi": "पचासी", "translit": "pachaasi", "en": "eighty-five", "digitHi": "८५" },
+    { "value": 86, "hi": "छियासी", "translit": "chhiyaasi", "en": "eighty-six", "digitHi": "८६" },
+    { "value": 87, "hi": "सत्तासी", "translit": "sattaasi", "en": "eighty-seven", "digitHi": "८७" },
+    { "value": 88, "hi": "अट्ठासी", "translit": "atthaasi", "en": "eighty-eight", "digitHi": "८८" },
+    { "value": 89, "hi": "नवासी", "translit": "navaasi", "en": "eighty-nine", "digitHi": "८९" },
+    { "value": 90, "hi": "नब्बे", "translit": "nabbe", "en": "ninety", "digitHi": "९०" },
+    { "value": 91, "hi": "इक्यानवे", "translit": "ikyaanave", "en": "ninety-one", "digitHi": "९१" },
+    { "value": 92, "hi": "बानवे", "translit": "baanave", "en": "ninety-two", "digitHi": "९२" },
+    { "value": 93, "hi": "तिरानवे", "translit": "tiraanave", "en": "ninety-three", "digitHi": "९३" },
+    { "value": 94, "hi": "चौरानवे", "translit": "chauraanave", "en": "ninety-four", "digitHi": "९४" },
+    { "value": 95, "hi": "पंचानवे", "translit": "panchaanave", "en": "ninety-five", "digitHi": "९५" },
+    { "value": 96, "hi": "छियानवे", "translit": "chhiyaanave", "en": "ninety-six", "digitHi": "९६" },
+    { "value": 97, "hi": "सत्तानवे", "translit": "sattaanave", "en": "ninety-seven", "digitHi": "९७" },
+    { "value": 98, "hi": "अट्ठानवे", "translit": "atthaanave", "en": "ninety-eight", "digitHi": "९८" },
+    { "value": 99, "hi": "निन्यानवे", "translit": "ninyaanave", "en": "ninety-nine", "digitHi": "९९" },
+    { "value": 100, "hi": "सौ", "translit": "sau", "en": "one hundred", "digitHi": "१००" }
   ],
   "letterSets": [
     {
@@ -5777,7 +5891,12 @@
         },
         { "word": "squirrel", "hi": "एक गिलहरी आई।", "en": "A squirrel came.", "act": { "move": "scurry", "sky": "field" } },
         { "word": "squirrel", "hi": "गिलहरी आम खा गई!", "en": "The squirrel ate the mango!", "act": { "move": "talk", "sky": "field", "with": "mango" } },
-        { "word": "king", "hi": "राजा ताली मार कर नाचा।", "en": "The king clapped and danced.", "act": { "move": "dance", "sky": "field", "fx": "music" } }
+        {
+          "word": "king",
+          "hi": "राजा ताली मार कर नाचा।",
+          "en": "The king clapped and danced.",
+          "act": { "move": "dance", "sky": "field", "fx": "music", "mood": "happy" }
+        }
       ],
       "questions": [
         { "hi": "आम किसने खाया?", "en": "Who ate the mango?", "answer": "squirrel", "options": ["squirrel", "king", "crow"] },
@@ -5793,8 +5912,13 @@
       "pages": [
         { "word": "girl", "hi": "मीना बाग गई।", "en": "Meena went to the garden.", "act": { "move": "walk", "sky": "field", "fx": "leaves" } },
         { "word": "butterfly", "hi": "एक तितली आई।", "en": "A butterfly came.", "act": { "move": "fly-across", "sky": "sky" } },
-        { "word": "butterfly", "hi": "तितली नाची।", "en": "The butterfly danced.", "act": { "move": "dance", "sky": "field", "fx": "sparkles" } },
-        { "word": "girl", "hi": "मीना भी नाची।", "en": "Meena danced too.", "act": { "move": "dance", "sky": "field", "with": "butterfly", "fx": "music" } },
+        { "word": "butterfly", "hi": "तितली नाची।", "en": "The butterfly danced.", "act": { "move": "dance", "sky": "field", "fx": "sparkles", "mood": "happy" } },
+        {
+          "word": "girl",
+          "hi": "मीना भी नाची।",
+          "en": "Meena danced too.",
+          "act": { "move": "dance", "sky": "field", "with": "butterfly", "fx": "music", "mood": "happy" }
+        },
         { "word": "butterfly", "hi": "तितली उड़ गई। टा-टा!", "en": "The butterfly flew away. Bye-bye!", "act": { "move": "fly-up", "sky": "sky", "fx": "wind" } }
       ],
       "questions": [
@@ -5840,7 +5964,7 @@
           "word": "mango",
           "hi": "आम मिला! भालू खुश!",
           "en": "He got a mango! The bear is happy!",
-          "act": { "move": "fall", "sky": "field", "with": "bear", "fx": "sparkles" }
+          "act": { "move": "fall", "sky": "field", "with": "bear", "fx": "sparkles", "mood": "happy" }
         },
         { "word": "bear", "hi": "भालू झूमा, झूम-झूम!", "en": "The bear swayed and swayed!", "act": { "move": "dance", "sky": "field", "fx": "music" } }
       ],
@@ -5888,7 +6012,7 @@
           "en": "Raju blew the whistle — toot toot!",
           "act": { "move": "shake", "sky": "field", "with": "boy", "fx": "music", "sound": "toot" }
         },
-        { "word": "house", "hi": "राजू थक कर घर आया।", "en": "Raju came home tired.", "act": { "move": "sleep", "sky": "night", "fx": "zzz" } }
+        { "word": "house", "hi": "राजू थक कर घर आया।", "en": "Raju came home tired.", "act": { "move": "sleep", "sky": "night", "fx": "zzz", "mood": "sleepy" } }
       ],
       "questions": [
         { "hi": "राजू कहाँ गया?", "en": "Where did Raju go?", "answer": "fair", "options": ["fair", "school", "river"] },
@@ -5908,14 +6032,19 @@
           "word": "peacock",
           "hi": "मोर ने पैर उठाए और नाचा।",
           "en": "The peacock lifted its feet and danced.",
-          "act": { "move": "dance", "sky": "rain", "fx": "music" }
+          "act": { "move": "dance", "sky": "rain", "fx": "music", "mood": "happy" }
         },
-        { "word": "rain", "hi": "बारिश हुई। मोर खुश हुआ।", "en": "It rained. The peacock was happy.", "act": { "move": "float", "sky": "rain", "fx": "rain" } },
+        {
+          "word": "rain",
+          "hi": "बारिश हुई। मोर खुश हुआ।",
+          "en": "It rained. The peacock was happy.",
+          "act": { "move": "float", "sky": "rain", "fx": "rain", "mood": "happy" }
+        },
         {
           "word": "peahen",
           "hi": "मोरनी भी आई और नाची!",
           "en": "The peahen came too, and danced!",
-          "act": { "move": "dance", "sky": "rain", "with": "peacock", "fx": ["rain", "hearts"] }
+          "act": { "move": "dance", "sky": "rain", "with": "peacock", "fx": ["rain", "hearts"], "mood": "happy" }
         }
       ],
       "questions": [
@@ -5947,6 +6076,865 @@
       ],
       "level": "grade1",
       "decodable": 4
+    },
+    {
+      "id": "t-daant",
+      "title": { "hi": "दाँत चमकाओ", "en": "Shiny teeth" },
+      "cover": "toothbrush",
+      "pages": [
+        { "word": "toothbrush", "hi": "सुबह हुई! ब्रश उठाओ।", "en": "Morning! Pick up your brush.", "act": { "move": "peek", "sky": "dawn", "fx": "glow" } },
+        { "word": "toothbrush", "hi": "ऊपर-नीचे, ब्रश करो।", "en": "Up and down, brush, brush.", "act": { "move": "shake", "sky": "home", "fx": "bubbles" } },
+        { "word": "water", "hi": "पानी से कुल्ला, गुड़-गुड़!", "en": "Rinse with water, gurgle gurgle!", "act": { "move": "float", "sky": "home", "fx": "splash" } },
+        { "word": "boy", "hi": "दाँत चमके, चम-चम!", "en": "Teeth shine, sparkle sparkle!", "act": { "move": "grow", "sky": "home", "fx": "sparkles", "mood": "happy" } }
+      ],
+      "questions": [
+        { "hi": "दाँत किससे साफ़ करते हैं?", "en": "What do we clean our teeth with?", "answer": "toothbrush", "options": ["toothbrush", "spoon", "pen"] },
+        { "hi": "कुल्ला किससे करते हैं?", "en": "What do we rinse with?", "answer": "water", "options": ["water", "milk", "tea"] }
+      ],
+      "moral": { "hi": "रोज़ ब्रश करो, दाँत चमकाओ।", "en": "Brush every day for shiny teeth." },
+      "level": "toddler"
+    },
+    {
+      "id": "t-nahana",
+      "title": { "hi": "नहाने का समय", "en": "Bath time" },
+      "cover": "soap",
+      "pages": [
+        { "word": "bucket", "hi": "बाल्टी में पानी, छप-छप!", "en": "Water in the bucket, splish splash!", "act": { "move": "shake", "sky": "home", "fx": "splash" } },
+        { "word": "soap", "hi": "साबुन लगाओ, झाग-झाग!", "en": "Rub on the soap, bubbles, bubbles!", "act": { "move": "float", "sky": "home", "fx": "bubbles" } },
+        { "word": "bucket", "hi": "पानी डालो, छपाक!", "en": "Pour the water, splash!", "act": { "move": "fall", "sky": "home", "fx": "splash", "sound": "splash" } },
+        { "word": "girl", "hi": "नहाकर साफ़-सुथरे!", "en": "All clean after the bath!", "act": { "move": "dance", "sky": "home", "fx": "sparkles", "mood": "happy" } }
+      ],
+      "questions": [
+        { "hi": "झाग किससे बने?", "en": "What made the bubbles?", "answer": "soap", "options": ["soap", "roti", "ball"] },
+        { "hi": "पानी किसमें था?", "en": "What was the water in?", "answer": "bucket", "options": ["bucket", "shoe", "book"] }
+      ],
+      "level": "toddler"
+    },
+    {
+      "id": "t-kapde",
+      "title": { "hi": "कपड़े पहनो", "en": "Getting dressed" },
+      "cover": "shirt",
+      "pages": [
+        { "word": "shirt", "hi": "पहले कमीज़ पहनो।", "en": "First, put on your shirt.", "act": { "move": "enter", "sky": "home" } },
+        { "word": "shoe", "hi": "फिर जूते पहनो।", "en": "Then put on your shoes.", "act": { "move": "walk", "sky": "home" } },
+        { "word": "cap", "hi": "सिर पर टोपी।", "en": "A cap on your head.", "act": { "move": "fall", "sky": "home", "sound": "pop" } },
+        { "word": "boy", "hi": "हम तैयार! चलो!", "en": "All ready! Let's go!", "act": { "move": "jump", "sky": "field", "fx": "confetti", "mood": "happy" } }
+      ],
+      "questions": [
+        { "hi": "पैरों में क्या पहनते हैं?", "en": "What do we wear on our feet?", "answer": "shoe", "options": ["shoe", "cap", "shirt"] },
+        { "hi": "सिर पर क्या पहना?", "en": "What went on the head?", "answer": "cap", "options": ["cap", "shoe", "spoon"] }
+      ],
+      "level": "toddler"
+    },
+    {
+      "id": "t-dal",
+      "title": { "hi": "दाल-चावल", "en": "Dal and rice" },
+      "cover": "dal",
+      "pages": [
+        { "word": "dal", "hi": "गरम-गरम दाल।", "en": "Hot, hot dal.", "act": { "move": "grow", "sky": "home", "fx": "steam" } },
+        { "word": "rice", "hi": "सफ़ेद-सफ़ेद चावल।", "en": "White, white rice.", "act": { "move": "float", "sky": "home", "fx": "steam" } },
+        { "word": "spoon", "hi": "चम्मच से खाओ, हम-हम!", "en": "Eat with a spoon, yum yum!", "act": { "move": "talk", "sky": "home", "with": "dal" } },
+        {
+          "word": "mother",
+          "hi": "पेट भर गया! शुक्रिया, माँ!",
+          "en": "My tummy is full! Thank you, Mummy!",
+          "act": { "move": "approach", "sky": "home", "with": "boy", "fx": "hearts", "mood": "happy" }
+        }
+      ],
+      "questions": [
+        { "hi": "गरम-गरम क्या था?", "en": "What was hot?", "answer": "dal", "options": ["dal", "apple", "ball"] },
+        { "hi": "किससे खाया?", "en": "What did we eat with?", "answer": "spoon", "options": ["spoon", "shoe", "pen"] }
+      ],
+      "level": "toddler"
+    },
+    {
+      "id": "t-chhupan",
+      "title": { "hi": "छुपन-छुपाई", "en": "Hide and seek" },
+      "cover": "tree",
+      "pages": [
+        { "word": "tree", "hi": "पेड़ के पीछे कौन?", "en": "Who is behind the tree?", "act": { "move": "sway", "sky": "field", "fx": "leaves" } },
+        { "word": "cat", "hi": "बिल्ली? नहीं।", "en": "The cat? No.", "act": { "move": "peek", "sky": "field" } },
+        { "word": "dog", "hi": "कुत्ता? नहीं।", "en": "The dog? No.", "act": { "move": "enter-right", "sky": "field" } },
+        {
+          "word": "girl",
+          "hi": "अरे, ये तो मुन्नी! कू-कू!",
+          "en": "Oh, it's Munni! Peekaboo!",
+          "act": { "move": "peek", "sky": "field", "with": "tree", "fx": "hearts", "mood": "surprised" }
+        }
+      ],
+      "questions": [
+        { "hi": "पेड़ के पीछे कौन था?", "en": "Who was behind the tree?", "answer": "girl", "options": ["girl", "cat", "dog"] },
+        { "hi": "मुन्नी कहाँ छुपी थी?", "en": "Where was Munni hiding?", "answer": "tree", "options": ["tree", "bus", "house"] }
+      ],
+      "level": "toddler"
+    },
+    {
+      "id": "t-haath",
+      "title": { "hi": "मेरे हाथ, मेरे पैर", "en": "My hands, my feet" },
+      "cover": "hand",
+      "pages": [
+        {
+          "word": "hand",
+          "hi": "ये मेरे दो हाथ। ताली-ताली!",
+          "en": "These are my two hands. Clap, clap!",
+          "act": { "move": "shake", "sky": "home", "fx": "music", "count": 2 }
+        },
+        {
+          "word": "foot",
+          "hi": "ये मेरे दो पैर। धम-धम!",
+          "en": "These are my two feet. Stamp, stamp!",
+          "act": { "move": "jump", "sky": "home", "sound": "thud", "count": 2 }
+        },
+        {
+          "word": "eye",
+          "hi": "ये मेरी दो आँखें। टिम-टिम!",
+          "en": "These are my two eyes. Blink, blink!",
+          "act": { "move": "grow", "sky": "home", "fx": "sparkles", "count": 2 }
+        },
+        {
+          "word": "boy",
+          "hi": "हाथ, पैर, आँखें... चलो नाचें!",
+          "en": "Hands, feet, eyes... let's dance!",
+          "act": { "move": "dance", "sky": "home", "fx": "music", "mood": "happy" }
+        }
+      ],
+      "questions": [
+        { "hi": "ताली किससे बजाते हैं?", "en": "What do we clap with?", "answer": "hand", "options": ["hand", "foot", "eye"] },
+        { "hi": "किससे देखते हैं?", "en": "What do we see with?", "answer": "eye", "options": ["eye", "hand", "foot"] }
+      ],
+      "level": "toddler"
+    },
+    {
+      "id": "t-park",
+      "title": { "hi": "पार्क चलें", "en": "Off to the park" },
+      "cover": "slide",
+      "pages": [
+        { "word": "slide", "hi": "फिसलपट्टी पर, सर्र!", "en": "Down the slide, whee!", "act": { "move": "fall", "sky": "field", "fx": "wind" } },
+        { "word": "swing", "hi": "झूले पर, ऊपर-नीचे।", "en": "On the swing, up and down.", "act": { "move": "sway", "sky": "field" } },
+        { "word": "ball", "hi": "गेंद उछली, टप-टप!", "en": "The ball bounces, bounce, bounce!", "act": { "move": "jump", "sky": "field", "sound": "boing" } },
+        { "word": "boy", "hi": "पार्क में मज़ा आया!", "en": "The park was fun!", "act": { "move": "dance", "sky": "field", "fx": "confetti", "mood": "happy" } }
+      ],
+      "questions": [
+        { "hi": "सर्र से कहाँ फिसले?", "en": "Where did we slide down?", "answer": "slide", "options": ["slide", "bed", "bus"] },
+        { "hi": "टप-टप क्या उछली?", "en": "What went bounce, bounce?", "answer": "ball", "options": ["ball", "cow", "cup"] }
+      ],
+      "level": "toddler"
+    },
+    {
+      "id": "t-nani",
+      "title": { "hi": "नानी के घर", "en": "To Nani's house" },
+      "cover": "train",
+      "pages": [
+        {
+          "word": "train",
+          "hi": "छुक-छुक, नानी के घर!",
+          "en": "Choo choo, off to Nani's house!",
+          "act": { "move": "drive", "sky": "field", "fx": "dust", "sound": "toot" }
+        },
+        {
+          "word": "grandmother",
+          "hi": "नानी ने गले लगाया।",
+          "en": "Nani gave a big hug.",
+          "act": { "move": "approach", "sky": "home", "with": "girl", "fx": "hearts", "mood": "happy" }
+        },
+        { "word": "laddoo", "hi": "नानी के लड्डू, मीठे-मीठे!", "en": "Nani's laddoos, sweet, sweet!", "act": { "move": "grow", "sky": "home", "fx": "sparkles" } },
+        { "word": "girl", "hi": "नानी, फिर आऊँगी!", "en": "Nani, I'll come again!", "act": { "move": "walk", "sky": "dawn" } }
+      ],
+      "questions": [
+        { "hi": "नानी के घर कैसे गए?", "en": "How did we go to Nani's house?", "answer": "train", "options": ["train", "boat", "rocket"] },
+        { "hi": "नानी ने क्या खिलाया?", "en": "What did Nani give us to eat?", "answer": "laddoo", "options": ["laddoo", "carrot", "bone"] }
+      ],
+      "level": "toddler"
+    },
+    {
+      "id": "t-sabzi",
+      "title": { "hi": "सब्ज़ी वाले भैया", "en": "The vegetable seller" },
+      "cover": "tomato",
+      "pages": [
+        { "word": "farmer", "hi": "सब्ज़ी लो, सब्ज़ी!", "en": "Vegetables! Fresh vegetables!", "act": { "move": "enter-right", "sky": "field" } },
+        { "word": "tomato", "hi": "लाल-लाल टमाटर।", "en": "Red, red tomatoes.", "act": { "move": "grow", "sky": "field" } },
+        { "word": "carrot", "hi": "लंबी-लंबी गाजर।", "en": "Long, long carrots.", "act": { "move": "sway", "sky": "field" } },
+        { "word": "bag", "hi": "माँ ने थैला भर लिया!", "en": "Mummy filled her bag!", "act": { "move": "jump", "sky": "home", "fx": "sparkles", "mood": "happy" } }
+      ],
+      "questions": [
+        { "hi": "लाल-लाल क्या था?", "en": "What was red?", "answer": "tomato", "options": ["tomato", "carrot", "potato"] },
+        { "hi": "लंबी-लंबी क्या थी?", "en": "What was long?", "answer": "carrot", "options": ["carrot", "potato", "tomato"] }
+      ],
+      "level": "toddler"
+    },
+    {
+      "id": "t-sona",
+      "title": { "hi": "सोने का समय", "en": "Bedtime" },
+      "cover": "moon",
+      "pages": [
+        { "word": "moon", "hi": "चंदा मामा आ गए।", "en": "Uncle Moon is here.", "act": { "move": "peek", "sky": "night", "fx": "stars" } },
+        { "word": "bed", "hi": "बिस्तर तैयार।", "en": "The bed is ready.", "act": { "move": "float", "sky": "night", "fx": "stars" } },
+        { "word": "mother", "hi": "माँ ने कहानी सुनाई।", "en": "Mummy told a story.", "act": { "move": "talk", "sky": "night" } },
+        {
+          "word": "boy",
+          "hi": "आँखें बंद... शुभ रात्रि!",
+          "en": "Eyes closed... good night!",
+          "act": { "move": "sleep", "sky": "night", "fx": "zzz", "mood": "sleepy" }
+        }
+      ],
+      "questions": [
+        { "hi": "रात को कौन आया?", "en": "Who came at night?", "answer": "moon", "options": ["moon", "sun", "bus"] },
+        { "hi": "हम कहाँ सोते हैं?", "en": "Where do we sleep?", "answer": "bed", "options": ["bed", "bucket", "swing"] }
+      ],
+      "level": "toddler"
+    },
+    {
+      "id": "t-gaadi",
+      "title": { "hi": "गाड़ियाँ क्या बोलें?", "en": "What do vehicles say?" },
+      "cover": "car",
+      "pages": [
+        { "word": "car", "hi": "कार बोली, पीं-पीं!", "en": "The car says beep beep!", "act": { "move": "enter", "sky": "field", "sound": "toot" } },
+        { "word": "train", "hi": "रेल बोली, छुक-छुक!", "en": "The train says choo choo!", "act": { "move": "drive", "sky": "field", "fx": "steam", "sound": "toot" } },
+        {
+          "word": "firetruck",
+          "hi": "दमकल बोली, नी-नो, नी-नो!",
+          "en": "The fire engine says nee-naw, nee-naw!",
+          "act": { "move": "drive", "sky": "field", "sound": "siren" }
+        },
+        { "word": "plane", "hi": "हवाई जहाज़ बोला, ज़ूँऊँ!", "en": "The plane says zoom!", "act": { "move": "fly-across", "sky": "sky", "fx": "wind" } }
+      ],
+      "questions": [
+        { "hi": "छुक-छुक कौन बोली?", "en": "Who said choo choo?", "answer": "train", "options": ["train", "car", "plane"] },
+        { "hi": "ज़ूँऊँ कौन बोला?", "en": "Who said zoom?", "answer": "plane", "options": ["plane", "bus", "boat"] }
+      ],
+      "level": "toddler"
+    },
+    {
+      "id": "t-khana",
+      "title": { "hi": "कौन क्या खाता है?", "en": "Who eats what?" },
+      "cover": "rabbit",
+      "pages": [
+        {
+          "word": "rabbit",
+          "hi": "खरगोश खाए गाजर, कुतर-कुतर।",
+          "en": "The rabbit eats a carrot, nibble nibble.",
+          "act": { "move": "talk", "sky": "field", "with": "carrot" }
+        },
+        { "word": "cat", "hi": "बिल्ली पिए दूध, लप-लप।", "en": "The cat drinks milk, lap lap.", "act": { "move": "jump", "sky": "home", "with": "milk" } },
+        { "word": "cow", "hi": "गाय खाए घास, चर-चर।", "en": "The cow eats grass, munch munch.", "act": { "move": "talk", "sky": "field", "with": "grass" } },
+        { "word": "roti", "hi": "और मैं? मैं खाऊँ रोटी!", "en": "And me? I eat roti!", "act": { "move": "grow", "sky": "home", "fx": "hearts" } }
+      ],
+      "questions": [
+        { "hi": "खरगोश क्या खाता है?", "en": "What does the rabbit eat?", "answer": "carrot", "options": ["carrot", "bone", "milk"] },
+        { "hi": "बिल्ली क्या पीती है?", "en": "What does the cat drink?", "answer": "milk", "options": ["milk", "tea", "water"] }
+      ],
+      "level": "toddler"
+    },
+    {
+      "id": "r-akkad",
+      "title": { "hi": "अक्कड़ बक्कड़", "en": "Akkad bakkad (a counting-out rhyme)" },
+      "cover": "boy",
+      "pages": [
+        { "word": "boy", "hi": "अक्कड़ बक्कड़ बंबे बो,", "en": "Akkad bakkad bambe bo,", "act": { "move": "dance", "sky": "field", "fx": "music" } },
+        { "word": "girl", "hi": "अस्सी नब्बे पूरे सौ।", "en": "eighty, ninety, a full hundred.", "act": { "move": "jump", "sky": "field", "fx": "confetti" } },
+        { "word": "kite", "hi": "सौ में लगा धागा,", "en": "a thread tied round the hundred,", "act": { "move": "fly-up", "sky": "sky", "fx": "wind" } },
+        { "word": "thief", "hi": "चोर निकल के भागा!", "en": "and out ran the thief!", "act": { "move": "run", "sky": "field", "fx": "dust" } }
+      ],
+      "questions": [
+        { "hi": "अस्सी, नब्बे, पूरे कितने?", "en": "Eighty, ninety, a full how many?", "answer": "सौ", "options": ["सौ", "दस", "पाँच"], "text": true },
+        { "hi": "कौन भागा?", "en": "Who ran away?", "answer": "thief", "options": ["thief", "king", "cow"] }
+      ],
+      "level": "kg",
+      "kind": "poem",
+      "source": "folk"
+    },
+    {
+      "id": "r-posham",
+      "title": { "hi": "पोशम पा", "en": "Posham pa (an arch game)" },
+      "cover": "postvan",
+      "pages": [
+        { "word": "postvan", "hi": "पोशम पा भई पोशम पा,", "en": "Posham pa, oh posham pa,", "act": { "move": "drive", "sky": "field", "sound": "toot" } },
+        { "word": "postvan", "hi": "डाकिए ने क्या किया?", "en": "what did the postman do?", "act": { "move": "talk", "sky": "field" } },
+        {
+          "word": "clock",
+          "hi": "सौ रुपये की घड़ी चुराई!",
+          "en": "he took a clock worth a hundred rupees!",
+          "act": { "move": "shake", "sky": "home", "sound": "chime" }
+        },
+        { "word": "roti", "hi": "अब तो जेल की रोटी खानी पड़ेगी,", "en": "now he'll eat roti in jail,", "act": { "move": "grow", "sky": "home" } },
+        { "word": "water", "hi": "जेल का पानी पीना पड़ेगा!", "en": "and drink water in jail!", "act": { "move": "float", "sky": "home", "fx": "bubbles" } }
+      ],
+      "questions": [
+        { "hi": "डाकिए ने क्या चुराया?", "en": "What did the postman take?", "answer": "clock", "options": ["clock", "kite", "bag"] },
+        { "hi": "घड़ी कितने रुपये की थी?", "en": "How many rupees was the clock?", "answer": "सौ", "options": ["सौ", "दस", "दो"], "text": true }
+      ],
+      "level": "kg",
+      "kind": "poem",
+      "source": "folk"
+    },
+    {
+      "id": "r-titli",
+      "title": { "hi": "तितली उड़ी, बस में चढ़ी", "en": "The butterfly on the bus" },
+      "cover": "butterfly",
+      "pages": [
+        { "word": "butterfly", "hi": "तितली उड़ी,", "en": "The butterfly flew,", "act": { "move": "fly-across", "sky": "sky" } },
+        { "word": "bus", "hi": "बस में चढ़ी।", "en": "and got on the bus.", "act": { "move": "drive", "sky": "field", "with": "butterfly", "sound": "toot" } },
+        {
+          "word": "butterfly",
+          "hi": "सीट न मिली, तो रोने लगी।",
+          "en": "No seat for her, so she started to cry.",
+          "act": { "move": "shake", "sky": "field", "mood": "sad" }
+        },
+        { "word": "bus", "hi": "ड्राइवर बोला, आजा मेरे पास,", "en": "The driver said, \"Come and sit by me,\"", "act": { "move": "talk", "sky": "field" } },
+        {
+          "word": "butterfly",
+          "hi": "तितली बोली, मेरे पंख हैं ख़ास!",
+          "en": "The butterfly said, \"My wings are special, you see!\"",
+          "act": { "move": "fly-up", "sky": "sky", "fx": "sparkles", "mood": "happy" }
+        }
+      ],
+      "questions": [
+        { "hi": "तितली किसमें चढ़ी?", "en": "What did the butterfly get on?", "answer": "bus", "options": ["bus", "boat", "train"] },
+        {
+          "hi": "तितली क्यों रोई?",
+          "en": "Why did the butterfly cry?",
+          "answer": "सीट नहीं मिली",
+          "options": ["सीट नहीं मिली", "भूख लगी", "नींद आई"],
+          "text": true
+        }
+      ],
+      "level": "kg",
+      "kind": "poem",
+      "source": "adapted"
+    },
+    {
+      "id": "r-tamatar",
+      "title": { "hi": "आहा टमाटर", "en": "Aha, tomatoes!" },
+      "cover": "tomato",
+      "pages": [
+        { "word": "tomato", "hi": "आहा टमाटर बड़े मज़ेदार,", "en": "Aha, tomatoes, such a treat,", "act": { "move": "dance", "sky": "field", "fx": "music" } },
+        { "word": "tomato", "hi": "आहा टमाटर बड़े मज़ेदार।", "en": "aha, tomatoes, red and sweet.", "act": { "move": "jump", "sky": "field", "fx": "sparkles" } },
+        { "word": "mouse", "hi": "एक दिन इनको चूहे ने खाया,", "en": "One day a mouse ate one up,", "act": { "move": "scurry", "sky": "home" } },
+        {
+          "word": "mouse",
+          "hi": "बिल्ली को भी मार भगाया!",
+          "en": "and he even chased the cat away!",
+          "act": { "move": "run", "sky": "home", "with": "cat", "fx": "dust" }
+        },
+        { "word": "tomato", "hi": "आहा टमाटर बड़े मज़ेदार!", "en": "Aha, tomatoes, such a treat!", "act": { "move": "grow", "sky": "field", "fx": "confetti" } }
+      ],
+      "questions": [
+        { "hi": "टमाटर किसने खाया?", "en": "Who ate a tomato?", "answer": "mouse", "options": ["mouse", "cat", "cow"] },
+        { "hi": "चूहे ने किसे भगाया?", "en": "Who did the mouse chase away?", "answer": "cat", "options": ["cat", "dog", "lion"] }
+      ],
+      "level": "kg",
+      "kind": "poem",
+      "source": "folk"
+    },
+    {
+      "id": "r-chunnu",
+      "title": { "hi": "चुन्नू-मुन्नू", "en": "Chunnu and Munnu" },
+      "cover": "rasgulla",
+      "pages": [
+        { "word": "boy", "hi": "चुन्नू-मुन्नू थे दो भाई,", "en": "Chunnu and Munnu were two brothers,", "act": { "move": "enter", "sky": "field", "with": "boy" } },
+        { "word": "rasgulla", "hi": "रसगुल्ले की शर्त लगाई।", "en": "who made a bet over a rasgulla.", "act": { "move": "grow", "sky": "home", "fx": "sparkles" } },
+        { "word": "boy", "hi": "चुन्नू बोला, मैं खाऊँगा!", "en": "Chunnu said, \"I'll eat it!\"", "act": { "move": "talk", "sky": "home" } },
+        { "word": "boy", "hi": "मुन्नू बोला, मैं खाऊँगा!", "en": "Munnu said, \"No, I will!\"", "act": { "move": "talk", "sky": "home", "with": "boy" } },
+        { "word": "mother", "hi": "झगड़ा सुनकर मम्मी आई,", "en": "Hearing them squabble, Mummy came,", "act": { "move": "enter-right", "sky": "home" } },
+        {
+          "word": "rasgulla",
+          "hi": "आधा-आधा बाँटा, दोनों ने खाया!",
+          "en": "she cut it in half, and they both ate!",
+          "act": { "move": "approach", "sky": "home", "with": "boy", "fx": "hearts", "mood": "happy" }
+        }
+      ],
+      "questions": [
+        { "hi": "दोनों भाई क्या खाना चाहते थे?", "en": "What did both brothers want to eat?", "answer": "rasgulla", "options": ["rasgulla", "roti", "apple"] },
+        {
+          "hi": "मम्मी ने रसगुल्ला कैसे बाँटा?",
+          "en": "How did Mummy share the rasgulla?",
+          "answer": "आधा-आधा",
+          "options": ["आधा-आधा", "सारा चुन्नू को", "सारा मुन्नू को"],
+          "text": true
+        }
+      ],
+      "level": "kg",
+      "kind": "poem",
+      "source": "adapted"
+    },
+    {
+      "id": "r-pankha",
+      "title": { "hi": "ऊपर पंखा चलता है", "en": "The fan goes round" },
+      "cover": "fan",
+      "pages": [
+        { "word": "fan", "hi": "ऊपर पंखा चलता है,", "en": "Up above, the fan goes round,", "act": { "move": "spin", "sky": "home" } },
+        {
+          "word": "bed",
+          "hi": "नीचे मुन्ना सोता है।",
+          "en": "down below, baby sleeps sound.",
+          "act": { "move": "sleep", "sky": "home", "fx": "zzz", "mood": "sleepy" }
+        },
+        { "word": "boy", "hi": "सोते-सोते भूख लगी,", "en": "Fast asleep, he got hungry,", "act": { "move": "shake", "sky": "home", "mood": "sleepy" } },
+        { "word": "peanut", "hi": "खा ले बेटा मूँगफली।", "en": "\"Have some peanuts, little one.\"", "act": { "move": "grow", "sky": "home", "fx": "sparkles" } },
+        {
+          "word": "peanut",
+          "hi": "मूँगफली में दाना नहीं,",
+          "en": "But the peanut had no nut inside,",
+          "act": { "move": "shake", "sky": "home", "mood": "surprised" }
+        },
+        {
+          "word": "boy",
+          "hi": "हम तुम्हारे मामा नहीं!",
+          "en": "\"And I'm not your uncle!\" Ha ha!",
+          "act": { "move": "jump", "sky": "home", "fx": "confetti", "mood": "happy" }
+        }
+      ],
+      "questions": [
+        { "hi": "ऊपर क्या चलता है?", "en": "What goes round up above?", "answer": "fan", "options": ["fan", "car", "bus"] },
+        { "hi": "मुन्ना को क्या खाने को कहा?", "en": "What was baby told to eat?", "answer": "peanut", "options": ["peanut", "apple", "dal"] }
+      ],
+      "level": "kg",
+      "kind": "poem",
+      "source": "folk"
+    },
+    {
+      "id": "r-golgol",
+      "title": { "hi": "गोल-गोल रानी", "en": "Round and round, the queen" },
+      "cover": "water",
+      "pages": [
+        { "word": "girl", "hi": "गोल-गोल रानी,", "en": "Round and round, the queen,", "act": { "move": "spin", "sky": "field" } },
+        { "word": "water", "hi": "इत्ता-इत्ता पानी।", "en": "this much water!", "act": { "move": "float", "sky": "river", "fx": "bubbles" } },
+        { "word": "foot", "hi": "इत्ता पानी, पैरों तक!", "en": "This much water, up to the feet!", "act": { "move": "float", "sky": "river", "fx": "splash" } },
+        { "word": "girl", "hi": "इत्ता पानी, कमर तक!", "en": "This much water, up to the waist!", "act": { "move": "sway", "sky": "river", "fx": "splash" } },
+        {
+          "word": "girl",
+          "hi": "इत्ता पानी, सिर तक! छपाक!",
+          "en": "This much water, over the head! Splash!",
+          "act": { "move": "jump", "sky": "river", "fx": "splash", "sound": "splash", "mood": "surprised" }
+        }
+      ],
+      "questions": [
+        { "hi": "रानी कैसे घूमी?", "en": "How did the queen go round?", "answer": "गोल-गोल", "options": ["गोल-गोल", "सीधे", "उल्टे"], "text": true },
+        { "hi": "सबसे पहले पानी कहाँ तक आया?", "en": "First, the water came up to the...", "answer": "foot", "options": ["foot", "hand", "eye"] }
+      ],
+      "level": "kg",
+      "kind": "poem",
+      "source": "folk"
+    },
+    {
+      "id": "r-megha",
+      "title": { "hi": "काले मेघा", "en": "Dark clouds, bring the rain" },
+      "cover": "raincloud",
+      "pages": [
+        { "word": "raincloud", "hi": "काले मेघा, पानी दे,", "en": "Dark clouds, give us rain,", "act": { "move": "enter-right", "sky": "rain" } },
+        {
+          "word": "rain",
+          "hi": "पानी दे, गुड़धानी दे!",
+          "en": "give us rain, and sweet treats too!",
+          "act": { "move": "float", "sky": "rain", "fx": "rain", "sound": "rain" }
+        },
+        {
+          "word": "peacock",
+          "hi": "मोर नाचे, छम-छम-छम,",
+          "en": "The peacock dances, chham chham chham,",
+          "act": { "move": "dance", "sky": "rain", "fx": "rain", "mood": "happy" }
+        },
+        {
+          "word": "girl",
+          "hi": "हम भी नाचें, झम-झम-झम!",
+          "en": "and we dance too, jham jham jham!",
+          "act": { "move": "dance", "sky": "rain", "fx": ["rain", "music"], "mood": "happy" }
+        }
+      ],
+      "questions": [
+        { "hi": "पानी कौन देगा?", "en": "Who will give the rain?", "answer": "raincloud", "options": ["raincloud", "sun", "moon"] },
+        { "hi": "कौन नाचा?", "en": "Who danced?", "answer": "peacock", "options": ["peacock", "camel", "fish"] }
+      ],
+      "level": "kg",
+      "kind": "poem",
+      "source": "folk (first two lines), original (the rest)"
+    },
+    {
+      "id": "r-chidiya",
+      "title": { "hi": "चिड़िया उड़!", "en": "Bird, fly!" },
+      "cover": "bird",
+      "pages": [
+        { "word": "bird", "hi": "चिड़िया उड़!", "en": "Bird, fly!", "act": { "move": "fly-up", "sky": "sky" } },
+        { "word": "parrot", "hi": "तोता उड़!", "en": "Parrot, fly!", "act": { "move": "fly-across", "sky": "sky" } },
+        { "word": "crow", "hi": "कौआ उड़!", "en": "Crow, fly!", "act": { "move": "fly-up", "sky": "sky", "fx": "wind" } },
+        {
+          "word": "elephant",
+          "hi": "हाथी उड़? नहीं, नहीं!",
+          "en": "Elephant, fly? No, no!",
+          "act": { "move": "shake", "sky": "field", "sound": "thud", "mood": "surprised" }
+        },
+        {
+          "word": "elephant",
+          "hi": "हाथी तो धम-धम चलता है!",
+          "en": "Elephants go stomp, stomp!",
+          "act": { "move": "walk", "sky": "field", "sound": "thud", "mood": "happy" }
+        }
+      ],
+      "questions": [
+        { "hi": "कौन नहीं उड़ सकता?", "en": "Who can't fly?", "answer": "elephant", "options": ["elephant", "bird", "parrot"] },
+        { "hi": "सबसे पहले कौन उड़ी?", "en": "Who flew first?", "answer": "bird", "options": ["bird", "crow", "parrot"] }
+      ],
+      "level": "kg",
+      "kind": "poem",
+      "source": "folk (a game)"
+    },
+    {
+      "id": "r-ginti",
+      "title": { "hi": "गिनती गाना", "en": "The counting song" },
+      "cover": "balloon",
+      "pages": [
+        { "word": "shoe", "hi": "एक-दो, जूते पहनो,", "en": "One, two, put on your shoes,", "act": { "move": "walk", "sky": "home", "count": 2 } },
+        { "word": "bag", "hi": "तीन-चार, चलो बाज़ार,", "en": "three, four, off to the store,", "act": { "move": "walk", "sky": "field", "count": 4 } },
+        {
+          "word": "bus",
+          "hi": "पाँच-छह, बस में बैठो,",
+          "en": "five, six, hop on the bus,",
+          "act": { "move": "drive", "sky": "field", "sound": "toot", "count": 6, "of": "boy" }
+        },
+        { "word": "book", "hi": "सात-आठ, पढ़ लो पाठ,", "en": "seven, eight, read your book,", "act": { "move": "grow", "sky": "home", "fx": "sparkles", "count": 8 } },
+        {
+          "word": "balloon",
+          "hi": "नौ-दस, खेल हुआ बस!",
+          "en": "nine, ten, and the game is done!",
+          "act": { "move": "dance", "sky": "field", "fx": "confetti", "count": 10, "mood": "happy" }
+        }
+      ],
+      "questions": [
+        { "hi": "पाँच-छह पर कहाँ बैठे?", "en": "At five, six, where did we sit?", "answer": "बस में", "options": ["बस में", "पेड़ पर", "घर में"], "text": true },
+        { "hi": "दस पर क्या हुआ?", "en": "What happened at ten?", "answer": "खेल ख़त्म", "options": ["खेल ख़त्म", "बस चली", "आम खाया"], "text": true }
+      ],
+      "level": "kg",
+      "kind": "poem",
+      "source": "original"
+    },
+    {
+      "id": "r-lori",
+      "title": { "hi": "चंदा सोया, तारे सोए", "en": "The moon sleeps, the stars sleep (a lullaby)" },
+      "cover": "moon",
+      "pages": [
+        {
+          "word": "moon",
+          "hi": "चंदा सोया, तारे सोए,",
+          "en": "The moon is asleep, the stars are asleep,",
+          "act": { "move": "float", "sky": "night", "fx": "stars", "mood": "sleepy" }
+        },
+        {
+          "word": "bird",
+          "hi": "चिड़िया सोई, पत्ते सोए।",
+          "en": "the birds are asleep, the leaves are asleep.",
+          "act": { "move": "sleep", "sky": "night", "fx": "zzz", "mood": "sleepy" }
+        },
+        {
+          "word": "cow",
+          "hi": "गैया सोई, बछड़ा सोया,",
+          "en": "the cow is asleep, her calf is asleep,",
+          "act": { "move": "sway", "sky": "night", "fx": "zzz", "mood": "sleepy" }
+        },
+        {
+          "word": "boy",
+          "hi": "मुन्ना भी सपनों में खोया।",
+          "en": "and baby is lost in dreams so deep.",
+          "act": { "move": "sleep", "sky": "night", "fx": ["stars", "zzz"], "mood": "sleepy" }
+        },
+        {
+          "word": "bed",
+          "hi": "सो जा, सो जा, निंदिया आई।",
+          "en": "Sleep now, sleep now, sleepy time is here.",
+          "act": { "move": "grow", "sky": "night", "fx": "stars", "mood": "sleepy" }
+        }
+      ],
+      "questions": [
+        { "hi": "आसमान में कौन सोया?", "en": "Who was asleep in the sky?", "answer": "moon", "options": ["moon", "sun", "plane"] },
+        { "hi": "मुन्ना कहाँ खोया?", "en": "Where was baby lost?", "answer": "सपनों में", "options": ["सपनों में", "बाज़ार में", "पार्क में"], "text": true }
+      ],
+      "level": "kg",
+      "kind": "poem",
+      "source": "original"
+    },
+    {
+      "id": "r-haath",
+      "title": { "hi": "मेरे दो हाथ", "en": "My two hands (an action rhyme)" },
+      "cover": "hand",
+      "pages": [
+        {
+          "word": "hand",
+          "hi": "मेरे दो हाथ, ताली बजाएँ,",
+          "en": "My two hands go clap, clap, clap,",
+          "act": { "move": "shake", "sky": "home", "fx": "music", "count": 2 }
+        },
+        {
+          "word": "foot",
+          "hi": "मेरे दो पैर, नाचें-गाएँ,",
+          "en": "my two feet go dance and tap,",
+          "act": { "move": "dance", "sky": "home", "fx": "music", "count": 2, "mood": "happy" }
+        },
+        {
+          "word": "eye",
+          "hi": "मेरी दो आँखें, देखें तारे,",
+          "en": "my two eyes look at the stars,",
+          "act": { "move": "peek", "sky": "night", "fx": "stars", "count": 2 }
+        },
+        {
+          "word": "flower",
+          "hi": "मेरी एक नाक, सूँघे फूल प्यारे!",
+          "en": "my one nose smells the flowers, ahh!",
+          "act": { "move": "grow", "sky": "field", "fx": "sparkles", "mood": "happy" }
+        }
+      ],
+      "questions": [
+        { "hi": "ताली किससे बजाते हैं?", "en": "What do we clap with?", "answer": "hand", "options": ["hand", "foot", "eye"] },
+        { "hi": "हमारी नाक कितनी है?", "en": "How many noses do we have?", "answer": "एक", "options": ["एक", "दो", "तीन"], "text": true }
+      ],
+      "level": "kg",
+      "kind": "poem",
+      "source": "original"
+    },
+    {
+      "id": "c-bandar",
+      "title": { "hi": "पाँच छोटे बंदर", "en": "Five little monkeys" },
+      "cover": "monkey",
+      "pages": [
+        {
+          "word": "monkey",
+          "hi": "पाँच छोटे बंदर बिस्तर पर कूदे।",
+          "en": "Five little monkeys jumped on the bed.",
+          "act": { "move": "jump", "sky": "home", "count": 5, "mood": "happy" }
+        },
+        {
+          "word": "monkey",
+          "hi": "एक गिरा, धम! अब बचे चार।",
+          "en": "One fell off, thump! Now there are four.",
+          "act": { "move": "fall", "sky": "home", "sound": "thud", "count": 4 }
+        },
+        {
+          "word": "monkey",
+          "hi": "एक और गिरा! अब बचे तीन।",
+          "en": "Another fell off! Now there are three.",
+          "act": { "move": "fall", "sky": "home", "sound": "thud", "count": 3 }
+        },
+        {
+          "word": "monkey",
+          "hi": "फिर एक गिरा! अब बचे दो।",
+          "en": "One more fell off! Now there are two.",
+          "act": { "move": "fall", "sky": "home", "sound": "thud", "count": 2 }
+        },
+        {
+          "word": "monkey",
+          "hi": "एक और गिरा! अब बचा एक।",
+          "en": "Another fell off! Now there is one.",
+          "act": { "move": "fall", "sky": "home", "sound": "thud", "count": 1 }
+        },
+        {
+          "word": "mother",
+          "hi": "माँ बोली, बस करो! अब सो जाओ!",
+          "en": "Mummy said, \"That's enough! Now go to sleep!\"",
+          "act": { "move": "talk", "sky": "night", "fx": "zzz", "mood": "sleepy" }
+        }
+      ],
+      "questions": [
+        { "hi": "शुरू में कितने बंदर थे?", "en": "How many monkeys were there at the start?", "answer": "पाँच", "options": ["पाँच", "तीन", "दस"], "text": true },
+        { "hi": "आख़िर में कितने बचे?", "en": "How many were left at the end?", "answer": "एक", "options": ["एक", "चार", "सात"], "text": true }
+      ],
+      "level": "kg"
+    },
+    {
+      "id": "c-roti",
+      "title": { "hi": "नानी की रोटियाँ", "en": "Nani's rotis" },
+      "cover": "roti",
+      "pages": [
+        { "word": "grandmother", "hi": "नानी रोटी बना रही हैं।", "en": "Nani is making rotis.", "act": { "move": "enter", "sky": "home", "fx": "steam" } },
+        { "word": "roti", "hi": "एक गरम रोटी।", "en": "One hot roti.", "act": { "move": "grow", "sky": "home", "fx": "steam", "count": 1 } },
+        { "word": "roti", "hi": "दो गरम रोटियाँ।", "en": "Two hot rotis.", "act": { "move": "float", "sky": "home", "fx": "steam", "count": 2 } },
+        { "word": "roti", "hi": "तीन... चार...", "en": "Three... four...", "act": { "move": "grow", "sky": "home", "count": 4 } },
+        {
+          "word": "roti",
+          "hi": "पाँच गरम रोटियाँ! सबके लिए एक-एक।",
+          "en": "Five hot rotis! One for everyone.",
+          "act": { "move": "dance", "sky": "home", "fx": "hearts", "count": 5 }
+        }
+      ],
+      "questions": [
+        { "hi": "नानी ने कितनी रोटियाँ बनाईं?", "en": "How many rotis did Nani make?", "answer": "पाँच", "options": ["पाँच", "दो", "नौ"], "text": true },
+        { "hi": "नानी ने क्या बनाया?", "en": "What did Nani make?", "answer": "roti", "options": ["roti", "cake", "rice"] }
+      ],
+      "level": "kg"
+    },
+    {
+      "id": "c-pahiye",
+      "title": { "hi": "कितने पहिए?", "en": "How many wheels?" },
+      "cover": "wheel",
+      "pages": [
+        {
+          "word": "bicycle",
+          "hi": "साइकिल के दो पहिए।",
+          "en": "A bicycle has two wheels.",
+          "act": { "move": "drive", "sky": "field", "sound": "chime", "count": 2, "of": "wheel" }
+        },
+        {
+          "word": "auto",
+          "hi": "ऑटो के तीन पहिए।",
+          "en": "An auto-rickshaw has three wheels.",
+          "act": { "move": "enter-right", "sky": "field", "sound": "toot", "count": 3, "of": "wheel" }
+        },
+        {
+          "word": "car",
+          "hi": "कार के चार पहिए।",
+          "en": "A car has four wheels.",
+          "act": { "move": "drive", "sky": "field", "sound": "toot", "count": 4, "of": "wheel" }
+        },
+        {
+          "word": "truck",
+          "hi": "ट्रक के छह पहिए!",
+          "en": "A truck has six wheels!",
+          "act": { "move": "drive", "sky": "field", "sound": "vroom", "count": 6, "of": "wheel" }
+        },
+        {
+          "word": "boat",
+          "hi": "और नाव? नाव के पहिए नहीं होते!",
+          "en": "And a boat? Boats have no wheels!",
+          "act": { "move": "float", "sky": "river", "fx": "splash", "mood": "surprised" }
+        }
+      ],
+      "questions": [
+        { "hi": "कार के कितने पहिए होते हैं?", "en": "How many wheels does a car have?", "answer": "चार", "options": ["चार", "दो", "छह"], "text": true },
+        { "hi": "किसके तीन पहिए होते हैं?", "en": "Which has three wheels?", "answer": "auto", "options": ["auto", "car", "bicycle"] }
+      ],
+      "level": "kg"
+    },
+    {
+      "id": "c-bus",
+      "title": { "hi": "बस भरी, बस खाली", "en": "The bus fills up" },
+      "cover": "bus",
+      "pages": [
+        { "word": "bus", "hi": "बस आई, खाली-खाली।", "en": "The bus comes, empty, empty.", "act": { "move": "drive", "sky": "field", "sound": "toot" } },
+        { "word": "bus", "hi": "एक बच्चा चढ़ा।", "en": "One child gets on.", "act": { "move": "grow", "sky": "field", "count": 1, "of": "girl" } },
+        {
+          "word": "bus",
+          "hi": "दो और चढ़े। अब तीन।",
+          "en": "Two more get on. Now there are three.",
+          "act": { "move": "grow", "sky": "field", "count": 3, "of": "boy" }
+        },
+        { "word": "bus", "hi": "दो और! अब पाँच बच्चे।", "en": "Two more! Now five children.", "act": { "move": "grow", "sky": "field", "count": 5, "of": "girl" } },
+        {
+          "word": "school",
+          "hi": "स्कूल आया! सब उतरे। बस फिर खाली!",
+          "en": "School! Everyone gets off. The bus is empty again!",
+          "act": { "move": "enter", "sky": "field", "with": "bus", "fx": "confetti", "mood": "happy" }
+        }
+      ],
+      "questions": [
+        { "hi": "बस में कुल कितने बच्चे थे?", "en": "How many children were on the bus in all?", "answer": "पाँच", "options": ["पाँच", "तीन", "एक"], "text": true },
+        { "hi": "स्कूल पर बस कैसी हो गई?", "en": "What was the bus like at school?", "answer": "खाली", "options": ["खाली", "भरी", "टूटी"], "text": true }
+      ],
+      "level": "kg"
+    },
+    {
+      "id": "c-laddoo",
+      "title": { "hi": "लड्डू बाँटो", "en": "Share the laddoos" },
+      "cover": "laddoo",
+      "pages": [
+        { "word": "box", "hi": "डिब्बे में छह लड्डू।", "en": "Six laddoos in the box.", "act": { "move": "grow", "sky": "home", "count": 6, "of": "laddoo-one" } },
+        {
+          "word": "boy",
+          "hi": "दो बच्चे, छह लड्डू। कैसे बाँटें?",
+          "en": "Two children, six laddoos. How do we share them?",
+          "act": { "move": "talk", "sky": "home", "with": "girl" }
+        },
+        { "word": "girl", "hi": "तीन मीनू के लिए।", "en": "Three for Meenu.", "act": { "move": "grow", "sky": "home", "count": 3, "of": "laddoo-one" } },
+        { "word": "boy", "hi": "तीन टीनू के लिए।", "en": "Three for Teenu.", "act": { "move": "jump", "sky": "home", "count": 3, "of": "laddoo-one" } },
+        {
+          "word": "girl",
+          "hi": "बराबर-बराबर! दोनों ख़ुश!",
+          "en": "Equal and fair! Both are happy!",
+          "act": { "move": "dance", "sky": "home", "with": "boy", "fx": "hearts", "mood": "happy" }
+        }
+      ],
+      "questions": [
+        { "hi": "हर बच्चे को कितने लड्डू मिले?", "en": "How many laddoos did each child get?", "answer": "तीन", "options": ["तीन", "छह", "दो"], "text": true },
+        { "hi": "कुल कितने लड्डू थे?", "en": "How many laddoos were there in all?", "answer": "छह", "options": ["छह", "तीन", "दस"], "text": true }
+      ],
+      "level": "kg"
+    },
+    {
+      "id": "c-batakh",
+      "title": { "hi": "पाँच छोटी बत्तखें", "en": "Five little ducks" },
+      "cover": "duck",
+      "pages": [
+        {
+          "word": "duck",
+          "hi": "पाँच छोटी बत्तखें घूमने गईं।",
+          "en": "Five little ducks went out one day.",
+          "act": { "move": "swim", "sky": "river", "fx": "bubbles", "count": 5 }
+        },
+        {
+          "word": "duck",
+          "hi": "माँ ने बुलाया, क्वैक-क्वैक! लौटीं चार।",
+          "en": "Mother duck called, quack quack! Four came back.",
+          "act": { "move": "float", "sky": "river", "count": 4 }
+        },
+        { "word": "duck", "hi": "फिर बुलाया! लौटीं तीन।", "en": "She called again! Three came back.", "act": { "move": "swim", "sky": "river", "count": 3 } },
+        {
+          "word": "duck",
+          "hi": "फिर बुलाया! लौटीं दो... फिर एक।",
+          "en": "Again! Two came back... then only one.",
+          "act": { "move": "shake", "sky": "river", "count": 1, "mood": "sad" }
+        },
+        {
+          "word": "duck",
+          "hi": "माँ ने ज़ोर से बुलाया, क्वैक! पाँचों दौड़ी आईं!",
+          "en": "Mother called loudly, QUACK! All five came running!",
+          "act": { "move": "dance", "sky": "river", "fx": "hearts", "count": 5, "mood": "happy" }
+        }
+      ],
+      "questions": [
+        { "hi": "कुल कितनी बत्तखें थीं?", "en": "How many ducks were there in all?", "answer": "पाँच", "options": ["पाँच", "दो", "आठ"], "text": true },
+        { "hi": "बत्तखों को किसने बुलाया?", "en": "Who called the ducks?", "answer": "माँ", "options": ["माँ", "शेर", "बस"], "text": true }
+      ],
+      "level": "kg"
+    },
+    {
+      "id": "c-taare",
+      "title": { "hi": "तारे गिनो", "en": "Count the stars" },
+      "cover": "star",
+      "pages": [
+        { "word": "star", "hi": "आसमान में एक तारा।", "en": "One star in the sky.", "act": { "move": "peek", "sky": "night", "fx": "glow", "count": 1 } },
+        { "word": "star", "hi": "फिर तीन तारे।", "en": "Then three stars.", "act": { "move": "float", "sky": "night", "count": 3 } },
+        { "word": "star", "hi": "अब पाँच तारे, टिम-टिम।", "en": "Now five stars, twinkle twinkle.", "act": { "move": "float", "sky": "night", "count": 5 } },
+        { "word": "star", "hi": "दस तारे! आसमान जगमग।", "en": "Ten stars! The sky is sparkling.", "act": { "move": "grow", "sky": "night", "fx": "glow", "count": 10 } },
+        {
+          "word": "moon",
+          "hi": "अब आँखें बंद। शुभ रात्रि!",
+          "en": "Now close your eyes. Good night!",
+          "act": { "move": "sleep", "sky": "night", "fx": "zzz", "mood": "sleepy" }
+        }
+      ],
+      "questions": [
+        { "hi": "आख़िर में कितने तारे थे?", "en": "How many stars were there at the end?", "answer": "दस", "options": ["दस", "दो", "चार"], "text": true },
+        { "hi": "तारे कब दिखते हैं?", "en": "When can we see the stars?", "answer": "night", "options": ["night", "day", "rain"] }
+      ],
+      "level": "kg"
+    },
+    {
+      "id": "c-chinti",
+      "title": { "hi": "चींटी और दस दाने", "en": "The ant and ten grains" },
+      "cover": "ant",
+      "pages": [
+        { "word": "ant", "hi": "चींटी को चावल के दाने मिले।", "en": "The ant found some grains of rice.", "act": { "move": "scurry", "sky": "field" } },
+        { "word": "grain", "hi": "एक, दो। घर ले गई।", "en": "One, two. She carried them home.", "act": { "move": "grow", "sky": "field", "count": 2 } },
+        { "word": "grain", "hi": "तीन, चार, पाँच। और ले गई।", "en": "Three, four, five. She carried more.", "act": { "move": "grow", "sky": "field", "count": 5 } },
+        { "word": "grain", "hi": "छह, सात, आठ, नौ, दस!", "en": "Six, seven, eight, nine, ten!", "act": { "move": "float", "sky": "field", "count": 10 } },
+        {
+          "word": "ant",
+          "hi": "दस दाने! सर्दी का खाना तैयार।",
+          "en": "Ten grains! Food is ready for the winter.",
+          "act": { "move": "dance", "sky": "field", "fx": "confetti", "mood": "happy" }
+        }
+      ],
+      "questions": [
+        { "hi": "चींटी कितने दाने ले गई?", "en": "How many grains did the ant carry?", "answer": "दस", "options": ["दस", "पाँच", "एक"], "text": true },
+        { "hi": "दाने किसने उठाए?", "en": "Who carried the grains?", "answer": "ant", "options": ["ant", "elephant", "cow"] }
+      ],
+      "level": "kg"
     }
   ],
   "levels": [
@@ -6302,6 +7290,28 @@
           ]
         },
         {
+          "id": "t-ginti",
+          "title": { "hi": "गिनती 1 से 10", "en": "Counting 1 to 10" },
+          "skill": "Numbers",
+          "icon": "letter:१२",
+          "lessons": [
+            {
+              "id": "t-ginti-1",
+              "game": "ginti",
+              "icon": "duck",
+              "title": { "hi": "पाँच तक गिनो", "en": "Count to 5" },
+              "config": { "rounds": 6, "modes": ["count", "show"], "from": 1, "to": 5 }
+            },
+            {
+              "id": "t-ginti-2",
+              "game": "ginti",
+              "icon": "apple",
+              "title": { "hi": "दस तक गिनो", "en": "Count to 10" },
+              "config": { "rounds": 6, "modes": ["show", "count"], "from": 1, "to": 10 }
+            }
+          ]
+        },
+        {
           "id": "t-vehicles",
           "title": { "hi": "गाड़ियाँ", "en": "Vehicles" },
           "skill": "Words",
@@ -6341,6 +7351,76 @@
             { "id": "t-kahani-4", "game": "story", "icon": "moon", "title": { "hi": "रात हुई", "en": "Night time" }, "config": { "story": "t-raat" } },
             { "id": "t-kahani-5", "game": "story", "icon": "fish", "title": { "hi": "छोटी मछली", "en": "Little fish" }, "config": { "story": "t-machhli" } },
             { "id": "t-kahani-6", "game": "story", "icon": "elephant", "title": { "hi": "हाथी नहाया", "en": "Elephant bath time" }, "config": { "story": "t-haathi" } }
+          ]
+        },
+        {
+          "id": "t-din",
+          "title": { "hi": "मेरा दिन", "en": "My day" },
+          "skill": "Listening · Stories",
+          "icon": "toothbrush",
+          "lessons": [
+            { "id": "t-din-1", "game": "story", "icon": "toothbrush", "title": { "hi": "दाँत चमकाओ", "en": "Shiny teeth" }, "config": { "story": "t-daant" } },
+            { "id": "t-din-2", "game": "story", "icon": "soap", "title": { "hi": "नहाने का समय", "en": "Bath time" }, "config": { "story": "t-nahana" } },
+            { "id": "t-din-3", "game": "story", "icon": "shirt", "title": { "hi": "कपड़े पहनो", "en": "Getting dressed" }, "config": { "story": "t-kapde" } },
+            { "id": "t-din-4", "game": "story", "icon": "dal", "title": { "hi": "दाल-चावल", "en": "Dal and rice" }, "config": { "story": "t-dal" } },
+            { "id": "t-din-5", "game": "story", "icon": "hand", "title": { "hi": "मेरे हाथ, मेरे पैर", "en": "My hands, my feet" }, "config": { "story": "t-haath" } },
+            { "id": "t-din-6", "game": "story", "icon": "moon", "title": { "hi": "सोने का समय", "en": "Bedtime" }, "config": { "story": "t-sona" } }
+          ]
+        },
+        {
+          "id": "t-bahar",
+          "title": { "hi": "घर से बाहर", "en": "Out and about" },
+          "skill": "Listening · Stories",
+          "icon": "slide",
+          "lessons": [
+            { "id": "t-bahar-1", "game": "story", "icon": "tree", "title": { "hi": "छुपन-छुपाई", "en": "Hide and seek" }, "config": { "story": "t-chhupan" } },
+            { "id": "t-bahar-2", "game": "story", "icon": "slide", "title": { "hi": "पार्क चलें", "en": "Off to the park" }, "config": { "story": "t-park" } },
+            { "id": "t-bahar-3", "game": "story", "icon": "train", "title": { "hi": "नानी के घर", "en": "To Nani's house" }, "config": { "story": "t-nani" } },
+            {
+              "id": "t-bahar-4",
+              "game": "story",
+              "icon": "tomato",
+              "title": { "hi": "सब्ज़ी वाले भैया", "en": "The vegetable seller" },
+              "config": { "story": "t-sabzi" }
+            },
+            {
+              "id": "t-bahar-5",
+              "game": "story",
+              "icon": "car",
+              "title": { "hi": "गाड़ियाँ क्या बोलें?", "en": "What do vehicles say?" },
+              "config": { "story": "t-gaadi" }
+            },
+            { "id": "t-bahar-6", "game": "story", "icon": "rabbit", "title": { "hi": "कौन क्या खाता है?", "en": "Who eats what?" }, "config": { "story": "t-khana" } }
+          ]
+        },
+        {
+          "id": "t-gaane",
+          "title": { "hi": "छोटे गाने", "en": "Little songs" },
+          "skill": "Listening · Poems",
+          "icon": "fan",
+          "lessons": [
+            { "id": "t-gaane-1", "game": "story", "icon": "fan", "title": { "hi": "ऊपर पंखा चलता है", "en": "The fan goes round" }, "config": { "story": "r-pankha" } },
+            {
+              "id": "t-gaane-2",
+              "game": "story",
+              "icon": "water",
+              "title": { "hi": "गोल-गोल रानी", "en": "Round and round, the queen" },
+              "config": { "story": "r-golgol" }
+            },
+            {
+              "id": "t-gaane-3",
+              "game": "story",
+              "icon": "hand",
+              "title": { "hi": "मेरे दो हाथ", "en": "My two hands (an action rhyme)" },
+              "config": { "story": "r-haath" }
+            },
+            {
+              "id": "t-gaane-4",
+              "game": "story",
+              "icon": "moon",
+              "title": { "hi": "चंदा सोया, तारे सोए", "en": "The moon sleeps, the stars sleep (a lullaby)" },
+              "config": { "story": "r-lori" }
+            }
           ]
         }
       ],
@@ -6711,6 +7791,82 @@
           ]
         },
         {
+          "id": "k-ginti",
+          "title": { "hi": "गिनती 1 से 20", "en": "Hindi numbers 1 to 20" },
+          "skill": "Numbers",
+          "icon": "letter:२०",
+          "lessons": [
+            {
+              "id": "k-ginti-1",
+              "game": "ginti",
+              "icon": "apple",
+              "title": { "hi": "गिनो और ढूँढो", "en": "Count and find" },
+              "config": { "rounds": 6, "modes": ["count", "show"], "from": 1, "to": 10 }
+            },
+            {
+              "id": "k-ginti-2",
+              "game": "ginti",
+              "icon": "letter:७",
+              "title": { "hi": "हिन्दी के अंक", "en": "Hindi digits" },
+              "config": { "rounds": 6, "modes": ["hear", "digits"], "from": 1, "to": 10 }
+            },
+            {
+              "id": "k-ginti-3",
+              "game": "ginti",
+              "icon": "letter:१५",
+              "title": { "hi": "ग्यारह से बीस", "en": "11 to 20" },
+              "config": { "rounds": 6, "modes": ["hear", "next"], "from": 11, "to": 20 }
+            },
+            {
+              "id": "k-ginti-4",
+              "game": "ginti",
+              "icon": "ball",
+              "title": { "hi": "ज़्यादा, कम, बराबर", "en": "More, fewer, the same" },
+              "config": { "rounds": 6, "modes": ["compare"], "from": 1, "to": 10 }
+            }
+          ]
+        },
+        {
+          "id": "k-ginti-kahani",
+          "title": { "hi": "गिनती की कहानियाँ", "en": "Counting stories" },
+          "skill": "Numbers · Stories",
+          "icon": "monkey",
+          "lessons": [
+            {
+              "id": "k-ginti-kahani-1",
+              "game": "story",
+              "icon": "monkey",
+              "title": { "hi": "पाँच छोटे बंदर", "en": "Five little monkeys" },
+              "config": { "story": "c-bandar" }
+            },
+            { "id": "k-ginti-kahani-2", "game": "story", "icon": "roti", "title": { "hi": "नानी की रोटियाँ", "en": "Nani's rotis" }, "config": { "story": "c-roti" } },
+            { "id": "k-ginti-kahani-3", "game": "story", "icon": "wheel", "title": { "hi": "कितने पहिए?", "en": "How many wheels?" }, "config": { "story": "c-pahiye" } },
+            { "id": "k-ginti-kahani-4", "game": "story", "icon": "bus", "title": { "hi": "बस भरी, बस खाली", "en": "The bus fills up" }, "config": { "story": "c-bus" } },
+            {
+              "id": "k-ginti-kahani-5",
+              "game": "story",
+              "icon": "laddoo",
+              "title": { "hi": "लड्डू बाँटो", "en": "Share the laddoos" },
+              "config": { "story": "c-laddoo" }
+            },
+            {
+              "id": "k-ginti-kahani-6",
+              "game": "story",
+              "icon": "duck",
+              "title": { "hi": "पाँच छोटी बत्तखें", "en": "Five little ducks" },
+              "config": { "story": "c-batakh" }
+            },
+            { "id": "k-ginti-kahani-7", "game": "story", "icon": "star", "title": { "hi": "तारे गिनो", "en": "Count the stars" }, "config": { "story": "c-taare" } },
+            {
+              "id": "k-ginti-kahani-8",
+              "game": "story",
+              "icon": "ant",
+              "title": { "hi": "चींटी और दस दाने", "en": "The ant and ten grains" },
+              "config": { "story": "c-chinti" }
+            }
+          ]
+        },
+        {
           "id": "k-rhymes",
           "title": { "hi": "बाल गीत", "en": "Rhyme time" },
           "skill": "Listening · Poems",
@@ -6741,6 +7897,40 @@
               "title": { "hi": "बारिश आई", "en": "Here comes the rain" },
               "config": { "story": "rhyme-barish" }
             }
+          ]
+        },
+        {
+          "id": "k-khel",
+          "title": { "hi": "खेल-गीत", "en": "Play rhymes" },
+          "skill": "Listening · Poems",
+          "icon": "butterfly",
+          "lessons": [
+            {
+              "id": "k-khel-1",
+              "game": "story",
+              "icon": "boy",
+              "title": { "hi": "अक्कड़ बक्कड़", "en": "Akkad bakkad (a counting-out rhyme)" },
+              "config": { "story": "r-akkad" }
+            },
+            { "id": "k-khel-2", "game": "story", "icon": "postvan", "title": { "hi": "पोशम पा", "en": "Posham pa (an arch game)" }, "config": { "story": "r-posham" } },
+            {
+              "id": "k-khel-3",
+              "game": "story",
+              "icon": "butterfly",
+              "title": { "hi": "तितली उड़ी, बस में चढ़ी", "en": "The butterfly on the bus" },
+              "config": { "story": "r-titli" }
+            },
+            { "id": "k-khel-4", "game": "story", "icon": "tomato", "title": { "hi": "आहा टमाटर", "en": "Aha, tomatoes!" }, "config": { "story": "r-tamatar" } },
+            { "id": "k-khel-5", "game": "story", "icon": "rasgulla", "title": { "hi": "चुन्नू-मुन्नू", "en": "Chunnu and Munnu" }, "config": { "story": "r-chunnu" } },
+            {
+              "id": "k-khel-6",
+              "game": "story",
+              "icon": "raincloud",
+              "title": { "hi": "काले मेघा", "en": "Dark clouds, bring the rain" },
+              "config": { "story": "r-megha" }
+            },
+            { "id": "k-khel-7", "game": "story", "icon": "bird", "title": { "hi": "चिड़िया उड़!", "en": "Bird, fly!" }, "config": { "story": "r-chidiya" } },
+            { "id": "k-khel-8", "game": "story", "icon": "balloon", "title": { "hi": "गिनती गाना", "en": "The counting song" }, "config": { "story": "r-ginti" } }
           ]
         },
         {
@@ -7614,6 +8804,58 @@
               "config": { "story": "haathi-darzi" }
             }
           ]
+        },
+        {
+          "id": "g1-ginti",
+          "title": { "hi": "गिनती 21 से 50", "en": "Hindi numbers 21 to 50" },
+          "skill": "Numbers",
+          "icon": "letter:५०",
+          "lessons": [
+            {
+              "id": "g1-ginti-1",
+              "game": "ginti",
+              "icon": "letter:१२",
+              "title": { "hi": "नंबर पढ़ो", "en": "Read the numbers" },
+              "config": { "rounds": 6, "modes": ["read"], "from": 1, "to": 20 }
+            },
+            {
+              "id": "g1-ginti-2",
+              "game": "ginti",
+              "icon": "letter:३०",
+              "title": { "hi": "सुनो और ढूँढो", "en": "Hear and find" },
+              "config": { "rounds": 6, "modes": ["hear", "next"], "from": 21, "to": 50 }
+            },
+            {
+              "id": "g1-ginti-3",
+              "game": "ginti",
+              "icon": "letter:४५",
+              "title": { "hi": "पढ़ो और आगे बढ़ो", "en": "Read and count on" },
+              "config": { "rounds": 6, "modes": ["read", "next"], "from": 21, "to": 50 }
+            }
+          ]
+        },
+        {
+          "id": "g1-jod",
+          "title": { "hi": "जोड़, घटाना, आधा", "en": "Add, take away, half" },
+          "skill": "Numbers",
+          "icon": "letter:+",
+          "lessons": [
+            { "id": "g1-jod-1", "game": "ginti", "icon": "duck", "title": { "hi": "जोड़ो", "en": "Add" }, "config": { "rounds": 6, "modes": ["add"], "from": 2, "to": 10 } },
+            {
+              "id": "g1-jod-2",
+              "game": "ginti",
+              "icon": "balloon",
+              "title": { "hi": "घटाओ", "en": "Take away" },
+              "config": { "rounds": 6, "modes": ["take"], "from": 2, "to": 10 }
+            },
+            {
+              "id": "g1-jod-3",
+              "game": "ginti",
+              "icon": "roti",
+              "title": { "hi": "आधा और बराबर", "en": "Half and the same" },
+              "config": { "rounds": 6, "modes": ["half", "compare"], "from": 1, "to": 10 }
+            }
+          ]
         }
       ],
       "tags": ["phonics", "reading", "vocabulary", "stories"],
@@ -8052,6 +9294,35 @@
               "icon": "matra:stegosaurus",
               "title": { "hi": "सारी मात्राएँ", "en": "All the matras" },
               "config": { "matras": ["aa", "i", "ii", "u", "uu", "e", "ai", "o", "au"], "words": ["@grade1", "@grade2"] }
+            }
+          ]
+        },
+        {
+          "id": "g2-ginti",
+          "title": { "hi": "गिनती 51 से 100", "en": "Hindi numbers 51 to 100" },
+          "skill": "Numbers",
+          "icon": "letter:१००",
+          "lessons": [
+            {
+              "id": "g2-ginti-1",
+              "game": "ginti",
+              "icon": "letter:६०",
+              "title": { "hi": "सुनो और पढ़ो", "en": "Hear and read" },
+              "config": { "rounds": 6, "modes": ["hear", "read"], "from": 51, "to": 100 }
+            },
+            {
+              "id": "g2-ginti-2",
+              "game": "ginti",
+              "icon": "letter:७५",
+              "title": { "hi": "आगे क्या आता है?", "en": "What comes next?" },
+              "config": { "rounds": 6, "modes": ["next", "digits"], "from": 51, "to": 100 }
+            },
+            {
+              "id": "g2-ginti-3",
+              "game": "ginti",
+              "icon": "letter:९९",
+              "title": { "hi": "एक से सौ", "en": "One to a hundred" },
+              "config": { "rounds": 6, "modes": ["read", "next"], "from": 1, "to": 100 }
             }
           ]
         }
@@ -10373,7 +11644,51 @@
     { "hi": "देखो, गोल-गोल!", "en": "Look, round and round!", "move": "spin" },
     { "hi": "चलो नाचें!", "en": "Let's dance!", "move": "dance" },
     { "hi": "नमस्ते दोस्त!", "en": "Hello, friend!", "move": "wave" },
-    { "hi": "वाह! तुम तो कमाल हो!", "en": "Wow, you are amazing!", "move": "dance" }
+    { "hi": "वाह! तुम तो कमाल हो!", "en": "Wow, you are amazing!", "move": "dance" },
+    { "hi": "मुझे केले बहुत पसंद हैं! तुम्हें कौन सा फल पसंद है?", "en": "I love bananas! Which fruit do you like?", "move": "happy" },
+    { "hi": "चलो, एक, दो, तीन... कूदो!", "en": "One, two, three... jump!", "move": "cheer" },
+    { "hi": "आछू! मेरी नाक में फूल की धूल!", "en": "Achoo! Flower dust up my nose!", "move": "sneeze" },
+    { "hi": "चलो, गोल-गोल घूमें!", "en": "Let's spin round and round!", "move": "spin" },
+    { "hi": "ताली बजाओ! ताली-ताली!", "en": "Clap your hands! Clap, clap!", "move": "dance" },
+    { "hi": "हाथ हिलाओ, टा-टा!", "en": "Wave your hand, bye-bye!", "move": "wave" },
+    { "hi": "मुझे गुदगुदी मत करो! हा हा हा!", "en": "Don't tickle me! Ha ha ha!", "move": "silly" },
+    { "hi": "तुम्हारा पसंदीदा रंग कौन सा है? मेरा तो नीला!", "en": "What's your favourite colour? Mine is blue!", "move": "happy" },
+    { "hi": "एक पहेली: लाल-लाल, गोल-गोल, खाओ तो मीठा। बताओ? सेब!", "en": "A riddle: red and round and sweet to eat. What is it? An apple!", "move": "silly" },
+    {
+      "hi": "पहेली: दिन में सोए, रात को जागे, हू-हू बोले। कौन? उल्लू!",
+      "en": "A riddle: sleeps all day, wakes at night, says hoo-hoo. Who? An owl!",
+      "move": "silly"
+    },
+    { "hi": "पहेली: चार पैर, लंबी पूँछ, म्याऊँ बोले। कौन? बिल्ली!", "en": "A riddle: four legs, a long tail, says meow. Who? A cat!", "move": "silly" },
+    { "hi": "पहेली: पानी में रहे, पानी में तैरे। कौन? मछली!", "en": "A riddle: lives in water, swims in water. Who? A fish!", "move": "silly" },
+    {
+      "hi": "पहेली: सुबह आए, शाम को जाए, सबको रोशनी दे। कौन? सूरज!",
+      "en": "A riddle: comes in the morning, leaves at night, gives everyone light. The sun!",
+      "move": "happy"
+    },
+    { "hi": "चलो, शेर की तरह दहाड़ो! दहाड़!", "en": "Let's roar like a lion! ROAR!", "move": "cheer" },
+    { "hi": "चलो, बिल्ली की तरह म्याऊँ करो!", "en": "Let's meow like a cat!", "move": "silly" },
+    { "hi": "अपना हाथ हाथी की सूँड़ जैसा बनाओ!", "en": "Make your arm into an elephant's trunk!", "move": "dance" },
+    { "hi": "आज पानी पिया? पानी पीना ज़रूरी है!", "en": "Have you had some water today? Water is important!", "move": "wave" },
+    { "hi": "एक गहरी साँस लो... और छोड़ो। आह, अच्छा लगा!", "en": "Take a deep breath... and let it go. Ah, that feels good!", "move": "happy" },
+    { "hi": "अपने किसी प्यारे को गले लगाओ!", "en": "Give someone you love a hug!", "move": "dance" },
+    { "hi": "मुझे कहानी सुनना बहुत पसंद है!", "en": "I love listening to stories!", "move": "happy" },
+    { "hi": "चलो, दस तक गिनें: एक, दो, तीन... आगे तुम गिनो!", "en": "Let's count to ten: one, two, three... you count the rest!", "move": "cheer" },
+    { "hi": "अरे! मेरी पूँछ कहाँ गई? मिल गई!", "en": "Oh! Where did my tail go? Found it!", "move": "spin" },
+    { "hi": "ज़ोर से हँसो! हा हा हा!", "en": "Laugh out loud! Ha ha ha!", "move": "silly" },
+    { "hi": "तुम्हारी मेहनत बहुत अच्छी है!", "en": "You are working really hard!", "move": "cheer" },
+    { "hi": "ग़लती करना भी सीखने का हिस्सा है!", "en": "Making mistakes is part of learning!", "move": "happy" },
+    { "hi": "चलो, उछलें! ऊपर, नीचे, ऊपर!", "en": "Let's bounce! Up, down, up!", "move": "dance" },
+    { "hi": "आज मौसम कैसा है? धूप या बारिश?", "en": "What's the weather today? Sunny or rainy?", "move": "wave" },
+    { "hi": "हाथ जोड़कर नमस्ते!", "en": "Hands together, namaste!", "move": "wave" },
+    { "hi": "चलो, धीरे-धीरे चलें, जैसे कछुआ!", "en": "Let's walk slowly, like a tortoise!", "move": "happy" },
+    { "hi": "अब तेज़-तेज़, जैसे खरगोश!", "en": "Now fast, fast, like a rabbit!", "move": "spin" },
+    { "hi": "मुझे भूख लगी! चलो, लड्डू खाएँ!", "en": "I'm hungry! Let's eat laddoos!", "move": "happy" },
+    { "hi": "तुम्हें पता है? हाथी पानी में तैर सकता है!", "en": "Did you know? Elephants can swim!", "move": "happy" },
+    { "hi": "तुम्हें पता है? ऊँट बहुत दिन बिना पानी के रह सकता है!", "en": "Did you know? A camel can go for days without water!", "move": "happy" },
+    { "hi": "तुम्हें पता है? तितली अपने पैरों से स्वाद लेती है!", "en": "Did you know? Butterflies taste with their feet!", "move": "silly" },
+    { "hi": "चलो, आसमान में बादल गिनें!", "en": "Let's count the clouds in the sky!", "move": "wave" },
+    { "hi": "जब मुश्किल लगे, तो 💡 दबाओ!", "en": "When it feels hard, press the 💡!", "move": "cheer" }
   ],
   "quizzes": {
     "g1-family": {
@@ -33187,5 +34502,67 @@
         }
       ]
     }
+  },
+  "guide": {
+    "greet": {
+      "morning": [
+        { "id": "morning-1", "hi": "सुप्रभात! आज कौन सी नई चीज़ सीखें?", "en": "Good morning! What new thing shall we learn today?" },
+        { "id": "morning-2", "hi": "सुबह हो गई! चलो, खेल-खेल में पढ़ें!", "en": "It's morning! Let's learn as we play!" },
+        { "id": "morning-3", "hi": "सुप्रभात! नाश्ता हो गया? चलो खेलें!", "en": "Good morning! Had your breakfast? Let’s play!" }
+      ],
+      "day": [
+        { "id": "day-1", "hi": "नमस्ते! चलो, कुछ मज़ेदार करें!", "en": "Hello! Let's do something fun!" },
+        { "id": "day-2", "hi": "नमस्ते! आज कौन सी कहानी पढ़ें?", "en": "Hello! Which story shall we read today?" },
+        { "id": "day-3", "hi": "अरे वाह, फिर मिले! चलो खेलें!", "en": "Oh good, here we are again! Let's play!" }
+      ],
+      "evening": [
+        { "id": "evening-1", "hi": "शाम हो गई! एक छोटा सा खेल हो जाए?", "en": "It's evening! How about a little game?" },
+        { "id": "evening-2", "hi": "नमस्ते! शाम को एक कहानी सुनें?", "en": "Hello! Shall we hear a story this evening?" },
+        { "id": "evening-3", "hi": "शाम का समय, खेल का समय!", "en": "Evening time is play time!" }
+      ],
+      "night": [
+        { "id": "night-1", "hi": "रात हो गई! एक कहानी, और फिर सोना।", "en": "It's night time! One story, and then sleep." },
+        { "id": "night-2", "hi": "चंदा मामा आ गए! चलो, कहानी रेडियो सुनें?", "en": "Uncle Moon is out! Shall we listen to Story radio?" },
+        { "id": "night-3", "hi": "सोने का समय पास है! पहले एक छोटा सा खेल?", "en": "It's nearly bedtime! A little game first?" }
+      ]
+    },
+    "first": [
+      {
+        "id": "first-1",
+        "hi": "नमस्ते! चलो दोस्ती करें। साथ में खेलें, गाएँ और सीखें!",
+        "en": "Hello! Let's be friends. Let's play, sing and learn together!"
+      }
+    ],
+    "back": [
+      { "id": "back-1", "hi": "तुम्हारी बहुत याद आई! फिर से मिलकर बहुत अच्छा लगा!", "en": "I missed you so much! It’s lovely to see you again!" },
+      { "id": "back-2", "hi": "वाह, फिर से मुलाक़ात! चलो, वहीं से शुरू करें जहाँ रुके थे।", "en": "Hooray, together again! Let's start where we stopped." },
+      {
+        "id": "back-3",
+        "hi": "अरे वाह! इतने दिनों बाद! मेरे पास तुम्हारे लिए नई कहानियाँ हैं।",
+        "en": "Oh wow, after so many days! I have new stories for you."
+      }
+    ],
+    "milestones": [
+      { "id": "world", "hi": "यह पूरी दुनिया पूरी हो गई! तुम चैंपियन हो!", "en": "You finished this whole world! You’re a champion!" },
+      { "id": "first-lesson", "hi": "पहला पाठ पूरा! यह तो बस शुरुआत है!", "en": "Your first lesson is done! This is just the start!" },
+      { "id": "stars-10", "hi": "दस तारे! चमकते रहो!", "en": "Ten stars! Keep shining!" },
+      { "id": "stars-25", "hi": "पच्चीस तारे! क्या बात है!", "en": "Twenty-five stars! How wonderful!" },
+      { "id": "stars-50", "hi": "पचास तारे! आसमान भर गया!", "en": "Fifty stars! The sky is full!" },
+      { "id": "stars-100", "hi": "सौ तारे! वाह, पूरे सौ!", "en": "A hundred stars! Wow, a whole hundred!" },
+      { "id": "stars-200", "hi": "दो सौ तारे! मेहनत का कमाल!", "en": "Two hundred stars! That’s what hard work does!" },
+      { "id": "stars-300", "hi": "तीन सौ तारे! तुम्हारी मेहनत चमक रही है!", "en": "Three hundred stars! Your hard work is shining!" },
+      { "id": "stars-500", "hi": "पाँच सौ तारे! यह तो पूरी आकाशगंगा है!", "en": "Five hundred stars! That’s a whole galaxy!" },
+      { "id": "stories-1", "hi": "पहली कहानी पूरी! कहानियाँ जादू हैं!", "en": "Your first story! Stories are magic!" },
+      { "id": "stories-5", "hi": "पाँच कहानियाँ! तुम्हारी किताबों की अलमारी बढ़ रही है!", "en": "Five stories! Your bookshelf is growing!" },
+      { "id": "stories-10", "hi": "दस कहानियाँ! कौन सी सबसे अच्छी लगी?", "en": "Ten stories! Which one did you like best?" },
+      { "id": "stories-25", "hi": "पच्चीस कहानियाँ! कहानियों का ख़ज़ाना!", "en": "Twenty-five stories! A treasure chest of stories!" },
+      { "id": "stories-50", "hi": "पचास कहानियाँ! यह तो पूरा पुस्तकालय है!", "en": "Fifty stories! That’s a whole library!" },
+      { "id": "days-3", "hi": "तीसरा दिन साथ में! मज़ा आ रहा है ना?", "en": "Our third day together! Fun, isn’t it?" },
+      { "id": "days-7", "hi": "सात दिन साथ खेले! एक पूरा हफ़्ता!", "en": "Seven days of play together! A whole week!" },
+      { "id": "days-14", "hi": "चौदह दिन! हम पक्के दोस्त हैं!", "en": "Fourteen days! We’re best friends!" },
+      { "id": "days-30", "hi": "तीस दिन! पूरा एक महीना साथ-साथ!", "en": "Thirty days! A whole month together!" },
+      { "id": "days-50", "hi": "पचास दिन साथ में! शाबाश!", "en": "Fifty days together! Well done!" },
+      { "id": "days-100", "hi": "सौ दिन! सौ दिन की दोस्ती!", "en": "A hundred days! A hundred days of friendship!" }
+    ]
   }
 }

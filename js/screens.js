@@ -7,6 +7,7 @@ import { PLACEMENT_LEVELS, placementQuestions, placementResult } from './placeme
 import { picture, pictureForWord, specialVehicle } from './art.js';
 import { worldLessons, lessonRecord, isUnlocked, currentLesson, nextLesson, worldStars, hubWorlds, streak, nextCollectible, todayPlan, storyLang, worldStoryLang, storyNeeds, taughtMatras, decodability, nextDecodable, MATRA_SIGNS } from './curriculum.js';
 import { SHOW_ICONS } from './shows.js';
+import { greeting, timeSlot, HELLO, milestoneLine } from './guide.js';
 import { voicesReady, hasVoice } from './audio.js';
 import { deviceKind, VOICE_SETUP, readable } from './logic.js';
 
@@ -74,7 +75,7 @@ export function splash(api) {
     api.sfx.jingle();
     const r = api.homeRoute();
     api.go(r.name, r.params, { replace: true });
-    if (r.name !== 'onboard') api.say('welcome');
+    if (r.name !== 'onboard') greet(api);
   };
   const btn = el('button', { class: 'splash-play bubble green', 'aria-label': 'Play', html: ICONS.play, onclick: start });
   // with more than one child, each picks their own guide to start
@@ -108,6 +109,20 @@ export function splash(api) {
   );
   api.app.replaceChildren(el('div', { class: 'screen splash enter' }, [backdrop(null), el('div', { class: 'sunburst', 'aria-hidden': 'true' }), parade, appTitle(api), who || btn]));
 }
+
+// The guide says hello as the app opens: for the time of day, warmly after a few days away, or a first
+// hello (js/guide.js). The oldest readers (Grades 7–8) get the plain "let's play".
+const GREETED_LEVELS = ['toddler', 'kg', 'grade1', 'grade2', 'grade3', 'grade4'];
+export function greet(api) {
+  const { content, progress, settings } = api.state;
+  const line = GREETED_LEVELS.includes(settings.level) ? greeting(content.guide, { days: progress.days, rng: api.rng }) : null;
+  if (line) api.sayLines(line, `guide-${line.id}`);
+  else api.say('welcome');
+}
+const hello = (name) => {
+  const h = HELLO[timeSlot()].hi;
+  return name ? `${h}, ${name}!` : `${h}!`;
+};
 
 // ---------- onboarding: who is learning ----------
 
@@ -456,8 +471,10 @@ function storyLevels(api, w) {
 
 // ---------- results ----------
 
-export async function results(api, { world, lesson, result, collection, session }) {
+export async function results(api, { world, lesson, result, collection, session, milestones = [] }) {
   const mascot = createMascot(world.mascot, { size: 'large', onTap: () => mascotJoke(api, mascot) });
+  // the most special milestone this lesson reached (a whole world, the first lesson, so many stars …)
+  const milestone = milestones.map((id) => milestoneLine(api.state.content.guide, id)).find(Boolean) || null;
   const stars = el(
     'div',
     { class: 'result-stars' },
@@ -493,6 +510,7 @@ export async function results(api, { world, lesson, result, collection, session 
             ])
           : null,
         result.unitComplete ? el('div', { class: 'unit-complete' }, [el('span', { html: ICONS.trophy }), el('span', { text: 'Unit complete!' })]) : null,
+        milestone ? el('div', { class: 'milestone' }, [el('span', { class: 'milestone-icon', html: ICONS.sparkle }), ...said(api, milestone, english(world) ? 'en' : 'hi', 'b')]) : null,
         reward,
         btns,
       ]),
@@ -516,7 +534,12 @@ export async function results(api, { world, lesson, result, collection, session 
     await sleep(500);
     await api.say(collection.id === 'vehicles' ? 'newVehicle' : 'newItem', item);
   } else await api.say(result.stars === 3 ? 'great' : 'yay');
-  if (result.unitComplete && token === api.state.token) api.say('unitDone');
+  if (result.unitComplete && token === api.state.token) await api.say('unitDone');
+  if (milestone && token === api.state.token) {
+    mascot.react('dance');
+    api.sfx.cheer();
+    await api.sayLines(milestone, `guide-${milestone.id}`);
+  }
 }
 
 // A ribbon across the results card. Praise names the effort, not the child (Mueller & Dweck).
@@ -909,7 +932,7 @@ export function playHero(api, steps, worlds = []) {
     api.go('lesson', { lessonId: lesson.id });
   });
   return el('section', { class: 'play-hero', 'aria-label': 'Play' }, [
-    el('div', { class: 'play-hero-guide' }, [guide.node, el('b', { class: 'play-hello', lang: 'hi', text: name ? `नमस्ते, ${name}!` : 'नमस्ते!' })]),
+    el('div', { class: 'play-hero-guide' }, [guide.node, el('b', { class: 'play-hello', lang: 'hi', text: hello(name) })]),
     play,
     steps.length > 1
       ? el('span', { class: 'play-dots', role: 'img', 'aria-label': `${steps.filter((s) => s.done).length} of ${steps.length} done today` }, steps.map((s) => el('i', { class: s.done ? 'done' : s === next ? 'now' : '' })))
@@ -931,7 +954,7 @@ export function todayCard(api, steps) {
     el('div', { class: 'today-hero' }, [
       el('span', { class: 'hero-guide' }, [guide.node]),
       el('span', { class: 'hero-text' }, [
-        el('b', { lang: 'hi', text: name ? `नमस्ते, ${name}!` : 'नमस्ते!' }),
+        el('b', { lang: 'hi', text: hello(name) }),
         el('span', { class: 'hero-sub' }, said(api, allDone ? { hi: 'आज का सफ़र पूरा!', en: 'All done for today!' } : { hi: 'आज का सफ़र', en: "Today's path" })),
         days > 1 ? el('span', { class: 'hero-streak', 'aria-label': `${days} day streak` }, [el('span', { class: 'sun-icon', html: ICONS.sun }), el('span', { text: one(api, { hi: `लगातार ${days} दिन`, en: `${days} days in a row` }) })]) : null,
       ]),
