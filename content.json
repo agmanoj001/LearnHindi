@@ -90,6 +90,9 @@
     "giftSticker": { "hi": "तोहफ़े में एक नया स्टिकर!", "en": "A new sticker in the present!" },
     "giftSound": { "hi": "आज बटनों की नई आवाज़! दबाकर देखो!", "en": "The buttons have a new sound today! Try them!" },
     "wordsHello": { "hi": "ये रहे वे शब्द जो तुम्हें आते हैं! किसी को भी दबाकर सुनो।", "en": "Here are the words you know! Tap any one to hear it." },
+    "cornerHello": { "hi": "मस्ती कोने में स्वागत है! आज की पहेली तैयार है।", "en": "Welcome to the fun corner! Today's riddle is ready." },
+    "riddleRight": { "hi": "सही जवाब! वाह, क्या दिमाग़ पाया है!", "en": "Right answer! What a brain!" },
+    "riddleTry": { "hi": "ऊँहूँ, फिर से सोचो!", "en": "Hmm, think again!" },
     "wordsEmpty": { "hi": "खेलते रहो! जो शब्द तुम्हें आ जाएगा, वह इस किताब में आ जाएगा।", "en": "Keep playing! Every word you learn comes into this book." }
   },
   "words": {
@@ -17728,6 +17731,578 @@
       "guide": "tiko",
       "title": { "hi": "टीको का नंबर मेला", "en": "Tiko's number carnival" },
       "about": "Grade 1 maths in English: tens and ones, comparing, story sums, length, time and shapes"
+    }
+  ],
+  "riddles": [
+    {
+      "id": "thaal",
+      "hi": "एक थाल मोतियों से भरा, सबके सिर पर औंधा धरा। चारों ओर वह थाल फिरे, मोती उससे एक न गिरे।",
+      "en": "A plate full of pearls, upside down over everyone's head. The plate turns all around, yet not one pearl falls.",
+      "answer": "आकाश",
+      "options": ["आकाश", "समुद्र", "छाता"],
+      "why": { "hi": "थाल है आकाश, और मोती हैं तारे।", "en": "The plate is the sky, and the pearls are the stars." },
+      "level": "grade7"
+    },
+    {
+      "id": "bhutta",
+      "hi": "हरी थी, मन भरी थी, लाख मोती जड़ी थी। राजा जी के बाग़ में दुशाला ओढ़े खड़ी थी।",
+      "en": "Green and full, set with a hundred thousand pearls, standing in the king's garden wrapped in a shawl.",
+      "answer": "भुट्टा",
+      "options": ["भुट्टा", "अनार", "केला"],
+      "why": { "hi": "हरे पत्तों का दुशाला, और अंदर मोती जैसे दाने।", "en": "A shawl of green leaves, and pearl-like kernels inside." },
+      "level": "grade7"
+    },
+    {
+      "id": "choti",
+      "hi": "काली है पर काग नहीं, लंबी है पर नाग नहीं। बल खाती है पर डोर नहीं, बाँधते हैं पर ढोर नहीं।",
+      "en": "Black but not a crow, long but not a snake. It twists but is not a string; we tie it, but it is not cattle.",
+      "answer": "चोटी",
+      "options": ["चोटी", "सड़क", "रस्सी"],
+      "why": { "hi": "बालों की चोटी काली, लंबी और गुँथी होती है, और उसे बाँधते हैं।", "en": "A plait of hair is black, long and twisted, and we tie it." },
+      "level": "grade7"
+    },
+    {
+      "id": "moonchh",
+      "hi": "एक गुफा के दो रखवाले, दोनों लंबे, दोनों काले।",
+      "en": "One cave has two guards, both long and both black.",
+      "answer": "मूँछें",
+      "options": ["मूँछें", "आँखें", "कान"],
+      "why": { "hi": "गुफा है मुँह, और उसके ऊपर दोनों तरफ़ मूँछें पहरा देती हैं।", "en": "The cave is the mouth, and a moustache keeps guard on either side." },
+      "level": "grade7"
+    },
+    {
+      "id": "anaar",
+      "hi": "लाल डिबिया में पीले ख़ाने, ख़ानों में मोती के दाने।",
+      "en": "A red box with yellow rooms, and pearly seeds in the rooms.",
+      "answer": "अनार",
+      "options": ["अनार", "पपीता", "तरबूज़"],
+      "why": { "hi": "अनार का छिलका लाल है, और अंदर ख़ानों में चमकते दाने।", "en": "A pomegranate has a red skin, and shiny seeds in rooms inside." },
+      "level": "grade7"
+    },
+    {
+      "id": "mirch",
+      "hi": "हरी डंडी, लाल कमान, तौबा-तौबा करे इंसान।",
+      "en": "A green stalk, a red bow, and everyone who tries it cries for mercy.",
+      "answer": "लाल मिर्च",
+      "options": ["लाल मिर्च", "टमाटर", "गाजर"],
+      "why": { "hi": "मिर्च इतनी तीखी कि खाते ही सब सी-सी करते हैं!", "en": "A chilli is so hot that everyone goes \"see-see\" when they eat it!" },
+      "level": "grade7"
+    },
+    {
+      "id": "nariyal",
+      "hi": "बाहर से सख़्त, अंदर से नरम; सिर पर जटा, पेट में पानी।",
+      "en": "Hard outside, soft inside; matted hair on top, water in its belly.",
+      "answer": "नारियल",
+      "options": ["नारियल", "कटहल", "अखरोट"],
+      "why": { "hi": "नारियल पर रेशों की जटा है, और अंदर मीठा पानी।", "en": "A coconut has hairy fibres on top, and sweet water inside." },
+      "level": "grade7"
+    },
+    {
+      "id": "chhata",
+      "hi": "एक पैर है, काली धोती; जाड़े में हरदम है सोती। गर्मी में है छाया देती, सावन में है बिल्कुल रोती।",
+      "en": "One leg and a black dhoti; it sleeps all winter. In summer it gives shade, and in the monsoon it weeps.",
+      "answer": "छाता",
+      "options": ["छाता", "पेड़", "कुर्सी"],
+      "why": {
+        "hi": "छाते की एक डंडी, काला कपड़ा; सर्दी में बंद, धूप में छाया, बारिश में टपकता।",
+        "en": "An umbrella: one stick, black cloth; shut in winter, shade in summer, dripping in the rain."
+      },
+      "level": "grade7"
+    },
+    {
+      "id": "ghadi",
+      "hi": "पैर नहीं, पर चलती है; रात-दिन टिक-टिक करती है।",
+      "en": "It has no legs, but it runs; tick-tock, day and night.",
+      "answer": "घड़ी",
+      "options": ["घड़ी", "पंखा", "रेलगाड़ी"],
+      "why": { "hi": "घड़ी चलती है पर कहीं जाती नहीं, और टिक-टिक करती है।", "en": "A clock \"runs\" without going anywhere, and goes tick-tock." },
+      "level": "grade7"
+    },
+    {
+      "id": "namak",
+      "hi": "पानी में पैदा हुआ, पानी में ही बास; जो उसको पानी में डालो, हो जाए उसका नाश।",
+      "en": "Born in water, living in water; put it back in water and it is gone.",
+      "answer": "नमक",
+      "options": ["नमक", "मछली", "कागज़"],
+      "why": {
+        "hi": "नमक समुद्र के पानी से बनता है, और पानी में घुलकर ग़ायब हो जाता है।",
+        "en": "Salt is made from sea water, and disappears when it dissolves in water."
+      },
+      "level": "grade7"
+    },
+    {
+      "id": "chana",
+      "hi": "दो अक्षर का मेरा नाम, आता हूँ खाने के काम; उल्टा होकर नाच दिखाऊँ, बोलो क्या है मेरा नाम?",
+      "en": "My name has two letters, and I am something to eat; turn me round and I dance. What is my name?",
+      "answer": "चना",
+      "options": ["चना", "दाल", "रोटी"],
+      "why": { "hi": "चना को उल्टा पढ़ो: ना-च... नाच!", "en": "Read चना backwards: ना-च, नाच, a dance!" },
+      "level": "grade7"
+    },
+    {
+      "id": "jahaj",
+      "hi": "तीन अक्षर का मेरा नाम, उल्टा-सीधा एक समान; पानी पर मैं चलता हूँ, बोलो क्या है मेरा नाम?",
+      "en": "My name has three letters and reads the same both ways; I travel on water. What am I?",
+      "answer": "जहाज",
+      "options": ["जहाज", "नाव", "मछली"],
+      "why": { "hi": "ज-हा-ज को उल्टा पढ़ो, तो भी जहाज!", "en": "Read ज-हा-ज backwards and it is still जहाज, a ship!" },
+      "level": "grade7"
+    },
+    {
+      "id": "tawa",
+      "hi": "काला घोड़ा, सफ़ेद सवारी; एक उतरी, तो दूसरी की बारी।",
+      "en": "A black horse with a white rider; when one gets off, it is the next one's turn.",
+      "answer": "तवा और रोटी",
+      "options": ["तवा और रोटी", "हाथी और महावत", "काली पट्टी और चॉक"],
+      "why": {
+        "hi": "काला तवा, सफ़ेद रोटी; एक रोटी उतरी, तो अगली की बारी।",
+        "en": "The black griddle and the white roti; one roti comes off, and the next goes on."
+      },
+      "level": "grade7"
+    },
+    {
+      "id": "diya",
+      "hi": "एक राजा की अनोखी रानी, दुम के रास्ते पीती पानी।",
+      "en": "A king's strange queen drinks through her tail.",
+      "answer": "दीया",
+      "options": ["दीया", "बाल्टी", "घड़ा"],
+      "why": { "hi": "दीये की बाती (दुम) तेल पीकर जलती है।", "en": "A lamp's wick (its tail) drinks up the oil and burns." },
+      "level": "grade7"
+    },
+    {
+      "id": "papita",
+      "hi": "हरी डिबिया, पीला मकान, उसमें बैठे काले-काले कल्लू राम।",
+      "en": "A green box, a yellow house, and little black fellows sitting inside.",
+      "answer": "पपीता",
+      "options": ["पपीता", "आम", "खीरा"],
+      "why": { "hi": "पपीते का छिलका हरा, गूदा पीला, और बीज काले।", "en": "A papaya has a green skin, yellow flesh and black seeds." },
+      "level": "grade7"
+    },
+    {
+      "id": "ullu",
+      "hi": "दिन में सोए, रात में जागे; रात भर हू-हू बोले, दिन में सबसे भागे।",
+      "en": "Sleeps by day, wakes by night; says \"hoo hoo\" all night and hides from everyone by day.",
+      "answer": "उल्लू",
+      "options": ["उल्लू", "चमगादड़", "बिल्ली"],
+      "why": { "hi": "उल्लू रात का पक्षी है, और हू-हू बोलता है।", "en": "The owl is a night bird, and calls \"hoo hoo\"." },
+      "level": "grade7"
+    },
+    {
+      "id": "mor",
+      "hi": "एक पक्षी ऐसा, जिसकी दुम पर पैसा; सिर पर ताज है, नाच में राज है।",
+      "en": "A bird with coins on its tail, a crown on its head, and a king of dancing.",
+      "answer": "मोर",
+      "options": ["मोर", "तोता", "मुर्गा"],
+      "why": { "hi": "मोर के पंखों पर सिक्कों जैसी आँखें, और सिर पर कलगी।", "en": "A peacock has coin-like eyes on its feathers, and a crest on its head." },
+      "level": "grade7"
+    },
+    {
+      "id": "ola",
+      "hi": "सफ़ेद है पर दूध नहीं, गोल है पर लड्डू नहीं, ऊपर से गिरता है पर फल नहीं।",
+      "en": "White but not milk, round but not a laddoo, it falls from above but is not fruit.",
+      "answer": "ओला",
+      "options": ["ओला", "रसगुल्ला", "नारियल"],
+      "why": { "hi": "ओले बर्फ़ के छोटे गोले हैं, जो आसमान से गिरते हैं।", "en": "Hailstones are little balls of ice that fall from the sky." },
+      "level": "grade7"
+    },
+    {
+      "id": "patang",
+      "hi": "पंख नहीं पर उड़ जाती, हाथ नहीं पर लड़ जाती; डोर से बँधी रहती है।",
+      "en": "No wings but it flies, no hands but it fights; it stays tied to a string.",
+      "answer": "पतंग",
+      "options": ["पतंग", "चिड़िया", "गुब्बारा"],
+      "why": { "hi": "पतंग उड़ती है, और आसमान में पेंच लड़ाती है।", "en": "A kite flies, and has kite-fights in the sky." },
+      "level": "grade7"
+    },
+    {
+      "id": "hawa",
+      "hi": "दिखती नहीं पर छूती है; पेड़ों को झुलाती है, पतंग को उड़ाती है।",
+      "en": "You cannot see it, but it touches you; it rocks the trees and flies the kites.",
+      "answer": "हवा",
+      "options": ["हवा", "बादल", "धुआँ"],
+      "why": { "hi": "हवा दिखाई नहीं देती, पर हम उसे महसूस करते हैं।", "en": "You cannot see the wind, but you can feel it." },
+      "level": "grade7"
+    },
+    {
+      "id": "chaand",
+      "hi": "गोल-गोल है, चाँदी जैसा, रात में चमके; दिन में छिपे, और हर महीने घटे-बढ़े।",
+      "en": "Round and silvery, it shines at night; it hides by day, and grows and shrinks every month.",
+      "answer": "चाँद",
+      "options": ["चाँद", "सूरज", "तारा"],
+      "why": {
+        "hi": "चाँद रात में चमकता है, और अमावस से पूनम तक घटता-बढ़ता है।",
+        "en": "The moon shines at night, and waxes and wanes between new moon and full moon."
+      },
+      "level": "grade7"
+    },
+    {
+      "id": "chakki",
+      "hi": "एक नारी के दो बालक, दोनों एक ही रंग; एक चले, एक ठहरा रहे, फिर भी दोनों संग।",
+      "en": "A woman has two children of the same colour; one moves, one stays still, yet they are always together.",
+      "answer": "चक्की",
+      "options": ["चक्की", "जूते", "आँखें"],
+      "why": {
+        "hi": "चक्की के दो पाट: ऊपर वाला घूमता है, नीचे वाला टिका रहता है।",
+        "en": "A grinding mill has two stones: the top one turns, the bottom one stays still."
+      },
+      "level": "grade7"
+    },
+    {
+      "id": "angoothi",
+      "hi": "पेट में उँगली, सिर पर पत्थर; जल्दी बताओ इसका उत्तर।",
+      "en": "A finger in its belly, a stone on its head; quick, tell me the answer.",
+      "answer": "अँगूठी",
+      "options": ["अँगूठी", "चूड़ी", "घड़ी"],
+      "why": { "hi": "अँगूठी के बीच में उँगली, और ऊपर नग (पत्थर)।", "en": "A ring has a finger through its middle, and a gem (a stone) on top." },
+      "level": "grade7"
+    },
+    {
+      "id": "khargosh",
+      "hi": "लाल-लाल आँखें, लंबे-लंबे कान; रुई का फ़ाहा, बताओ नाम।",
+      "en": "Red, red eyes, long, long ears, a puff of cotton wool. Name it.",
+      "answer": "खरगोश",
+      "options": ["खरगोश", "बिल्ली", "चूहा"],
+      "why": { "hi": "सफ़ेद खरगोश रुई जैसा मुलायम, लंबे कान, लाल आँखें।", "en": "A white rabbit: soft as cotton, long ears, red eyes." },
+      "level": "grade7"
+    },
+    {
+      "id": "joote",
+      "hi": "दो सुंदर भाई, दोनों एक रंग; एक बिछड़ जाए, तो दूजा न आए काम।",
+      "en": "Two fine brothers of the same colour; if one is lost, the other is no use.",
+      "answer": "जूते",
+      "options": ["जूते", "चम्मच", "आँखें"],
+      "why": { "hi": "एक जूता खो जाए, तो दूसरा अकेले किस काम का?", "en": "If one shoe is lost, what use is the other on its own?" },
+      "level": "grade7"
+    },
+    {
+      "id": "matar",
+      "hi": "हरी-हरी डिबिया के हरे-हरे दाने; जल्दी से बताओ, सब्ज़ी है खाने।",
+      "en": "Green beads in a green box; quick, tell me, it is a vegetable to eat.",
+      "answer": "मटर",
+      "options": ["मटर", "भिंडी", "खीरा"],
+      "why": { "hi": "मटर की हरी फली में हरे दाने।", "en": "Green peas in a green pod." },
+      "level": "grade7"
+    },
+    {
+      "id": "daant",
+      "hi": "बत्तीस चौकीदार, बीच में एक रानी; चौकीदार चक्की चलाएँ, रानी करे पानी-पानी।",
+      "en": "Thirty-two guards with a queen in the middle; the guards grind, and the queen makes it all wet.",
+      "answer": "दाँत और जीभ",
+      "options": ["दाँत और जीभ", "उँगलियाँ और हाथ", "तारे और चाँद"],
+      "why": { "hi": "बत्तीस दाँत खाना चबाते हैं, और जीभ बीच में रहती है।", "en": "Thirty-two teeth chew the food, and the tongue sits in the middle." },
+      "level": "grade7"
+    },
+    {
+      "id": "phone",
+      "hi": "मीलों दूर की बात सुनाए; न मुँह, न कान, फिर भी बतियाए।",
+      "en": "It brings you words from miles away; no mouth, no ears, and still it chats.",
+      "answer": "फ़ोन",
+      "options": ["फ़ोन", "घड़ी", "किताब"],
+      "why": { "hi": "फ़ोन पर हम दूर बैठे लोगों से बात करते हैं।", "en": "On the phone we talk to people far away." },
+      "level": "grade7"
+    },
+    {
+      "id": "daakdabba",
+      "hi": "लाल शरीर, काला मुँह; काग़ज़ खाता, पर भूखा न रहता।",
+      "en": "A red body and a black mouth; it eats paper and is never hungry.",
+      "answer": "डाक का डिब्बा",
+      "options": ["डाक का डिब्बा", "कूड़ेदान", "तिजोरी"],
+      "why": { "hi": "लाल लेटरबॉक्स के मुँह में चिट्ठियाँ डाली जाती हैं।", "en": "Letters go into the mouth of the red post box." },
+      "level": "grade7"
+    },
+    {
+      "id": "tarbooz",
+      "hi": "ऊपर से हरा, अंदर से लाल; काले-काले बीज, गर्मी का कमाल।",
+      "en": "Green outside, red inside, with black seeds: the marvel of summer.",
+      "answer": "तरबूज़",
+      "options": ["तरबूज़", "पपीता", "अनार"],
+      "why": { "hi": "तरबूज़ हरा है, अंदर लाल और रसीला, और गर्मी में मिलता है।", "en": "A watermelon is green, red and juicy inside, and comes in summer." },
+      "level": "grade7"
+    },
+    {
+      "id": "sangeet",
+      "hi": "आदि कटे तो गीत सुनाऊँ, मध्य कटे तो संत बन जाऊँ; अंत कटे तो साथ निभाऊँ, पूरा होकर सबको भाऊँ।",
+      "en": "Cut my start and I sing a song; cut my middle and I am a saint; cut my end and I keep you company; whole, everyone loves me.",
+      "answer": "संगीत",
+      "options": ["संगीत", "संतरा", "सरगम"],
+      "why": {
+        "hi": "सं-गी-त: पहला हटाओ तो गीत, बीच का हटाओ तो संत, आख़िरी हटाओ तो संग (साथ)।",
+        "en": "सं-गी-त: drop the first and it is गीत (song), the middle and it is संत (saint), the last and it is संग (together)."
+      },
+      "level": "grade8"
+    },
+    {
+      "id": "baadal",
+      "hi": "आदि कटे तो दल बनूँ, अंत कटे तो बाद; पूरा होकर पानी बरसाऊँ, खेत करूँ आबाद।",
+      "en": "Cut my start and I am a team; cut my end and I am \"later\"; whole, I bring rain and make the fields green.",
+      "answer": "बादल",
+      "options": ["बादल", "नदी", "कंबल"],
+      "why": { "hi": "बा-द-ल: पहला हटाओ तो दल, आख़िरी हटाओ तो बाद।", "en": "बा-द-ल: drop the first and it is दल (team), the last and it is बाद (later)." },
+      "level": "grade8"
+    },
+    {
+      "id": "kaajal",
+      "hi": "आदि कटे तो पानी बनूँ, अंत कटे तो काम; पूरा होकर आँख में लगूँ, बताओ मेरा नाम।",
+      "en": "Cut my start and I am water; cut my end and I am work; whole, I go on your eyes. What is my name?",
+      "answer": "काजल",
+      "options": ["काजल", "बादल", "चश्मा"],
+      "why": {
+        "hi": "का-ज-ल: पहला हटाओ तो जल (पानी), आख़िरी हटाओ तो काज (काम)।",
+        "en": "का-ज-ल: drop the first and it is जल (water), the last and it is काज (work)."
+      },
+      "level": "grade8"
+    },
+    {
+      "id": "kamal",
+      "hi": "आदि कटे तो मल बनूँ, अंत कटे तो कम; कीचड़ में मैं खिलता हूँ, फिर भी सुंदर हरदम।",
+      "en": "Cut my start and I am dirt; cut my end and I am \"less\"; I bloom in the mud, yet I am always beautiful.",
+      "answer": "कमल",
+      "options": ["कमल", "गुलाब", "कमरा"],
+      "why": {
+        "hi": "क-म-ल: पहला हटाओ तो मल, आख़िरी हटाओ तो कम; कमल कीचड़ में खिलता है।",
+        "en": "क-म-ल: drop the first and it is मल (dirt), the last and it is कम (less); the lotus blooms in mud."
+      },
+      "level": "grade8"
+    },
+    {
+      "id": "nayan",
+      "hi": "उल्टा-सीधा एक समान, तीन अक्षर का मेरा नाम; दोनों से मैं देखूँ दुनिया, बताओ मेरा नाम।",
+      "en": "The same both ways, three letters long; I see the world with both of them. What am I?",
+      "answer": "नयन",
+      "options": ["नयन", "कान", "मन"],
+      "why": { "hi": "न-य-न को उल्टा पढ़ो तो भी नयन, यानी आँखें।", "en": "Read न-य-न backwards and it is still नयन, the eyes." },
+      "level": "grade8"
+    },
+    {
+      "id": "andhera",
+      "hi": "ऐसी कौन सी चीज़ है, जो जितनी बढ़ती है, उतना कम दिखाई देता है?",
+      "en": "What is it that, the more of it there is, the less you can see?",
+      "answer": "अँधेरा",
+      "options": ["अँधेरा", "धुआँ", "बादल"],
+      "why": { "hi": "अँधेरा जितना गहरा, उतना कम दिखता है।", "en": "The deeper the darkness, the less you see." },
+      "level": "grade8"
+    },
+    {
+      "id": "umr",
+      "hi": "वह क्या है जो हमेशा ऊपर जाती है, पर कभी नीचे नहीं आती?",
+      "en": "What always goes up and never comes down?",
+      "answer": "उम्र",
+      "options": ["उम्र", "पतंग", "गेंद"],
+      "why": { "hi": "उम्र हर साल बढ़ती है, कभी घटती नहीं।", "en": "Your age goes up every year and never comes down." },
+      "level": "grade8"
+    },
+    {
+      "id": "gaddha",
+      "hi": "उसमें से जितना निकालो, वह उतना ही बड़ा होता जाता है। क्या है?",
+      "en": "The more you take out of it, the bigger it gets. What is it?",
+      "answer": "गड्ढा",
+      "options": ["गड्ढा", "बाल्टी", "गुब्बारा"],
+      "why": { "hi": "गड्ढे से मिट्टी निकालो, तो गड्ढा और बड़ा होता है।", "en": "Dig earth out of a hole and the hole gets bigger." },
+      "level": "grade8"
+    },
+    {
+      "id": "naam",
+      "hi": "वह क्या है जो तुम्हारा है, पर उसे दूसरे तुमसे ज़्यादा इस्तेमाल करते हैं?",
+      "en": "What belongs to you, but others use it more than you do?",
+      "answer": "तुम्हारा नाम",
+      "options": ["तुम्हारा नाम", "तुम्हारा घर", "तुम्हारी किताब"],
+      "why": { "hi": "तुम्हारा नाम दूसरे ही सबसे ज़्यादा पुकारते हैं।", "en": "Other people say your name far more often than you do." },
+      "level": "grade8"
+    },
+    {
+      "id": "anda",
+      "hi": "वह क्या है, जिसे इस्तेमाल करने से पहले तोड़ना ही पड़ता है?",
+      "en": "What has to be broken before you can use it?",
+      "answer": "अंडा",
+      "options": ["अंडा", "किताब", "कुर्सी"],
+      "why": { "hi": "अंडा तोड़े बिना उसे पकाया नहीं जा सकता।", "en": "You cannot cook an egg without breaking it." },
+      "level": "grade8"
+    },
+    {
+      "id": "chuppi",
+      "hi": "वह क्या है, जो उसका नाम लेते ही टूट जाती है?",
+      "en": "What breaks as soon as you say its name?",
+      "answer": "चुप्पी",
+      "options": ["चुप्पी", "शीशा", "वादा"],
+      "why": { "hi": "\"चुप्पी\" बोलते ही आवाज़ हुई, और चुप्पी टूट गई!", "en": "Say \"silence\" and you have made a sound: the silence is broken!" },
+      "level": "grade8"
+    },
+    {
+      "id": "tauliya",
+      "hi": "वह कौन सी चीज़ है, जो दूसरों को सुखाते-सुखाते ख़ुद गीली हो जाती है?",
+      "en": "What gets wet itself while drying others?",
+      "answer": "तौलिया",
+      "options": ["तौलिया", "कागज़", "मिट्टी"],
+      "why": { "hi": "तौलिया हमें सुखाता है, और ख़ुद गीला हो जाता है।", "en": "A towel dries us and gets wet itself." },
+      "level": "grade8"
+    },
+    {
+      "id": "naksha",
+      "hi": "मेरे पास शहर हैं पर घर नहीं, नदियाँ हैं पर पानी नहीं, जंगल हैं पर पेड़ नहीं। मैं क्या हूँ?",
+      "en": "I have cities but no houses, rivers but no water, forests but no trees. What am I?",
+      "answer": "नक़्शा",
+      "options": ["नक़्शा", "किताब", "टीवी"],
+      "why": { "hi": "नक़्शे पर सब कुछ बना होता है, पर असली नहीं।", "en": "A map shows them all, but none of them is real." },
+      "level": "grade8"
+    },
+    {
+      "id": "kanghi",
+      "hi": "किसके दाँत होते हैं, पर वह कभी नहीं काटती?",
+      "en": "What has teeth but never bites?",
+      "answer": "कंघी",
+      "options": ["कंघी", "आरी", "घड़ी"],
+      "why": { "hi": "कंघी के दाँत बालों को सुलझाते हैं, काटते नहीं।", "en": "A comb's teeth untangle hair; they never bite." },
+      "level": "grade8"
+    },
+    {
+      "id": "seedhi",
+      "hi": "मैं ऊपर भी ले जाती हूँ और नीचे भी, पर ख़ुद अपनी जगह से नहीं हिलती।",
+      "en": "I take you up and I take you down, but I never move from my place.",
+      "answer": "सीढ़ी",
+      "options": ["सीढ़ी", "लिफ़्ट", "झूला"],
+      "why": { "hi": "सीढ़ी पर हम चढ़ते-उतरते हैं, सीढ़ी वहीं रहती है।", "en": "We climb up and down the stairs; the stairs stay where they are." },
+      "level": "grade8"
+    },
+    {
+      "id": "raasta",
+      "hi": "मैं हर शहर तक जाता हूँ, पर अपनी जगह से कभी नहीं हिलता।",
+      "en": "I go to every town, yet I never move from my place.",
+      "answer": "रास्ता",
+      "options": ["रास्ता", "बस", "नदी"],
+      "why": { "hi": "रास्ता हर जगह जाता है, पर ख़ुद कहीं नहीं जाता।", "en": "A road goes everywhere, but it never goes anywhere itself." },
+      "level": "grade8"
+    },
+    {
+      "id": "botal",
+      "hi": "मेरी गर्दन है पर सिर नहीं, मुँह है पर ज़ुबान नहीं।",
+      "en": "I have a neck but no head, a mouth but no tongue.",
+      "answer": "बोतल",
+      "options": ["बोतल", "घड़ी", "गिलास"],
+      "why": { "hi": "बोतल का पतला हिस्सा उसकी गर्दन है, और ऊपर उसका मुँह।", "en": "The narrow part of a bottle is its neck, with its mouth on top." },
+      "level": "grade8"
+    },
+    {
+      "id": "ganja",
+      "hi": "एक आदमी तेज़ बारिश में बिना छाते, बिना टोपी के घूमा, फिर भी उसका एक बाल भी गीला नहीं हुआ। कैसे?",
+      "en": "A man walked in heavy rain with no umbrella and no hat, but not one hair on his head got wet. How?",
+      "answer": "वह गंजा था",
+      "options": ["वह गंजा था", "बारिश रुक गई थी", "वह दौड़ रहा था"],
+      "why": { "hi": "सिर पर बाल ही नहीं थे, तो गीले कैसे होते!", "en": "He had no hair, so none of it could get wet!" },
+      "level": "grade8"
+    },
+    {
+      "id": "murga",
+      "hi": "एक मुर्गा छत की ढलान पर अंडा दे, तो अंडा किस तरफ़ लुढ़केगा?",
+      "en": "If a rooster lays an egg on a sloping roof, which way will the egg roll?",
+      "answer": "मुर्गा अंडा देता ही नहीं",
+      "options": ["मुर्गा अंडा देता ही नहीं", "बाईं तरफ़", "दाईं तरफ़"],
+      "why": { "hi": "अंडे मुर्गी देती है, मुर्गा नहीं!", "en": "Hens lay eggs, roosters don't!" },
+      "level": "grade8"
+    },
+    {
+      "id": "bijlirail",
+      "hi": "बिजली से चलने वाली रेल उत्तर की ओर जा रही है, और हवा दक्षिण की ओर बह रही है। धुआँ किस ओर जाएगा?",
+      "en": "An electric train goes north, and the wind blows south. Which way does the smoke go?",
+      "answer": "बिजली की रेल में धुआँ नहीं होता",
+      "options": ["बिजली की रेल में धुआँ नहीं होता", "उत्तर की ओर", "दक्षिण की ओर"],
+      "why": { "hi": "बिजली की रेल कोयला नहीं जलाती, तो धुआँ कहाँ से आएगा?", "en": "An electric train burns no coal, so where would smoke come from?" },
+      "level": "grade8"
+    },
+    {
+      "id": "paanchaam",
+      "hi": "टोकरी में पाँच आम हैं। पाँच बच्चों को एक-एक आम दो, फिर भी टोकरी में एक आम बचा रहे। कैसे?",
+      "en": "There are five mangoes in a basket. Give one to each of five children, and still one mango stays in the basket. How?",
+      "answer": "आख़िरी बच्चे को टोकरी समेत आम दो",
+      "options": ["आख़िरी बच्चे को टोकरी समेत आम दो", "एक आम काटकर बाँटो", "एक बच्चा आम न ले"],
+      "why": {
+        "hi": "आख़िरी बच्चे का आम टोकरी में ही रहा, बस टोकरी उसके हाथ में!",
+        "en": "The last child's mango stays in the basket; the child just takes the basket too!"
+      },
+      "level": "grade8"
+    },
+    {
+      "id": "teenpeedhi",
+      "hi": "दो पिता और दो बेटे मछली पकड़ने गए। उन्होंने तीन मछलियाँ पकड़ीं, और हर एक को पूरी एक मछली मिली। कैसे?",
+      "en": "Two fathers and two sons went fishing. They caught three fish, and each got a whole fish. How?",
+      "answer": "वे दादा, पिता और पोता थे",
+      "options": ["वे दादा, पिता और पोता थे", "एक मछली आधी काटी", "एक ने मछली नहीं ली"],
+      "why": {
+        "hi": "दादा और पिता, दो पिता; पिता और पोता, दो बेटे। कुल तीन लोग!",
+        "en": "Grandfather and father are two fathers; father and grandson are two sons. Three people in all!"
+      },
+      "level": "grade8"
+    },
+    {
+      "id": "athais",
+      "hi": "किस महीने में अट्ठाईस दिन होते हैं?",
+      "en": "Which month has twenty-eight days?",
+      "answer": "हर महीने में",
+      "options": ["हर महीने में", "सिर्फ़ फ़रवरी में", "किसी में नहीं"],
+      "why": { "hi": "हर महीने में कम से कम अट्ठाईस दिन तो होते ही हैं!", "en": "Every month has at least twenty-eight days!" },
+      "level": "grade8"
+    },
+    {
+      "id": "kursi",
+      "hi": "मेरे चार पैर हैं पर मैं चल नहीं सकती; मेरी पीठ है पर मैं लेट नहीं सकती।",
+      "en": "I have four legs but cannot walk; I have a back but cannot lie down.",
+      "answer": "कुर्सी",
+      "options": ["कुर्सी", "मेज़", "घोड़ा"],
+      "why": { "hi": "कुर्सी के चार पैर और एक पीठ होती है, पर वह चलती नहीं।", "en": "A chair has four legs and a back, but it never walks." },
+      "level": "grade8"
+    },
+    {
+      "id": "barf",
+      "hi": "पानी से बनी, पानी में मिली; धूप जो देखी, तो पानी हो चली।",
+      "en": "Made of water, back to water; one look at the sun and it turns to water.",
+      "answer": "बर्फ़",
+      "options": ["बर्फ़", "नमक", "बादल"],
+      "why": { "hi": "बर्फ़ जमा हुआ पानी है, जो धूप में पिघल जाती है।", "en": "Ice is frozen water, and melts in the sun." },
+      "level": "grade8"
+    },
+    {
+      "id": "kuchhnahin",
+      "hi": "ग़रीब के पास है, अमीर को चाहिए नहीं, और सिर्फ़ वही खाओ तो भूखे रह जाओ। क्या है?",
+      "en": "The poor have it, the rich don't need it, and if it is all you eat, you stay hungry. What is it?",
+      "answer": "कुछ नहीं",
+      "options": ["कुछ नहीं", "रोटी", "पैसा"],
+      "why": { "hi": "\"कुछ नहीं\" खाओ, तो भूख कैसे मिटेगी?", "en": "Eat \"nothing\" and how will your hunger go?" },
+      "level": "grade8"
+    },
+    {
+      "id": "billiyan",
+      "hi": "एक कमरे के चार कोने, हर कोने में एक बिल्ली, और हर बिल्ली के सामने तीन बिल्लियाँ। कमरे में कुल कितनी बिल्लियाँ हैं?",
+      "en": "A room has four corners, a cat in each corner, and in front of each cat are three cats. How many cats are in the room?",
+      "answer": "चार",
+      "options": ["चार", "बारह", "सोलह"],
+      "why": { "hi": "हर बिल्ली बाक़ी तीन को देखती है। कुल चार ही हैं!", "en": "Each cat sees the other three. There are only four!" },
+      "level": "grade8"
+    },
+    {
+      "id": "machhliyan",
+      "hi": "किसी के पास दस मछलियाँ थीं। उनमें से दो पानी में डूब गईं। कितनी बचीं?",
+      "en": "Someone had ten fish. Two of them drowned. How many are left?",
+      "answer": "दस",
+      "options": ["दस", "आठ", "बारह"],
+      "why": { "hi": "मछलियाँ पानी में डूबती नहीं, तैरती हैं!", "en": "Fish don't drown, they swim!" },
+      "level": "grade8"
+    },
+    {
+      "id": "galat",
+      "hi": "वह कौन सा शब्द है, जिसे हम हमेशा \"ग़लत\" ही पढ़ते हैं?",
+      "en": "Which word do we always read \"wrong\"?",
+      "answer": "ग़लत",
+      "options": ["ग़लत", "सही", "कठिन"],
+      "why": { "hi": "\"ग़लत\" शब्द को पढ़ो, तो ग़लत ही पढ़ोगे!", "en": "Read the word \"wrong\" and you will always read \"wrong\"!" },
+      "level": "grade8"
+    },
+    {
+      "id": "zukaam",
+      "hi": "वह क्या है जिसे हम पकड़ लेते हैं, पर हाथ से छू नहीं सकते?",
+      "en": "What can we catch, but never touch with our hands?",
+      "answer": "ज़ुकाम",
+      "options": ["ज़ुकाम", "गेंद", "मछली"],
+      "why": { "hi": "ज़ुकाम पकड़ लेते हैं, पर उसे छू नहीं सकते!", "en": "You can catch a cold, but you can never touch it!" },
+      "level": "grade8"
     }
   ],
   "shows": [

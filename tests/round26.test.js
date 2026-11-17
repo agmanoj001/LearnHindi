@@ -475,3 +475,53 @@ test('the validator keeps a series whole, and checks the maths pictures', () => 
   assert.match(errs, /model must be a maths picture/);
   assert.ok(SHOW_MODELS.includes('clock') && SHOW_MODELS.includes('base10'));
 });
+
+// ---- 7.16 for Grades 7–8: the fun corner ----
+import { ofTheDay, riddleOfDay, riddlesFor, riddleChoices, riddlesSolved, riddleDoneToday, fixedShuffle, CORNER_LEVELS, cornerLevel } from '../js/corner.js';
+import { lessonVoiceLines } from '../js/logic.js';
+
+test('a riddle a day for each grade, taking turns so a month passes before one comes back', () => {
+  for (const level of CORNER_LEVELS) {
+    const list = riddlesFor(content, level);
+    assert.ok(list.length >= 30, `${level}: ${list.length} riddles`);
+    // thirty days in a row: all different
+    const month = Array.from({ length: list.length }, (_, i) => riddleOfDay(content, level, Date.UTC(2026, 10, 1 + i, 12)).id);
+    assert.equal(new Set(month).size, list.length);
+    // the same riddle all day long
+    assert.equal(riddleOfDay(content, level, new Date(2026, 10, 17, 7).getTime()).id, riddleOfDay(content, level, new Date(2026, 10, 17, 21).getTime()).id);
+  }
+  assert.equal(cornerLevel('grade8'), 'grade8');
+  assert.equal(cornerLevel('kg'), 'grade7');
+  assert.equal(ofTheDay([], '2026-11-17'), null);
+  assert.equal(ofTheDay(['a', 'b', 'c'], '2026-11-17'), ofTheDay(['a', 'b', 'c'], '2026-11-20'));
+});
+
+test('each riddle has three answers in a fixed mixed order, and why the answer fits; all are recorded lines', () => {
+  const firsts = new Set();
+  const voice = new Set(lessonVoiceLines(content).map((l) => l.text));
+  for (const r of content.riddles) {
+    const c = riddleChoices(r);
+    assert.deepEqual([...c].sort(), [...r.options].sort());
+    assert.deepEqual(riddleChoices(r), c, 'the same order every time');
+    firsts.add(c[0] === r.answer);
+    assert.ok(r.why.hi && r.why.en && r.en);
+    for (const t of [r.hi, ...r.options]) assert.ok(voice.has(t.replace(/\s+/g, ' ').trim()), `${r.id}: "${t}" is a recorded line`);
+  }
+  assert.deepEqual([...firsts].sort(), [false, true], 'the answer is sometimes first, sometimes not');
+  assert.deepEqual(fixedShuffle([1, 2, 3, 4], 'x'), fixedShuffle([1, 2, 3, 4], 'x'));
+});
+
+test('a solved riddle is kept with the progress, and the home screen has the corner for Grades 7–8 only', () => {
+  const r = riddleOfDay(content, 'grade7', Date.UTC(2026, 10, 17, 12));
+  const p = normalizeProgress({ riddles: { [r.id]: '2026-11-17', 'bad id!': '2026-11-17', other: 'yesterday' } }, content);
+  assert.deepEqual(p.riddles, { [r.id]: '2026-11-17' });
+  assert.equal(riddlesSolved(p), 1);
+  assert.ok(riddleDoneToday(p, r, new Date(2026, 10, 17, 12).getTime()));
+  assert.ok(!riddleDoneToday(p, r, new Date(2026, 10, 18, 12).getTime()));
+  assert.match(read('js/screens.js'), /cornerButton\(api\)/);
+  assert.match(read('js/app.js'), /case 'corner':[\s\S]{0,60}cornerScreen\(api\)/);
+  assert.match(read('js/corner.js'), /if \(!CORNER_LEVELS\.includes\(settings\.level\)\) return null/);
+  assert.match(read('sw.js'), /'js\/corner\.js'/);
+  for (const k of ['cornerHello', 'riddleRight', 'riddleTry']) assert.ok(content.phrases[k]?.hi, k);
+  for (const c of ['.corner-btn', '.riddle-card', '.riddle-opt', '.riddle-why']) assert.ok(css.includes(c), c);
+});

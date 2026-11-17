@@ -8,6 +8,7 @@ import { MISSION_LEVELS, missionStories, readByAll } from './readfor.js';
 import { festivalBanner, FESTIVALS } from './festivals.js';
 import { giftDue, pickGift, riddleIndexes } from './surprise.js';
 import { wordsChip } from './wordbook.js';
+import { cornerButton } from './corner.js';
 import { sceneSvg } from './art-scenes.js';
 import { PLACEMENT_LEVELS, placementQuestions, placementResult } from './placement.js';
 import { picture, pictureForWord, specialVehicle } from './art.js';
@@ -323,6 +324,8 @@ export function hub(api) {
                 wordsChip(api),
                 prizesButton(api),
                 missionCard(api),
+                // Grades 7–8: the riddle and idiom of the day, comics to make, quiz duels (roadmap 7.16)
+                cornerButton(api),
                 el('button', { class: 'together-btn', 'aria-label': 'Play together', onclick: () => (api.sfx.pop(), api.go('together')) }, [el('span', { class: 'together-icon', 'aria-hidden': 'true', text: '👫' }), el('span', {}, said(api, { hi: 'साथ खेलो', en: 'Play together' }, 'hi', 'b'))]),
               ]),
             ]),

@@ -764,6 +764,26 @@ export function validateContent(c, { knownPictures = null, pictureExists = null,
     }
   }
 
+  // The fun corner's riddles (Grades 7–8, roadmap 7.16): the riddle, three answers (one right), and why
+  if (c.riddles !== undefined) {
+    if (!Array.isArray(c.riddles)) err('riddles must be a list');
+    else {
+      const seen = new Set();
+      c.riddles.forEach((r, i) => {
+        const at = `riddles[${i}]${r?.id ? ` (${r.id})` : ''}`;
+        if (!isObj(r) || !isStr(r.id) || !/^[a-z0-9]+$/.test(r.id)) return err(`${at} needs an id (lowercase letters and numbers)`);
+        if (seen.has(r.id)) err(`riddles: duplicate id "${r.id}"`);
+        seen.add(r.id);
+        if (!['grade7', 'grade8'].includes(r.level)) err(`${at}.level must be grade7 or grade8`);
+        if (!isStr(r.hi) || !DEVANAGARI.test(r.hi)) err(`${at}.hi must be the riddle in Devanagari`);
+        if (!isStr(r.en)) err(`${at}.en must be the riddle in English`);
+        if (!Array.isArray(r.options) || r.options.length !== 3 || new Set(r.options).size !== 3 || !r.options.every(isStr)) err(`${at}.options must be three different answers`);
+        else if (!r.options.includes(r.answer)) err(`${at}.answer must be one of its options`);
+        if (!isObj(r.why) || !isStr(r.why.hi) || !isStr(r.why.en)) err(`${at}.why needs "hi" and "en": why the answer fits`);
+      });
+    }
+  }
+
   // Comics (Grades 7 and 8; see README › Writing a comic)
   if (c.comics !== undefined) {
     if (!Array.isArray(c.comics)) err('comics must be a list');

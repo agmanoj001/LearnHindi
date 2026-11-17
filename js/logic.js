@@ -531,6 +531,8 @@ export function normalizeProgress(saved, content) {
     stats: obj(saved.stats),
     // today's surprise, once opened (js/surprise.js, roadmap 7.12)
     ...(saved.gift && typeof saved.gift === 'object' && /^\d{4}-\d\d-\d\d$/.test(saved.gift.day) && ['sticker', 'joke', 'sound'].includes(saved.gift.kind) ? { gift: { day: saved.gift.day, kind: saved.gift.kind, value: saved.gift.value } } : {}),
+    // riddles of the day solved: { riddleId: the day } (js/corner.js, roadmap 7.16)
+    riddles: Object.fromEntries(Object.entries(obj(saved.riddles)).filter(([k, v]) => /^[a-z0-9]+$/.test(k) && /^\d{4}-\d\d-\d\d$/.test(v)).slice(-200)),
     // festival stickers, one a festival a year: { 'diwali-2026': 'lamp' } (js/festivals.js, roadmap 7.11)
     festStickers: Object.fromEntries(Object.entries(obj(saved.festStickers)).filter(([k, v]) => /^[a-z]+-\d{4}$/.test(k) && typeof v === 'string').slice(-60)),
     // the child's own books: a sticker picture and (on the device) their voice (js/mybooks.js, roadmap 7.8)
@@ -910,6 +912,8 @@ export function lessonVoiceLines(content) {
       for (const t of String(s[lg] || '').split(/\s+/)) byText(bareToken(t), lg, s.level);
     }
   for (const sh of content.shows || []) for (const l of showLines(sh)) for (const lg of ['hi', 'en']) push(`${l.key}_${lg}`, l[lg], lg, sh.level);
+  // the fun corner (Grades 7–8): each riddle, its answers and why (js/corner.js)
+  for (const r of content.riddles || []) for (const t of [r.hi, ...r.options, `${r.answer}! ${r.why.hi}`]) byText(t, 'hi', r.level);
 
   // the barakhadi: each lesson's rows, said together, and each syllable on its own
   const matras = new Map((content.matras || []).map((m) => [m.id, m]));

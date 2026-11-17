@@ -28,6 +28,7 @@ const SHELL = [
   'js/art-festival.js',
   'js/surprise.js',
   'js/wordbook.js',
+  'js/corner.js',
   'js/logic.js',
   'js/validate.js',
   'js/art.js',

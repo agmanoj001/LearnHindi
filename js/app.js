@@ -26,6 +26,7 @@ import { styleFor, newRewards } from './rewards.js';
 import { giftSoundToday } from './surprise.js';
 import { readForScreen } from './readfor.js';
 import { wordBook } from './wordbook.js';
+import { cornerScreen } from './corner.js';
 import { initAudio, setVoicePack, preload, play, stop, isSpeaking, wordSegs, letterSegs, numberSegs, soundSegs, sentenceSegs, phraseSegs, setVoicePrefs } from './audio.js';
 import { KEYS, load, save, normalizeProfiles, profileKey, keepStorage } from './storage.js';
 import { sfx, music, FEEDBACK } from './sfx.js';
@@ -295,6 +296,9 @@ function render(route) {
     case 'words':
       enterWorld(null);
       return wordBook(api);
+    case 'corner':
+      enterWorld(null);
+      return cornerScreen(api);
     case 'freeplay':
       return world ? freeplay(api, world) : goHome();
     case 'show': {

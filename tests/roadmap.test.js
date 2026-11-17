@@ -98,6 +98,8 @@ const WATCH = {
   'पहाड़े: times tables sung the Hindi way': () => /पहाड़े/.test(JSON.stringify(content.worlds)),
   // (a Grade 4 quiz on days and months is already there; the row stays open for time and money)
   'Days, months, time and money in Hindi': () => /बजे|पैसे/.test(JSON.stringify(content.worlds.filter((w) => w.subject === 'hindi')) + JSON.stringify(content.quizzes || {})),
+  // all four parts of 7.16 built: the row must be ticked
+  'For Grades 7–8': () => ['riddleOfDay', 'idiomOfDay', 'comicMaker', 'duelScreen'].every((f) => js.includes(f)),
   'A reading-comfort option': () => /readingComfort|reading-comfort/.test(js + css),
 };
 
