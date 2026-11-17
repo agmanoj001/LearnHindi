@@ -4,6 +4,7 @@
 // show their meaning. Mysteries stop before the reveal so the reader can name the culprit first.
 // At the end: the word list, then three questions; first-try answers earn the stars.
 import { el, sleep, choose, cheer, bounce } from './kit.js';
+import { infoButton, forGrownups } from '../ui.js';
 import { castSvg, comicBg, CAST } from '../art-comic.js';
 import { sceneSvg } from '../art-scenes.js';
 import { shuffle } from '../logic.js';
@@ -146,14 +147,17 @@ export default {
 
     // ---- the book ----
     const book = el('div', { class: 'comic-book' });
-    const cover = el('section', { class: 'comic-cover' }, [
+    // how to use the comic is a note for grown-ups (and anyone who asks): behind the ⓘ (roadmap 4.6)
+    const cover = el('section', { class: 'comic-cover' });
+    cover.append(
+      infoButton(cover, { cls: 'corner' }),
       el('div', { class: 'comic-logo' }, [el('b', { lang: 'hi', text: series.hi }), el('span', { text: series.en })]),
       el('h1', { lang: 'hi', text: comic.title.hi }),
       el('p', { class: 'comic-title-en', text: comic.title.en }),
       comic.blurb ? el('p', { class: 'comic-blurb', lang: 'hi', text: comic.blurb }) : null,
       el('div', { class: 'comic-cover-cast' }, [series.hero, series.sidekick].map((id) => el('span', { class: 'comic-cover-char', html: castSvg(id, { face: 'grin', arms: id === series.hero ? 'wave' : 'down' }) }))),
-      el('p', { class: 'comic-howto', text: 'बुलबुले पर टैप करो तो सुनाई देगा · रेखांकित शब्दों का अर्थ देखो · Tap a bubble to hear it; tap an underlined word for its meaning.' }),
-    ]);
+      forGrownups(el('p', { class: 'comic-howto', text: 'बुलबुले पर टैप करो तो सुनाई देगा · रेखांकित शब्दों का अर्थ देखो · Tap a bubble to hear it; tap an underlined word for its meaning.' })),
+    );
     const panels = comic.panels.map(panelNode);
     const pages = el('div', { class: 'comic-pages' });
     const rest = el('div', { class: 'comic-pages' });

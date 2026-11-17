@@ -1,6 +1,6 @@
 // Screens outside a lesson: splash, onboarding, the world hub, a world's path map,
 // results, the sticker collection and the story library.
-import { el, sleep, bounce, animate, sparkleAt, ICONS } from './ui.js';
+import { el, sleep, bounce, animate, sparkleAt, ICONS, infoButton, forGrownups } from './ui.js';
 import { createMascot, mascotSvg, MASCOTS, MASCOT_IDS } from './mascot.js';
 import { sceneSvg } from './art-scenes.js';
 import { PLACEMENT_LEVELS, placementQuestions, placementResult } from './placement.js';
@@ -41,6 +41,12 @@ const said = (api, t, lead = 'hi', mainTag = 'span') => {
 };
 const one = (api, t, lead = 'hi') => sayText(langMode(api), t, lead).main;
 const UNIT = { hi: 'भाग', en: 'Unit' };
+
+// put children into an element made earlier (one an ⓘ button needs to know about)
+const fill = (node, kids) => {
+  node.append(...kids.filter(Boolean));
+  return node;
+};
 
 const bigName = (w, text, cls) => (english(w) ? el('span', { class: `${cls} latin`, text: text.en }) : el('span', { class: cls, lang: 'hi', text: text.hi }));
 
@@ -301,10 +307,12 @@ async function checkHindiVoice(api, slot) {
   if (hidden || !(await voicesReady()) || hasVoice('hi') || !slot.isConnected) return;
   const help = VOICE_SETUP[deviceKind(navigator.userAgent, navigator.maxTouchPoints || 0)];
   const status = el('p', { class: 'voice-tip-status', role: 'status' });
-  const card = el('section', { class: 'voice-tip' }, [
-    el('div', { class: 'voice-tip-head' }, [el('b', { lang: 'hi', text: 'यह डिवाइस अभी हिंदी नहीं बोल पाता' }), el('span', { text: `This ${help.device} has no Hindi voice yet` })]),
-    el('p', { class: 'voice-tip-steps', text: help.steps }),
-    el('p', { class: 'voice-tip-note', text: 'Or record your own voice: Grown-ups › Record your voice. Your recordings are used instead.' }),
+  // the setup steps are for grown-ups: behind the ⓘ (roadmap 4.6)
+  const card = el('section', { class: 'voice-tip' });
+  fill(card, [
+    el('div', { class: 'voice-tip-head' }, [el('b', { lang: 'hi', text: 'यह डिवाइस अभी हिंदी नहीं बोल पाता' }), el('span', { text: `This ${help.device} has no Hindi voice yet` }), infoButton(card)]),
+    forGrownups(el('p', { class: 'voice-tip-steps', text: help.steps })),
+    forGrownups(el('p', { class: 'voice-tip-note', text: 'Or record your own voice: Grown-ups › Record your voice. Your recordings are used instead.' })),
     status,
     el('div', { class: 'voice-tip-actions' }, [
       el('button', {
@@ -1008,17 +1016,19 @@ export function rest(api) {
       api.back();
     },
   });
+  const restCard = el('div', { class: 'rest-card' });
   api.app.replaceChildren(
     el('div', { class: 'screen rest-screen enter' }, [
       backdrop(api.state.world),
-      el('div', { class: 'rest-card' }, [
+      fill(restCard, [
+        infoButton(restCard, { cls: 'corner' }),
         el('div', { class: 'rest-mascot' }, [mascot.node, el('span', { class: 'zzz', text: 'z z z' })]),
         el('h1', { lang: 'hi', text: 'आराम का समय!' }),
         el('p', { class: 'rest-en', text: `Time for a break! You played ${api.minutesToday()} minutes today.` }),
         el('p', { class: 'rest-idea', lang: 'hi', text: idea.hi }),
         el('p', { class: 'rest-en', text: idea.en }),
         el('div', { class: 'rest-actions' }, [el('button', { class: 'bubble green', 'aria-label': 'Home', html: ICONS.home, onclick: () => api.goHome() }), more]),
-        el('p', { class: 'rest-note', text: 'Grown-ups: hold +10 for ten more minutes. The limit is in the parent area.' }),
+        forGrownups(el('p', { class: 'rest-note', text: 'Grown-ups: hold +10 for ten more minutes. The limit is in the parent area.' })),
       ]),
     ]),
   );

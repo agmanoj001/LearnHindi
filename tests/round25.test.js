@@ -150,3 +150,25 @@ test('every kind has its line, recorded, and the games say which kind they wait 
   assert.match(read('sw.js'), /'js\/coach\.js'/);
   assert.match(read('js/parent.js'), /progress\.coached = \[\]/);
 });
+
+// ---- 4.6 grown-up text behind an ⓘ ----
+test('notes for grown-ups on child screens sit behind an ⓘ', () => {
+  const ui = read('js/ui.js');
+  assert.match(ui, /export function infoButton\(scope/);
+  assert.match(ui, /export const forGrownups/);
+  // hidden until the ⓘ is tapped, everywhere the scope is marked
+  assert.match(css, /\.grownup-scope:not\(\.show-grownup\) \.for-grownups \{\s*display: none !important;/);
+  const shows = read('js/shows.js');
+  assert.match(shows, /forGrownups\(el\('p', \{ class: 'mode-note'/, 'Show time: how the modes work');
+  assert.match(shows, /forGrownups\(el\('span', \{ class: 'show-teaches', text: show\.teaches\.en \}\)\)/, 'Show time: what each episode teaches');
+  assert.match(shows, /forGrownups\(el\('p', \{ class: 'radio-note' \}\)\)/, 'Story radio: the dark screen');
+  assert.match(shows, /infoButton\(screen/);
+  const comic = read('js/games/comic.js');
+  assert.match(comic, /forGrownups\(el\('p', \{ class: 'comic-howto'/, 'comic covers');
+  assert.match(comic, /infoButton\(cover/);
+  const screens = read('js/screens.js');
+  assert.match(screens, /forGrownups\(el\('p', \{ class: 'rest-note'/, 'the break screen');
+  assert.match(screens, /forGrownups\(el\('p', \{ class: 'voice-tip-steps'/, 'the voice setup steps');
+  // no long English sentence for grown-ups is left showing on Show time's cards
+  assert.doesNotMatch(shows, /el\('span', \{ text: 'Story radio: stories and rhymes/);
+});

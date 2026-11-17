@@ -2,7 +2,7 @@
 // Episodes are scripts in content.json "shows" (see README). Nothing is a video file: the player
 // builds every scene from the app's own drawings, so an episode weighs a few kilobytes and works
 // offline. Every line can be spoken by a family recording (Grown-ups › Record your voice › Shows).
-import { el, sleep, bounce, wobble, ICONS } from './ui.js';
+import { el, sleep, bounce, wobble, ICONS, infoButton, forGrownups } from './ui.js';
 import { createMascot, mascotSvg } from './mascot.js';
 import { sceneSvg } from './art-scenes.js';
 import { picture, pictureForWord } from './art.js';
@@ -220,7 +220,7 @@ export function showsHome(api) {
         el('span', { class: 'chips' }, [el('span', { class: 'chip grade', text: levelName(api, show.level).en }), el('span', { class: `chip subject ${show.lang === 'en' ? 'math' : 'hindi'}`, text: show.lang === 'en' ? 'English' : 'हिन्दी' })]),
         show.lang === 'en' ? el('b', { class: 'show-title latin', text: show.title.en }) : el('b', { class: 'show-title', lang: 'hi', text: show.title.hi }),
         show.lang === 'en' ? null : el('span', { class: 'show-sub', text: show.title.en }),
-        el('span', { class: 'show-teaches', text: show.teaches.en }),
+        forGrownups(el('span', { class: 'show-teaches', text: show.teaches.en })),
         seen ? el('span', { class: 'show-seen' }, [el('span', { html: ICONS.check }), el('span', { text: seen.views > 1 ? `Watched ×${seen.views}` : 'Watched' })]) : null,
       ]),
     ]);
@@ -235,25 +235,27 @@ export function showsHome(api) {
     el('span', { class: 'radio-card-icon', html: RADIO }),
     el('span', { class: 'show-card-text' }, [
       el('b', { lang: 'hi', text: 'कहानी रेडियो' }),
-      el('span', { text: 'Story radio: stories and rhymes to listen to, with the screen dark. Good for car rides.' }),
+      el('span', { text: 'Story radio' }),
+      forGrownups(el('span', { class: 'show-teaches', text: 'Stories and rhymes to listen to, with the screen dark. Good for car rides.' })),
     ]),
   ]);
-  api.app.replaceChildren(
-    el('div', { class: 'screen shows-home enter' }, [
-      el('div', { class: 'backdrop', html: sceneSvg('hub') }),
-      el('header', { class: 'game-head' }, [
-        el('button', { class: 'round-btn', 'aria-label': 'Back', html: ICONS.back, onclick: () => api.back() }),
-        el('div', { class: 'head-title' }, [el('span', { class: 'world-name-hi', lang: 'hi', text: 'कार्टून' }), el('span', { class: 'world-name-en', text: 'Show time' })]),
-        el('span', { class: 'round-spacer' }),
-      ]),
-      el('div', { class: 'shows-scroll' }, [
-        el('div', { class: 'mode-row', role: 'group', 'aria-label': 'How to watch' }, [modeBtn('watch', 'देखो', 'Just watch'), modeBtn('play', 'साथ खेलो', 'Play along')]),
-        el('p', { class: 'mode-note', text: mode === 'watch' ? 'Questions wait a few seconds, then the answer is shown. Good for trips.' : 'Questions wait until your child taps an answer.' }),
-        el('div', { class: 'show-cards' }, list.map(card)),
-        radioCard,
-      ]),
+  // what each episode teaches and how the modes work are for grown-ups: behind the ⓘ (roadmap 4.6)
+  const screen = el('div', { class: 'screen shows-home enter' });
+  screen.append(
+    el('div', { class: 'backdrop', html: sceneSvg('hub') }),
+    el('header', { class: 'game-head' }, [
+      el('button', { class: 'round-btn', 'aria-label': 'Back', html: ICONS.back, onclick: () => api.back() }),
+      el('div', { class: 'head-title' }, [el('span', { class: 'world-name-hi', lang: 'hi', text: 'कार्टून' }), el('span', { class: 'world-name-en', text: 'Show time' })]),
+      infoButton(screen, { cls: 'round-btn' }),
+    ]),
+    el('div', { class: 'shows-scroll' }, [
+      el('div', { class: 'mode-row', role: 'group', 'aria-label': 'How to watch' }, [modeBtn('watch', 'देखो', 'Just watch'), modeBtn('play', 'साथ खेलो', 'Play along')]),
+      forGrownups(el('p', { class: 'mode-note', text: mode === 'watch' ? 'Questions wait a few seconds, then the answer is shown. Good for trips.' : 'Questions wait until your child taps an answer.' })),
+      el('div', { class: 'show-cards' }, list.map(card)),
+      radioCard,
     ]),
   );
+  api.app.replaceChildren(screen);
 }
 
 // ---------- the player ----------
@@ -720,8 +722,9 @@ export async function radio(api) {
       darkBtn,
     ]),
     el('div', { class: 'radio-body' }, [el('div', { class: 'radio-host' }, [el('span', { class: 'waves' }), host.node]), cover, title, status, el('div', { class: 'radio-controls' }, [prevBtn, playBtn, nextBtn])]),
-    el('p', { class: 'radio-note' }),
   ]);
+  // how the dark screen works is for grown-ups (roadmap 4.6)
+  screen.append(el('div', { class: 'radio-info' }, [infoButton(screen), forGrownups(el('p', { class: 'radio-note' }))]));
   api.app.replaceChildren(screen);
 
   // keep the screen awake (and dark) so speech doesn't stop when the phone would sleep

@@ -9918,3 +9918,68 @@ body:has(.game-grammar) .caption-bar,
   outline: 4px dashed rgba(255, 255, 255, 0.9);
   outline-offset: 6px;
 }
+
+/* ---- text for grown-ups behind an ⓘ (roadmap 4.6): hidden on a child's screen until the ⓘ is tapped ---- */
+.grownup-scope:not(.show-grownup) .for-grownups {
+  display: none !important;
+}
+.show-grownup .for-grownups {
+  animation: fade-in 0.25s ease-out;
+}
+.info-btn {
+  flex: none;
+  color: var(--brand-ink);
+  cursor: pointer;
+}
+.info-btn:not(.round-btn) {
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  display: inline-grid;
+  place-items: center;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: var(--shadow-sm);
+}
+.info-btn svg {
+  width: 24px;
+  height: 24px;
+}
+.info-btn[aria-expanded='true'] {
+  color: #fff;
+  background: var(--brand);
+}
+.info-btn.corner {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+}
+.comic-cover,
+.rest-card {
+  position: relative;
+}
+.voice-tip-head .info-btn {
+  width: 36px;
+  height: 36px;
+  align-self: flex-end;
+  margin-top: -30px;
+}
+.radio-screen.dim .radio-info {
+  opacity: 0.12;
+}
+.radio-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 16px 12px;
+}
+.radio-info .radio-note {
+  margin: 0;
+}
+.rest-card .info-btn.corner {
+  left: 12px;
+  right: auto;
+}
