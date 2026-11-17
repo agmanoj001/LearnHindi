@@ -238,8 +238,9 @@ Files with names the app doesn't recognise are listed so you can rename them. Wh
 
 ## Editing `content.json` (no coding needed)
 
-Worlds, units, lessons, words, letters, stories, quizzes and phrases all live in [`content.json`](content.json). Edit it in any text editor or on GitHub with the pencil icon, then check it:
+Worlds, units, lessons, words, letters, stories, quizzes and phrases all live in [`content.json`](content.json). Edit it in any text editor or on GitHub with the pencil icon, then split it and check it:
 
+- run `node tools/split-content.mjs`: the app doesn't load `content.json` itself but `content/core.json` and a pack per grade made from it, so a first open on a slow connection only fetches what that child's grade needs (`npm test` fails until the split is redone), then
 - run `npm test` (Node 20+, nothing to install), **or**
 - open the app: if something is wrong it lists the problems instead of starting.
 
@@ -520,7 +521,8 @@ See [docs/LEARNING-REVIEW.md](docs/LEARNING-REVIEW.md) for a full review against
 ```
 index.html            page shell
 styles.css            all styles
-content.json          everything the child sees and hears
+content.json          everything the child sees and hears (the source; the tests and tools read it)
+content/              what the app loads: core.json and a pack per grade (made by tools/split-content.mjs)
 manifest.webmanifest  PWA install info
 sw.js                 offline cache (add new js files to SHELL)
 icons/                app icons

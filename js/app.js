@@ -19,6 +19,7 @@ import { findLesson, lessonRecord, lessonLetters, applyLessonResult, adaptTier, 
 import { milestones, totalStars } from './guide.js';
 import { freeplay } from './freeplay.js';
 import { validateContent } from './validate.js';
+import { mergeContent, firstPacks } from './packs.js';
 import { pictureExists, picture, pictureForWord, specialVehicle } from './art.js';
 import { showCoach, needsCoach, coachKey, COACH_KINDS, COACH_MAX } from './coach.js';
 import { applyMotion, liteMotion, slowDevice, watchMotion, isLite } from './motion.js';
@@ -44,20 +45,60 @@ const rng = makeRng();
 
 // ---------- boot ----------
 
-async function boot() {
-  let content;
-  try {
-    const res = await fetch('content.json', { cache: 'no-cache' });
-    content = await res.json();
-  } catch (e) {
-    return showError(['Could not load content.json: ' + e.message]);
-  }
+// The content comes as a core and a pack per grade (js/packs.js, roadmap 2.1). When every pack is already
+// saved on this device they all load before the first screen. On a first open only the child's own grade
+// does, the home screen comes up, and the rest follows; any other screen waits for it (render() below).
+const getJSON = async (file) => {
+  const res = await fetch(`content/${file}`, { cache: 'no-cache' });
+  if (!res.ok) throw new Error(`${file}: ${res.status}`);
+  return res.json();
+};
+async function loadContent(level) {
+  const core = await getJSON('core.json');
+  const all = core.packs || [];
+  const saved = typeof caches !== 'undefined' && navigator.serviceWorker?.controller ? (await Promise.all(all.map((p) => caches.match(`content/${p.file}`)))).every(Boolean) : false;
+  const first = saved ? all : firstPacks(core, level);
+  const loaded = await Promise.all(first.map((p) => getJSON(p.file)));
+  const rest = all.filter((p) => !first.includes(p));
+  return { core, loaded, rest };
+}
+const checkContent = (content) => {
   const { errors, warnings } = validateContent(content, { pictureExists });
-  if (errors.length) return showError(errors);
+  state.warnings = warnings;
+  return errors;
+};
+
+async function boot() {
+  let pieces;
+  // the grade of the child last playing, to load their pack first
+  const profiles = normalizeProfiles(load(KEYS.profiles), MASCOT_IDS);
+  const level = load(profileKey(KEYS.settings, profiles.current))?.level || 'kg';
+  try {
+    pieces = await loadContent(level);
+  } catch (e) {
+    return showError(['Could not load the content: ' + e.message]);
+  }
+  const content = mergeContent(pieces.core, pieces.loaded);
   for (const [id, w] of Object.entries(content.words)) w.id = id;
   state.content = content;
-  state.warnings = warnings;
-  state.profiles = normalizeProfiles(load(KEYS.profiles), MASCOT_IDS);
+  if (!pieces.rest.length) {
+    const errors = checkContent(content);
+    if (errors.length) return showError(errors);
+    state.contentComplete = true;
+    state.contentReady = Promise.resolve(true);
+  } else {
+    state.contentReady = Promise.all(pieces.rest.map((p) => getJSON(p.file)))
+      .then((more) => {
+        // everything else uses the same content object, so it is filled in where it is
+        Object.assign(state.content, mergeContent(pieces.core, [...pieces.loaded, ...more]));
+        const errors = checkContent(state.content);
+        if (errors.length) showError(errors);
+        return !errors.length;
+      })
+      .catch(() => false);
+  }
+  state.contentReady.then((ok) => (state.contentComplete = ok));
+  state.profiles = profiles;
   loadProfile();
   state.special = load(KEYS.special);
   await initAudio();
@@ -241,7 +282,20 @@ function goHome() {
   go(r.name, r.params, { replace: true });
 }
 
+// screens that can come up before every grade's content is here (a first open)
+const EARLY_ROUTES = ['splash', 'onboard', 'placement', 'hub'];
 function render(route) {
+  if (!state.contentComplete && !EARLY_ROUTES.includes(route.name)) {
+    // wait for the rest of the content (a moment, on a first open), then open the screen asked for
+    const t = ++state.token;
+    app.querySelector('.screen')?.classList.add('waiting');
+    state.contentReady.then((ok) => {
+      if (t !== state.token) return;
+      if (ok) state.contentComplete = true;
+      render(route);
+    });
+    return;
+  }
   state.token++;
   stop();
   state.depth = route.depth || 0;

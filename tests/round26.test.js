@@ -713,3 +713,46 @@ test('the browser check plays one lesson from each grade offline, and draws scre
   assert.match(ci, /--root \.\.\/before --screens-only/);
   assert.match(ci, /upload-artifact/);
 });
+
+// ---- 2.1 content split by grade ----
+import { splitContent, mergeContent, firstPacks, PACKED } from '../js/packs.js';
+import { readdirSync } from 'node:fs';
+
+test('content/ is content.json split into a core and a pack per grade, and nothing is lost', () => {
+  const files = splitContent(content);
+  // what is in the folder is exactly the split of content.json (run tools/split-content.mjs after editing it)
+  const onDisk = readdirSync(new URL('../content/', import.meta.url)).filter((f) => f.endsWith('.json')).sort();
+  assert.deepEqual(onDisk, Object.keys(files).sort(), 'content/ is out of step with content.json: run node tools/split-content.mjs');
+  for (const f of onDisk) assert.equal(read(`content/${f}`), files[f], `content/${f} is out of step: run node tools/split-content.mjs`);
+  const core = JSON.parse(files['core.json']);
+  for (const k of PACKED) assert.equal(core[k], undefined, `${k} is in the packs, not the core`);
+  // putting the packs back together gives content.json, in the same order
+  const all = mergeContent(core, core.packs.map((p) => JSON.parse(files[p.file])));
+  for (const k of Object.keys(content)) assert.deepEqual(all[k], content[k], k);
+  // a pack per grade that has any, small enough for a slow first open
+  assert.ok(core.packs.length >= 8);
+  assert.ok(files['core.json'].length < 450 * 1024, `core.json is ${files['core.json'].length} bytes`);
+  // the packs missing just leave those parts out
+  const toddler = mergeContent(core, firstPacks(core, 'toddler').map((p) => JSON.parse(files[p.file])));
+  assert.ok(toddler.stories.length && toddler.stories.every((s) => s.level === 'toddler'));
+  assert.deepEqual(toddler.comics, []);
+  assert.deepEqual(firstPacks(core, 'grade7').map((p) => p.level).sort(), ['grade7', 'kg']);
+  // every story is still known, for favourites
+  assert.equal(core.storyIds.length, content.stories.length);
+});
+
+test('the app loads the core and its grade first, the service worker saves every pack, and favourites survive', () => {
+  const app = read('js/app.js');
+  assert.match(app, /getJSON\('core\.json'\)/);
+  assert.match(app, /EARLY_ROUTES = \['splash', 'onboard', 'placement', 'hub'\]/);
+  assert.doesNotMatch(app, /fetch\('content\.json'/);
+  const sw = read('sw.js');
+  assert.match(sw, /'content\/core\.json'/);
+  assert.match(sw, /core\.packs/);
+  assert.doesNotMatch(sw, /^  'content\.json',$/m);
+  const files = splitContent(content);
+  const core = JSON.parse(files['core.json']);
+  const partial = mergeContent(core, firstPacks(core, 'toddler').map((p) => JSON.parse(files[p.file])));
+  const grade3Story = content.stories.find((s) => s.level === 'grade3').id;
+  assert.deepEqual(normalizeProgress({ favs: [grade3Story, 'no-such-story'] }, partial).favs, [grade3Story]);
+});

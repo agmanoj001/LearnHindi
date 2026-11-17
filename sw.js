@@ -1,12 +1,13 @@
 // Offline support: cache the app shell, then serve from cache and refresh in the background.
-const VERSION = 'kkm-v31';
+const VERSION = 'kkm-v32';
 // the story voice pack is saved by the page (Grown-ups › Story voices) into its own cache, kept across versions
 const VOICES = 'kkm-voices';
 const SHELL = [
   './',
   'index.html',
   'styles.css',
-  'content.json',
+  // the content: a core and a pack per grade; the packs are added from the core's list below
+  'content/core.json',
   'manifest.webmanifest',
   'icons/icon.svg',
   'icons/icon-192.png',
@@ -15,6 +16,7 @@ const SHELL = [
   'fonts/baloo2-latin.woff2',
   'fonts/fredoka-latin.woff2',
   'js/app.js',
+  'js/packs.js',
   'js/guide.js',
   'js/together.js',
   'js/freeplay.js',
@@ -91,7 +93,12 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches
       .open(VERSION)
-      .then((c) => c.addAll(SHELL.map((url) => new Request(url, { cache: 'reload' }))))
+      .then(async (c) => {
+        await c.addAll(SHELL.map((url) => new Request(url, { cache: 'reload' })));
+        // every grade's pack, so the whole app works offline whichever grade is played
+        const core = await (await c.match('content/core.json')).json();
+        await c.addAll((core.packs || []).map((p) => new Request(`content/${p.file}`, { cache: 'reload' })));
+      })
       .then(() => self.skipWaiting()),
   );
 });
