@@ -59,6 +59,7 @@ const DONE = {
   'गिनती: Hindi numbers as their own strand': () => content.numbers.length === 100 && exists('js/games/ginti.js') && lessons.filter((l) => l.game === 'ginti').length >= 10,
   '"Ask me" prompts for the grown-up': () => content.stories.every((s) => ['complete', 'recall', 'open', 'why', 'you'].every((t) => s.talk?.some((p) => p.type === t && p.hi && p.en))) && /export function showTalk/.test(read('js/screens.js')),
   'Shared play for a grown-up and child': () => exists('js/games/together.js') && /export function togetherQuestion/.test(read('js/together.js')) && /together-btn/.test(read('js/screens.js')) && content.stories.every((s) => s.talk?.length === 5),
+  'The counting game': () => /export const busSeats/.test(read('js/games/busdepot.js')) && /\.count-tag/.test(css),
   'Free play between lessons': () => exists('js/freeplay.js') && /freeplayDue\(/.test(read('js/screens.js')) && ['drive', 'feed', 'colour'].every((m) => read('js/freeplay.js').includes(`'${m}'`)),
 };
 
