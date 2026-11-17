@@ -2,7 +2,7 @@
 // Hindi vowels, Hindi consonants and English A-Z are separate trains; each visit continues
 // where the last one stopped.
 import { createTrain, expectedLetter, addCarriage, trainChoices, nextTrainStart } from '../logic.js';
-import { el, sleep, choose, runRounds, cheer, flyTo, animate, bounce } from './kit.js';
+import { el, sleep, choose, runRounds, cheer, flyTo, animate, bounce, stepHint } from './kit.js';
 
 export default {
   start(ctx) {
@@ -17,6 +17,7 @@ export default {
       b.addEventListener('click', async () => {
         if (started) return;
         started = true;
+        hint.done();
         ctx.sfx.toot();
         bounce(b);
         await ctx.sayItem({ ...set.letters[0], lang: set.lang });
@@ -25,6 +26,8 @@ export default {
       return b;
     });
     ctx.stage.replaceChildren(el('div', { class: 'choices menu' }, btns));
+    // any train is right: the 💡 just shows one
+    const hint = stepHint(ctx, () => btns[0], { say: 'hintAny', autoAfter: 0, coach: 'any' });
     ctx.setRepeat(() => null);
   },
 };

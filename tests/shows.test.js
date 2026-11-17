@@ -14,9 +14,10 @@ const themes = Array.isArray(THEMES) ? THEMES : Object.keys(THEMES);
 const DEVANAGARI = /[ऀ-ॿ]/;
 const DAY = 86400000;
 
-test('pilot episodes: three, one per pilot, each linked to a lesson and a recap', () => {
+test('episodes: the three pilots and their series, each linked to a lesson and a recap', () => {
   const ids = content.shows.map((s) => s.id);
-  assert.deepEqual(ids.sort(), ['chiku-aa', 'gappu-bus', 'tiko-ten']);
+  for (const pilot of ['chiku-aa', 'gappu-bus', 'tiko-ten']) assert.ok(ids.includes(pilot), pilot);
+  assert.equal(new Set(ids).size, ids.length);
   for (const s of content.shows) {
     assert.ok(s.lesson, `${s.id} links a lesson to practise`);
     assert.ok(s.recap?.words?.length || s.recap?.lines?.length, `${s.id} has a recap`);
@@ -77,7 +78,9 @@ test('this grade’s episodes come first; next skips what was already watched', 
   assert.equal(showOrder(content, 'kg')[0].id, 'gappu-bus');
   assert.ok(['chiku-aa', 'tiko-ten'].includes(showOrder(content, 'grade1')[0].id));
   const seen = { shows: { 'tiko-ten': { views: 1, last: '2026-11-01' } } };
-  assert.equal(nextShow(content, 'grade1', 'chiku-aa', seen).id, 'gappu-bus');
+  const next = nextShow(content, 'grade1', 'chiku-aa', seen);
+  assert.notEqual(next.id, 'tiko-ten');
+  assert.equal(next.level, 'grade1');
   assert.ok(nextShow(content, 'grade1', 'chiku-aa', {}));
   assert.ok(AUTOPLAY_MAX >= 2 && AUTOPLAY_MAX <= 4, 'a few in a row, then a stretch break');
   assert.ok(ASK_WAIT_MS >= 4000, 'watch mode gives time to think');

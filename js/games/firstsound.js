@@ -37,7 +37,7 @@ export default {
       const prompt = () => ctx.say('startsWith', letter);
       ctx.setRepeat(prompt);
       prompt();
-      const right = await choose(btns, (b) => b.item.id === answer.id, { onWrong: (b) => ctx.sayItem(b.item, [letter.lang]) });
+      const right = await choose(btns, (b) => b.item.id === answer.id, { ctx, record: false, onWrong: (b) => ctx.sayItem(b.item, [letter.lang]) });
       // the skill here is the letter's sound, so that is what the parent's view tracks
       ctx.record(letter, right.firstTry);
       await cheer(ctx, right);

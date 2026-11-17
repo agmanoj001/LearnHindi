@@ -6,9 +6,11 @@ export { flyTo, animate, ICONS, sparkleAt } from '../ui.js';
 import { sparkleAt } from '../ui.js';
 
 // Resolves with the correct button once it is tapped. Other taps call onWrong (gentle feedback only).
-// With `ctx`, the answer is recorded for the parent's progress view (right on the first tap or not).
+// With `ctx` the 💡 works, and the answer is recorded for the parent's progress view (right on the first
+// tap or not); a game that records its own skill passes `record: false`. `hintSay(n, 'out' | 'glow')`
+// replaces the spoken hint (a maths problem has its own: "count on from 5").
 let hintCount = 0;
-export function choose(buttons, isRight, { ctx, onRight, onWrong } = {}) {
+export function choose(buttons, isRight, { ctx, onRight, onWrong, record = true, hintSay } = {}) {
   return new Promise((resolve) => {
     let finished = false;
     let misses = 0;
@@ -24,14 +26,17 @@ export function choose(buttons, isRight, { ctx, onRight, onWrong } = {}) {
         const out = wrong[Math.floor(Math.random() * wrong.length)];
         out.classList.add('ruled-out');
         out.setAttribute('aria-disabled', 'true');
-        ctx?.say?.('hintOne');
+        if (hintSay) hintSay(hints, 'out');
+        else ctx?.say?.('hintOne');
       } else {
         right?.classList.add('hint');
-        ctx?.say?.('hintLook');
+        if (hintSay) hintSay(hints, 'glow');
+        else ctx?.say?.('hintLook');
       }
       hints++;
     };
-    ctx?.setHint?.(hint);
+    // the first time this kind of game is played, the frame may show how (js/coach.js)
+    ctx?.setHint?.(hint, { kind: 'tap', targets: buttons });
     for (const b of buttons) {
       b.addEventListener('click', () => {
         if (finished || b.classList.contains('ruled-out')) return;
@@ -40,7 +45,7 @@ export function choose(buttons, isRight, { ctx, onRight, onWrong } = {}) {
           ctx?.setHint?.(null);
           b.firstTry = misses === 0 && hints === 0;
           b.classList.remove('hint');
-          ctx?.record(b.item ?? b.letter ?? b.num ?? b.word, b.firstTry);
+          if (record) ctx?.record(b.item ?? b.letter ?? b.num ?? b.word, b.firstTry);
           onRight?.(b);
           resolve(b);
         } else {
@@ -49,7 +54,8 @@ export function choose(buttons, isRight, { ctx, onRight, onWrong } = {}) {
           // a brief red edge, so the "no" is seen as well as felt
           b.classList.add('wrong');
           setTimeout(() => b.classList.remove('wrong'), 480);
-          ctx?.sfx.haptic?.([18, 60, 18]);
+          // the frame's miss(): the soft "not that one" sound and buzz, and the guide's encouragement
+          ctx?.miss?.();
           onWrong?.(b);
           // two misses: help without being asked (after the wrong answer has been said)
           if (misses >= 2) setTimeout(hint, 1300);
@@ -57,6 +63,73 @@ export function choose(buttons, isRight, { ctx, onRight, onWrong } = {}) {
       });
     }
   });
+}
+
+// The 💡 for games that are more than one tap on one answer (digging, building a word, putting words or
+// pictures in order, tapping every syllable, tracing, picking a vehicle): `next()` returns what to do next
+// (a button, or for tracing an array of points), and `show(target)` makes it glow (by default the
+// target gets the .hint glow). Two wrong taps in a row bring the hint without asking, as in choose().
+// `coach` names the kind of "how to play" a first-timer is shown (js/coach.js): 'order', 'each', 'any' or
+// 'drag'; `coachTargets()` gives what the hand points at (by default the next thing to do).
+export function stepHint(ctx, next, { show, say = 'hintLook', autoAfter = 2, coach = 'order', coachTargets } = {}) {
+  let misses = 0;
+  let used = 0;
+  let glowing = null;
+  const clear = () => {
+    glowing?.classList?.remove('hint');
+    glowing = null;
+  };
+  const hint = () => {
+    const target = next();
+    if (!target) return;
+    hintCount++;
+    used++;
+    clear();
+    if (show) show(target);
+    else {
+      glowing = target;
+      target.classList.add('hint');
+    }
+    if (say) ctx?.say?.(say);
+  };
+  const targets = coachTargets || (() => [next()].filter((t) => t && !Array.isArray(t)));
+  ctx?.setHint?.(hint, coach ? { kind: coach, targets } : null);
+  return {
+    hint,
+    get used() {
+      return used;
+    },
+    // a wrong tap: after `autoAfter` in a row, help without being asked
+    miss() {
+      if (autoAfter && ++misses >= autoAfter) setTimeout(() => ctx?.alive?.() !== false && hint(), 1300);
+    },
+    // a right step: the glow moves on, and the misses start again
+    step() {
+      misses = 0;
+      clear();
+    },
+    done() {
+      clear();
+      ctx?.setHint?.(null);
+    },
+  };
+}
+
+// A syllable, letter or word pops as it is said (roadmap 5.6): say each piece in turn while its tile
+// grows and lights up. `alive()` stops it early (the child tapped, or left).
+export function popSay(node) {
+  node.classList.remove('say-pop');
+  void node.offsetWidth;
+  node.classList.add('say-pop');
+  setTimeout(() => node.classList.remove('say-pop'), 520);
+}
+export async function sayPieces(ctx, nodes, texts, lang, alive = () => true) {
+  for (let i = 0; i < nodes.length; i++) {
+    if (!ctx.alive() || !alive()) return false;
+    popSay(nodes[i]);
+    await ctx.sayText(texts[i], lang);
+  }
+  return true;
 }
 
 export function waitTap(node) {
@@ -79,8 +152,7 @@ export async function runRounds(ctx, count, playRound, { offset = 0, total = cou
 
 // Positive feedback after a correct answer.
 export async function cheer(ctx, node) {
-  ctx.sfx.chime();
-  ctx.sfx.haptic?.(14);
+  ctx.sfx.feel ? ctx.sfx.feel('right') : ctx.sfx.chime();
   if (node) {
     bounce(node);
     sparkleAt(node);

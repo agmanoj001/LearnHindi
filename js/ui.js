@@ -17,6 +17,26 @@ export function el(tag, props = {}, children = []) {
 
 export const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
+// Text for grown-ups on a child's screen (docs/ROADMAP.md 4.6) is marked with forGrownups() and stays
+// hidden inside `scope` until its ⓘ is tapped; the button shows or hides all of it at once.
+const INFO_SVG =
+  '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M12 10.5v6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><circle cx="12" cy="7.2" r="1.5" fill="currentColor"/></svg>';
+export function infoButton(scope, { cls = '' } = {}) {
+  scope.classList.add('grownup-scope');
+  const b = el('button', { class: `info-btn ${cls}`.trim(), 'aria-label': 'For grown-ups', 'aria-expanded': 'false', html: INFO_SVG });
+  b.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const on = !scope.classList.contains('show-grownup');
+    scope.classList.toggle('show-grownup', on);
+    b.setAttribute('aria-expanded', String(on));
+  });
+  return b;
+}
+export const forGrownups = (node) => {
+  node?.classList.add('for-grownups');
+  return node;
+};
+
 export function animate(node, keyframes, options) {
   if (!node.animate) return Promise.resolve();
   const a = node.animate(keyframes, { duration: 400, easing: 'ease-in-out', ...options });
@@ -32,6 +52,8 @@ export const bounce = (node) =>
 // A little burst of sparkles over a node (a right answer, a lit star). Nothing with reduced motion.
 export function sparkleAt(node, { count = 10, colors = ['#FFC93C', '#2EC27E', '#6C63FF', '#FF5A5F', '#3D7BFF', '#FF8FB1'] } = {}) {
   if (!node?.getBoundingClientRect || typeof document === 'undefined') return;
+  // lighter animations (js/motion.js): a few sparkles instead of a burst
+  if (document.documentElement.classList.contains('lite')) count = Math.min(count, 4);
   if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
   const b = node.getBoundingClientRect();
   if (!b.width) return;

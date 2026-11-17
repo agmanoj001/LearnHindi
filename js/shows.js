@@ -2,7 +2,7 @@
 // Episodes are scripts in content.json "shows" (see README). Nothing is a video file: the player
 // builds every scene from the app's own drawings, so an episode weighs a few kilobytes and works
 // offline. Every line can be spoken by a family recording (Grown-ups › Record your voice › Shows).
-import { el, sleep, bounce, wobble, ICONS } from './ui.js';
+import { el, sleep, bounce, wobble, ICONS, infoButton, forGrownups } from './ui.js';
 import { createMascot, mascotSvg } from './mascot.js';
 import { sceneSvg } from './art-scenes.js';
 import { picture, pictureForWord } from './art.js';
@@ -26,11 +26,37 @@ export function showOrder(content, level) {
   return (content.shows || []).map((s, i) => ({ s, i })).sort((a, b) => rank(a.s) - rank(b.s) || a.i - b.i).map((x) => x.s);
 }
 
+// A guide's series (docs/ROADMAP.md 7.15): its episodes in order, and the one after this one.
+export const seriesEpisodes = (content, seriesId) => (content.shows || []).filter((s) => s.series === seriesId).sort((a, b) => a.ep - b.ep);
+export const nextInSeries = (content, show) => (show?.series ? seriesEpisodes(content, show.series).find((s) => s.ep === show.ep + 1) || null : null);
+// The Show time shelves: each series (this grade's first), with the episode to watch next (the first not watched).
+export function seriesShelves(content, level, progress) {
+  const shelves = [];
+  for (const s of showOrder(content, level)) {
+    const key = s.series || `one:${s.id}`;
+    let shelf = shelves.find((x) => x.key === key);
+    if (!shelf) {
+      const info = (content.showSeries || []).find((x) => x.id === s.series) || null;
+      shelf = { key, info, shows: [] };
+      shelves.push(shelf);
+    }
+    shelf.shows.push(s);
+  }
+  for (const shelf of shelves) {
+    shelf.shows.sort((a, b) => (a.ep || 0) - (b.ep || 0));
+    shelf.upNext = shelf.shows.find((s) => !progress?.shows?.[s.id]) || null;
+    shelf.watched = shelf.shows.filter((s) => progress?.shows?.[s.id]).length;
+  }
+  return shelves;
+}
+
 export function nextShow(content, level, id, progress) {
   const list = showOrder(content, level);
   const at = list.findIndex((s) => s.id === id);
   const rest = [...list.slice(at + 1), ...list.slice(0, Math.max(0, at))];
-  return rest.find((s) => !progress?.shows?.[s.id]) || rest[0] || null;
+  const fresh = (s) => !progress?.shows?.[s.id];
+  // one not watched yet, from this grade if there is one
+  return rest.find((s) => fresh(s) && s.level === level) || rest.find(fresh) || rest[0] || null;
 }
 
 // Split Hindi into letter clusters (क्ष, ना …) so a syllable can be lit without breaking the script.
@@ -197,7 +223,6 @@ const splitWords = (text) => text.split(/(\s+)/).map((w) => (/^\s+$/.test(w) ? d
 export function showsHome(api) {
   const { content, settings, progress } = api.state;
   api.state.showRun = 0;
-  const list = showOrder(content, settings.level);
   const mode = settings.showMode === 'play' ? 'play' : 'watch';
   const modeBtn = (value, hi, en) =>
     el('button', {
@@ -210,24 +235,25 @@ export function showsHome(api) {
         showsHome(api);
       },
     }, [el('b', { lang: 'hi', text: hi }), el('span', { text: en })]);
-  const card = (show) => {
+  const card = (show, upNext = false) => {
     const w = worldOf(api, show);
     const seen = progress.shows?.[show.id];
     const first = show.scenes[0];
-    const b = el('button', { class: `show-card theme-${first.bg}`, style: { '--place': w?.color || '#6C63FF' }, 'aria-label': show.title.en }, [
+    const b = el('button', { class: `show-card theme-${first.bg}${upNext ? ' up-next' : ''}`, style: { '--place': w?.color || '#6C63FF' }, 'data-grow': `show:${show.id}`, 'aria-label': `${show.ep ? `Episode ${show.ep}: ` : ''}${show.title.en}` }, [
+      show.ep ? el('span', { class: 'show-ep' }, [el('b', { lang: 'hi', text: `भाग ${show.ep}` }), upNext ? el('span', { text: 'अब यह!' }) : null]) : null,
       el('span', { class: 'show-thumb', html: sceneSvg(first.bg, { crop: 'bottom' }) }, [el('span', { class: 'show-thumb-guide', html: mascotSvg(w?.mascot || 'gappu') }), el('span', { class: 'show-play', html: ICONS.play })]),
       el('span', { class: 'show-card-text' }, [
         el('span', { class: 'chips' }, [el('span', { class: 'chip grade', text: levelName(api, show.level).en }), el('span', { class: `chip subject ${show.lang === 'en' ? 'math' : 'hindi'}`, text: show.lang === 'en' ? 'English' : 'हिन्दी' })]),
         show.lang === 'en' ? el('b', { class: 'show-title latin', text: show.title.en }) : el('b', { class: 'show-title', lang: 'hi', text: show.title.hi }),
         show.lang === 'en' ? null : el('span', { class: 'show-sub', text: show.title.en }),
-        el('span', { class: 'show-teaches', text: show.teaches.en }),
+        forGrownups(el('span', { class: 'show-teaches', text: show.teaches.en })),
         seen ? el('span', { class: 'show-seen' }, [el('span', { html: ICONS.check }), el('span', { text: seen.views > 1 ? `Watched ×${seen.views}` : 'Watched' })]) : null,
       ]),
     ]);
     b.addEventListener('click', () => {
       api.sfx.pop();
       bounce(b);
-      api.go('show', { showId: show.id });
+      api.go('show', { showId: show.id }, { from: b });
     });
     return b;
   };
@@ -235,25 +261,46 @@ export function showsHome(api) {
     el('span', { class: 'radio-card-icon', html: RADIO }),
     el('span', { class: 'show-card-text' }, [
       el('b', { lang: 'hi', text: 'कहानी रेडियो' }),
-      el('span', { text: 'Story radio: stories and rhymes to listen to, with the screen dark. Good for car rides.' }),
+      el('span', { text: 'Story radio' }),
+      forGrownups(el('span', { class: 'show-teaches', text: 'Stories and rhymes to listen to, with the screen dark. Good for car rides.' })),
     ]),
   ]);
-  api.app.replaceChildren(
-    el('div', { class: 'screen shows-home enter' }, [
-      el('div', { class: 'backdrop', html: sceneSvg('hub') }),
-      el('header', { class: 'game-head' }, [
-        el('button', { class: 'round-btn', 'aria-label': 'Back', html: ICONS.back, onclick: () => api.back() }),
-        el('div', { class: 'head-title' }, [el('span', { class: 'world-name-hi', lang: 'hi', text: 'कार्टून' }), el('span', { class: 'world-name-en', text: 'Show time' })]),
-        el('span', { class: 'round-spacer' }),
-      ]),
-      el('div', { class: 'shows-scroll' }, [
-        el('div', { class: 'mode-row', role: 'group', 'aria-label': 'How to watch' }, [modeBtn('watch', 'देखो', 'Just watch'), modeBtn('play', 'साथ खेलो', 'Play along')]),
-        el('p', { class: 'mode-note', text: mode === 'watch' ? 'Questions wait a few seconds, then the answer is shown. Good for trips.' : 'Questions wait until your child taps an answer.' }),
-        el('div', { class: 'show-cards' }, list.map(card)),
-        radioCard,
-      ]),
+  // what each episode teaches and how the modes work are for grown-ups: behind the ⓘ (roadmap 4.6)
+  const screen = el('div', { class: 'screen shows-home enter' });
+  screen.append(
+    el('div', { class: 'backdrop', html: sceneSvg('hub') }),
+    el('header', { class: 'game-head' }, [
+      el('button', { class: 'round-btn', 'aria-label': 'Back', html: ICONS.back, onclick: () => api.back() }),
+      el('div', { class: 'head-title' }, [el('span', { class: 'world-name-hi', lang: 'hi', text: 'कार्टून' }), el('span', { class: 'world-name-en', text: 'Show time' })]),
+      infoButton(screen, { cls: 'round-btn' }),
+    ]),
+    el('div', { class: 'shows-scroll' }, [
+      el('div', { class: 'mode-row', role: 'group', 'aria-label': 'How to watch' }, [modeBtn('watch', 'देखो', 'Just watch'), modeBtn('play', 'साथ खेलो', 'Play along')]),
+      forGrownups(el('p', { class: 'mode-note', text: mode === 'watch' ? 'Questions wait a few seconds, then the answer is shown. Good for trips.' : 'Questions wait until your child taps an answer.' })),
+      ...seriesShelves(content, settings.level, progress).map((shelf) => {
+        const g = shelf.info?.guide;
+        const row = el('div', { class: `show-cards${shelf.info ? ' series-row' : ''}` }, shelf.shows.map((s) => card(s, s === shelf.upNext)));
+        // open the shelf at the episode to watch next
+        if (shelf.upNext && shelf.info)
+          requestAnimationFrame(() => {
+            const c = row.querySelector('.up-next');
+            if (c) row.scrollLeft = c.offsetLeft - row.offsetLeft - (row.clientWidth - c.offsetWidth) / 2;
+          });
+        return el('section', { class: 'show-series', 'aria-label': shelf.info?.title.en || shelf.shows[0].title.en }, [
+          shelf.info
+            ? el('header', { class: 'series-head' }, [
+                el('span', { class: 'series-guide', 'aria-hidden': 'true', html: mascotSvg(g) }),
+                el('span', { class: 'series-name' }, [el('b', { lang: 'hi', text: shelf.info.title.hi }), el('small', { text: shelf.info.title.en })]),
+                el('span', { class: 'series-count', text: `${shelf.watched}/${shelf.shows.length}` }),
+              ])
+            : null,
+          row,
+        ]);
+      }),
+      radioCard,
     ]),
   );
+  api.app.replaceChildren(screen);
 }
 
 // ---------- the player ----------
@@ -513,6 +560,10 @@ export async function showPlayer(api, show) {
       propAt('tenframe', el('div', { class: 'show-math', html: mathModel({ kind: 'tenframe', frames: b.tenframe }) }), b.at ?? 50);
       api.sfx.pop();
       await sleep(600);
+    } else if (k === 'model') {
+      propAt('model', el('div', { class: `show-math model-${b.model.kind}`, html: mathModel(b.model) }), b.at ?? 50);
+      api.sfx.pop();
+      await sleep(700);
     } else if (k === 'number') {
       propAt('number', el('div', { class: 'show-number', text: String(b.number) }), b.at ?? 50);
       api.sfx.pop();
@@ -615,11 +666,26 @@ export async function showPlayer(api, show) {
     await speak(b, b.echo, showBubble(who, b.echo, { big: true }));
   };
 
+  // a series episode: the guide answers the last episode's question first, and ends on the next one's
+  const guide = (content.showSeries || []).find((x) => x.id === show.series)?.guide || world?.mascot || null;
+  const guideSays = async (text, react, cls) => {
+    await untilResumed();
+    if (!alive() || !guide) return;
+    const a = actorEl(guide);
+    if (a.x < 0 || a.x > 100) await walkTo(a, 50);
+    a.m.react(react);
+    const shown = showBubble(guide, text);
+    bubble.classList.add(cls);
+    await speak(text, text, shown);
+    bubble.classList.remove(cls);
+  };
+
   // ---- play it ----
   await sleep(300);
   for (let s = 0; s < show.scenes.length; s++) {
     if (!alive()) return;
     await setScene(s);
+    if (s === 0 && show.answer) await guideSays(show.answer, 'happy', 'answer');
     const beats = show.scenes[s].beats;
     for (let i = 0; i < beats.length; i++) {
       if (!alive()) return;
@@ -631,16 +697,23 @@ export async function showPlayer(api, show) {
     }
   }
   if (!alive()) return;
+  if (show.next) {
+    await guideSays(show.next, 'oops', 'teaser');
+    await sleep(1200); // a moment to think about it
+    if (!alive()) return;
+  }
   hideBubble();
   markWatched(api, show);
   recap(api, show, { screen, wordLangs, main, sub, watch, alive });
 }
 
 // After the episode: the words again, then practise them in a game or watch the next episode.
-async function recap(api, show, { screen, wordLangs, watch, alive }) {
+async function recap(api, show, { screen, wordLangs, main, sub, watch, alive }) {
   const { content, settings, progress } = api.state;
   api.state.showRun = (api.state.showRun || 0) + 1;
-  const next = nextShow(content, settings.level, show.id, progress);
+  // in a series the next episode is the one that answers this one's question
+  const inSeries = nextInSeries(content, show);
+  const next = inSeries || nextShow(content, settings.level, show.id, progress);
   const lesson = show.lesson ? content.worlds.flatMap((w) => w.units.flatMap((u) => u.lessons)).find((l) => l.id === show.lesson) : null;
   const tired = api.state.showRun >= AUTOPLAY_MAX;
   const items = show.recap?.words
@@ -657,9 +730,21 @@ async function recap(api, show, { screen, wordLangs, watch, alive }) {
         return { node: b, say: sayIt };
       });
   const nextBtn = next ? el('button', { class: 'bubble green big recap-next', 'aria-label': `Next: ${next.title.en}`, html: ICONS.next }) : null;
+  const q = show.next;
+  const teaser =
+    inSeries && q
+      ? el('div', { class: 'recap-teaser' }, [
+          el('small', { lang: show.lang === 'en' ? 'en' : 'hi', text: show.lang === 'en' ? `Episode ${inSeries.ep} has the answer!` : `इसका जवाब भाग ${inSeries.ep} में!` }),
+          el('b', { lang: q[main] ? main : 'en', text: q[main] || q.en }),
+          sub && q[sub] ? el('span', { text: q[sub] }) : null,
+        ])
+      : show.series && !inSeries
+        ? el('p', { class: 'recap-teaser done' }, [el('b', { lang: 'hi', text: 'पूरी सीरीज़ देख ली! शाबाश!' }), el('span', { text: 'You watched the whole series!' })])
+        : null;
   const card = el('div', { class: 'show-recap' }, [
     el('h2', {}, show.lang === 'en' ? [el('span', { text: 'Remember!' })] : [el('span', { lang: 'hi', text: 'क्या तुमने देखा?' }), el('small', { text: 'Did you spot them?' })]),
     el('div', { class: 'recap-items' }, items.map((x) => x.node)),
+    teaser,
     tired ? el('p', { class: 'recap-stretch' }, [el('b', { lang: 'hi', text: 'तीन कार्टून हो गए! अब उठो और खिंचाव करो।' }), el('span', { text: "That's three shows! Time to stand up and stretch." })]) : null,
     el('div', { class: 'recap-buttons' }, [
       el('button', { class: 'bubble ghost', 'aria-label': 'All shows', html: TV, onclick: () => api.back() }),
@@ -689,6 +774,16 @@ async function recap(api, show, { screen, wordLangs, watch, alive }) {
 
 // ---------- Story radio: stories and rhymes to listen to, screen dark ----------
 
+// Story radio's sleep timer (docs/ROADMAP.md 7.3): off, at the end of this story, or after so many minutes.
+export const SLEEP_STEPS = [0, 'story', 10, 20, 30];
+export const nextSleep = (now) => SLEEP_STEPS[(SLEEP_STEPS.indexOf(now) + 1) % SLEEP_STEPS.length];
+export const sleepLabel = (mode, msLeft = 0) =>
+  mode === 0
+    ? { hi: 'बंद', en: 'Off' }
+    : mode === 'story'
+      ? { hi: 'यह कहानी', en: 'This story' }
+      : { hi: `${Math.max(1, Math.ceil(msLeft / 60000))} मिनट`, en: `${Math.max(1, Math.ceil(msLeft / 60000))} min` };
+
 export async function radio(api) {
   const { content, settings } = api.state;
   const token = api.state.token;
@@ -713,15 +808,28 @@ export async function radio(api) {
   const darkBtn = el('button', { class: `round-btn small radio-dark${settings.radioDark ? ' on' : ''}`, 'aria-label': 'Dark screen', 'aria-pressed': String(!!settings.radioDark), html: MOON });
   const prevBtn = el('button', { class: 'radio-btn', 'aria-label': 'Previous story', html: ICONS.back });
   const nextBtn = el('button', { class: 'radio-btn', 'aria-label': 'Next story', html: ICONS.next });
+  // "play this one again", pick a story from its picture, and a sleep timer (roadmap 7.3)
+  const againBtn = el('button', { class: 'radio-btn small', 'aria-label': 'Play this one again', html: ICONS.replay });
+  const pickBtn = el('button', { class: 'radio-chip pick', 'aria-label': 'Pick a story' }, [el('span', { class: 'chip-icon', 'aria-hidden': 'true', text: '🖼️' }), el('span', { lang: 'hi', text: 'कहानी चुनो' })]);
+  const sleepText = el('span', { class: 'sleep-text' });
+  const sleepBtn = el('button', { class: 'radio-chip sleep', 'aria-label': 'Sleep timer' }, [el('span', { class: 'chip-icon', 'aria-hidden': 'true', text: '😴' }), sleepText]);
   const screen = el('div', { class: 'screen radio-screen enter' }, [
     el('header', { class: 'game-head' }, [
       el('button', { class: 'round-btn small', 'aria-label': 'Back', html: ICONS.back, onclick: () => api.back() }),
       el('div', { class: 'head-title' }, [el('span', { class: 'world-name-hi', lang: 'hi', text: 'कहानी रेडियो' }), el('span', { class: 'world-name-en', text: 'Story radio' })]),
       darkBtn,
     ]),
-    el('div', { class: 'radio-body' }, [el('div', { class: 'radio-host' }, [el('span', { class: 'waves' }), host.node]), cover, title, status, el('div', { class: 'radio-controls' }, [prevBtn, playBtn, nextBtn])]),
-    el('p', { class: 'radio-note' }),
+    el('div', { class: 'radio-body' }, [
+      el('div', { class: 'radio-host' }, [el('span', { class: 'waves' }), host.node]),
+      cover,
+      title,
+      status,
+      el('div', { class: 'radio-controls' }, [againBtn, prevBtn, playBtn, nextBtn]),
+      el('div', { class: 'radio-extras' }, [pickBtn, sleepBtn]),
+    ]),
   ]);
+  // how the dark screen works is for grown-ups (roadmap 4.6)
+  screen.append(el('div', { class: 'radio-info' }, [infoButton(screen), forGrownups(el('p', { class: 'radio-note' }))]));
   api.app.replaceChildren(screen);
 
   // keep the screen awake (and dark) so speech doesn't stop when the phone would sleep
@@ -779,7 +887,105 @@ export async function radio(api) {
     gen++;
     stopSpeech();
   };
+  // ---- again, pick, sleep ----
+  let again = false;
+  let pick = -1;
+  let asleep = false;
+  let wakeUp = null;
+  let sleepMode = 0;
+  let sleepAt = 0;
+  const drawSleep = () => {
+    const l = sleepLabel(sleepMode, sleepAt - Date.now());
+    sleepText.textContent = settings.lang === 'en' ? l.en : `${l.hi} · ${l.en}`;
+    sleepBtn.classList.toggle('on', sleepMode !== 0);
+  };
+  drawSleep();
+  sleepBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    sleepMode = nextSleep(sleepMode);
+    sleepAt = typeof sleepMode === 'number' && sleepMode ? Date.now() + sleepMode * 60000 : 0;
+    api.sfx.feel?.('select');
+    drawSleep();
+  });
+  const sleepTick = setInterval(() => {
+    if (!sleepAt) return;
+    drawSleep();
+    if (Date.now() >= sleepAt) goToSleep();
+  }, 1000);
+  function goToSleep() {
+    sleepAt = 0;
+    asleep = true;
+    if (paused) {
+      paused = false;
+      waiters.forEach((r) => r());
+      waiters = [];
+    }
+    interrupt();
+  }
+  againBtn.addEventListener('click', () => {
+    again = true;
+    interrupt();
+    if (paused) playBtn.click();
+  });
+  // every story as a picture tile; tap one to hear it
+  pickBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const sheet = el('div', { class: 'radio-pick', role: 'dialog', 'aria-label': 'Pick a story' });
+    const close = () => sheet.remove();
+    sheet.append(
+      el('div', { class: 'radio-pick-card' }, [
+        el('header', {}, [el('b', { lang: 'hi', text: 'कहानी चुनो' }), el('small', { text: 'Pick a story' }), el('button', { class: 'round-btn small', 'aria-label': 'Close', html: ICONS.check, onclick: close })]),
+        el(
+          'div',
+          { class: 'radio-tiles' },
+          list.map((s, i) => {
+            const coverId = s.panels ? `comic-${SERIES[s.series]?.hero}` : s.cover;
+            const t = el('button', { class: `radio-tile${i === index ? ' now' : ''}`, 'aria-label': s.title.en }, [
+              el('span', { class: 'radio-tile-pic', html: picture(api.word(coverId)?.picture || coverId) }),
+              el('span', { class: 'radio-tile-title', lang: s.lang === 'en' ? 'en' : 'hi', text: s.lang === 'en' ? s.title.en : s.title.hi }),
+            ]);
+            t.addEventListener('click', () => {
+              close();
+              pick = i;
+              interrupt();
+              if (paused) playBtn.click();
+              if (asleep) wakeUp?.();
+            });
+            return t;
+          }),
+        ),
+      ]),
+    );
+    sheet.addEventListener('click', (ev) => ev.target === sheet && close());
+    screen.append(sheet);
+    sheet.querySelector('.radio-tile.now')?.scrollIntoView({ block: 'center' });
+  });
+  // the sleep timer ran out: good night, a dark screen, and the phone may sleep; play starts again
+  const goodnight = async () => {
+    stopSpeech();
+    sleepMode = 0;
+    drawSleep();
+    screen.classList.add('asleep');
+    host.react?.('wave');
+    title.replaceChildren(el('b', { lang: 'hi', text: 'शुभ रात्रि!' }), el('span', { text: 'Good night!' }));
+    status.textContent = '';
+    playBtn.innerHTML = ICONS.play;
+    playBtn.setAttribute('aria-label', 'Play');
+    await api.say('radioGoodnight');
+    lock?.release?.().catch?.(() => {});
+    lock = null;
+    if (alive()) screen.classList.add('dim');
+    await new Promise((r) => (wakeUp = r));
+    wakeUp = null;
+    asleep = false;
+    screen.classList.remove('asleep', 'dim');
+    playBtn.innerHTML = PAUSE;
+    playBtn.setAttribute('aria-label', 'Pause');
+    wake();
+  };
+
   playBtn.addEventListener('click', () => {
+    if (asleep) return wakeUp?.();
     paused = !paused;
     playBtn.innerHTML = paused ? ICONS.play : PAUSE;
     playBtn.setAttribute('aria-label', paused ? 'Play' : 'Pause');
@@ -813,7 +1019,9 @@ export async function radio(api) {
     if (cleaned) return;
     cleaned = true;
     clearInterval(watchdog);
+    clearInterval(sleepTick);
     clearTimeout(dimTimer);
+    wakeUp?.();
     document.removeEventListener('visibilitychange', onVisible);
     lock?.release?.().catch?.(() => {});
     waiters.forEach((r) => r());
@@ -824,6 +1032,10 @@ export async function radio(api) {
   if (!list.length) status.textContent = 'No stories for this grade yet.';
   try {
     while (alive() && list.length) {
+      if (asleep) {
+        await goodnight();
+        if (!alive()) break;
+      }
       const story = list[index];
       api.state.radioAt = story.id;
       showStory(story);
@@ -832,7 +1044,7 @@ export async function radio(api) {
       while (step < steps.length && alive()) {
         await untilResumed();
         if (!alive()) break;
-        if (skip) break;
+        if (skip || again || pick >= 0 || asleep) break;
         const my = gen;
         const st = steps[step];
         screen.classList.toggle('thinking', st.show === 'think');
@@ -846,6 +1058,19 @@ export async function radio(api) {
         step++;
       }
       if (!alive()) break;
+      if (again) {
+        again = false;
+        continue; // the same story from the start
+      }
+      if (pick >= 0) {
+        [index, pick, skip] = [pick, -1, 0];
+        continue;
+      }
+      if (asleep) continue;
+      if (sleepMode === 'story') {
+        asleep = true; // the timer said "at the end of this story"
+        continue;
+      }
       const d = skip || 1;
       skip = 0;
       index = (index + d + list.length) % list.length;
@@ -873,6 +1098,12 @@ export function comicVoiceLines(content, voiceNameOf) {
       add({ text: `${w.hi}। ${w.mean}`, lang: 'hi' }, comic.level);
     }
   }
+  // the fun corner's idiom strips (js/corner.js): each character in their own voice
+  for (const x of content.idioms || [])
+    for (const p of x.strip || []) {
+      if (p.cap) add({ text: p.cap, lang: 'hi' }, x.level);
+      for (const b of p.say || []) add({ text: b.text, lang: 'hi', voice: b.who }, x.level);
+    }
   return [...out.values()].filter((l) => !l.voiceName || l.voiceName);
 }
 

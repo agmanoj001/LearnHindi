@@ -1,7 +1,7 @@
 // Validates content.json. Pure function: used by the app at startup and by tests.
 import { SKILLS } from './mathgen.js';
 import { PHONICS } from './phonicsgen.js';
-import { BEAT_KINDS, beatKind, tapTokens } from './logic.js';
+import { BEAT_KINDS, beatKind, tapTokens, SHOW_MODELS } from './logic.js';
 import { CAST, CAST_IDS, FACES, ARMS, PROPS, BACKGROUND_IDS } from './art-comic.js';
 import { actProblems } from './scene.js';
 
@@ -722,8 +722,108 @@ export function validateContent(c, { knownPictures = null, pictureExists = null,
             if (kind === 'echo') text(b.echo, `${bat}.echo`);
             if (kind === 'sfx' && !SOUNDS.includes(b.sfx)) err(`${bat}.sfx must be one of ${SOUNDS.join(', ')}`);
             if (kind === 'wait' && !(typeof b.wait === 'number' && b.wait > 0 && b.wait <= 10000)) err(`${bat}.wait must be milliseconds (up to 10000)`);
+            if (kind === 'model') {
+              const m = b.model;
+              if (!isObj(m) || !SHOW_MODELS.includes(m.kind)) err(`${bat}.model must be a maths picture: {"kind": one of ${SHOW_MODELS.join(', ')}}`);
+              else if (m.kind === 'measure' && !['pencil', 'snake', 'train', 'ribbon'].includes(m.thing)) err(`${bat}.model.thing must be pencil, snake, train or ribbon`);
+              else if (m.kind === 'clock' && !(Number.isInteger(m.h) && m.h >= 1 && m.h <= 12 && [0, 30].includes(m.m))) err(`${bat}.model: a clock needs h (1 to 12) and m (0 or 30)`);
+              else if (m.kind === 'base10' && !(Number.isInteger(m.tens) && Number.isInteger(m.ones) && m.tens >= 0 && m.tens <= 9 && m.ones >= 0 && m.ones <= 9)) err(`${bat}.model: base10 needs tens and ones from 0 to 9`);
+              else if (m.kind === 'objects' && !(Array.isArray(m.groups) && m.groups.every((g) => isObj(g) && Number.isInteger(g.n) && g.n >= 0 && g.n <= 20))) err(`${bat}.model: objects needs groups like [{"n": 5, "pic": "apple"}]`);
+            }
           });
         });
+        // a series (roadmap 7.15): its number in the series, the answer to the last episode's question, the next question
+        if (show.series !== undefined) {
+          if (!(c.showSeries || []).some((x) => x?.id === show.series)) err(`${sat}.series "${show.series}" is not one of showSeries`);
+          if (!Number.isInteger(show.ep) || show.ep < 1) err(`${sat}.ep must be its number in the series (1, 2, …)`);
+        }
+        if (show.answer !== undefined) text(show.answer, `${sat}.answer`);
+        if (show.next !== undefined) text(show.next, `${sat}.next`);
+      });
+      // each series runs 1, 2, 3 … with no gaps; every episode but the last ends on a question, and every one but the first answers it
+      const seriesIds = new Set();
+      for (const sr of Array.isArray(c.showSeries) ? c.showSeries : []) {
+        if (!isObj(sr) || !isStr(sr.id) || !isObj(sr.title) || !isStr(sr.title.en) || !isStr(sr.title.hi)) {
+          err('showSeries: each needs an id and a title with "hi" and "en"');
+          continue;
+        }
+        if (seriesIds.has(sr.id)) err(`showSeries: duplicate id "${sr.id}"`);
+        seriesIds.add(sr.id);
+        if (mascots && !mascots.includes(sr.guide)) err(`showSeries "${sr.id}": guide "${sr.guide}" is not a guide`);
+        const eps = c.shows.filter((s) => s?.series === sr.id).sort((a, b) => a.ep - b.ep);
+        if (!eps.length) err(`showSeries "${sr.id}" has no episodes`);
+        eps.forEach((s, k) => {
+          if (s.ep !== k + 1) err(`showSeries "${sr.id}": episode ${k + 1} is missing (found ${s.ep}, "${s.id}")`);
+          const last = k === eps.length - 1;
+          if (!last && !s.next) err(`shows "${s.id}" needs "next": the question episode ${s.ep + 1} answers`);
+          if (last && s.next) err(`shows "${s.id}" is the last of its series, so it has no "next"`);
+          if (k > 0 && !s.answer) err(`shows "${s.id}" needs "answer": the answer to episode ${s.ep - 1}'s question`);
+          if (k === 0 && s.answer) err(`shows "${s.id}" is the first of its series, so it has no "answer"`);
+        });
+      }
+    }
+  }
+
+  // one comic panel (a comic's, or an idiom strip's): its background, who is in it and what they say
+  const checkPanel = (p, pat, known) => {
+    if (!isObj(p)) return err(`${pat} must be an object`);
+    if (!BACKGROUND_IDS.includes(p.bg) && !(themes || []).includes(p.bg)) err(`${pat}.bg "${p.bg}" is not a comic background (${BACKGROUND_IDS.join(', ')})`);
+    if (!Array.isArray(p.cast)) err(`${pat}.cast must be a list`);
+    for (const ch of p.cast || []) {
+      if (!known(ch?.who)) err(`${pat}: "${ch?.who}" is not in the cast or this comic's parts`);
+      if (!(typeof ch?.at === 'number' && ch.at >= 0 && ch.at <= 100)) err(`${pat}: ${ch?.who} needs a position "at" from 0 to 100`);
+      if (ch?.face !== undefined && !FACES.includes(ch.face)) err(`${pat}: face "${ch.face}" must be one of ${FACES.join(', ')}`);
+      if (ch?.arms !== undefined && !ARMS.includes(ch.arms)) err(`${pat}: arms "${ch.arms}" must be one of ${ARMS.join(', ')}`);
+      if (ch?.hold !== undefined && !PROPS.includes(ch.hold)) err(`${pat}: hold "${ch.hold}" must be one of ${PROPS.join(', ')}`);
+    }
+    if (p.cap !== undefined && (!isStr(p.cap) || !DEVANAGARI.test(p.cap))) err(`${pat}.cap must be Hindi text`);
+    for (const b of p.say || []) {
+      if (!known(b?.who)) err(`${pat}: speaker "${b?.who}" is not in the cast or this comic's parts`);
+      if (!isStr(b?.text) || !DEVANAGARI.test(b.text)) err(`${pat}: what ${b?.who} says must be Hindi text`);
+      if (b?.kind !== undefined && !['shout', 'whisper', 'think'].includes(b.kind)) err(`${pat}: bubble kind must be shout, whisper or think`);
+    }
+    if (!p.cap && !(p.say || []).length) err(`${pat} needs a caption or a speech bubble`);
+    if (p.prop !== undefined && !hasWord(p.prop?.word)) err(`${pat}.prop: word "${p.prop?.word}" not found`);
+  };
+
+  // The fun corner's riddles (Grades 7–8, roadmap 7.16): the riddle, three answers (one right), and why
+  if (c.riddles !== undefined) {
+    if (!Array.isArray(c.riddles)) err('riddles must be a list');
+    else {
+      const seen = new Set();
+      c.riddles.forEach((r, i) => {
+        const at = `riddles[${i}]${r?.id ? ` (${r.id})` : ''}`;
+        if (!isObj(r) || !isStr(r.id) || !/^[a-z0-9]+$/.test(r.id)) return err(`${at} needs an id (lowercase letters and numbers)`);
+        if (seen.has(r.id)) err(`riddles: duplicate id "${r.id}"`);
+        seen.add(r.id);
+        if (!['grade7', 'grade8'].includes(r.level)) err(`${at}.level must be grade7 or grade8`);
+        if (!isStr(r.hi) || !DEVANAGARI.test(r.hi)) err(`${at}.hi must be the riddle in Devanagari`);
+        if (!isStr(r.en)) err(`${at}.en must be the riddle in English`);
+        if (!Array.isArray(r.options) || r.options.length !== 3 || new Set(r.options).size !== 3 || !r.options.every(isStr)) err(`${at}.options must be three different answers`);
+        else if (!r.options.includes(r.answer)) err(`${at}.answer must be one of its options`);
+        if (!isObj(r.why) || !isStr(r.why.hi) || !isStr(r.why.en)) err(`${at}.why needs "hi" and "en": why the answer fits`);
+      });
+    }
+  }
+
+  // ... and its idioms: a मुहावरा, its meaning, a sentence using it, three meanings to choose from, and a strip
+  if (c.idioms !== undefined) {
+    if (!Array.isArray(c.idioms)) err('idioms must be a list');
+    else {
+      const seen = new Set();
+      c.idioms.forEach((x, i) => {
+        const at = `idioms[${i}]${x?.id ? ` (${x.id})` : ''}`;
+        if (!isObj(x) || !isStr(x.id) || !/^[a-z0-9]+$/.test(x.id)) return err(`${at} needs an id (lowercase letters and numbers)`);
+        if (seen.has(x.id)) err(`idioms: duplicate id "${x.id}"`);
+        seen.add(x.id);
+        if (!['grade7', 'grade8'].includes(x.level)) err(`${at}.level must be grade7 or grade8`);
+        if (!isStr(x.hi) || !DEVANAGARI.test(x.hi)) err(`${at}.hi must be the idiom in Devanagari`);
+        for (const k of ['meaning', 'example']) if (!isObj(x[k]) || !isStr(x[k].hi) || !isStr(x[k].en)) err(`${at}.${k} needs "hi" and "en"`);
+        if (!Array.isArray(x.options) || x.options.length !== 3 || new Set(x.options).size !== 3) err(`${at}.options must be three different meanings`);
+        else if (!x.options.includes(x.meaning?.hi)) err(`${at}.options must include its meaning`);
+        if (!Array.isArray(x.strip) || x.strip.length < 2 || x.strip.length > 4) return err(`${at}.strip must be 2 to 4 comic panels`);
+        x.strip.forEach((p, j) => checkPanel(p, `${at}.strip[${j}]`, (who) => !!CAST[who]));
+        if (!x.strip.some((p) => (p.say || []).some((b) => b.text.includes(x.hi.split(' ')[0])))) err(`${at}: the strip should use the idiom`);
       });
     }
   }
@@ -749,27 +849,7 @@ export function validateContent(c, { knownPictures = null, pictureExists = null,
         }
         const known = (who) => !!CAST[who] || who in parts;
         if (!Array.isArray(cm.panels) || cm.panels.length < 4) return err(`${cat} needs at least 4 panels`);
-        cm.panels.forEach((p, j) => {
-          const pat = `${cat}.panels[${j}]`;
-          if (!isObj(p)) return err(`${pat} must be an object`);
-          if (!BACKGROUND_IDS.includes(p.bg) && !(themes || []).includes(p.bg)) err(`${pat}.bg "${p.bg}" is not a comic background (${BACKGROUND_IDS.join(', ')})`);
-          if (!Array.isArray(p.cast)) err(`${pat}.cast must be a list`);
-          for (const ch of p.cast || []) {
-            if (!known(ch?.who)) err(`${pat}: "${ch?.who}" is not in the cast or this comic's parts`);
-            if (!(typeof ch?.at === 'number' && ch.at >= 0 && ch.at <= 100)) err(`${pat}: ${ch?.who} needs a position "at" from 0 to 100`);
-            if (ch?.face !== undefined && !FACES.includes(ch.face)) err(`${pat}: face "${ch.face}" must be one of ${FACES.join(', ')}`);
-            if (ch?.arms !== undefined && !ARMS.includes(ch.arms)) err(`${pat}: arms "${ch.arms}" must be one of ${ARMS.join(', ')}`);
-            if (ch?.hold !== undefined && !PROPS.includes(ch.hold)) err(`${pat}: hold "${ch.hold}" must be one of ${PROPS.join(', ')}`);
-          }
-          if (p.cap !== undefined && (!isStr(p.cap) || !DEVANAGARI.test(p.cap))) err(`${pat}.cap must be Hindi text`);
-          for (const b of p.say || []) {
-            if (!known(b?.who)) err(`${pat}: speaker "${b?.who}" is not in the cast or this comic's parts`);
-            if (!isStr(b?.text) || !DEVANAGARI.test(b.text)) err(`${pat}: what ${b?.who} says must be Hindi text`);
-            if (b?.kind !== undefined && !['shout', 'whisper', 'think'].includes(b.kind)) err(`${pat}: bubble kind must be shout, whisper or think`);
-          }
-          if (!p.cap && !(p.say || []).length) err(`${pat} needs a caption or a speech bubble`);
-          if (p.prop !== undefined && !hasWord(p.prop?.word)) err(`${pat}.prop: word "${p.prop?.word}" not found`);
-        });
+        cm.panels.forEach((p, j) => checkPanel(p, `${cat}.panels[${j}]`, known));
         if (cm.guess !== undefined) {
           const g = cm.guess;
           if (!isObj(g) || !Number.isInteger(g.at) || g.at < 1 || g.at >= cm.panels.length) err(`${cat}.guess.at must be the panel the reveal starts at`);

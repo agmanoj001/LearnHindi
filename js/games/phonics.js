@@ -55,10 +55,12 @@ export default {
       prompt();
       let misses = 0;
       const right = await choose(btns, (b) => b.opt.value === p.answer, {
+        ctx,
+        record: false,
+        hintSay: (n, kind) => (p.hint && n === 0 ? say(p.hint) : ctx.say(kind === 'out' ? 'hintOne' : 'hintLook', null, ['en'])),
         onWrong: (b) => {
           misses++;
           b.classList.add('tried');
-          ctx.miss();
           say(misses >= 2 && p.hint ? p.hint : String(b.opt.say || b.opt.label || ''));
         },
       });

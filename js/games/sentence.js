@@ -1,6 +1,6 @@
 // Metro station (Grade 1+): hear a sentence, then put its word cards into the metro carriages in order.
 import { sentenceTokens, shuffle, roundSequence, langForRound } from '../logic.js';
-import { el, sleep, runRounds, cheer, flyTo, animate, wobble } from './kit.js';
+import { el, sleep, runRounds, cheer, flyTo, animate, wobble, stepHint } from './kit.js';
 
 const bare = (token) => token.replace(/[।.!?,"]/g, '');
 
@@ -35,6 +35,8 @@ export default {
       let next = 0;
       let mistakes = 0;
       slots[0].classList.add('next');
+      // 💡: the next word of the sentence glows
+      const hint = stepHint(ctx, () => cards.find((c) => !c.classList.contains('used') && c.token === tokens[next]));
       await new Promise((resolve) => {
         for (const c of cards) {
           c.addEventListener('click', async () => {
@@ -43,11 +45,13 @@ export default {
             if (c.token !== tokens[next]) {
               mistakes++;
               ctx.miss();
+              hint.miss();
               return void wobble(c);
             }
+            hint.step();
             const slot = slots[next++];
             slots[next]?.classList.add('next');
-            ctx.sfx.pop();
+            ctx.sfx.feel('place');
             await flyTo(c, slot, { duration: 450 });
             c.classList.add('used');
             slot.textContent = c.token;
@@ -57,7 +61,8 @@ export default {
           });
         }
       });
-      ctx.record(null, mistakes === 0);
+      hint.done();
+      ctx.record(null, mistakes === 0 && !hint.used);
       await cheer(ctx, metro);
       await ctx.saySentence(sentence, [lang]);
       ctx.moveSound(engine);

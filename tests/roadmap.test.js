@@ -59,19 +59,46 @@ const DONE = {
   'गिनती: Hindi numbers as their own strand': () => content.numbers.length === 100 && exists('js/games/ginti.js') && lessons.filter((l) => l.game === 'ginti').length >= 10,
   '"Ask me" prompts for the grown-up': () => content.stories.every((s) => ['complete', 'recall', 'open', 'why', 'you'].every((t) => s.talk?.some((p) => p.type === t && p.hi && p.en))) && /export function showTalk/.test(read('js/screens.js')),
   'Shared play for a grown-up and child': () => exists('js/games/together.js') && /export function togetherQuestion/.test(read('js/together.js')) && /together-btn/.test(read('js/screens.js')) && content.stories.every((s) => s.talk?.length === 5),
+  'The counting game': () => /export const busSeats/.test(read('js/games/busdepot.js')) && /\.count-tag/.test(css),
+  'The hint button in every game': () => /export function stepHint/.test(read('js/games/kit.js')) && ['construction', 'sentence', 'sequence', 'matra', 'railway', 'trace'].every((g) => read(`js/games/${g}.js`).includes('stepHint(')),
+  'A 30-second "tap here" guide': () => exists('js/coach.js') && /coach\(how\.kind/.test(read('js/app.js')) && Object.keys(content.phrases).filter((k) => k.startsWith('coach')).length >= 6,
+  'Move grown-up text off child screens': () => /export function infoButton/.test(read('js/ui.js')) && /forGrownups\(el\('p', \{ class: 'mode-note'/.test(read('js/shows.js')) && /forGrownups\(el\('p', \{ class: 'comic-howto'/.test(read('js/games/comic.js')),
+  'Tablet layouts for the maps and the hub': () => /class: 'hub-top'/.test(read('js/screens.js')) && /@media \(min-width: 760px\) and \(min-height: 600px\) \{\s*\.hub-top/.test(css),
+  'A guide that reacts to every answer': () => /REACTION_BUBBLES/.test(read('js/mascot.js')) && /mascot\.react\(firstTry \? 'clap' : 'cheer'\)/.test(read('js/app.js')) && /\.mascot\.m-think/.test(css),
+  'Shared-element transitions': () => /function grow\(change, from, to\)/.test(read('js/app.js')) && /::view-transition-group\(grow\)/.test(css) && /\{ from: c \}/.test(read('js/screens.js')),
+  'A motion budget and a slow-phone test': () => exists('tools/motion-budget.mjs') && exists('docs/MOTION-BUDGET.md') && /export function tooSlow/.test(read('js/motion.js')) && /\.lite \.backdrop \*/.test(css),
+  'Hindi text animation': () => /export function strokeOrder/.test(read('js/logic.js')) && /writeItself/.test(read('js/games/trace.js')) && /export async function sayPieces/.test(read('js/games/kit.js')),
+  'Haptics and sound polish': () => /export const FEEDBACK/.test(read('js/sfx.js')) && /export const sfxLevel/.test(read('js/sfx.js')) && /sfx\.feel\('wrong'\)/.test(read('js/app.js')),
+  'Favourites and "read again"': () => exists('js/favourites.js') && /function readAgain\(api\)/.test(read('js/screens.js')) && /heartButton\(api, s, \{ cls: 'on-book' \}\)/.test(read('js/screens.js')),
+  'Story radio': () => /export const SLEEP_STEPS/.test(read('js/shows.js')) && /class: 'radio-chip pick'/.test(read('js/shows.js')) && /'Play this one again'/.test(read('js/shows.js')),
+  'A gentle daily rhythm': () => /export function stickyPlan/.test(read('js/curriculum.js')) && /export function weekTrail/.test(read('js/screens.js')) && /export async function celebrateDay/.test(read('js/screens.js')),
+  "Little rewards that aren't stars": () => exists('js/rewards.js') && /export const OUTFITS/.test(read('js/mascot.js')) && /export function rewards\(api/.test(read('js/screens.js')),
+  'Sing-along rhymes': () => /class: 'sing-ball'/.test(read('js/games/story.js')) && /m === 'sing'/.test(read('js/sfx.js')) && /\.sing-ball\.hop/.test(css),
+  'Make-your-own story': () => exists('js/mybooks.js') && /recordBook\(api, w, placed, artOf\)/.test(read('js/screens.js')) && /function myShelf/.test(read('js/screens.js')),
+  'An older child reads to a younger one': () => exists('js/readfor.js') && /readByRibbon\(story\.id\)/.test(read('js/games/story.js')) && /function missionCard/.test(read('js/screens.js')),
+  'Festivals and seasons that arrive on their day': () => exists('js/festivals.js') && /export function festivalNow/.test(read('js/festivals.js')) && content.stories.some((x) => x.id === 'k3-eid'),
+  'A surprise each day': () => exists('js/surprise.js') && /function giftBox/.test(read('js/screens.js')) && /\.gift-box/.test(css),
+  'For Grades 7–8': () =>
+    ['riddleOfDay', 'idiomOfDay', 'comicMaker', 'duelScreen'].every((f) => js.includes(f)) &&
+    (content.riddles || []).length >= 60 &&
+    (content.idioms || []).length >= 30 &&
+    /cornerButton\(api\)/.test(read('js/screens.js')) &&
+    ['corner', 'idiom', 'comicmaker', 'duel'].every((r) => read('js/app.js').includes(`case '${r}':`)),
+  'More Show time': () =>
+    (content.showSeries || []).length >= 3 &&
+    content.showSeries.every((sr) => {
+      const eps = content.shows.filter((s) => s.series === sr.id);
+      return eps.length >= 8 && eps.length <= 10 && eps.filter((s) => s.next).length === eps.length - 1 && eps.filter((s) => s.answer).length === eps.length - 1;
+    }) &&
+    /guideSays\(show\.next/.test(read('js/shows.js')),
+  '"Words I know" book': () => exists('js/wordbook.js') && /wordsChip\(api\)/.test(read('js/screens.js')) && /case 'words'/.test(read('js/app.js')) && /\.words-page/.test(css),
   'Free play between lessons': () => exists('js/freeplay.js') && /freeplayDue\(/.test(read('js/screens.js')) && ['drive', 'feed', 'colour'].every((m) => read('js/freeplay.js').includes(`'${m}'`)),
 };
 
 // title of an open row -> a sign in the code that it has been built (then its row must be ✅)
 const WATCH = {
   'Share the backup': () => /navigator\.share\(/.test(js),
-  'Favourites and "read again"': () => /favourite/i.test(js),
-  'Story radio': () => /sleepTimer|sleep-timer/.test(js),
   'A "what\'s new" note': () => /whatsNew|changelog/i.test(js),
-  'Sing-along rhymes': () => /singAlong|sing-along/i.test(js + css),
-  'A surprise each day': () => /dailySurprise|gift-box/.test(js + css),
-  '"Words I know" book': () => /wordsKnown|words-i-know/.test(js + css),
-  'Festivals and seasons that arrive on their day': () => /FESTIVAL_DATES|festivalToday/.test(js),
   'More decodable books for Grade 1': () => content.stories.filter((s) => s.decodable != null).length >= 25,
   'A Grade 2 maths world': () => content.worlds.some((w) => w.subject === 'math' && w.level === 'grade2'),
   'पहाड़े: times tables sung the Hindi way': () => /पहाड़े/.test(JSON.stringify(content.worlds)),

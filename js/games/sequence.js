@@ -3,7 +3,7 @@
 // aloud as it goes into place. Harder levels use more of the story's pages.
 import { shuffle } from '../logic.js';
 import { storyLang, worldStoryLang } from '../curriculum.js';
-import { el, sleep, runRounds, cheer, flyTo, animate, wobble, bounce } from './kit.js';
+import { el, sleep, runRounds, cheer, flyTo, animate, wobble, bounce, stepHint } from './kit.js';
 
 export default {
   async start(ctx) {
@@ -37,6 +37,8 @@ export default {
       let next = 0;
       let mistakes = 0;
       slots[0].classList.add('next');
+      // 💡: the picture that comes next glows
+      const hint = stepHint(ctx, () => cards.find((c) => !c.classList.contains('used') && c.page.n === pages[next]?.n));
       await new Promise((resolve) => {
         for (const c of cards) {
           c.addEventListener('click', async () => {
@@ -44,13 +46,15 @@ export default {
             if (c.page.n !== pages[next].n) {
               mistakes++;
               ctx.miss();
+              hint.miss();
               wobble(c);
               ctx.playSegs([{ text: c.page[lang], lang, clipKey: `story-${story.id}-${c.page.n + 1}_${lang}` }]);
               return;
             }
+            hint.step();
             const slot = slots[next++];
             slots[next]?.classList.add('next');
-            ctx.sfx.pop();
+            ctx.sfx.feel('place');
             ctx.playSegs([{ text: c.page[lang], lang, clipKey: `story-${story.id}-${c.page.n + 1}_${lang}` }]);
             await flyTo(c, slot, { duration: 450, scale: 0.6 });
             c.classList.add('used');
@@ -62,7 +66,8 @@ export default {
           });
         }
       });
-      ctx.record(null, mistakes === 0);
+      hint.done();
+      ctx.record(null, mistakes === 0 && !hint.used);
       await cheer(ctx, slots[slots.length - 1]);
       slots.forEach((s, j) => setTimeout(() => bounce(s), j * 120));
       await ctx.sayLines({ hi: 'शाबाश! पहले, फिर, और आख़िर में।', en: 'Well done! First, then, and at the end.' });

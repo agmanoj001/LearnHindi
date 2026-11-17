@@ -1,16 +1,25 @@
 // Screens outside a lesson: splash, onboarding, the world hub, a world's path map,
 // results, the sticker collection and the story library.
-import { el, sleep, bounce, animate, sparkleAt, ICONS } from './ui.js';
-import { createMascot, mascotSvg, MASCOTS, MASCOT_IDS } from './mascot.js';
+import { el, sleep, bounce, animate, sparkleAt, flyTo, ICONS, infoButton, forGrownups } from './ui.js';
+import { createMascot, mascotSvg, MASCOTS, MASCOT_IDS, setOutfit, currentOutfit } from './mascot.js';
+import { REWARDS, REWARD_KINDS, unlockedRewards, nextReward, styleFor } from './rewards.js';
+import { recordBook, playBook, bookPicture } from './mybooks.js';
+import { MISSION_LEVELS, missionStories, readByAll } from './readfor.js';
+import { festivalBanner, FESTIVALS } from './festivals.js';
+import { giftDue, pickGift, riddleIndexes } from './surprise.js';
+import { wordsChip } from './wordbook.js';
+import { cornerButton } from './corner.js';
 import { sceneSvg } from './art-scenes.js';
 import { PLACEMENT_LEVELS, placementQuestions, placementResult } from './placement.js';
 import { picture, pictureForWord, specialVehicle } from './art.js';
+import { weekDays, trailSticker, dayFinished, weekFull, isoDay, stickyPlan } from './curriculum.js';
 import { worldLessons, lessonRecord, isUnlocked, currentLesson, nextLesson, worldStars, hubWorlds, streak, nextCollectible, todayPlan, storyLang, worldStoryLang, storyNeeds, taughtMatras, decodability, nextDecodable, MATRA_SIGNS } from './curriculum.js';
 import { SHOW_ICONS } from './shows.js';
-import { greeting, timeSlot, HELLO, milestoneLine } from './guide.js';
+import { greeting, timeSlot, HELLO, milestoneLine, totalStars } from './guide.js';
 import { playersFrom, GROWN_UP } from './together.js';
 import { load, KEYS, profileKey } from './storage.js';
 import { freeplayDue } from './freeplay.js';
+import { heartButton, favStories, storyWorld, HOME_FAVS } from './favourites.js';
 import { homeWorld } from './curriculum.js';
 import { voicesReady, hasVoice } from './audio.js';
 import { deviceKind, VOICE_SETUP, readable } from './logic.js';
@@ -41,6 +50,37 @@ const said = (api, t, lead = 'hi', mainTag = 'span') => {
 };
 const one = (api, t, lead = 'hi') => sayText(langMode(api), t, lead).main;
 const UNIT = { hi: 'भाग', en: 'Unit' };
+
+// "Read again": the favourite stories, one tap from reading (roadmap 7.2)
+function readAgain(api) {
+  const { content, settings, progress } = api.state;
+  const favs = favStories(content, progress).slice(0, HOME_FAVS);
+  if (!favs.length) return null;
+  return el('section', { class: 'read-again', 'aria-label': 'Read again' }, [
+    el('h3', {}, [el('span', { class: 'read-again-heart', 'aria-hidden': 'true', text: '❤' }), ...said(api, { hi: 'फिर से पढ़ो', en: 'Read again' })]),
+    el(
+      'div',
+      { class: 'read-again-books' },
+      favs.map((s) => {
+        const b = el('button', { class: 'fav-book', 'data-grow': `story:${s.id}`, 'aria-label': `Read again: ${s.title.en}` }, [
+          el('span', { class: 'fav-cover', html: pictureForWord(api.word(s.cover)) }),
+          el('span', { class: 'fav-title', lang: s.lang === 'en' ? 'en' : 'hi', text: s.lang === 'en' ? s.title.en : s.title.hi }),
+        ]);
+        b.addEventListener('click', () => {
+          api.sfx.page();
+          api.go('lesson', { worldId: storyWorld(content, settings, s).id, storyId: s.id }, { from: b });
+        });
+        return b;
+      }),
+    ),
+  ]);
+}
+
+// put children into an element made earlier (one an ⓘ button needs to know about)
+const fill = (node, kids) => {
+  node.append(...kids.filter(Boolean));
+  return node;
+};
 
 const bigName = (w, text, cls) => (english(w) ? el('span', { class: `${cls} latin`, text: text.en }) : el('span', { class: cls, lang: 'hi', text: text.hi }));
 
@@ -206,7 +246,7 @@ export function hub(api) {
   const card = (world) => {
     const st = worldStars(progress, world);
     const sub = subjectName(world);
-    const c = el('button', { class: `world-card theme-${world.theme}`, style: { '--place': world.color }, 'aria-label': `${world.name.en}, ${level(world.level).name.en}` }, [
+    const c = el('button', { class: `world-card theme-${world.theme}`, style: { '--place': world.color }, 'data-grow': `world:${world.id}`, 'aria-label': `${world.name.en}, ${level(world.level).name.en}` }, [
       el('div', { class: 'world-card-scene', html: sceneSvg(world.theme, { crop: 'bottom' }) }),
       el('div', { class: 'world-card-mascot', html: mascotSvg(world.mascot) }),
       el('div', { class: 'world-card-text' }, [
@@ -226,7 +266,7 @@ export function hub(api) {
       bounce(c);
       api.sayLines(world.name);
       await sleep(250);
-      api.go('world', { worldId: world.id });
+      api.go('world', { worldId: world.id }, { from: c });
     });
     return c;
   };
@@ -242,9 +282,17 @@ export function hub(api) {
         el('button', { class: 'showtime-btn radio', 'aria-label': 'Story radio', onclick: () => (api.sfx.pop(), api.go('radio')) }, [el('span', { class: 'showtime-icon', html: SHOW_ICONS.radio }), el('span', { class: 'showtime-text' }, said(api, { hi: 'कहानी रेडियो', en: 'Story radio' }, 'hi', 'b'))]),
       ])
     : null;
+  // today's path stays the same all day, so it can be finished (roadmap 7.4)
+  const sticky = stickyPlan(content, progress, all.filter((w) => w.level === settings.level));
+  const plan = sticky.steps;
+  if (sticky.today !== progress.today) {
+    api.state.progress = { ...api.state.progress, today: sticky.today };
+    api.persistProgress();
+  }
   api.app.replaceChildren(
     el('div', { class: `screen hub enter${simple ? ' simple' : ''}` }, [
-      backdrop(null),
+      // the background the child chose (roadmap 7.5)
+      backdrop(styleFor(progress, totalStars(progress)).backdrop ? { theme: styleFor(progress, totalStars(progress)).backdrop } : null),
       el('header', { class: 'hub-head' }, [
         appTitle(api),
         el('div', { class: 'head-right' }, [
@@ -253,10 +301,35 @@ export function hub(api) {
         ]),
       ]),
       el('div', { class: 'hub-scroll' }, [
-        filter ? null : (simple ? playHero : todayCard)(api, todayPlan(content, progress, all.filter((w) => w.level === settings.level)), all),
+        // a festival near today: decorations, its story, its sticker (roadmap 7.11)
+        filter
+          ? null
+          : festivalBanner(api, {
+              art: (id) => (api.word(id) ? pictureForWord(api.word(id)) : ''),
+              openStory: (id, from) => {
+                const s = content.stories.find((x) => x.id === id);
+                if (s) api.go('lesson', { worldId: storyWorld(content, settings, s).id, storyId: id }, { from });
+              },
+            }),
+        // today's path (or the big play button), and beside it on a tablet: Show time, Story radio and
+        // Play together (roadmap 4.7); on a phone they stack as before
+        filter
+          ? null
+          : el('div', { class: 'hub-top' }, [
+              (simple ? playHero : todayCard)(api, plan, all),
+              el('div', { class: 'hub-side' }, [
+                showtime,
+                readAgain(api),
+                // how many words this child knows, and the book of them (roadmap 7.13)
+                wordsChip(api),
+                prizesButton(api),
+                missionCard(api),
+                // Grades 7–8: the riddle and idiom of the day, comics to make, quiz duels (roadmap 7.16)
+                cornerButton(api),
+                el('button', { class: 'together-btn', 'aria-label': 'Play together', onclick: () => (api.sfx.pop(), api.go('together')) }, [el('span', { class: 'together-icon', 'aria-hidden': 'true', text: '👫' }), el('span', {}, said(api, { hi: 'साथ खेलो', en: 'Play together' }, 'hi', 'b'))]),
+              ]),
+            ]),
         filter ? null : voiceTip,
-        filter ? null : showtime,
-        filter ? null : el('button', { class: 'together-btn', 'aria-label': 'Play together', onclick: () => (api.sfx.pop(), api.go('together')) }, [el('span', { class: 'together-icon', 'aria-hidden': 'true', text: '👫' }), el('span', {}, said(api, { hi: 'साथ खेलो', en: 'Play together' }, 'hi', 'b'))]),
         !simple && usedTags.length > 1 ? el('div', { class: 'tag-filters', role: 'toolbar', 'aria-label': 'Show worlds about' }, [tagBtn(null, null), ...usedTags.map(([id, t]) => tagBtn(id, t))]) : null,
         mine.length && !simple ? el('h2', { class: 'hub-section' }, said(api, level(settings.level).name)) : null,
         el('div', { class: 'world-cards' }, mine.map(card)),
@@ -265,6 +338,11 @@ export function hub(api) {
       ]),
     ]),
   );
+  // today's three just finished: celebrate, and the day's sticker goes on the week's trail (roadmap 7.4)
+  if (!filter && dayFinished(progress, plan)) {
+    const screen = api.app.querySelector('.screen.hub');
+    setTimeout(() => screen?.isConnected && celebrateDay(api, screen), 700);
+  }
 }
 
 // ---------- music on or off, one tap from the home screen (a car ride, a quiet room) ----------
@@ -301,10 +379,12 @@ async function checkHindiVoice(api, slot) {
   if (hidden || !(await voicesReady()) || hasVoice('hi') || !slot.isConnected) return;
   const help = VOICE_SETUP[deviceKind(navigator.userAgent, navigator.maxTouchPoints || 0)];
   const status = el('p', { class: 'voice-tip-status', role: 'status' });
-  const card = el('section', { class: 'voice-tip' }, [
-    el('div', { class: 'voice-tip-head' }, [el('b', { lang: 'hi', text: 'यह डिवाइस अभी हिंदी नहीं बोल पाता' }), el('span', { text: `This ${help.device} has no Hindi voice yet` })]),
-    el('p', { class: 'voice-tip-steps', text: help.steps }),
-    el('p', { class: 'voice-tip-note', text: 'Or record your own voice: Grown-ups › Record your voice. Your recordings are used instead.' }),
+  // the setup steps are for grown-ups: behind the ⓘ (roadmap 4.6)
+  const card = el('section', { class: 'voice-tip' });
+  fill(card, [
+    el('div', { class: 'voice-tip-head' }, [el('b', { lang: 'hi', text: 'यह डिवाइस अभी हिंदी नहीं बोल पाता' }), el('span', { text: `This ${help.device} has no Hindi voice yet` }), infoButton(card)]),
+    forGrownups(el('p', { class: 'voice-tip-steps', text: help.steps })),
+    forGrownups(el('p', { class: 'voice-tip-note', text: 'Or record your own voice: Grown-ups › Record your voice. Your recordings are used instead.' })),
     status,
     el('div', { class: 'voice-tip-actions' }, [
       el('button', {
@@ -350,14 +430,15 @@ export function world(api, w) {
       const open = isUnlocked(progress, w, lesson.id, settings.unlockAll);
       const isCurrent = lesson.id === current.id;
       const cls = rec.stars ? 'done' : isCurrent ? 'current' : open ? 'open' : 'locked';
-      const node = el('button', { class: `node ${cls}`, 'aria-label': `${lesson.title.en}${open ? '' : ' (locked)'}` }, [
+      const node = el('button', { class: `node ${cls}`, 'data-grow': `lesson:${lesson.id}`, 'aria-label': `${lesson.title.en}${open ? '' : ' (locked)'}` }, [
         el('span', { class: 'node-icon', html: api.iconHtml(lesson.icon) }),
         !open ? el('span', { class: 'node-lock', html: ICONS.lock }) : null,
       ]);
       const stars = el(
         'span',
         { class: 'node-stars' },
-        [0, 1, 2].map((k) => el('span', { class: `mini-star ${k < rec.stars ? 'on' : ''}`, html: ICONS.star })),
+        // drawn by CSS, not 144 little SVGs on a big map (the motion budget, roadmap 5.5)
+        [0, 1, 2].map((k) => el('span', { class: `mini-star ${k < rec.stars ? 'on' : ''}` })),
       );
       const x = SNAKE[i % SNAKE.length];
       const row = el('div', { class: `node-row ${cls} ${x > 0 ? 'guide-left' : ''}`, style: { '--x': String(x) } }, [
@@ -372,7 +453,7 @@ export function world(api, w) {
           return;
         }
         api.sfx.pop();
-        api.go('lesson', { lessonId: lesson.id });
+        api.go('lesson', { lessonId: lesson.id }, { from: node });
       });
       if (isCurrent) {
         currentNode = row;
@@ -413,9 +494,16 @@ export function world(api, w) {
     el('div', { class: `screen world-map theme-${w.theme} enter`, style: { '--place': w.color } }, [backdrop(w), head, el('div', { class: 'path-scroll' }, [path])]),
   );
   const walked = Math.max(0, lessons.findIndex((l) => l.id === current.id));
-  const draw = () => drawTrail(path, walked);
-  draw();
+  // The trail is measured from the laid-out stops, which forces a full layout of the map. It is drawn in
+  // a task of its own once the map has painted (and again, at most once a frame, when the map resizes),
+  // never in the frame that builds the map: on a slow phone that frame was the longest in the app (5.5).
+  let pending = 0;
+  const draw = () => {
+    if (pending) return;
+    pending = requestAnimationFrame(() => setTimeout(() => ((pending = 0), drawTrail(path, walked)), 0));
+  };
   if (typeof ResizeObserver === 'function') new ResizeObserver(draw).observe(path);
+  else draw();
   requestAnimationFrame(() => currentNode?.scrollIntoView({ block: 'center' }));
   const unit = w.units.find((u) => u.lessons.some((l) => l.id === current.id));
   setTimeout(() => {
@@ -476,7 +564,7 @@ function storyLevels(api, w) {
 
 // ---------- results ----------
 
-export async function results(api, { world, lesson, result, collection, session, milestones = [] }) {
+export async function results(api, { world, lesson, result, collection, session, milestones = [], rewards = [] }) {
   const mascot = createMascot(world.mascot, { size: 'large', onTap: () => mascotJoke(api, mascot) });
   // after a story: the grown-up's talk-together prompts (docs/ROADMAP.md 7.6)
   const talkStory = session?.story ? api.state.content.stories.find((s) => s.id === session.story && s.talk?.length) : null;
@@ -522,7 +610,9 @@ export async function results(api, { world, lesson, result, collection, session,
         result.unitComplete ? el('div', { class: 'unit-complete' }, [el('span', { html: ICONS.trophy }), el('span', { text: 'Unit complete!' })]) : null,
         milestone ? el('div', { class: 'milestone' }, [el('span', { class: 'milestone-icon', html: ICONS.sparkle }), ...said(api, milestone, english(world) ? 'en' : 'hi', 'b')]) : null,
         reward,
-        talkStory ? talkButton(api, talkStory) : null,
+        talkStory ? el('div', { class: 'story-after' }, [heartButton(api, talkStory, { cls: 'big' }), talkButton(api, talkStory)]) : null,
+        ...rewards.map((r) => newPrizeCard(api, r)),
+        giftDue(api.state.progress) && lesson.id !== 'together' ? giftBox(api, world, collection, mascot) : null,
         btns,
       ]),
     ]),
@@ -552,6 +642,165 @@ export async function results(api, { world, lesson, result, collection, session,
     api.sfx.cheer();
     await api.sayLines(milestone, `guide-${milestone.id}`);
   }
+  if (rewards.length && token === api.state.token) {
+    api.sfx.jingle();
+    await api.say('newPrize');
+  }
+}
+
+// ---------- a surprise each day (roadmap 7.12, js/surprise.js) ----------
+// After the first lesson of the day: a gift box to open. Inside, one small thing.
+function giftBox(api, world, collection, mascot) {
+  const box = el('button', { class: 'gift-box', 'aria-label': "Open today's present" }, [
+    el('span', { class: 'gift-lid', 'aria-hidden': 'true' }),
+    el('span', { class: 'gift-body', 'aria-hidden': 'true' }),
+    el('span', { class: 'gift-label' }, said(api, { hi: 'आज का तोहफ़ा!', en: "Today's present!" }, 'hi', 'b')),
+  ]);
+  const wrap = el('div', { class: 'gift' }, [box]);
+  setTimeout(() => wrap.isConnected && !box.classList.contains('open') && api.say('giftHere'), 2600);
+  box.addEventListener('click', async () => {
+    if (box.classList.contains('open')) return;
+    const { content } = api.state;
+    const day = isoDay(Date.now());
+    const col = collection?.items ? collection : null;
+    const sticker = col ? col.items.find((id) => !(api.state.progress.collected?.[col.id] || []).includes(id)) : null;
+    const lines = content.mascotLines || [];
+    const gift = pickGift(day, { sticker, jokes: riddleIndexes(lines) });
+    const progress = { ...api.state.progress, gift };
+    if (gift.kind === 'sticker') progress.collected = { ...progress.collected, [col.id]: [...(progress.collected?.[col.id] || []), sticker] };
+    api.state.progress = progress;
+    api.persistProgress();
+    api.applyStyle();
+    box.classList.add('open');
+    api.sfx.feel?.('reward');
+    sparkleAt(box, { count: 14 });
+    await sleep(500);
+    let inside;
+    if (gift.kind === 'sticker') {
+      inside = el('div', { class: 'gift-inside' }, [el('span', { class: 'gift-pic', html: pictureForWord(api.word(sticker)) }), ...said(api, { hi: 'नया स्टिकर!', en: 'A new sticker!' }, 'hi', 'b')]);
+      wrap.append(inside);
+      await api.say('giftSticker');
+      api.sayItem(api.word(sticker));
+    } else if (gift.kind === 'joke') {
+      const line = lines[gift.value];
+      inside = el('div', { class: 'gift-inside' }, [el('span', { class: 'gift-pic emoji', text: '😄' }), el('b', { lang: 'hi', text: line.hi }), el('small', { text: line.en })]);
+      wrap.append(inside);
+      mascot.react('silly');
+      await api.sayLines(line, `mascot-${gift.value + 1}`);
+    } else {
+      inside = el('div', { class: 'gift-inside' }, [el('span', { class: 'gift-pic emoji', text: '🔔' }), ...said(api, { hi: 'आज बटनों की नई आवाज़!', en: 'A new sound for the buttons today!' }, 'hi', 'b')]);
+      wrap.append(inside);
+      api.sfx.tick();
+      await api.say('giftSound');
+    }
+  });
+  return wrap;
+}
+
+// ---------- little rewards that aren't stars (roadmap 7.5, js/rewards.js) ----------
+const KIND_NAME = { outfit: { hi: 'साथी की पोशाक', en: 'Outfits for your guide' }, backdrop: { hi: 'घर का दृश्य', en: 'Home backgrounds' }, sound: { hi: 'बटन की आवाज़', en: 'Button sounds' } };
+const SPEAKER = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+// the picture of a prize: the guide wearing it, the background, or a speaker
+function prizePicture(api, r) {
+  if (r.kind === 'backdrop') return sceneSvg(r.id, { crop: 'bottom' });
+  if (r.kind === 'sound') return SPEAKER;
+  const was = currentOutfit();
+  setOutfit(r.id);
+  const art = mascotSvg(homeWorld(api.state.content, api.state.settings)?.mascot || 'gappu');
+  setOutfit(was);
+  return art;
+}
+// wear it, use it, or (tapped again) put it away
+function usePrize(api, r) {
+  const st = { ...(api.state.progress.style || {}) };
+  st[r.kind] = st[r.kind] === r.id ? null : r.id;
+  api.state.progress = { ...api.state.progress, style: st };
+  api.persistProgress();
+  api.applyStyle();
+  if (r.kind === 'sound') api.sfx.tick();
+  return st[r.kind] === r.id;
+}
+function newPrizeCard(api, r) {
+  const use = el('button', { class: 'bubble green prize-use' }, said(api, r.kind === 'outfit' ? { hi: 'पहनो', en: 'Wear it' } : { hi: 'लगाओ', en: 'Use it' }));
+  use.addEventListener('click', () => {
+    usePrize(api, r);
+    use.disabled = true;
+    use.replaceChildren(...said(api, { hi: 'लग गया!', en: 'Done!' }));
+    api.sfx.feel?.('reward');
+  });
+  return el('div', { class: `new-prize kind-${r.kind}` }, [
+    el('span', { class: 'prize-ribbon' }, said(api, { hi: 'नया इनाम!', en: 'A new prize!' })),
+    el('span', { class: 'prize-pic', html: prizePicture(api, r) }),
+    el('b', { lang: 'hi', text: one(api, r.name) }),
+    use,
+  ]);
+}
+// Grades 7–8: read a story for a little brother or sister (roadmap 7.9)
+function missionCard(api) {
+  if (!MISSION_LEVELS.includes(api.state.settings.level)) return null;
+  const done = Object.keys(readByAll()).filter((id) => missionStories(api.state.content).some((s) => s.id === id)).length;
+  return el('button', { class: 'mission-card', 'aria-label': 'Read to your brother or sister', onclick: () => (api.sfx.pop(), api.go('readfor')) }, [
+    el('span', { class: 'mission-icon', 'aria-hidden': 'true', text: '📖' }),
+    el('span', { class: 'mission-text' }, [el('b', { lang: 'hi', text: 'छोटों के लिए कहानी पढ़ो' }), el('small', { text: 'Read a story for your brother or sister' })]),
+    done ? el('small', { class: 'prizes-count', text: `✓ ${done}` }) : null,
+  ]);
+}
+function prizesButton(api) {
+  const n = unlockedRewards(totalStars(api.state.progress)).length;
+  return el('button', { class: 'prizes-btn', 'aria-label': 'My prizes', onclick: () => (api.sfx.pop(), api.go('rewards')) }, [
+    el('span', { class: 'prizes-icon', 'aria-hidden': 'true', text: '🎁' }),
+    el('span', {}, said(api, { hi: 'मेरे इनाम', en: 'My prizes' }, 'hi', 'b')),
+    el('small', { class: 'prizes-count', text: `${n}/${REWARDS.length}` }),
+  ]);
+}
+// the wardrobe: every prize, the ones unlocked ready to wear or use, the rest waiting for their stars
+export function rewards(api, { quiet = false } = {}) {
+  const stars = totalStars(api.state.progress);
+  const have = new Set(unlockedRewards(stars).map((r) => r.id));
+  const st = styleFor(api.state.progress, stars);
+  const next = nextReward(stars);
+  const tile = (r) => {
+    const on = st[r.kind] === r.id;
+    const b = el('button', { class: `prize-tile kind-${r.kind}${have.has(r.id) ? '' : ' locked'}${on ? ' on' : ''}`, 'aria-pressed': String(on), 'aria-label': `${r.name.en}${have.has(r.id) ? '' : ` (at ${r.stars} stars)`}` }, [
+      el('span', { class: 'prize-pic', html: prizePicture(api, r) }),
+      el('b', { lang: 'hi', text: one(api, r.name) }),
+      have.has(r.id) ? null : el('small', { class: 'prize-lock' }, [el('span', { class: 'star-icon', html: ICONS.star }), el('span', { text: String(r.stars) })]),
+    ]);
+    b.addEventListener('click', () => {
+      if (!have.has(r.id)) return api.sfx.boing();
+      usePrize(api, r);
+      api.sfx.feel?.('select');
+      rewards(api, { quiet: true });
+    });
+    return b;
+  };
+  api.app.replaceChildren(
+    el('div', { class: 'screen rewards-screen enter' }, [
+      backdrop(st.backdrop ? { theme: st.backdrop } : null),
+      el('header', { class: 'game-head' }, [
+        el('button', { class: 'round-btn', 'aria-label': 'Back', html: ICONS.back, onclick: () => api.back() }),
+        el('div', { class: 'head-title' }, said(api, { hi: 'मेरे इनाम', en: 'My prizes' }, 'hi', 'span')),
+        el('span', { class: 'star-chip' }, [el('span', { class: 'star-icon', html: ICONS.star }), el('b', { text: String(stars) })]),
+      ]),
+      el('main', { class: 'rewards-main' }, [
+        next ? el('p', { class: 'prize-next' }, said(api, { hi: `अगला इनाम ${next.stars} तारों पर: ${next.name.hi}`, en: `Next prize at ${next.stars} stars: ${next.name.en}` })) : el('p', { class: 'prize-next' }, said(api, { hi: 'सारे इनाम मिल गए!', en: 'Every prize found!' })),
+        ...REWARD_KINDS.map((k) => el('section', { class: 'prize-shelf' }, [el('h3', {}, said(api, KIND_NAME[k], 'hi', 'span')), el('div', { class: 'prize-tiles' }, REWARDS.filter((r) => r.kind === k).map(tile))])),
+        // the festival stickers collected (roadmap 7.11): each festival's, the ones still to come greyed
+        el('section', { class: 'prize-shelf' }, [
+          el('h3', {}, said(api, { hi: 'त्योहार के स्टिकर', en: 'Festival stickers' }, 'hi', 'span')),
+          el(
+            'div',
+            { class: 'prize-tiles' },
+            FESTIVALS.map((f) => {
+              const got = Object.keys(api.state.progress.festStickers || {}).some((k) => k.startsWith(`${f.id}-`));
+              return el('div', { class: `prize-tile fest-tile${got ? '' : ' locked'}`, role: 'img', 'aria-label': `${f.name.en}${got ? '' : ' (comes on the festival)'}` }, [el('span', { class: 'prize-pic', html: api.word(f.sticker) ? pictureForWord(api.word(f.sticker)) : '' }), el('b', { lang: 'hi', text: one(api, f.name) })]);
+            }),
+          ),
+        ]),
+      ]),
+    ]),
+  );
+  if (!quiet) api.say('prizesHello');
 }
 
 // ---------- साथ खेलो: two players on one device (docs/ROADMAP.md 7.6) ----------
@@ -859,7 +1108,14 @@ function stickerScene(api, w, owned, col, artOf, sayOf) {
   }
   // stickers still to find: a "?" each, so a child can see there is more
   for (const id of col.items.filter((x) => !ok.has(x)).slice(0, 4)) tray.append(el('button', { class: 'tray-sticker locked', 'aria-label': 'not found yet', html: '<span>?</span>', onclick: () => api.sfx.boing() }));
-  return el('main', { class: 'scene-play' }, [stage, tray]);
+  // make-your-own story (roadmap 7.8): tell a story about the picture, and it becomes a book
+  const tell = el('button', { class: 'bubble tell-story', 'aria-label': 'Tell a story about my picture' }, [el('span', { 'aria-hidden': 'true', text: '🎙️' }), el('span', {}, said(api, { hi: 'मेरी कहानी', en: 'My story' }, 'hi', 'b'))]);
+  tell.addEventListener('click', () => {
+    if (!placed.length) return api.sayLines({ hi: 'पहले कुछ स्टिकर तस्वीर में लगाओ!', en: 'First put some stickers in the picture!' });
+    api.sfx.pop();
+    recordBook(api, w, placed, artOf);
+  });
+  return el('main', { class: 'scene-play' }, [stage, el('div', { class: 'scene-actions' }, [tell]), tray]);
 }
 
 // ---------- story library ----------
@@ -879,7 +1135,7 @@ export function library(api, w) {
   const book = (s, { hero = false } = {}) => {
     const read = isRead(s);
     const d = decoding ? canRead(s) : null;
-    const b = el('button', { class: `book ${read ? 'read' : ''} ${s.kind === 'poem' ? 'poem' : ''}${hero ? ' next-book' : ''}`, 'aria-label': s.title.en }, [
+    const b = el('button', { class: `book ${read ? 'read' : ''} ${s.kind === 'poem' ? 'poem' : ''}${hero ? ' next-book' : ''}`, 'data-grow': `story:${s.id}`, 'aria-label': s.title.en }, [
       hero ? el('span', { class: 'next-ribbon' }, said(api, { hi: 'अब यह पढ़ो!', en: 'Read this next!' })) : null,
       s.kind === 'poem' ? el('span', { class: 'poem-ribbon', text: s.lang === 'en' ? 'Rhyme' : 'कविता · Poem' }) : null,
       el('span', { class: 'book-cover', html: pictureForWord(api.word(s.cover)) }),
@@ -892,9 +1148,10 @@ export function library(api, w) {
     ]);
     b.addEventListener('click', () => {
       api.sfx.page();
-      api.go('lesson', { worldId: w.id, storyId: s.id });
+      api.go('lesson', { worldId: w.id, storyId: s.id }, { from: b });
     });
-    return b;
+    // a heart on every book (roadmap 7.2); a sibling of the book, not inside its button
+    return el('div', { class: `book-wrap${hero ? ' next-book-wrap' : ''}` }, [b, heartButton(api, s, { cls: 'on-book' })]);
   };
   // while learning to read, the books a child can read come first, then those needing the fewest new matras
   const order = decoding ? stories.map((s, i) => [s, canRead(s).missing.length, i]).sort((a, b) => a[1] - b[1] || a[2] - b[2]).map((x) => x[0]) : stories;
@@ -913,12 +1170,33 @@ export function library(api, w) {
           : [el('span', { class: 'world-name-hi', lang: 'hi', text: `${guide.hi} का पुस्तकालय` }), el('span', { class: 'world-name-en', text: `${guide.en}'s library · ${stories.length} books` })]),
         el('span', { class: 'round-spacer' }),
       ]),
-      el('main', { class: 'shelf' }, [hero, ...books]),
+      el('main', { class: 'shelf' }, [myShelf(api, () => library(api, w)), hero, ...books]),
       el('div', { class: 'mascot-corner' }, [mascot.node]),
     ]),
   );
   setTimeout(() => mascot.react('wave'), 400);
   api.sayLines({ hi: `${guide.hi} के पुस्तकालय में स्वागत है! कौन सी कहानी पढ़ें?`, en: `Welcome to ${guide.en}'s library! Which story shall we read?` });
+}
+
+// The child's own books (roadmap 7.8): every picture they told a story about, newest first
+function myShelf(api, redraw) {
+  const books = api.state.progress.myBooks || [];
+  if (!books.length) return null;
+  const artOf = (id) => (id === 'special' ? specialVehicle(api.state.special) : api.word(id) ? pictureForWord(api.word(id)) : '');
+  return el('section', { class: 'my-shelf' }, [
+    el('h3', {}, said(api, { hi: 'मेरी किताबें', en: 'My books' }, 'hi', 'span')),
+    el(
+      'div',
+      { class: 'my-books' },
+      books.map((b) => {
+        const world = api.state.content.worlds.find((x) => x.id === b.world);
+        if (!world) return null;
+        const btn = el('button', { class: 'my-book', 'aria-label': 'My book' }, [bookPicture(world, b, artOf, { cls: 'small' })]);
+        btn.addEventListener('click', () => (api.sfx.page(), playBook(api, world, b, artOf, { onDelete: redraw })));
+        return btn;
+      }),
+    ),
+  ]);
 }
 
 // ---------- parent gate: press and hold ----------
@@ -1008,17 +1286,19 @@ export function rest(api) {
       api.back();
     },
   });
+  const restCard = el('div', { class: 'rest-card' });
   api.app.replaceChildren(
     el('div', { class: 'screen rest-screen enter' }, [
       backdrop(api.state.world),
-      el('div', { class: 'rest-card' }, [
+      fill(restCard, [
+        infoButton(restCard, { cls: 'corner' }),
         el('div', { class: 'rest-mascot' }, [mascot.node, el('span', { class: 'zzz', text: 'z z z' })]),
         el('h1', { lang: 'hi', text: 'आराम का समय!' }),
         el('p', { class: 'rest-en', text: `Time for a break! You played ${api.minutesToday()} minutes today.` }),
         el('p', { class: 'rest-idea', lang: 'hi', text: idea.hi }),
         el('p', { class: 'rest-en', text: idea.en }),
         el('div', { class: 'rest-actions' }, [el('button', { class: 'bubble green', 'aria-label': 'Home', html: ICONS.home, onclick: () => api.goHome() }), more]),
-        el('p', { class: 'rest-note', text: 'Grown-ups: hold +10 for ten more minutes. The limit is in the parent area.' }),
+        forGrownups(el('p', { class: 'rest-note', text: 'Grown-ups: hold +10 for ten more minutes. The limit is in the parent area.' })),
       ]),
     ]),
   );
@@ -1043,14 +1323,14 @@ export function playHero(api, steps, worlds = []) {
   const guide = createMascot(world.mascot, { onTap: () => mascotJoke(api, guide) });
   const { list = [], current } = api.state.profiles || {};
   const name = list.find((p) => p.id === current)?.name?.trim();
-  const play = el('button', { class: 'big-play', style: { '--place': world.color }, 'aria-label': `Play: ${lesson.title.en}` }, [
+  const play = el('button', { class: 'big-play', style: { '--place': world.color }, 'data-grow': `lesson:${lesson.id}`, 'aria-label': `Play: ${lesson.title.en}` }, [
     el('span', { class: 'big-play-pic', html: api.iconHtml(lesson.icon) }),
     el('span', { class: 'big-play-btn', html: ICONS.play }),
   ]);
   play.addEventListener('click', () => {
     api.sfx.pop();
     bounce(play);
-    api.go('lesson', { lessonId: lesson.id });
+    api.go('lesson', { lessonId: lesson.id }, { from: play });
   });
   return el('section', { class: 'play-hero', 'aria-label': 'Play' }, [
     el('div', { class: 'play-hero-guide' }, [guide.node, el('b', { class: 'play-hello', lang: 'hi', text: hello(name) })]),
@@ -1058,6 +1338,7 @@ export function playHero(api, steps, worlds = []) {
     steps.length > 1
       ? el('span', { class: 'play-dots', role: 'img', 'aria-label': `${steps.filter((s) => s.done).length} of ${steps.length} done today` }, steps.map((s) => el('i', { class: s.done ? 'done' : s === next ? 'now' : '' })))
       : null,
+    weekTrail(api),
   ]);
 }
 
@@ -1086,7 +1367,7 @@ export function todayCard(api, steps) {
       { class: 'today-steps' },
       steps.map((s, i) => {
         const meta = STEP[s.kind];
-        const b = el('button', { class: `today-step ${s.kind}${s.done ? ' done' : ''}`, style: { '--place': s.world.color }, 'aria-label': `${meta.en}: ${s.lesson.title.en}` }, [
+        const b = el('button', { class: `today-step ${s.kind}${s.done ? ' done' : ''}`, style: { '--place': s.world.color }, 'data-grow': `lesson:${s.lesson.id}`, 'aria-label': `${meta.en}: ${s.lesson.title.en}` }, [
           el('span', { class: 'today-icon', html: api.iconHtml(s.lesson.icon) }),
           el('span', { class: 'today-text' }, [
             el('b', {}, [`${i + 1}. `, ...said(api, meta)]),
@@ -1097,12 +1378,69 @@ export function todayCard(api, steps) {
         b.addEventListener('click', () => {
           api.sfx.pop();
           bounce(b);
-          api.go('lesson', { lessonId: s.lesson.id });
+          api.go('lesson', { lessonId: s.lesson.id }, { from: b });
         });
         return b;
       }),
     ),
+    weekTrail(api),
   ]);
+}
+
+// ---------- a gentle daily rhythm (roadmap 7.4): the week's sticker trail, and a celebration ----------
+const WEEKDAY = [
+  { hi: 'सोम', en: 'Mon' },
+  { hi: 'मंगल', en: 'Tue' },
+  { hi: 'बुध', en: 'Wed' },
+  { hi: 'गुरु', en: 'Thu' },
+  { hi: 'शुक्र', en: 'Fri' },
+  { hi: 'शनि', en: 'Sat' },
+  { hi: 'रवि', en: 'Sun' },
+];
+// Monday to Sunday: a sticker on each day today's path was finished; today's place waits, dashed
+export function weekTrail(api, now = Date.now()) {
+  const trail = api.state.progress.trail || {};
+  const today = isoDay(now);
+  return el(
+    'div',
+    { class: 'week-trail', role: 'img', 'aria-label': `This week: ${weekDays(now).filter((d) => trail[d]).length} of 7 days done` },
+    weekDays(now).map((d, i) =>
+      el('span', { class: `trail-day${trail[d] ? ' got' : ''}${d === today ? ' today' : ''}${d > today ? ' later' : ''}`, 'data-day': d }, [
+        el('span', { class: 'trail-sticker', html: trail[d] && api.word(trail[d]) ? pictureForWord(api.word(trail[d])) : '' }),
+        el('small', { lang: langMode(api) === 'en' ? 'en' : 'hi', text: one(api, WEEKDAY[i]) }),
+      ]),
+    ),
+  );
+}
+// Today's path just finished: the day's sticker, a little party, and its place on the trail
+export async function celebrateDay(api, screen, now = Date.now()) {
+  const day = isoDay(now);
+  const id = trailSticker(day);
+  api.state.progress = { ...api.state.progress, trail: { ...(api.state.progress.trail || {}), [day]: id } };
+  api.persistProgress();
+  const full = weekFull(api.state.progress.trail, now);
+  const sticker = el('span', { class: 'day-done-sticker', html: api.word(id) ? pictureForWord(api.word(id)) : '' });
+  const party = el('div', { class: 'day-done', role: 'status' }, [
+    el('div', { class: 'confetti' }, Array.from({ length: 30 }, (_, i) => el('i', { style: { left: `${(i * 37) % 100}%`, animationDelay: `${(i % 10) * 0.1}s`, background: ['#FF5A5F', '#FFC93C', '#2EC27E', '#3D7BFF', '#A66BFF', '#FF8FB1'][i % 6] } }))),
+    el('div', { class: 'day-done-card' }, [
+      sticker,
+      el('b', { lang: 'hi', text: full ? 'पूरा हफ़्ता!' : 'आज के तीनों पूरे!' }),
+      el('span', { text: full ? 'A sticker for every day this week!' : "All three done today! Here's today's sticker." }),
+    ]),
+  ]);
+  screen.append(party);
+  api.sfx.cheer();
+  api.sfx.feel?.('reward');
+  await api.say(full ? 'weekDone' : 'dayDone');
+  // the sticker flies to today's place on the trail
+  const slot = screen.querySelector(`.trail-day[data-day="${day}"] .trail-sticker`);
+  if (slot?.isConnected) {
+    await flyTo(sticker, slot, { scale: 0.3, duration: 700 }).catch?.(() => {});
+    slot.innerHTML = sticker.innerHTML;
+    slot.parentNode.classList.add('got', 'just');
+  }
+  party.classList.add('gone');
+  setTimeout(() => party.remove(), 400);
 }
 
 // ---------- placement check: which grade should we start in? ----------

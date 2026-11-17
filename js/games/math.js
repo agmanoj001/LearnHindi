@@ -54,10 +54,12 @@ export default {
 
       let misses = 0;
       const right = await choose(btns, (b) => b.opt.value === p.answer, {
+        ctx,
+        record: false,
+        hintSay: (n, kind) => (p.hint && n === 0 ? ctx.sayText(p.hint, 'en') : ctx.say(kind === 'out' ? 'hintOne' : 'hintLook', null, ['en'])),
         onWrong: (b) => {
           misses++;
           b.classList.add('tried');
-          ctx.miss();
           const now = Date.now();
           if (misses >= 2 && p.hint) ctx.sayText(p.hint, 'en');
           else if (now - lastSay > 600) ctx.sayText(String(b.opt.say || b.opt.label || ''), 'en');

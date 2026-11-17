@@ -248,6 +248,136 @@ export function makeOppositeRound(pairs, rng = Math.random, previous = null) {
 // ---- Trace the road ----
 
 // Fraction of target points that have a traced point within `radius`.
+// A shape thinned to its centre line, one cell wide (Zhang–Suen thinning). `mask` is a Uint8Array of
+// w × h cells (1 = inside the letter); returns a new mask. Used to find the pen path of a letter.
+export function skeleton(mask, w, h) {
+  const m = Uint8Array.from(mask);
+  const at = (x, y) => (x < 0 || y < 0 || x >= w || y >= h ? 0 : m[y * w + x]);
+  let changed = true;
+  while (changed) {
+    changed = false;
+    for (const pass of [0, 1]) {
+      const off = [];
+      for (let y = 0; y < h; y++)
+        for (let x = 0; x < w; x++) {
+          if (!m[y * w + x]) continue;
+          const n = [at(x, y - 1), at(x + 1, y - 1), at(x + 1, y), at(x + 1, y + 1), at(x, y + 1), at(x - 1, y + 1), at(x - 1, y), at(x - 1, y - 1)];
+          const b = n.reduce((a, v) => a + v, 0);
+          if (b < 2 || b > 6) continue;
+          let a = 0;
+          for (let k = 0; k < 8; k++) if (!n[k] && n[(k + 1) % 8]) a++;
+          if (a !== 1) continue;
+          if (pass === 0 ? n[0] * n[2] * n[4] || n[2] * n[4] * n[6] : n[0] * n[2] * n[6] || n[0] * n[4] * n[6]) continue;
+          off.push(y * w + x);
+        }
+      for (const i of off) m[i] = 0;
+      if (off.length) changed = true;
+    }
+  }
+  return m;
+}
+
+// The order a letter is written in (docs/ROADMAP.md 5.6), worked out from the points of its shape, so it
+// works for every letter in any font: for Hindi, the body first (one pen path, lifting the pen only where
+// the shape breaks), then the standing line (खड़ी पाई) top to bottom, then the top line (शिरोरेखा) left to
+// right, then any mark above it (ई's curl, the dot of ं). Latin letters are just their pen paths.
+// `points` are {x, y} on a grid of `step`; returns [{ kind: 'body' | 'stem' | 'line' | 'mark', pts }].
+export function strokeOrder(points, { step = 6, devanagari = true } = {}) {
+  if (!points.length) return [];
+  const xs = points.map((p) => p.x);
+  const ys = points.map((p) => p.y);
+  const [minX, maxX, minY, maxY] = [Math.min(...xs), Math.max(...xs), Math.min(...ys), Math.max(...ys)];
+  const W = maxX - minX + step;
+  const H = maxY - minY + step;
+  const rows = new Map();
+  for (const p of points) rows.set(p.y, (rows.get(p.y) || 0) + 1);
+  // the top line: the widest band of rows in the top half, spanning most of the letter
+  let line = new Set();
+  if (devanagari) {
+    const wide = [...rows.entries()].filter(([y, n]) => y <= minY + H * 0.5 && n * step >= W * 0.55).map(([y]) => y).sort((a, b) => a - b);
+    // the contiguous group with the most points
+    let best = [];
+    let cur = [];
+    for (const y of wide) {
+      if (cur.length && y - cur[cur.length - 1] > step * 1.5) cur = [];
+      cur.push(y);
+      const sum = (g) => g.reduce((a, r) => a + rows.get(r), 0);
+      if (sum(cur) > sum(best)) best = [...cur];
+    }
+    line = new Set(best);
+  }
+  const lineY = line.size ? Math.max(...line) : minY - 1;
+  const inLine = (p) => line.has(p.y);
+  const above = (p) => line.size && p.y < Math.min(...line);
+  // standing lines: columns in the right part that run most of the way down below the top line
+  const below = points.filter((p) => !inLine(p) && !above(p));
+  const bH = Math.max(...below.map((p) => p.y), lineY) - lineY;
+  const cols = new Map();
+  for (const p of below) cols.set(p.x, (cols.get(p.x) || 0) + 1);
+  const stemX = devanagari && line.size ? new Set([...cols.entries()].filter(([x, n]) => x >= minX + W * 0.4 && n * step >= bH * 0.7).map(([x]) => x)) : new Set();
+  const groups = [];
+  for (const x of [...stemX].sort((a, b) => a - b)) {
+    const g = groups[groups.length - 1];
+    if (g && x - g[g.length - 1] <= step * 1.5) g.push(x);
+    else groups.push([x]);
+  }
+  const inStem = (p) => stemX.has(p.x) && !inLine(p) && !above(p);
+  const body = below.filter((p) => !inStem(p));
+  // the body as pen paths: start at a loose end near its top left, always go to the nearest point not yet
+  // drawn; a jump further than a few grid steps lifts the pen, and the next piece starts at the loose end
+  // nearest to where the pen was
+  const near = (a, b) => (a.x - b.x) ** 2 + (a.y - b.y) ** 2 <= 2 * step * step + 1;
+  const looseEnds = (left) => left.map((p, k) => [p, k]).filter(([p]) => left.filter((q) => q !== p && near(p, q)).length <= 1);
+  const walk = (pts) => {
+    const left = pts.slice();
+    const out = [];
+    if (!left.length) return out;
+    const score = (p) => p.x - minX + (p.y - minY) * 0.7;
+    const ends0 = looseEnds(left);
+    let i = (ends0.length ? ends0 : left.map((p, k) => [p, k])).reduce((b, c) => (score(c[0]) < score(b[0]) ? c : b))[1];
+    let stroke = [];
+    while (left.length) {
+      const p = left.splice(i, 1)[0];
+      stroke.push(p);
+      if (!left.length) break;
+      let bi = -1;
+      let bd = Infinity;
+      for (let k = 0; k < left.length; k++) {
+        const d = (left[k].x - p.x) ** 2 + (left[k].y - p.y) ** 2;
+        if (d < bd) [bd, bi] = [d, k];
+      }
+      if (bd > (step * 3) ** 2) {
+        // lift the pen: the next piece starts at the loose end nearest to here
+        if (stroke.length > 1) out.push(stroke);
+        stroke = [];
+        const ends = looseEnds(left);
+        if (ends.length) bi = ends.reduce((b, c) => ((c[0].x - p.x) ** 2 + (c[0].y - p.y) ** 2 < (b[0].x - p.x) ** 2 + (b[0].y - p.y) ** 2 ? c : b))[1];
+      }
+      i = bi;
+    }
+    if (stroke.length > 1) out.push(stroke);
+    return out;
+  };
+  // a straight stroke through a band of points: one point per row (or column), averaged across it
+  const straight = (pts, along) => {
+    const by = new Map();
+    for (const p of pts) by.set(p[along], [...(by.get(p[along]) || []), p]);
+    const other = along === 'x' ? 'y' : 'x';
+    return [...by.keys()].sort((a, b) => a - b).map((k) => ({ [along]: k, [other]: by.get(k).reduce((a, p) => a + p[other], 0) / by.get(k).length }));
+  };
+  const strokes = walk(body).map((pts) => ({ kind: 'body', pts }));
+  for (const g of groups) strokes.push({ kind: 'stem', pts: straight(below.filter((p) => g.includes(p.x)), 'y') });
+  if (line.size) strokes.push({ kind: 'line', pts: straight(points.filter(inLine), 'x') });
+  for (const pts of walk(points.filter(above))) strokes.push({ kind: 'mark', pts });
+  return strokes.filter((s) => s.pts.length > 1);
+}
+
+// The points of a letter not yet driven over (for the tracing hint).
+export function uncoveredPoints(targets, trace, radius) {
+  const r2 = radius * radius;
+  return targets.filter((t) => !trace.some((p) => (t.x - p.x) ** 2 + (t.y - p.y) ** 2 <= r2));
+}
+
 export function traceCoverage(targets, trace, radius) {
   if (!targets.length) return 1;
   const r2 = radius * radius;
@@ -327,6 +457,8 @@ export function defaultSettings(content) {
     bigText: false, // larger text in the comics
     storyVoices: true, // use the story voice pack when it has been downloaded
     radioDark: false, // Story radio: a dark screen instead of the moving pictures (kinder on car rides)
+    singAlong: true, // rhymes are sung along with a bouncing ball and claps (roadmap 7.7)
+    motion: 'auto', // animations: 'auto' (lighter on a device that measured slow), 'full' or 'lite' (js/motion.js)
     voice: { hi: '', en: '', rate: 0.9 },
   };
 }
@@ -340,7 +472,8 @@ export function normalizeSettings(saved, content) {
   if (DAILY_LIMITS.includes(saved.dailyLimit)) out.dailyLimit = saved.dailyLimit;
   if (saved.parentLang === 'hi' || saved.parentLang === 'en') out.parentLang = saved.parentLang;
   if (saved.showMode === 'watch' || saved.showMode === 'play') out.showMode = saved.showMode;
-  for (const k of ['onboarded', 'lockGrade', 'simpleHome', 'unlockAll', 'math', 'captions', 'retell', 'music', 'sfx', 'bigText', 'storyVoices', 'radioDark']) if (typeof saved[k] === 'boolean') out[k] = saved[k];
+  if (['auto', 'full', 'lite'].includes(saved.motion)) out.motion = saved.motion;
+  for (const k of ['onboarded', 'lockGrade', 'simpleHome', 'unlockAll', 'math', 'captions', 'retell', 'music', 'sfx', 'bigText', 'storyVoices', 'radioDark', 'singAlong']) if (typeof saved[k] === 'boolean') out[k] = saved[k];
   if (saved.voice && typeof saved.voice === 'object') {
     for (const l of ['hi', 'en']) if (typeof saved.voice[l] === 'string') out.voice[l] = saved.voice[l];
     if (typeof saved.voice.rate === 'number' && saved.voice.rate >= 0.5 && saved.voice.rate <= 1.3) out.voice.rate = saved.voice.rate;
@@ -351,7 +484,7 @@ export function normalizeSettings(saved, content) {
 export function defaultProgress(content) {
   const collected = {};
   for (const [id, col] of Object.entries(content.collections || {})) collected[id] = col.items.slice(0, col.start || 0);
-  return { lessons: {}, collected, days: [], trainPos: {}, storyPos: {}, comicPos: {}, stats: {}, time: {}, shows: {}, scenes: {} };
+  return { lessons: {}, collected, days: [], trainPos: {}, storyPos: {}, comicPos: {}, stats: {}, time: {}, shows: {}, scenes: {}, coached: [], favs: [], trail: {}, style: { outfit: null, backdrop: null, sound: null }, myBooks: [], festStickers: {} };
 }
 
 export function normalizeProgress(saved, content) {
@@ -396,6 +529,52 @@ export function normalizeProgress(saved, content) {
         .map(([id, r]) => [id, { panel: Math.min(r.panel, 99), solved: r.solved === true }]),
     ),
     stats: obj(saved.stats),
+    // today's surprise, once opened (js/surprise.js, roadmap 7.12)
+    ...(saved.gift && typeof saved.gift === 'object' && /^\d{4}-\d\d-\d\d$/.test(saved.gift.day) && ['sticker', 'joke', 'sound'].includes(saved.gift.kind) ? { gift: { day: saved.gift.day, kind: saved.gift.kind, value: saved.gift.value } } : {}),
+    // riddles of the day solved: { riddleId: the day } (js/corner.js, roadmap 7.16)
+    riddles: Object.fromEntries(Object.entries(obj(saved.riddles)).filter(([k, v]) => /^[a-z0-9]+$/.test(k) && /^\d{4}-\d\d-\d\d$/.test(v)).slice(-200)),
+    // the comics this child made (js/comicmaker.js): three panels of the cast, places and their words
+    myComics: (Array.isArray(saved.myComics) ? saved.myComics : [])
+      .filter((m) => m && /^m[0-9a-z]+$/.test(m.id) && Array.isArray(m.panels) && m.panels.length)
+      .slice(0, 20)
+      .map((m) => ({
+        id: m.id,
+        title: typeof m.title === 'string' ? m.title.slice(0, 40) : '',
+        made: Number.isFinite(m.made) ? m.made : 0,
+        panels: m.panels.slice(0, 4).map((p) => {
+          const cast = (Array.isArray(p?.cast) ? p.cast : [])
+            .filter((c) => c && /^[a-z]+$/.test(c.who))
+            .slice(0, 2)
+            .map((c) => ({ who: c.who, at: Number.isFinite(c.at) ? Math.max(0, Math.min(100, c.at)) : 50, ...(/^[a-z]+$/.test(c.face) ? { face: c.face } : {}), ...(/^[a-z]+$/.test(c.arms) ? { arms: c.arms } : {}) }));
+          const who = new Set(cast.map((c) => c.who));
+          const say = (Array.isArray(p?.say) ? p.say : [])
+            .filter((b) => b && who.has(b.who) && typeof b.text === 'string' && b.text.trim())
+            .slice(0, 2)
+            .map((b) => ({ who: b.who, text: b.text.slice(0, 90), ...(['shout', 'whisper', 'think'].includes(b.kind) ? { kind: b.kind } : {}) }));
+          return { bg: /^[a-z]+$/.test(p?.bg) ? p.bg : 'room', cast, say, ...(typeof p?.cap === 'string' && p.cap.trim() ? { cap: p.cap.slice(0, 90) } : {}) };
+        }),
+      })),
+    // idioms of the day understood: { idiomId: the day }
+    idioms: Object.fromEntries(Object.entries(obj(saved.idioms)).filter(([k, v]) => /^[a-z0-9]+$/.test(k) && /^\d{4}-\d\d-\d\d$/.test(v)).slice(-200)),
+    // festival stickers, one a festival a year: { 'diwali-2026': 'lamp' } (js/festivals.js, roadmap 7.11)
+    festStickers: Object.fromEntries(Object.entries(obj(saved.festStickers)).filter(([k, v]) => /^[a-z]+-\d{4}$/.test(k) && typeof v === 'string').slice(-60)),
+    // the child's own books: a sticker picture and (on the device) their voice (js/mybooks.js, roadmap 7.8)
+    myBooks: (Array.isArray(saved.myBooks) ? saved.myBooks : [])
+      .filter((b) => b && /^b[0-9a-z]+$/.test(b.id) && typeof b.world === 'string' && Array.isArray(b.stickers))
+      .slice(0, 30)
+      .map((b) => ({ id: b.id, world: b.world, made: Number.isFinite(b.made) ? b.made : 0, stickers: b.stickers.filter((s) => s && typeof s.id === 'string' && Number.isFinite(s.x) && Number.isFinite(s.y)).slice(0, 30).map((s) => ({ id: s.id, x: Math.max(0, Math.min(100, s.x)), y: Math.max(0, Math.min(100, s.y)) })) })),
+    // what the child chose to wear and use (js/rewards.js, roadmap 7.5)
+    style: Object.fromEntries(['outfit', 'backdrop', 'sound'].map((k) => [k, typeof obj(saved.style)[k] === 'string' ? obj(saved.style)[k] : null])),
+    // today's path, kept for the day (curriculum.js stickyPlan, roadmap 7.4)
+    ...(saved.today && typeof saved.today === 'object' && /^\d{4}-\d\d-\d\d$/.test(saved.today.day) && Array.isArray(saved.today.steps)
+      ? { today: { day: saved.today.day, steps: saved.today.steps.filter((s) => s && ['go', 'review', 'story', 'watched'].includes(s.kind) && typeof s.world === 'string' && typeof s.lesson === 'string').slice(0, 4) } }
+      : {}),
+    // the week-long sticker trail (curriculum.js, roadmap 7.4): a sticker for each day today's path was finished
+    trail: Object.fromEntries(Object.entries(obj(saved.trail)).filter(([d, id]) => /^\d{4}-\d\d-\d\d$/.test(d) && typeof id === 'string' && /^[a-z-]+$/.test(id)).sort().slice(-60)),
+    // favourite stories, newest first (js/favourites.js): only stories that exist, each once
+    favs: Array.isArray(saved.favs) ? [...new Set(saved.favs.filter((id) => (content.stories || []).some((s) => s.id === id)))].slice(0, 50) : [],
+    // the "how to play" hands already shown (js/coach.js): "game:kind"
+    coached: Array.isArray(saved.coached) ? [...new Set(saved.coached.filter((k) => typeof k === 'string' && /^[a-z]+:[a-z]+$/.test(k)))].slice(-100) : [],
     time,
     shows: Object.fromEntries(
       Object.entries(obj(saved.shows))
@@ -421,12 +600,16 @@ export function normalizeProgress(saved, content) {
 // The beats an episode script can use (see README › Show time), and every spoken line in order
 // with the key a family recording uses: show-<id>-<n>_hi / _en.
 // Checked in this order: a beat can carry extra fields (a "letter" beat names its "word", a "say" beat may "do" something).
-export const BEAT_KINDS = ['say', 'narrate', 'ask', 'echo', 'letter', 'build', 'enter', 'move', 'exit', 'do', 'show', 'word', 'glyph', 'tenframe', 'number', 'clear', 'sfx', 'wait'];
+export const BEAT_KINDS = ['say', 'narrate', 'ask', 'echo', 'letter', 'build', 'enter', 'move', 'exit', 'do', 'show', 'word', 'glyph', 'tenframe', 'number', 'clear', 'sfx', 'wait', 'model'];
+// the maths pictures a Show time "model" beat can draw (js/art-math.js)
+export const SHOW_MODELS = ['tenframe', 'base10', 'compare10', 'clock', 'shape', 'parts', 'objects', 'measure', 'numberline', 'coin'];
 export const beatKind = (b) => BEAT_KINDS.find((k) => b && b[k] !== undefined) || null;
 
 export function showLines(show) {
   const lines = [];
   const add = (text, beat) => text && (text.hi || text.en) && lines.push({ key: `show-${show.id}-${lines.length + 1}`, hi: text.hi || '', en: text.en || '', beat });
+  // a series episode opens by answering the last one's question (docs/ROADMAP.md 7.15)
+  add(show.answer, show.answer);
   for (const scene of show.scenes || [])
     for (const b of scene.beats || []) {
       const k = beatKind(b);
@@ -436,6 +619,8 @@ export function showLines(show) {
         add(b.then, b);
       } else if (k === 'echo') add(b.echo, b);
     }
+  // ... and ends on the question the next one answers (last, so the pilots' keys stay as they were)
+  add(show.next, show.next);
   return lines;
 }
 
@@ -750,6 +935,10 @@ export function lessonVoiceLines(content) {
       for (const t of String(s[lg] || '').split(/\s+/)) byText(bareToken(t), lg, s.level);
     }
   for (const sh of content.shows || []) for (const l of showLines(sh)) for (const lg of ['hi', 'en']) push(`${l.key}_${lg}`, l[lg], lg, sh.level);
+  // the fun corner (Grades 7–8): each riddle, its answers and why (js/corner.js)
+  for (const r of content.riddles || []) for (const t of [r.hi, ...r.options, `${r.answer}! ${r.why.hi}`]) byText(t, 'hi', r.level);
+  // ... and each idiom, its meanings and the sentence (the strip's bubbles are in the comic voices)
+  for (const x of content.idioms || []) for (const t of [x.hi, ...x.options, `${x.hi}: ${x.meaning.hi}`]) byText(t, 'hi', x.level);
 
   // the barakhadi: each lesson's rows, said together, and each syllable on its own
   const matras = new Map((content.matras || []).map((m) => [m.id, m]));

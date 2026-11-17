@@ -16,15 +16,24 @@ import {
   synLine,
 } from './logic.js';
 import { findLesson, lessonRecord, lessonLetters, applyLessonResult, adaptTier, addPlayTime, isoDay, worldLessons } from './curriculum.js';
-import { milestones } from './guide.js';
+import { milestones, totalStars } from './guide.js';
 import { freeplay } from './freeplay.js';
 import { validateContent } from './validate.js';
 import { pictureExists, picture, pictureForWord, specialVehicle } from './art.js';
-import { initAudio, setVoicePack, preload, play, stop, wordSegs, letterSegs, numberSegs, soundSegs, sentenceSegs, phraseSegs, setVoicePrefs } from './audio.js';
+import { showCoach, needsCoach, coachKey, COACH_KINDS, COACH_MAX } from './coach.js';
+import { applyMotion, liteMotion, slowDevice, watchMotion, isLite } from './motion.js';
+import { styleFor, newRewards } from './rewards.js';
+import { giftSoundToday } from './surprise.js';
+import { readForScreen } from './readfor.js';
+import { wordBook } from './wordbook.js';
+import { cornerScreen, idiomScreen } from './corner.js';
+import { comicMaker } from './comicmaker.js';
+import { duelScreen } from './duel.js';
+import { initAudio, setVoicePack, preload, play, stop, isSpeaking, wordSegs, letterSegs, numberSegs, soundSegs, sentenceSegs, phraseSegs, setVoicePrefs } from './audio.js';
 import { KEYS, load, save, normalizeProfiles, profileKey, keepStorage } from './storage.js';
-import { sfx, music } from './sfx.js';
+import { sfx, music, FEEDBACK } from './sfx.js';
 import { el, sleep, bounce, ICONS } from './ui.js';
-import { createMascot, MASCOT_IDS } from './mascot.js';
+import { createMascot, MASCOT_IDS, setOutfit } from './mascot.js';
 import * as screens from './screens.js';
 import * as shows from './shows.js';
 import { showParent } from './parent.js';
@@ -56,7 +65,16 @@ async function boot() {
   initCaptions();
   initParallax();
   history.replaceState({ name: 'splash', depth: 0 }, '');
-  window.addEventListener('popstate', (e) => render(e.state || { name: 'hub', depth: 0 }));
+  // every round button (back, home, the speaker, the 💡, the ⓘ) and every results bubble answers a tap
+  // with the same soft tick and touch (roadmap 5.7)
+  document.addEventListener('click', (e) => e.target.closest?.('.round-btn, .bubble, .info-btn') && sfx.feel('tap'), true);
+  window.addEventListener('popstate', (e) => {
+    const route = e.state || { name: 'hub', depth: 0 };
+    // going back from a screen that grew out of a card: it shrinks back into that card
+    const leaving = state.current;
+    if (leaving?.grow && route.depth < (leaving.depth || 0)) return grow(() => render(route), app.querySelector('.screen'), () => app.querySelector(`[data-grow="${CSS.escape(leaving.grow)}"]`));
+    render(route);
+  });
   render({ name: 'splash', depth: 0 });
 }
 
@@ -94,6 +112,7 @@ function initParallax() {
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   let raf = 0;
   const set = (x, y) => {
+    if (isLite()) return; // lighter animations: the background stays still
     cancelAnimationFrame(raf);
     raf = requestAnimationFrame(() => {
       document.documentElement.style.setProperty('--px', Math.max(-1, Math.min(1, x)).toFixed(3));
@@ -137,7 +156,21 @@ function loadProfile() {
   setVoicePack(null, state.settings.storyVoices);
   sfx.enabled = state.settings.sfx;
   music.enabled = state.settings.music;
+  applyMotion(liteMotion(state.settings.motion, slowDevice()));
+  applyStyle();
 }
+
+// the guides' outfit and the buttons' sound the child chose (js/rewards.js, roadmap 7.5)
+function applyStyle() {
+  const st = styleFor(state.progress, totalStars(state.progress));
+  setOutfit(st.outfit);
+  // today's surprise may be a funny sound for the buttons (roadmap 7.12)
+  sfx.tapSound = giftSoundToday(state.progress) || st.sound;
+  return st;
+}
+
+// the motion budget (js/motion.js, roadmap 5.5): the first few screens of each start are timed
+const motionCheck = watchMotion(() => state.settings.motion);
 
 function saveProfiles(profiles) {
   state.profiles = normalizeProfiles(profiles, MASCOT_IDS);
@@ -168,10 +201,33 @@ function homeRoute() {
   return { name: 'hub', params: {} };
 }
 
-function go(name, params = {}, { replace = false } = {}) {
-  const route = { name, params, depth: replace ? state.depth : state.depth + 1 };
+// Tapping a world, a lesson, a story or an episode grows that card into the next screen, and going back
+// shrinks the screen into the card again (roadmap 5.4): the card and the screen share a view-transition
+// name, so the browser morphs one into the other. Browsers without View Transitions, and "reduce
+// motion", keep the usual slide-in.
+const canGrow = () => typeof document.startViewTransition === 'function' && !isLite() && !window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+function grow(change, from, to) {
+  if (!from?.isConnected || !canGrow()) return change();
+  from.style.viewTransitionName = 'grow';
+  document.documentElement.classList.add('growing');
+  let target = null;
+  const t = document.startViewTransition(() => {
+    from.style.viewTransitionName = '';
+    change();
+    target = to();
+    target?.style.setProperty('view-transition-name', 'grow');
+  });
+  t.finished.finally(() => {
+    document.documentElement.classList.remove('growing');
+    target?.style.removeProperty('view-transition-name');
+  });
+}
+
+function go(name, params = {}, { replace = false, from = null } = {}) {
+  const route = { name, params, depth: replace ? state.depth : state.depth + 1, ...(from?.dataset?.grow ? { grow: from.dataset.grow } : {}) };
   if (replace) history.replaceState(route, '');
   else history.pushState(route, '');
+  if (from) return grow(() => render(route), from, () => app.querySelector('.screen'));
   render(route);
 }
 
@@ -190,6 +246,8 @@ function render(route) {
   stop();
   state.depth = route.depth || 0;
   state.route = route.name;
+  state.current = route;
+  if (route.name !== 'splash') setTimeout(motionCheck, 600);
   // quieter music in lessons and shows, where children need to hear every sound
   music.setMood(route.name === 'lesson' || route.name === 'show' ? 'lesson' : 'free');
   // the "new version" bar only lives on calm screens; it comes back on the next calm one
@@ -231,6 +289,27 @@ function render(route) {
     case 'together':
       enterWorld(null);
       return screens.together(api);
+    case 'rewards':
+      enterWorld(null);
+      return screens.rewards(api);
+    case 'readfor':
+      enterWorld(null);
+      return readForScreen(api, p);
+    case 'words':
+      enterWorld(null);
+      return wordBook(api);
+    case 'corner':
+      enterWorld(null);
+      return cornerScreen(api);
+    case 'idiom':
+      enterWorld(null);
+      return idiomScreen(api);
+    case 'comicmaker':
+      enterWorld(null);
+      return comicMaker(api);
+    case 'duel':
+      enterWorld(null);
+      return duelScreen(api);
     case 'freeplay':
       return world ? freeplay(api, world) : goHome();
     case 'show': {
@@ -431,10 +510,35 @@ function startLesson({ lessonId, worldId, storyId, together }) {
     el('div', { class: 'mascot-corner' }, [mascot.node]),
   ]);
   app.replaceChildren(screen);
+  // "how to play", the first time this child meets this kind of game (js/coach.js, roadmap 4.5): once the
+  // game has said its question, a hand shows what to do while the guide says it
+  let coaching = false;
+  const coach = async (kind, targets, waitingFor = null) => {
+    if (coaching || !needsCoach(state.progress.coached, lesson.game, kind)) return;
+    coaching = true;
+    try {
+      for (let i = 0; i < 50 && isSpeaking(); i++) await sleep(150);
+      await sleep(250);
+      // the child may have answered already, or left
+      if (token !== state.token || (waitingFor && hintFn !== waitingFor)) return;
+      const list = (typeof targets === 'function' ? targets() : targets || []).filter((t) => t?.isConnected);
+      if (!list.length) return;
+      state.progress.coached = [...(state.progress.coached || []), coachKey(lesson.game, kind)].slice(-COACH_MAX);
+      persistProgress();
+      const stopHand = showCoach(screen, kind, list);
+      mascot.react?.('wave');
+      await say(COACH_KINDS[kind]);
+      await sleep(700);
+      stopHand();
+    } finally {
+      coaching = false;
+    }
+  };
   let live = { tier, right: 0, miss: 0 };
   // a little celebration when the level goes up; going down happens quietly
   const levelUp = () => {
     sfx.sparkle();
+    sfx.haptic(FEEDBACK.reward.haptic);
     mascot.react('dance');
     const badge = el('div', { class: 'level-up', text: { hi: '★ शाबाश! अगला स्तर', en: '★ Level up!', both: '★ Level up! · शाबाश!' }[state.lang] || '★ Level up!' });
     screen.append(badge);
@@ -443,6 +547,7 @@ function startLesson({ lessonId, worldId, storyId, together }) {
   // several right first time in a row: a quick cheer for keeping at it
   const comboCheer = (n) => {
     sfx.sparkle();
+    sfx.haptic(FEEDBACK.reward.haptic);
     mascot.react('dance');
     const badge = el('div', { class: 'level-up combo' }, [el('span', { class: 'combo-flame', html: ICONS.sparkle }), el('span', { text: comboText(n, state.lang) })]);
     screen.append(badge);
@@ -508,6 +613,9 @@ function startLesson({ lessonId, worldId, storyId, together }) {
     preload,
     stop,
     sfx,
+    // the guide does something (singing along, roadmap 7.7), and the music sits like a song under the words
+    react: (kind) => mascot.react(kind),
+    setMusicMood: (m) => music.setMood(m),
     mascot,
     label,
     wordCard,
@@ -528,10 +636,14 @@ function startLesson({ lessonId, worldId, storyId, together }) {
     collectedItems: () => state.progress.collected[world.collection] || [],
     unlockedVehicles: () => state.progress.collected[world.collection] || [],
     setRepeat: (fn) => (repeat = fn),
-    setHint: (fn) => {
+    setHint: (fn, how) => {
       hintFn = fn;
       hintBtn.hidden = !fn;
+      if (fn && how?.kind) coach(how.kind, how.targets, fn);
+      // a new question: the guide thinks along
+      if (fn && !coaching) mascot.react('think');
     },
+    coach: (kind, targets) => coach(kind, targets),
     setProgress(done, total) {
       const p = total ? Math.min(1, done / total) : 0;
       progressBar.style.setProperty('--p', p);
@@ -543,7 +655,8 @@ function startLesson({ lessonId, worldId, storyId, together }) {
     record(item, firstTry) {
       session.answered++;
       if (firstTry) session.firstTry++;
-      mascot.react(firstTry ? 'happy' : 'cheer');
+      // the guide claps for a first-time answer and cheers one found with help (roadmap 5.3)
+      mascot.react(firstTry ? 'clap' : 'cheer');
       session.combo = firstTry ? (session.combo || 0) + 1 : 0;
       session.best = Math.max(session.best || 0, session.combo);
       live = adaptTier(live, firstTry);
@@ -555,9 +668,10 @@ function startLesson({ lessonId, worldId, storyId, together }) {
       ctx.progress = state.progress;
       persistProgress();
     },
-    // a wrong tap in a game that doesn't use choose(): the mascot encourages
+    // any wrong tap (choose() reports them too): the guide says "you can do it"
     miss() {
-      mascot.react('oops');
+      sfx.feel('wrong');
+      mascot.react('encourage');
     },
     practice: (pool, n) => weightedSequence(pool, n, rng, (x) => practiceWeight(state.progress.stats[itemKey(x)])),
     // which story was read (for the talk-together prompts on the results screen)
@@ -583,7 +697,7 @@ function startLesson({ lessonId, worldId, storyId, together }) {
       state.progress = result.progress;
       persistProgress();
       const reached = milestones(before, state.progress, { storyLessons: storyLessonMap(), worldLessonIds: worldLessons(world).map((l) => l.id) });
-      screens.results(api, { world, lesson, result, collection, session, milestones: reached });
+      screens.results(api, { world, lesson, result, collection, session, milestones: reached, rewards: newRewards(totalStars(before), totalStars(state.progress)) });
     },
   };
   import(`./games/${lesson.game}.js`).then((mod) => {
@@ -617,6 +731,7 @@ const api = {
   music,
   persistSettings,
   persistProgress,
+  applyStyle,
   rng,
   sleep,
   minutesToday,

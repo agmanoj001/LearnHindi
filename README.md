@@ -120,6 +120,15 @@ For confident readers, seven comic series in Hindi, 120 comics in all, in the sp
 
 Comics scroll panel by panel (one column on a phone, a two-column comic page on a tablet), with speech and thought bubbles, narration boxes and sound effects. A comic left half-read opens with **“Continue from panel 13”** (a mystery already solved stays solved), and the **अ+** button makes the text bigger and remembers it. **Tap a bubble** to hear it; each character has their own voice pitch. The speaker button reads the whole comic aloud. **Underlined words** show their meaning in Hindi and English. Mysteries, Birbal's tricks, Betal's riddles, Chippu's idioms and Masterji's science all **stop before the reveal** so the reader answers first (a wrong guess gets a hint). Every comic ends with its word list and three questions, and each world has an **idiom quiz** built from its comics. Finishing a comic collects a character card.
 
+### The fun corner (मस्ती कोना, Grades 7 and 8)
+
+Once the comics are read, a reason to come back each day. It is on the Grade 7–8 home screen, with a dot while today's riddle waits.
+
+- **Riddle of the day (आज की पहेली)**: 30 for each grade, one a day in turn: folk riddles for Grade 7, word play and trick questions for Grade 8. Pick one of three answers; the right one shows why it fits.
+- **Idiom of the day (आज का मुहावरा)**: 15 for each grade, each a three-panel strip with the comic cast. Chippu the robot takes the idiom literally, and the last panel, where Kavya, Nani or Montu set him right, waits until the child picks the real meaning. Then the meaning and a sentence that uses it. Every bubble is read in its character's own voice.
+- **Comic maker (कॉमिक बनाओ)**: three panels, each with a place, up to two characters from all seven series (their face and pose) and what they say, shout, whisper or think, plus a caption. "My comics" keeps them with the child's progress (on this device and in the backup) and reads them aloud.
+- **Quiz duel (क्विज़ मुक़ाबला)**: two players face each other with the phone flat between them; the top half is turned round. There are ten questions from the grade's idiom quizzes: the first right tap scores, a wrong tap is out for that question, and then a winner, a draw, or a rematch.
+
 ### Grammar (Grades 7 and 8)
 
 Two grammar worlds follow the व्याकरण that CBSE schools teach alongside NCERT's मल्हार textbooks: twelve topics a grade (see [CURRICULUM.md](CURRICULUM.md)). Each topic is one lesson in two parts:
@@ -133,7 +142,7 @@ Each unit ends with a **mixed review** that takes questions from every topic in 
 
 Two big buttons under Today's path are for times when a child would otherwise just watch something, such as a long car or train ride. Both work fully offline.
 
-- **Show time (कार्टून)**: short animated comic episodes (about 3 minutes) starring the guides. Each one quietly teaches one thing and repeats it 4–6 times inside the story: *Chiku's magic stick* (Grade 1, the ा matra: नाव, गाय, छाता, माला, तारा), *Gappu's letter bus* (Kindergarten, क ख ग घ) and *Tiko's ten balloons* (Grade 1 English math, partners of 10 and the make-10 trick). Speech bubbles light up word by word as they are spoken (like same-language subtitles), characters ask questions, and "say it with me!" pauses let the child join in. **Just watch** answers each question by itself after a few seconds, so it plays hands-free; **Play along** waits for a tap. Afterwards a recap shows the words again, with a button for the matching game; the next episode starts by itself, up to three in a row, then it suggests a stretch. An episode watched today or yesterday adds *Play what you watched* to Today's path.
+- **Show time (कार्टून)**: short animated comic episodes (about 3 minutes) starring the guides, in three series of eight. Each episode quietly teaches one thing and repeats it 4–6 times inside the story: *Gappu's letter bus* (Kindergarten, the consonants क to ह, a few each episode), *Chiku's magic stick* (Grade 1, the matras from ा to the bindi) and *Tiko's number carnival* (Grade 1 English maths: partners of 10, tens and ones, comparing, ten more and less, story sums, measuring, time, shapes and halves). Every episode but the last ends with the guide asking a question that the next episode opens by answering, and Show time shows each series as a shelf, opened at the episode to watch next. Speech bubbles light up word by word as they are spoken (like same-language subtitles), characters ask questions, and "say it with me!" pauses let the child join in. **Just watch** answers each question by itself after a few seconds, so it plays hands-free; **Play along** waits for a tap. Afterwards a recap shows the words again, with a button for the matching game; the next episode starts by itself, up to three in a row, then it suggests a stretch. An episode watched today or yesterday adds *Play what you watched* to Today's path.
 - **Story radio (कहानी रेडियो)**: the grade's stories and rhymes read aloud one after another (a rhyme after every two stories), each ending with a question to think about. In Grades 7 and 8 it plays the comics as radio plays: a narrator reads the captions and names who is speaking, each character speaks in their own recorded voice, and mysteries and riddles pause with “सोचो…” before the reveal (that grade's comics first, then the grade below's). Toddler hears its own little stories first, with Kindergarten's rhymes between. The screen stays on but goes dark, which suits car rides and children who feel sick looking at a screen. Family recordings of story pages are used when there are any.
 
 Episodes are scripts in `content.json`, built from the app's own drawings, so each one is a few kilobytes instead of a video file. See [Writing an episode](#writing-an-episode).
@@ -497,7 +506,7 @@ See [docs/LEARNING-REVIEW.md](docs/LEARNING-REVIEW.md) for a full review against
 3. **Openly licensed readers** from StoryWeaver (Pratham Books, CC BY 4.0), with attribution: check each book's licence page first.
 4. **Stroke-order handwriting** for Devanagari, and **math beyond Grade 1**.
 5. **A Play Store app** via a Trusted Web Activity, once tested on real phones.
-6. **More Show time episodes**, one per unit, with recorded narration for the favourites.
+6. **More Show time series**: a series for the other guides (the English phonics castle and garden, the maths igloo), and a maths episode for each Kindergarten unit.
 
 ## Project layout
 

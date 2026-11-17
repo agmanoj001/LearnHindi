@@ -1,6 +1,7 @@
 // The grown-ups' area (behind a 3-second press): grade, language, voices and recordings,
 // sound, unlocking, the special photo, and a progress report. Nothing here leaves the device.
 import { el, ICONS } from './ui.js';
+import { applyMotion, liteMotion, slowDevice } from './motion.js';
 import { normalizeProgress, clipKeysFor, clipKeyFromFileName, practiceReport, DAILY_LIMITS, showLines, storyVoiceLines } from './logic.js';
 import { skillName, SKILLS as MATH_SKILLS } from './mathgen.js';
 import { phonicsName } from './phonicsgen.js';
@@ -201,6 +202,19 @@ export function showParent(api) {
         toggle('Simple home screen', s.simpleHome, (v) => ((s.simpleHome = v), persist()), 'For Toddler and Kindergarten: one big play button, Show time, Story radio and their worlds. Turn off for the full home screen with filters and every grade.'),
         toggle('Unlock every lesson', s.unlockAll, (v) => ((s.unlockAll = v), persist()), 'Normally lessons open one after another.'),
         toggle('Math worlds', s.math, (v) => ((s.math = v), persist()), 'English math for Kindergarten and Grade 1, following the North Carolina Standard Course of Study.'),
+        // the first-time "how to play" hands (js/coach.js) can be shown again, for a new player on this profile
+        el('div', { class: 'row' }, [
+          el('button', {
+            class: 'btn',
+            text: 'Show "how to play" again',
+            onclick: (e) => {
+              api.state.progress.coached = [];
+              api.persistProgress();
+              e.currentTarget.disabled = true;
+            },
+          }),
+        ]),
+        el('p', { class: 'note', text: 'The first time each kind of game is played, a hand shows what to do while the guide says it.' }),
       ),
       section('Language', langRow, el('p', { class: 'note', text: 'For Hindi worlds. Math worlds are always in English.' })),
       section(
@@ -214,6 +228,28 @@ export function showParent(api) {
           ),
         ]),
         el('p', { class: 'note', text: `Played today: ${api.minutesToday()} min. When the limit is reached, the next lesson shows a break screen with an idea for off-screen play (a lesson already started is never cut off). WHO and the AAP suggest about an hour a day of good-quality screen time for young children, ideally together with a grown-up.` }),
+        // the motion budget (js/motion.js, roadmap 5.5)
+        el('label', { class: 'rate' }, [
+          el('span', { text: 'Animations' }),
+          el(
+            'select',
+            {
+              class: 'select',
+              onchange: (e) => {
+                s.motion = e.target.value;
+                persist();
+                applyMotion(liteMotion(s.motion, slowDevice()));
+              },
+            },
+            [
+              ['auto', 'Automatic'],
+              ['full', 'Full'],
+              ['lite', 'Lighter (for slower phones)'],
+            ].map(([v, t]) => el('option', { value: v, text: t, selected: (s.motion || 'auto') === v })),
+          ),
+        ]),
+        el('p', { class: 'note', text: 'Lighter animations keep the backgrounds still and leave out the extra effects; the stories, the guide and the games move as usual. Automatic switches to lighter if this device measured slow.' }),
+        slowDevice() ? el('p', { class: 'note', text: 'This device measured slow, so Automatic uses lighter animations.' }) : null,
         toggle('Captions', s.captions, (v) => ((s.captions = v), persist()), 'Shows everything the app says as text. Helps children who are hard of hearing, and helps early readers match sounds to words.'),
         toggle(
           'Tell it back',

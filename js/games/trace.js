@@ -1,8 +1,8 @@
 // Trace the road: pick a vehicle, then drive it along a big letter with a finger.
 // Works for any script because the "road" is the letter itself drawn on a canvas;
 // tracing is complete once enough of the letter has been driven over.
-import { sample, traceCoverage, thinPoints } from '../logic.js';
-import { el, sleep, runRounds, cheer, bounce, animate } from './kit.js';
+import { sample, traceCoverage, thinPoints, uncoveredPoints, strokeOrder, skeleton } from '../logic.js';
+import { el, sleep, runRounds, cheer, bounce, animate, stepHint } from './kit.js';
 
 export default {
   start(ctx) {
@@ -15,6 +15,7 @@ export default {
       b.addEventListener('click', () => {
         if (started) return;
         started = true;
+        pickHint.done();
         ctx.sfx.vroom();
         bounce(b);
         if (id === 'special') ctx.say('special');
@@ -24,6 +25,8 @@ export default {
       return b;
     });
     ctx.stage.replaceChildren(el('div', { class: 'choices pick-grid' }, btns));
+    // any vehicle is right: the 💡 just shows one
+    const pickHint = stepHint(ctx, () => btns[0], { say: 'hintAny', autoAfter: 0, coach: 'any' });
     ctx.setRepeat(() => ctx.say('pickVehicle'));
     ctx.say('pickVehicle');
   },
@@ -82,6 +85,18 @@ function traceLetter(ctx, letter, canvas, car) {
     for (let y = 0; y < off.height; y += step)
       for (let x = 0; x < off.width; x += step) if (data[(y * off.width + x) * 4 + 3] > 128) targets.push({ x, y });
     targets = thinPoints(targets, 600);
+    // the letter's strokes in writing order (roadmap 5.6): its shape on a grid of small cells, thinned to
+    // the centre line, then ordered (the body, the standing line, the top line, marks above)
+    const pen = Math.max(8, Math.round(brush * 0.85));
+    const cell = Math.max(3, Math.round(size / 70));
+    const gw = Math.ceil(off.width / cell);
+    const gh = Math.ceil(off.height / cell);
+    const mask = new Uint8Array(gw * gh);
+    for (let gy = 0; gy < gh; gy++) for (let gx = 0; gx < gw; gx++) mask[gy * gw + gx] = data[(Math.min(off.height - 1, gy * cell) * off.width + Math.min(off.width - 1, gx * cell)) * 4 + 3] > 128 ? 1 : 0;
+    const thin = skeleton(mask, gw, gh);
+    const centre = [];
+    for (let gy = 0; gy < gh; gy++) for (let gx = 0; gx < gw; gx++) if (thin[gy * gw + gx]) centre.push({ x: gx * cell, y: gy * cell });
+    const strokes = strokeOrder(centre, { step: cell, devanagari: letter.lang === 'hi' }).filter((s) => s.pts.length * cell > pen);
 
     const drawRoad = () => {
       g.clearRect(0, 0, w, h);
@@ -146,6 +161,7 @@ function traceLetter(ctx, letter, canvas, car) {
     };
     const finish = async () => {
       done = true;
+      hint.done();
       canvas.removeEventListener('pointerdown', down);
       canvas.removeEventListener('pointermove', move);
       canvas.removeEventListener('pointerup', up);
@@ -170,8 +186,79 @@ function traceLetter(ctx, letter, canvas, car) {
     canvas.addEventListener('pointerup', up);
     canvas.addEventListener('pointercancel', up);
 
+    // 💡: shining spots on the parts of the letter not driven over yet
+    const hint = stepHint(ctx, () => (done ? null : thinPoints(uncoveredPoints(targets, trail, brush * 1.2), 24)), {
+      say: 'hintTrace',
+      autoAfter: 0,
+      coach: 'drag',
+      coachTargets: () => [canvas],
+      show: (spots) => {
+        g.save();
+        for (const p of spots) {
+          g.beginPath();
+          g.arc(p.x, p.y, Math.max(7, brush * 0.45), 0, Math.PI * 2);
+          g.fillStyle = '#FFF6C8';
+          g.fill();
+          g.lineWidth = 3;
+          g.strokeStyle = '#FF9F1C';
+          g.stroke();
+        }
+        g.restore();
+      },
+    });
+
+    // First the letter writes itself, stroke by stroke, with the vehicle as the pen; a touch stops it.
+    let demoing = false;
+    const writeItself = async () => {
+      if (done || demoing || !strokes.length || window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
+      demoing = true;
+      canvas.classList.add('demo');
+      g.save();
+      g.strokeStyle = 'rgba(255, 211, 77, 0.95)';
+      g.lineWidth = Math.max(10, pen * 1.15);
+      g.lineCap = 'round';
+      g.lineJoin = 'round';
+      const length = strokes.reduce((a, s) => a + s.pts.slice(1).reduce((b, p, k) => b + Math.hypot(p.x - s.pts[k].x, p.y - s.pts[k].y), 0), 0);
+      const speed = Math.max(0.25, length / 2800); // px a millisecond
+      for (const s of strokes) {
+        // by the clock, not by frames: the whole letter takes about three seconds, like a hand writing slowly
+        const start = performance.now();
+        let drawn = 0;
+        let k = 1;
+        while (k < s.pts.length && demoing) {
+          await new Promise((r) => requestAnimationFrame(r));
+          const due = (performance.now() - start) * speed;
+          while (k < s.pts.length && drawn < due) {
+            const [a, b] = [s.pts[k - 1], s.pts[k]];
+            g.beginPath();
+            g.moveTo(a.x, a.y);
+            g.lineTo(b.x, b.y);
+            g.stroke();
+            drawn += Math.hypot(b.x - a.x, b.y - a.y);
+            place(b, b.x < a.x);
+            k++;
+          }
+        }
+        if (!demoing) break;
+        await sleep(160);
+      }
+      g.restore();
+      if (demoing) await sleep(500);
+      demoing = false;
+      canvas.classList.remove('demo');
+      if (!done && !trail.length) {
+        drawRoad();
+        place({ x: w * 0.12, y: h * 0.85 });
+      }
+    };
+    canvas.addEventListener('pointerdown', () => {
+      if (!demoing) return;
+      demoing = false;
+      drawRoad();
+    }, { capture: true });
     const prompt = () => ctx.say('trace', null, [letter.lang]).then(() => ctx.alive() && !done && ctx.sayItem(letter));
-    ctx.setRepeat(prompt);
+    ctx.setRepeat(() => (writeItself(), prompt()));
+    writeItself();
     prompt();
   });
 }

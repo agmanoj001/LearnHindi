@@ -482,8 +482,61 @@ add(
 
 export const MASCOT_IDS = Object.keys(MASCOTS);
 
-export function mascotSvg(id) {
-  return (MASCOTS[id] || MASCOTS.gappu).art();
+// ---- outfits (docs/ROADMAP.md 7.5, js/rewards.js): every guide wears what the child chose ----
+// Each guide's head is found from its art (the biggest round shape near the middle, above the body), and
+// the outfit is drawn at the top of it (hats) or under it (a garland), so it fits every guide.
+let outfit = null;
+export const setOutfit = (id) => (outfit = OUTFITS[id] ? id : null);
+export const currentOutfit = () => outfit;
+const heads = new Map();
+export function headOf(art) {
+  let best = null;
+  const take = (cx, cy, rx, ry) => {
+    if (Math.abs(cx - 60) > 14 || cy > 72 || rx < 18) return;
+    if (!best || rx * ry > best.rx * best.ry) best = { cx, cy, rx, ry };
+  };
+  for (const m of art.matchAll(/<circle cx="([\d.]+)" cy="([\d.]+)" r="([\d.]+)"/g)) take(+m[1], +m[2], +m[3], +m[3]);
+  for (const m of art.matchAll(/<ellipse cx="([\d.]+)" cy="([\d.]+)" rx="([\d.]+)" ry="([\d.]+)"/g)) take(+m[1], +m[2], +m[3], +m[4]);
+  return best ? { x: best.cx, top: best.cy - best.ry, bottom: best.cy + best.ry, r: best.rx } : { x: 60, top: 22, bottom: 84, r: 30 };
+}
+const MARIGOLD = (x, y) => `<circle cx="${x}" cy="${y}" r="4.2" fill="#FF9F1C"/><circle cx="${x}" cy="${y}" r="2" fill="#FFC93C"/>`;
+export const OUTFITS = {
+  'party-hat': (h) =>
+    `<g class="m-outfit" transform="translate(${h.x} ${h.top + 5})"><path d="M-12 0 L0 -28 L12 0 Z" fill="#FF8FB1" stroke="#E0567F" stroke-width="1.5" stroke-linejoin="round"/><path d="M-8 -9 L8 -9 M-5 -17 L5 -17" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><circle cy="-29" r="4" fill="#FFD43B"/></g>`,
+  crown: (h) =>
+    `<g class="m-outfit" transform="translate(${h.x} ${h.top + 4})"><path d="M-16 2 L-17 -14 L-8 -5 L0 -18 L8 -5 L17 -14 L16 2 Z" fill="#FFD43B" stroke="#D99A00" stroke-width="1.6" stroke-linejoin="round"/><circle cx="0" cy="-4" r="2.6" fill="#FF5A5F"/><circle cx="-9" cy="-2" r="2" fill="#3D7BFF"/><circle cx="9" cy="-2" r="2" fill="#2EC27E"/></g>`,
+  flower: (h) =>
+    `<g class="m-outfit" transform="translate(${h.x + h.r * 0.55} ${h.top + 7})">${[0, 72, 144, 216, 288].map((a) => `<ellipse cx="0" cy="-6" rx="4" ry="6.5" fill="#FF8FB1" transform="rotate(${a})"/>`).join('')}<circle r="3.8" fill="#FFD43B"/></g>`,
+  bow: (h) =>
+    `<g class="m-outfit" transform="translate(${h.x - h.r * 0.5} ${h.top + 6}) rotate(-15)"><path d="M0 0 L-12 -7 L-12 7 Z M0 0 L12 -7 L12 7 Z" fill="#A66BFF" stroke="#7C3AED" stroke-width="1.4" stroke-linejoin="round"/><circle r="3.4" fill="#C4A1FF"/></g>`,
+  garland: (h) => {
+    const n = 9;
+    const w = h.r * 0.95;
+    return `<g class="m-outfit">${Array.from({ length: n }, (_, i) => {
+      const t = i / (n - 1);
+      return MARIGOLD((h.x - w + 2 * w * t).toFixed(1), (h.bottom - 6 + Math.sin(Math.PI * t) * 12).toFixed(1));
+    }).join('')}</g>`;
+  },
+};
+// guides whose head isn't the big round shape in the middle: the camel's head is up on the left, and the
+// round chick, penguin and owl are one body, so a garland goes round the middle of it
+const HEAD_FIX = {
+  ooty: { x: 38, top: 18, bottom: 54, r: 20 },
+  kuku: { bottom: 72 },
+  pip: { bottom: 70 },
+  tiko: { bottom: 70 },
+};
+const dressed = (id, art) => {
+  if (!outfit) return art;
+  if (!heads.has(id)) heads.set(id, { ...headOf(art), ...(HEAD_FIX[id] || {}) });
+  // inside the moving body, last, so it sits on top and bobs along
+  return art.replace(/<\/g><\/svg>$/, `${OUTFITS[outfit](heads.get(id))}</g></svg>`);
+};
+
+export function mascotSvg(id, { plain = false } = {}) {
+  const key = MASCOTS[id] ? id : 'gappu';
+  const art = MASCOTS[key].art();
+  return plain ? art : dressed(key, art);
 }
 
 // While any speech plays, every mascot on screen moves its mouth.
@@ -491,17 +544,27 @@ if (typeof window !== 'undefined') {
   window.addEventListener('vt-speaking', (e) => document.body.classList.toggle('speaking', !!e.detail));
 }
 
-const REACTIONS = { happy: 900, cheer: 900, oops: 800, silly: 1400, wave: 1200, dance: 2400, spin: 1000, sneeze: 1100 };
+const REACTIONS = { happy: 900, cheer: 1100, oops: 800, silly: 1400, wave: 1200, dance: 2400, spin: 1000, sneeze: 1100, clap: 1300, think: 1800, encourage: 1300 };
+// a little bubble that says what the guide feels (roadmap 5.3): clapping for a right answer, thinking
+// along while a question waits, "you can do it" after a wrong tap
+export const REACTION_BUBBLES = { clap: '👏', cheer: '🎉', think: '🤔', encourage: '💪', dance: '⭐' };
 
 export function createMascot(id, { size = 'medium', onTap } = {}) {
   const node = el('button', { class: `mascot mascot-${id} ${size}`, 'aria-label': MASCOTS[id]?.name.en || 'friend', html: mascotSvg(id) });
+  const bubble = el('span', { class: 'm-bubble', 'aria-hidden': 'true' });
+  node.append(bubble);
   let timer = 0;
   const react = (kind) => {
     for (const k of Object.keys(REACTIONS)) node.classList.remove(`m-${k}`);
+    node.classList.remove('m-said');
     void node.offsetWidth; // restart the animation
     node.classList.add(`m-${kind}`);
+    if (REACTION_BUBBLES[kind]) {
+      bubble.textContent = REACTION_BUBBLES[kind];
+      node.classList.add('m-said');
+    }
     clearTimeout(timer);
-    timer = setTimeout(() => node.classList.remove(`m-${kind}`), REACTIONS[kind] || 900);
+    timer = setTimeout(() => node.classList.remove(`m-${kind}`, 'm-said'), REACTIONS[kind] || 900);
   };
   if (onTap) node.addEventListener('click', () => onTap());
   return { id, node, react, name: MASCOTS[id]?.name };

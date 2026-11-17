@@ -485,7 +485,7 @@ test('little ones hear the answers, and right answers add a synonym', async () =
 
 test('hints in every question, everyday Hindi, and a roti that looks like a roti', async () => {
   const kit = readFileSync(new URL('../js/games/kit.js', import.meta.url), 'utf8');
-  assert.match(kit, /ctx\?\.setHint\?\.\(hint\)/, 'choose() offers a hint');
+  assert.match(kit, /ctx\?\.setHint\?\.\(hint[,)]/, 'choose() offers a hint');
   assert.match(kit, /ruled-out/);
   assert.ok(content.phrases.hintOne?.hi && content.phrases.hintLook?.hi);
   // no bookish words in young children's titles and prompts
