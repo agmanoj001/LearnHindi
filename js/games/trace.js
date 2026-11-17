@@ -26,7 +26,7 @@ export default {
     });
     ctx.stage.replaceChildren(el('div', { class: 'choices pick-grid' }, btns));
     // any vehicle is right: the 💡 just shows one
-    const pickHint = stepHint(ctx, () => btns[0], { say: 'hintAny', autoAfter: 0 });
+    const pickHint = stepHint(ctx, () => btns[0], { say: 'hintAny', autoAfter: 0, coach: 'any' });
     ctx.setRepeat(() => ctx.say('pickVehicle'));
     ctx.say('pickVehicle');
   },
@@ -178,6 +178,8 @@ function traceLetter(ctx, letter, canvas, car) {
     const hint = stepHint(ctx, () => (done ? null : thinPoints(uncoveredPoints(targets, trail, brush * 1.2), 24)), {
       say: 'hintTrace',
       autoAfter: 0,
+      coach: 'drag',
+      coachTargets: () => [canvas],
       show: (spots) => {
         g.save();
         for (const p of spots) {

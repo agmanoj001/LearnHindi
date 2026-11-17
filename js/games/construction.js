@@ -55,7 +55,7 @@ async function dig(ctx) {
 
   let dug = 0;
   // 💡: the next pile still to dig glows
-  const hint = stepHint(ctx, () => mounds.find((m) => !m.dataset.dug), { say: 'dig', autoAfter: 0 });
+  const hint = stepHint(ctx, () => mounds.find((m) => !m.dataset.dug), { say: 'dig', autoAfter: 0, coach: 'each' });
   await new Promise((resolve) =>
     mounds.forEach((m, i) =>
       m.addEventListener('click', async () => {

@@ -20,7 +20,8 @@ import { milestones } from './guide.js';
 import { freeplay } from './freeplay.js';
 import { validateContent } from './validate.js';
 import { pictureExists, picture, pictureForWord, specialVehicle } from './art.js';
-import { initAudio, setVoicePack, preload, play, stop, wordSegs, letterSegs, numberSegs, soundSegs, sentenceSegs, phraseSegs, setVoicePrefs } from './audio.js';
+import { showCoach, needsCoach, coachKey, COACH_KINDS, COACH_MAX } from './coach.js';
+import { initAudio, setVoicePack, preload, play, stop, isSpeaking, wordSegs, letterSegs, numberSegs, soundSegs, sentenceSegs, phraseSegs, setVoicePrefs } from './audio.js';
 import { KEYS, load, save, normalizeProfiles, profileKey, keepStorage } from './storage.js';
 import { sfx, music } from './sfx.js';
 import { el, sleep, bounce, ICONS } from './ui.js';
@@ -431,6 +432,30 @@ function startLesson({ lessonId, worldId, storyId, together }) {
     el('div', { class: 'mascot-corner' }, [mascot.node]),
   ]);
   app.replaceChildren(screen);
+  // "how to play", the first time this child meets this kind of game (js/coach.js, roadmap 4.5): once the
+  // game has said its question, a hand shows what to do while the guide says it
+  let coaching = false;
+  const coach = async (kind, targets, waitingFor = null) => {
+    if (coaching || !needsCoach(state.progress.coached, lesson.game, kind)) return;
+    coaching = true;
+    try {
+      for (let i = 0; i < 50 && isSpeaking(); i++) await sleep(150);
+      await sleep(250);
+      // the child may have answered already, or left
+      if (token !== state.token || (waitingFor && hintFn !== waitingFor)) return;
+      const list = (typeof targets === 'function' ? targets() : targets || []).filter((t) => t?.isConnected);
+      if (!list.length) return;
+      state.progress.coached = [...(state.progress.coached || []), coachKey(lesson.game, kind)].slice(-COACH_MAX);
+      persistProgress();
+      const stopHand = showCoach(screen, kind, list);
+      mascot.react?.('wave');
+      await say(COACH_KINDS[kind]);
+      await sleep(700);
+      stopHand();
+    } finally {
+      coaching = false;
+    }
+  };
   let live = { tier, right: 0, miss: 0 };
   // a little celebration when the level goes up; going down happens quietly
   const levelUp = () => {
@@ -528,10 +553,12 @@ function startLesson({ lessonId, worldId, storyId, together }) {
     collectedItems: () => state.progress.collected[world.collection] || [],
     unlockedVehicles: () => state.progress.collected[world.collection] || [],
     setRepeat: (fn) => (repeat = fn),
-    setHint: (fn) => {
+    setHint: (fn, how) => {
       hintFn = fn;
       hintBtn.hidden = !fn;
+      if (fn && how?.kind) coach(how.kind, how.targets, fn);
     },
+    coach: (kind, targets) => coach(kind, targets),
     setProgress(done, total) {
       const p = total ? Math.min(1, done / total) : 0;
       progressBar.style.setProperty('--p', p);

@@ -59,7 +59,13 @@
     "yum": { "hi": "हम-हम! मज़ा आ गया!", "en": "Yum yum! Delicious!" },
     "noThanks": { "hi": "ऊँहूँ! यह मुझे पसंद नहीं।", "en": "Hmm, I don't like that one." },
     "hintTrace": { "hi": "चमकती जगह पर गाड़ी चलाओ!", "en": "Drive over the shining spots!" },
-    "hintAny": { "hi": "कोई भी चुन लो!", "en": "Pick any one!" }
+    "hintAny": { "hi": "कोई भी चुन लो!", "en": "Pick any one!" },
+    "coachTap": { "hi": "ध्यान से सुनो, फिर सही वाले पर टैप करो!", "en": "Listen carefully, then tap the right one!" },
+    "coachOrder": { "hi": "सही क्रम में, एक-एक करके टैप करो!", "en": "Tap them one by one, in the right order!" },
+    "coachEach": { "hi": "हर एक पर टैप करो!", "en": "Tap each one!" },
+    "coachDrag": { "hi": "उँगली रखो और अक्षर पर चलाते जाओ!", "en": "Put your finger down and drive along the letter!" },
+    "coachAny": { "hi": "जो पसंद हो, उस पर टैप करो!", "en": "Tap the one you like!" },
+    "coachPage": { "hi": "अगला पन्ना देखने के लिए यहाँ टैप करो!", "en": "Tap here to turn the page!" }
   },
   "words": {
     "digger": { "hi": "खुदाई मशीन", "translit": "khudaai mashin", "en": "digger", "picture": "digger" },

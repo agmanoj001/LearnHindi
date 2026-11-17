@@ -49,6 +49,8 @@ const HI = {
   'For Toddler and Kindergarten: one big play button, Show time, Story radio and their worlds. Turn off for the full home screen with filters and every grade.':
     'नन्हे बच्चों और बालवाटिका के लिए: एक बड़ा खेलो बटन, कार्टून, कहानी रेडियो और उनकी दुनिया। पूरी होम स्क्रीन (फ़िल्टर और सभी कक्षाएँ) के लिए बंद करें।',
   'The home screen shows only this grade’s worlds.': 'होम स्क्रीन पर सिर्फ़ इसी कक्षा की दुनिया दिखती हैं।',
+  'Show "how to play" again': '"कैसे खेलें" फिर से दिखाएँ',
+  'The first time each kind of game is played, a hand shows what to do while the guide says it.': 'हर तरह का खेल पहली बार खेलने पर एक हाथ दिखाता है कि क्या करना है, और साथी उसे बोलकर बताता है।',
   'Unlock every lesson': 'सारे पाठ खोल दें',
   'Normally lessons open one after another.': 'आम तौर पर पाठ एक के बाद एक खुलते हैं।',
   'Math worlds': 'गणित की दुनिया',

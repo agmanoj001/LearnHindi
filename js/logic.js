@@ -357,7 +357,7 @@ export function normalizeSettings(saved, content) {
 export function defaultProgress(content) {
   const collected = {};
   for (const [id, col] of Object.entries(content.collections || {})) collected[id] = col.items.slice(0, col.start || 0);
-  return { lessons: {}, collected, days: [], trainPos: {}, storyPos: {}, comicPos: {}, stats: {}, time: {}, shows: {}, scenes: {} };
+  return { lessons: {}, collected, days: [], trainPos: {}, storyPos: {}, comicPos: {}, stats: {}, time: {}, shows: {}, scenes: {}, coached: [] };
 }
 
 export function normalizeProgress(saved, content) {
@@ -402,6 +402,8 @@ export function normalizeProgress(saved, content) {
         .map(([id, r]) => [id, { panel: Math.min(r.panel, 99), solved: r.solved === true }]),
     ),
     stats: obj(saved.stats),
+    // the "how to play" hands already shown (js/coach.js): "game:kind"
+    coached: Array.isArray(saved.coached) ? [...new Set(saved.coached.filter((k) => typeof k === 'string' && /^[a-z]+:[a-z]+$/.test(k)))].slice(-100) : [],
     time,
     shows: Object.fromEntries(
       Object.entries(obj(saved.shows))

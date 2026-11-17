@@ -25,6 +25,7 @@ export function setVoicePrefs(p) {
 
 // Mascots move their mouths while anything is being said.
 let speaking = false;
+export const isSpeaking = () => speaking;
 function setSpeaking(on) {
   if (on === speaking || typeof window === 'undefined') return;
   speaking = on;

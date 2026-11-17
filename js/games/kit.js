@@ -35,7 +35,8 @@ export function choose(buttons, isRight, { ctx, onRight, onWrong, record = true,
       }
       hints++;
     };
-    ctx?.setHint?.(hint);
+    // the first time this kind of game is played, the frame may show how (js/coach.js)
+    ctx?.setHint?.(hint, { kind: 'tap', targets: buttons });
     for (const b of buttons) {
       b.addEventListener('click', () => {
         if (finished || b.classList.contains('ruled-out')) return;
@@ -67,7 +68,9 @@ export function choose(buttons, isRight, { ctx, onRight, onWrong, record = true,
 // pictures in order, tapping every syllable, tracing, picking a vehicle): `next()` returns what to do next
 // (a button, or for tracing an array of points), and `show(target)` makes it glow (by default the
 // target gets the .hint glow). Two wrong taps in a row bring the hint without asking, as in choose().
-export function stepHint(ctx, next, { show, say = 'hintLook', autoAfter = 2 } = {}) {
+// `coach` names the kind of "how to play" a first-timer is shown (js/coach.js): 'order', 'each', 'any' or
+// 'drag'; `coachTargets()` gives what the hand points at (by default the next thing to do).
+export function stepHint(ctx, next, { show, say = 'hintLook', autoAfter = 2, coach = 'order', coachTargets } = {}) {
   let misses = 0;
   let used = 0;
   let glowing = null;
@@ -88,7 +91,8 @@ export function stepHint(ctx, next, { show, say = 'hintLook', autoAfter = 2 } = 
     }
     if (say) ctx?.say?.(say);
   };
-  ctx?.setHint?.(hint);
+  const targets = coachTargets || (() => [next()].filter((t) => t && !Array.isArray(t)));
+  ctx?.setHint?.(hint, coach ? { kind: coach, targets } : null);
   return {
     hint,
     get used() {

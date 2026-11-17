@@ -9893,3 +9893,28 @@ body:has(.game-grammar) .caption-bar,
   font-size: clamp(17px, 4.6vmin, 24px);
   line-height: 1.3;
 }
+
+/* ---- "how to play" for first-timers (js/coach.js, roadmap 4.5): a hand shows what to do ---- */
+.coach-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+}
+.coach-hand {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: clamp(64px, 16vmin, 96px);
+  filter: drop-shadow(0 6px 10px rgba(31, 35, 64, 0.3));
+  animation: fade-in 0.25s ease-out;
+}
+.coach-hand svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.coach-target {
+  outline: 4px dashed rgba(255, 255, 255, 0.9);
+  outline-offset: 6px;
+}

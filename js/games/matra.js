@@ -28,7 +28,7 @@ export default {
     ctx.setRepeat(introduce);
     introduce();
     // 💡: a syllable not heard yet glows
-    const hint = stepHint(ctx, () => tiles.find((t) => !t.classList.contains('heard')), { autoAfter: 0 });
+    const hint = stepHint(ctx, () => tiles.find((t) => !t.classList.contains('heard')), { autoAfter: 0, coach: 'each' });
     await new Promise((resolve) =>
       tiles.forEach((t, i) =>
         t.addEventListener('click', () => {

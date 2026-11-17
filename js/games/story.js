@@ -111,6 +111,8 @@ export default {
       // reading it themselves: the page waits quietly; the speaker button reads it if they want help
       if (selfRead) next.classList.add('ready');
       else read();
+      // the first story ever: show how to turn the page (js/coach.js)
+      if (i === 0) ctx.coach?.('page', [next]);
       await waitTap(next);
       ctx.stop?.();
       ctx.sfx.pop();

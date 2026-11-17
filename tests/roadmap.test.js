@@ -61,6 +61,7 @@ const DONE = {
   'Shared play for a grown-up and child': () => exists('js/games/together.js') && /export function togetherQuestion/.test(read('js/together.js')) && /together-btn/.test(read('js/screens.js')) && content.stories.every((s) => s.talk?.length === 5),
   'The counting game': () => /export const busSeats/.test(read('js/games/busdepot.js')) && /\.count-tag/.test(css),
   'The hint button in every game': () => /export function stepHint/.test(read('js/games/kit.js')) && ['construction', 'sentence', 'sequence', 'matra', 'railway', 'trace'].every((g) => read(`js/games/${g}.js`).includes('stepHint(')),
+  'A 30-second "tap here" guide': () => exists('js/coach.js') && /coach\(how\.kind/.test(read('js/app.js')) && Object.keys(content.phrases).filter((k) => k.startsWith('coach')).length >= 6,
   'Free play between lessons': () => exists('js/freeplay.js') && /freeplayDue\(/.test(read('js/screens.js')) && ['drive', 'feed', 'colour'].every((m) => read('js/freeplay.js').includes(`'${m}'`)),
 };
 

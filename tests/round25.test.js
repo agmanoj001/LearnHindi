@@ -106,3 +106,47 @@ test('every game turns the 💡 on: answers go through choose() with ctx, and st
   for (const k of ['hintOne', 'hintLook', 'hintTrace', 'hintAny']) assert.ok(content.phrases[k]?.hi && content.phrases[k]?.en, k);
   assert.match(css, /\.mound\.hint/);
 });
+
+// ---- 4.5 "how to play" for first-timers ----
+import { COACH_KINDS, coachKey, needsCoach, coachPath } from '../js/coach.js';
+import { normalizeProgress, defaultProgress } from '../js/logic.js';
+
+test('each kind of game is shown once per child', () => {
+  assert.equal(coachKey('busdepot', 'tap'), 'busdepot:tap');
+  assert.ok(needsCoach([], 'busdepot', 'tap'));
+  assert.ok(!needsCoach(['busdepot:tap'], 'busdepot', 'tap'));
+  assert.ok(needsCoach(['busdepot:tap'], 'construction', 'tap'), 'another game is shown again');
+  assert.ok(needsCoach(['construction:each'], 'construction', 'order'), 'another part of the same game is shown too');
+  assert.ok(!needsCoach([], 'busdepot', 'juggle'), 'only known kinds');
+  // what has been shown is kept with the progress (and so in backups), cleanly
+  assert.deepEqual(defaultProgress(content).coached, []);
+  const p = normalizeProgress({ coached: ['busdepot:tap', 'busdepot:tap', 'trace:drag', 42, 'Bad Key', null] }, content);
+  assert.deepEqual(p.coached, ['busdepot:tap', 'trace:drag']);
+  assert.deepEqual(normalizeProgress({}, content).coached, []);
+});
+
+test('the hand moves over every answer without picking one, taps the first step, or drags along the letter', () => {
+  const r = (left, top, w = 100, h = 100) => ({ left, top, width: w, height: h });
+  const tap = coachPath('tap', [r(0, 0), r(200, 0), r(400, 0)]);
+  assert.equal(tap.length, 4);
+  assert.ok(tap.every((p) => !p.press), 'it never presses an answer');
+  assert.deepEqual(new Set(tap.slice(0, 3).map((p) => p.x)).size, 3);
+  const order = coachPath('order', [r(50, 50)]);
+  assert.equal(order.filter((p) => p.press).length, 2);
+  assert.ok(order.every((p) => p.x === order[1].x));
+  const drag = coachPath('drag', [r(0, 0, 400, 400)]);
+  assert.ok(drag.filter((p) => p.press).length >= 2 && drag[1].x < drag[3].x && drag[1].y > drag[3].y, 'drags up and across');
+  assert.deepEqual(coachPath('tap', []), []);
+});
+
+test('every kind has its line, recorded, and the games say which kind they wait for', () => {
+  for (const [kind, key] of Object.entries(COACH_KINDS)) assert.ok(content.phrases[key]?.hi && content.phrases[key]?.en, kind);
+  const kit = read('js/games/kit.js');
+  assert.match(kit, /setHint\?\.\(hint, \{ kind: 'tap', targets: buttons \}\)/);
+  assert.match(read('js/games/construction.js'), /coach: 'each'/);
+  assert.match(read('js/games/trace.js'), /coach: 'drag'/);
+  assert.match(read('js/games/railway.js'), /coach: 'any'/);
+  assert.match(read('js/games/story.js'), /ctx\.coach\?\.\('page', \[next\]\)/);
+  assert.match(read('sw.js'), /'js\/coach\.js'/);
+  assert.match(read('js/parent.js'), /progress\.coached = \[\]/);
+});

@@ -27,7 +27,7 @@ export default {
     });
     ctx.stage.replaceChildren(el('div', { class: 'choices menu' }, btns));
     // any train is right: the 💡 just shows one
-    const hint = stepHint(ctx, () => btns[0], { say: 'hintAny', autoAfter: 0 });
+    const hint = stepHint(ctx, () => btns[0], { say: 'hintAny', autoAfter: 0, coach: 'any' });
     ctx.setRepeat(() => null);
   },
 };
