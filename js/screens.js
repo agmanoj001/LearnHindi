@@ -8,6 +8,10 @@ import { picture, pictureForWord, specialVehicle } from './art.js';
 import { worldLessons, lessonRecord, isUnlocked, currentLesson, nextLesson, worldStars, hubWorlds, streak, nextCollectible, todayPlan, storyLang, worldStoryLang, storyNeeds, taughtMatras, decodability, nextDecodable, MATRA_SIGNS } from './curriculum.js';
 import { SHOW_ICONS } from './shows.js';
 import { greeting, timeSlot, HELLO, milestoneLine } from './guide.js';
+import { playersFrom, GROWN_UP } from './together.js';
+import { load, KEYS, profileKey } from './storage.js';
+import { freeplayDue } from './freeplay.js';
+import { homeWorld } from './curriculum.js';
 import { voicesReady, hasVoice } from './audio.js';
 import { deviceKind, VOICE_SETUP, readable } from './logic.js';
 
@@ -252,6 +256,7 @@ export function hub(api) {
         filter ? null : (simple ? playHero : todayCard)(api, todayPlan(content, progress, all.filter((w) => w.level === settings.level)), all),
         filter ? null : voiceTip,
         filter ? null : showtime,
+        filter ? null : el('button', { class: 'together-btn', 'aria-label': 'Play together', onclick: () => (api.sfx.pop(), api.go('together')) }, [el('span', { class: 'together-icon', 'aria-hidden': 'true', text: '👫' }), el('span', {}, said(api, { hi: 'साथ खेलो', en: 'Play together' }, 'hi', 'b'))]),
         !simple && usedTags.length > 1 ? el('div', { class: 'tag-filters', role: 'toolbar', 'aria-label': 'Show worlds about' }, [tagBtn(null, null), ...usedTags.map(([id, t]) => tagBtn(id, t))]) : null,
         mine.length && !simple ? el('h2', { class: 'hub-section' }, said(api, level(settings.level).name)) : null,
         el('div', { class: 'world-cards' }, mine.map(card)),
@@ -473,6 +478,8 @@ function storyLevels(api, w) {
 
 export async function results(api, { world, lesson, result, collection, session, milestones = [] }) {
   const mascot = createMascot(world.mascot, { size: 'large', onTap: () => mascotJoke(api, mascot) });
+  // after a story: the grown-up's talk-together prompts (docs/ROADMAP.md 7.6)
+  const talkStory = session?.story ? api.state.content.stories.find((s) => s.id === session.story && s.talk?.length) : null;
   // the most special milestone this lesson reached (a whole world, the first lesson, so many stars …)
   const milestone = milestones.map((id) => milestoneLine(api.state.content.guide, id)).find(Boolean) || null;
   const stars = el(
@@ -482,9 +489,12 @@ export async function results(api, { world, lesson, result, collection, session,
   );
   const next = nextLesson(world, lesson.id);
   const isStory = lesson.id.startsWith('story:');
+  // free play after every two lessons (docs/ROADMAP.md 7.14); not for the oldest readers' comics and grammar
+  const playTime = freeplayDue(world.level, api.state.sessionLessons || 0);
   const btns = el('div', { class: 'result-buttons' }, [
     el('button', { class: 'bubble ghost', 'aria-label': 'Back to the map', html: ICONS.map, onclick: () => api.back() }),
-    el('button', { class: 'bubble ghost', 'aria-label': 'Play again', html: ICONS.replay, onclick: () => api.go('lesson', isStory ? { worldId: world.id, storyId: lesson.config.story } : { lessonId: lesson.id }, { replace: true }) }),
+    el('button', { class: 'bubble ghost', 'aria-label': 'Play again', html: ICONS.replay, onclick: () => (lesson.id === 'together' ? api.go('together', {}, { replace: true }) : api.go('lesson', isStory ? { worldId: world.id, storyId: lesson.config.story } : { lessonId: lesson.id }, { replace: true })) }),
+    playTime ? el('button', { class: 'bubble freeplay-go big', 'aria-label': 'Free play', onclick: () => api.go('freeplay', { worldId: world.id }, { replace: true }) }, [el('span', { 'aria-hidden': 'true', text: world.collection === 'vehicles' ? '🚗' : world.id === 'farm' ? '🥕' : '🎨' })]) : null,
     next && !isStory ? el('button', { class: 'bubble green big', 'aria-label': 'Next lesson', html: ICONS.next, onclick: () => api.go('lesson', { lessonId: next.id }, { replace: true }) }) : null,
   ]);
   const item = result.item ? api.word(result.item) : null;
@@ -512,6 +522,7 @@ export async function results(api, { world, lesson, result, collection, session,
         result.unitComplete ? el('div', { class: 'unit-complete' }, [el('span', { html: ICONS.trophy }), el('span', { text: 'Unit complete!' })]) : null,
         milestone ? el('div', { class: 'milestone' }, [el('span', { class: 'milestone-icon', html: ICONS.sparkle }), ...said(api, milestone, english(world) ? 'en' : 'hi', 'b')]) : null,
         reward,
+        talkStory ? talkButton(api, talkStory) : null,
         btns,
       ]),
     ]),
@@ -535,11 +546,121 @@ export async function results(api, { world, lesson, result, collection, session,
     await api.say(collection.id === 'vehicles' ? 'newVehicle' : 'newItem', item);
   } else await api.say(result.stars === 3 ? 'great' : 'yay');
   if (result.unitComplete && token === api.state.token) await api.say('unitDone');
+  if (playTime && token === api.state.token) await api.say('freeplayTime');
   if (milestone && token === api.state.token) {
     mascot.react('dance');
     api.sfx.cheer();
     await api.sayLines(milestone, `guide-${milestone.id}`);
   }
+}
+
+// ---------- साथ खेलो: two players on one device (docs/ROADMAP.md 7.6) ----------
+// Pick two players: any child on this device (each plays at their own grade) or a grown-up.
+export function together(api) {
+  const { content, profiles, settings } = api.state;
+  const levelOf = (id) => (id === profiles.current ? settings.level : load(profileKey(KEYS.settings, id))?.level);
+  const people = playersFrom(profiles, levelOf, MASCOT_IDS);
+  const levelName = (lv) => (lv === GROWN_UP ? { hi: 'बड़े', en: 'Grown-up' } : content.levels.find((l) => l.id === lv)?.name || { hi: lv, en: lv });
+  const others = people.filter((p) => p.id !== profiles.current);
+  const picked = [people.find((p) => p.id === profiles.current) || people[0], others.find((p) => p.id !== GROWN_UP) || others.at(-1)];
+  let slot = 1;
+  const face = (p) => el('span', { class: 'player-face', html: p.avatar ? mascotSvg(p.avatar) : '<svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="34" r="20" fill="#F2C29A"/><path d="M18 98 Q20 62 50 62 Q80 62 82 98 Z" fill="#6C63FF"/></svg>' });
+  const label = (p) => p.name || (p.id === GROWN_UP ? 'बड़े' : `बच्चा ${p.n}`);
+  const slots = el('div', { class: 'together-slots' });
+  const list = el('div', { class: 'together-people', role: 'listbox', 'aria-label': 'Who is playing?' });
+  const draw = () => {
+    slots.replaceChildren(
+      ...picked.map((p, i) =>
+        el('button', { class: `together-slot p${i + 1}${slot === i ? ' choosing' : ''}`, 'aria-label': `Player ${i + 1}: ${label(p)}`, onclick: () => ((slot = i), draw()) }, [
+          el('small', { lang: 'hi', text: i ? 'दूसरा खिलाड़ी' : 'पहला खिलाड़ी' }),
+          face(p),
+          el('b', { text: label(p) }),
+          el('span', { class: 'slot-level' }, said(api, levelName(p.level))),
+        ]),
+      ),
+    );
+    list.replaceChildren(
+      ...people.map((p) =>
+        el('button', { class: `together-person${picked.includes(p) ? ' picked' : ''}`, 'aria-label': label(p), onclick: () => {
+          api.sfx.pop();
+          if (picked[1 - slot] === p) picked[1 - slot] = picked[slot];
+          picked[slot] = p;
+          slot = 1 - slot;
+          draw();
+        } }, [face(p), el('b', { text: label(p) }), el('small', {}, said(api, levelName(p.level)))]),
+      ),
+    );
+  };
+  draw();
+  const start = el('button', { class: 'bubble green big', 'aria-label': 'Start', html: ICONS.play, onclick: () => {
+    api.sfx.jingle();
+    api.go('lesson', { worldId: homeWorld(content, settings).id, together: { players: picked.map((p) => ({ name: p.name, avatar: p.avatar, level: p.level })) } }, { replace: true });
+  } });
+  api.app.replaceChildren(
+    el('div', { class: 'screen together-setup enter' }, [
+      backdrop(null),
+      el('header', { class: 'game-head' }, [el('button', { class: 'round-btn', 'aria-label': 'Back', html: ICONS.back, onclick: () => api.back() }), el('div', { class: 'head-title' }, said(api, { hi: 'साथ खेलो', en: 'Play together' }, 'hi', 'span')), el('span', { class: 'round-spacer' })]),
+      el('main', { class: 'together-main' }, [
+        el('p', { class: 'together-help' }, said(api, { hi: 'दो खिलाड़ी चुनो। बारी-बारी से खेलो, हर किसी को अपनी कक्षा का सवाल मिलेगा। तारे दोनों के!', en: 'Pick two players. Take turns; each gets a question for their own grade. The stars belong to both!' })),
+        slots,
+        list,
+        start,
+      ]),
+    ]),
+  );
+  api.say('togetherHi');
+}
+
+// ---------- talk together: prompts for a grown-up after a story (docs/ROADMAP.md 1.4, 7.6) ----------
+// Dialogic reading (Whitehurst's CROWD prompts): finish the line, remember, look and tell, why, and
+// "what about you". They are for the grown-up to ask, so they sit behind a button, and they are not said.
+export const TALK_LABELS = {
+  complete: { hi: 'पूरा करो', en: 'Finish the line' },
+  recall: { hi: 'याद करो', en: 'Remember' },
+  open: { hi: 'देखो और बताओ', en: 'Look and tell' },
+  why: { hi: 'क्यों?', en: 'Why?' },
+  you: { hi: 'तुम्हारी बात', en: 'About you' },
+};
+function talkButton(api, story) {
+  const b = el('button', { class: 'talk-btn', 'aria-label': 'Talk together: questions for a grown-up to ask' }, [
+    el('span', { class: 'talk-icon', 'aria-hidden': 'true', text: '💬' }),
+    el('span', { class: 'talk-text' }, [el('b', { lang: 'hi', text: 'साथ में बात करें' }), el('small', { text: 'Talk together · for grown-ups' })]),
+  ]);
+  b.addEventListener('click', () => {
+    api.sfx.pop();
+    showTalk(api, story);
+  });
+  return b;
+}
+export function showTalk(api, story) {
+  const sheet = el('div', { class: 'talk-sheet', role: 'dialog', 'aria-modal': 'true', 'aria-label': `Talk about ${story.title.en}` });
+  const close = () => sheet.remove();
+  sheet.append(
+    el('div', { class: 'talk-card' }, [
+      el('header', { class: 'talk-head' }, [
+        el('div', {}, [el('b', { lang: 'hi', text: `"${story.title.hi || story.title.en}" पर बात करें` }), el('small', { text: `Talk about "${story.title.en}"` })]),
+        el('button', { class: 'round-btn small', 'aria-label': 'Close', html: ICONS.check, onclick: close }),
+      ]),
+      el('p', { class: 'talk-intro' }, [
+        el('span', { lang: 'hi', text: 'इनमें से एक-दो सवाल पूछिए। कोई जवाब ग़लत नहीं; बातचीत ही सीख है।' }),
+        el('small', { text: 'Ask one or two of these. There are no wrong answers: the talk is the learning.' }),
+      ]),
+      el(
+        'ol',
+        { class: 'talk-list' },
+        story.talk.map((t) =>
+          el('li', { class: `talk-item ${t.type}` }, [
+            el('span', { class: 'talk-kind' }, [el('b', { lang: 'hi', text: TALK_LABELS[t.type]?.hi || t.type }), el('small', { text: TALK_LABELS[t.type]?.en || '' })]),
+            el('span', { class: 'talk-q', lang: 'hi', text: t.hi }),
+            el('small', { class: 'talk-en', text: t.en }),
+          ]),
+        ),
+      ),
+    ]),
+  );
+  sheet.addEventListener('click', (e) => e.target === sheet && close());
+  (api.app.querySelector('.screen') || api.app).append(sheet);
+  sheet.querySelector('.round-btn')?.focus();
 }
 
 // A ribbon across the results card. Praise names the effort, not the child (Mueller & Dweck).

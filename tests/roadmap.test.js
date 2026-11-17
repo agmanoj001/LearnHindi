@@ -57,6 +57,9 @@ const DONE = {
   'Rhymes and counting-out games': () => content.stories.filter((s) => s.kind === 'poem' && s.source).length >= 12,
   'Counting stories': () => content.stories.filter((s) => s.pages.some((p) => Number.isInteger(p.act?.count))).length >= 8,
   'गिनती: Hindi numbers as their own strand': () => content.numbers.length === 100 && exists('js/games/ginti.js') && lessons.filter((l) => l.game === 'ginti').length >= 10,
+  '"Ask me" prompts for the grown-up': () => content.stories.every((s) => ['complete', 'recall', 'open', 'why', 'you'].every((t) => s.talk?.some((p) => p.type === t && p.hi && p.en))) && /export function showTalk/.test(read('js/screens.js')),
+  'Shared play for a grown-up and child': () => exists('js/games/together.js') && /export function togetherQuestion/.test(read('js/together.js')) && /together-btn/.test(read('js/screens.js')) && content.stories.every((s) => s.talk?.length === 5),
+  'Free play between lessons': () => exists('js/freeplay.js') && /freeplayDue\(/.test(read('js/screens.js')) && ['drive', 'feed', 'colour'].every((m) => read('js/freeplay.js').includes(`'${m}'`)),
 };
 
 // title of an open row -> a sign in the code that it has been built (then its row must be ✅)
@@ -65,7 +68,6 @@ const WATCH = {
   'Favourites and "read again"': () => /favourite/i.test(js),
   'Story radio': () => /sleepTimer|sleep-timer/.test(js),
   'A "what\'s new" note': () => /whatsNew|changelog/i.test(js),
-  '"Ask me" prompts for the grown-up': () => /askMe|CROWD/.test(js),
   'Sing-along rhymes': () => /singAlong|sing-along/i.test(js + css),
   'A surprise each day': () => /dailySurprise|gift-box/.test(js + css),
   '"Words I know" book': () => /wordsKnown|words-i-know/.test(js + css),

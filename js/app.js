@@ -17,6 +17,7 @@ import {
 } from './logic.js';
 import { findLesson, lessonRecord, lessonLetters, applyLessonResult, adaptTier, addPlayTime, isoDay, worldLessons } from './curriculum.js';
 import { milestones } from './guide.js';
+import { freeplay } from './freeplay.js';
 import { validateContent } from './validate.js';
 import { pictureExists, picture, pictureForWord, specialVehicle } from './art.js';
 import { initAudio, setVoicePack, preload, play, stop, wordSegs, letterSegs, numberSegs, soundSegs, sentenceSegs, phraseSegs, setVoicePrefs } from './audio.js';
@@ -227,6 +228,11 @@ function render(route) {
     case 'shows':
       enterWorld(null);
       return shows.showsHome(api);
+    case 'together':
+      enterWorld(null);
+      return screens.together(api);
+    case 'freeplay':
+      return world ? freeplay(api, world) : goHome();
     case 'show': {
       const show = (state.content.shows || []).find((s) => s.id === p.showId);
       if (!show) return goHome();
@@ -384,12 +390,12 @@ function storyLessonMap() {
 
 // ---------- lesson frame ----------
 
-function startLesson({ lessonId, worldId, storyId }) {
-  const found = storyId ? null : findLesson(state.content, lessonId);
+function startLesson({ lessonId, worldId, storyId, together }) {
+  const found = storyId || together ? null : findLesson(state.content, lessonId);
   const world = found?.world || worldById(worldId);
   if (!world) return goHome();
-  // stories opened from the library play like lessons
-  const lesson = found?.lesson || {
+  // two players on one device (js/together.js), and stories opened from the library, play like lessons
+  const lesson = found?.lesson || (together && { id: 'together', game: 'together', icon: 'balloons', title: { hi: 'साथ खेलो', en: 'Play together' }, config: together }) || {
     id: `story:${storyId}`,
     game: 'story',
     icon: 'bookbus',
@@ -554,6 +560,8 @@ function startLesson({ lessonId, worldId, storyId }) {
       mascot.react('oops');
     },
     practice: (pool, n) => weightedSequence(pool, n, rng, (x) => practiceWeight(state.progress.stats[itemKey(x)])),
+    // which story was read (for the talk-together prompts on the results screen)
+    markStory: (id) => (session.story = id),
     saveProgress(update) {
       state.progress = { ...state.progress, ...update };
       ctx.progress = state.progress;
@@ -569,6 +577,8 @@ function startLesson({ lessonId, worldId, storyId }) {
       if (!ctx.alive()) return;
       state.token++;
       const before = state.progress;
+      // lessons finished since the app opened: free play is offered after every two (js/freeplay.js)
+      state.sessionLessons = (state.sessionLessons || 0) + 1;
       const result = applyLessonResult(state.progress, { world, lesson, collection, firstTry: session.firstTry, answered: session.answered, tier: live.tier });
       state.progress = result.progress;
       persistProgress();
@@ -601,6 +611,7 @@ const api = {
   sayItem,
   sayLines,
   sayAbout,
+  saySound,
   stop,
   sfx,
   music,

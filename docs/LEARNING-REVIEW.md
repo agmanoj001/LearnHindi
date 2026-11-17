@@ -11,7 +11,7 @@ The most widely used framework for judging children's learning apps is Hirsh-Pas
 | Active | Every screen asks for a choice; tracing, building words and sentences, putting a story in order | Few open-ended or creative tasks | ✅ "Tell it back": the child records themselves retelling a story |
 | Engaged | No ads, no menus mid-lesson, no timers; short lessons; adaptive difficulty | Collections could tempt "collecting for its own sake" | ✅ The daily limit and break screen keep play bounded |
 | Meaningful | Indian themes (family, festivals, village, folktales), NCERT topics, everyday objects | English phonics words are generic | ➡️ Add more Indian-context English words (mango, auto, kite, chai) |
-| Socially interactive | Parent recordings; "what to do off-screen" list | Nothing prompts talk between child and grown-up | ✅ The break screen suggests an off-screen activity. ➡️ "Ask me" prompts after stories ("What would you do?") for the grown-up |
+| Socially interactive | Parent recordings; "what to do off-screen" list | Nothing prompts talk between child and grown-up | ✅ The break screen suggests an off-screen activity. ✅ "Ask me" prompts after every story for the grown-up (finish the line, remember, look and tell, why, and "what about you"). ✅ "साथ खेलो": two players of different ages take turns on one device and share the stars |
 | Clear goal | Units are named for the goal and tagged with NC and NIPUN standards | The child doesn't see progress towards a goal across days | ✅ Today's path (3 steps a day) |
 
 Other well-established findings, and where they stand:

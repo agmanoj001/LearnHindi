@@ -32,10 +32,13 @@ export const GAME_TYPES = [
   'comic',
   'grammar',
   'ginti',
+  'together', // started from the home screen, not a map (js/together.js)
 ];
 // the kinds of round in the Hindi numbers game (js/games/ginti.js)
 export const GINTI_MODES = ['count', 'show', 'hear', 'digits', 'next', 'compare', 'read', 'add', 'take', 'half'];
 export const NUMBERS_MAX = 100;
+// the grown-up's talk-together prompts after a story (CROWD, dialogic reading)
+export const TALK_TYPES = ['complete', 'recall', 'open', 'why', 'you'];
 export const GRAMMAR_KINDS = ['mcq', 'tap', 'sort'];
 export const OPPOSITE_KINDS = ['size', 'height', 'speed'];
 export const PAIR_KINDS = ['opposite', 'plural', 'female'];
@@ -307,6 +310,12 @@ export function validateContent(c, { knownPictures = null, pictureExists = null,
           }
         });
         if (s.moral !== undefined && !hasText(s.moral)) err(`${at} (${s.id}).moral needs "hi" and "en"`);
+        // talk-together prompts for a grown-up (docs/ROADMAP.md 7.6): every story has one of each kind
+        if (!Array.isArray(s.talk)) err(`${at} (${s.id}).talk is required: the grown-up's prompts (${TALK_TYPES.join(', ')})`);
+        else {
+          for (const t of TALK_TYPES) if (!s.talk.some((x) => x?.type === t && hasText(x))) err(`${at} (${s.id}).talk needs a "${t}" prompt with "hi" and "en"`);
+          for (const x of s.talk) if (!TALK_TYPES.includes(x?.type)) err(`${at} (${s.id}).talk: "${x?.type}" is not one of ${TALK_TYPES.join(', ')}`);
+        }
         if (s.kind !== undefined && !['story', 'poem'].includes(s.kind)) err(`${at} (${s.id}).kind must be "story" or "poem"`);
         if (s.lang !== undefined && !['hi', 'en'].includes(s.lang)) err(`${at} (${s.id}).lang must be "hi" or "en"`);
       });
