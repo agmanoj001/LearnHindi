@@ -483,7 +483,7 @@ export function normalizeSettings(saved, content) {
 export function defaultProgress(content) {
   const collected = {};
   for (const [id, col] of Object.entries(content.collections || {})) collected[id] = col.items.slice(0, col.start || 0);
-  return { lessons: {}, collected, days: [], trainPos: {}, storyPos: {}, comicPos: {}, stats: {}, time: {}, shows: {}, scenes: {}, coached: [], favs: [], trail: {} };
+  return { lessons: {}, collected, days: [], trainPos: {}, storyPos: {}, comicPos: {}, stats: {}, time: {}, shows: {}, scenes: {}, coached: [], favs: [], trail: {}, style: { outfit: null, backdrop: null, sound: null } };
 }
 
 export function normalizeProgress(saved, content) {
@@ -528,6 +528,8 @@ export function normalizeProgress(saved, content) {
         .map(([id, r]) => [id, { panel: Math.min(r.panel, 99), solved: r.solved === true }]),
     ),
     stats: obj(saved.stats),
+    // what the child chose to wear and use (js/rewards.js, roadmap 7.5)
+    style: Object.fromEntries(['outfit', 'backdrop', 'sound'].map((k) => [k, typeof obj(saved.style)[k] === 'string' ? obj(saved.style)[k] : null])),
     // today's path, kept for the day (curriculum.js stickyPlan, roadmap 7.4)
     ...(saved.today && typeof saved.today === 'object' && /^\d{4}-\d\d-\d\d$/.test(saved.today.day) && Array.isArray(saved.today.steps)
       ? { today: { day: saved.today.day, steps: saved.today.steps.filter((s) => s && ['go', 'review', 'story', 'watched'].includes(s.kind) && typeof s.world === 'string' && typeof s.lesson === 'string').slice(0, 4) } }

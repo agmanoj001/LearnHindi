@@ -223,7 +223,17 @@ export const sfx = {
   }),
   toot: on(() => (tone(440, 0, 0.3, { type: 'square', vol: 0.04 }), tone(440, 0.4, 0.5, { type: 'square', vol: 0.04 }))),
   // a soft wooden tick: a button that opens something or goes back
-  tick: on(() => (tone(1250, 0, 0.04, { type: 'triangle', to: 900, vol: 0.05 }), noise(0, 0.02, { from: 3000, to: 5000, vol: 0.02 }))),
+  // the tap sound can be one the child chose (js/rewards.js, roadmap 7.5)
+  tapSound: null,
+  tick: on(() => {
+    const k = sfx.tapSound;
+    if (k === 'bell') return bell(midi(C5 + 12), 0, { dur: 0.5, vol: 0.08 });
+    if (k === 'marimba') return marimba(midi(C5), 0, { vol: 0.13, dur: 0.25 });
+    if (k === 'bubble') return tone(480, 0, 0.09, { to: 1150, vol: 0.08 });
+    if (k === 'kalimba') return kalimba(midi(C5 + 7), 0, { vol: 0.11 });
+    tone(1250, 0, 0.04, { type: 'triangle', to: 900, vol: 0.05 });
+    noise(0, 0.02, { from: 3000, to: 5000, vol: 0.02 });
+  }),
   // a tile, word or picture settling into its slot
   place: on(() => (marimba(midi(C5 - 5), 0, { vol: 0.13, dur: 0.3 }), tone(160, 0, 0.08, { to: 90, vol: 0.06 }))),
   // "not that one": two soft falling notes, never a buzzer

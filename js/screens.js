@@ -1,14 +1,15 @@
 // Screens outside a lesson: splash, onboarding, the world hub, a world's path map,
 // results, the sticker collection and the story library.
 import { el, sleep, bounce, animate, sparkleAt, flyTo, ICONS, infoButton, forGrownups } from './ui.js';
-import { createMascot, mascotSvg, MASCOTS, MASCOT_IDS } from './mascot.js';
+import { createMascot, mascotSvg, MASCOTS, MASCOT_IDS, setOutfit, currentOutfit } from './mascot.js';
+import { REWARDS, REWARD_KINDS, unlockedRewards, nextReward, styleFor } from './rewards.js';
 import { sceneSvg } from './art-scenes.js';
 import { PLACEMENT_LEVELS, placementQuestions, placementResult } from './placement.js';
 import { picture, pictureForWord, specialVehicle } from './art.js';
 import { weekDays, trailSticker, dayFinished, weekFull, isoDay, stickyPlan } from './curriculum.js';
 import { worldLessons, lessonRecord, isUnlocked, currentLesson, nextLesson, worldStars, hubWorlds, streak, nextCollectible, todayPlan, storyLang, worldStoryLang, storyNeeds, taughtMatras, decodability, nextDecodable, MATRA_SIGNS } from './curriculum.js';
 import { SHOW_ICONS } from './shows.js';
-import { greeting, timeSlot, HELLO, milestoneLine } from './guide.js';
+import { greeting, timeSlot, HELLO, milestoneLine, totalStars } from './guide.js';
 import { playersFrom, GROWN_UP } from './together.js';
 import { load, KEYS, profileKey } from './storage.js';
 import { freeplayDue } from './freeplay.js';
@@ -284,7 +285,8 @@ export function hub(api) {
   }
   api.app.replaceChildren(
     el('div', { class: `screen hub enter${simple ? ' simple' : ''}` }, [
-      backdrop(null),
+      // the background the child chose (roadmap 7.5)
+      backdrop(styleFor(progress, totalStars(progress)).backdrop ? { theme: styleFor(progress, totalStars(progress)).backdrop } : null),
       el('header', { class: 'hub-head' }, [
         appTitle(api),
         el('div', { class: 'head-right' }, [
@@ -302,6 +304,7 @@ export function hub(api) {
               el('div', { class: 'hub-side' }, [
                 showtime,
                 readAgain(api),
+                prizesButton(api),
                 el('button', { class: 'together-btn', 'aria-label': 'Play together', onclick: () => (api.sfx.pop(), api.go('together')) }, [el('span', { class: 'together-icon', 'aria-hidden': 'true', text: '👫' }), el('span', {}, said(api, { hi: 'साथ खेलो', en: 'Play together' }, 'hi', 'b'))]),
               ]),
             ]),
@@ -540,7 +543,7 @@ function storyLevels(api, w) {
 
 // ---------- results ----------
 
-export async function results(api, { world, lesson, result, collection, session, milestones = [] }) {
+export async function results(api, { world, lesson, result, collection, session, milestones = [], rewards = [] }) {
   const mascot = createMascot(world.mascot, { size: 'large', onTap: () => mascotJoke(api, mascot) });
   // after a story: the grown-up's talk-together prompts (docs/ROADMAP.md 7.6)
   const talkStory = session?.story ? api.state.content.stories.find((s) => s.id === session.story && s.talk?.length) : null;
@@ -587,6 +590,7 @@ export async function results(api, { world, lesson, result, collection, session,
         milestone ? el('div', { class: 'milestone' }, [el('span', { class: 'milestone-icon', html: ICONS.sparkle }), ...said(api, milestone, english(world) ? 'en' : 'hi', 'b')]) : null,
         reward,
         talkStory ? el('div', { class: 'story-after' }, [heartButton(api, talkStory, { cls: 'big' }), talkButton(api, talkStory)]) : null,
+        ...rewards.map((r) => newPrizeCard(api, r)),
         btns,
       ]),
     ]),
@@ -616,6 +620,94 @@ export async function results(api, { world, lesson, result, collection, session,
     api.sfx.cheer();
     await api.sayLines(milestone, `guide-${milestone.id}`);
   }
+  if (rewards.length && token === api.state.token) {
+    api.sfx.jingle();
+    await api.say('newPrize');
+  }
+}
+
+// ---------- little rewards that aren't stars (roadmap 7.5, js/rewards.js) ----------
+const KIND_NAME = { outfit: { hi: 'साथी की पोशाक', en: 'Outfits for your guide' }, backdrop: { hi: 'घर का दृश्य', en: 'Home backgrounds' }, sound: { hi: 'बटन की आवाज़', en: 'Button sounds' } };
+const SPEAKER = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z" fill="currentColor"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+// the picture of a prize: the guide wearing it, the background, or a speaker
+function prizePicture(api, r) {
+  if (r.kind === 'backdrop') return sceneSvg(r.id, { crop: 'bottom' });
+  if (r.kind === 'sound') return SPEAKER;
+  const was = currentOutfit();
+  setOutfit(r.id);
+  const art = mascotSvg(homeWorld(api.state.content, api.state.settings)?.mascot || 'gappu');
+  setOutfit(was);
+  return art;
+}
+// wear it, use it, or (tapped again) put it away
+function usePrize(api, r) {
+  const st = { ...(api.state.progress.style || {}) };
+  st[r.kind] = st[r.kind] === r.id ? null : r.id;
+  api.state.progress = { ...api.state.progress, style: st };
+  api.persistProgress();
+  api.applyStyle();
+  if (r.kind === 'sound') api.sfx.tick();
+  return st[r.kind] === r.id;
+}
+function newPrizeCard(api, r) {
+  const use = el('button', { class: 'bubble green prize-use' }, said(api, r.kind === 'outfit' ? { hi: 'पहनो', en: 'Wear it' } : { hi: 'लगाओ', en: 'Use it' }));
+  use.addEventListener('click', () => {
+    usePrize(api, r);
+    use.disabled = true;
+    use.replaceChildren(...said(api, { hi: 'लग गया!', en: 'Done!' }));
+    api.sfx.feel?.('reward');
+  });
+  return el('div', { class: `new-prize kind-${r.kind}` }, [
+    el('span', { class: 'prize-ribbon' }, said(api, { hi: 'नया इनाम!', en: 'A new prize!' })),
+    el('span', { class: 'prize-pic', html: prizePicture(api, r) }),
+    el('b', { lang: 'hi', text: one(api, r.name) }),
+    use,
+  ]);
+}
+function prizesButton(api) {
+  const n = unlockedRewards(totalStars(api.state.progress)).length;
+  return el('button', { class: 'prizes-btn', 'aria-label': 'My prizes', onclick: () => (api.sfx.pop(), api.go('rewards')) }, [
+    el('span', { class: 'prizes-icon', 'aria-hidden': 'true', text: '🎁' }),
+    el('span', {}, said(api, { hi: 'मेरे इनाम', en: 'My prizes' }, 'hi', 'b')),
+    el('small', { class: 'prizes-count', text: `${n}/${REWARDS.length}` }),
+  ]);
+}
+// the wardrobe: every prize, the ones unlocked ready to wear or use, the rest waiting for their stars
+export function rewards(api, { quiet = false } = {}) {
+  const stars = totalStars(api.state.progress);
+  const have = new Set(unlockedRewards(stars).map((r) => r.id));
+  const st = styleFor(api.state.progress, stars);
+  const next = nextReward(stars);
+  const tile = (r) => {
+    const on = st[r.kind] === r.id;
+    const b = el('button', { class: `prize-tile kind-${r.kind}${have.has(r.id) ? '' : ' locked'}${on ? ' on' : ''}`, 'aria-pressed': String(on), 'aria-label': `${r.name.en}${have.has(r.id) ? '' : ` (at ${r.stars} stars)`}` }, [
+      el('span', { class: 'prize-pic', html: prizePicture(api, r) }),
+      el('b', { lang: 'hi', text: one(api, r.name) }),
+      have.has(r.id) ? null : el('small', { class: 'prize-lock' }, [el('span', { class: 'star-icon', html: ICONS.star }), el('span', { text: String(r.stars) })]),
+    ]);
+    b.addEventListener('click', () => {
+      if (!have.has(r.id)) return api.sfx.boing();
+      usePrize(api, r);
+      api.sfx.feel?.('select');
+      rewards(api, { quiet: true });
+    });
+    return b;
+  };
+  api.app.replaceChildren(
+    el('div', { class: 'screen rewards-screen enter' }, [
+      backdrop(st.backdrop ? { theme: st.backdrop } : null),
+      el('header', { class: 'game-head' }, [
+        el('button', { class: 'round-btn', 'aria-label': 'Back', html: ICONS.back, onclick: () => api.back() }),
+        el('div', { class: 'head-title' }, said(api, { hi: 'मेरे इनाम', en: 'My prizes' }, 'hi', 'span')),
+        el('span', { class: 'star-chip' }, [el('span', { class: 'star-icon', html: ICONS.star }), el('b', { text: String(stars) })]),
+      ]),
+      el('main', { class: 'rewards-main' }, [
+        next ? el('p', { class: 'prize-next' }, said(api, { hi: `अगला इनाम ${next.stars} तारों पर: ${next.name.hi}`, en: `Next prize at ${next.stars} stars: ${next.name.en}` })) : el('p', { class: 'prize-next' }, said(api, { hi: 'सारे इनाम मिल गए!', en: 'Every prize found!' })),
+        ...REWARD_KINDS.map((k) => el('section', { class: 'prize-shelf' }, [el('h3', {}, said(api, KIND_NAME[k], 'hi', 'span')), el('div', { class: 'prize-tiles' }, REWARDS.filter((r) => r.kind === k).map(tile))])),
+      ]),
+    ]),
+  );
+  if (!quiet) api.say('prizesHello');
 }
 
 // ---------- साथ खेलो: two players on one device (docs/ROADMAP.md 7.6) ----------

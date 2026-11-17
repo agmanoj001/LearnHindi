@@ -10564,3 +10564,119 @@ body:has(.game-grammar) .caption-bar,
   width: 100%;
   height: 100%;
 }
+
+/* ---- little rewards that aren't stars (roadmap 7.5): prizes, the wardrobe ---- */
+.prizes-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 8px 16px;
+  border: 0;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #fff7d6, #ffe7f0);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+.hub-side .prizes-btn {
+  margin: 0;
+}
+.prizes-icon {
+  font-size: 26px;
+}
+.prizes-count {
+  margin-left: auto;
+  font-weight: 800;
+  color: var(--muted);
+}
+.new-prize {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin: 8px auto;
+  padding: 18px 16px 14px;
+  width: min(100%, 300px);
+  border-radius: 24px;
+  background: linear-gradient(160deg, #fff7d6, #ffe7f0);
+  box-shadow: 0 0 0 3px #ffd34d, var(--shadow);
+  animation: pop-in 0.5s var(--spring);
+}
+.prize-ribbon {
+  position: absolute;
+  top: -12px;
+  padding: 3px 12px;
+  border-radius: 999px;
+  color: #fff;
+  font-weight: 800;
+  background: #ff4f79;
+}
+.prize-pic {
+  width: 96px;
+  height: 96px;
+  display: grid;
+  place-items: center;
+  border-radius: 20px;
+  overflow: hidden;
+  color: var(--brand);
+}
+.prize-pic svg {
+  width: 100%;
+  height: 100%;
+}
+.kind-sound .prize-pic {
+  padding: 22px;
+  background: #fff;
+}
+.rewards-main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 6px 2px 30px;
+}
+.prize-next {
+  text-align: center;
+  font-weight: 700;
+  color: var(--brand-ink);
+}
+.prize-shelf h3 {
+  margin: 14px 4px 8px;
+  font-size: 17px;
+}
+.prize-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 10px;
+}
+.prize-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 6px;
+  border: 0;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+}
+.prize-tile.on {
+  box-shadow: 0 0 0 4px var(--good), var(--shadow-sm);
+}
+.prize-tile.locked .prize-pic {
+  filter: grayscale(1) opacity(0.4);
+}
+.prize-lock {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-weight: 800;
+  color: var(--muted);
+}
+.prize-lock .star-icon {
+  width: 14px;
+  height: 14px;
+  color: var(--sun);
+}

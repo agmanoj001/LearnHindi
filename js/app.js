@@ -16,17 +16,18 @@ import {
   synLine,
 } from './logic.js';
 import { findLesson, lessonRecord, lessonLetters, applyLessonResult, adaptTier, addPlayTime, isoDay, worldLessons } from './curriculum.js';
-import { milestones } from './guide.js';
+import { milestones, totalStars } from './guide.js';
 import { freeplay } from './freeplay.js';
 import { validateContent } from './validate.js';
 import { pictureExists, picture, pictureForWord, specialVehicle } from './art.js';
 import { showCoach, needsCoach, coachKey, COACH_KINDS, COACH_MAX } from './coach.js';
 import { applyMotion, liteMotion, slowDevice, watchMotion, isLite } from './motion.js';
+import { styleFor, newRewards } from './rewards.js';
 import { initAudio, setVoicePack, preload, play, stop, isSpeaking, wordSegs, letterSegs, numberSegs, soundSegs, sentenceSegs, phraseSegs, setVoicePrefs } from './audio.js';
 import { KEYS, load, save, normalizeProfiles, profileKey, keepStorage } from './storage.js';
 import { sfx, music, FEEDBACK } from './sfx.js';
 import { el, sleep, bounce, ICONS } from './ui.js';
-import { createMascot, MASCOT_IDS } from './mascot.js';
+import { createMascot, MASCOT_IDS, setOutfit } from './mascot.js';
 import * as screens from './screens.js';
 import * as shows from './shows.js';
 import { showParent } from './parent.js';
@@ -150,6 +151,15 @@ function loadProfile() {
   sfx.enabled = state.settings.sfx;
   music.enabled = state.settings.music;
   applyMotion(liteMotion(state.settings.motion, slowDevice()));
+  applyStyle();
+}
+
+// the guides' outfit and the buttons' sound the child chose (js/rewards.js, roadmap 7.5)
+function applyStyle() {
+  const st = styleFor(state.progress, totalStars(state.progress));
+  setOutfit(st.outfit);
+  sfx.tapSound = st.sound;
+  return st;
 }
 
 // the motion budget (js/motion.js, roadmap 5.5): the first few screens of each start are timed
@@ -272,6 +282,9 @@ function render(route) {
     case 'together':
       enterWorld(null);
       return screens.together(api);
+    case 'rewards':
+      enterWorld(null);
+      return screens.rewards(api);
     case 'freeplay':
       return world ? freeplay(api, world) : goHome();
     case 'show': {
@@ -656,7 +669,7 @@ function startLesson({ lessonId, worldId, storyId, together }) {
       state.progress = result.progress;
       persistProgress();
       const reached = milestones(before, state.progress, { storyLessons: storyLessonMap(), worldLessonIds: worldLessons(world).map((l) => l.id) });
-      screens.results(api, { world, lesson, result, collection, session, milestones: reached });
+      screens.results(api, { world, lesson, result, collection, session, milestones: reached, rewards: newRewards(totalStars(before), totalStars(state.progress)) });
     },
   };
   import(`./games/${lesson.game}.js`).then((mod) => {
@@ -690,6 +703,7 @@ const api = {
   music,
   persistSettings,
   persistProgress,
+  applyStyle,
   rng,
   sleep,
   minutesToday,

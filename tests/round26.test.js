@@ -133,3 +133,58 @@ test('the home screen shows the trail and celebrates a finished day once', () =>
   assert.equal((screens.match(/weekTrail\(api\),/g) || []).length, 2, 'on the today card and the simple home screen');
   for (const k of ['dayDone', 'weekDone']) assert.ok(content.phrases[k]?.hi && content.phrases[k]?.en, k);
 });
+
+// ---- 7.5 little rewards that aren't stars ----
+import { REWARDS, REWARD_KINDS, unlockedRewards, newRewards, nextReward, styleFor } from '../js/rewards.js';
+import { OUTFITS, headOf, setOutfit, mascotSvg, MASCOT_IDS } from '../js/mascot.js';
+import { sfx } from '../js/sfx.js';
+import { sceneSvg } from '../js/art-scenes.js';
+
+test('stars unlock outfits, backgrounds and sounds in turn, and nothing is ever lost', () => {
+  assert.equal(new Set(REWARDS.map((r) => r.id)).size, REWARDS.length);
+  for (const k of REWARD_KINDS) assert.ok(REWARDS.filter((r) => r.kind === k).length >= 4, k);
+  // in order of stars, the kinds taking turns
+  REWARDS.forEach((r, i) => i && assert.ok(r.stars > REWARDS[i - 1].stars));
+  assert.deepEqual(unlockedRewards(0), []);
+  assert.deepEqual(unlockedRewards(45).map((r) => r.id), ['party-hat', 'garden', 'bell', 'crown']);
+  assert.deepEqual(newRewards(59, 62).map((r) => r.id), ['ocean']);
+  assert.deepEqual(newRewards(62, 62), []);
+  assert.equal(nextReward(59).id, 'ocean');
+  assert.equal(nextReward(1000), null);
+  // what is chosen counts only if it is unlocked, and in its own kind
+  assert.deepEqual(styleFor({ style: { outfit: 'crown', backdrop: 'space', sound: 'garden' } }, 50), { outfit: 'crown', backdrop: null, sound: null });
+  assert.deepEqual(styleFor({}, 500), { outfit: null, backdrop: null, sound: null });
+  assert.deepEqual(normalizeProgress({ style: { outfit: 'crown', backdrop: 7 } }, content).style, { outfit: 'crown', backdrop: null, sound: null });
+});
+
+test('every outfit fits on every guide, every background and sound exists', () => {
+  for (const r of REWARDS.filter((x) => x.kind === 'outfit')) {
+    assert.equal(typeof OUTFITS[r.id], 'function', r.id);
+    setOutfit(r.id);
+    for (const id of MASCOT_IDS) {
+      const svg = mascotSvg(id);
+      assert.match(svg, /class="m-outfit"/, `${id} wears ${r.id}`);
+      assert.match(svg, /<\/g><\/svg>$/, 'inside the moving body');
+      const h = headOf(mascotSvg(id, { plain: true }));
+      assert.ok(h.top >= 0 && h.top < 60 && h.x > 0 && h.x < 120, `${id}'s head is found`);
+    }
+  }
+  setOutfit(null);
+  assert.doesNotMatch(mascotSvg('gappu'), /m-outfit/, 'no outfit: as drawn');
+  for (const r of REWARDS.filter((x) => x.kind === 'backdrop')) assert.ok(sceneSvg(r.id).length > 500, r.id);
+  for (const r of REWARDS.filter((x) => x.kind === 'sound')) assert.match(read('js/sfx.js'), new RegExp(`k === '${r.id}'`), r.id);
+  assert.equal(typeof sfx.tick, 'function');
+});
+
+test('a new prize shows on the results screen; the wardrobe is a tap from home', () => {
+  const app = read('js/app.js');
+  assert.match(app, /rewards: newRewards\(totalStars\(before\), totalStars\(state\.progress\)\)/);
+  assert.match(app, /setOutfit\(st\.outfit\);\s*sfx\.tapSound = st\.sound;/);
+  assert.match(app, /case 'rewards':/);
+  const screens = read('js/screens.js');
+  assert.match(screens, /\.\.\.rewards\.map\(\(r\) => newPrizeCard\(api, r\)\)/);
+  assert.match(screens, /prizesButton\(api\),/);
+  assert.match(screens, /export function rewards\(api/);
+  for (const k of ['newPrize', 'prizesHello']) assert.ok(content.phrases[k]?.hi && content.phrases[k]?.en, k);
+  assert.match(read('sw.js'), /'js\/rewards\.js'/);
+});

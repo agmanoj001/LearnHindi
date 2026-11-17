@@ -21,6 +21,7 @@ const SHELL = [
   'js/coach.js',
   'js/motion.js',
   'js/favourites.js',
+  'js/rewards.js',
   'js/logic.js',
   'js/validate.js',
   'js/art.js',
