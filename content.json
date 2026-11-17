@@ -88,7 +88,9 @@
     "festSticker": { "hi": "यह लो, त्योहार का ख़ास स्टिकर!", "en": "Here is a special festival sticker for you!" },
     "giftHere": { "hi": "आज का तोहफ़ा! खोलकर देखो!", "en": "Today's present! Open it!" },
     "giftSticker": { "hi": "तोहफ़े में एक नया स्टिकर!", "en": "A new sticker in the present!" },
-    "giftSound": { "hi": "आज बटनों की नई आवाज़! दबाकर देखो!", "en": "The buttons have a new sound today! Try them!" }
+    "giftSound": { "hi": "आज बटनों की नई आवाज़! दबाकर देखो!", "en": "The buttons have a new sound today! Try them!" },
+    "wordsHello": { "hi": "ये रहे वे शब्द जो तुम्हें आते हैं! किसी को भी दबाकर सुनो।", "en": "Here are the words you know! Tap any one to hear it." },
+    "wordsEmpty": { "hi": "खेलते रहो! जो शब्द तुम्हें आ जाएगा, वह इस किताब में आ जाएगा।", "en": "Keep playing! Every word you learn comes into this book." }
   },
   "words": {
     "digger": { "hi": "खुदाई मशीन", "translit": "khudaai mashin", "en": "digger", "picture": "digger" },

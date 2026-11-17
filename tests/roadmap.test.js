@@ -78,6 +78,7 @@ const DONE = {
   'An older child reads to a younger one': () => exists('js/readfor.js') && /readByRibbon\(story\.id\)/.test(read('js/games/story.js')) && /function missionCard/.test(read('js/screens.js')),
   'Festivals and seasons that arrive on their day': () => exists('js/festivals.js') && /export function festivalNow/.test(read('js/festivals.js')) && content.stories.some((x) => x.id === 'k3-eid'),
   'A surprise each day': () => exists('js/surprise.js') && /function giftBox/.test(read('js/screens.js')) && /\.gift-box/.test(css),
+  '"Words I know" book': () => exists('js/wordbook.js') && /wordsChip\(api\)/.test(read('js/screens.js')) && /case 'words'/.test(read('js/app.js')) && /\.words-page/.test(css),
   'Free play between lessons': () => exists('js/freeplay.js') && /freeplayDue\(/.test(read('js/screens.js')) && ['drive', 'feed', 'colour'].every((m) => read('js/freeplay.js').includes(`'${m}'`)),
 };
 
@@ -85,7 +86,6 @@ const DONE = {
 const WATCH = {
   'Share the backup': () => /navigator\.share\(/.test(js),
   'A "what\'s new" note': () => /whatsNew|changelog/i.test(js),
-  '"Words I know" book': () => /wordsKnown|words-i-know/.test(js + css),
   'More decodable books for Grade 1': () => content.stories.filter((s) => s.decodable != null).length >= 25,
   'A Grade 2 maths world': () => content.worlds.some((w) => w.subject === 'math' && w.level === 'grade2'),
   'पहाड़े: times tables sung the Hindi way': () => /पहाड़े/.test(JSON.stringify(content.worlds)),

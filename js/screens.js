@@ -7,6 +7,7 @@ import { recordBook, playBook, bookPicture } from './mybooks.js';
 import { MISSION_LEVELS, missionStories, readByAll } from './readfor.js';
 import { festivalBanner, FESTIVALS } from './festivals.js';
 import { giftDue, pickGift, riddleIndexes } from './surprise.js';
+import { wordsChip } from './wordbook.js';
 import { sceneSvg } from './art-scenes.js';
 import { PLACEMENT_LEVELS, placementQuestions, placementResult } from './placement.js';
 import { picture, pictureForWord, specialVehicle } from './art.js';
@@ -318,6 +319,8 @@ export function hub(api) {
               el('div', { class: 'hub-side' }, [
                 showtime,
                 readAgain(api),
+                // how many words this child knows, and the book of them (roadmap 7.13)
+                wordsChip(api),
                 prizesButton(api),
                 missionCard(api),
                 el('button', { class: 'together-btn', 'aria-label': 'Play together', onclick: () => (api.sfx.pop(), api.go('together')) }, [el('span', { class: 'together-icon', 'aria-hidden': 'true', text: '👫' }), el('span', {}, said(api, { hi: 'साथ खेलो', en: 'Play together' }, 'hi', 'b'))]),

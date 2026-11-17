@@ -365,3 +365,31 @@ test('a gift box once a day, with one small thing that changes from day to day',
   assert.match(read('js/screens.js'), /giftDue\(api\.state\.progress\) && lesson\.id !== 'together' \? giftBox\(/);
   for (const k of ['giftHere', 'giftSticker', 'giftSound']) assert.ok(content.phrases[k]?.hi, k);
 });
+
+// ---- 7.13 the "words I know" book ----
+import { wordsKnown, KNOWN_AT } from '../js/wordbook.js';
+
+test('a word goes in the book once it has been got right first time three times, in the word list order', () => {
+  const ids = Object.keys(content.words).filter((id) => content.words[id].picture && !/^(comic|place|shape)-/.test(id));
+  const [a, b, c] = ids;
+  const stats = { [`w:${a}`]: { seen: 5, first: KNOWN_AT }, [`w:${b}`]: { seen: 9, first: KNOWN_AT - 1 }, [`w:${c}`]: { seen: 3, first: KNOWN_AT + 2 }, 'w:no-such-word': { seen: 4, first: 4 } };
+  assert.deepEqual(wordsKnown({ stats }, content), [a, c]);
+  assert.deepEqual(wordsKnown({}, content), []);
+  assert.deepEqual(wordsKnown(undefined, content), []);
+  // the comic cast and places are not words to learn
+  const comic = Object.keys(content.words).find((id) => /^comic-/.test(id));
+  if (comic) assert.deepEqual(wordsKnown({ stats: { [`w:${comic}`]: { seen: 3, first: 3 } } }, content), []);
+});
+
+test('the home screen has the count, and the book flips, says the word, and shows them all', () => {
+  const app = read('js/app.js');
+  const book = read('js/wordbook.js');
+  assert.match(read('js/screens.js'), /wordsChip\(api\)/);
+  assert.match(app, /case 'words':[\s\S]{0,60}wordBook\(api\)/);
+  assert.match(book, /api\.sayItem\(/);
+  assert.match(book, /words-grid/);
+  assert.match(book, /pointerup/);
+  assert.match(read('sw.js'), /'js\/wordbook\.js'/);
+  for (const k of ['wordsHello', 'wordsEmpty']) assert.ok(content.phrases[k]?.hi && content.phrases[k]?.en, k);
+  for (const c of ['.words-chip', '.words-page', '.words-grid', '.words-cell', '.words-empty']) assert.ok(css.includes(c), c);
+});
