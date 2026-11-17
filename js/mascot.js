@@ -491,17 +491,27 @@ if (typeof window !== 'undefined') {
   window.addEventListener('vt-speaking', (e) => document.body.classList.toggle('speaking', !!e.detail));
 }
 
-const REACTIONS = { happy: 900, cheer: 900, oops: 800, silly: 1400, wave: 1200, dance: 2400, spin: 1000, sneeze: 1100 };
+const REACTIONS = { happy: 900, cheer: 1100, oops: 800, silly: 1400, wave: 1200, dance: 2400, spin: 1000, sneeze: 1100, clap: 1300, think: 1800, encourage: 1300 };
+// a little bubble that says what the guide feels (roadmap 5.3): clapping for a right answer, thinking
+// along while a question waits, "you can do it" after a wrong tap
+export const REACTION_BUBBLES = { clap: '👏', cheer: '🎉', think: '🤔', encourage: '💪', dance: '⭐' };
 
 export function createMascot(id, { size = 'medium', onTap } = {}) {
   const node = el('button', { class: `mascot mascot-${id} ${size}`, 'aria-label': MASCOTS[id]?.name.en || 'friend', html: mascotSvg(id) });
+  const bubble = el('span', { class: 'm-bubble', 'aria-hidden': 'true' });
+  node.append(bubble);
   let timer = 0;
   const react = (kind) => {
     for (const k of Object.keys(REACTIONS)) node.classList.remove(`m-${k}`);
+    node.classList.remove('m-said');
     void node.offsetWidth; // restart the animation
     node.classList.add(`m-${kind}`);
+    if (REACTION_BUBBLES[kind]) {
+      bubble.textContent = REACTION_BUBBLES[kind];
+      node.classList.add('m-said');
+    }
     clearTimeout(timer);
-    timer = setTimeout(() => node.classList.remove(`m-${kind}`), REACTIONS[kind] || 900);
+    timer = setTimeout(() => node.classList.remove(`m-${kind}`, 'm-said'), REACTIONS[kind] || 900);
   };
   if (onTap) node.addEventListener('click', () => onTap());
   return { id, node, react, name: MASCOTS[id]?.name };

@@ -10053,3 +10053,107 @@ body:has(.game-grammar) .caption-bar,
     font-size: 1.12em;
   }
 }
+
+/* ---- a guide that reacts to every answer (roadmap 5.3): claps, thinks along, encourages; bigger in lessons ---- */
+.mascot {
+  position: relative;
+}
+.mascot-corner .mascot.small {
+  width: clamp(96px, min(20vmin, 18vh), 160px);
+  height: clamp(96px, min(20vmin, 18vh), 160px);
+}
+.mascot.m-clap .m-body {
+  animation: m-jump 0.6s var(--spring);
+}
+.mascot.m-clap .m-arm-l {
+  animation: m-clap-l 0.26s ease-in-out 4;
+}
+.mascot.m-clap .m-arm-r {
+  animation: m-clap-r 0.26s ease-in-out 4;
+}
+.mascot.m-cheer .m-arm-l {
+  animation: m-clap-l 0.4s ease-in-out 2;
+}
+.mascot.m-cheer .m-arm-r {
+  animation: m-clap-r 0.4s ease-in-out 2;
+}
+.mascot.m-think .m-body {
+  transform-origin: 50% 90%;
+  animation: m-think 1.8s ease-in-out;
+}
+.mascot.m-think .m-arm-r {
+  animation: m-chin 1.8s ease-in-out;
+}
+.mascot.m-encourage .m-body {
+  animation: m-encourage 1.2s ease-in-out;
+}
+.mascot.m-encourage .m-arm-r {
+  animation: m-wave 0.3s ease-in-out 2 0.5s;
+}
+@keyframes m-clap-l {
+  50% {
+    transform: rotate(38deg);
+  }
+}
+@keyframes m-clap-r {
+  50% {
+    transform: rotate(-38deg);
+  }
+}
+@keyframes m-think {
+  20%,
+  80% {
+    transform: rotate(-7deg);
+  }
+}
+@keyframes m-chin {
+  20%,
+  80% {
+    transform: rotate(-55deg);
+  }
+}
+@keyframes m-encourage {
+  25% {
+    transform: rotate(-8deg);
+  }
+  55% {
+    transform: translateY(-8px) rotate(3deg);
+  }
+  75% {
+    transform: translateY(0) rotate(-2deg);
+  }
+}
+.m-bubble {
+  position: absolute;
+  top: -8px;
+  right: -14px;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-size: 24px;
+  line-height: 1;
+  background: #fff;
+  box-shadow: 0 3px 0 rgba(31, 35, 64, 0.12), 0 6px 14px -6px rgba(31, 35, 64, 0.4);
+  opacity: 0;
+  transform: scale(0.4) translateY(8px);
+  pointer-events: none;
+  transition: opacity 0.18s, transform 0.25s var(--spring);
+}
+.mascot.m-said .m-bubble {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .mascot.m-clap .m-arm-l,
+  .mascot.m-clap .m-arm-r,
+  .mascot.m-cheer .m-arm-l,
+  .mascot.m-cheer .m-arm-r,
+  .mascot.m-think .m-body,
+  .mascot.m-think .m-arm-r,
+  .mascot.m-encourage .m-body,
+  .mascot.m-encourage .m-arm-r {
+    animation: none;
+  }
+}

@@ -61,7 +61,6 @@ export default {
         onWrong: (b) => {
           misses++;
           b.classList.add('tried');
-          ctx.miss();
           say(misses >= 2 && p.hint ? p.hint : String(b.opt.say || b.opt.label || ''));
         },
       });

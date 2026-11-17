@@ -55,6 +55,7 @@ export function choose(buttons, isRight, { ctx, onRight, onWrong, record = true,
           b.classList.add('wrong');
           setTimeout(() => b.classList.remove('wrong'), 480);
           ctx?.sfx.haptic?.([18, 60, 18]);
+          ctx?.miss?.();
           onWrong?.(b);
           // two misses: help without being asked (after the wrong answer has been said)
           if (misses >= 2) setTimeout(hint, 1300);

@@ -557,6 +557,8 @@ function startLesson({ lessonId, worldId, storyId, together }) {
       hintFn = fn;
       hintBtn.hidden = !fn;
       if (fn && how?.kind) coach(how.kind, how.targets, fn);
+      // a new question: the guide thinks along
+      if (fn && !coaching) mascot.react('think');
     },
     coach: (kind, targets) => coach(kind, targets),
     setProgress(done, total) {
@@ -570,7 +572,8 @@ function startLesson({ lessonId, worldId, storyId, together }) {
     record(item, firstTry) {
       session.answered++;
       if (firstTry) session.firstTry++;
-      mascot.react(firstTry ? 'happy' : 'cheer');
+      // the guide claps for a first-time answer and cheers one found with help (roadmap 5.3)
+      mascot.react(firstTry ? 'clap' : 'cheer');
       session.combo = firstTry ? (session.combo || 0) + 1 : 0;
       session.best = Math.max(session.best || 0, session.combo);
       live = adaptTier(live, firstTry);
@@ -582,9 +585,9 @@ function startLesson({ lessonId, worldId, storyId, together }) {
       ctx.progress = state.progress;
       persistProgress();
     },
-    // a wrong tap in a game that doesn't use choose(): the mascot encourages
+    // any wrong tap (choose() reports them too): the guide says "you can do it"
     miss() {
-      mascot.react('oops');
+      mascot.react('encourage');
     },
     practice: (pool, n) => weightedSequence(pool, n, rng, (x) => practiceWeight(state.progress.stats[itemKey(x)])),
     // which story was read (for the talk-together prompts on the results screen)

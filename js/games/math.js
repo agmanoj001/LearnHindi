@@ -60,7 +60,6 @@ export default {
         onWrong: (b) => {
           misses++;
           b.classList.add('tried');
-          ctx.miss();
           const now = Date.now();
           if (misses >= 2 && p.hint) ctx.sayText(p.hint, 'en');
           else if (now - lastSay > 600) ctx.sayText(String(b.opt.say || b.opt.label || ''), 'en');

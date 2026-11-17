@@ -187,3 +187,20 @@ test('on a tablet the hub top is two columns, world cards are bigger and the map
   const before = css.slice(0, css.indexOf('/* ---- tablets (roadmap 4.7)'));
   assert.doesNotMatch(before, /\.hub-top \{/);
 });
+
+// ---- 5.3 a guide that reacts to every answer ----
+import { REACTION_BUBBLES } from '../js/mascot.js';
+
+test('the guide claps, thinks along and encourages, with a bubble that says so', () => {
+  assert.deepEqual(Object.keys(REACTION_BUBBLES).sort(), ['cheer', 'clap', 'dance', 'encourage', 'think']);
+  const app = read('js/app.js');
+  assert.match(app, /mascot\.react\(firstTry \? 'clap' : 'cheer'\)/, 'right: clap, or cheer after help');
+  assert.match(app, /miss\(\) \{\s*mascot\.react\('encourage'\)/, 'wrong: encourage');
+  assert.match(app, /if \(fn && !coaching\) mascot\.react\('think'\)/, 'a new question: think');
+  // every wrong tap reaches the guide, from the shared answer handler too, and only once
+  assert.match(read('js/games/kit.js'), /ctx\?\.miss\?\.\(\);\s*onWrong\?\.\(b\)/);
+  for (const g of ['math', 'phonics']) assert.doesNotMatch(read(`js/games/${g}.js`), /ctx\.miss\(\)/, `${g} doesn't report a miss twice`);
+  for (const k of ['clap', 'think', 'encourage']) assert.match(css, new RegExp(`\\.mascot\\.m-${k} `), k);
+  assert.match(css, /\.mascot-corner \.mascot\.small \{\s*width: clamp\(96px/, 'bigger in lessons');
+  assert.match(css, /prefers-reduced-motion: reduce\) \{\s*\.mascot\.m-clap \.m-arm-l/);
+});
