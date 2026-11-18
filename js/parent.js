@@ -2,7 +2,7 @@
 // sound, unlocking, the special photo, and a progress report. Nothing here leaves the device.
 import { el, ICONS, applyReadingComfort, applyLeftHanded } from './ui.js';
 import { loadChanges, changeDate } from './changes.js';
-import { applyMotion, liteMotion, slowDevice } from './motion.js';
+import { applyMotion, liteMotion, slowDevice, lowMemoryDevice } from './motion.js';
 import { normalizeProgress, clipKeysFor, clipKeyFromFileName, practiceReport, DAILY_LIMITS, showLines, storyVoiceLines } from './logic.js';
 import { skillName, SKILLS as MATH_SKILLS } from './mathgen.js';
 import { phonicsName } from './phonicsgen.js';
@@ -254,7 +254,7 @@ export function showParent(api) {
           ),
         ]),
         el('p', { class: 'note', text: 'Lighter animations keep the backgrounds still and leave out the extra effects; the stories, the guide and the games move as usual. Automatic switches to lighter if this device measured slow.' }),
-        slowDevice() ? el('p', { class: 'note', text: 'This device measured slow, so Automatic uses lighter animations.' }) : null,
+        slowDevice() ? el('p', { class: 'note', text: lowMemoryDevice() ? 'This device has little memory (2 GB or less), so Automatic uses lighter animations.' : 'This device measured slow, so Automatic uses lighter animations.' }) : null,
         toggle(
           'Easier reading',
           s.readingComfort,

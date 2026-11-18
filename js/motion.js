@@ -67,7 +67,16 @@ export function watchMotion(getMode, { samples = 4, need = 2 } = {}) {
   };
 }
 
+// A phone with 2 GB of memory or less (an Android Go phone reports it; Safari doesn't say) starts with the
+// lighter animations: its frames can look fine while it is idle, and it still struggles when a screen
+// opens (roadmap 3.2, docs/DEVICES.md).
+export function lowMemoryDevice(nav = typeof navigator !== 'undefined' ? navigator : null) {
+  const gb = Number(nav?.deviceMemory);
+  return gb > 0 && gb <= 2;
+}
+
 export function slowDevice() {
+  if (lowMemoryDevice()) return true;
   try {
     return localStorage.getItem(SLOW_DEVICE_KEY) === '1';
   } catch {

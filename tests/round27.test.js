@@ -204,3 +204,18 @@ test('8.8 content checks: every Hindi string follows the word rules, and every p
   const fine = { stories: [{ id: 'y', level: 'grade3', title: { hi: 'उल्टे शब्द (विलोम)', en: '' }, pages: [{ hi: 'पेड़, यानी वृक्ष। डॉ. राव आए।', en: '' }], questions: [], talk: [] }] };
   assert.deepEqual(checkText(fine).problems, []);
 });
+
+test('3.2 low-end devices: a 2 GB phone starts with lighter animations, and the device check exists', async () => {
+  const { lowMemoryDevice } = await import('../js/motion.js');
+  assert.equal(lowMemoryDevice({ deviceMemory: 2 }), true);
+  assert.equal(lowMemoryDevice({ deviceMemory: 1 }), true);
+  assert.equal(lowMemoryDevice({ deviceMemory: 4 }), false);
+  assert.equal(lowMemoryDevice({}), false, 'Safari reports no memory: decide by measuring instead');
+  assert.equal(lowMemoryDevice(null), false);
+  const tool = read('tools/device-check.mjs');
+  assert.match(tool, /id: 'android-go'/);
+  assert.match(tool, /id: 'old-ipad'/);
+  assert.match(read('docs/DEVICES.md'), /Android Go/);
+  // the two performance tools share one server, served as GitHub Pages serves the app
+  assert.match(read('tools/perf-budget.mjs'), /startPagesServer/);
+});
