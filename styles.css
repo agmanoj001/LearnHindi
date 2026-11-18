@@ -13473,3 +13473,17 @@ body:has(.game-grammar) .caption-bar,
   background: #ececf1;
   color: #2b2d42;
 }
+
+/* ---- calmer scenes for Grades 3 and 4 (roadmap 1.6): each movement plays through twice and settles, with
+   half the bits of an effect and softer colours, so the words stay the thing to look at ---- */
+.scene.calm.play .actor,
+.scene.calm.play .actor *,
+.scene.calm .fx i {
+  animation-iteration-count: 2 !important;
+}
+.scene.calm .fx i:nth-child(2n) {
+  display: none;
+}
+.scene.calm {
+  filter: saturate(0.85);
+}

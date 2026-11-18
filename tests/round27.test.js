@@ -257,3 +257,25 @@ test('9.12 prose for Grades 7–8: six pieces a grade, each with a glossary whos
   const sources = prose.map((s) => s.source?.hi || '').join(' ');
   for (const t of ['ईदगाह', 'दो बैलों की कथा', 'बड़े भाई साहब', 'पंच परमेश्वर', 'नमक का दारोगा', 'काबुलीवाला', 'तोता-कहानी']) assert.ok(sources.includes(t), t);
 });
+
+test('1.6 calmer scenes for Grades 3 and 4: a few gentle, silent scenes in every story, and the rules hold', async () => {
+  const { calmLevel, calmProblems, calmMax, CALM_MOVES } = await import('../js/scene.js');
+  const older = content.stories.filter((s) => calmLevel(s.level));
+  assert.ok(older.length >= 60);
+  for (const s of older) {
+    const acted = s.pages.filter((p) => p.act);
+    // fewer: the first and the last page move, and at most half of all pages
+    assert.ok(s.pages[0].act && s.pages.at(-1).act, `${s.id} moves on its first and last page`);
+    assert.ok(acted.length <= calmMax(s.pages.length), `${s.id} keeps most pages still`);
+    // calmer: gentle moves, one soft effect at most, no sound
+    for (const p of acted) assert.deepEqual(calmProblems(p.act), [], `${s.id}: ${JSON.stringify(p.act)}`);
+  }
+  // the rules catch a busy scene
+  assert.ok(calmProblems({ move: 'jump' }).length && calmProblems({ move: 'float', fx: ['rain', 'stars'] }).length && calmProblems({ move: 'walk', sound: 'boing' }).length);
+  assert.ok(!CALM_MOVES.includes('dance') && !CALM_MOVES.includes('shake'));
+  // the reader plays a calm scene without its sound, and the movement settles
+  assert.match(read('js/games/story.js'), /const sound = calm \? null : sceneSound/);
+  assert.match(read('styles.css'), /\.scene\.calm\.play \.actor[\s\S]*?animation-iteration-count: 2/);
+  // Toddler to Grade 2 keep a scene on every page
+  for (const s of content.stories.filter((x) => ['toddler', 'kg', 'grade1', 'grade2'].includes(x.level))) assert.ok(s.pages.every((p) => p.act), s.id);
+});

@@ -8927,12 +8927,12 @@
       "title": { "hi": "छोटी नाव", "en": "The little boat" },
       "cover": "boat",
       "pages": [
-        { "word": "river", "hi": "नदी के किनारे एक छोटी नाव रहती थी।", "en": "A little boat lived by the river." },
+        { "word": "river", "hi": "नदी के किनारे एक छोटी नाव रहती थी।", "en": "A little boat lived by the river.", "act": { "move": "float", "sky": "river" } },
         { "word": "water", "hi": "एक दिन तेज़ बारिश हुई और नदी में पानी बढ़ गया।", "en": "One day it rained hard and the river rose." },
         { "word": "leaf", "hi": "एक चींटी पत्ते पर बैठकर बह रही थी।", "en": "An ant was floating away on a leaf." },
-        { "word": "boat", "hi": "छोटी नाव धीरे-धीरे चींटी के पास गई।", "en": "The little boat slowly went to the ant." },
+        { "word": "boat", "hi": "छोटी नाव धीरे-धीरे चींटी के पास गई।", "en": "The little boat slowly went to the ant.", "act": { "move": "peek", "sky": "river" } },
         { "word": "boat", "hi": "चींटी कूदकर नाव में आ गई।", "en": "The ant jumped into the boat." },
-        { "word": "heart", "hi": "चींटी बोली, \"धन्यवाद, छोटी नाव!\"", "en": "The ant said, \"Thank you, little boat!\"" }
+        { "word": "heart", "hi": "चींटी बोली, \"धन्यवाद, छोटी नाव!\"", "en": "The ant said, \"Thank you, little boat!\"", "act": { "move": "peek" } }
       ],
       "questions": [
         { "hi": "नाव कहाँ रहती थी?", "en": "Where did the boat live?", "answer": "river", "options": ["river", "house", "tree"] },
@@ -8965,7 +8965,12 @@
       "title": { "hi": "बंदर और मगरमच्छ", "en": "The monkey and the crocodile" },
       "cover": "crocodile",
       "pages": [
-        { "word": "tree", "hi": "नदी किनारे जामुन के पेड़ पर एक बंदर रहता था।", "en": "A monkey lived in a jamun tree by the river." },
+        {
+          "word": "tree",
+          "hi": "नदी किनारे जामुन के पेड़ पर एक बंदर रहता था।",
+          "en": "A monkey lived in a jamun tree by the river.",
+          "act": { "move": "sway", "sky": "river" }
+        },
         {
           "word": "crocodile",
           "hi": "एक मगरमच्छ उसका दोस्त बन गया। बंदर उसे रोज़ मीठे जामुन देता था।",
@@ -8976,7 +8981,12 @@
           "hi": "मगरमच्छ की पत्नी बोली, \"मुझे बंदर का दिल खाना है।\"",
           "en": "The crocodile's wife said, \"I want to eat the monkey's heart.\""
         },
-        { "word": "river", "hi": "मगरमच्छ बंदर को अपनी पीठ पर बिठाकर नदी में ले चला।", "en": "The crocodile carried the monkey on his back into the river." },
+        {
+          "word": "river",
+          "hi": "मगरमच्छ बंदर को अपनी पीठ पर बिठाकर नदी में ले चला।",
+          "en": "The crocodile carried the monkey on his back into the river.",
+          "act": { "move": "float", "sky": "river" }
+        },
         {
           "word": "monkey",
           "hi": "बीच नदी में उसने सच बता दिया। बंदर डर गया, पर उसने दिमाग़ लगाया।",
@@ -8990,7 +9000,8 @@
         {
           "word": "monkey",
           "hi": "किनारे पहुँचते ही बंदर कूदकर पेड़ पर चढ़ गया और बच गया।",
-          "en": "As soon as they reached the bank, the monkey leapt up the tree and was safe."
+          "en": "As soon as they reached the bank, the monkey leapt up the tree and was safe.",
+          "act": { "move": "walk" }
         }
       ],
       "questions": [
@@ -9030,7 +9041,12 @@
       "title": { "hi": "चतुर खरगोश और शेर", "en": "The clever rabbit and the lion" },
       "cover": "rabbit",
       "pages": [
-        { "word": "lion", "hi": "जंगल में एक घमंडी शेर सब जानवरों को डराता था।", "en": "In the jungle a proud lion frightened all the animals." },
+        {
+          "word": "lion",
+          "hi": "जंगल में एक घमंडी शेर सब जानवरों को डराता था।",
+          "en": "In the jungle a proud lion frightened all the animals.",
+          "act": { "move": "walk", "sky": "night", "fx": "stars" }
+        },
         {
           "word": "deer",
           "hi": "जानवरों ने तय किया कि रोज़ एक जानवर शेर के पास जाएगा।",
@@ -9045,7 +9061,8 @@
         {
           "word": "rabbit",
           "hi": "खरगोश बोला, \"रास्ते में दूसरा शेर मिला था। वह कहता है, जंगल का राजा वही है।\"",
-          "en": "The rabbit said, \"I met another lion on the way. He says he is king of the jungle.\""
+          "en": "The rabbit said, \"I met another lion on the way. He says he is king of the jungle.\"",
+          "act": { "move": "walk", "fx": "leaves" }
         },
         {
           "word": "well",
@@ -9060,7 +9077,8 @@
         {
           "word": "rabbit",
           "hi": "जंगल के सब जानवर खुश हो गए। छोटा खरगोश सबका हीरो बन गया!",
-          "en": "All the animals were happy. The little rabbit became everyone's hero!"
+          "en": "All the animals were happy. The little rabbit became everyone's hero!",
+          "act": { "move": "peek", "fx": "leaves" }
         }
       ],
       "questions": [
@@ -9107,14 +9125,20 @@
       "title": { "hi": "नीला सियार", "en": "The blue jackal" },
       "cover": "bluejackal",
       "pages": [
-        { "word": "jackal", "hi": "एक भूखा सियार खाना ढूँढते हुए गाँव में आ गया।", "en": "A hungry jackal came into a village looking for food." },
+        {
+          "word": "jackal",
+          "hi": "एक भूखा सियार खाना ढूँढते हुए गाँव में आ गया।",
+          "en": "A hungry jackal came into a village looking for food.",
+          "act": { "move": "walk" }
+        },
         { "word": "dog", "hi": "कुत्ते भौंकने लगे। सियार डरकर भागा।", "en": "The dogs began to bark. The jackal ran away, scared." },
         { "word": "bucket", "hi": "भागते-भागते वह नीले रंग से भरे एक बड़े टब में गिर गया।", "en": "As he ran, he fell into a big tub of blue dye." },
         { "word": "bluejackal", "hi": "जब वह निकला, तो पूरा नीला हो गया था!", "en": "When he came out, he was completely blue!" },
         {
           "word": "bluejackal",
           "hi": "जंगल के जानवरों ने ऐसा जानवर कभी नहीं देखा था। सियार बोला, \"मैं तुम्हारा राजा हूँ!\"",
-          "en": "The jungle animals had never seen such a creature. The jackal said, \"I am your king!\""
+          "en": "The jungle animals had never seen such a creature. The jackal said, \"I am your king!\"",
+          "act": { "move": "walk", "fx": "leaves" }
         },
         { "word": "moon", "hi": "एक रात दूसरे सियार \"हुआँ हुआँ\" करने लगे।", "en": "One night the other jackals began to howl." },
         {
@@ -9122,7 +9146,12 @@
           "hi": "नीला सियार भी ख़ुद को रोक न सका और \"हुआँ हुआँ\" करने लगा।",
           "en": "The blue jackal could not stop himself and howled too."
         },
-        { "word": "jackal", "hi": "सबको सच पता चल गया, और राजा बना सियार वहाँ से भाग गया।", "en": "Everyone learned the truth, and the \"king\" ran away." }
+        {
+          "word": "jackal",
+          "hi": "सबको सच पता चल गया, और राजा बना सियार वहाँ से भाग गया।",
+          "en": "Everyone learned the truth, and the \"king\" ran away.",
+          "act": { "move": "walk" }
+        }
       ],
       "questions": [
         { "hi": "सियार किस रंग का हो गया?", "en": "What colour did the jackal turn?", "answer": "blue", "options": ["blue", "red", "green"] },
@@ -9164,7 +9193,8 @@
         {
           "word": "grandfather",
           "hi": "एक बूढ़े किसान के चार बेटे थे। वे हमेशा आपस में लड़ते थे।",
-          "en": "An old farmer had four sons. They were always quarrelling."
+          "en": "An old farmer had four sons. They were always quarrelling.",
+          "act": { "move": "enter" }
         },
         {
           "word": "sticks",
@@ -9175,7 +9205,8 @@
         {
           "word": "sticks",
           "hi": "फिर किसान ने गट्ठर खोलकर सबको एक-एक लकड़ी दी।",
-          "en": "Then the farmer untied the bundle and gave each of them one stick."
+          "en": "Then the farmer untied the bundle and gave each of them one stick.",
+          "act": { "move": "peek" }
         },
         { "word": "boy", "hi": "इस बार हर लकड़ी आसानी से टूट गई।", "en": "This time each stick broke easily." },
         {
@@ -9183,7 +9214,12 @@
           "hi": "किसान बोला, \"मिलकर रहोगे तो कोई तुम्हें तोड़ नहीं पाएगा।\"",
           "en": "The farmer said, \"If you stay together, no one can break you.\""
         },
-        { "word": "heart", "hi": "बेटों ने बात समझ ली और फिर कभी नहीं लड़े।", "en": "The sons understood and never quarrelled again." }
+        {
+          "word": "heart",
+          "hi": "बेटों ने बात समझ ली और फिर कभी नहीं लड़े।",
+          "en": "The sons understood and never quarrelled again.",
+          "act": { "move": "enter" }
+        }
       ],
       "questions": [
         { "hi": "किसान ने बेटों को क्या दिया?", "en": "What did the farmer give his sons?", "answer": "sticks", "options": ["sticks", "coins", "axe"] },
@@ -9222,13 +9258,19 @@
       "title": { "hi": "ईमानदार लकड़हारा", "en": "The honest woodcutter" },
       "cover": "woodcutter",
       "pages": [
-        { "word": "woodcutter", "hi": "एक गरीब लकड़हारा नदी किनारे पेड़ काट रहा था।", "en": "A poor woodcutter was cutting wood beside a river." },
+        {
+          "word": "woodcutter",
+          "hi": "एक गरीब लकड़हारा नदी किनारे पेड़ काट रहा था।",
+          "en": "A poor woodcutter was cutting wood beside a river.",
+          "act": { "move": "enter", "sky": "river" }
+        },
         { "word": "axe", "hi": "अचानक उसकी कुल्हाड़ी नदी में गिर गई।", "en": "Suddenly his axe fell into the river." },
         { "word": "river", "hi": "वह रोने लगा। तभी नदी से जल देवता निकले।", "en": "He began to cry. Then the river spirit rose from the water." },
         {
           "word": "goldenaxe",
           "hi": "जल देवता सोने की कुल्हाड़ी लाए। लकड़हारा बोला, \"यह मेरी नहीं है।\"",
-          "en": "The spirit brought a golden axe. The woodcutter said, \"This is not mine.\""
+          "en": "The spirit brought a golden axe. The woodcutter said, \"This is not mine.\"",
+          "act": { "move": "peek" }
         },
         {
           "word": "axe",
@@ -9243,7 +9285,8 @@
         {
           "word": "goldenaxe",
           "hi": "जल देवता उसकी ईमानदारी से खुश हुए और तीनों कुल्हाड़ियाँ उसे दे दीं।",
-          "en": "Pleased with his honesty, the spirit gave him all three axes."
+          "en": "Pleased with his honesty, the spirit gave him all three axes.",
+          "act": { "move": "enter" }
         }
       ],
       "questions": [
@@ -9283,13 +9326,14 @@
       "title": { "hi": "बिल्ली के गले में घंटी", "en": "Who will bell the cat?" },
       "cover": "bell",
       "pages": [
-        { "word": "mouse", "hi": "एक घर में बहुत सारे चूहे रहते थे।", "en": "Many mice lived in a house." },
+        { "word": "mouse", "hi": "एक घर में बहुत सारे चूहे रहते थे।", "en": "Many mice lived in a house.", "act": { "move": "walk", "sky": "home" } },
         { "word": "cat", "hi": "एक मोटी बिल्ली रोज़ उन्हें डराती थी।", "en": "A fat cat frightened them every day." },
         { "word": "mouse", "hi": "चूहों ने एक सभा की। सबने सोचा, अब क्या करें?", "en": "The mice held a meeting. What should they do?" },
         {
           "word": "bell",
           "hi": "एक छोटा चूहा बोला, \"बिल्ली के गले में घंटी बाँध दो। वह आएगी तो घंटी बजेगी।\"",
-          "en": "A little mouse said, \"Tie a bell round the cat's neck. When she comes, it will ring.\""
+          "en": "A little mouse said, \"Tie a bell round the cat's neck. When she comes, it will ring.\"",
+          "act": { "move": "peek" }
         },
         { "word": "mouse", "hi": "सब चूहे खुश होकर ताली बजाने लगे।", "en": "All the mice clapped happily." },
         {
@@ -9297,7 +9341,7 @@
           "hi": "तभी एक बूढ़ा चूहा बोला, \"उपाय अच्छा है। पर घंटी बाँधेगा कौन?\"",
           "en": "Then an old mouse said, \"A good plan. But who will tie the bell?\""
         },
-        { "word": "cat", "hi": "सब चुप हो गए। किसी में हिम्मत नहीं थी!", "en": "Everyone went quiet. Nobody dared!" }
+        { "word": "cat", "hi": "सब चुप हो गए। किसी में हिम्मत नहीं थी!", "en": "Everyone went quiet. Nobody dared!", "act": { "move": "walk" } }
       ],
       "questions": [
         {
@@ -9341,21 +9385,36 @@
       "title": { "hi": "ज़ूमी चाँद पर", "en": "Zoomi goes to the Moon" },
       "cover": "rocket",
       "pages": [
-        { "word": "rocket", "hi": "ज़ूमी रोबोट का सपना था, चाँद पर जाना।", "en": "Zoomi the robot's dream was to go to the Moon." },
+        {
+          "word": "rocket",
+          "hi": "ज़ूमी रोबोट का सपना था, चाँद पर जाना।",
+          "en": "Zoomi the robot's dream was to go to the Moon.",
+          "act": { "move": "fly-up", "sky": "night", "fx": "stars" }
+        },
         { "word": "rocket", "hi": "तीन, दो, एक... रॉकेट ने आग और धुआँ छोड़ा और ऊपर उड़ गया!", "en": "Three, two, one... the rocket roared and flew up!" },
         {
           "word": "earth",
           "hi": "खिड़की से ज़ूमी ने नीली-हरी पृथ्वी देखी। वह कितनी सुंदर थी!",
           "en": "From the window Zoomi saw the blue-green Earth. How beautiful it was!"
         },
-        { "word": "moon", "hi": "कई दिनों बाद रॉकेट धीरे से चाँद पर उतरा।", "en": "After many days the rocket landed gently on the Moon." },
+        {
+          "word": "moon",
+          "hi": "कई दिनों बाद रॉकेट धीरे से चाँद पर उतरा।",
+          "en": "After many days the rocket landed gently on the Moon.",
+          "act": { "move": "float", "sky": "night", "fx": "stars" }
+        },
         {
           "word": "astronaut",
           "hi": "चाँद पर न हवा थी, न पानी। ज़मीन पर बड़े-बड़े गड्ढे थे।",
           "en": "There was no air and no water on the Moon. The ground had big craters."
         },
         { "word": "flag", "hi": "ज़ूमी ने वहाँ एक झंडा लगाया और पत्थरों की तस्वीरें लीं।", "en": "Zoomi planted a flag and took photos of the rocks." },
-        { "word": "earth", "hi": "फिर वह घर लौटा और सबको अपनी यात्रा की कहानी सुनाई।", "en": "Then he came home and told everyone about his trip." }
+        {
+          "word": "earth",
+          "hi": "फिर वह घर लौटा और सबको अपनी यात्रा की कहानी सुनाई।",
+          "en": "Then he came home and told everyone about his trip.",
+          "act": { "move": "float", "sky": "night" }
+        }
       ],
       "questions": [
         { "hi": "ज़ूमी कहाँ गया?", "en": "Where did Zoomi go?", "answer": "moon", "options": ["moon", "sun", "mars"] },
@@ -9389,10 +9448,20 @@
       "title": { "hi": "चाँद की सैर", "en": "A trip to the Moon (a poem)" },
       "cover": "rocket",
       "pages": [
-        { "word": "rocket", "hi": "रॉकेट में बैठकर, चाँद तक जाऊँगा।", "en": "I will sit in a rocket and fly to the Moon." },
+        {
+          "word": "rocket",
+          "hi": "रॉकेट में बैठकर, चाँद तक जाऊँगा।",
+          "en": "I will sit in a rocket and fly to the Moon.",
+          "act": { "move": "fly-up", "sky": "night", "fx": "stars" }
+        },
         { "word": "moon", "hi": "चाँद की सफ़ेद धूल में, पैरों के निशान बनाऊँगा।", "en": "In the Moon’s white dust I will make my footprints." },
         { "word": "earth", "hi": "वहाँ से नीली धरती को, मैं जी भर कर देखूँगा।", "en": "From there I will gaze and gaze at the blue Earth." },
-        { "word": "house", "hi": "फिर लौटकर सब बच्चों को, अपनी कहानी सुनाऊँगा।", "en": "Then I will come home and tell all the children my story." }
+        {
+          "word": "house",
+          "hi": "फिर लौटकर सब बच्चों को, अपनी कहानी सुनाऊँगा।",
+          "en": "Then I will come home and tell all the children my story.",
+          "act": { "move": "peek" }
+        }
       ],
       "questions": [
         {
@@ -9431,10 +9500,15 @@
       "title": { "hi": "पेड़ हमारे दोस्त", "en": "Trees are our friends (a poem)" },
       "cover": "tree",
       "pages": [
-        { "word": "tree", "hi": "पेड़ हमें छाया देते, गर्मी में ठंडक देते।", "en": "Trees give us shade and keep us cool in summer." },
+        { "word": "tree", "hi": "पेड़ हमें छाया देते, गर्मी में ठंडक देते।", "en": "Trees give us shade and keep us cool in summer.", "act": { "move": "sway" } },
         { "word": "mango", "hi": "मीठे-मीठे आम खिलाते, चिड़ियों का घर बन जाते।", "en": "They feed us sweet mangoes and become homes for birds." },
         { "word": "bird", "hi": "डाल-डाल पर चिड़िया गाती, सुबह-सुबह हमें जगाती।", "en": "Birds sing on every branch and wake us early." },
-        { "word": "plant", "hi": "आओ मिलकर पेड़ लगाएँ, धरती को हरा बनाएँ।", "en": "Let’s plant trees together and make the Earth green." }
+        {
+          "word": "plant",
+          "hi": "आओ मिलकर पेड़ लगाएँ, धरती को हरा बनाएँ।",
+          "en": "Let’s plant trees together and make the Earth green.",
+          "act": { "move": "peek" }
+        }
       ],
       "questions": [
         { "hi": "पेड़ हमें कौन सा फल देते हैं?", "en": "Which fruit do trees give us?", "answer": "mango", "options": ["mango", "fish", "roti"] },
@@ -9475,7 +9549,8 @@
         {
           "word": "king",
           "hi": "एक दिन बादशाह अकबर ने पूछा, \"हमारे शहर में कितने कौवे हैं?\"",
-          "en": "One day Emperor Akbar asked, \"How many crows are there in our city?\""
+          "en": "One day Emperor Akbar asked, \"How many crows are there in our city?\"",
+          "act": { "move": "talk" }
         },
         { "word": "minister", "hi": "सब चुप थे। बीरबल मुस्कुराया।", "en": "Everyone was quiet. Birbal smiled." },
         {
@@ -9483,13 +9558,13 @@
           "hi": "बीरबल बोला, \"हुज़ूर, पचास हज़ार पाँच सौ नवासी कौवे हैं।\"",
           "en": "Birbal said, \"Your Majesty, there are fifty thousand five hundred and eighty-nine crows.\""
         },
-        { "word": "king", "hi": "अकबर ने पूछा, \"अगर गिनने पर कम निकले तो?\"", "en": "Akbar asked, \"And if we count fewer?\"" },
+        { "word": "king", "hi": "अकबर ने पूछा, \"अगर गिनने पर कम निकले तो?\"", "en": "Akbar asked, \"And if we count fewer?\"", "act": { "move": "peek" } },
         {
           "word": "crow",
           "hi": "बीरबल बोला, \"तो कुछ कौवे रिश्तेदारों से मिलने गए होंगे। ज़्यादा निकले, तो मेहमान आए होंगे!\"",
           "en": "Birbal said, \"Then some have gone to visit relatives. If there are more, guests have come!\""
         },
-        { "word": "king", "hi": "अकबर ज़ोर से हँस पड़े।", "en": "Akbar burst out laughing." }
+        { "word": "king", "hi": "अकबर ज़ोर से हँस पड़े।", "en": "Akbar burst out laughing.", "act": { "move": "enter" } }
       ],
       "questions": [
         { "hi": "अकबर ने किनके बारे में पूछा?", "en": "What did Akbar ask about?", "answer": "crow", "options": ["crow", "dove", "parrot"] },
@@ -9528,7 +9603,12 @@
       "title": { "hi": "हाथी और गौरैया", "en": "The elephant and the sparrow" },
       "cover": "bird",
       "pages": [
-        { "word": "bird", "hi": "एक पेड़ पर गौरैया का घोंसला था, जिसमें उसके अंडे थे।", "en": "A sparrow had a nest with eggs in a tree." },
+        {
+          "word": "bird",
+          "hi": "एक पेड़ पर गौरैया का घोंसला था, जिसमें उसके अंडे थे।",
+          "en": "A sparrow had a nest with eggs in a tree.",
+          "act": { "move": "fly-across" }
+        },
         {
           "word": "elephant",
           "hi": "एक घमंडी हाथी ने डाल तोड़ दी, और अंडे गिरकर फूट गए।",
@@ -9542,14 +9622,20 @@
         {
           "word": "fly",
           "hi": "मक्खी ने हाथी के कान में भिन-भिन किया, तो हाथी ने आँखें बंद कर लीं।",
-          "en": "The fly buzzed in the elephant’s ear, and he shut his eyes."
+          "en": "The fly buzzed in the elephant’s ear, and he shut his eyes.",
+          "act": { "move": "peek" }
         },
         {
           "word": "frog",
           "hi": "मेंढक गड्ढे के पास टर्राया। हाथी पानी समझकर गड्ढे में फँस गया।",
           "en": "The frog croaked by a ditch. The elephant thought it was water and got stuck."
         },
-        { "word": "elephant", "hi": "हाथी ने माफ़ी माँगी और फिर कभी घमंड नहीं किया।", "en": "The elephant said sorry and was never proud again." }
+        {
+          "word": "elephant",
+          "hi": "हाथी ने माफ़ी माँगी और फिर कभी घमंड नहीं किया।",
+          "en": "The elephant said sorry and was never proud again.",
+          "act": { "move": "walk" }
+        }
       ],
       "questions": [
         { "hi": "मक्खी ने किसके कान में भिन-भिन किया?", "en": "Whose ear did the fly buzz in?", "answer": "elephant", "options": ["elephant", "lion", "cow"] },
@@ -9582,7 +9668,7 @@
       "title": { "hi": "बंदर और खूँटा", "en": "The monkey and the wedge" },
       "cover": "log",
       "pages": [
-        { "word": "house", "hi": "एक जगह कुछ लोग लकड़ी से मंदिर बना रहे थे।", "en": "Some people were building a temple out of wood." },
+        { "word": "house", "hi": "एक जगह कुछ लोग लकड़ी से मंदिर बना रहे थे।", "en": "Some people were building a temple out of wood.", "act": { "move": "peek" } },
         {
           "word": "log",
           "hi": "एक बढ़ई आधी चिरी लकड़ी में खूँटा फँसाकर खाना खाने चला गया।",
@@ -9591,7 +9677,8 @@
         {
           "word": "monkey",
           "hi": "वहाँ बंदर आए। एक शरारती बंदर लकड़ी पर बैठकर खूँटा खींचने लगा।",
-          "en": "Some monkeys came. One naughty monkey sat on the log and began pulling the wedge."
+          "en": "Some monkeys came. One naughty monkey sat on the log and began pulling the wedge.",
+          "act": { "move": "walk" }
         },
         {
           "word": "log",
@@ -9601,7 +9688,8 @@
         {
           "word": "monkey",
           "hi": "बंदर चीख़ा। उसने सीखा कि जिस काम की समझ न हो, उसमें हाथ नहीं डालना चाहिए।",
-          "en": "The monkey yelped. He learned not to meddle in things he doesn’t understand."
+          "en": "The monkey yelped. He learned not to meddle in things he doesn’t understand.",
+          "act": { "move": "peek" }
         }
       ],
       "questions": [
@@ -9642,7 +9730,8 @@
         {
           "word": "deer",
           "hi": "जंगल में चार दोस्त रहते थे: हिरण, कौवा, चूहा और कछुआ।",
-          "en": "Four friends lived in the forest: a deer, a crow, a mouse and a tortoise."
+          "en": "Four friends lived in the forest: a deer, a crow, a mouse and a tortoise.",
+          "act": { "move": "walk", "fx": "leaves" }
         },
         { "word": "net", "hi": "एक दिन हिरण शिकारी के जाल में फँस गया।", "en": "One day the deer got caught in a hunter’s net." },
         {
@@ -9653,14 +9742,15 @@
         {
           "word": "tortoise",
           "hi": "धीमा कछुआ पीछे रह गया, और शिकारी ने उसे पकड़ लिया।",
-          "en": "The slow tortoise was left behind, and the hunter caught him."
+          "en": "The slow tortoise was left behind, and the hunter caught him.",
+          "act": { "move": "walk" }
         },
         {
           "word": "deer",
           "hi": "हिरण ने लंगड़ाने का नाटक किया। शिकारी उसके पीछे भागा, और चूहे ने कछुए को छुड़ा लिया।",
           "en": "The deer pretended to limp. The hunter chased him, and the mouse set the tortoise free."
         },
-        { "word": "tortoise", "hi": "चारों दोस्त फिर साथ थे।", "en": "The four friends were together again." }
+        { "word": "tortoise", "hi": "चारों दोस्त फिर साथ थे।", "en": "The four friends were together again.", "act": { "move": "peek" } }
       ],
       "questions": [
         { "hi": "जाल किसने कुतरा?", "en": "Who nibbled through the net?", "answer": "mouse", "options": ["mouse", "crow", "deer"] },
@@ -9693,13 +9783,18 @@
       "title": { "hi": "कुएँ का पानी", "en": "Who owns the water?" },
       "cover": "well",
       "pages": [
-        { "word": "well", "hi": "एक किसान ने एक आदमी से कुआँ ख़रीदा।", "en": "A farmer bought a well from a man." },
+        { "word": "well", "hi": "एक किसान ने एक आदमी से कुआँ ख़रीदा।", "en": "A farmer bought a well from a man.", "act": { "move": "peek" } },
         {
           "word": "farmer",
           "hi": "अगले दिन वह आदमी बोला, \"मैंने कुआँ बेचा था, पानी नहीं! पानी के पैसे दो।\"",
           "en": "Next day the man said, \"I sold you the well, not the water! Pay for the water.\""
         },
-        { "word": "king", "hi": "किसान दरबार में पहुँचा, और बीरबल ने मामला सुना।", "en": "The farmer went to court, and Birbal heard the case." },
+        {
+          "word": "king",
+          "hi": "किसान दरबार में पहुँचा, और बीरबल ने मामला सुना।",
+          "en": "The farmer went to court, and Birbal heard the case.",
+          "act": { "move": "enter", "sky": "home" }
+        },
         {
           "word": "minister",
           "hi": "बीरबल ने उस आदमी से कहा, \"ठीक है। पर तुम्हारा पानी इसके कुएँ में क्यों रखा है? उसका किराया दो!\"",
@@ -9708,7 +9803,8 @@
         {
           "word": "farmer",
           "hi": "आदमी शर्मिंदा हुआ, और किसान को कुआँ और पानी दोनों मिल गए।",
-          "en": "The man was ashamed, and the farmer got both the well and its water."
+          "en": "The man was ashamed, and the farmer got both the well and its water.",
+          "act": { "move": "enter" }
         }
       ],
       "questions": [
@@ -9751,11 +9847,17 @@
         {
           "word": "king",
           "hi": "अकबर ने ज़मीन पर एक लकीर खींची और कहा, \"इसे छुए बिना छोटा करो।\"",
-          "en": "Akbar drew a line on the floor and said, \"Make it shorter without touching it.\""
+          "en": "Akbar drew a line on the floor and said, \"Make it shorter without touching it.\"",
+          "act": { "move": "talk" }
         },
         { "word": "minister", "hi": "दरबारी सोच में पड़ गए। यह कैसे हो सकता है?", "en": "The courtiers were puzzled. How could that be done?" },
         { "word": "pen", "hi": "बीरबल ने उसके पास एक और, उससे लंबी लकीर खींच दी।", "en": "Birbal drew another, longer line right next to it." },
-        { "word": "king", "hi": "पहली लकीर अब छोटी दिखने लगी! अकबर मुस्कुराए।", "en": "The first line now looked shorter! Akbar smiled." }
+        {
+          "word": "king",
+          "hi": "पहली लकीर अब छोटी दिखने लगी! अकबर मुस्कुराए।",
+          "en": "The first line now looked shorter! Akbar smiled.",
+          "act": { "move": "enter" }
+        }
       ],
       "questions": [
         { "hi": "बीरबल ने किससे लकीर खींची?", "en": "What did Birbal draw with?", "answer": "pen", "options": ["pen", "spoon", "kite"] },
@@ -9794,12 +9896,18 @@
       "title": { "hi": "सोने का हंस", "en": "The golden swan" },
       "cover": "swan",
       "pages": [
-        { "word": "swan", "hi": "एक तालाब में सोने के पंखों वाला एक हंस रहता था।", "en": "A swan with golden feathers lived in a pond." },
+        {
+          "word": "swan",
+          "hi": "एक तालाब में सोने के पंखों वाला एक हंस रहता था।",
+          "en": "A swan with golden feathers lived in a pond.",
+          "act": { "move": "float", "sky": "river" }
+        },
         { "word": "house", "hi": "पास में एक ग़रीब औरत और उसकी बेटियाँ रहती थीं।", "en": "A poor woman and her daughters lived nearby." },
         {
           "word": "swan",
           "hi": "हंस रोज़ उन्हें एक सोने का पंख दे जाता, जिससे उनका घर चलता।",
-          "en": "Every day the swan gave them one golden feather to help them live."
+          "en": "Every day the swan gave them one golden feather to help them live.",
+          "act": { "move": "peek", "sky": "river" }
         },
         {
           "word": "coins",
@@ -9809,7 +9917,8 @@
         {
           "word": "swan",
           "hi": "पर नोचे गए पंख सोने के नहीं रहे, और हंस फिर कभी नहीं आया।",
-          "en": "But the plucked feathers were no longer gold, and the swan never came back."
+          "en": "But the plucked feathers were no longer gold, and the swan never came back.",
+          "act": { "move": "float", "sky": "river" }
         }
       ],
       "questions": [
@@ -9849,7 +9958,12 @@
       "title": { "hi": "बातूनी कछुआ", "en": "The talkative tortoise" },
       "cover": "tortoise",
       "pages": [
-        { "word": "tortoise", "hi": "एक तालाब में एक कछुआ रहता था। वह बहुत बातें करता था।", "en": "A tortoise lived in a pond. He talked a lot." },
+        {
+          "word": "tortoise",
+          "hi": "एक तालाब में एक कछुआ रहता था। वह बहुत बातें करता था।",
+          "en": "A tortoise lived in a pond. He talked a lot.",
+          "act": { "move": "walk", "sky": "river" }
+        },
         { "word": "swan", "hi": "दो हंस उसके अच्छे दोस्त थे।", "en": "Two swans were his good friends." },
         { "word": "sun", "hi": "एक साल बारिश नहीं हुई और तालाब सूखने लगा।", "en": "One year it did not rain and the pond began to dry up." },
         {
@@ -9857,7 +9971,12 @@
           "hi": "हंसों ने उपाय सोचा, \"तुम यह लकड़ी मुँह से पकड़ लो। हम दोनों सिरे पकड़कर उड़ेंगे।\"",
           "en": "The swans had an idea: \"Hold this stick in your mouth. We will hold the ends and fly.\""
         },
-        { "word": "swan", "hi": "हंसों ने कहा, \"पर रास्ते में बिल्कुल मत बोलना!\"", "en": "\"But don't say a word on the way!\" said the swans." },
+        {
+          "word": "swan",
+          "hi": "हंसों ने कहा, \"पर रास्ते में बिल्कुल मत बोलना!\"",
+          "en": "\"But don't say a word on the way!\" said the swans.",
+          "act": { "move": "float", "sky": "river" }
+        },
         { "word": "cloud", "hi": "वे ऊँचे आसमान में उड़ चले।", "en": "Up they flew, high into the sky." },
         {
           "word": "boy",
@@ -9872,7 +9991,8 @@
         {
           "word": "tortoise",
           "hi": "भाग्य से वह झाड़ियों में गिरा और बच गया। उस दिन से उसने सोच-समझकर बोलना सीखा।",
-          "en": "Luckily he landed in the bushes and was safe. From that day on he thought before he spoke."
+          "en": "Luckily he landed in the bushes and was safe. From that day on he thought before he spoke.",
+          "act": { "move": "walk" }
         }
       ],
       "questions": [
@@ -9922,7 +10042,8 @@
         {
           "word": "king",
           "hi": "सर्दी का मौसम था। बादशाह अकबर ने कहा, \"जो रात भर ठंडे तालाब में खड़ा रहेगा, उसे इनाम मिलेगा।\"",
-          "en": "It was winter. Emperor Akbar said, \"Whoever stands all night in the cold pond will get a reward.\""
+          "en": "It was winter. Emperor Akbar said, \"Whoever stands all night in the cold pond will get a reward.\"",
+          "act": { "move": "talk", "sky": "night", "fx": "stars" }
         },
         { "word": "farmer", "hi": "एक गरीब आदमी रात भर ठंडे पानी में खड़ा रहा।", "en": "A poor man stood in the cold water all night." },
         {
@@ -9938,7 +10059,8 @@
         {
           "word": "minister",
           "hi": "बीरबल को यह बात ठीक नहीं लगी। अगले दिन वह दरबार नहीं आया।",
-          "en": "Birbal felt this was unfair. The next day he did not come to court."
+          "en": "Birbal felt this was unfair. The next day he did not come to court.",
+          "act": { "move": "enter", "sky": "home" }
         },
         {
           "word": "cookingpot",
@@ -9951,7 +10073,7 @@
           "hi": "अकबर हँसे, \"इतनी दूर से कैसे पकेगी?\" बीरबल बोला, \"जैसे दूर के दीये से उस आदमी को गरमी मिली थी।\"",
           "en": "Akbar laughed, \"How can it cook from so far?\" Birbal said, \"The same way that man got warmth from a faraway lamp.\""
         },
-        { "word": "coins", "hi": "अकबर बात समझ गए और उस आदमी को इनाम दे दिया।", "en": "Akbar understood and gave the man his reward." }
+        { "word": "coins", "hi": "अकबर बात समझ गए और उस आदमी को इनाम दे दिया।", "en": "Akbar understood and gave the man his reward.", "act": { "move": "peek" } }
       ],
       "questions": [
         { "hi": "आदमी रात भर किसे देखता रहा?", "en": "What did the man look at all night?", "answer": "lamp", "options": ["lamp", "moon", "flag"] },
@@ -9990,7 +10112,7 @@
       "title": { "hi": "तेनालीराम और चोर", "en": "Tenali Rama and the thieves" },
       "cover": "thief",
       "pages": [
-        { "word": "minister", "hi": "तेनालीराम बहुत चतुर था।", "en": "Tenali Rama was very clever." },
+        { "word": "minister", "hi": "तेनालीराम बहुत चतुर था।", "en": "Tenali Rama was very clever.", "act": { "move": "enter" } },
         { "word": "thief", "hi": "एक रात उसने देखा कि दो चोर उसके बगीचे में छिपे हैं।", "en": "One night he saw two thieves hiding in his garden." },
         {
           "word": "minister",
@@ -10001,7 +10123,8 @@
         {
           "word": "thief",
           "hi": "चोरों ने रात भर कुएँ से पानी निकाला, ताकि संदूक मिल जाए।",
-          "en": "The thieves pulled water out of the well all night to reach the box."
+          "en": "The thieves pulled water out of the well all night to reach the box.",
+          "act": { "move": "enter", "sky": "night", "fx": "stars" }
         },
         {
           "word": "plant",
@@ -10016,7 +10139,8 @@
         {
           "word": "minister",
           "hi": "तेनालीराम हँसकर बोला, \"धन्यवाद! मेरे बगीचे को पानी देने के लिए।\"",
-          "en": "Tenali laughed, \"Thank you for watering my garden!\""
+          "en": "Tenali laughed, \"Thank you for watering my garden!\"",
+          "act": { "move": "talk" }
         }
       ],
       "questions": [
@@ -10056,13 +10180,14 @@
       "title": { "hi": "सोने का अंडा", "en": "The golden egg" },
       "cover": "goldenegg",
       "pages": [
-        { "word": "farmer", "hi": "एक किसान के पास एक मुर्गी थी।", "en": "A farmer had a hen." },
+        { "word": "farmer", "hi": "एक किसान के पास एक मुर्गी थी।", "en": "A farmer had a hen.", "act": { "move": "enter" } },
         { "word": "goldenegg", "hi": "वह मुर्गी रोज़ एक सोने का अंडा देती थी!", "en": "Every day that hen laid a golden egg!" },
         { "word": "coins", "hi": "किसान अंडे बेचकर अमीर होने लगा।", "en": "The farmer sold the eggs and grew rich." },
         {
           "word": "farmer",
           "hi": "पर उसे और जल्दी अमीर बनना था। उसने सोचा, \"मुर्गी के अंदर बहुत सारे अंडे होंगे।\"",
-          "en": "But he wanted to be rich faster. He thought, \"There must be lots of eggs inside the hen.\""
+          "en": "But he wanted to be rich faster. He thought, \"There must be lots of eggs inside the hen.\"",
+          "act": { "move": "talk" }
         },
         {
           "word": "hen",
@@ -10070,7 +10195,7 @@
           "en": "He shouted at the hen, \"Give me all the eggs now!\" and frightened her."
         },
         { "word": "hen", "hi": "डरकर मुर्गी उड़ गई और फिर कभी नहीं लौटी।", "en": "The frightened hen flew away and never came back." },
-        { "word": "farmer", "hi": "अब किसान के पास एक भी अंडा नहीं था।", "en": "Now the farmer had not a single egg." }
+        { "word": "farmer", "hi": "अब किसान के पास एक भी अंडा नहीं था।", "en": "Now the farmer had not a single egg.", "act": { "move": "enter" } }
       ],
       "questions": [
         { "hi": "मुर्गी कैसा अंडा देती थी?", "en": "What kind of egg did the hen lay?", "answer": "goldenegg", "options": ["goldenegg", "dinoegg", "coins"] },
@@ -10109,7 +10234,12 @@
       "title": { "hi": "बोलने वाली गुफा", "en": "The talking cave" },
       "cover": "cave",
       "pages": [
-        { "word": "lion", "hi": "एक भूखा शेर दिन भर खाना ढूँढता रहा, पर कुछ नहीं मिला।", "en": "A hungry lion searched all day for food but found nothing." },
+        {
+          "word": "lion",
+          "hi": "एक भूखा शेर दिन भर खाना ढूँढता रहा, पर कुछ नहीं मिला।",
+          "en": "A hungry lion searched all day for food but found nothing.",
+          "act": { "move": "walk" }
+        },
         {
           "word": "cave",
           "hi": "शाम को उसे एक गुफा दिखी। उसने सोचा, \"जो यहाँ रहता है, लौटेगा तो उसे पकड़ लूँगा।\"",
@@ -10123,7 +10253,8 @@
         {
           "word": "jackal",
           "hi": "निशान अंदर जा रहे थे, बाहर नहीं आ रहे थे। सियार समझ गया!",
-          "en": "The prints went in but did not come out. The jackal understood!"
+          "en": "The prints went in but did not come out. The jackal understood!",
+          "act": { "move": "peek" }
         },
         {
           "word": "cave",
@@ -10138,7 +10269,8 @@
         {
           "word": "jackal",
           "hi": "सियार हँसा, \"गुफाएँ नहीं बोलतीं!\" और तेज़ी से भाग गया।",
-          "en": "The jackal laughed, \"Caves don't talk!\" and ran off fast."
+          "en": "The jackal laughed, \"Caves don't talk!\" and ran off fast.",
+          "act": { "move": "walk" }
         }
       ],
       "questions": [
@@ -10178,14 +10310,25 @@
       "title": { "hi": "खट्टे अंगूर", "en": "The sour grapes" },
       "cover": "fox",
       "pages": [
-        { "word": "fox", "hi": "एक दिन एक भूखी लोमड़ी जंगल में घूम रही थी।", "en": "One day a hungry fox was wandering in the jungle." },
+        {
+          "word": "fox",
+          "hi": "एक दिन एक भूखी लोमड़ी जंगल में घूम रही थी।",
+          "en": "One day a hungry fox was wandering in the jungle.",
+          "act": { "move": "walk", "fx": "leaves" }
+        },
         { "word": "grapes", "hi": "उसे ऊँची बेल पर मीठे-मीठे अंगूर लटके दिखे।", "en": "She saw sweet grapes hanging high on a vine." },
-        { "word": "fox", "hi": "लोमड़ी ने ऊँची छलाँग लगाई, पर अंगूर तक नहीं पहुँची।", "en": "The fox jumped high, but could not reach the grapes." },
+        {
+          "word": "fox",
+          "hi": "लोमड़ी ने ऊँची छलाँग लगाई, पर अंगूर तक नहीं पहुँची।",
+          "en": "The fox jumped high, but could not reach the grapes.",
+          "act": { "move": "walk" }
+        },
         { "word": "fox", "hi": "उसने बार-बार कोशिश की, पर हर बार नाकाम रही।", "en": "She tried again and again, and failed every time." },
         {
           "word": "grapes",
           "hi": "आख़िर में वह थककर बोली, \"ये अंगूर तो खट्टे हैं!\" और चली गई।",
-          "en": "At last, tired, she said, \"These grapes are sour anyway!\" and walked away."
+          "en": "At last, tired, she said, \"These grapes are sour anyway!\" and walked away.",
+          "act": { "move": "peek" }
         }
       ],
       "questions": [
@@ -10228,7 +10371,8 @@
         {
           "word": "grandfather",
           "hi": "एक बूढ़े किसान के तीन बेटे थे। वे काम नहीं करना चाहते थे।",
-          "en": "An old farmer had three sons who did not want to work."
+          "en": "An old farmer had three sons who did not want to work.",
+          "act": { "move": "enter" }
         },
         {
           "word": "grandfather",
@@ -10239,11 +10383,17 @@
         {
           "word": "rain",
           "hi": "फिर बारिश आई। किसान बोला, \"अब खेत खुद गया है, तो बीज बो दो।\"",
-          "en": "Then the rain came. The farmer said, \"Now the field is dug, so sow some seeds.\""
+          "en": "Then the rain came. The farmer said, \"Now the field is dug, so sow some seeds.\"",
+          "act": { "move": "peek", "sky": "rain", "fx": "rain" }
         },
         { "word": "corn", "hi": "कुछ महीनों बाद खेत में सुनहरी फ़सल लहराने लगी।", "en": "A few months later a golden crop swayed in the field." },
         { "word": "coins", "hi": "फ़सल बेचकर उन्हें बहुत पैसे मिले।", "en": "They sold the crop and earned a lot of money." },
-        { "word": "boy", "hi": "बेटे समझ गए, \"मेहनत ही असली खज़ाना है!\"", "en": "The sons understood: \"Hard work is the real treasure!\"" }
+        {
+          "word": "boy",
+          "hi": "बेटे समझ गए, \"मेहनत ही असली खज़ाना है!\"",
+          "en": "The sons understood: \"Hard work is the real treasure!\"",
+          "act": { "move": "talk" }
+        }
       ],
       "questions": [
         { "hi": "बेटों ने कहाँ खुदाई की?", "en": "Where did the sons dig?", "answer": "field", "options": ["field", "river", "cave"] },
@@ -10276,13 +10426,14 @@
       "title": { "hi": "डरपोक खरगोश", "en": "The timid hare" },
       "cover": "rabbit",
       "pages": [
-        { "word": "rabbit", "hi": "एक खरगोश बेल के पेड़ के नीचे सो रहा था।", "en": "A hare was sleeping under a bael tree." },
+        { "word": "rabbit", "hi": "एक खरगोश बेल के पेड़ के नीचे सो रहा था।", "en": "A hare was sleeping under a bael tree.", "act": { "move": "walk" } },
         { "word": "fruit", "hi": "अचानक एक बड़ा बेल का फल \"धम्म\" से गिरा!", "en": "Suddenly a big bael fruit fell — thud!" },
         { "word": "rabbit", "hi": "खरगोश डरकर भागा, \"भागो! धरती टूट रही है!\"", "en": "The hare ran in fright: \"Run! The earth is breaking!\"" },
         {
           "word": "deer",
           "hi": "हिरन, बंदर और हाथी भी बिना सोचे उसके पीछे भागने लगे।",
-          "en": "A deer, a monkey and an elephant ran after him without thinking."
+          "en": "A deer, a monkey and an elephant ran after him without thinking.",
+          "act": { "move": "peek" }
         },
         {
           "word": "lion",
@@ -10290,7 +10441,7 @@
           "en": "Then a lion stopped them: \"Where has the earth broken? Show me.\""
         },
         { "word": "tree", "hi": "सब पेड़ के पास लौटे। वहाँ बस एक बेल का फल पड़ा था!", "en": "They all went back to the tree. Only a bael fruit lay there!" },
-        { "word": "heart", "hi": "सब हँसने लगे, और खरगोश शरमा गया।", "en": "Everyone laughed, and the hare felt shy." }
+        { "word": "heart", "hi": "सब हँसने लगे, और खरगोश शरमा गया।", "en": "Everyone laughed, and the hare felt shy.", "act": { "move": "enter" } }
       ],
       "questions": [
         { "hi": "पेड़ से क्या गिरा था?", "en": "What fell from the tree?", "answer": "fruit", "options": ["fruit", "stones", "bird"] },
@@ -10324,14 +10475,24 @@
       "title": { "hi": "किसान", "en": "The farmer (a poem)" },
       "cover": "farmer",
       "pages": [
-        { "word": "farmer", "hi": "भोर हुई, किसान उठा, बैलों को ले खेत चला।", "en": "At dawn the farmer woke and took his oxen to the field." },
+        {
+          "word": "farmer",
+          "hi": "भोर हुई, किसान उठा, बैलों को ले खेत चला।",
+          "en": "At dawn the farmer woke and took his oxen to the field.",
+          "act": { "move": "enter", "sky": "dawn" }
+        },
         { "word": "field", "hi": "धूप-पसीने में वह जुटा, धरती में बीज बोता रहा।", "en": "In sun and sweat he worked on, sowing seeds in the earth." },
         {
           "word": "raincloud",
           "hi": "बादल बरसे, अंकुर फूटे, खेत हुए सब हरे-भरे।",
           "en": "The clouds rained, shoots sprang up, and the fields turned green."
         },
-        { "word": "corn", "hi": "सुनहरी फ़सल लहराई, सबके घर में अन्न भरा।", "en": "The golden crop waved, and every home was filled with grain." }
+        {
+          "word": "corn",
+          "hi": "सुनहरी फ़सल लहराई, सबके घर में अन्न भरा।",
+          "en": "The golden crop waved, and every home was filled with grain.",
+          "act": { "move": "sway", "sky": "home" }
+        }
       ],
       "questions": [
         { "hi": "किसान खेत में क्या बोता है?", "en": "What does the farmer sow in the field?", "answer": "बीज", "options": ["बीज", "पत्थर", "पानी"], "text": true },
@@ -10370,10 +10531,20 @@
       "title": { "hi": "पहाड़ों पर", "en": "On the mountains (a poem)" },
       "cover": "snowflake",
       "pages": [
-        { "word": "snowflake", "hi": "ऊँचे-ऊँचे पहाड़ों पर, सफ़ेद बर्फ़ की चादर है।", "en": "On the high mountains lies a white sheet of snow." },
+        {
+          "word": "snowflake",
+          "hi": "ऊँचे-ऊँचे पहाड़ों पर, सफ़ेद बर्फ़ की चादर है।",
+          "en": "On the high mountains lies a white sheet of snow.",
+          "act": { "move": "peek" }
+        },
         { "word": "river", "hi": "पिघली बर्फ़ से नदी बनी, कल-कल करती बहती है।", "en": "Melting snow becomes a river that babbles along." },
         { "word": "sheep", "hi": "हरी घास पर भेड़ें चरतीं, बादल नीचे उतरते हैं।", "en": "Sheep graze on the green grass and the clouds come down low." },
-        { "word": "flag", "hi": "हवा में झंडियाँ लहरातीं, पहाड़ हमें बुलाते हैं।", "en": "Little flags flutter in the wind; the mountains call to us." }
+        {
+          "word": "flag",
+          "hi": "हवा में झंडियाँ लहरातीं, पहाड़ हमें बुलाते हैं।",
+          "en": "Little flags flutter in the wind; the mountains call to us.",
+          "act": { "move": "sway", "sky": "night", "fx": "stars" }
+        }
       ],
       "questions": [
         { "hi": "नदी कैसे बनी?", "en": "How was the river made?", "answer": "पिघली बर्फ़ से", "options": ["पिघली बर्फ़ से", "समुद्र से", "कुएँ से"], "text": true },
@@ -10408,7 +10579,8 @@
         {
           "word": "king",
           "hi": "राजा ने हर दरबारी को एक बिल्ली दी, ताकि महल से चूहे भाग जाएँ।",
-          "en": "The king gave every courtier a cat to chase the mice from the palace."
+          "en": "The king gave every courtier a cat to chase the mice from the palace.",
+          "act": { "move": "enter", "sky": "home" }
         },
         { "word": "cow", "hi": "साथ में बिल्ली के दूध के लिए एक गाय भी दी।", "en": "He also gave each a cow, for the cat’s milk." },
         {
@@ -10419,7 +10591,8 @@
         {
           "word": "milk",
           "hi": "उसके बाद बिल्ली दूध देखते ही भाग जाती, और दूध तेनाली के घर काम आता।",
-          "en": "After that the cat ran from milk, and Tenali’s family used the milk."
+          "en": "After that the cat ran from milk, and Tenali’s family used the milk.",
+          "act": { "move": "peek" }
         },
         {
           "word": "king",
@@ -10429,7 +10602,8 @@
         {
           "word": "cat",
           "hi": "राजा ने सामने दूध रखा, तो बिल्ली भाग गई। सब हँस पड़े, राजा भी।",
-          "en": "The king put milk in front of it, and the cat ran away. Everyone laughed, the king too."
+          "en": "The king put milk in front of it, and the cat ran away. Everyone laughed, the king too.",
+          "act": { "move": "walk" }
         }
       ],
       "questions": [
@@ -10471,20 +10645,23 @@
         {
           "word": "monkey",
           "hi": "नदी किनारे एक बड़े आम के पेड़ पर बंदरों का राजा अपने साथियों के साथ रहता था।",
-          "en": "By a river, a monkey king lived with his troop in a big mango tree."
+          "en": "By a river, a monkey king lived with his troop in a big mango tree.",
+          "act": { "move": "walk", "sky": "river" }
         },
         { "word": "mango", "hi": "उस पेड़ के आम बहुत मीठे थे।", "en": "The mangoes of that tree were very sweet." },
         { "word": "king", "hi": "एक दिन एक राजा के सैनिक पेड़ को घेरने आए।", "en": "One day a king’s soldiers came to surround the tree." },
         {
           "word": "river",
           "hi": "बंदरों के राजा ने नदी के ऊपर अपने शरीर से पुल बना दिया।",
-          "en": "The monkey king stretched himself across the river to make a bridge."
+          "en": "The monkey king stretched himself across the river to make a bridge.",
+          "act": { "move": "float", "sky": "river" }
         },
         { "word": "monkey", "hi": "सारे बंदर उसकी पीठ पर से होकर सुरक्षित पार चले गए।", "en": "All the monkeys crossed safely over his back." },
         {
           "word": "king",
           "hi": "राजा बहुत प्रभावित हुआ और उसने बंदरों को कभी नहीं सताया।",
-          "en": "The king was deeply moved and never troubled the monkeys again."
+          "en": "The king was deeply moved and never troubled the monkeys again.",
+          "act": { "move": "enter" }
         }
       ],
       "questions": [
@@ -10524,19 +10701,20 @@
       "title": { "hi": "कौवे और साँप", "en": "The crows and the snake" },
       "cover": "crow",
       "pages": [
-        { "word": "crow", "hi": "एक पेड़ पर कौवा और कौवी रहते थे।", "en": "A pair of crows lived in a tree." },
+        { "word": "crow", "hi": "एक पेड़ पर कौवा और कौवी रहते थे।", "en": "A pair of crows lived in a tree.", "act": { "move": "fly-across" } },
         { "word": "snake", "hi": "पेड़ के नीचे एक साँप रहता था, जो उनके अंडे खा जाता था।", "en": "A snake lived under the tree and kept eating their eggs." },
         {
           "word": "garland",
           "hi": "एक दिन कौवी रानी का चमकता हार उठा लाई और उसे साँप के बिल में गिरा दिया।",
-          "en": "One day the crow picked up the queen’s shiny necklace and dropped it into the snake’s hole."
+          "en": "One day the crow picked up the queen’s shiny necklace and dropped it into the snake’s hole.",
+          "act": { "move": "peek" }
         },
         {
           "word": "king",
           "hi": "राजा के सैनिक हार ढूँढते हुए आए। उन्होंने बिल खोदा और साँप को भगा दिया।",
           "en": "The king’s guards came looking for the necklace. They dug up the hole and chased the snake away."
         },
-        { "word": "crow", "hi": "अब कौवों के अंडे सुरक्षित थे।", "en": "Now the crows’ eggs were safe." }
+        { "word": "crow", "hi": "अब कौवों के अंडे सुरक्षित थे।", "en": "Now the crows’ eggs were safe.", "act": { "move": "fly-across" } }
       ],
       "questions": [
         { "hi": "कौवों के अंडे कौन खाता था?", "en": "Who was eating the crows’ eggs?", "answer": "snake", "options": ["snake", "cat", "fox"] },
@@ -10575,7 +10753,7 @@
       "title": { "hi": "सपनों का घड़ा", "en": "The pot of dreams" },
       "cover": "pot",
       "pages": [
-        { "word": "pot", "hi": "एक आदमी के पास सत्तू से भरा एक घड़ा था।", "en": "A man had a pot full of flour." },
+        { "word": "pot", "hi": "एक आदमी के पास सत्तू से भरा एक घड़ा था।", "en": "A man had a pot full of flour.", "act": { "move": "peek" } },
         {
           "word": "house",
           "hi": "वह लेटकर सपने देखने लगा: \"सत्तू बेचकर बकरियाँ लूँगा।\"",
@@ -10584,14 +10762,15 @@
         {
           "word": "goat",
           "hi": "\"बकरियों से गायें, गायों से बड़ा घर, फिर मैं बहुत अमीर बन जाऊँगा!\"",
-          "en": "\"Goats will become cows, cows a big house, and then I’ll be very rich!\""
+          "en": "\"Goats will become cows, cows a big house, and then I’ll be very rich!\"",
+          "act": { "move": "walk" }
         },
         {
           "word": "pot",
           "hi": "सपने में ख़ुश होकर उसने पैर चलाया, और घड़ा गिरकर फूट गया।",
           "en": "Happy in his dream, he kicked out his leg, and the pot fell and broke."
         },
-        { "word": "farmer", "hi": "सत्तू बिखर गया, और सारे सपने भी।", "en": "The flour spilled, and so did all his dreams." }
+        { "word": "farmer", "hi": "सत्तू बिखर गया, और सारे सपने भी।", "en": "The flour spilled, and so did all his dreams.", "act": { "move": "enter" } }
       ],
       "questions": [
         { "hi": "आदमी के पास क्या था?", "en": "What did the man have?", "answer": "pot", "options": ["pot", "bag", "box"] },
@@ -10633,19 +10812,22 @@
         {
           "word": "king",
           "hi": "अकबर ने कहा, \"मुझे बोतल में बंद पूरा खीरा चाहिए, और बोतल का मुँह छोटा ही रहे!\"",
-          "en": "Akbar said, \"I want a whole cucumber inside a bottle, and the neck must stay narrow!\""
+          "en": "Akbar said, \"I want a whole cucumber inside a bottle, and the neck must stay narrow!\"",
+          "act": { "move": "talk" }
         },
         { "word": "minister", "hi": "बीरबल ने कुछ दिनों का समय माँगा।", "en": "Birbal asked for a few days." },
         {
           "word": "cucumber",
           "hi": "उसने खेत में बेल पर लगे एक छोटे खीरे को बोतल के अंदर डाल दिया।",
-          "en": "In a field, he slipped a tiny cucumber, still on its vine, into a bottle."
+          "en": "In a field, he slipped a tiny cucumber, still on its vine, into a bottle.",
+          "act": { "move": "peek", "sky": "field" }
         },
         { "word": "bottle", "hi": "खीरा बोतल के अंदर ही बड़ा होता गया।", "en": "The cucumber kept growing inside the bottle." },
         {
           "word": "king",
           "hi": "बीरबल ने बेल काटी और बोतल अकबर को दी। सब हैरान रह गए!",
-          "en": "Birbal cut the vine and gave the bottle to Akbar. Everyone was amazed!"
+          "en": "Birbal cut the vine and gave the bottle to Akbar. Everyone was amazed!",
+          "act": { "move": "enter" }
         }
       ],
       "questions": [
@@ -10688,7 +10870,8 @@
         {
           "word": "king",
           "hi": "एक दिन बादशाह अकबर ने दरबार में पूछा, \"दुनिया की सबसे बड़ी संख्या कौन-सी है?\"",
-          "en": "One day Emperor Akbar asked his court, \"What is the biggest number in the world?\""
+          "en": "One day Emperor Akbar asked his court, \"What is the biggest number in the world?\"",
+          "act": { "move": "talk", "sky": "home" }
         },
         {
           "word": "minister",
@@ -10699,7 +10882,8 @@
         {
           "word": "star",
           "hi": "बीरबल मुस्कुराए, \"जहाँपनाह, आप कोई भी संख्या बोलिए। मैं उसमें एक जोड़ दूँगा, और वह उससे बड़ी हो जाएगी।\"",
-          "en": "Birbal smiled. \"Your Majesty, say any number at all. I will add one to it, and it will be bigger.\""
+          "en": "Birbal smiled. \"Your Majesty, say any number at all. I will add one to it, and it will be bigger.\"",
+          "act": { "move": "float", "sky": "night", "fx": "stars" }
         },
         {
           "word": "king",
@@ -10711,7 +10895,12 @@
           "hi": "बीरबल ने समझाया, \"गिनती कभी ख़त्म नहीं होती, आसमान के तारों की तरह। इसलिए कोई सबसे बड़ी संख्या नहीं है।\"",
           "en": "Birbal explained, \"Counting never ends, like the stars in the sky. So there is no biggest number.\""
         },
-        { "word": "king", "hi": "अकबर हँस पड़े, \"बीरबल, तुम्हारी बुद्धि भी अनगिनत है!\"", "en": "Akbar laughed. \"Birbal, your wisdom is countless too!\"" }
+        {
+          "word": "king",
+          "hi": "अकबर हँस पड़े, \"बीरबल, तुम्हारी बुद्धि भी अनगिनत है!\"",
+          "en": "Akbar laughed. \"Birbal, your wisdom is countless too!\"",
+          "act": { "move": "talk" }
+        }
       ],
       "questions": [
         {
@@ -10766,7 +10955,8 @@
         {
           "word": "jar",
           "hi": "एक व्यापारी अपने तीन बेटों के लिए इक्कीस घड़े घी छोड़ गया।",
-          "en": "A trader left twenty-one jars of ghee for his three sons."
+          "en": "A trader left twenty-one jars of ghee for his three sons.",
+          "act": { "move": "peek" }
         },
         {
           "word": "jar",
@@ -10786,7 +10976,8 @@
         {
           "word": "pot",
           "hi": "तेनालीराम ने गिना: सारा घी मिलाकर साढ़े दस घड़े भरेगा। तो हर भाई को सात घड़े और साढ़े तीन घड़े घी चाहिए।",
-          "en": "Tenali Raman counted: all the ghee together would fill ten and a half jars. So each brother needs seven jars and three and a half jars of ghee."
+          "en": "Tenali Raman counted: all the ghee together would fill ten and a half jars. So each brother needs seven jars and three and a half jars of ghee.",
+          "act": { "move": "enter" }
         },
         {
           "word": "jar",
@@ -10801,7 +10992,8 @@
         {
           "word": "king",
           "hi": "सबके पास सात घड़े और साढ़े तीन घड़े घी! राजा ने तेनालीराम को इनाम दिया।",
-          "en": "Everyone had seven jars and three and a half jars of ghee! The king rewarded Tenali Raman."
+          "en": "Everyone had seven jars and three and a half jars of ghee! The king rewarded Tenali Raman.",
+          "act": { "move": "peek" }
         }
       ],
       "questions": [
@@ -10849,7 +11041,8 @@
         {
           "word": "king",
           "hi": "बहुत पहले, एक राजा को एक नया खेल भेंट में मिला: शतरंज। राजा को खेल बहुत पसंद आया।",
-          "en": "Long ago, a king was given a new game: chess. The king loved it."
+          "en": "Long ago, a king was given a new game: chess. The king loved it.",
+          "act": { "move": "enter" }
         },
         {
           "word": "chessboard",
@@ -10861,7 +11054,12 @@
           "hi": "विद्वान बोले, \"महाराज, पहले खाने पर चावल का एक दाना रखिए, दूसरे पर दो, तीसरे पर चार। हर खाने पर पिछले से दुगुने।\"",
           "en": "The scholar said, \"Your Majesty, put one grain of rice on the first square, two on the second, four on the third: double on every square.\""
         },
-        { "word": "king", "hi": "राजा हँसे, \"बस इतना-सा? कुछ मुट्ठी चावल!\"", "en": "The king laughed. \"Is that all? A few handfuls of rice!\"" },
+        {
+          "word": "king",
+          "hi": "राजा हँसे, \"बस इतना-सा? कुछ मुट्ठी चावल!\"",
+          "en": "The king laughed. \"Is that all? A few handfuls of rice!\"",
+          "act": { "move": "talk" }
+        },
         {
           "word": "grain",
           "hi": "पर दाने तेज़ी से बढ़ते गए: आठवें खाने पर 128, और इक्कीसवें पर दस लाख से भी ज़्यादा!",
@@ -10875,7 +11073,8 @@
         {
           "word": "king",
           "hi": "राजा समझ गए कि बार-बार दुगुना होने से छोटी चीज़ भी बहुत बड़ी हो जाती है। उन्होंने विद्वान की बुद्धि को सलाम किया।",
-          "en": "The king understood that doubling again and again makes even a tiny thing enormous. He saluted the scholar’s wisdom."
+          "en": "The king understood that doubling again and again makes even a tiny thing enormous. He saluted the scholar’s wisdom.",
+          "act": { "move": "enter" }
         }
       ],
       "questions": [
@@ -10923,7 +11122,8 @@
         {
           "word": "camel",
           "hi": "रेगिस्तान के एक गाँव में एक बूढ़े व्यापारी के पास सत्रह ऊँट थे।",
-          "en": "In a desert village, an old trader had seventeen camels."
+          "en": "In a desert village, an old trader had seventeen camels.",
+          "act": { "move": "walk" }
         },
         {
           "word": "grandfather",
@@ -10938,7 +11138,8 @@
         {
           "word": "grandmother",
           "hi": "तभी एक समझदार दादी अपने ऊँट पर वहाँ से गुज़रीं। उन्होंने कहा, \"मेरा ऊँट भी ले लो।\"",
-          "en": "Just then a wise grandmother rode by on her camel. She said, \"Take my camel too.\""
+          "en": "Just then a wise grandmother rode by on her camel. She said, \"Take my camel too.\"",
+          "act": { "move": "talk" }
         },
         {
           "word": "camel",
@@ -10953,7 +11154,8 @@
         {
           "word": "grandmother",
           "hi": "दादी मुस्कुराईं, अपने ऊँट पर बैठीं और चल दीं। भाइयों ने सीखा: बँटवारे से पहले ठंडे दिमाग़ से सोचो।",
-          "en": "The grandmother smiled, climbed onto her camel and rode away. The brothers learned to think calmly before sharing."
+          "en": "The grandmother smiled, climbed onto her camel and rode away. The brothers learned to think calmly before sharing.",
+          "act": { "move": "enter" }
         }
       ],
       "questions": [
@@ -11011,7 +11213,8 @@
         {
           "word": "boy",
           "hi": "लगभग डेढ़ हज़ार साल पहले, कुसुमपुर में, जो आज के पटना के पास था, आर्यभट नाम के एक गणितज्ञ रहते थे।",
-          "en": "About fifteen hundred years ago, a mathematician named Aryabhata lived in Kusumapura, near today’s Patna."
+          "en": "About fifteen hundred years ago, a mathematician named Aryabhata lived in Kusumapura, near today’s Patna.",
+          "act": { "move": "enter" }
         },
         {
           "word": "book",
@@ -11026,7 +11229,8 @@
         {
           "word": "hand",
           "hi": "पर अगर किसी जगह पर कुछ न हो, तो? वहाँ भी कुछ लिखना होगा! भारत के गणितज्ञों ने उस ख़ाली जगह के लिए एक निशान बनाया: शून्य।",
-          "en": "But what if a place is empty? Something must still be written there! India’s mathematicians made a mark for the empty place: zero."
+          "en": "But what if a place is empty? Something must still be written there! India’s mathematicians made a mark for the empty place: zero.",
+          "act": { "move": "peek" }
         },
         {
           "word": "ring",
@@ -11041,7 +11245,8 @@
         {
           "word": "satellite",
           "hi": "उनके सम्मान में भारत के पहले उपग्रह का नाम आर्यभट रखा गया। वह 1975 में अंतरिक्ष में गया।",
-          "en": "In his honour, India’s first satellite was named Aryabhata. It went into space in 1975."
+          "en": "In his honour, India’s first satellite was named Aryabhata. It went into space in 1975.",
+          "act": { "move": "float", "sky": "night" }
         }
       ],
       "questions": [
@@ -13805,7 +14010,8 @@
         {
           "word": "eidmoon",
           "hi": "रमज़ान के तीस रोज़ों के बाद ईद आई। गाँव में सब ख़ुश थे।",
-          "en": "After thirty days of Ramzan fasting, Eid came. Everyone in the village was happy."
+          "en": "After thirty days of Ramzan fasting, Eid came. Everyone in the village was happy.",
+          "act": { "move": "float", "sky": "night", "fx": "stars" }
         },
         {
           "word": "boy",
@@ -13817,7 +14023,8 @@
         {
           "word": "laddoo",
           "hi": "दोस्तों ने मिठाइयाँ और खिलौने ख़रीदे। हामिद ने कुछ नहीं लिया।",
-          "en": "His friends bought sweets and toys. Hamid bought nothing."
+          "en": "His friends bought sweets and toys. Hamid bought nothing.",
+          "act": { "move": "peek" }
         },
         {
           "word": "chimta",
@@ -13833,7 +14040,8 @@
         {
           "word": "grandmother",
           "hi": "घर पर दादी ने चिमटा देखा, तो उनकी आँखें भर आईं। उन्होंने हामिद को गले लगा लिया।",
-          "en": "At home Grandma saw the tongs, and her eyes filled with tears. She hugged Hamid."
+          "en": "At home Grandma saw the tongs, and her eyes filled with tears. She hugged Hamid.",
+          "act": { "move": "enter", "sky": "home" }
         }
       ],
       "questions": [
@@ -14581,7 +14789,8 @@
         {
           "word": "farmer",
           "hi": "मिथिला के एक गाँव में गोनू झा नाम के एक बहुत चतुर आदमी रहते थे।",
-          "en": "In a village in Mithila lived a very clever man called Gonu Jha."
+          "en": "In a village in Mithila lived a very clever man called Gonu Jha.",
+          "act": { "move": "talk" }
         },
         { "word": "thief", "hi": "एक रात उन्होंने देखा कि दो चोर उनके घर के पीछे छिपे हैं।", "en": "One night he saw two thieves hiding behind his house." },
         {
@@ -14592,7 +14801,8 @@
         {
           "word": "thief",
           "hi": "चोरों ने सुना, और ख़ुशी-ख़ुशी कुदाल उठाकर खेत की ओर भागे।",
-          "en": "The thieves heard, and ran happily to the field with spades."
+          "en": "The thieves heard, and ran happily to the field with spades.",
+          "act": { "move": "enter", "sky": "field" }
         },
         {
           "word": "field",
@@ -14603,7 +14813,8 @@
         {
           "word": "farmer",
           "hi": "गोनू झा मुस्कुराए, \"खेत तैयार है। अब बस बीज बोने हैं!\"",
-          "en": "Gonu Jha smiled. \"The field is ready. Now we just sow the seeds!\""
+          "en": "Gonu Jha smiled. \"The field is ready. Now we just sow the seeds!\"",
+          "act": { "move": "talk", "sky": "field" }
         }
       ],
       "questions": [
@@ -14656,7 +14867,8 @@
         {
           "word": "comic-akbar",
           "hi": "एक दिन बादशाह अकबर बाग़ में घूम रहे थे। चारों ओर हरियाली थी।",
-          "en": "One day Emperor Akbar was walking in the garden. All around was green."
+          "en": "One day Emperor Akbar was walking in the garden. All around was green.",
+          "act": { "move": "enter" }
         },
         {
           "word": "horse",
@@ -14671,7 +14883,8 @@
         {
           "word": "comic-birbal",
           "hi": "आठवें दिन बीरबल दरबार में आए, \"जहाँपनाह, हरा घोड़ा मिल गया!\"",
-          "en": "On the eighth day Birbal came to court. \"Your Majesty, I’ve found a green horse!\""
+          "en": "On the eighth day Birbal came to court. \"Your Majesty, I’ve found a green horse!\"",
+          "act": { "move": "talk", "sky": "home" }
         },
         {
           "word": "horse",
@@ -14686,7 +14899,8 @@
         {
           "word": "comic-akbar",
           "hi": "अकबर ज़ोर से हँस पड़े, \"बीरबल, तुमसे कोई नहीं जीत सकता!\"",
-          "en": "Akbar burst out laughing. \"Birbal, no one can beat you!\""
+          "en": "Akbar burst out laughing. \"Birbal, no one can beat you!\"",
+          "act": { "move": "talk" }
         }
       ],
       "questions": [
@@ -14745,7 +14959,8 @@
         {
           "word": "comic-akbar",
           "hi": "बीरबल की किसी बात से ख़ुश होकर अकबर बोले, \"तुम्हें ज़मीन इनाम में दूँगा।\"",
-          "en": "Pleased with Birbal, Akbar said, \"I will give you land as a reward.\""
+          "en": "Pleased with Birbal, Akbar said, \"I will give you land as a reward.\"",
+          "act": { "move": "talk" }
         },
         {
           "word": "comic-birbal",
@@ -14760,7 +14975,8 @@
         {
           "word": "comic-akbar",
           "hi": "अकबर बोले, \"बीरबल, ऊँट की गर्दन टेढ़ी क्यों होती है?\"",
-          "en": "Akbar asked, \"Birbal, why is a camel’s neck crooked?\""
+          "en": "Akbar asked, \"Birbal, why is a camel’s neck crooked?\"",
+          "act": { "move": "peek" }
         },
         {
           "word": "comic-birbal",
@@ -14775,7 +14991,8 @@
         {
           "word": "comic-akbar",
           "hi": "अकबर समझ गए, और हँसते हुए उसी दिन बीरबल को ज़मीन दे दी।",
-          "en": "Akbar understood, laughed, and gave Birbal the land that very day."
+          "en": "Akbar understood, laughed, and gave Birbal the land that very day.",
+          "act": { "move": "enter" }
         }
       ],
       "questions": [
@@ -14827,7 +15044,7 @@
       "title": { "hi": "लाल मोर", "en": "The red peacock" },
       "cover": "redpeacock",
       "pages": [
-        { "word": "king", "hi": "राजा कृष्णदेव राय को मोर बहुत पसंद थे।", "en": "King Krishnadevaraya loved peacocks." },
+        { "word": "king", "hi": "राजा कृष्णदेव राय को मोर बहुत पसंद थे।", "en": "King Krishnadevaraya loved peacocks.", "act": { "move": "enter" } },
         {
           "word": "redpeacock",
           "hi": "एक दरबारी एक लाल मोर लाया, \"महाराज, यह घने जंगल से आया दुर्लभ मोर है!\"",
@@ -14841,7 +15058,8 @@
         {
           "word": "tenali",
           "hi": "तेनालीराम को शक हुआ। उसने पता किया, तो एक रंगरेज़ मिला।",
-          "en": "Tenali Rama was suspicious. He searched, and found a dyer."
+          "en": "Tenali Rama was suspicious. He searched, and found a dyer.",
+          "act": { "move": "peek" }
         },
         {
           "word": "redpeacock",
@@ -14856,7 +15074,8 @@
         {
           "word": "king",
           "hi": "राजा सब समझ गए। दरबारी से सिक्के वापस लिए, और रंगरेज़ को इनाम दिया।",
-          "en": "The king understood. He took the coins back from the courtier and rewarded the dyer."
+          "en": "The king understood. He took the coins back from the courtier and rewarded the dyer.",
+          "act": { "move": "enter", "sky": "home" }
         }
       ],
       "questions": [
@@ -14915,7 +15134,8 @@
         {
           "word": "brinjal",
           "hi": "राजा के बाग़ में ख़ास बैंगन उगते थे। उन्हें तोड़ने की किसी को इजाज़त नहीं थी।",
-          "en": "Special brinjals grew in the king’s garden. No one was allowed to pick them."
+          "en": "Special brinjals grew in the king’s garden. No one was allowed to pick them.",
+          "act": { "move": "peek" }
         },
         {
           "word": "king",
@@ -14935,7 +15155,8 @@
         {
           "word": "boy",
           "hi": "उसे डर था कि बेटा किसी को बता देगा। उसने सोते बेटे पर पानी डाला, \"बारिश हो रही है!\"",
-          "en": "He worried his son would tell. He poured water on the sleeping boy. \"It’s raining!\""
+          "en": "He worried his son would tell. He poured water on the sleeping boy. \"It’s raining!\"",
+          "act": { "move": "talk", "sky": "rain", "fx": "rain" }
         },
         {
           "word": "king",
@@ -14950,7 +15171,8 @@
         {
           "word": "king",
           "hi": "बाद में तेनालीराम ने सब सच बता दिया। राजा हँसे, और रानी के लिए बैंगन भिजवाए।",
-          "en": "Later Tenali Rama told the whole truth. The king laughed, and sent brinjals for his wife."
+          "en": "Later Tenali Rama told the whole truth. The king laughed, and sent brinjals for his wife.",
+          "act": { "move": "talk" }
         }
       ],
       "questions": [
@@ -15013,7 +15235,8 @@
         {
           "word": "deer",
           "hi": "एक जंगल में हिरनों के दो झुंड थे। एक का राजा था बरगद हिरन।",
-          "en": "A forest had two herds of deer. One was led by the Banyan Deer."
+          "en": "A forest had two herds of deer. One was led by the Banyan Deer.",
+          "act": { "move": "walk", "fx": "leaves" }
         },
         {
           "word": "king",
@@ -15028,7 +15251,8 @@
         {
           "word": "deer",
           "hi": "एक दिन एक माँ हिरनी की बारी आई, जिसका बच्चा होने वाला था।",
-          "en": "One day it was the turn of a mother doe who was about to have a baby."
+          "en": "One day it was the turn of a mother doe who was about to have a baby.",
+          "act": { "move": "walk" }
         },
         { "word": "deer", "hi": "बरगद हिरन बोला, \"उसकी जगह मैं जाऊँगा।\"", "en": "The Banyan Deer said, \"I will go in her place.\"" },
         {
@@ -15039,7 +15263,8 @@
         {
           "word": "king",
           "hi": "राजा बोला, \"आज से इस जंगल में कोई शिकार नहीं होगा।\"",
-          "en": "The king said, \"From today there will be no hunting in this forest.\""
+          "en": "The king said, \"From today there will be no hunting in this forest.\"",
+          "act": { "move": "talk", "fx": "leaves" }
         }
       ],
       "questions": [
@@ -15095,7 +15320,8 @@
         {
           "word": "girl",
           "hi": "असम के एक गाँव में तेजीमोला नाम की एक प्यारी लड़की रहती थी।",
-          "en": "In a village in Assam lived a sweet girl called Tejimola."
+          "en": "In a village in Assam lived a sweet girl called Tejimola.",
+          "act": { "move": "talk" }
         },
         {
           "word": "father",
@@ -15115,7 +15341,8 @@
         {
           "word": "ber",
           "hi": "बेल उखाड़ी गई, तो वहाँ बेर का पेड़ उग आया। बच्चे फल तोड़ने आए, तो पेड़ ने गीत गाया।",
-          "en": "When the vine was pulled up, a berry tree grew there. When children came for fruit, the tree sang a song."
+          "en": "When the vine was pulled up, a berry tree grew there. When children came for fruit, the tree sang a song.",
+          "act": { "move": "peek" }
         },
         {
           "word": "lotus",
@@ -15130,7 +15357,8 @@
         {
           "word": "girl",
           "hi": "पिता के प्यार से कमल फिर तेजीमोला बन गई। पिता ने उसे गले से लगा लिया, और सच सबके सामने आ गया।",
-          "en": "With her father’s love, the lotus became Tejimola again. He hugged her, and the truth came out for all to see."
+          "en": "With her father’s love, the lotus became Tejimola again. He hugged her, and the truth came out for all to see.",
+          "act": { "move": "enter" }
         }
       ],
       "questions": [
@@ -15194,7 +15422,8 @@
         {
           "word": "king",
           "hi": "बंगाल की एक पुरानी कहानी में एक राजा के दो बेटे थे, लालकमल और नीलकमल।",
-          "en": "In an old tale from Bengal, a king had two sons, Lalkamal and Neelkamal."
+          "en": "In an old tale from Bengal, a king had two sons, Lalkamal and Neelkamal.",
+          "act": { "move": "talk" }
         },
         { "word": "prince", "hi": "दोनों भाई एक-दूसरे के बिना एक पल भी नहीं रहते थे।", "en": "The two brothers could not stay apart for even a moment." },
         {
@@ -15210,7 +15439,8 @@
         {
           "word": "prince",
           "hi": "दोनों भाई तलवार लेकर राक्षसों के देश पहुँचे। रास्ते में दो पक्षियों, बेंगमा और बेंगमी, ने उन्हें राक्षसों का भेद बताया।",
-          "en": "The brothers rode to the demons’ land with swords. On the way two birds, Bengoma and Bengomi, told them the demons’ secret."
+          "en": "The brothers rode to the demons’ land with swords. On the way two birds, Bengoma and Bengomi, told them the demons’ secret.",
+          "act": { "move": "peek" }
         },
         {
           "word": "bird",
@@ -15225,7 +15455,8 @@
         {
           "word": "prince",
           "hi": "दोनों भाई घर लौटे। राज्य में फिर से शांति हो गई, और उनकी दोस्ती की कहानी अमर हो गई।",
-          "en": "The brothers returned home. Peace came back to the kingdom, and their friendship became a story for ever."
+          "en": "The brothers returned home. Peace came back to the kingdom, and their friendship became a story for ever.",
+          "act": { "move": "talk" }
         }
       ],
       "questions": [
@@ -15282,7 +15513,8 @@
         {
           "word": "sea",
           "hi": "तमिलनाडु के रामेश्वरम में, समुद्र के किनारे, अब्दुल कलाम नाम का एक लड़का रहता था।",
-          "en": "In Rameswaram, Tamil Nadu, by the sea, lived a boy called Abdul Kalam."
+          "en": "In Rameswaram, Tamil Nadu, by the sea, lived a boy called Abdul Kalam.",
+          "act": { "move": "float", "sky": "sea" }
         },
         {
           "word": "newspaper",
@@ -15297,7 +15529,8 @@
         {
           "word": "bird",
           "hi": "एक दिन उनके शिक्षक बच्चों को समुद्र किनारे ले गए, और उड़ते पक्षी दिखाकर समझाया कि पक्षी कैसे उड़ते हैं।",
-          "en": "One day his teacher took the class to the seashore and explained, with the birds overhead, how birds fly."
+          "en": "One day his teacher took the class to the seashore and explained, with the birds overhead, how birds fly.",
+          "act": { "move": "fly-across", "sky": "sea" }
         },
         { "word": "plane", "hi": "उसी दिन कलाम ने तय किया कि वे उड़ान के बारे में पढ़ेंगे।", "en": "That day Kalam decided he would study flight." },
         {
@@ -15308,7 +15541,8 @@
         {
           "word": "flag",
           "hi": "लोग उन्हें प्यार से \"मिसाइल मैन\" कहते थे। सन 2002 में वे भारत के राष्ट्रपति बने।",
-          "en": "People fondly called him the \"Missile Man\". In 2002 he became President of India."
+          "en": "People fondly called him the \"Missile Man\". In 2002 he became President of India.",
+          "act": { "move": "sway" }
         }
       ],
       "questions": [
@@ -15365,7 +15599,12 @@
       "title": { "hi": "पीले गले वाली गौरैया: सालिम अली", "en": "The yellow-throated sparrow: Salim Ali" },
       "cover": "bird",
       "pages": [
-        { "word": "boy", "hi": "मुंबई में सालिम अली नाम का एक दस साल का लड़का रहता था।", "en": "In Mumbai lived a ten-year-old boy called Salim Ali." },
+        {
+          "word": "boy",
+          "hi": "मुंबई में सालिम अली नाम का एक दस साल का लड़का रहता था।",
+          "en": "In Mumbai lived a ten-year-old boy called Salim Ali.",
+          "act": { "move": "talk" }
+        },
         {
           "word": "bird",
           "hi": "एक दिन खिलौना बंदूक से उसने एक गौरैया गिरा दी। ध्यान से देखा, तो उसके गले पर पीला धब्बा था!",
@@ -15379,7 +15618,8 @@
         {
           "word": "book",
           "hi": "चाचा उसे बॉम्बे नेचुरल हिस्ट्री सोसाइटी ले गए। वहाँ मिलार्ड साहब ने बताया, \"यह पीले गले वाली गौरैया है।\"",
-          "en": "His uncle took him to the Bombay Natural History Society. There Mr Millard said, \"This is a yellow-throated sparrow.\""
+          "en": "His uncle took him to the Bombay Natural History Society. There Mr Millard said, \"This is a yellow-throated sparrow.\"",
+          "act": { "move": "peek" }
         },
         {
           "word": "bird",
@@ -15394,7 +15634,8 @@
         {
           "word": "book",
           "hi": "उन्होंने भारत के पक्षियों पर किताबें लिखीं, और \"भारत के पक्षी-पुरुष\" कहलाए।",
-          "en": "He wrote books on India’s birds, and became known as the \"Birdman of India\"."
+          "en": "He wrote books on India’s birds, and became known as the \"Birdman of India\".",
+          "act": { "move": "enter" }
         }
       ],
       "questions": [
@@ -15450,7 +15691,8 @@
         {
           "word": "school",
           "hi": "राजकोट के एक स्कूल में मोहनदास गांधी नाम का एक शर्मीला लड़का पढ़ता था।",
-          "en": "A shy boy called Mohandas Gandhi studied at a school in Rajkot."
+          "en": "A shy boy called Mohandas Gandhi studied at a school in Rajkot.",
+          "act": { "move": "peek" }
         },
         {
           "word": "comic-teacher",
@@ -15465,7 +15707,8 @@
         {
           "word": "comic-teacher",
           "hi": "मास्टर जी ने पैर से इशारा किया, \"पास वाले की कॉपी से देखकर ठीक कर लो।\"",
-          "en": "The teacher nudged him with his foot: \"Copy it from your neighbour.\""
+          "en": "The teacher nudged him with his foot: \"Copy it from your neighbour.\"",
+          "act": { "move": "talk" }
         },
         { "word": "boy", "hi": "पर मोहन ने नक़ल नहीं की। उसे यह ग़लत लगा।", "en": "But Mohan did not copy. It felt wrong to him." },
         {
@@ -15476,7 +15719,8 @@
         {
           "word": "flag",
           "hi": "यही मोहन बड़े होकर महात्मा गांधी बने, जो सच के रास्ते पर चलकर देश की आज़ादी की लड़ाई के नेता बने।",
-          "en": "This Mohan grew up to be Mahatma Gandhi, who walked the path of truth and led India’s struggle for freedom."
+          "en": "This Mohan grew up to be Mahatma Gandhi, who walked the path of truth and led India’s struggle for freedom.",
+          "act": { "move": "sway" }
         }
       ],
       "questions": [
@@ -15536,7 +15780,8 @@
         {
           "word": "girl",
           "hi": "लगभग पौने दो सौ साल पहले, ज़्यादातर लड़कियों को पढ़ने नहीं दिया जाता था।",
-          "en": "About a hundred and seventy-five years ago, most girls were not allowed to study."
+          "en": "About a hundred and seventy-five years ago, most girls were not allowed to study.",
+          "act": { "move": "enter" }
         },
         {
           "word": "book",
@@ -15551,7 +15796,8 @@
         {
           "word": "comic-teacher",
           "hi": "सावित्रीबाई उस स्कूल में पढ़ाने लगीं। वे भारत की पहली महिला शिक्षिकाओं में से एक थीं।",
-          "en": "Savitribai began teaching at that school. She was one of India’s first women teachers."
+          "en": "Savitribai began teaching at that school. She was one of India’s first women teachers.",
+          "act": { "move": "peek" }
         },
         {
           "word": "stone",
@@ -15566,7 +15812,8 @@
         {
           "word": "girl",
           "hi": "धीरे-धीरे और लड़कियाँ आने लगीं। आज हर लड़की स्कूल जा सकती है।",
-          "en": "Slowly, more and more girls came. Today every girl can go to school."
+          "en": "Slowly, more and more girls came. Today every girl can go to school.",
+          "act": { "move": "enter" }
         }
       ],
       "questions": [
@@ -15620,7 +15867,8 @@
         {
           "word": "boy",
           "hi": "तमिलनाडु के कुंभकोणम में रामानुजन नाम का एक लड़का रहता था। उसे अंकों से बहुत प्यार था।",
-          "en": "In Kumbakonam, Tamil Nadu, lived a boy called Ramanujan. He loved numbers."
+          "en": "In Kumbakonam, Tamil Nadu, lived a boy called Ramanujan. He loved numbers.",
+          "act": { "move": "talk" }
         },
         {
           "word": "slate",
@@ -15635,7 +15883,8 @@
         {
           "word": "school",
           "hi": "गणित में डूबे रहने से वह बाक़ी विषयों में पीछे रह गया, और कॉलेज छूट गया।",
-          "en": "So wrapped up in maths, he fell behind in his other subjects and had to leave college."
+          "en": "So wrapped up in maths, he fell behind in his other subjects and had to leave college.",
+          "act": { "move": "peek" }
         },
         {
           "word": "envelope",
@@ -15650,7 +15899,8 @@
         {
           "word": "star",
           "hi": "रामानुजन सिर्फ़ 32 साल जिए, पर उनके सूत्रों पर आज भी दुनिया भर में काम होता है।",
-          "en": "Ramanujan lived only 32 years, but mathematicians all over the world still work on his formulas."
+          "en": "Ramanujan lived only 32 years, but mathematicians all over the world still work on his formulas.",
+          "act": { "move": "float", "sky": "night", "fx": "stars" }
         }
       ],
       "questions": [
@@ -15704,7 +15954,8 @@
         {
           "word": "girl",
           "hi": "हरियाणा के करनाल में कल्पना नाम की एक लड़की रहती थी, जिसे रात को तारे देखना बहुत अच्छा लगता था।",
-          "en": "In Karnal, Haryana, lived a girl called Kalpana, who loved looking at the stars at night."
+          "en": "In Karnal, Haryana, lived a girl called Kalpana, who loved looking at the stars at night.",
+          "act": { "move": "talk", "sky": "night", "fx": "stars" }
         },
         {
           "word": "plane",
@@ -15719,7 +15970,8 @@
         {
           "word": "earth",
           "hi": "आगे पढ़ने के लिए वे अमेरिका गईं, और फिर अमेरिका की अंतरिक्ष एजेंसी नासा में काम करने लगीं।",
-          "en": "She went to America for further study, and then began working at NASA, America’s space agency."
+          "en": "She went to America for further study, and then began working at NASA, America’s space agency.",
+          "act": { "move": "float", "sky": "night" }
         },
         {
           "word": "rocket",
@@ -15734,7 +15986,8 @@
         {
           "word": "star",
           "hi": "सन 2003 में दूसरी यात्रा से लौटते समय एक दुर्घटना में कल्पना हमें छोड़ गईं। आज भी वे लाखों बच्चों को सितारों तक पहुँचने का सपना दिखाती हैं।",
-          "en": "In 2003, coming back from her second journey, Kalpana died in an accident. She still inspires millions of children to reach for the stars."
+          "en": "In 2003, coming back from her second journey, Kalpana died in an accident. She still inspires millions of children to reach for the stars.",
+          "act": { "move": "float", "sky": "night", "fx": "stars" }
         }
       ],
       "questions": [
@@ -15784,7 +16037,8 @@
         {
           "word": "ship",
           "hi": "सन 1921 में वैज्ञानिक चंद्रशेखर वेंकट रमन जहाज़ से इंग्लैंड जा रहे थे।",
-          "en": "In 1921 the scientist Chandrasekhara Venkata Raman was travelling to England by ship."
+          "en": "In 1921 the scientist Chandrasekhara Venkata Raman was travelling to England by ship.",
+          "act": { "move": "float" }
         },
         {
           "word": "sea",
@@ -15804,7 +16058,8 @@
         {
           "word": "sun",
           "hi": "भारत लौटकर उन्होंने बरसों प्रयोग किए: रोशनी पानी और दूसरी चीज़ों से टकराकर कैसे बिखरती है।",
-          "en": "Back in India he experimented for years on how light scatters when it meets water and other things."
+          "en": "Back in India he experimented for years on how light scatters when it meets water and other things.",
+          "act": { "move": "peek", "sky": "dawn" }
         },
         {
           "word": "star",
@@ -15819,7 +16074,8 @@
         {
           "word": "flag",
           "hi": "इसीलिए हर साल 28 फ़रवरी को हम राष्ट्रीय विज्ञान दिवस मनाते हैं।",
-          "en": "That is why we celebrate National Science Day on 28 February every year."
+          "en": "That is why we celebrate National Science Day on 28 February every year.",
+          "act": { "move": "sway" }
         }
       ],
       "questions": [
@@ -15875,7 +16131,8 @@
         {
           "word": "girl",
           "hi": "बनारस में मणिकर्णिका नाम की एक लड़की थी। सब उसे प्यार से \"मनु\" कहते थे।",
-          "en": "In Banaras lived a girl called Manikarnika. Everyone fondly called her \"Manu\"."
+          "en": "In Banaras lived a girl called Manikarnika. Everyone fondly called her \"Manu\".",
+          "act": { "move": "talk" }
         },
         { "word": "horse", "hi": "मनु ने घुड़सवारी, तलवार चलाना और निशाना लगाना सीखा।", "en": "Manu learned to ride horses, to use a sword and to shoot." },
         {
@@ -15886,7 +16143,8 @@
         {
           "word": "fort",
           "hi": "राजा के जाने के बाद अंग्रेज़ों ने झाँसी ले लेनी चाही। रानी ने कहा, \"मैं अपनी झाँसी नहीं दूँगी!\"",
-          "en": "After the king died, the British wanted to take Jhansi. The Rani said, \"I will not give up my Jhansi!\""
+          "en": "After the king died, the British wanted to take Jhansi. The Rani said, \"I will not give up my Jhansi!\"",
+          "act": { "move": "peek" }
         },
         {
           "word": "horse",
@@ -15901,7 +16159,8 @@
         {
           "word": "book",
           "hi": "कवयित्री सुभद्रा कुमारी चौहान ने उन पर कविता लिखी: \"ख़ूब लड़ी मर्दानी, वह तो झाँसी वाली रानी थी।\"",
-          "en": "The poet Subhadra Kumari Chauhan wrote a poem about her: \"How bravely she fought, the Rani of Jhansi.\""
+          "en": "The poet Subhadra Kumari Chauhan wrote a poem about her: \"How bravely she fought, the Rani of Jhansi.\"",
+          "act": { "move": "enter" }
         }
       ],
       "questions": [
@@ -15957,7 +16216,8 @@
         {
           "word": "boy",
           "hi": "मिल्खा सिंह का बचपन बहुत मुश्किल था। देश के बँटवारे के समय उन्होंने अपने परिवार के कई लोगों को खो दिया।",
-          "en": "Milkha Singh had a very hard childhood. When the country was divided, he lost many of his family."
+          "en": "Milkha Singh had a very hard childhood. When the country was divided, he lost many of his family.",
+          "act": { "move": "enter" }
         },
         {
           "word": "train",
@@ -15972,7 +16232,8 @@
         {
           "word": "shoe",
           "hi": "मिल्खा रोज़ घंटों दौड़ते, बारिश हो या धूप। थककर गिर जाते, तो फिर उठकर दौड़ते।",
-          "en": "Milkha ran for hours every day, rain or shine. If he fell from tiredness, he got up and ran again."
+          "en": "Milkha ran for hours every day, rain or shine. If he fell from tiredness, he got up and ran again.",
+          "act": { "move": "peek", "sky": "rain", "fx": "rain" }
         },
         {
           "word": "medal",
@@ -15987,7 +16248,8 @@
         {
           "word": "medal",
           "hi": "उसी साल लाहौर में एक दौड़ जीतने पर उन्हें \"उड़न सिख\" कहा गया, और यही नाम मशहूर हो गया।",
-          "en": "The same year, after winning a race in Lahore, he was called \"the Flying Sikh\", and the name stuck."
+          "en": "The same year, after winning a race in Lahore, he was called \"the Flying Sikh\", and the name stuck.",
+          "act": { "move": "peek" }
         }
       ],
       "questions": [
@@ -16047,7 +16309,8 @@
         {
           "word": "ghungroo",
           "hi": "सुधा चंद्रन बचपन से भरतनाट्यम सीख रही थीं, और बहुत अच्छा नाचती थीं।",
-          "en": "Sudha Chandran had learned Bharatanatyam since she was little, and danced beautifully."
+          "en": "Sudha Chandran had learned Bharatanatyam since she was little, and danced beautifully.",
+          "act": { "move": "peek" }
         },
         { "word": "girl", "hi": "छोटी उम्र में ही वे मंच पर नाचकर सबका दिल जीत चुकी थीं।", "en": "While still young, she had won hearts dancing on stage." },
         {
@@ -16063,7 +16326,8 @@
         {
           "word": "foot",
           "hi": "फिर उन्हें \"जयपुर फ़ुट\" नाम का एक नक़ली पैर मिला, जिसे डॉ. पी. के. सेठी ने बनाया था।",
-          "en": "Then she was given an artificial leg called the \"Jaipur Foot\", made by Dr P. K. Sethi."
+          "en": "Then she was given an artificial leg called the \"Jaipur Foot\", made by Dr P. K. Sethi.",
+          "act": { "move": "enter" }
         },
         {
           "word": "ghungroo",
@@ -16078,7 +16342,8 @@
         {
           "word": "peahen",
           "hi": "उनकी कहानी पर \"मयूरी\" नाम की फ़िल्म बनी, जिसमें सुधा ने ख़ुद काम किया।",
-          "en": "A film called \"Mayuri\" was made about her life, and Sudha played herself."
+          "en": "A film called \"Mayuri\" was made about her life, and Sudha played herself.",
+          "act": { "move": "walk" }
         }
       ],
       "questions": [
@@ -16417,7 +16682,8 @@
         {
           "word": "envelope",
           "hi": "पिंकी ने नानी को चिट्ठी लिखी। लिफ़ाफ़े पर पता लिखा, और छह अंकों का पिन कोड भी।",
-          "en": "Pinky wrote a letter to her grandma. She wrote the address on the envelope, with the six-digit PIN code."
+          "en": "Pinky wrote a letter to her grandma. She wrote the address on the envelope, with the six-digit PIN code.",
+          "act": { "move": "peek" }
         },
         {
           "word": "envelope",
@@ -16433,7 +16699,8 @@
         {
           "word": "place-postoffice",
           "hi": "डाक घर में पिन कोड देखकर चिट्ठियाँ छाँटी गईं: किस शहर, किस इलाक़े की।",
-          "en": "At the post office the letters were sorted by PIN code: which city, which area."
+          "en": "At the post office the letters were sorted by PIN code: which city, which area.",
+          "act": { "move": "peek", "sky": "home" }
         },
         {
           "word": "train",
@@ -16448,7 +16715,8 @@
         {
           "word": "grandmother",
           "hi": "\"नानी जी, आपकी चिट्ठी!\" नानी ने चश्मा लगाया, और मुस्कुराकर पढ़ने लगीं।",
-          "en": "\"Grandma, a letter for you!\" Grandma put on her glasses and smiled as she read."
+          "en": "\"Grandma, a letter for you!\" Grandma put on her glasses and smiled as she read.",
+          "act": { "move": "talk" }
         }
       ],
       "questions": [
@@ -16499,14 +16767,24 @@
       "title": { "hi": "दिन और रात", "en": "Day and night" },
       "cover": "earth",
       "pages": [
-        { "word": "earth", "hi": "हमारी धरती एक बहुत बड़ी गेंद जैसी गोल है।", "en": "Our Earth is round, like a very big ball." },
+        {
+          "word": "earth",
+          "hi": "हमारी धरती एक बहुत बड़ी गेंद जैसी गोल है।",
+          "en": "Our Earth is round, like a very big ball.",
+          "act": { "move": "float", "sky": "night" }
+        },
         {
           "word": "earth",
           "hi": "धरती अपनी धुरी पर लट्टू की तरह घूमती रहती है। एक चक्कर में चौबीस घंटे लगते हैं।",
           "en": "The Earth keeps spinning like a top. One turn takes twenty-four hours."
         },
         { "word": "sun", "hi": "सूरज की रोशनी धरती के एक तरफ़ ही पड़ती है।", "en": "Sunlight falls on only one side of the Earth." },
-        { "word": "day", "hi": "धरती का जो हिस्सा सूरज की ओर होता है, वहाँ दिन होता है।", "en": "On the part of the Earth facing the sun, it is day." },
+        {
+          "word": "day",
+          "hi": "धरती का जो हिस्सा सूरज की ओर होता है, वहाँ दिन होता है।",
+          "en": "On the part of the Earth facing the sun, it is day.",
+          "act": { "move": "peek" }
+        },
         { "word": "night", "hi": "जो हिस्सा सूरज से दूसरी ओर होता है, वहाँ रात होती है।", "en": "On the part facing away from the sun, it is night." },
         {
           "word": "sun",
@@ -16516,7 +16794,8 @@
         {
           "word": "night",
           "hi": "जब भारत में दोपहर होती है, तब अमेरिका में लोग सो रहे होते हैं।",
-          "en": "When it is afternoon in India, people in America are asleep."
+          "en": "When it is afternoon in India, people in America are asleep.",
+          "act": { "move": "peek", "sky": "night", "fx": "stars" }
         }
       ],
       "questions": [
@@ -16570,7 +16849,8 @@
         {
           "word": "moon",
           "hi": "चाँद की अपनी कोई रोशनी नहीं होती। वह सूरज की रोशनी से चमकता है, जैसे धूप में चमकती गेंद।",
-          "en": "The moon has no light of its own. It shines with the sun’s light, like a ball shining in sunshine."
+          "en": "The moon has no light of its own. It shines with the sun’s light, like a ball shining in sunshine.",
+          "act": { "move": "float", "sky": "night", "fx": "stars" }
         },
         { "word": "sun", "hi": "सूरज हमेशा चाँद के आधे हिस्से को रोशन रखता है।", "en": "The sun always lights up half of the moon." },
         {
@@ -16581,7 +16861,8 @@
         {
           "word": "moonphases",
           "hi": "चक्कर लगाते हुए हमें उसका रोशन हिस्सा कभी कम, कभी ज़्यादा दिखता है। इन्हें चाँद की कलाएँ कहते हैं।",
-          "en": "As it goes round, we see more or less of its lit half. These are called the moon’s phases."
+          "en": "As it goes round, we see more or less of its lit half. These are called the moon’s phases.",
+          "act": { "move": "peek", "sky": "night", "fx": "stars" }
         },
         {
           "word": "night",
@@ -16596,7 +16877,8 @@
         {
           "word": "ganesh",
           "hi": "कहानी में गणेश जी की बात से चाँद घटता-बढ़ता है। विज्ञान बताता है कि यह चाँद के घूमने का खेल है!",
-          "en": "In the story, the moon waxes and wanes because of Ganesh. Science tells us it’s the moon going round!"
+          "en": "In the story, the moon waxes and wanes because of Ganesh. Science tells us it’s the moon going round!",
+          "act": { "move": "talk" }
         }
       ],
       "questions": [
@@ -16652,7 +16934,8 @@
         {
           "word": "train",
           "hi": "भारी-भरकम ट्रेन दो पतली पटरियों पर तेज़ दौड़ती है, फिर भी गिरती नहीं। कैसे?",
-          "en": "A huge, heavy train races along two thin rails without falling off. How?"
+          "en": "A huge, heavy train races along two thin rails without falling off. How?",
+          "act": { "move": "enter" }
         },
         {
           "word": "wheel",
@@ -16667,7 +16950,8 @@
         {
           "word": "track",
           "hi": "पटरियाँ मज़बूत लोहे की होती हैं, और लकड़ी या कंक्रीट के स्लीपरों पर कसी होती हैं।",
-          "en": "The rails are made of strong steel, fixed onto sleepers of wood or concrete."
+          "en": "The rails are made of strong steel, fixed onto sleepers of wood or concrete.",
+          "act": { "move": "peek" }
         },
         {
           "word": "stones",
@@ -16682,7 +16966,8 @@
         {
           "word": "train",
           "hi": "तो ट्रेन पटरी पर इसलिए टिकी रहती है, क्योंकि उसके पहिए और पटरी एक-दूसरे के लिए बने हैं!",
-          "en": "So the train stays on track because its wheels and the rails are made for each other!"
+          "en": "So the train stays on track because its wheels and the rails are made for each other!",
+          "act": { "move": "enter" }
         }
       ],
       "questions": [

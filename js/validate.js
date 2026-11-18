@@ -3,7 +3,7 @@ import { SKILLS } from './mathgen.js';
 import { PHONICS } from './phonicsgen.js';
 import { BEAT_KINDS, beatKind, tapTokens, SHOW_MODELS, glossToken, sentenceTokens } from './logic.js';
 import { CAST, CAST_IDS, FACES, ARMS, PROPS, BACKGROUND_IDS } from './art-comic.js';
-import { actProblems } from './scene.js';
+import { actProblems, calmLevel, calmProblems, calmMax } from './scene.js';
 import { SAMAY_MODES } from './samay.js';
 import { TABLES } from './pahade.js';
 
@@ -305,7 +305,11 @@ export function validateContent(c, { knownPictures = null, pictureExists = null,
             if (!isStr(p?.en)) err(`${at}.pages[${j}].en is required`);
             // how the page's picture moves (see js/scene.js)
             if (p?.act !== undefined) for (const m of actProblems(p.act, hasWord)) err(`${at} (${s.id}).pages[${j}].act ${m}`);
+            // Grades 3 and 4: calm scenes only (roadmap 1.6)
+            if (p?.act && calmLevel(s.level)) for (const m of calmProblems(p.act)) err(`${at} (${s.id}).pages[${j}].act ${m}`);
           });
+        if (calmLevel(s.level) && Array.isArray(s.pages) && s.pages.filter((p) => p?.act).length > calmMax(s.pages.length))
+          err(`${at} (${s.id}): a Grade 3–4 story has a scene on at most ${calmMax(s.pages.length)} of its ${s.pages.length} pages`);
         (Array.isArray(s.questions) ? s.questions : []).forEach((q, j) => {
           const qat = `${at}.questions[${j}]`;
           if (s.lang === 'en' ? !isStr(q?.en) : !hasText(q)) err(`${qat} needs ${s.lang === 'en' ? '"en"' : '"hi" and "en"'}`);

@@ -4,7 +4,7 @@ import { sentenceTokens, shuffle, isKeyToken, questionType, glossToken, glossLin
 import { storyLang, worldStoryLang } from '../curriculum.js';
 import { el, sleep, choose, runRounds, cheer, waitTap, bounce, ICONS, readChoices, youngReader } from './kit.js';
 import { clips } from '../storage.js';
-import { sceneHtml, sceneClass, sceneSound, speaks } from '../scene.js';
+import { sceneHtml, sceneClass, sceneSound, speaks, calmLevel } from '../scene.js';
 import { loadWordTimes, timesFor } from '../voicepack.js';
 import { readByRibbon } from '../readfor.js';
 
@@ -97,7 +97,7 @@ export default {
       const n = i + 1;
       const pageWord = ctx.word(page.word);
       // a page with an "act" is a little moving scene that follows the story; tapping it plays it again
-      const pic = page.act ? stageScene(ctx, page) : el('div', { class: 'pic', html: ctx.picture(pageWord) });
+      const pic = page.act ? stageScene(ctx, page, calmLevel(story.level)) : el('div', { class: 'pic', html: ctx.picture(pageWord) });
       const textLines = langs.map((l) =>
         el(
           'p',
@@ -288,13 +288,14 @@ function swipeToTurn(card, next) {
 
 // A page's moving scene. play() starts it (again) with its sound, and waits a moment so the sound
 // is heard before the reading starts.
-function stageScene(ctx, page) {
+// A calm scene (Grades 3 and 4, roadmap 1.6) plays its movement through and settles, without a sound.
+function stageScene(ctx, page, calm = false) {
   const scene = el('button', {
-    class: `pic ${sceneClass(page.act)}${speaks(page) ? ' talks' : ''}`,
+    class: `pic ${sceneClass(page.act)}${speaks(page) ? ' talks' : ''}${calm ? ' calm' : ''}`,
     'aria-label': 'Play the picture again',
     html: sceneHtml(page.act, page.word, (id) => ctx.picture(ctx.word(id))),
   });
-  const sound = sceneSound(page.act);
+  const sound = calm ? null : sceneSound(page.act);
   scene.play = async () => {
     scene.classList.remove('play');
     void scene.offsetWidth; // restart the CSS animations
