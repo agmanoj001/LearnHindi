@@ -321,8 +321,9 @@ test('a recordings file brings back only real recordings for real lines', () => 
 
 test('the story voice pack is cached on its own and kept across app updates', () => {
   const sw = readFileSync(new URL('../sw.js', import.meta.url), 'utf8');
-  assert.match(sw, /const VOICES = 'kkm-voices'/);
-  assert.match(sw, /k !== VERSION && k !== VOICES/);
+  // both voice caches (kkm-voices-2, and kkm-voices for recordings saved the old way) outlive an update
+  assert.match(sw, /const isVoices = \(name\) => name\.startsWith\('kkm-voices'\)/);
+  assert.match(sw, /k !== VERSION && !isVoices\(k\)/);
   assert.match(sw, /'js\/voicepack\.js'/);
   assert.ok(!/'voices\//.test(sw), 'the pack is not part of the first download');
 });
@@ -453,9 +454,9 @@ test('stories are never locked, and the youngest grade’s library includes the 
 
 test('voices start at once: an exact lookup, fetched ahead, trimmed, and short pauses', () => {
   const sw = readFileSync(new URL('../sw.js', import.meta.url), 'utf8');
-  // ignoreSearch makes the browser look through every recording; voices are found by their exact address
-  const voiceLine = sw.split('\n').find((l) => l.includes('caches.open(VOICES)'));
-  assert.ok(voiceLine && !voiceLine.includes('ignoreSearch'), 'voices: exact match');
+  // the page reads the voice pack from its own cache; the service worker leaves voices/ to the network, so
+  // the newest index arrives (it used to answer with the copy saved with the pack, for ever)
+  assert.match(sw, /if \(url\.pathname\.includes\('\/voices\/'\)\) return;/);
   const audio = readFileSync(new URL('../js/audio.js', import.meta.url), 'utf8');
   assert.match(audio, /export function preload\(segs\)/);
   assert.match(audio, /stop\(\);\n  preload\(segments\);/, 'a sequence fetches all its recordings at once');

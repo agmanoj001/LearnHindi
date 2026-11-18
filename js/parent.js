@@ -10,7 +10,7 @@ import { SAMAY_SKILLS } from './samay.js';
 import { pahadaName } from './pahade.js';
 import { worldStars, worldLessons, lessonRecord, weekSummary, dueReviews, learningGains, usageInsight, GAME_NAMES } from './curriculum.js';
 import { refreshClipKeys, voicesFor, setVoicePrefs, hasVoice, play, setVoicePack } from './audio.js';
-import { loadIndex, savedVoiceKeys, savedAudioVersion, packFiles, bundlesFor, downloadVoices, removeVoices, formatMB } from './voicepack.js';
+import { loadIndex, savedVoices, currentKeys, packFiles, bundlesFor, downloadVoices, removeVoices, formatMB } from './voicepack.js';
 import { deviceKind, VOICE_SETUP, comprehensionSummary, readAloneList, voicePace } from './logic.js';
 import { KEYS, save, load, clips, resizeImage, addProfile, removeProfile, MAX_PROFILES, makeBackup, readBackup, localKeys, keepOffline, exportClips, readClipsFile, BACKUP_AT, BACKUP_LATER, backupReminderDue, backupLaterUntil, shareBackup, canShareFiles } from './storage.js';
 import { MASCOTS, MASCOT_IDS, mascotSvg } from './mascot.js';
@@ -674,35 +674,36 @@ function storyVoicesSection(api) {
     status.textContent = (settings.parentLang === 'hi' && translateText(text)) || text;
   };
   const render = async () => {
-    const idx = await loadIndex();
-    const have = await savedVoiceKeys();
-    setVoicePack(have, settings.storyVoices);
-    if (!idx?.files) {
+    let idx = null;
+    let state = null;
+    try {
+      [idx, state] = await Promise.all([loadIndex(), savedVoices()]);
+    } catch {
+      /* shown below */
+    }
+    if (state) setVoicePack(state, settings.storyVoices);
+    if (!idx?.packs?.length || !state) {
       buttons.replaceChildren();
-      return say('The story voices are not available yet. Stories use the device voice (or your recordings).');
+      return say(state ? 'The story voices are not available yet. Stories use the device voice (or your recordings).' : 'The story voices could not be read on this device. Stories use the device voice (or your recordings).');
     }
     const mine = packFiles(idx, myLevels);
     const all = packFiles(idx);
-    // what a download costs: the bundles still to fetch (or the single files, for an older index)
-    const size = (files) => (idx.packs?.length ? bundlesFor(idx, files, have).reduce((a, p) => a + p.bytes, 0) : files.reduce((a, f) => a + f.bytes, 0));
-    const missing = (files) => files.filter((f) => !have.has(f.key));
-    const savedBytes = all.filter((f) => have.has(f.key)).reduce((a, f) => a + f.bytes, 0);
-    say(have.size ? `Saved on this device: ${have.size} of ${all.length} recordings (${formatMB(savedBytes)}).` : 'Not downloaded yet.');
-    // the recordings on this device are an older edition (before the silence was trimmed): offer the new one
-    const stale = have.size > 0 && idx.audioVersion > (await savedAudioVersion());
-    const get = (files, fresh = false) => async () => {
+    // saved as bundles of this edition: nothing to fetch for these
+    const current = currentKeys(idx, state);
+    const size = (files) => bundlesFor(idx, files, current).reduce((a, p) => a + p.bytes, 0);
+    const missing = (files) => files.filter((f) => !current.has(f.key));
+    const savedCount = all.filter((f) => state.at.has(f.key)).length;
+    const savedBytes = all.filter((f) => state.at.has(f.key)).reduce((a, f) => a + f.bytes, 0);
+    say(savedCount ? `Saved on this device: ${savedCount} of ${all.length} recordings (${formatMB(savedBytes)}).` : 'Not downloaded yet.');
+    const get = (files) => async () => {
       buttons.querySelectorAll('button').forEach((b) => (b.disabled = true));
       bar.hidden = false;
       try {
-        const failed = await downloadVoices(
-          files,
-          (done, total) => {
-            bar.firstChild.style.width = `${total ? Math.round((done / total) * 100) : 100}%`;
-            say(idx.packs?.length ? `Downloading… ${formatMB(done)} of ${formatMB(total)}` : `Downloading… ${done} of ${total}`);
-          },
-          { fresh },
-        );
-        if (failed) alert(`${failed} recordings could not be downloaded. Check the internet connection and try again.`);
+        const failed = await downloadVoices(files, (done, total) => {
+          bar.firstChild.style.width = `${total ? Math.round((done / total) * 100) : 100}%`;
+          say(`Downloading… ${formatMB(done)} of ${formatMB(total)}`);
+        });
+        if (failed) alert(`${failed} recordings could not be downloaded. Check the internet connection and the free space on this device, and try again.`);
       } catch (e) {
         alert(e.message);
       }
@@ -710,13 +711,18 @@ function storyVoicesSection(api) {
       render();
     };
     const rows = [];
-    if (stale) {
-      const freshSize = bundlesFor(idx, mine).reduce((a, p) => a + p.bytes, 0);
-      rows.push(el('button', { class: 'btn primary', text: `Get the faster voices (${formatMB(freshSize)})`, onclick: get(mine, true) }));
-      say('New, faster voices are ready: no pauses before each line, and every word clear. Your saved voices keep working until you update.');
-    } else if (missing(mine).length) rows.push(el('button', { class: 'btn primary', text: `Download for ${gradeName} (${formatMB(size(mine))})`, onclick: get(mine) }));
-    if (!stale && missing(all).length && missing(all).length !== missing(mine).length) rows.push(el('button', { class: 'btn', text: `Download everything (${formatMB(size(all))})`, onclick: get(all) }));
-    if (have.size) rows.push(el('button', { class: 'btn danger', text: 'Remove', onclick: async () => confirm('Remove the story voices from this device?') && (await removeVoices(), render()) }));
+    // recordings saved the old way, one file each, which a phone is slow to read: offer to save them again
+    // as a few large files (they keep playing until then)
+    const oldWay = all.filter((f) => state.at.get(f.key)?.url);
+    if (oldWay.length) {
+      rows.push(el('button', { class: 'btn primary', text: `Update the saved voices (${formatMB(size(oldWay))})`, onclick: get(oldWay) }));
+      say(`Saved on this device: ${savedCount} of ${all.length} recordings, the old way. Update them once to make them quicker to start: the app downloads them again as a few large files, then removes the old copies. They keep playing until then.`);
+    } else if (missing(mine).length) {
+      const update = mine.some((f) => state.at.has(f.key));
+      rows.push(el('button', { class: 'btn primary', text: `${update ? 'Update' : 'Download'} for ${gradeName} (${formatMB(size(mine))})`, onclick: get(mine) }));
+    }
+    if (!oldWay.length && missing(all).length && missing(all).length !== missing(mine).length) rows.push(el('button', { class: 'btn', text: `Download everything (${formatMB(size(all))})`, onclick: get(all) }));
+    if (savedCount) rows.push(el('button', { class: 'btn danger', text: 'Remove', onclick: async () => confirm('Remove the story voices from this device?') && (await removeVoices(), render()) }));
     buttons.replaceChildren(...rows);
     localize(api, buttons);
   };
