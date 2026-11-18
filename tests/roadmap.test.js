@@ -110,6 +110,7 @@ const DONE = {
   "Children's-app store rules": () => /export function grownUpCheck/.test(read('js/screens.js')) && /Content-Security-Policy[\s\S]*connect-src 'self'/.test(read('index.html')) && exists('docs/PRIVACY.md') && /function privacySection/.test(read('js/parent.js')),
   'comprehension by question type': () => /export function questionType/.test(read('js/logic.js')) && /function storiesView/.test(read('js/parent.js')) && /ctx\.comprehend\?\./.test(read('js/games/story.js')) && /ctx\.readAlone\?\./.test(read('js/games/story.js')),
   'Local, private usage insight for grown-ups': () => /export function usageInsight/.test(read('js/curriculum.js')) && /function insightView/.test(read('js/parent.js')),
+  'Read it aloud and hear yourself': () => /function readBack\(ctx, story, n, narration\)/.test(read('js/games/story.js')) && /readAloud: false/.test(read('js/logic.js')) && /function readAloudView/.test(read('js/parent.js')),
   'More maths in Show time': () => ['km-count', 'km-compare', 'km-ten', 'km-shapes', 'km-measure'].every((u) => content.shows.some((s) => s.level === 'kg' && s.lang === 'en' && String(s.lesson).startsWith(u))),
 };
 

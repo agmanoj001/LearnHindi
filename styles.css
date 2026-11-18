@@ -13274,3 +13274,67 @@ body:has(.game-grammar) .caption-bar,
   margin: 5px 0;
   line-height: 1.45;
 }
+
+/* ---- read it aloud and hear yourself (roadmap 1.5): under a page the child reads alone ---- */
+.read-back {
+  display: grid;
+  grid-template-columns: auto 1fr 1fr;
+  grid-template-areas:
+    'mic status status'
+    'mic me them';
+  align-items: center;
+  gap: 6px 10px;
+  width: min(94vw, 560px);
+  margin: 10px auto 0;
+  padding: 8px 12px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: var(--shadow);
+}
+.rb-mic {
+  grid-area: mic;
+  width: 52px;
+  height: 52px;
+  padding: 13px;
+  color: #fff;
+  background: #ff5a5f;
+  flex: 0 0 auto;
+}
+.rb-mic.on {
+  animation: pulse 1s ease-in-out infinite;
+  box-shadow: 0 0 0 8px rgba(255, 90, 95, 0.3);
+}
+.rb-status {
+  grid-area: status;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.2;
+}
+.rb-status small,
+.rb-play small {
+  color: var(--muted);
+  font-size: 12px;
+}
+.rb-play {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 48px;
+  padding: 6px 14px;
+  line-height: 1.15;
+}
+.rb-play[disabled] {
+  opacity: 0.45;
+}
+.read-back.recording .rb-play {
+  opacity: 0.45;
+  pointer-events: none;
+}
+.rb-me {
+  grid-area: me;
+  border-color: #ff5a5f;
+}
+.rb-them {
+  grid-area: them;
+}

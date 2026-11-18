@@ -90,6 +90,10 @@ const HI = {
   'For grown-ups: answer in numbers': 'बड़ों के लिए: अंकों में जवाब दें',
   "What's new": 'नया क्या है',
   'The list of changes needs the internet the first time.': 'बदलावों की सूची पहली बार इंटरनेट से आती है।',
+  'Read aloud and hear yourself': 'पढ़कर सुनाओ, ख़ुद सुनो',
+  'When the child reads a story on their own, a red button on each page records them reading it, then plays it back followed by the narrator, so they hear the difference. Recordings stay on this device; see them under Progress.':
+    'जब बच्चा कहानी ख़ुद पढ़ता है, तो हर पन्ने पर एक लाल बटन उसकी पढ़ाई रिकॉर्ड करता है, फिर पहले उसकी आवाज़ और फिर कहानी वाली आवाज़ सुनाता है, ताकि वह फ़र्क़ सुन सके। रिकॉर्डिंग इसी फ़ोन पर रहती हैं; प्रगति में देखिए।',
+  'Read aloud': 'पढ़कर सुनाया',
   'Easier reading': 'आसान पढ़ाई',
   'More space between words and lines, on a soft cream page, in the stories, comics and reading games. Helps children who find reading hard, including dyslexic readers.':
     'कहानियों, कॉमिक्स और पढ़ने के खेलों में शब्दों और पंक्तियों के बीच ज़्यादा जगह, हल्के क्रीम रंग के पन्ने पर। जिन बच्चों को पढ़ना मुश्किल लगता है, डिस्लेक्सिया वाले बच्चों को भी, इससे मदद मिलती है।',

@@ -113,7 +113,9 @@ export default {
         card.classList.toggle('singing', singing);
         ctx.setMusicMood?.(singing ? 'sing' : 'lesson');
       });
-      ctx.stage.replaceChildren(card, next);
+      // read it aloud and hear yourself (roadmap 1.5): record this page, then hear it next to the narrator
+      const readBackBar = selfRead && ctx.settings.readAloud ? readBack(ctx, story, n, () => pageSegs(page, n)) : null;
+      ctx.stage.replaceChildren(card, ...(readBackBar ? [readBackBar.node] : []), next);
       swipeToTurn(card, next);
       // the next page (or the first question) gets ready while this one plays
       const after = story.pages[i + 1];
@@ -147,6 +149,7 @@ export default {
       // the first story ever: show how to turn the page (js/coach.js)
       if (i === 0) ctx.coach?.('page', [next]);
       await waitTap(next);
+      readBackBar?.stop();
       ctx.stop?.();
       ctx.sfx.feel('page');
       ctx.setProgress(n, total);
@@ -367,6 +370,95 @@ function readAlong(lineEls, page, langs, rate, onLight = null) {
 
 // Retelling a story in your own words is one of the best checks of understanding (and great
 // speaking practice). The pictures help as prompts. The recording stays on this device.
+// ---- read it aloud and hear yourself (roadmap 1.5) ----
+// On a page the child reads alone: the red button records them reading it, then plays them back, then the
+// narrator, so they hear the difference. The latest recording of each page is kept on this device only
+// (Grown-ups › Progress lists them and can delete them). No speech recognition: fluency comes from listening.
+export const readAloudKey = (profileId, storyId, page) => `readaloud:${profileId}:${storyId}:${page}`;
+export function canReadAloud() {
+  return typeof MediaRecorder !== 'undefined' && !!navigator.mediaDevices?.getUserMedia;
+}
+function readBack(ctx, story, n, narration) {
+  if (!canReadAloud()) return null;
+  const key = readAloudKey(ctx.profileId, story.id, n);
+  const MIC = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3" fill="currentColor"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4M8 21h8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+  const mic = el('button', { class: 'round-btn rb-mic', 'aria-label': 'Record me reading this page', html: MIC });
+  const me = el('button', { class: 'bubble rb-play rb-me', disabled: true }, [el('b', { lang: 'hi', text: 'मेरी आवाज़' }), el('small', { text: 'Me' })]);
+  const them = el('button', { class: 'bubble rb-play rb-them' }, [el('b', { lang: 'hi', text: 'कहानी की आवाज़' }), el('small', { text: 'Narrator' })]);
+  const status = el('span', { class: 'rb-status', 'aria-live': 'polite' }, [el('b', { lang: 'hi', text: 'पढ़कर सुनाओ' }), el('small', { text: 'Read it out loud' })]);
+  const node = el('div', { class: 'read-back' }, [mic, status, me, them]);
+  let rec = null;
+  let audio = null;
+  let timer = 0;
+  let url = null;
+  const say = (hi, en) => status.replaceChildren(el('b', { lang: 'hi', text: hi }), el('small', { text: en }));
+  const stopAudio = () => {
+    audio?.pause();
+    audio = null;
+    ctx.stop?.();
+  };
+  const playMine = () =>
+    new Promise((resolve) => {
+      if (!url) return resolve();
+      stopAudio();
+      audio = new Audio(url);
+      audio.onended = audio.onerror = resolve;
+      audio.play().catch(resolve);
+    });
+  const show = async (blob) => {
+    if (url) URL.revokeObjectURL(url);
+    url = URL.createObjectURL(blob);
+    me.disabled = false;
+    node.classList.add('has');
+    say('पहले तुम, फिर कहानी वाली आवाज़', 'You first, then the narrator');
+    // the child's reading, then the narrator's: side by side
+    await playMine();
+    if (node.isConnected && audio !== null) await ctx.playSegs(narration());
+  };
+  clips
+    .get(key)
+    .then((b) => b && node.isConnected && ((url = URL.createObjectURL(b)), (me.disabled = false), node.classList.add('has')))
+    .catch(() => {});
+  const stopRec = () => rec && rec.state === 'recording' && rec.stop();
+  mic.addEventListener('click', async () => {
+    if (rec && rec.state === 'recording') return stopRec();
+    stopAudio();
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      rec = new MediaRecorder(stream);
+      const chunks = [];
+      rec.ondataavailable = (e) => chunks.push(e.data);
+      rec.onstop = async () => {
+        clearTimeout(timer);
+        stream.getTracks().forEach((t) => t.stop());
+        mic.classList.remove('on');
+        node.classList.remove('recording');
+        const blob = new Blob(chunks, { type: rec.mimeType || 'audio/webm' });
+        if (!blob.size || !node.isConnected) return;
+        await clips.put(key, blob).catch(() => {});
+        show(blob);
+      };
+      rec.start();
+      mic.classList.add('on');
+      node.classList.add('recording');
+      say('सुन रहे हैं… रुकने के लिए फिर दबाओ', 'Listening… tap again to stop');
+      timer = setTimeout(stopRec, 45000);
+    } catch {
+      say('माइक नहीं चल रहा', 'The microphone is not available');
+    }
+  });
+  me.addEventListener('click', () => playMine());
+  them.addEventListener('click', () => (stopAudio(), ctx.playSegs(narration())));
+  return {
+    node,
+    stop() {
+      stopRec();
+      audio?.pause();
+      if (url) URL.revokeObjectURL(url);
+    },
+  };
+}
+
 async function tellItBack(ctx, story) {
   const key = `retell:${ctx.profileId}:${story.id}`;
   const strip = el('div', { class: 'retell-strip' }, story.pages.map((p) => el('span', { class: 'pic', html: ctx.picture(ctx.word(p.word)) })));

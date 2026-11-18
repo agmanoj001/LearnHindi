@@ -273,6 +273,16 @@ export function showParent(api) {
           },
           'After each story the child can record themselves retelling it, with the pictures as prompts. Retelling is one of the best checks of understanding. Recordings stay on this device; listen to them under Progress.',
         ),
+        toggle(
+          'Read aloud and hear yourself',
+          s.readAloud,
+          (v) => {
+            s.readAloud = v;
+            persist();
+            if (v && navigator.mediaDevices?.getUserMedia) navigator.mediaDevices.getUserMedia({ audio: true }).then((st) => st.getTracks().forEach((t) => t.stop())).catch(() => {});
+          },
+          'When the child reads a story on their own, a red button on each page records them reading it, then plays it back followed by the narrator, so they hear the difference. Recordings stay on this device; see them under Progress.',
+        ),
       ),
       tripSection(api),
       backupSection(api),
@@ -307,6 +317,7 @@ export function showParent(api) {
         gainsView(api),
         storiesView(api),
         retellView(api),
+        readAloudView(api),
         el('div', { class: 'world-rows' }, worldRows),
         el('h3', { text: 'Practise together' }),
         report.practise.length ? chips(report.practise) : el('p', { class: 'note', text: 'Items show up here after a few tries.' }),
@@ -952,6 +963,35 @@ function storiesView(api) {
         )
       : el('p', { class: 'note', text: hi ? 'अभी कोई नहीं। कहानी की शुरुआत में "मैं ख़ुद पढ़ूँ" दबाकर बच्चा अपने आप पढ़ सकता है।' : 'None yet. At the start of a story, "मैं ख़ुद पढ़ूँ · I\'ll read it" lets the child read it alone.' }),
   ]);
+}
+
+// Pages the child recorded reading aloud (roadmap 1.5), by story: hear the latest page, or delete them.
+function readAloudView(api) {
+  const box = el('div', { class: 'retells' });
+  const prefix = `readaloud:${api.state.profiles.current}:`;
+  const refresh = async () => {
+    const mine = (await clips.keys()).filter((k) => String(k).startsWith(prefix));
+    const byStory = new Map();
+    for (const k of mine) {
+      const [id, page] = String(k).slice(prefix.length).split(':');
+      byStory.set(id, [...(byStory.get(id) || []), { k, page: Number(page) }]);
+    }
+    box.replaceChildren(
+      ...(byStory.size ? [el('h3', { text: 'Read aloud' })] : []),
+      ...[...byStory].map(([id, pages]) => {
+        const story = api.state.content.stories.find((x) => x.id === id);
+        pages.sort((a, b) => a.page - b.page);
+        const last = pages[pages.length - 1];
+        return el('div', { class: 'rec-row has' }, [
+          el('span', { class: 'rec-text' }, [el('b', { lang: 'hi', text: story?.title.hi || id }), el('small', { text: `${story?.title.en || ''} · ${pages.length} page${pages.length === 1 ? '' : 's'}` })]),
+          el('button', { class: 'btn', text: '▶', 'aria-label': 'play', onclick: async () => new Audio(URL.createObjectURL(await clips.get(last.k))).play().catch(() => {}) }),
+          el('button', { class: 'btn', text: '✕', 'aria-label': 'delete', onclick: async () => (await Promise.all(pages.map((p) => clips.del(p.k))), refresh()) }),
+        ]);
+      }),
+    );
+  };
+  refresh();
+  return box;
 }
 
 // The child's "tell it back" recordings.

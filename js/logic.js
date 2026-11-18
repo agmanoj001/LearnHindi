@@ -451,6 +451,7 @@ export function defaultSettings(content) {
     math: true, // English math worlds (NC standards) for Kindergarten and Grade 1
     captions: true, // show what the app says, as text
     retell: false, // after a story, the child records themselves telling it back (stays on this device)
+    readAloud: false, // reading a story alone: record each page and hear it next to the narrator (roadmap 1.5)
     parentLang: 'en', // the parent area in English or Hindi
     showMode: 'watch', // Show time: 'watch' answers questions itself after a few seconds; 'play' waits for a tap
     dailyLimit: 0, // minutes of play a day before a break screen (0 = no limit)
@@ -476,7 +477,7 @@ export function normalizeSettings(saved, content) {
   if (saved.parentLang === 'hi' || saved.parentLang === 'en') out.parentLang = saved.parentLang;
   if (saved.showMode === 'watch' || saved.showMode === 'play') out.showMode = saved.showMode;
   if (['auto', 'full', 'lite'].includes(saved.motion)) out.motion = saved.motion;
-  for (const k of ['onboarded', 'lockGrade', 'simpleHome', 'unlockAll', 'math', 'captions', 'retell', 'music', 'sfx', 'bigText', 'readingComfort', 'storyVoices', 'radioDark', 'singAlong']) if (typeof saved[k] === 'boolean') out[k] = saved[k];
+  for (const k of ['onboarded', 'lockGrade', 'simpleHome', 'unlockAll', 'math', 'captions', 'retell', 'readAloud', 'music', 'sfx', 'bigText', 'readingComfort', 'storyVoices', 'radioDark', 'singAlong']) if (typeof saved[k] === 'boolean') out[k] = saved[k];
   if (saved.voice && typeof saved.voice === 'object') {
     for (const l of ['hi', 'en']) if (typeof saved.voice[l] === 'string') out.voice[l] = saved.voice[l];
     if (typeof saved.voice.rate === 'number' && saved.voice.rate >= 0.5 && saved.voice.rate <= 1.3) out.voice.rate = saved.voice.rate;

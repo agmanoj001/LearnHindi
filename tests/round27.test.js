@@ -150,3 +150,21 @@ test('8.7 play insights: time, the hardest and most played games, and what is re
   assert.deepEqual(usageInsight({}, content, now).hard, []);
   assert.match(read('js/parent.js'), /insightView\(api\)/);
 });
+
+test('1.5 read it aloud and hear yourself: off until a grown-up turns it on, recorded per page, kept on the device', async () => {
+  assert.equal(L.defaultSettings(content).readAloud, false);
+  assert.equal(L.normalizeSettings({ readAloud: true }, content).readAloud, true);
+  const story = read('js/games/story.js');
+  // only on pages the child reads alone, and only when a grown-up turned it on
+  assert.match(story, /selfRead && ctx\.settings\.readAloud \? readBack\(/);
+  // the child's recording first, then the narrator's (the Google voice for the page)
+  assert.match(story, /await playMine\(\);[\s\S]{0,120}ctx\.playSegs\(narration\(\)\)/);
+  // recording stops when the page turns
+  assert.match(story, /readBackBar\?\.stop\(\)/);
+  const { readAloudKey } = await import('../js/games/story.js');
+  assert.equal(readAloudKey('p1', 'thirsty-crow', 3), 'readaloud:p1:thirsty-crow:3');
+  const parent = read('js/parent.js');
+  assert.match(parent, /toggle\(\s*'Read aloud and hear yourself'/);
+  assert.match(parent, /readAloudView\(api\)/);
+  assert.match(read('docs/PRIVACY.md'), /reading a page aloud/);
+});
