@@ -162,6 +162,8 @@ Episodes are scripts in `content.json`, built from the app's own drawings, so ea
 
 **Press and hold the settings button (top right of the home screen) for 1 second.** A ring fills while you hold; a quick tap shows a reminder to hold.
 
+The area opens on **Progress**, with a switch between the child's grade and all grades (it filters Play insights and the worlds' progress; time played is the child's). Everything else is folded into five groups that open with a tap: *Child and grade*, *Play and reading*, *Voices and recordings*, *Trips, backup and photo* and *About the app*. A group opens by itself when something in it needs doing (saved voices to update).
+
 - **Children**: up to four children, each with their own grade, stars and settings, a guide character and an optional nickname. With more than one, the start screen asks "Who's playing?". Voice recordings are shared.
 - **Grade**: who is learning.
 - **Navigation**: *Stay in this grade* shows only this grade's worlds on the home screen. *Unlock every lesson* opens the whole path. *Math worlds* shows or hides the English math worlds.

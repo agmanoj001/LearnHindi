@@ -403,7 +403,9 @@ export const GAME_NAMES = {
   grammar: { hi: 'व्याकरण', en: 'Grammar' },
 };
 
-export function usageInsight(progress, content, now = Date.now(), span = 14) {
+// `levels`: only the lessons of these grades (the grown-ups' "This grade" switch); the time played is the
+// child's, whatever they played
+export function usageInsight(progress, content, now = Date.now(), span = 14, { levels = null } = {}) {
   // time: the last `span` days
   const d = new Date(now);
   let total = 0;
@@ -418,7 +420,7 @@ export function usageInsight(progress, content, now = Date.now(), span = 14) {
   // games: plays, and the average latest score (right on the first try) of the lessons played
   const byGame = new Map();
   const reads = new Map();
-  for (const w of content.worlds || [])
+  for (const w of (content.worlds || []).filter((x) => !levels || levels.includes(x.level)))
     for (const u of w.units)
       for (const l of u.lessons) {
         const r = progress.lessons?.[l.id];

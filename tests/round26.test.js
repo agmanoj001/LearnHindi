@@ -907,7 +907,7 @@ test('sharing sends the backup as a text file through the share sheet; without i
 
 test('the reminder is in the grown-ups\' area (in Hindi too), with a dot on the home screen\'s grown-ups button', () => {
   const parent = read('js/parent.js');
-  assert.match(parent, /backupReminder\(api\),\n\s+childrenSection\(api\)/);
+  assert.match(parent, /backupReminder\(api\),\n\s+group\(\n\s+'Progress'/);
   assert.match(parent, /accept: 'application\/json,\.json,text\/plain,\.txt'/);
   assert.match(read('js/screens.js'), /parentGate\(api, \{ cls: backupReminderDue\(\) \? 'backup-due' : '' \}\)/);
   assert.match(css, /\.gate\.backup-due::after/);

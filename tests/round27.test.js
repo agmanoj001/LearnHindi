@@ -142,7 +142,11 @@ test('8.7 play insights: time, the hardest and most played games, and what is re
   assert.equal(u.replayed[0].item.id, story.config.story);
   assert.equal(u.replayed[0].plays, 4);
   assert.deepEqual(usageInsight({}, content, now).hard, []);
-  assert.match(read('js/parent.js'), /insightView\(api\)/);
+  assert.match(read('js/parent.js'), /insightView\(api, only\)/);
+  // the grown-ups' switch: Play insights for the child's grade, or every grade
+  const one = usageInsight(progress, content, now, 14, { levels: ['nowhere'] });
+  assert.deepEqual([one.games, one.replayed], [[], []]);
+  assert.equal(one.played, u.played, 'the time played is the child\'s, whatever the grade');
 });
 
 test('1.5 read it aloud and hear yourself: off until a grown-up turns it on, recorded per page, kept on the device', async () => {
