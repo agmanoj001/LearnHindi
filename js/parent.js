@@ -1,6 +1,6 @@
 // The grown-ups' area (behind a 3-second press): grade, language, voices and recordings,
 // sound, unlocking, the special photo, and a progress report. Nothing here leaves the device.
-import { el, ICONS, applyReadingComfort } from './ui.js';
+import { el, ICONS, applyReadingComfort, applyLeftHanded } from './ui.js';
 import { loadChanges, changeDate } from './changes.js';
 import { applyMotion, liteMotion, slowDevice } from './motion.js';
 import { normalizeProgress, clipKeysFor, clipKeyFromFileName, practiceReport, DAILY_LIMITS, showLines, storyVoiceLines } from './logic.js';
@@ -260,6 +260,12 @@ export function showParent(api) {
           s.readingComfort,
           (v) => ((s.readingComfort = v), persist(), applyReadingComfort(v)),
           'More space between words and lines, on a soft cream page, in the stories, comics and reading games. Helps children who find reading hard, including dyslexic readers.',
+        ),
+        toggle(
+          'Left-handed layout',
+          s.leftHanded,
+          (v) => ((s.leftHanded = v), persist(), applyLeftHanded(v)),
+          'In lessons, the hint and "say it again" buttons move to the left and the guide to the right, for a child who taps with the left hand.',
         ),
         toggle('Captions', s.captions, (v) => ((s.captions = v), persist()), 'Shows everything the app says as text. Helps children who are hard of hearing, and helps early readers match sounds to words.'),
         toggle(
@@ -882,6 +888,7 @@ function childrenSection(api) {
     const name = el('input', {
       class: 'select',
       type: 'text',
+      'aria-label': `Child ${i + 1} nickname`,
       maxlength: '20',
       placeholder: `Child ${i + 1} (nickname, optional)`,
       value: p.name,

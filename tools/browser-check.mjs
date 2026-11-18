@@ -220,6 +220,8 @@ async function screens(url, outDir, { tolerant = false } = {}) {
       await start(page);
       if (open) await go(page, ...open);
       await page.waitForSelector(ready, { timeout: 8000 });
+      // accessibility (docs/ROADMAP.md 8.3), checked before animations are stilled for the picture
+      if (!tolerant) for (const p of await a11yProblems(page)) problems.push(`${name}: ${p}`);
       await page.addStyleTag({ content: STILL });
       await page.waitForTimeout(900);
       await page.screenshot({ path: join(outDir, `${name}.png`) });
@@ -232,6 +234,36 @@ async function screens(url, outDir, { tolerant = false } = {}) {
   }
   await browser.close();
   return problems;
+}
+
+// Accessibility checks on what is on screen (docs/ROADMAP.md 8.3; the screens run with reduced motion on):
+//   - every control a finger taps is at least 44 px each way (words inside a sentence and a checkbox
+//     inside its label are exempt, as in WCAG 2.2's target-size rule);
+//   - every control has a name a screen reader can say;
+//   - nothing animates forever when the device asks for less motion.
+export async function a11yProblems(page) {
+  await page.waitForTimeout(700);
+  return page.evaluate(() => {
+    const seen = (e) => {
+      const r = e.getBoundingClientRect();
+      const s = getComputedStyle(e);
+      return r.width > 0 && r.height > 0 && s.visibility !== 'hidden' && r.bottom > 0 && r.top < innerHeight;
+    };
+    const tag = (e) => `${e.tagName.toLowerCase()}${[...e.classList].slice(0, 2).map((c) => '.' + c).join('')}`;
+    const controls = [...document.querySelectorAll('button, a[href], [role=button], input:not([type=hidden]), select')].filter(seen);
+    const out = [];
+    for (const e of controls) {
+      const r = e.getBoundingClientRect();
+      const inline = getComputedStyle(e).display === 'inline' || (e.matches('input[type=checkbox], input[type=radio]') && e.closest('label'));
+      if (!inline && (r.width < 44 || r.height < 44)) out.push(`tap target too small: ${tag(e)} ${Math.round(r.width)}×${Math.round(r.height)}`);
+      const name = e.getAttribute('aria-label') || e.getAttribute('aria-labelledby') || e.textContent.trim() || e.getAttribute('title') || e.labels?.[0]?.textContent.trim() || e.getAttribute('placeholder');
+      if (!name) out.push(`no name for a screen reader: ${tag(e)}`);
+    }
+    for (const a of document.getAnimations()) {
+      if (a.playState === 'running' && a.effect?.getComputedTiming?.().iterations === Infinity) out.push(`animates forever with reduced motion on: ${a.animationName || 'an animation'} on ${a.effect.target ? tag(a.effect.target) : '?'}`);
+    }
+    return [...new Set(out)];
+  });
 }
 
 // compare two folders of screenshots, pixel by pixel, in the browser (no image library needed)

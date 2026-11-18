@@ -3692,7 +3692,7 @@ body.speaking .mascot .m-mouth-closed {
 }
 .tag-filter {
   flex: none;
-  min-height: 40px;
+  min-height: 48px;
   padding: 7px 16px;
   border-radius: 999px;
   font: 700 14px 'Fredoka', var(--font);
@@ -6024,7 +6024,10 @@ body:has(.game-comic) .caption-bar {
 
 /* words with a meaning */
 .gloss {
-  border-bottom: 2px dotted var(--place);
+  /* an inline word you can tap: the padding makes the finger target taller without moving the lines (roadmap 8.3) */
+  padding-block: 12px;
+  text-decoration: underline dotted var(--place) 2px;
+  text-underline-offset: 4px;
   cursor: help;
 }
 .gloss-pop {
@@ -13337,4 +13340,74 @@ body:has(.game-grammar) .caption-bar,
 }
 .rb-them {
   grid-area: them;
+}
+
+/* ---- accessibility pass (roadmap 8.3) ---- */
+/* right and wrong told apart by shape as well as colour: a ✓ or a ✕ in the corner */
+.answer-mark {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  font: 800 17px/1 var(--font);
+  font-style: normal;
+  color: #fff;
+  pointer-events: none;
+  box-shadow: var(--shadow-sm);
+  animation: mark-in 0.25s var(--spring, ease-out);
+}
+.answer-mark.yes {
+  background: #1f7a4d;
+}
+.answer-mark.no {
+  background: #b42318;
+}
+@keyframes mark-in {
+  from {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+}
+/* the games that keep their right and wrong answers marked (the balance pans are already positioned) */
+:is(.riddle-opt, .duel-opt, .comic-answer, .gr-word) {
+  position: relative;
+}
+:is(.riddle-opt, .duel-opt, .comic-answer, .gr-word, .bl-pan).right::after,
+:is(.riddle-opt, .duel-opt).wrong::after {
+  content: '✓';
+  position: absolute;
+  top: -9px;
+  right: -9px;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  font: 800 15px/1 var(--font);
+  color: #fff;
+  background: #1f7a4d;
+  pointer-events: none;
+}
+:is(.riddle-opt, .duel-opt).wrong::after {
+  content: '✕';
+  background: #b42318;
+}
+/* form controls in the grown-ups' area are at least 44 px tall */
+.settings input[type='range'] {
+  min-height: 44px;
+}
+/* left-handed layout: the hint and "say it again" buttons on the left, the guide on the right */
+.left-handed .game-head {
+  flex-direction: row-reverse;
+}
+.left-handed .mascot-corner {
+  left: auto;
+  right: max(8px, env(safe-area-inset-right));
 }

@@ -168,3 +168,20 @@ test('1.5 read it aloud and hear yourself: off until a grown-up turns it on, rec
   assert.match(parent, /readAloudView\(api\)/);
   assert.match(read('docs/PRIVACY.md'), /reading a page aloud/);
 });
+
+test('8.3 accessibility: right and wrong by shape, a left-handed layout, 48 px chips, and the browser check enforces it', () => {
+  const kit = read('js/games/kit.js');
+  assert.match(kit, /class: 'answer-mark yes'[^)]*text: '✓'/);
+  assert.match(kit, /class: 'answer-mark no'[^)]*text: '✕'/);
+  const css = read('styles.css');
+  assert.match(css, /\.answer-mark\.yes \{\s*background: #1f7a4d/);
+  assert.match(css, /\.answer-mark\.no \{\s*background: #b42318/);
+  assert.match(css, /\.tag-filter \{\s*flex: none;\s*min-height: 48px/);
+  assert.match(css, /\.left-handed \.game-head \{\s*flex-direction: row-reverse/);
+  assert.match(css, /\.left-handed \.mascot-corner/);
+  assert.equal(L.defaultSettings(content).leftHanded, false);
+  assert.equal(L.normalizeSettings({ leftHanded: true }, content).leftHanded, true);
+  assert.match(read('js/parent.js'), /toggle\(\s*'Left-handed layout'/);
+  const bc = read('tools/browser-check.mjs');
+  for (const t of ['tap target too small', 'no name for a screen reader', 'animates forever with reduced motion on']) assert.ok(bc.includes(t), t);
+});

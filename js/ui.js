@@ -55,6 +55,11 @@ export function applyReadingComfort(on) {
   document.documentElement.classList.toggle('reading-comfort', !!on);
 }
 
+// left-handed layout (roadmap 8.3): the hint and "say it again" buttons move under the left thumb
+export function applyLeftHanded(on) {
+  document.documentElement.classList.toggle('left-handed', !!on);
+}
+
 export function infoButton(scope, { cls = '' } = {}) {
   scope.classList.add('grownup-scope');
   const b = el('button', { class: `info-btn ${cls}`.trim(), 'aria-label': 'For grown-ups', 'aria-expanded': 'false', html: INFO_SVG });

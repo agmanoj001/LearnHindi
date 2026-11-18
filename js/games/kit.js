@@ -53,7 +53,9 @@ export function choose(buttons, isRight, { ctx, onRight, onWrong, record = true,
           wobble(b);
           // a brief red edge, so the "no" is seen as well as felt
           b.classList.add('wrong');
-          setTimeout(() => b.classList.remove('wrong'), 480);
+          const mark = el('i', { class: 'answer-mark no', 'aria-hidden': 'true', text: '✕' });
+          b.append(mark);
+          setTimeout(() => (b.classList.remove('wrong'), mark.remove()), 600);
           // the frame's miss(): the soft "not that one" sound and buzz, and the guide's encouragement
           ctx?.miss?.();
           onWrong?.(b);
@@ -158,8 +160,11 @@ export async function cheer(ctx, node) {
     sparkleAt(node);
     // a green ring that grows out of the card
     const ring = el('i', { class: 'cheer-ring', 'aria-hidden': 'true' });
-    node.append(ring);
+    // a ✓ as well as the green: right and wrong are told apart by shape, not only colour (roadmap 8.3)
+    const mark = el('i', { class: 'answer-mark yes', 'aria-hidden': 'true', text: '✓' });
+    node.append(ring, mark);
     setTimeout(() => ring.remove(), 700);
+    setTimeout(() => mark.remove(), 1100);
   }
   await sleep(120);
 }
