@@ -279,3 +279,32 @@ test('1.6 calmer scenes for Grades 3 and 4: a few gentle, silent scenes in every
   // Toddler to Grade 2 keep a scene on every page
   for (const s of content.stories.filter((x) => ['toddler', 'kg', 'grade1', 'grade2'].includes(x.level))) assert.ok(s.pages.every((p) => p.act), s.id);
 });
+
+test('3.1 painted covers and a backdrop for the twenty best-loved stories', async () => {
+  const { COVERS, BACKDROPS, coverSvg, backdropCss, usesBackdrop } = await import('../js/covers.js');
+  const { picture, pictureExists } = await import('../js/art.js');
+  const ids = Object.keys(COVERS);
+  assert.equal(ids.length, 20);
+  for (const id of ids) {
+    const s = content.stories.find((x) => x.id === id);
+    assert.ok(s, `${id} is a story`);
+    const c = COVERS[id];
+    assert.ok(BACKDROPS[c.bg], `${id}: backdrop ${c.bg}`);
+    for (const [word, x, y, w] of c.cast) {
+      assert.ok(content.words[word] && pictureExists(content.words[word].picture), `${id}: ${word} can be drawn`);
+      assert.ok(x >= -10 && y >= -10 && x + w <= 330 && y + w * 0.7 <= 210, `${id}: ${word} stays in the frame`);
+    }
+    const svg = coverSvg(id, picture, s.title.en);
+    assert.match(svg, /^<svg[^>]+class="cover-art" role="img" aria-label="/);
+    assert.ok(svg.length < 40000, `${id} cover stays small`);
+    assert.match(backdropCss(id), /^url\("data:image\/svg\+xml,/);
+    // the backdrop stands behind most of the story's pages (night, rain, dawn or the sea keep their own sky)
+    const own = s.pages.filter((p) => usesBackdrop(p.act, id)).length;
+    assert.ok(own >= 1, `${id} shows its backdrop on a page`);
+  }
+  assert.equal(coverSvg('no-such-story', picture), null);
+  // the reader and the library use them, and they are cached for offline use
+  assert.match(read('js/games/story.js'), /coverSvg\(story\.id/);
+  assert.match(read('js/screens.js'), /coverSvg\(s\.id/);
+  assert.match(read('sw.js'), /'js\/covers\.js'/);
+});

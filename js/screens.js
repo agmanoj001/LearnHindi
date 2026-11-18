@@ -15,6 +15,7 @@ import { picture, pictureForWord, specialVehicle } from './art.js';
 import { weekDays, trailSticker, dayFinished, weekFull, isoDay, stickyPlan } from './curriculum.js';
 import { worldLessons, lessonRecord, isUnlocked, currentLesson, nextLesson, worldStars, hubWorlds, streak, nextCollectible, todayPlan, storyLang, worldStoryLang, storyNeeds, taughtMatras, decodability, nextDecodable, MATRA_SIGNS } from './curriculum.js';
 import { SHOW_ICONS } from './show-icons.js';
+import { coverSvg } from './covers.js';
 import { greeting, timeSlot, HELLO, milestoneLine, totalStars } from './guide.js';
 import { playersFrom, GROWN_UP } from './together.js';
 import { load, KEYS, profileKey, backupReminderDue } from './storage.js';
@@ -1143,7 +1144,7 @@ export function library(api, w) {
     const b = el('button', { class: `book ${read ? 'read' : ''} ${s.kind === 'poem' ? 'poem' : ''}${hero ? ' next-book' : ''}`, 'data-grow': `story:${s.id}`, 'aria-label': s.title.en }, [
       hero ? el('span', { class: 'next-ribbon' }, said(api, { hi: 'अब यह पढ़ो!', en: 'Read this next!' })) : null,
       s.kind === 'poem' ? el('span', { class: 'poem-ribbon', text: s.lang === 'en' ? 'Rhyme' : 'कविता · Poem' }) : null,
-      drawWhenSeen('span', { class: 'book-cover' }, () => pictureForWord(api.word(s.cover)), { now: hero || shown++ < 6 }),
+      drawWhenSeen('span', { class: 'book-cover' }, () => coverSvg(s.id, (id) => pictureForWord(api.word(id))) || pictureForWord(api.word(s.cover)), { now: hero || shown++ < 6 }),
       // English rhymes lead with their English title
       s.lang === 'en' ? el('span', { class: 'book-title latin', text: s.title.en }) : el('span', { class: 'book-title', lang: 'hi', text: s.title.hi }),
       el('span', { class: 'book-title-en', lang: s.lang === 'en' ? 'hi' : 'en', text: s.lang === 'en' ? s.title.hi : s.title.en }),

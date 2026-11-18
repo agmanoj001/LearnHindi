@@ -7,6 +7,7 @@ import { clips } from '../storage.js';
 import { sceneHtml, sceneClass, sceneSound, speaks, calmLevel } from '../scene.js';
 import { loadWordTimes, timesFor } from '../voicepack.js';
 import { readByRibbon } from '../readfor.js';
+import { coverSvg, backdropCss, usesBackdrop } from '../covers.js';
 
 const bare = (token) => token.replace(/[।.!?,"“”‘’]/g, '');
 
@@ -32,6 +33,9 @@ export default {
 
     // ---- cover ----
     const coverWord = ctx.word(story.cover);
+    const art = (id) => ctx.picture(ctx.word(id));
+    const cover = coverSvg(story.id, art, story.title.en);
+    const backdrop = backdropCss(story.id);
     const play = el('button', { class: 'round-btn big go', 'aria-label': 'Read it to me', html: ICONS.play });
     // From Grade 1 a child can choose to read it themselves: no reading aloud unless they ask (the speaker
     // button, or tapping a word), so they practise reading and listen only for help.
@@ -46,7 +50,8 @@ export default {
       el('div', { class: 'story-cover' }, [
         // read by a brother or sister (roadmap 7.9)
         readByRibbon(story.id),
-        el('div', { class: 'pic', html: ctx.picture(coverWord) }),
+        // the best-loved stories have their own painted cover (roadmap 3.1); the rest show their picture
+        el('div', { class: `pic${cover ? ' cover-pic' : ''}`, html: cover || ctx.picture(coverWord) }),
         ...lines(story.title).map((t) => el('div', { class: `story-title ${t.lang}`, lang: t.lang, text: t.text })),
         // a true story or a how-things-work book says so, and a retelling names where it comes from (9.7, 9.9, 9.10)
         STORY_BADGE[story.kind] ? el('span', { class: `story-kind ${story.kind}` }, [el('b', { lang: 'hi', text: STORY_BADGE[story.kind].hi }), el('small', { text: STORY_BADGE[story.kind].en })]) : null,
@@ -97,7 +102,7 @@ export default {
       const n = i + 1;
       const pageWord = ctx.word(page.word);
       // a page with an "act" is a little moving scene that follows the story; tapping it plays it again
-      const pic = page.act ? stageScene(ctx, page, calmLevel(story.level)) : el('div', { class: 'pic', html: ctx.picture(pageWord) });
+      const pic = page.act ? stageScene(ctx, page, calmLevel(story.level), backdrop && usesBackdrop(page.act, story.id) ? backdrop : null) : el('div', { class: 'pic', html: ctx.picture(pageWord) });
       const textLines = langs.map((l) =>
         el(
           'p',
@@ -289,9 +294,12 @@ function swipeToTurn(card, next) {
 // A page's moving scene. play() starts it (again) with its sound, and waits a moment so the sound
 // is heard before the reading starts.
 // A calm scene (Grades 3 and 4, roadmap 1.6) plays its movement through and settles, without a sound.
-function stageScene(ctx, page, calm = false) {
+// A best-loved story's own backdrop (roadmap 3.1) stands behind its daytime scenes.
+function stageScene(ctx, page, calm = false, backdrop = null) {
+  const own = !!backdrop;
   const scene = el('button', {
-    class: `pic ${sceneClass(page.act)}${speaks(page) ? ' talks' : ''}${calm ? ' calm' : ''}`,
+    class: `pic ${sceneClass(page.act)}${speaks(page) ? ' talks' : ''}${calm ? ' calm' : ''}${own ? ' has-backdrop' : ''}`,
+    ...(own ? { style: { backgroundImage: backdrop } } : {}),
     'aria-label': 'Play the picture again',
     html: sceneHtml(page.act, page.word, (id) => ctx.picture(ctx.word(id))),
   });
