@@ -346,20 +346,50 @@ test('10.9: maths stories for Grades 3–4 and maths comics for Grades 7–8, ea
     assert.ok(lessons.some((l) => l.game === 'story' && l.config.story === s.id), `${s.id} has a lesson`);
   }
   assert.ok(content.words.chessboard, 'a chessboard picture for the rice story');
-  // the arithmetic in the stories is right
-  assert.equal(2 ** 7, 128);
-  assert.ok(2 ** 20 > 1000000 && 2 ** 19 < 1000000, 'the 21st square is the first above a million');
-  assert.equal(18 / 2 + 18 / 3 + 18 / 9, 17);
-  assert.equal(3 + 0.5 + 0 * 3, 2 + 1.5 + 0);
+  // the numbers the stories say are right: they are read from the pages, then worked out
+  const text = (id) => content.stories.find((s) => s.id === id).pages.map((p) => p.en).join(' ');
+  const rice = text('chess-rice');
+  assert.match(rice, /128 on the eighth square/);
+  assert.equal(2 ** (8 - 1), 128, 'square n holds 2^(n−1) grains');
+  assert.match(rice, /more than a million on the twenty-first/);
+  assert.ok(2 ** (21 - 1) > 1e6 && 2 ** (20 - 1) < 1e6, 'the 21st square is the first above a million');
+  const camels = text('seventeen-camels');
+  assert.match(camels, /eldest got half: nine.*middle son a third: six.*youngest a ninth: two/);
+  assert.equal(18 / 2 + 18 / 3 + 18 / 9, 17, 'nine, six and two make seventeen');
+  const jars = text('tenali-jars');
+  assert.match(jars, /three full jars, one half-full jar and three empty jars/);
+  assert.match(jars, /two full jars, three half-full jars and two empty jars/);
+  // each brother: 7 jars and 3½ jars of ghee; all 7 full, 7 half and 7 empty jars handed out
+  const shares = [
+    [3, 1, 3],
+    [2, 3, 2],
+    [2, 3, 2],
+  ];
+  for (const [f, h, e] of shares) {
+    assert.equal(f + h + e, 7);
+    assert.equal(f + h / 2, 3.5);
+  }
+  for (const k of [0, 1, 2]) assert.equal(shares.reduce((s, x) => s + x[k], 0), 7);
   const comics = ['mu-1729', 'r-shakuntala', 'b-crows', 'd-lock', 'd-coins'].map((id) => content.comics.find((c) => c.id === id));
   for (const cm of comics) {
     assert.ok(cm.guess && cm.guess.options.includes(cm.guess.answer), `${cm.id} stops for a guess`);
     assert.ok(lessons.some((l) => l.game === 'comic' && l.config.comic === cm.id), `${cm.id} has a lesson`);
   }
+  // ... and so are the numbers the comics say
+  const said = (id) => content.comics.find((c) => c.id === id).panels.flatMap((p) => [p.cap || '', ...(p.say || []).map((b) => b.text)]).join(' ');
+  assert.match(said('mu-1729'), /12 का घन है 1728/);
+  assert.match(said('mu-1729'), /9 का घन 729/);
   assert.equal(1 ** 3 + 12 ** 3, 1729);
   assert.equal(9 ** 3 + 10 ** 3, 1729);
+  assert.match(said('r-shakuntala'), /374/);
   assert.equal(34 * 11, 374);
+  assert.match(said('r-shakuntala'), /572/);
+  assert.equal(52 * 11, 572);
+  assert.match(said('r-shakuntala'), /495/);
+  assert.equal(45 * 11, 495);
+  assert.match(said('b-crows'), /8000 × 12 = 96,000/);
   assert.equal(8000 * 12, 96000);
+  assert.match(said('d-lock'), /ताला है 634/);
   // the lock: the first digit twice the second, the third one more than the second, all three make 13
   assert.ok(6 === 2 * 3 && 4 === 3 + 1 && 6 + 3 + 4 === 13);
 });

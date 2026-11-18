@@ -1730,9 +1730,8 @@ export const SKILLS = {
       let a;
       let b;
       if (t === 0) {
-        a = int(rng, 1, 6) * 100;
-        b = int(rng, 1, plus ? 9 - a / 100 : a / 100 - 1 || 1) * 100;
-        if (!plus && b >= a) b = 100;
+        a = int(rng, plus ? 1 : 2, 6) * 100;
+        b = int(rng, 1, plus ? 9 - a / 100 : a / 100 - 1) * 100;
       } else if (t === 1) {
         // a hundreds, tens and ones number, and some tens or hundreds: no regrouping
         a = int(rng, 2, 7) * 100 + int(rng, 1, 5) * 10 + int(rng, 1, 9);
@@ -1899,7 +1898,7 @@ export const SKILLS = {
             { value: 'p.m.', label: 'p.m.', say: 'p m, after noon' },
           ],
           answer: half,
-          explain: half === 'a.m.' ? `${h} a.m. is in the morning.` : `${h} p.m. is after noon${h >= 7 && h !== 12 ? ', in the evening' : ''}.`,
+          explain: half === 'a.m.' ? `${h} a.m. is in the morning.` : h === 12 ? '12 p.m. is noon, the middle of the day.' : `${h} p.m. is after noon${h >= 7 ? ', in the evening' : ''}.`,
           hint: 'a.m. is from midnight to noon. p.m. is from noon to midnight.',
         };
       }
@@ -1996,7 +1995,8 @@ export const SKILLS = {
       const unit = t === 0 ? 'in' : pick(rng, ['in', 'cm']);
       const len = unit === 'in' ? int(rng, 2, 6) : int(rng, 4, 13);
       // at the top level the thing does not start at 0
-      const start = t === 2 ? int(rng, 1, 3) : 0;
+      // at the top level the thing does not start at 0, but it always ends on the ruler (8 in, 15 cm)
+      const start = t === 2 ? int(rng, 1, Math.min(3, (unit === 'in' ? 8 : 15) - len)) : 0;
       const word = unit === 'in' ? 'inches' : 'centimetres';
       return {
         ask: `How long is the ${th}?`,
@@ -2158,7 +2158,7 @@ export const SKILLS = {
         return {
           ask: `Which has the ${q}?`,
           model,
-          options: picked.map(([pic, , many]) => ({ value: pic, say: many, model: { kind: 'pic', pic } })).slice(0, Math.max(n, 2)).concat(picked.slice(Math.max(n, 2)).map(([pic, , many]) => ({ value: pic, say: many, model: { kind: 'pic', pic } }))).slice(0, 4),
+          options: picked.map(([pic, , many]) => ({ value: pic, say: many, model: { kind: 'pic', pic } })),
           answer: picked[target][0],
           explain: `${name(target)}: ${counts[target]}. That's the ${q}!`,
           hint: q === 'most' ? 'Find the tallest bar.' : 'Find the shortest bar.',
@@ -2572,7 +2572,7 @@ export const SKILLS = {
       let x;
       let y;
       if (same === 'den') {
-        [x, y] = shuffle([int(rng, 1, b - 1), 0], rng);
+        x = int(rng, 1, b - 1);
         y = x;
         while (y === x) y = int(rng, 1, b - 1);
       }

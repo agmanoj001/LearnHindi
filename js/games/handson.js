@@ -358,7 +358,8 @@ async function balance(ctx) {
 
 // ---------- 7. the coin shop (NC.1.MD.5) ----------
 const COINS = { penny: 1, nickel: 5, dime: 10, quarter: 25, dollar: 100 };
-const money = (c) => (c >= 100 ? `$${(c / 100).toFixed(2)}` : `${c}¢`);
+// Grade 2 writes $1.25; Grade 1 only knows cents (125¢)
+const money = (c, dollars = true) => (dollars && c >= 100 ? `$${(c / 100).toFixed(2)}` : `${c}¢`);
 const SHOP = ['ball', 'kite', 'balloon', 'apple', 'book', 'cake', 'drum', 'cap'];
 async function shop(ctx) {
   const t = ctx.tier;
@@ -388,9 +389,9 @@ async function shop(ctx) {
       }),
     );
     // the running total helps at first; at the top tier the child adds it up
-    total.textContent = t < 2 ? money(sum()) : '?';
+    total.textContent = t < 2 ? money(sum(), dollars) : '?';
   };
-  work.append(el('div', { class: 'sh-item' }, [el('span', { class: 'sh-pic', html: ctx.picture(ctx.word(item)) }), el('b', { class: 'sh-price', text: money(price) })]), el('p', { class: 'hands-readout' }, [el('span', { text: 'Paid: ' }), total]), tray);
+  work.append(el('div', { class: 'sh-item' }, [el('span', { class: 'sh-pic', html: ctx.picture(ctx.word(item)) }), el('b', { class: 'sh-price', text: money(price, dollars) })]), el('p', { class: 'hands-readout' }, [el('span', { text: 'Paid: ' }), total]), tray);
   const coins = kinds.map((k) => {
     const b = el('button', { class: `sh-coin${k === 'dollar' ? ' bill' : ''}`, 'aria-label': k === 'dollar' ? 'Add a dollar' : `Add a ${k}, ${COINS[k]} cents`, html: mathModel({ kind: 'coin', coin: k, label: true }) });
     b.addEventListener('click', () => {
@@ -414,8 +415,8 @@ async function shop(ctx) {
     return coins.filter((b) => COINS[b.coin] <= left).sort((x, y) => COINS[y.coin] - COINS[x.coin])[0];
   };
   const hint = stepHint(ctx, nextCoin, { coach: 'each' });
-  const first = await untilRight(ctx, check, () => (sum() === price ? true : sum() < price ? `That's ${money(sum())}. The ${name} costs ${money(price)}.` : `That's ${money(sum())}: too much. Take some back.`), hint);
-  return { first, explain: `${money(price)}. Thank you for shopping!`, node: tray };
+  const first = await untilRight(ctx, check, () => (sum() === price ? true : sum() < price ? `That's ${money(sum(), dollars)}. The ${name} costs ${money(price, dollars)}.` : `That's ${money(sum(), dollars)}: too much. Take some back.`), hint);
+  return { first, explain: `${money(price, dollars)}. Thank you for shopping!`, node: tray };
 }
 
 // ---------- 8. turn the clock's hands (NC.1.MD.3) ----------
@@ -616,7 +617,8 @@ async function jumps(ctx) {
     if (at() + k > a + span) return wobble(btn);
     hops.push(k);
     draw();
-    ctx.sfx.boing?.() || ctx.sfx.pop();
+    if (ctx.sfx.boing) ctx.sfx.boing();
+    else ctx.sfx.pop();
     ctx.sayText(String(at()), 'en');
     hint.step();
   };
@@ -739,7 +741,8 @@ async function angleTurn(ctx) {
       // the corner of the angle is at (150, 170) of the 300 × 190 picture
       const x = ev.clientX - (r.left + (r.width * 150) / 300);
       const y = r.top + (r.height * 170) / 190 - ev.clientY;
-      const a = Math.round(((Math.atan2(y, x) * 180) / Math.PI) / 5) * 5;
+      // snap to the buttons' own steps, so the buttons (and the 💡) can always finish the angle
+      const a = Math.round((Math.atan2(y, x) * 180) / Math.PI / step) * step;
       if (a >= 0 && a <= 180 && a !== deg) {
         deg = a;
         draw();

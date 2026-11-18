@@ -594,7 +594,7 @@ function frac(m) {
     for (let k = 0; k < m.parts; k++) {
       const [x1, y1] = at(k);
       const [x2, y2] = at(k + 1);
-      if (k < (m.shade || 0)) body += m.parts === 1 ? `<circle cx="60" cy="60" r="48" fill="${on}"/>` : `<path d="M60 60 L${x1} ${y1} A48 48 0 ${m.parts === 2 ? 0 : 0} 1 ${x2} ${y2} Z" fill="${on}"/>`;
+      if (k < (m.shade || 0)) body += m.parts === 1 ? `<circle cx="60" cy="60" r="48" fill="${on}"/>` : `<path d="M60 60 L${x1} ${y1} A48 48 0 0 1 ${x2} ${y2} Z" fill="${on}"/>`;
     }
     if (m.parts > 1) for (let k = 0; k < m.parts; k++) body += `<line x1="60" y1="60" x2="${at(k)[0]}" y2="${at(k)[1]}" stroke="${INK}" stroke-width="3"/>`;
     body += `<circle cx="60" cy="60" r="48" fill="none" stroke="${INK}" stroke-width="4"/>`;

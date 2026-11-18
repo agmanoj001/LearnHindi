@@ -80,7 +80,7 @@ export default {
             list.map((x, j) => {
               const isK = j === k && !first && !last;
               const isGap = j === ((answer % list.length) + list.length) % list.length;
-              return el('span', { class: `samay-chip${isK ? ' today' : ''}${isGap ? ' gap' : ''}${!show && !isK ? ' veiled' : ''}`, lang: 'hi', text: isGap ? '?' : x.hi });
+              return el('span', { class: `samay-chip${isK ? ' today' : ''}${isGap ? ' gap' : ''}${!show && !isK && !isGap ? ' veiled' : ''}`, lang: 'hi', text: isGap ? '?' : x.hi });
             }),
           );
           after = async () => {
@@ -125,7 +125,7 @@ export default {
           board = el(
             'div',
             { class: 'samay-strip ritu' },
-            RITU.map((r, j) => el('span', { class: `samay-chip${j === k ? ' today' : ''}${r === answer ? ' gap' : ''}${t() === 2 && j !== k ? ' veiled' : ''}`, lang: 'hi', text: r === answer ? '?' : r.hi })),
+            RITU.map((r, j) => el('span', { class: `samay-chip${j === k ? ' today' : ''}${r === answer ? ' gap' : ''}${t() === 2 && j !== k && r !== answer ? ' veiled' : ''}`, lang: 'hi', text: r === answer ? '?' : r.hi })),
           );
           after = async () => {
             const gap = board.querySelector('.gap');
@@ -230,7 +230,7 @@ export default {
           }),
         );
         // the running total helps at first; at the top level the child adds it up
-        total.textContent = t() < 2 ? rupeeLabel(sum()) || '₹0' : '?';
+        total.textContent = t() < 2 ? (sum() ? rupeeLabel(sum()) : '₹0') : '?';
       };
       const purse = lv.kinds.map((k) => {
         const b = el('button', { class: `sh-coin${RUPEES[k].note ? ' bill' : ''}`, 'aria-label': rupeeLabel(RUPEES[k].value), html: mathModel({ kind: 'rupee', id: k }) });
