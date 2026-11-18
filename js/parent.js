@@ -52,7 +52,7 @@ export function showParent(api) {
     'div',
     { class: 'seg' },
     [
-      ['hi', 'हिन्दी Hindi'],
+      ['hi', 'हिंदी Hindi'],
       ['en', 'English'],
       ['both', 'Both / दोनों'],
     ].map(([value, text]) =>
@@ -404,7 +404,7 @@ function storyRecorderSection(api) {
     const done = lines.filter((l) => have.has(l.key)).length;
     count.textContent = `${done} of ${lines.length} lines recorded`;
     langSeg.replaceChildren(
-      ...(story.lang === 'en' ? [['en', 'English']] : [['hi', 'हिन्दी'], ['en', 'English']]).map(([v, t]) =>
+      ...(story.lang === 'en' ? [['en', 'English']] : [['hi', 'हिंदी'], ['en', 'English']]).map(([v, t]) =>
         el('label', {}, [el('input', { type: 'radio', name: 'srec-lang', value: v, checked: lang === v, onchange: () => ((lang = v), (at = 0), render()) }), el('span', { text: t })]),
       ),
     );
@@ -562,7 +562,7 @@ function recorderSection(api) {
     el('h2', { text: 'Record your voice' }),
     el('p', { class: 'note', text: 'Children learn best from a familiar voice. Tap Record, say the word, tap Stop. Your recording replaces the computer voice. Recordings stay on this device.' }),
     seg('rec-filter', [['words', 'Words'], ['letters', 'Letters'], ['stories', 'Stories'], ['shows', 'Shows'], ['phrases', 'Phrases']], () => filter, (v) => (filter = v)),
-    seg('rec-lang', [['hi', 'हिन्दी'], ['en', 'English']], () => lang, (v) => (lang = v)),
+    seg('rec-lang', [['hi', 'हिंदी'], ['en', 'English']], () => lang, (v) => (lang = v)),
     list,
   ]);
 }
@@ -1032,7 +1032,7 @@ function parentLangSwitch(api) {
     { class: 'seg parent-lang', role: 'group', 'aria-label': 'Parent area language' },
     [
       ['en', 'English'],
-      ['hi', 'हिन्दी'],
+      ['hi', 'हिंदी'],
     ].map(([value, text]) =>
       el('label', {}, [
         el('input', { type: 'radio', name: 'parent-lang', value, checked: s.parentLang === value, onchange: () => ((s.parentLang = value), api.persistSettings(), showParent(api)) }),

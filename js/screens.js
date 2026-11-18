@@ -85,7 +85,7 @@ const fill = (node, kids) => {
 const bigName = (w, text, cls) => (english(w) ? el('span', { class: `${cls} latin`, text: text.en }) : el('span', { class: cls, lang: 'hi', text: text.hi }));
 
 function subjectName(world) {
-  return { math: { hi: 'गणित', en: 'Math' }, english: { hi: 'अंग्रेज़ी', en: 'English' } }[world.subject] || { hi: 'हिन्दी', en: 'Hindi' };
+  return { math: { hi: 'गणित', en: 'Math' }, english: { hi: 'अंग्रेज़ी', en: 'English' } }[world.subject] || { hi: 'हिंदी', en: 'Hindi' };
 }
 
 // What a world teaches, from content.json "tags": Phonics, Grammar, Stories, Math …

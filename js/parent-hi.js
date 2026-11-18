@@ -12,7 +12,7 @@ const HI = {
   'New, faster voices are ready: no pauses before each line, and every word clear. Your saved voices keep working until you update.':
     'नई, तेज़ आवाज़ें तैयार हैं: हर पंक्ति से पहले कोई रुकावट नहीं, और हर शब्द साफ़। जब तक आप अपडेट न करें, पुरानी आवाज़ें चलती रहेंगी।',
   'A natural recorded voice reads every story (title, pages, questions and lesson) and says the app’s prompts and words, in Hindi and English, instead of the device’s computer voice. Download once and it works offline. Anything you record yourself always plays instead.':
-    'एक असली-सी रिकॉर्ड की हुई आवाज़ हर कहानी (नाम, पन्ने, सवाल और सीख) पढ़ती है और ऐप के निर्देश और शब्द बोलती है, हिन्दी और अंग्रेज़ी में, फ़ोन की कंप्यूटर आवाज़ की जगह। एक बार डाउनलोड करें, फिर बिना इंटरनेट चलती है। जो आप ख़ुद रिकॉर्ड करें, वही बजता है।',
+    'एक असली-सी रिकॉर्ड की हुई आवाज़ हर कहानी (नाम, पन्ने, सवाल और सीख) पढ़ती है और ऐप के निर्देश और शब्द बोलती है, हिंदी और अंग्रेज़ी में, फ़ोन की कंप्यूटर आवाज़ की जगह। एक बार डाउनलोड करें, फिर बिना इंटरनेट चलती है। जो आप ख़ुद रिकॉर्ड करें, वही बजता है।',
   'Use the story voices': 'कहानी की आवाज़ें चलाएँ',
   'Not downloaded yet.': 'अभी डाउनलोड नहीं हुईं।',
   'Checking…': 'देख रहे हैं…',
@@ -74,8 +74,8 @@ const HI = {
   'English math for Kindergarten and Grade 1, following the North Carolina Standard Course of Study.': 'बालवाटिका और कक्षा 1 के लिए अंग्रेज़ी में गणित (नॉर्थ कैरोलिना पाठ्यक्रम)।',
   Language: 'भाषा',
   English: 'अंग्रेज़ी',
-  Hindi: 'हिन्दी',
-  'For Hindi worlds. Math worlds are always in English.': 'हिन्दी दुनिया के लिए। गणित की दुनिया हमेशा अंग्रेज़ी में रहती है।',
+  Hindi: 'हिंदी',
+  'For Hindi worlds. Math worlds are always in English.': 'हिंदी दुनिया के लिए। गणित की दुनिया हमेशा अंग्रेज़ी में रहती है।',
   'Play time and reading support': 'खेलने का समय और पढ़ने में मदद',
   'Daily limit': 'रोज़ की सीमा',
   'No limit': 'कोई सीमा नहीं',
@@ -155,8 +155,8 @@ const HI = {
   'Not on the home screen': 'होम स्क्रीन पर नहीं है',
   'It opens like an app, without the browser.': 'यह ब्राउज़र के बिना, ऐप की तरह खुलता है।',
   'Browser menu › Add to Home screen (or Install app). On iPhone and iPad this also stops Safari clearing its data.': 'ब्राउज़र मेन्यू › Add to Home screen (या Install app)। iPhone और iPad पर इससे Safari इसका डेटा भी नहीं मिटाता।',
-  'Hindi voice found': 'हिन्दी आवाज़ मिली',
-  'No Hindi voice on this device': 'इस फ़ोन में हिन्दी आवाज़ नहीं है',
+  'Hindi voice found': 'हिंदी आवाज़ मिली',
+  'No Hindi voice on this device': 'इस फ़ोन में हिंदी आवाज़ नहीं है',
   'On Android, make sure it works offline: Settings › System › Languages › Text-to-speech › Google › Install voice data › Hindi.': 'Android पर देख लें कि यह बिना इंटरनेट चले: Settings › System › Languages › Text-to-speech › Google › Install voice data › Hindi।',
   'Recorded voices always work offline. Record a few words or episode lines under Record your voice.': 'रिकॉर्ड की हुई आवाज़ें हमेशा बिना इंटरनेट चलती हैं। "अपनी आवाज़ रिकॉर्ड करें" में कुछ शब्द या कार्टून की लाइनें रिकॉर्ड करें।',
   'Storage kept safe': 'डेटा सुरक्षित रहेगा',
@@ -179,7 +179,7 @@ const PATTERNS = [
   [/^(\d+) family recording\(s\)$/, 'परिवार की $1 रिकॉर्डिंग'],
   [/^Daily limit: (\d+) minutes$/, 'रोज़ की सीमा: $1 मिनट'],
   [/^(\d+) recording\(s\) saved on this device\.$/, 'इस फ़ोन में $1 रिकॉर्डिंग।'],
-  [/^This device has no (Hindi or English|Hindi|English) voice\. .*$/, (m, which) => `इस फ़ोन में ${{ 'Hindi or English': 'हिन्दी या अंग्रेज़ी', Hindi: 'हिन्दी', English: 'अंग्रेज़ी' }[which]} की आवाज़ नहीं है। Android पर: Settings › System › Languages › Text-to-speech › Google › Install voice data.`],
+  [/^This device has no (Hindi or English|Hindi|English) voice\. .*$/, (m, which) => `इस फ़ोन में ${{ 'Hindi or English': 'हिंदी या अंग्रेज़ी', Hindi: 'हिंदी', English: 'अंग्रेज़ी' }[which]} की आवाज़ नहीं है। Android पर: Settings › System › Languages › Text-to-speech › Google › Install voice data.`],
 ];
 
 const MORE = [

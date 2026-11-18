@@ -9089,7 +9089,7 @@
         { "word": "moon", "hi": "एक रात दूसरे सियार \"हुआँ हुआँ\" करने लगे।", "en": "One night the other jackals began to howl." },
         {
           "word": "bluejackal",
-          "hi": "नीला सियार भी खुद को रोक न सका और \"हुआँ हुआँ\" करने लगा।",
+          "hi": "नीला सियार भी ख़ुद को रोक न सका और \"हुआँ हुआँ\" करने लगा।",
           "en": "The blue jackal could not stop himself and howled too."
         },
         { "word": "jackal", "hi": "सबको सच पता चल गया, और राजा बना सियार वहाँ से भाग गया।", "en": "Everyone learned the truth, and the \"king\" ran away." }
@@ -11951,7 +11951,7 @@
               "id": "k-ginti-2",
               "game": "ginti",
               "icon": "letter:७",
-              "title": { "hi": "हिन्दी के अंक", "en": "Hindi digits" },
+              "title": { "hi": "हिंदी के अंक", "en": "Hindi digits" },
               "config": { "rounds": 6, "modes": ["hear", "digits"], "from": 1, "to": 10 }
             },
             {
@@ -17294,7 +17294,7 @@
       ]
     },
     "g2-punct": {
-      "title": { "hi": "पूर्ण विराम और प्रश्न चिह्न", "en": "Full stop and question mark" },
+      "title": { "hi": "रुकने और सवाल के निशान (। ?)", "en": "Full stop and question mark" },
       "questions": [
         { "hi": "सही निशान लगाओ", "en": "Add the right mark", "answer": "।", "options": ["।", "?"], "show": "यह मेरा घर है___" },
         { "hi": "सही निशान लगाओ", "en": "Add the right mark", "answer": "?", "options": ["।", "?"], "show": "तुम्हारा नाम क्या है___" },
@@ -19211,7 +19211,7 @@
     },
     "g2-ii": {
       "prompt": { "hi": "इसमें छोटी इ (ि) की मात्रा है या बड़ी ई (ी) की?", "en": "Short i (ि) or long ii (ी)?" },
-      "bins": [{ "id": "i", "hi": "ि  छोटी इ", "en": "short i" }, { "id": "ii", "hi": "ी  बड़ी ई", "en": "long ii" }],
+      "bins": [{ "id": "i", "hi": "ि छोटी इ", "en": "short i" }, { "id": "ii", "hi": "ी बड़ी ई", "en": "long ii" }],
       "items": [
         { "text": "किला", "bin": "i", "word": "fort" },
         { "text": "किताब", "bin": "i", "word": "book" },

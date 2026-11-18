@@ -109,7 +109,7 @@ export function deviceKind(ua = '', touchPoints = 0) {
 // How to add a Hindi voice on each kind of device (the app speaks with the device's own voices).
 export const VOICE_SETUP = {
   ios: { device: 'iPhone or iPad', steps: 'Settings › Accessibility › Spoken Content › Voices › Hindi › download Lekha. Then close and reopen the app.' },
-  android: { device: 'Android', steps: 'Settings › System › Languages › Text-to-speech output › Speech Services by Google › ⚙ › Install voice data › Hindi (हिन्दी). Then close and reopen the app.' },
+  android: { device: 'Android', steps: 'Settings › System › Languages › Text-to-speech output › Speech Services by Google › ⚙ › Install voice data › Hindi (हिंदी). Then close and reopen the app.' },
   chromeos: { device: 'Chromebook', steps: 'Settings › Accessibility › Text-to-speech › Speech engines and voices › add Hindi. Then reload the app.' },
   windows: { device: 'Windows', steps: 'Settings › Time & language › Speech › Manage voices › Add voices › Hindi. Then restart the browser. Microsoft Edge also has natural Hindi voices built in.' },
   mac: { device: 'Mac', steps: 'System Settings › Accessibility › Spoken Content › System voice › Manage Voices › Hindi › Lekha. Then restart the browser.' },

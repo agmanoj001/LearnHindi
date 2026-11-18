@@ -185,3 +185,22 @@ test('8.3 accessibility: right and wrong by shape, a left-handed layout, 48 px c
   const bc = read('tools/browser-check.mjs');
   for (const t of ['tap target too small', 'no name for a screen reader', 'animates forever with reduced motion on']) assert.ok(bc.includes(t), t);
 });
+
+test('8.8 content checks: every Hindi string follows the word rules, and every picture the art rules', async () => {
+  const { checkText, checkArt, hindiStrings } = await import('../tools/content-check.mjs');
+  assert.ok(hindiStrings(content).length > 15000, 'the check reads all the Hindi in the app');
+  const text = checkText(content);
+  assert.deepEqual(text.problems, [], 'run "npm run check-content" for the full report');
+  const art = await checkArt(content);
+  assert.ok(art.pictures > 300);
+  assert.deepEqual(art.problems, []);
+  // the rules catch what they should
+  const fake = { stories: [{ id: 'x', level: 'kg', title: { hi: 'वृक्ष के नीचे', en: '' }, pages: [{ hi: 'वह गयी |', en: '' }], questions: [], talk: [] }] };
+  const found = checkText(fake).problems.join('\n');
+  assert.match(found, /"वृक्ष" is a bookish word/);
+  assert.match(found, /"गयी" is spelled "गई"/);
+  assert.match(found, /"\|" used for the full stop/);
+  // but not school words in brackets, synonyms after यानी, or abbreviations
+  const fine = { stories: [{ id: 'y', level: 'grade3', title: { hi: 'उल्टे शब्द (विलोम)', en: '' }, pages: [{ hi: 'पेड़, यानी वृक्ष। डॉ. राव आए।', en: '' }], questions: [], talk: [] }] };
+  assert.deepEqual(checkText(fine).problems, []);
+});

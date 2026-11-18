@@ -475,6 +475,17 @@ Math lessons list skills from [`js/mathgen.js`](js/mathgen.js), for example `{ "
 
 Maths you do with your hands (`"game": "handson"`, [`js/games/handson.js`](js/games/handson.js)) names one activity and the skill it records: `{ "activity": "tenframe", "skill": "k-make10", "rounds": 5 }`. The activities: `tenframe` (fill the ten-frame), `numberline` (frog hops), `pattern` (the pattern train), `shapes` (build a picture from shapes), `measure` (lay cubes along a thing), `balance` (make both sides equal), `shop` (pay with coins) and `clock` (turn the hands). Each round ends when the thing is made right and ✓ is pressed; the 💡 shows the next step.
 
+## Checking the content
+
+`npm run check-content` checks every Hindi string against the word rules in `tools/style-rules.mjs`:
+
+- everyday words for ages 2–8 (a school word may follow in brackets from Grade 3);
+- one spelling for each word;
+- `।` for the full stop;
+- sentence length by grade.
+
+It also checks every picture against the art rules. `npm test` runs the same checks and fails on any problem.
+
 ## Run it locally
 
 ```bash
