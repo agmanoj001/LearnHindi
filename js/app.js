@@ -9,6 +9,7 @@ import {
   lessonConfig,
   itemKey,
   recordAnswer,
+  recordComprehension,
   practiceWeight,
   weightedSequence,
   COMBO_MILESTONES,
@@ -734,6 +735,18 @@ function startLesson({ lessonId, worldId, storyId, together }) {
       const key = itemKey(item);
       if (!key) return;
       state.progress = { ...state.progress, stats: recordAnswer(state.progress.stats, key, firstTry) };
+      ctx.progress = state.progress;
+      persistProgress();
+    },
+    // story questions by type, and stories read alone, for the parent area (roadmap 3.4)
+    comprehend(type, firstTry) {
+      state.progress = { ...state.progress, comprehension: recordComprehension(state.progress.comprehension, type, firstTry) };
+      ctx.progress = state.progress;
+      persistProgress();
+    },
+    readAlone(storyId) {
+      const had = state.progress.readAlone || {};
+      state.progress = { ...state.progress, readAlone: { ...had, [storyId]: (had[storyId] || 0) + 1 } };
       ctx.progress = state.progress;
       persistProgress();
     },

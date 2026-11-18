@@ -1,6 +1,6 @@
 // Library (Grade 1+): read-along picture stories, a few questions about the story and, for folktales, the moral.
 // Every word on the page can be tapped to hear it. Each visit opens the next story for the stage.
-import { sentenceTokens, shuffle, isKeyToken } from '../logic.js';
+import { sentenceTokens, shuffle, isKeyToken, questionType } from '../logic.js';
 import { storyLang, worldStoryLang } from '../curriculum.js';
 import { el, sleep, choose, runRounds, cheer, waitTap, bounce, ICONS, readChoices, youngReader } from './kit.js';
 import { clips } from '../storage.js';
@@ -153,6 +153,8 @@ export default {
     }
 
     if (poem) ctx.setMusicMood?.('lesson');
+    // read every page on their own: the parent area lists it (roadmap 3.4)
+    if (selfRead) ctx.readAlone?.(story.id);
     // ---- questions ----
     const ok = await runRounds(
       ctx,
@@ -189,6 +191,8 @@ export default {
           onWrong: (b) => (q.text ? ctx.sayText(b.value, qlang) : ctx.say('thisIs', b.item)),
         });
         answered = true;
+        // who / what / why: first-try answers by type, for the parent area (roadmap 3.4)
+        ctx.comprehend?.(questionType(q), right.firstTry);
         await cheer(ctx, right);
         if (q.text) await ctx.sayText(q.answer, qlang);
         else await ctx.sayAnswer(right.item);

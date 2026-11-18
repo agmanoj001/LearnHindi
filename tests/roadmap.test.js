@@ -108,6 +108,7 @@ const DONE = {
   'A reading-comfort option': () => /export function applyReadingComfort/.test(read('js/ui.js')) && /readingComfort: false/.test(read('js/logic.js')) && /\.reading-comfort \.story-page/.test(css) && /'Easier reading'/.test(read('js/parent.js')),
   'A "what\'s new" note': () => exists('changes.json') && /export function changesSince/.test(read('js/changes.js')) && /update-more/.test(read('js/app.js')) && /whatsNewSection/.test(read('js/parent.js')),
   "Children's-app store rules": () => /export function grownUpCheck/.test(read('js/screens.js')) && /Content-Security-Policy[\s\S]*connect-src 'self'/.test(read('index.html')) && exists('docs/PRIVACY.md') && /function privacySection/.test(read('js/parent.js')),
+  'comprehension by question type': () => /export function questionType/.test(read('js/logic.js')) && /function storiesView/.test(read('js/parent.js')) && /ctx\.comprehend\?\./.test(read('js/games/story.js')) && /ctx\.readAlone\?\./.test(read('js/games/story.js')),
   'More maths in Show time': () => ['km-count', 'km-compare', 'km-ten', 'km-shapes', 'km-measure'].every((u) => content.shows.some((s) => s.level === 'kg' && s.lang === 'en' && String(s.lesson).startsWith(u))),
 };
 

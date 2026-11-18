@@ -11,7 +11,7 @@ import { pahadaName } from './pahade.js';
 import { worldStars, worldLessons, lessonRecord, weekSummary, dueReviews, learningGains } from './curriculum.js';
 import { refreshClipKeys, voicesFor, setVoicePrefs, hasVoice, play, setVoicePack } from './audio.js';
 import { loadIndex, savedVoiceKeys, savedAudioVersion, packFiles, bundlesFor, downloadVoices, removeVoices, formatMB } from './voicepack.js';
-import { deviceKind, VOICE_SETUP } from './logic.js';
+import { deviceKind, VOICE_SETUP, comprehensionSummary, readAloneList } from './logic.js';
 import { KEYS, save, load, clips, resizeImage, addProfile, removeProfile, MAX_PROFILES, makeBackup, readBackup, localKeys, keepOffline, exportClips, readClipsFile, BACKUP_AT, BACKUP_LATER, backupReminderDue, backupLaterUntil, shareBackup, canShareFiles } from './storage.js';
 import { MASCOTS, MASCOT_IDS, mascotSvg } from './mascot.js';
 import { specialVehicle, pictureForWord } from './art.js';
@@ -304,6 +304,7 @@ export function showParent(api) {
         weekView(api),
         showsWatched(api),
         gainsView(api),
+        storiesView(api),
         retellView(api),
         el('div', { class: 'world-rows' }, worldRows),
         el('h3', { text: 'Practise together' }),
@@ -878,6 +879,46 @@ function gainsView(api) {
         el('span', { class: `gain-num${r.gain > 0 ? ' up' : ''}`, text: `${r.first}% → ${r.recent}%` }),
       ]),
     ),
+  ]);
+}
+
+// Understanding stories (roadmap 3.4): first-try answers to the questions after each story, by what they ask,
+// and the stories the child has read on their own. Written in both languages here (the numbers change).
+const QTYPE = {
+  who: { en: 'Who', hi: 'कौन' },
+  what: { en: 'What, where, when', hi: 'क्या, कहाँ, कब' },
+  why: { en: 'Why and how', hi: 'क्यों और कैसे' },
+};
+const QFOCUS = {
+  who: { en: 'Who-questions are hardest right now. While reading together, point at each character and ask "Who is this? What are they doing?"', hi: '"कौन" वाले सवाल अभी सबसे मुश्किल हैं। साथ पढ़ते हुए हर पात्र पर उँगली रखकर पूछिए: "यह कौन है? यह क्या कर रहा है?"' },
+  what: { en: 'Remembering what happened is hardest right now. After each page, ask "What happened just now?" before turning it.', hi: 'क्या हुआ, यह याद रखना अभी सबसे मुश्किल है। हर पन्ना पलटने से पहले पूछिए: "अभी क्या हुआ?"' },
+  why: { en: 'Why-questions are hardest right now. After a story, ask one "why" together: the "Talk together" button has one for every story.', hi: '"क्यों" वाले सवाल अभी सबसे मुश्किल हैं। कहानी के बाद साथ में एक "क्यों" पूछिए: "साथ में बात करें" बटन में हर कहानी के लिए एक है।' },
+};
+function storiesView(api) {
+  const hi = api.state.settings.parentLang === 'hi';
+  const t = (x) => (hi ? x.hi : x.en);
+  const sum = comprehensionSummary(api.state.progress);
+  const alone = readAloneList(api.state.progress, api.state.content);
+  if (!sum.total && !alone.length) return el('p', { class: 'note', lang: hi ? 'hi' : 'en', text: hi ? 'कहानियों की समझ: कहानियों के बाद के सवालों के जवाब यहाँ दिखेंगे।' : 'Understanding stories: answers to the questions after stories will show here.' });
+  return el('div', { class: 'understand', lang: hi ? 'hi' : 'en' }, [
+    el('h3', { text: hi ? 'कहानियों की समझ' : 'Understanding stories' }),
+    el('p', { class: 'note', text: hi ? 'कहानी के बाद के सवाल, पहली बार में सही, सवाल के हिसाब से:' : 'The questions after each story, right on the first try, by what they ask:' }),
+    ...sum.rows.map((r) =>
+      el('div', { class: `gain-row q-${r.type}` }, [
+        el('span', { class: 'gain-name', text: t(QTYPE[r.type]) }),
+        el('span', { class: 'gain-bar' }, [el('span', { class: 'gain-recent', style: { width: `${r.pct ?? 0}%` } })]),
+        el('span', { class: 'gain-num', text: r.seen ? `${r.first}/${r.seen} · ${r.pct}%` : '–' }),
+      ]),
+    ),
+    sum.focus ? el('p', { class: 'note focus', text: t(QFOCUS[sum.focus]) }) : null,
+    el('h3', { text: hi ? 'ख़ुद पढ़ी कहानियाँ' : 'Stories read on their own' }),
+    alone.length
+      ? el(
+          'ul',
+          { class: 'read-alone' },
+          alone.slice(0, 12).map((r) => el('li', {}, [el('span', { lang: 'hi', text: r.story.title.hi || r.story.title.en }), el('small', { text: ` ${r.story.title.en}${r.times > 1 ? (hi ? ` · ${r.times} बार` : ` · ${r.times} times`) : ''}` })])),
+        )
+      : el('p', { class: 'note', text: hi ? 'अभी कोई नहीं। कहानी की शुरुआत में "मैं ख़ुद पढ़ूँ" दबाकर बच्चा अपने आप पढ़ सकता है।' : 'None yet. At the start of a story, "मैं ख़ुद पढ़ूँ · I\'ll read it" lets the child read it alone.' }),
   ]);
 }
 

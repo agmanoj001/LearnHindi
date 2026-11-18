@@ -487,7 +487,7 @@ export function normalizeSettings(saved, content) {
 export function defaultProgress(content) {
   const collected = {};
   for (const [id, col] of Object.entries(content.collections || {})) collected[id] = col.items.slice(0, col.start || 0);
-  return { lessons: {}, collected, days: [], trainPos: {}, storyPos: {}, comicPos: {}, stats: {}, time: {}, shows: {}, scenes: {}, coached: [], favs: [], trail: {}, style: { outfit: null, backdrop: null, sound: null }, myBooks: [], festStickers: {} };
+  return { lessons: {}, collected, days: [], trainPos: {}, storyPos: {}, comicPos: {}, stats: {}, comprehension: {}, readAlone: {}, time: {}, shows: {}, scenes: {}, coached: [], favs: [], trail: {}, style: { outfit: null, backdrop: null, sound: null }, myBooks: [], festStickers: {} };
 }
 
 export function normalizeProgress(saved, content) {
@@ -532,6 +532,15 @@ export function normalizeProgress(saved, content) {
         .map(([id, r]) => [id, { panel: Math.min(r.panel, 99), solved: r.solved === true }]),
     ),
     stats: obj(saved.stats),
+    // first-try answers to story questions by type, and stories read alone (roadmap 3.4)
+    comprehension: Object.fromEntries(
+      QUESTION_TYPES.filter((t) => saved.comprehension?.[t] && typeof saved.comprehension[t] === 'object').map((t) => {
+        const r = saved.comprehension[t];
+        const seen = Math.max(0, r.seen | 0);
+        return [t, { seen, first: Math.max(0, Math.min(seen, r.first | 0)) }];
+      }),
+    ),
+    readAlone: Object.fromEntries(Object.entries(obj(saved.readAlone)).filter(([k, v]) => /^[\w-]+$/.test(k) && Number.isInteger(v) && v > 0)),
     // today's surprise, once opened (js/surprise.js, roadmap 7.12)
     ...(saved.gift && typeof saved.gift === 'object' && /^\d{4}-\d\d-\d\d$/.test(saved.gift.day) && ['sticker', 'joke', 'sound'].includes(saved.gift.kind) ? { gift: { day: saved.gift.day, kind: saved.gift.kind, value: saved.gift.value } } : {}),
     // riddles of the day solved: { riddleId: the day } (js/corner.js, roadmap 7.16)
@@ -773,6 +782,43 @@ export function itemKey(item) {
   if (typeof item.value === 'number') return `n:${item.value}`;
   if (typeof item.hi === 'string' && item.id) return `w:${item.id}`;
   return null;
+}
+
+// ---------- understanding stories (roadmap 3.4) ----------
+// What a story question asks, from its wording: 'who', 'what' (what, where, when, which, how many: remembering
+// what happened) or 'why' (why and how: understanding it). The parent area shows first-try answers by type.
+export const QUESTION_TYPES = ['who', 'what', 'why'];
+export function questionType(q) {
+  const en = String(q?.en || '').trim().toLowerCase();
+  if (/^(why|how come)\b/.test(en) || /क्यों/.test(String(q?.hi || ''))) return 'why';
+  if (/^how\b(?!\s+(many|much|old|long|far|big|tall))/.test(en)) return 'why';
+  if (/^(who|whom|whose)\b/.test(en)) return 'who';
+  return 'what';
+}
+// { who: { seen, first }, ... }
+export function recordComprehension(comp, type, firstTry) {
+  if (!QUESTION_TYPES.includes(type)) return comp || {};
+  const old = comp?.[type] || { seen: 0, first: 0 };
+  return { ...(comp || {}), [type]: { seen: old.seen + 1, first: old.first + (firstTry ? 1 : 0) } };
+}
+// rows for the parent area, and the type to talk about most (the weakest, once there are enough answers)
+export function comprehensionSummary(progress) {
+  const comp = progress?.comprehension || {};
+  const rows = QUESTION_TYPES.map((type) => {
+    const r = comp[type] || { seen: 0, first: 0 };
+    return { type, seen: r.seen, first: r.first, pct: r.seen ? Math.round((100 * r.first) / r.seen) : null };
+  });
+  const enough = rows.filter((r) => r.seen >= 3);
+  const weakest = enough.length >= 2 ? enough.reduce((a, b) => (b.pct < a.pct ? b : a)) : null;
+  const best = enough.length ? Math.max(...enough.map((r) => r.pct)) : 0;
+  return { rows, focus: weakest && best - weakest.pct >= 10 ? weakest.type : null, total: rows.reduce((n, r) => n + r.seen, 0) };
+}
+// the stories a child has read on their own ("मैं ख़ुद पढ़ूँ"), most read first
+export function readAloneList(progress, content) {
+  return Object.entries(progress?.readAlone || {})
+    .map(([id, times]) => ({ story: content.stories.find((s) => s.id === id), times }))
+    .filter((r) => r.story)
+    .sort((a, b) => b.times - a.times);
 }
 
 // stats[key] = { seen, first } where `first` counts answers right on the first tap.

@@ -91,3 +91,38 @@ test("8.4 store rules: a grown-up question after the hold, a security policy tha
   assert.match(read('js/parent.js'), /privacySection\(\)/);
   assert.match(read('docs/PRIVACY.md'), /nothing about a child ever leaves the device/i);
 });
+
+test('3.4 understanding stories: every question has a type, answers are counted by type, and stories read alone are kept', () => {
+  const counts = { who: 0, what: 0, why: 0 };
+  for (const s of content.stories) for (const q of s.questions) counts[L.questionType(q)]++;
+  assert.ok(counts.who > 20 && counts.what > 20 && counts.why > 10, JSON.stringify(counts));
+  assert.equal(L.questionType({ en: 'Why did the pot break?' }), 'why');
+  assert.equal(L.questionType({ en: 'How did the crow get the water?' }), 'why');
+  assert.equal(L.questionType({ en: 'How many ducks were there?' }), 'what');
+  assert.equal(L.questionType({ en: 'Whom did the lion see?' }), 'who');
+  assert.equal(L.questionType({ en: 'Where did the snail go?' }), 'what');
+
+  let c = {};
+  for (const ok of [true, true, false]) c = L.recordComprehension(c, 'who', ok);
+  for (const ok of [true, false, false, false]) c = L.recordComprehension(c, 'why', ok);
+  assert.deepEqual(c.who, { seen: 3, first: 2 });
+  assert.deepEqual(L.recordComprehension(c, 'nope', true), c);
+  const sum = L.comprehensionSummary({ comprehension: c });
+  assert.equal(sum.total, 7);
+  assert.equal(sum.rows.find((r) => r.type === 'why').pct, 25);
+  assert.equal(sum.focus, 'why', 'the weakest type is the one to talk about');
+  assert.equal(L.comprehensionSummary({ comprehension: { who: { seen: 3, first: 3 } } }).focus, null, 'one type alone is not enough to compare');
+
+  // saved and restored safely
+  const p = L.normalizeProgress({ comprehension: { who: { seen: 4, first: 9 }, junk: { seen: 1 } }, readAlone: { 'thirsty-crow': 2, 'bad id!': 3, x: -1 } }, content);
+  assert.deepEqual(p.comprehension, { who: { seen: 4, first: 4 } });
+  assert.deepEqual(p.readAlone, { 'thirsty-crow': 2 });
+  assert.deepEqual(L.defaultProgress(content).readAlone, {});
+  const list = L.readAloneList({ readAlone: { 'thirsty-crow': 2, 'lion-mouse': 5, gone: 1 } }, content);
+  assert.deepEqual(list.map((r) => r.story.id), ['lion-mouse', 'thirsty-crow']);
+
+  const story = read('js/games/story.js');
+  assert.match(story, /ctx\.comprehend\?\.\(questionType\(q\), right\.firstTry\)/);
+  assert.match(story, /if \(selfRead\) ctx\.readAlone\?\.\(story\.id\)/);
+  assert.match(read('js/parent.js'), /storiesView\(api\)/);
+});
