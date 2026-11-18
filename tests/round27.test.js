@@ -51,3 +51,43 @@ test("8.6 what's new: the bar shows what is newer than the running version", () 
   assert.match(app, /class: 'update-more'/);
   assert.match(read('js/parent.js'), /whatsNewSection\(api\)/);
 });
+
+test("8.4 store rules: a grown-up question after the hold, a security policy that keeps the app to its own site, a privacy statement", async () => {
+  const { grownUpQuestion } = await import('../js/screens.js');
+  let seed = 1;
+  const rng = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+  for (let i = 0; i < 200; i++) {
+    const q = grownUpQuestion(rng, content.numbers);
+    assert.equal(q.answer, q.a + q.b);
+    assert.ok(q.a >= 11 && q.a <= 29 && q.b >= 3 && q.b <= 9);
+    // written in words, never digits: a young child can't read it
+    assert.doesNotMatch(q.en, /\d/);
+    assert.doesNotMatch(q.hi, /\d/);
+    assert.match(q.hi, DEVANAGARI);
+  }
+  const screens = read('js/screens.js');
+  assert.match(screens, /grownUpCheck\(api, onDone\)/, 'the press-and-hold gate asks the question before opening');
+
+  // the security policy: only the app's own site, and its hash matches the inline script
+  const html = read('index.html');
+  const csp = html.match(/http-equiv="Content-Security-Policy"\s+content="([^"]+)"/)?.[1];
+  assert.ok(csp, 'index.html has a Content-Security-Policy');
+  for (const d of ["default-src 'self'", "connect-src 'self'", "object-src 'none'", "frame-src 'none'", "form-action 'none'"]) assert.ok(csp.includes(d), d);
+  const { createHash } = await import('node:crypto');
+  for (const [, body] of html.matchAll(/<script>([\s\S]*?)<\/script>/g)) {
+    const hash = `sha256-${createHash('sha256').update(body).digest('base64')}`;
+    assert.ok(csp.includes(hash), `the inline script changed: put '${hash}' in the Content-Security-Policy in index.html`);
+  }
+
+  // no links out of the app, and no address outside the app's own site anywhere in the code
+  const { readdirSync } = await import('node:fs');
+  const files = [...readdirSync(new URL('../js/', import.meta.url)).filter((f) => f.endsWith('.js')).map((f) => `js/${f}`), ...readdirSync(new URL('../js/games/', import.meta.url)).map((f) => `js/games/${f}`)];
+  for (const f of files) {
+    const code = read(f).replace(/\/\/.*$/gm, '').replace(/http:\/\/www\.w3\.org\/[\w/.]+/g, '');
+    assert.doesNotMatch(code, /https?:\/\//, `${f} has an address outside the app`);
+    assert.doesNotMatch(code, /window\.open\(|target: '_blank'/, `${f} opens something outside the app`);
+  }
+
+  assert.match(read('js/parent.js'), /privacySection\(\)/);
+  assert.match(read('docs/PRIVACY.md'), /nothing about a child ever leaves the device/i);
+});

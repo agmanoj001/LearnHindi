@@ -113,6 +113,8 @@ async function offlineCheck(url) {
   });
   let page = await ctx.newPage();
   page.on('pageerror', (e) => errors.push(`${phase}: ${e.message}`));
+  // anything the security policy in index.html refuses to load is a bug (docs/ROADMAP.md 8.4)
+  page.on('console', (m) => /Content Security Policy/.test(m.text()) && errors.push(`${phase}: ${m.text()}`));
   await page.addInitScript(seeded({ level: 'kg', lang: 'both', onboarded: true, music: false, unlockAll: true }, { coached: ['*'] }));
   await page.goto(url);
   await start(page);
@@ -168,6 +170,7 @@ async function offlineCheck(url) {
   await page.close();
   page = await ctx.newPage();
   page.on('pageerror', (e) => errors.push(`after restart: ${e.message}`));
+  page.on('console', (m) => /Content Security Policy/.test(m.text()) && errors.push(`after restart: ${m.text()}`));
   await page.goto(url);
   await start(page);
   const after = await stars();
@@ -209,6 +212,7 @@ async function screens(url, outDir, { tolerant = false } = {}) {
     const page = await ctx.newPage();
     const errors = [];
     page.on('pageerror', (e) => errors.push(e.message));
+    page.on('console', (m) => /Content Security Policy/.test(m.text()) && errors.push(m.text()));
     await page.clock.setFixedTime(new Date('2026-11-17T10:30:00'));
     await page.addInitScript(seeded(settings, someProgress));
     try {

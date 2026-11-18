@@ -13192,3 +13192,57 @@ body:has(.game-grammar) .caption-bar,
   display: block;
   color: var(--muted);
 }
+
+/* ---- the grown-up question after the press-and-hold (roadmap 8.4) ---- */
+.grown-card {
+  width: min(420px, 100%);
+}
+.grown-q {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 14px 0 12px;
+}
+.grown-q b {
+  font-size: 20px;
+}
+.grown-q span {
+  color: var(--muted);
+}
+.grown-row {
+  display: flex;
+  gap: 10px;
+}
+.grown-row .btn {
+  flex: 0 0 auto;
+  width: auto;
+  min-width: 88px;
+  margin: 0;
+}
+.grown-in {
+  flex: 1;
+  min-width: 0;
+  min-height: 48px;
+  padding: 8px 14px;
+  border: 2px solid #d9d6f0;
+  border-radius: 14px;
+  font: inherit;
+  font-size: 22px;
+}
+.grown-in:focus {
+  outline: 3px solid var(--place, #6c63ff);
+  outline-offset: 1px;
+}
+.grown-card.shake {
+  animation: grown-shake 0.35s ease-in-out;
+}
+@keyframes grown-shake {
+  20%,
+  60% {
+    transform: translateX(-8px);
+  }
+  40%,
+  80% {
+    transform: translateX(8px);
+  }
+}

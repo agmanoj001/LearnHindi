@@ -277,6 +277,7 @@ export function showParent(api) {
       tripSection(api),
       backupSection(api),
       whatsNewSection(api),
+      privacySection(),
       section(
         'Sound',
         toggle('Music', s.music, (v) => ((s.music = v), persist(), api.music.setEnabled(v))),
@@ -729,6 +730,16 @@ function backupReminder(api) {
     ]),
   ]);
   return card;
+}
+
+// Privacy (roadmap 8.4): what the app keeps and what it never does, for families and the app stores (docs/PRIVACY.md)
+function privacySection() {
+  return el('section', { class: 'privacy' }, [
+    el('h2', { text: 'Privacy' }),
+    el('p', { class: 'note', text: 'Nothing about your child leaves this device. There are no accounts, ads, analytics or tracking, and no links to other websites.' }),
+    el('p', { class: 'note', text: 'Kept on this device only: nicknames, grades, settings, progress, voice recordings and the vehicle photo.' }),
+    el('p', { class: 'note', text: 'The app only downloads its own files (the app, its updates and the story voices) from the site it came from. A backup leaves the device only when you save or share it.' }),
+  ]);
 }
 
 // What's new (roadmap 8.6): the last few versions, in the parent area's language

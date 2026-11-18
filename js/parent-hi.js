@@ -80,6 +80,14 @@ const HI = {
   'Daily limit': 'रोज़ की सीमा',
   'No limit': 'कोई सीमा नहीं',
   Captions: 'लिखा हुआ भी दिखाएँ',
+  Privacy: 'निजता',
+  'Nothing about your child leaves this device. There are no accounts, ads, analytics or tracking, and no links to other websites.':
+    'आपके बच्चे की कोई भी जानकारी इस फ़ोन से बाहर नहीं जाती। कोई खाता, विज्ञापन, गिनती या निगरानी नहीं, और दूसरी वेबसाइटों के कोई लिंक नहीं।',
+  'Kept on this device only: nicknames, grades, settings, progress, voice recordings and the vehicle photo.':
+    'सिर्फ़ इसी फ़ोन पर रहते हैं: बच्चों के नाम, कक्षा, सेटिंग, प्रगति, आवाज़ की रिकॉर्डिंग और गाड़ी की फ़ोटो।',
+  'The app only downloads its own files (the app, its updates and the story voices) from the site it came from. A backup leaves the device only when you save or share it.':
+    'ऐप सिर्फ़ अपनी ही फ़ाइलें (ऐप, उसके अपडेट और कहानी की आवाज़ें) उसी साइट से लेता है जहाँ से वह आया है। बैकअप फ़ोन से बाहर तभी जाता है जब आप उसे सहेजें या भेजें।',
+  'For grown-ups: answer in numbers': 'बड़ों के लिए: अंकों में जवाब दें',
   "What's new": 'नया क्या है',
   'The list of changes needs the internet the first time.': 'बदलावों की सूची पहली बार इंटरनेट से आती है।',
   'Easier reading': 'आसान पढ़ाई',

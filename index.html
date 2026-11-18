@@ -2,6 +2,13 @@
 <html lang="hi">
   <head>
     <meta charset="utf-8" />
+    <!-- children's-app rules (docs/ROADMAP.md 8.4, docs/PRIVACY.md): the app may load and talk to nothing but its
+         own site, so nothing about a child can be sent anywhere and no page outside the app can open in it.
+         The hash is the inline script below; tests/round27.test.js checks it is kept in step. -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'sha256-idJInDp7khjDRKBy5VrY/d/eom3Iima15d0M7i7N7DM='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'none'"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
     <title>Khel Khel Mein</title>
     <meta name="description" content="Learn Hindi (Toddler to Grade 4) and Math (Kindergarten and Grade 1) through play." />
