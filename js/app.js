@@ -31,6 +31,7 @@ import { initAudio, setVoicePack, preload, play, stop, isSpeaking, wordSegs, let
 import { KEYS, load, save, normalizeProfiles, profileKey, keepStorage } from './storage.js';
 import { sfx, music, FEEDBACK } from './sfx.js';
 import { el, sleep, bounce, ICONS, applyReadingComfort } from './ui.js';
+import { loadChanges, changesSince } from './changes.js';
 import { createMascot, MASCOT_IDS, setOutfit } from './mascot.js';
 import * as screens from './screens.js';
 
@@ -820,10 +821,13 @@ if ('serviceWorker' in navigator && location.protocol !== 'file:') {
       })
       .catch(() => {}),
   );
-  // a new version has taken over (not the very first install): offer a refresh at a calm moment
+  // the version this page is running, so the refresh bar can say what is new since then (roadmap 8.6)
+  loadChanges().then((c) => (state.runningVersion = c[0]?.version || null));
+  // a new version has taken over (not the very first install): offer a refresh at a calm moment, with what changed
   const hadController = !!navigator.serviceWorker.controller;
-  navigator.serviceWorker.addEventListener('controllerchange', () => {
+  navigator.serviceWorker.addEventListener('controllerchange', async () => {
     if (!hadController) return;
+    state.updateNotes = changesSince(await loadChanges(), state.runningVersion);
     state.updateReady = true;
     offerUpdate();
   });
@@ -835,12 +839,41 @@ if ('serviceWorker' in navigator && location.protocol !== 'file:') {
 const CALM_ROUTES = ['hub', 'world', 'collection', 'library', 'shows'];
 function offerUpdate() {
   if (!state.updateReady || !CALM_ROUTES.includes(state.route) || document.querySelector('.update-bar')) return;
+  // the newest change's headline says what this version brings; "What's new" lists every line
+  const notes = state.updateNotes || [];
+  const top = notes[0];
   const bar = el('div', { class: 'update-bar', role: 'status' }, [
-    el('span', { class: 'update-text' }, [el('b', { lang: 'hi', text: 'कुछ नया आया है!' }), el('span', { text: 'A new version is ready.' })]),
+    el('span', { class: 'update-text' }, [
+      el('b', { lang: 'hi', text: top ? `नया: ${top.hi}` : 'कुछ नया आया है!' }),
+      el('span', { text: top ? `New: ${top.en}. Refresh to get it.` : 'A new version is ready.' }),
+      notes.length ? el('button', { class: 'update-more', onclick: () => showChanges(notes) }, [el('span', { lang: 'hi', text: 'क्या नया है?' }), el('small', { text: "What's new" })]) : null,
+    ]),
     el('button', { class: 'update-btn', onclick: () => location.reload() }, [el('span', { lang: 'hi', text: 'ताज़ा करें' }), el('small', { text: 'Refresh' })]),
     el('button', { class: 'update-close', 'aria-label': 'Later', onclick: () => bar.remove() }, ['×']),
   ]);
   document.body.append(bar);
+}
+// every line of the new versions, in Hindi and English
+function showChanges(notes) {
+  const sheet = el('div', { class: 'talk-sheet changes-sheet', role: 'dialog', 'aria-modal': 'true', 'aria-label': "What's new" });
+  const close = () => sheet.remove();
+  sheet.append(
+    el('div', { class: 'talk-card' }, [
+      el('header', { class: 'talk-head' }, [
+        el('div', {}, [el('b', { lang: 'hi', text: 'क्या नया है' }), el('small', { text: "What's new" })]),
+        el('button', { class: 'round-btn small', 'aria-label': 'Close', html: ICONS.check, onclick: close }),
+      ]),
+      ...notes.map((c) =>
+        el('section', { class: 'change' }, [
+          el('h3', {}, [el('span', { lang: 'hi', text: c.hi }), el('small', { text: c.en })]),
+          el('ul', { class: 'change-list' }, (c.items || []).map((i) => el('li', {}, [el('span', { lang: 'hi', text: i.hi }), el('small', { text: i.en })]))),
+        ]),
+      ),
+    ]),
+  );
+  sheet.addEventListener('click', (e) => e.target === sheet && close());
+  document.body.append(sheet);
+  sheet.querySelector('.round-btn')?.focus();
 }
 // installed on the home screen: ask to keep progress and recordings safe from clean-ups
 if (window.matchMedia?.('(display-mode: standalone)').matches || navigator.standalone) keepStorage();

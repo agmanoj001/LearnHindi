@@ -13145,3 +13145,50 @@ body:has(.game-grammar) .caption-bar,
 .reading-comfort .card.text:lang(en) .word-text {
   letter-spacing: 0.05em;
 }
+
+/* ---- what's new (roadmap 8.6): the refresh bar names what changed, and lists it on a tap ---- */
+.update-more {
+  align-self: flex-start;
+  margin-top: 4px;
+  padding: 3px 10px;
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
+  border-radius: 999px;
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  font-size: 13px;
+  display: inline-flex;
+  gap: 6px;
+  align-items: baseline;
+  cursor: pointer;
+}
+.update-more small {
+  opacity: 0.8;
+}
+.changes-sheet .change h3,
+.changes .change h3 {
+  margin: 14px 0 6px;
+  font-size: 17px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 8px;
+  align-items: baseline;
+}
+.changes-sheet .change h3 small,
+.changes .change h3 small {
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 13px;
+}
+.change-list {
+  margin: 0;
+  padding-left: 20px;
+}
+.change-list li {
+  margin: 4px 0;
+  line-height: 1.45;
+}
+.changes-sheet .change-list li small {
+  display: block;
+  color: var(--muted);
+}

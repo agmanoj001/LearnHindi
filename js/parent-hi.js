@@ -80,6 +80,8 @@ const HI = {
   'Daily limit': 'रोज़ की सीमा',
   'No limit': 'कोई सीमा नहीं',
   Captions: 'लिखा हुआ भी दिखाएँ',
+  "What's new": 'नया क्या है',
+  'The list of changes needs the internet the first time.': 'बदलावों की सूची पहली बार इंटरनेट से आती है।',
   'Easier reading': 'आसान पढ़ाई',
   'More space between words and lines, on a soft cream page, in the stories, comics and reading games. Helps children who find reading hard, including dyslexic readers.':
     'कहानियों, कॉमिक्स और पढ़ने के खेलों में शब्दों और पंक्तियों के बीच ज़्यादा जगह, हल्के क्रीम रंग के पन्ने पर। जिन बच्चों को पढ़ना मुश्किल लगता है, डिस्लेक्सिया वाले बच्चों को भी, इससे मदद मिलती है।',

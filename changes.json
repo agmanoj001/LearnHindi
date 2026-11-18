@@ -1,0 +1,27 @@
+{
+  "changes": [
+    {
+      "version": "kkm-v34",
+      "date": "2026-11-18",
+      "hi": "आसान पढ़ाई, और नया क्या है",
+      "en": "Easier reading, and what's new",
+      "items": [
+        { "hi": "आसान पढ़ाई: शब्दों और पंक्तियों के बीच ज़्यादा जगह, क्रीम रंग के पन्ने पर (बड़ों के लिए › पढ़ने में मदद)।", "en": "Easier reading: more space between words and lines, on a cream page (Grown-ups › reading support)." },
+        { "hi": "नया संस्करण आने पर अब बताया जाता है कि क्या बदला है।", "en": "When a new version arrives, the app now says what changed." }
+      ]
+    },
+    {
+      "version": "kkm-v33",
+      "date": "2026-11-18",
+      "hi": "कक्षा 2, 3 और 4 के लिए गणित",
+      "en": "Maths for Grades 2, 3 and 4",
+      "items": [
+        { "hi": "कक्षा 2, 3 और 4 के लिए गणित की नई दुनियाएँ: बाज़ार, कारख़ाना और जंतर मंतर।", "en": "New maths worlds for Grades 2, 3 and 4: the bazaar, the factory and Jantar Mantar." },
+        { "hi": "हिन्दी में दिन, महीने, ऋतुएँ, घड़ी और रुपये।", "en": "Days, months, seasons, the clock and rupees in Hindi." },
+        { "hi": "पहाड़े, हिन्दी वाले ढंग से गाकर।", "en": "Times tables (पहाड़े), sung the Hindi way." },
+        { "hi": "गणित की कहानियाँ और पहेलियाँ, बड़े बच्चों के लिए।", "en": "Maths stories and puzzles for older children." },
+        { "hi": "शो टाइम में गणित की नई कड़ियाँ।", "en": "New maths episodes in Show time." }
+      ]
+    }
+  ]
+}

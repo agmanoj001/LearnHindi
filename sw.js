@@ -8,6 +8,8 @@ const SHELL = [
   'styles.css',
   // the content: a core and a pack per grade; the packs are added from the core's list below
   'content/core.json',
+  // what's new in each version (roadmap 8.6)
+  'changes.json',
   'manifest.webmanifest',
   'icons/icon.svg',
   'icons/icon-192.png',
@@ -16,6 +18,7 @@ const SHELL = [
   'fonts/baloo2-latin.woff2',
   'fonts/fredoka-latin.woff2',
   'js/app.js',
+  'js/changes.js',
   'js/packs.js',
   'js/show-icons.js',
   'js/guide.js',

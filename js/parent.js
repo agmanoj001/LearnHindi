@@ -1,6 +1,7 @@
 // The grown-ups' area (behind a 3-second press): grade, language, voices and recordings,
 // sound, unlocking, the special photo, and a progress report. Nothing here leaves the device.
 import { el, ICONS, applyReadingComfort } from './ui.js';
+import { loadChanges, changeDate } from './changes.js';
 import { applyMotion, liteMotion, slowDevice } from './motion.js';
 import { normalizeProgress, clipKeysFor, clipKeyFromFileName, practiceReport, DAILY_LIMITS, showLines, storyVoiceLines } from './logic.js';
 import { skillName, SKILLS as MATH_SKILLS } from './mathgen.js';
@@ -275,6 +276,7 @@ export function showParent(api) {
       ),
       tripSection(api),
       backupSection(api),
+      whatsNewSection(api),
       section(
         'Sound',
         toggle('Music', s.music, (v) => ((s.music = v), persist(), api.music.setEnabled(v))),
@@ -727,6 +729,25 @@ function backupReminder(api) {
     ]),
   ]);
   return card;
+}
+
+// What's new (roadmap 8.6): the last few versions, in the parent area's language
+function whatsNewSection(api) {
+  const hi = api.state.settings.parentLang === 'hi';
+  const list = el('div', { class: 'changes' }, [el('p', { class: 'note', text: '…' })]);
+  loadChanges().then((changes) =>
+    list.replaceChildren(
+      ...(changes.length
+        ? changes.slice(0, 3).map((c) =>
+            el('div', { class: 'change' }, [
+              el('h3', { lang: hi ? 'hi' : 'en' }, [el('span', { text: hi ? c.hi : c.en }), el('small', { text: ` · ${changeDate(c.date, hi ? 'hi' : 'en')}` })]),
+              el('ul', { class: 'change-list' }, (c.items || []).map((i) => el('li', { lang: hi ? 'hi' : 'en', text: hi ? i.hi : i.en }))),
+            ]),
+          )
+        : [el('p', { class: 'note', text: 'The list of changes needs the internet the first time.' })]),
+    ),
+  );
+  return el('section', {}, [el('h2', { text: "What's new" }), list]);
 }
 
 function backupSection(api) {

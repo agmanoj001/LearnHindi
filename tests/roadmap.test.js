@@ -106,12 +106,12 @@ const DONE = {
   'Grade 3 and Grade 4 maths worlds': () => ['grade3', 'grade4'].every((lv) => (content.worlds.find((w) => w.subject === 'math' && w.level === lv)?.units || []).reduce((n, u) => n + u.lessons.length, 0) >= 20) && /g4-lakh/.test(read('js/mathgen.js')),
   'Maths stories and puzzles for older children': () => ['chess-rice', 'seventeen-camels', 'aryabhata-zero', 'birbal-biggest', 'tenali-jars'].every((id) => content.stories.some((s) => s.id === id)) && ['mu-1729', 'r-shakuntala', 'b-crows', 'd-lock', 'd-coins'].every((id) => content.comics.some((c) => c.id === id && c.guess)),
   'A reading-comfort option': () => /export function applyReadingComfort/.test(read('js/ui.js')) && /readingComfort: false/.test(read('js/logic.js')) && /\.reading-comfort \.story-page/.test(css) && /'Easier reading'/.test(read('js/parent.js')),
+  'A "what\'s new" note': () => exists('changes.json') && /export function changesSince/.test(read('js/changes.js')) && /update-more/.test(read('js/app.js')) && /whatsNewSection/.test(read('js/parent.js')),
   'More maths in Show time': () => ['km-count', 'km-compare', 'km-ten', 'km-shapes', 'km-measure'].every((u) => content.shows.some((s) => s.level === 'kg' && s.lang === 'en' && String(s.lesson).startsWith(u))),
 };
 
 // title of an open row -> a sign in the code that it has been built (then its row must be ✅)
 const WATCH = {
-  'A "what\'s new" note': () => /whatsNew|changelog/i.test(js),
   'More decodable books for Grade 1': () => content.stories.filter((s) => s.decodable != null).length >= 25,
   // the maths lines go into the voice pack (today only the fixed lessons' lines do)
   'Google voice for every word the app says': () => /mathgen/.test(read('js/logic.js') + read('tools/make-voices.mjs')),
