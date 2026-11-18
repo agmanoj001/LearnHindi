@@ -23,7 +23,7 @@ const opt = (name, dflt = null) => {
 };
 const RUNS = Number(opt('--runs', 3));
 const ROOT = resolve(opt('--root', '.'));
-export const BUDGET = { firstScreen: 2000, firstSlow: 3500, home: 1000 };
+export const BUDGET = { firstScreen: 2000, firstSlow: 3500, home: 1000, lcp: 2500 };
 const CPU = 4;
 
 const { chromium } = createRequire(import.meta.url)('playwright');
@@ -31,16 +31,32 @@ const { url: URL_, close } = await startPagesServer(ROOT);
 
 const median = (xs) => [...xs].sort((a, b) => a - b)[Math.floor(xs.length / 2)];
 
-// one open: ms to the splash's play button, then ms from the tap to the home screen
+// one open: when the first screen is painted (the browser's own first and largest contentful paint, as
+// Lighthouse and Core Web Vitals measure it), ms to the splash's play button (ready to play), then ms from the
+// tap to the home screen
+const paints = (page) =>
+  page.evaluate(
+    () =>
+      new Promise((done) => {
+        const fcp = performance.getEntriesByName('first-contentful-paint')[0]?.startTime || 0;
+        let lcp = 0;
+        try {
+          new PerformanceObserver((l) => l.getEntries().forEach((e) => (lcp = e.startTime))).observe({ type: 'largest-contentful-paint', buffered: true });
+        } catch {}
+        setTimeout(() => done({ fcp: Math.round(fcp), lcp: Math.round(lcp || fcp) }), 60);
+      }),
+  );
 async function open(page) {
   const t0 = Date.now();
   await page.goto(URL_, { waitUntil: 'commit' });
   await page.waitForSelector('.splash-play', { state: 'visible', timeout: 60000 });
   const first = Date.now() - t0;
+  const { fcp, lcp } = await paints(page);
   const t1 = Date.now();
   await page.click('.splash-play', { force: true });
   await page.waitForSelector('.hub', { timeout: 60000 });
-  return { first, home: Date.now() - t1 };
+  // no paint recorded (the screen faded in from transparent, which LCP leaves out): the screen showed at `first`
+  return { first, fcp, lcp: lcp || first, home: Date.now() - t1 };
 }
 
 async function run(level, NET, { thenAgain = true } = {}) {
@@ -83,6 +99,9 @@ for (const level of ['toddler', 'kg', 'grade7']) {
   }
   rows.push({
     level,
+    lcpFast: median(fast.map((r) => r.firstOpen.lcp)),
+    lcpSlow: median(runs.map((r) => r.firstOpen.lcp)),
+    lcpAgain: median(runs.map((r) => r.again.lcp)),
     firstFast: median(fast.map((r) => r.firstOpen.first)),
     firstOpen: median(runs.map((r) => r.firstOpen.first)),
     firstHome: median(runs.map((r) => r.firstOpen.home)),
@@ -100,6 +119,12 @@ const lines = [
   '| Grade | First open, 4G | First open, slow 4G | then home | Next opens | then home |',
   '| --- | --- | --- | --- | --- | --- |',
   ...rows.map((r) => `| ${r.level} | ${over(r.firstFast, BUDGET.firstScreen)} | ${over(r.firstOpen, BUDGET.firstSlow)} | ${over(r.firstHome, BUDGET.home)} | ${over(r.again, BUDGET.firstScreen)} | ${over(r.againHome, BUDGET.home)} |`),
+  '',
+  `The first screen painted (largest contentful paint, Core Web Vitals: "good" is ${BUDGET.lcp} ms or less):`,
+  '',
+  '| Grade | First open, 4G | First open, slow 4G | Next opens |',
+  '| --- | --- | --- | --- |',
+  ...rows.map((r) => `| ${r.level} | ${over(r.lcpFast, BUDGET.lcp)} | ${over(r.lcpSlow, BUDGET.lcp)} | ${over(r.lcpAgain, BUDGET.lcp)} |`),
 ];
 console.log(lines.join('\n'));
 if (opt('--summary')) await appendFile(opt('--summary'), `${lines.join('\n')}\n`);

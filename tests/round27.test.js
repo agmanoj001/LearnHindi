@@ -418,3 +418,21 @@ test('6.8 the Google voice for every line: maths said in recorded pieces, talk p
   // the app says an English line with no recording of its own in its recorded pieces
   assert.match(read('js/app.js'), /const plan = mathPlan\(text\)/);
 });
+
+test('launch: the first screen paints from index.html at once, the stylesheet does not hold it up, and the budget times it', () => {
+  const html = read('index.html');
+  // the app shell: the title and the play circle, drawn by a few lines of CSS in the page itself
+  assert.match(html, /<div class="boot"[^>]*>[\s\S]*class="boot-hi"[\s\S]*class="boot-play"/);
+  assert.match(html, /<style>[\s\S]*\.boot \{[\s\S]*<\/style>/);
+  // in the phone's own font, so the app's fonts don't start downloading before the content
+  const shellCss = html.match(/<style>([\s\S]*?)<\/style>/)[1];
+  assert.doesNotMatch(shellCss, /Fredoka|Baloo/);
+  // no stylesheet that blocks the first paint (only the no-script fallback); the script adds it and the app waits
+  assert.doesNotMatch(html.replace(/<noscript>[\s\S]*?<\/noscript>/g, ''), /<link rel="stylesheet" href="styles\.css"/);
+  assert.match(html, /window\.__styles = new Promise/);
+  assert.match(read('js/app.js'), /await Promise\.race\(\[window\.__styles/);
+  // the budget reports the first paint as Core Web Vitals measure it (good: 2.5 s or less)
+  const tool = read('tools/perf-budget.mjs');
+  assert.match(tool, /largest-contentful-paint/);
+  assert.match(tool, /lcp: 2500/);
+});

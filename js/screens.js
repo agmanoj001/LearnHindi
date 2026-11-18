@@ -746,7 +746,9 @@ function newPrizeCard(api, r) {
 // Grades 7–8: read a story for a little brother or sister (roadmap 7.9)
 function missionCard(api) {
   if (!MISSION_LEVELS.includes(api.state.settings.level)) return null;
-  const done = Object.keys(readByAll()).filter((id) => missionStories(api.state.content).some((s) => s.id === id)).length;
+  // the stories read so far, counted from the ids in the core: Kindergarten's pack may not be here yet
+  const known = new Set(api.state.content.storyIds || missionStories(api.state.content).map((s) => s.id));
+  const done = Object.keys(readByAll()).filter((id) => known.has(id)).length;
   return el('button', { class: 'mission-card', 'aria-label': 'Read to your brother or sister', onclick: () => (api.sfx.pop(), api.go('readfor')) }, [
     el('span', { class: 'mission-icon', 'aria-hidden': 'true', text: '📖' }),
     el('span', { class: 'mission-text' }, [el('b', { lang: 'hi', text: 'छोटों के लिए कहानी पढ़ो' }), el('small', { text: 'Read a story for your brother or sister' })]),

@@ -7,7 +7,7 @@
          The hash is the inline script below; tests/round27.test.js checks it is kept in step. -->
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' 'sha256-idJInDp7khjDRKBy5VrY/d/eom3Iima15d0M7i7N7DM='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'none'"
+      content="default-src 'self'; script-src 'self' 'sha256-yL6OD3pBfi3+tPqchF3ur78ZEIPYYksCovkPqpCf9B0='; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; media-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'none'"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
     <title>Khel Khel Mein</title>
@@ -18,11 +18,75 @@
     <link rel="apple-touch-icon" href="icons/icon-192.png" />
     <!-- the fonts are not preloaded: text shows at once in the phone's own font (font-display: swap), and
          on a first open the code and content the first screen needs come first (docs/ROADMAP.md 8.5) -->
-    <link rel="stylesheet" href="styles.css" />
+    <!-- the first screen paints at once (the app shell): these few lines draw the splash's title and play circle
+         straight from this page, while the stylesheet, the code and the content load; the app then draws the
+         real splash in the same place (docs/PERFORMANCE.md). The stylesheet is added by the script below so it
+         does not hold up this first paint; the app waits for it before drawing its own screens. -->
+    <style>
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        overflow: hidden;
+        background:
+          radial-gradient(60vmax 60vmax at -10% -10%, #e7e2ff 0, transparent 60%),
+          radial-gradient(55vmax 55vmax at 110% 0%, #d9f1ff 0, transparent 60%),
+          radial-gradient(60vmax 60vmax at 50% 120%, #dcfbea 0, transparent 60%),
+          #f8f7ff;
+      }
+      #app {
+        height: 100%;
+      }
+      .boot {
+        /* the phone's own font: naming the app's fonts here would start their download before the content's */
+        font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Nirmala UI', sans-serif;
+        height: 100%;
+        display: grid;
+        place-items: center;
+        align-content: center;
+        gap: 28px;
+        text-align: center;
+      }
+      .boot-hi {
+        font-size: clamp(44px, 9vmin, 72px);
+        font-weight: 800;
+        line-height: 1;
+        background: linear-gradient(90deg, #6c63ff, #3d7bff);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .boot-en {
+        display: block;
+        margin-top: 6px;
+        font-size: clamp(13px, 2.2vmin, 17px);
+        font-weight: 600;
+        color: #6b7090;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      .boot-play {
+        width: 132px;
+        height: 132px;
+        border-radius: 50%;
+        background: linear-gradient(145deg, #3ddc97, #1fae6c);
+        box-shadow: 0 18px 40px -12px rgba(31, 174, 108, 0.7);
+        opacity: 0.55;
+      }
+    </style>
+    <noscript><link rel="stylesheet" href="styles.css" /></noscript>
     <script>
       // Start the content's download at once, while the code loads: the core, and this child's grade
       // (js/app.js picks them up; docs/ROADMAP.md 8.5). Nothing here is needed for the app to work.
       (function () {
+        // the stylesheet, without holding up the first paint; the app waits for window.__styles
+        var css = document.createElement('link');
+        css.rel = 'stylesheet';
+        css.href = 'styles.css';
+        window.__styles = new Promise(function (done) {
+          css.onload = css.onerror = done;
+        });
+        document.head.appendChild(css);
         try {
           var get = function (f) {
             return fetch('content/' + f, { cache: 'no-cache' }).then(function (r) {
@@ -39,12 +103,11 @@
           };
           var id = (read('vt.profiles') || {}).current;
           var level = (read(!id || id === 'p1' ? 'vt.settings' : 'vt.settings:' + id) || {}).level || 'kg';
-          var want = level === 'grade7' || level === 'grade8' ? [level, 'kg'] : [level];
           var early = { core: get('core.json'), packs: {} };
           early.core
             .then(function (core) {
               (core.packs || []).forEach(function (p) {
-                if (want.indexOf(p.level) >= 0) {
+                if (p.level === level && !p.part) {
                   early.packs[p.file] = get(p.file);
                   early.packs[p.file].catch(function () {});
                 }
@@ -101,6 +164,10 @@
   </head>
   <body>
     <div id="app">
+      <div class="boot">
+        <div><span class="boot-hi" lang="hi">खेल-खेल में</span><span class="boot-en">Khel Khel Mein</span></div>
+        <div class="boot-play" aria-hidden="true"></div>
+      </div>
       <noscript>Khel Khel Mein needs JavaScript.</noscript>
     </div>
   </body>

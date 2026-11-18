@@ -122,6 +122,9 @@ async function boot() {
   initCaptions();
   initParallax();
   history.replaceState({ name: 'splash', depth: 0 }, '');
+  // the stylesheet was loaded without holding up the first paint (index.html's app shell): draw the app's
+  // own screens once it is there (or after a few seconds, if it can't be had)
+  await Promise.race([window.__styles, new Promise((r) => setTimeout(r, 4000))]);
   // every round button (back, home, the speaker, the 💡, the ⓘ) and every results bubble answers a tap
   // with the same soft tick and touch (roadmap 5.7)
   document.addEventListener('click', (e) => e.target.closest?.('.round-btn, .bubble, .info-btn') && sfx.feel('tap'), true);

@@ -736,7 +736,15 @@ test('content/ is content.json split into a core and a pack per grade, and nothi
   const toddler = mergeContent(core, firstPacks(core, 'toddler').map((p) => JSON.parse(files[p.file])));
   assert.ok(toddler.stories.length && toddler.stories.every((s) => s.level === 'toddler'));
   assert.deepEqual(toddler.comics, []);
-  assert.deepEqual(firstPacks(core, 'grade7').map((p) => p.level).sort(), ['grade7', 'kg']);
+  // only the child's own grade before the first screen (the Grade 7–8 mission's Kindergarten stories follow),
+  // and without its comics, which come in a pack of their own after the home screen is up
+  assert.deepEqual(firstPacks(core, 'grade7').map((p) => p.file.split('.')[0]), ['grade7']);
+  const g7 = JSON.parse(files[firstPacks(core, 'grade7')[0].file]);
+  assert.equal(g7.comics, undefined);
+  assert.ok(g7.stories.length && g7.grammar);
+  const comics = core.packs.find((p) => p.level === 'grade7' && p.part === 'comics');
+  assert.ok(comics && JSON.parse(files[comics.file]).comics.every((c) => c.level === 'grade7'));
+  assert.ok(firstPacks(core, 'grade7')[0].bytes < 250 * 1024, 'Grade 7 loads little before its first screen');
   // every story is still known, for favourites
   assert.equal(core.storyIds.length, content.stories.length);
 });

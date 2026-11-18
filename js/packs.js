@@ -7,6 +7,9 @@
 
 // the parts kept in the grade packs, by the "level" of each item
 export const PACKED = ['stories', 'comics', 'grammar', 'riddles', 'idioms'];
+// parts no first screen shows, in a pack of their own per grade (grade7-comics.<hash>.json) that loads after
+// the home screen is up: the comics are most of Grade 7's and Grade 8's content (roadmap 8.5)
+export const LATER = ['comics'];
 
 const hash = (s) => {
   let h = 0x811c9dc5;
@@ -19,7 +22,7 @@ export function splitContent(content) {
   const core = { ...content };
   const packs = {};
   const kinds = {};
-  const pack = (level) => (packs[level] ||= { level, order: {} });
+  const pack = (level, part) => (packs[part ? `${level}-${part}` : level] ||= { level, ...(part ? { part } : {}), order: {} });
   for (const k of PACKED) {
     const v = content[k];
     delete core[k];
@@ -28,7 +31,7 @@ export function splitContent(content) {
     // each item keeps its place in the whole, so merging the packs gives back the same order
     const entries = Array.isArray(v) ? v.map((item) => [null, item]) : Object.entries(v);
     entries.forEach(([id, item], i) => {
-      const p = pack(item.level);
+      const p = pack(item.level, LATER.includes(k) ? k : null);
       if (Array.isArray(v)) (p[k] ||= []).push(item);
       else (p[k] ||= {})[id] = item;
       (p.order[k] ||= []).push(i);
@@ -39,13 +42,13 @@ export function splitContent(content) {
   core.packedKinds = kinds;
   // every story's id, so a favourite from a pack not loaded yet is still known (js/logic.js normalizeProgress)
   core.storyIds = (content.stories || []).map((s) => s.id);
-  core.packs = Object.keys(packs)
-    .sort((a, b) => levelOrder.indexOf(a) - levelOrder.indexOf(b))
-    .map((level) => {
-      const text = JSON.stringify(packs[level]);
-      const file = `${level}.${hash(text)}.json`;
+  core.packs = Object.entries(packs)
+    .sort(([a, pa], [b, pb]) => levelOrder.indexOf(pa.level) - levelOrder.indexOf(pb.level) || a.localeCompare(b))
+    .map(([name, p]) => {
+      const text = JSON.stringify(p);
+      const file = `${name}.${hash(text)}.json`;
       files[file] = text;
-      return { level, file, bytes: text.length };
+      return { level: p.level, ...(p.part ? { part: p.part } : {}), file, bytes: text.length };
     });
   files['core.json'] = JSON.stringify(core);
   return files;
@@ -71,9 +74,9 @@ export function mergeContent(core, packs) {
   return out;
 }
 
-// which packs to load before the first screen: the child's grade, and Kindergarten's stories for the
-// Grade 7–8 "read to your brother or sister" mission
+// which packs to load before the first screen: the child's own grade only, without its LATER parts. (The
+// Grade 7–8 "read to your brother or sister" mission reads Kindergarten's stories, but its screen waits for
+// every pack like any other, and the home screen's mission card counts from core.storyIds.)
 export function firstPacks(core, level) {
-  const want = new Set([level, ...(level === 'grade7' || level === 'grade8' ? ['kg'] : [])]);
-  return (core.packs || []).filter((p) => want.has(p.level));
+  return (core.packs || []).filter((p) => p.level === level && !p.part);
 }
