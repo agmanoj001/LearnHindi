@@ -48,6 +48,9 @@ export default {
         readByRibbon(story.id),
         el('div', { class: 'pic', html: ctx.picture(coverWord) }),
         ...lines(story.title).map((t) => el('div', { class: `story-title ${t.lang}`, lang: t.lang, text: t.text })),
+        // a true story or a how-things-work book says so, and a retelling names where it comes from (9.7, 9.9, 9.10)
+        STORY_BADGE[story.kind] ? el('span', { class: `story-kind ${story.kind}` }, [el('b', { lang: 'hi', text: STORY_BADGE[story.kind].hi }), el('small', { text: STORY_BADGE[story.kind].en })]) : null,
+        story.source?.hi ? el('p', { class: 'story-source' }, [el('span', { lang: 'hi', text: story.source.hi }), el('small', { text: story.source.en || '' })]) : null,
       ]),
       play,
       ...(mine ? [mine] : []),
@@ -370,6 +373,8 @@ function readAlong(lineEls, page, langs, rate, onLight = null) {
 
 // Retelling a story in your own words is one of the best checks of understanding (and great
 // speaking practice). The pictures help as prompts. The recording stays on this device.
+const STORY_BADGE = { true: { hi: 'सच्ची कहानी', en: 'A true story' }, info: { hi: 'जानो कैसे', en: 'How it works' } };
+
 // ---- read it aloud and hear yourself (roadmap 1.5) ----
 // On a page the child reads alone: the red button records them reading it, then plays them back, then the
 // narrator, so they hear the difference. The latest recording of each page is kept on this device only

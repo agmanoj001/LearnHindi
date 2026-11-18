@@ -104,6 +104,8 @@ const isPosInt = (v) => Number.isInteger(v) && v > 0;
 const hasText = (v) => isObj(v) && isStr(v.hi) && isStr(v.en);
 
 // `pictureExists(id)` (or a `knownPictures` list) lets the validator warn about pictures with no drawing.
+export const STORY_KINDS = ['story', 'poem', 'true', 'info'];
+
 export function validateContent(c, { knownPictures = null, pictureExists = null, mascots = null, themes = null } = {}) {
   const errors = [];
   const warnings = [];
@@ -323,7 +325,8 @@ export function validateContent(c, { knownPictures = null, pictureExists = null,
           for (const t of TALK_TYPES) if (!s.talk.some((x) => x?.type === t && hasText(x))) err(`${at} (${s.id}).talk needs a "${t}" prompt with "hi" and "en"`);
           for (const x of s.talk) if (!TALK_TYPES.includes(x?.type)) err(`${at} (${s.id}).talk: "${x?.type}" is not one of ${TALK_TYPES.join(', ')}`);
         }
-        if (s.kind !== undefined && !['story', 'poem'].includes(s.kind)) err(`${at} (${s.id}).kind must be "story" or "poem"`);
+        // "true": a true story about a real person; "info": a how-things-work book (roadmap 9.9, 9.10)
+        if (s.kind !== undefined && !STORY_KINDS.includes(s.kind)) err(`${at} (${s.id}).kind must be one of ${STORY_KINDS.join(', ')}`);
         if (s.lang !== undefined && !['hi', 'en'].includes(s.lang)) err(`${at} (${s.id}).lang must be "hi" or "en"`);
       });
     }

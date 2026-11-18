@@ -172,6 +172,23 @@ export const THINGS = {
   rangoli: () => `<polygon points="${starPoints(100, 70, 58, 30, 8)}" fill="#FF6B9A"/>` + `<polygon points="${starPoints(100, 70, 40, 20, 8)}" fill="#FFC93C"/>` + circ(100, 70, 16, '#3D7BFF') + circ(100, 70, 7, '#fff') + [0, 1, 2, 3, 4, 5, 6, 7].map((k) => circ((100 + 52 * Math.cos((k * Math.PI) / 4 + 0.39)).toFixed(1), (70 + 52 * Math.sin((k * Math.PI) / 4 + 0.39)).toFixed(1), 5, '#2EC27E')).join(''),
 
   // ---------- story animals and things ----------
+  // roadmap 9.9, true stories: Kalam's newspapers, Ramanujan's slate, a medal, a dancer's ghungroo
+  newspaper: () =>
+    path('M44 40 L150 30 L156 116 L50 124 Z', '#F3F4F8') + path('M44 40 L150 30 L151 42 L45 52 Z', '#D9DEE7') +
+    [60, 72, 84, 96, 108].map((y, i) => line(56, y + 2 - i * 0.6, i % 2 ? 96 : 140, y - (i % 2 ? 3 : 7), '#9AA3B5', 3)).join('') +
+    rect(104, 62, 36, 28, '#B9C1D0', 3) + path('M150 30 L172 44 L176 128 L156 116 Z', '#E3E6ED'),
+  slate: () =>
+    rect(40, 28, 120, 92, '#8A5A44', 8) + rect(50, 38, 100, 72, '#2B3A3A', 4) +
+    `<text x="100" y="68" text-anchor="middle" font-size="22" font-family="sans-serif" fill="#F3F4F8">1729</text>` +
+    `<text x="100" y="96" text-anchor="middle" font-size="16" font-family="sans-serif" fill="#C4C9D4">π ∑ √</text>` +
+    rect(138, 112, 26, 6, '#F3F4F8', 3),
+  medal: () =>
+    path('M76 20 L100 70 L124 20 L108 20 L100 40 L92 20 Z', '#E2583E') + path('M88 20 L100 46 L112 20', 'none', stroke('#FFFFFF', 3)) +
+    circ(100, 92, 30, '#E8A51C') + circ(100, 92, 23, '#FFC93C') +
+    `<polygon points="${starPoints(100, 92, 14, 6, 5)}" fill="#E8A51C"/>`,
+  ghungroo: () =>
+    path('M30 92 Q100 120 170 92', 'none', stroke('#B9774A', 10)) +
+    [44, 62, 80, 98, 116, 134, 152].map((x, i) => { const y = 96 + Math.sin((Math.PI * (x - 30)) / 140) * 14; return circ(x, y + 12, 9, '#FFC93C') + circ(x, y + 14, 3, '#B58300') + line(x, y + 2, x, y + 4, '#B58300', 2); }).join(''),
   // बैंगन: two purple brinjals (roadmap 9.8: Tenali Rama and the brinjal curry)
   brinjal: () =>
     [[76, 84, -18], [124, 80, 14]].map(([x, y, r]) => `<g transform="rotate(${r} ${x} ${y})">` + ell(x, y + 10, 24, 36, '#6B3FA0') + ell(x - 7, y + 2, 7, 16, '#8E63C7') + path(`M${x - 18} ${y - 22} Q${x} ${y - 34} ${x + 18} ${y - 22} Q${x} ${y - 12} ${x - 18} ${y - 22} Z`, '#2EC27E') + line(x, y - 30, x + 4, y - 44, '#1F9D63', 5) + '</g>').join(''),
