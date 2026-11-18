@@ -222,6 +222,32 @@ export const THINGS = {
     circ(140, 66, 16, '#F3E3D3') + ell(148, 74, 9, 7, '#F7C6C0') + ell(128, 54, 7, 4, '#A0703F') + ell(152, 54, 7, 4, '#A0703F') + eye(142, 62, 2.6) +
     path('M60 80 Q48 84 50 100', 'none', stroke('#A0703F', 3)),
   // चिमटा: iron tongs with a ring at the top (roadmap 9.7: Hamid's tongs, after Premchand's ईदगाह)
+  // roadmap 9.12, prose for Grades 7–8: a bird cage with a parrot (Tagore's तोता-कहानी), a throne
+  // (सिंहासन बत्तीसी), a diary with a ribbon, and a bullock cart (Premchand's stories)
+  cage: () =>
+    path('M56 120 V62 Q56 20 100 20 Q144 20 144 62 V120', 'none', stroke('#C79A3B', 4)) +
+    [72, 86, 100, 114, 128].map((x) => path(`M${x} 120 V${(22 + ((x - 100) / 44) ** 2 * 40).toFixed(1)}`, 'none', stroke('#D9B45A', 2.5))).join('') +
+    path('M56 62 H144', 'none', stroke('#C79A3B', 3)) + rect(48, 118, 104, 10, '#A0703F', 4) + circ(100, 14, 7, 'none', stroke('#C79A3B', 3)) +
+    line(64, 96, 136, 96, '#8A5A44', 3) +
+    ell(100, 82, 13, 16, '#2EC27E') + circ(100, 64, 10, '#2EC27E') + path('M106 62 Q116 66 108 72 Z', '#E2583E') + eye(102, 61, 2.2) +
+    path('M96 96 L92 112 M104 96 L108 112', 'none', stroke('#1F9D63', 5)),
+  throne: () =>
+    path('M58 30 Q100 6 142 30 V84 H58 Z', '#E2583E') + path('M66 34 Q100 16 134 34 V80 H66 Z', '#C8102E') +
+    path('M58 30 Q100 6 142 30', 'none', stroke('#FFC93C', 6)) + circ(100, 14, 8, '#FFC93C') + circ(58, 30, 6, '#FFC93C') + circ(142, 30, 6, '#FFC93C') +
+    rect(44, 80, 112, 20, '#FFC93C', 6) + rect(52, 84, 96, 10, '#F5B82E', 4) +
+    rect(50, 100, 14, 26, '#E8A51C', 4) + rect(136, 100, 14, 26, '#E8A51C', 4) + rect(40, 68, 14, 34, '#FFC93C', 5) + rect(146, 68, 14, 34, '#FFC93C', 5) +
+    [76, 100, 124].map((x) => circ(x, 90, 3.5, '#3D7BFF')).join(''),
+  diary: () =>
+    rect(52, 18, 96, 110, '#3D7BFF', 8) + rect(52, 18, 14, 110, '#2F5BD3', 6) + rect(72, 34, 64, 26, '#F3F4F8', 4) +
+    path('M80 44 H128 M80 52 H118', 'none', stroke('#9AA3B5', 3)) + `<text x="96" y="94" text-anchor="middle" font-size="16" font-family="sans-serif" fill="#FFFFFF">डायरी</text>` +
+    path('M136 18 V128 L131 120 L126 128 V18', '#FFC93C') + path('M148 26 H152 V122 H148', 'none', stroke('#E3E6ED', 3)),
+  cart: () =>
+    path('M24 76 H132 L126 92 H30 Z', '#B9774A') + path('M30 62 H126 M30 62 V78 M126 62 V78 M62 62 V78 M94 62 V78', 'none', stroke('#8A5A44', 4)) +
+    circ(78, 104, 24, 'none', stroke('#8A5A44', 6)) + [0, 1, 2, 3].map((k) => line(78 + 24 * Math.cos((k * Math.PI) / 4), 104 + 24 * Math.sin((k * Math.PI) / 4), 78 - 24 * Math.cos((k * Math.PI) / 4), 104 - 24 * Math.sin((k * Math.PI) / 4), '#A0703F', 3)).join('') + circ(78, 104, 5, '#5B3A2E') +
+    line(130, 82, 150, 76, '#8A5A44', 5) +
+    [150, 158, 172, 180].map((x) => rect(x - 3, 86, 6, 34, '#E8DCCB', 2)).join('') +
+    ell(164, 82, 24, 15, '#E8DCCB') + ell(152, 68, 9, 7, '#E8DCCB') + circ(184, 70, 11, '#E8DCCB') + ell(189, 78, 7, 5, '#F7C6C0') +
+    path('M178 62 Q172 50 178 46 M190 62 Q196 50 190 46', 'none', stroke('#9AA3B5', 3)) + eye(186, 67, 2.2) + path('M140 80 Q134 92 138 104', 'none', stroke('#C9B79C', 3)),
   chimta: () =>
     circ(100, 22, 12, 'none').replace('fill="none"', 'fill="none" stroke="#5B6478" stroke-width="5"') +
     path('M94 32 L66 128 M106 32 L134 128', 'none', stroke('#7A8496', 8)) +

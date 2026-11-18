@@ -102,11 +102,13 @@ test('one grammar world per grade: a lesson for every topic and a mixed review f
     const w = content.worlds.find((x) => x.id === id);
     assert.equal(w.level, level);
     assert.ok(w.tags.includes('grammar'));
-    const lessons = C.worldLessons(w);
-    assert.ok(lessons.every((l) => l.game === 'grammar'));
+    // grammar units, then reading units of prose to read (roadmap 9.12): a unit is one or the other
+    const grammarUnits = w.units.filter((u) => u.lessons.some((l) => l.game === 'grammar'));
+    for (const u of w.units) assert.ok(u.lessons.every((l) => l.game === 'grammar') || u.lessons.every((l) => l.game === 'story'), `${u.id} is a grammar unit or a reading unit`);
+    const lessons = grammarUnits.flatMap((u) => u.lessons);
     const taught = lessons.filter((l) => l.config.topic).map((l) => l.config.topic);
     assert.deepEqual(taught.sort(), byLevel(level).map((t) => t.id).sort(), `${id} teaches each topic once`);
-    for (const u of w.units) {
+    for (const u of grammarUnits) {
       const review = u.lessons.find((l) => l.config.topics);
       assert.ok(review, `${u.id} has a review`);
       assert.deepEqual(review.config.topics, u.lessons.filter((l) => l.config.topic).map((l) => l.config.topic));

@@ -13442,3 +13442,34 @@ body:has(.game-grammar) .caption-bar,
   font-size: 13px;
   text-align: center;
 }
+
+/* ---- prose for Grades 7–8 (roadmap 9.12): a glossary word on the page, its meaning, and the word list ---- */
+.story-word.glossed {
+  text-decoration: underline dotted var(--place, #6b4e00) 2px;
+  text-underline-offset: 5px;
+}
+.story-gloss-pop.on {
+  pointer-events: auto;
+}
+.story-words {
+  width: min(100%, 720px);
+  max-height: calc(100% - 96px);
+  overflow-y: auto;
+  margin-inline: auto;
+}
+.story-words li.reading {
+  border-color: var(--place, #6b4e00);
+  background: #fff8db;
+}
+.story-kind.diary {
+  background: #e0ecff;
+  color: #1d3f85;
+}
+.story-kind.letter {
+  background: #ffe4e6;
+  color: #8a1c2b;
+}
+.story-kind.news {
+  background: #ececf1;
+  color: #2b2d42;
+}

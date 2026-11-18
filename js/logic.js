@@ -726,6 +726,10 @@ export function sentenceTokens(text) {
   return text.trim().split(/\s+/);
 }
 
+// A story's glossary (Grades 7–8, roadmap 9.12) marks a word on the page where it first appears; a token
+// matches its glossary word once the punctuation around it is gone.
+export const glossToken = (token) => String(token).replace(/[।.!?,;:"'“”‘’()]/g, '');
+
 // ---- Rhymes and word pairs ----
 
 export function makeRhymeRound(groups, lang, rng = Math.random, wrong = 2) {
@@ -1059,8 +1063,13 @@ export function lessonVoiceLines(content) {
       }
   // the words a child can tap in a story, and the sentence tokens
   for (const st of content.stories || []) for (const p of st.pages) for (const lg of ['hi', 'en']) for (const t of String(p[lg] || '').split(/\s+/)) byText(bareToken(t), lg, st.level);
+  // a story's glossary (roadmap 9.12): each word, and the word with its meaning
+  for (const st of content.stories || []) for (const w of st.words || []) for (const t of [w.hi, glossLine(w)]) byText(t, 'hi', st.level);
   return [...lines.values()].map(({ level, ...l }) => (level ? { ...l, level } : l));
 }
+
+// What a story's glossary word says when tapped: "हाशियों। पन्ने के किनारे की ख़ाली जगह"
+export const glossLine = (w) => `${w.hi}। ${w.mean}`;
 
 // A word's synonym, said after a right answer to grow vocabulary: "हाथी, यानी गज।"
 export const synLine = (word) => (word?.syn ? `${word.hi}, यानी ${word.syn}।` : null);

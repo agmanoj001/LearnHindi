@@ -1,7 +1,7 @@
 // Validates content.json. Pure function: used by the app at startup and by tests.
 import { SKILLS } from './mathgen.js';
 import { PHONICS } from './phonicsgen.js';
-import { BEAT_KINDS, beatKind, tapTokens, SHOW_MODELS } from './logic.js';
+import { BEAT_KINDS, beatKind, tapTokens, SHOW_MODELS, glossToken, sentenceTokens } from './logic.js';
 import { CAST, CAST_IDS, FACES, ARMS, PROPS, BACKGROUND_IDS } from './art-comic.js';
 import { actProblems } from './scene.js';
 import { SAMAY_MODES } from './samay.js';
@@ -104,7 +104,7 @@ const isPosInt = (v) => Number.isInteger(v) && v > 0;
 const hasText = (v) => isObj(v) && isStr(v.hi) && isStr(v.en);
 
 // `pictureExists(id)` (or a `knownPictures` list) lets the validator warn about pictures with no drawing.
-export const STORY_KINDS = ['story', 'poem', 'true', 'info'];
+export const STORY_KINDS = ['story', 'poem', 'true', 'info', 'diary', 'letter', 'news'];
 
 export function validateContent(c, { knownPictures = null, pictureExists = null, mascots = null, themes = null } = {}) {
   const errors = [];
@@ -328,6 +328,23 @@ export function validateContent(c, { knownPictures = null, pictureExists = null,
         // "true": a true story about a real person; "info": a how-things-work book (roadmap 9.9, 9.10)
         if (s.kind !== undefined && !STORY_KINDS.includes(s.kind)) err(`${at} (${s.id}).kind must be one of ${STORY_KINDS.join(', ')}`);
         if (s.lang !== undefined && !['hi', 'en'].includes(s.lang)) err(`${at} (${s.id}).lang must be "hi" or "en"`);
+        // a glossary (roadmap 9.12): each word appears on a page, as a word of its own, and has a meaning
+        if (s.words !== undefined) {
+          if (!Array.isArray(s.words) || !s.words.length) err(`${at} (${s.id}).words must be a non-empty list`);
+          else {
+            const tokens = new Set((s.pages || []).flatMap((p) => sentenceTokens(String(p?.hi || '')).map(glossToken)));
+            const seenWords = new Set();
+            s.words.forEach((w, j) => {
+              const wat = `${at} (${s.id}).words[${j}]`;
+              if (!isStr(w?.hi) || !DEVANAGARI.test(w.hi) || /\s/.test(w.hi)) err(`${wat}.hi must be one Devanagari word`);
+              else if (!tokens.has(w.hi)) err(`${wat}: "${w.hi}" is not a word on any page`);
+              if (seenWords.has(w?.hi)) err(`${wat}: "${w.hi}" is listed twice`);
+              seenWords.add(w?.hi);
+              if (!isStr(w?.mean) || !DEVANAGARI.test(w.mean)) err(`${wat}.mean must be a meaning in Hindi`);
+              if (!isStr(w?.en)) err(`${wat}.en is required`);
+            });
+          }
+        }
       });
     }
   }

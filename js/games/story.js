@@ -1,6 +1,6 @@
 // Library (Grade 1+): read-along picture stories, a few questions about the story and, for folktales, the moral.
 // Every word on the page can be tapped to hear it. Each visit opens the next story for the stage.
-import { sentenceTokens, shuffle, isKeyToken, questionType } from '../logic.js';
+import { sentenceTokens, shuffle, isKeyToken, questionType, glossToken, glossLine } from '../logic.js';
 import { storyLang, worldStoryLang } from '../curriculum.js';
 import { el, sleep, choose, runRounds, cheer, waitTap, bounce, ICONS, readChoices, youngReader } from './kit.js';
 import { clips } from '../storage.js';
@@ -71,6 +71,26 @@ export default {
     let singing = poem && ctx.settings.singAlong !== false;
     if (singing) ctx.setMusicMood?.('sing');
 
+    // ---- a glossary (Grades 7–8, roadmap 9.12): each hard word is underlined where it first appears;
+    // tapping it shows and says its meaning, and the words are listed again after the last page ----
+    const gloss = new Map((story.words || []).map((w) => [w.hi, w]));
+    const glossShown = new Set();
+    const glossPop = el('div', { class: 'gloss-pop story-gloss-pop', role: 'status' });
+    glossPop.addEventListener('click', (e) => (e.stopPropagation(), glossPop.classList.remove('on')));
+    const showMeaning = (w, node) => {
+      glossPop.replaceChildren(el('b', { lang: 'hi', text: w.hi }), el('span', { lang: 'hi', text: w.mean }), w.en ? el('small', { text: w.en }) : '');
+      const host = node.closest('.story-page');
+      if (!host) return;
+      if (glossPop.parentNode !== host) host.append(glossPop);
+      const box = node.getBoundingClientRect();
+      const area = host.getBoundingClientRect();
+      glossPop.style.left = `${Math.max(8, Math.min(area.width - 268, box.left - area.left - 20))}px`;
+      glossPop.style.top = `${box.bottom - area.top + 6}px`;
+      glossPop.classList.add('on');
+      clearTimeout(glossPop.timer);
+      glossPop.timer = setTimeout(() => glossPop.classList.remove('on'), 6000);
+    };
+
     // ---- pages ----
     for (const [i, page] of story.pages.entries()) {
       if (!ctx.alive()) return;
@@ -86,10 +106,16 @@ export default {
             // the word that names the picture is marked; tapping it says the word in every language and
             // plays the picture, so the word and the thing it names go together
             const key = isKeyToken(t, pageWord, l);
-            const w = el('button', { class: `story-word${key ? ' key' : ''}`, text: t });
+            const g = l === 'hi' && gloss.get(glossToken(t));
+            const marked = g && !glossShown.has(g.hi);
+            if (marked) glossShown.add(g.hi);
+            const w = el('button', { class: `story-word${key ? ' key' : ''}${marked ? ' glossed' : ''}`, text: t });
             w.addEventListener('click', () => {
               bounce(w);
-              if (key) {
+              if (marked) {
+                showMeaning(g, w);
+                ctx.sayText(glossLine(g), 'hi');
+              } else if (key) {
                 ctx.sayItem(pageWord);
                 if (pic.play) pic.play();
                 else bounce(pic);
@@ -161,6 +187,10 @@ export default {
     if (poem) ctx.setMusicMood?.('lesson');
     // read every page on their own: the parent area lists it (roadmap 3.4)
     if (selfRead) ctx.readAlone?.(story.id);
+    // ---- the story's words and their meanings, before the questions ----
+    if (gloss.size) {
+      if (!(await glossaryCard(ctx, [...gloss.values()]))) return;
+    }
     // ---- questions ----
     const ok = await runRounds(
       ctx,
@@ -373,7 +403,42 @@ function readAlong(lineEls, page, langs, rate, onLight = null) {
 
 // Retelling a story in your own words is one of the best checks of understanding (and great
 // speaking practice). The pictures help as prompts. The recording stays on this device.
-const STORY_BADGE = { true: { hi: 'सच्ची कहानी', en: 'A true story' }, info: { hi: 'जानो कैसे', en: 'How it works' } };
+const STORY_BADGE = {
+  true: { hi: 'सच्ची कहानी', en: 'A true story' },
+  info: { hi: 'जानो कैसे', en: 'How it works' },
+  // kinds of writing to read in Grades 7–8 (roadmap 9.12)
+  diary: { hi: 'डायरी', en: 'A diary' },
+  letter: { hi: 'चिट्ठी', en: 'A letter' },
+  news: { hi: 'ख़बर', en: 'A news report' },
+};
+
+// शब्द-भंडार: the story's hard words with their meanings (roadmap 9.12). Tapping one says it and its meaning
+// (recorded, like every line the app says); the speaker button reads them all. Resolves false if the lesson ends.
+async function glossaryCard(ctx, words) {
+  const items = words.map((w) => {
+    const li = el('li', { tabindex: '0', role: 'button' }, [el('b', { lang: 'hi', text: w.hi }), el('span', { lang: 'hi', text: w.mean }), w.en ? el('small', { text: w.en }) : '']);
+    const say = () => (bounce(li), ctx.sayText(glossLine(w), 'hi'));
+    li.addEventListener('click', say);
+    li.addEventListener('keydown', (e) => (e.key === 'Enter' || e.key === ' ') && (e.preventDefault(), say()));
+    return li;
+  });
+  const next = el('button', { class: 'round-btn big go next-page ready', 'aria-label': 'Next', html: ICONS.next });
+  ctx.stage.replaceChildren(
+    el('section', { class: 'comic-words story-words' }, [el('h2', {}, [el('span', { lang: 'hi', text: 'शब्द-भंडार' }), el('small', { text: 'Words from this story' })]), el('ul', {}, items)]),
+    next,
+  );
+  ctx.setRepeat(async () => {
+    for (const [i, w] of words.entries()) {
+      if (!ctx.alive()) return;
+      items[i].classList.add('reading');
+      await ctx.playSegs([{ text: glossLine(w), lang: 'hi' }]);
+      items[i].classList.remove('reading');
+    }
+  });
+  await waitTap(next);
+  ctx.stop?.();
+  return ctx.alive();
+}
 
 // ---- read it aloud and hear yourself (roadmap 1.5) ----
 // On a page the child reads alone: the red button records them reading it, then plays them back, then the

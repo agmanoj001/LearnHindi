@@ -233,3 +233,27 @@ test('9.7 festival stories: a longer story for older children on the festival’
   for (const id of ['fest-idgah', 'fest-sacha-sauda', 'fest-pahad-christmas', 'fest-lohri', 'fest-pongal', 'fest-mahabali']) assert.ok(content.stories.some((s) => s.id === id), id);
   assert.match(content.stories.find((s) => s.id === 'fest-idgah').source.hi, /प्रेमचंद/);
 });
+
+test('9.12 prose for Grades 7–8: six pieces a grade, each with a glossary whose words are on its pages and recorded', () => {
+  const prose = content.stories.filter((s) => ['grade7', 'grade8'].includes(s.level));
+  for (const level of ['grade7', 'grade8']) assert.equal(prose.filter((s) => s.level === level).length, 6, level);
+  const lines = new Set(L.lessonVoiceLines(content).map((l) => l.key));
+  for (const s of prose) {
+    assert.ok(s.pages.length >= 12, `${s.id} is long enough to build reading stamina`);
+    assert.ok(s.words.length >= 6 && s.questions.length >= 4, s.id);
+    const tokens = new Set(s.pages.flatMap((p) => L.sentenceTokens(p.hi).map(L.glossToken)));
+    for (const w of s.words) {
+      assert.ok(tokens.has(w.hi), `${s.id}: ${w.hi} is on a page`);
+      for (const t of [w.hi, L.glossLine(w)]) assert.ok(lines.has(L.textKey('hi', t)), `${s.id}: "${t}" is a voice line`);
+    }
+    // a retelling names its source; the diary and letter are written for the app, and the news report says it is made up
+    if (!['diary', 'letter'].includes(s.kind)) assert.ok(s.source?.hi && s.source?.en, `${s.id} names its source`);
+  }
+  assert.match(prose.find((s) => s.kind === 'news').source.en, /made-up/);
+  // every piece is a lesson in a Grade 7 or Grade 8 world
+  const lessonStories = new Set(content.worlds.filter((w) => ['grade7', 'grade8'].includes(w.level)).flatMap((w) => w.units.flatMap((u) => u.lessons.map((l) => l.config?.story))));
+  for (const s of prose) assert.ok(lessonStories.has(s.id), `${s.id} is on a map`);
+  // Premchand's five and Tagore's two, as the roadmap names them
+  const sources = prose.map((s) => s.source?.hi || '').join(' ');
+  for (const t of ['ईदगाह', 'दो बैलों की कथा', 'बड़े भाई साहब', 'पंच परमेश्वर', 'नमक का दारोगा', 'काबुलीवाला', 'तोता-कहानी']) assert.ok(sources.includes(t), t);
+});

@@ -494,7 +494,11 @@
     "seed": { "hi": "बीज", "translit": "beej", "en": "seed", "picture": "seed", "level": "grade1", "syllables": ["बी", "ज"] },
     "postbox": { "hi": "लेटर बॉक्स", "translit": "letar boks", "en": "post box", "picture": "postbox" },
     "moonphases": { "hi": "चाँद की कलाएँ", "translit": "chaand ki kalaayen", "en": "phases of the moon", "picture": "moonphases" },
-    "track": { "hi": "पटरी", "translit": "patri", "en": "rail track", "picture": "track", "level": "grade1", "syllables": ["प", "ट", "री"] }
+    "track": { "hi": "पटरी", "translit": "patri", "en": "rail track", "picture": "track", "level": "grade1", "syllables": ["प", "ट", "री"] },
+    "cage": { "hi": "पिंजरा", "translit": "pinjra", "en": "cage", "picture": "cage" },
+    "throne": { "hi": "सिंहासन", "translit": "sinhaasan", "en": "throne", "picture": "throne" },
+    "diary": { "hi": "डायरी", "translit": "daayari", "en": "diary", "picture": "diary" },
+    "cart": { "hi": "बैलगाड़ी", "translit": "bailgaadi", "en": "bullock cart", "picture": "cart" }
   },
   "sentences": [
     { "id": "bus-here", "about": "bus", "hi": "बस आई!", "translit": "bas aai", "en": "The bus is here!", "level": "grade2" },
@@ -16724,6 +16728,1687 @@
         { "type": "why", "hi": "पटरी के नीचे गिट्टी क्यों बिछाते हैं?", "en": "Why are stones spread under the rails?" },
         { "type": "you", "hi": "तुम्हें ट्रेन की सबसे अच्छी बात क्या लगती है?", "en": "What do you like best about trains?" }
       ]
+    },
+    {
+      "id": "g7-idgah",
+      "level": "grade7",
+      "title": { "hi": "ईदगाह", "en": "Idgah" },
+      "source": { "hi": "मुंशी प्रेमचंद की कहानी \"ईदगाह\" से, छोटी करके", "en": "Abridged from Munshi Premchand’s story \"Idgah\"" },
+      "cover": "chimta",
+      "pages": [
+        {
+          "word": "eidmoon",
+          "hi": "रमज़ान के पूरे तीस रोज़ों के बाद आज ईद आई है। सुबह कितनी सुहावनी है! पेड़ों पर नई हरियाली है, और आसमान पर एक अनोखी लाली।",
+          "en": "After thirty days of Ramzan fasting, today is Eid. How lovely the morning is! The trees are freshly green and the sky has a special glow."
+        },
+        {
+          "word": "boy",
+          "hi": "गाँव में सबसे ज़्यादा ख़ुश बच्चे हैं। सबकी जेबों में पैसे हैं; कोई बारह गिनता है, कोई पंद्रह। इन्हीं पैसों से मेले में खिलौने और मिठाइयाँ आएँगी।",
+          "en": "The children are the happiest in the village. Everyone has money in their pockets; one counts twelve paise, another fifteen. With it they will buy toys and sweets at the fair."
+        },
+        {
+          "word": "grandmother",
+          "hi": "हामिद चार-पाँच साल का दुबला-पतला लड़का है। उसके अब्बा और अम्मी नहीं रहे; वह अपनी बूढ़ी दादी अमीना के पास रहता है। दादी ने उससे कहा है कि अब्बा रुपये कमाने गए हैं, जल्दी लौटेंगे।",
+          "en": "Hamid is a thin little boy of four or five. His father and mother are no more; he lives with his old grandmother, Amina. She has told him his father has gone to earn money and will soon be back."
+        },
+        {
+          "word": "coins",
+          "hi": "हामिद के पास सिर्फ़ तीन पैसे हैं, फिर भी वह सबसे ख़ुश है। अमीना का दिल भर आता है: घर में अनाज नहीं, और बच्चा अकेला मेले जा रहा है।",
+          "en": "Hamid has only three paise, yet he is the happiest of all. Amina’s heart aches: there is no grain at home, and the little boy is going to the fair alone."
+        },
+        {
+          "word": "fair",
+          "hi": "गाँव से ईदगाह तीन कोस दूर है। रास्ते में बड़ी-बड़ी इमारतें, बाग़ और हलवाइयों की सजी हुई दुकानें आती हैं। ईदगाह पहुँचकर सब एक साथ नमाज़ पढ़ते हैं, फिर एक-दूसरे के गले मिलते हैं।",
+          "en": "The Idgah is three kos from the village. On the way are big buildings, gardens and the decorated shops of sweet-makers. At the Idgah everyone prays together, then they embrace one another."
+        },
+        {
+          "word": "ferris",
+          "hi": "नमाज़ के बाद मेला! बच्चे हिंडोलों पर झूलते हैं और चरखी पर चक्कर खाते हैं। हामिद दूर खड़ा देखता रहता है। तीन पैसों में से एक भी झूले पर कैसे ख़र्च करे?",
+          "en": "After the prayers, the fair! The children ride the swings and the merry-go-round. Hamid stands at a distance and watches. How can he spend even one of his three paise on a ride?"
+        },
+        {
+          "word": "fair",
+          "hi": "फिर खिलौनों की दुकानें आती हैं। महमूद सिपाही लेता है, मोहसिन पानी भरने वाला भिश्ती, नूरे वकील। हामिद मन में सोचता है, \"मिट्टी के खिलौने हैं, गिरे और चूर-चूर हो गए।\"",
+          "en": "Next come the toy stalls. Mahmood buys a soldier, Mohsin a water-carrier, Noore a lawyer. Hamid thinks to himself, \"They are clay toys. Drop one and it’s smashed to bits.\""
+        },
+        {
+          "word": "laddoo",
+          "hi": "फिर मिठाइयाँ: कोई रेवड़ियाँ लेता है, कोई गुलाबजामुन। मोहसिन चिढ़ाता है, \"हामिद, एक रेवड़ी ले लो, कितनी ख़ुशबूदार है!\" और फिर हाथ पीछे खींच लेता है। हामिद जानता है, यह सिर्फ़ चिढ़ाना है।",
+          "en": "Then the sweets: one buys sugar drops, another gulab jamun. Mohsin teases, \"Hamid, have one, see how good it smells!\" and pulls his hand back. Hamid knows it is only teasing."
+        },
+        {
+          "word": "chimta",
+          "hi": "मिठाइयों के आगे लोहे की चीज़ों की दुकान है। चिमटे देखकर हामिद को दादी याद आती हैं: तवे से रोटियाँ उतारते हुए उनकी उँगलियाँ जल जाती हैं। अगर वह चिमटा ले जाए, तो दादी कितनी ख़ुश होंगी!",
+          "en": "Past the sweets is a shop of iron goods. Seeing the tongs, Hamid remembers his grandmother: her fingers get burnt taking rotis off the griddle. If he takes her a pair of tongs, how happy she will be!"
+        },
+        {
+          "word": "coins",
+          "hi": "दुकानदार ने चिमटे के छह पैसे बताए। हामिद ने हिम्मत करके कहा, \"तीन पैसे लोगे?\" और आगे बढ़ गया। दुकानदार ने आवाज़ दी, \"आओ, ले जाओ!\"",
+          "en": "The shopkeeper said six paise for the tongs. Hamid gathered his courage, said, \"Will you take three?\" and walked on. The shopkeeper called after him, \"Come on, take it!\""
+        },
+        {
+          "word": "boy",
+          "hi": "हामिद चिमटे को कंधे पर बंदूक की तरह रखकर दोस्तों के पास आया। सब हँसे, पर हामिद ने ऐसे तर्क दिए कि सब चुप: \"मेरा बहादुर चिमटा आग में कूद जाए, तुम्हारे खिलौने तो पानी पड़ते ही गल जाएँ!\"",
+          "en": "Hamid came back to his friends with the tongs on his shoulder like a rifle. They all laughed, but Hamid argued so well that they fell silent: \"My brave tongs can leap into fire; your toys would melt at a drop of water!\""
+        },
+        {
+          "word": "hand",
+          "hi": "शाम को हामिद घर पहुँचा। चिमटा देखकर दादी पहले बिगड़ीं, \"सारे मेले में तुझे यही मिला? न कुछ खाया, न पिया!\" हामिद ने धीरे से कहा, \"तुम्हारी उँगलियाँ तवे से जल जाती थीं, इसलिए लाया।\"",
+          "en": "In the evening Hamid got home. Seeing the tongs, his grandmother first scolded, \"In the whole fair, this is all you found? You ate nothing, drank nothing!\" Hamid said softly, \"Your fingers used to get burnt on the griddle, so I brought them.\""
+        },
+        {
+          "word": "grandmother",
+          "hi": "दादी का ग़ुस्सा तुरंत स्नेह में बदल गया। वह रो पड़ीं और हामिद को दुआएँ देती रहीं। उस दिन बच्चे हामिद ने बड़ों जैसा काम किया था, और बूढ़ी अमीना बच्ची की तरह रो रही थीं।",
+          "en": "Her anger turned at once to tenderness. She wept and kept blessing Hamid. That day little Hamid had acted like a grown-up, and old Amina was crying like a little girl."
+        }
+      ],
+      "words": [
+        { "hi": "रोज़ों", "mean": "रमज़ान के महीने के उपवास", "en": "fasts" },
+        { "hi": "सुहावनी", "mean": "मन को अच्छी लगने वाली", "en": "pleasant" },
+        { "hi": "कोस", "mean": "दूरी का पुराना माप, लगभग तीन किलोमीटर", "en": "kos, about three kilometres" },
+        { "hi": "हिंडोलों", "mean": "झूलों", "en": "swings" },
+        { "hi": "तर्क", "mean": "अपनी बात सही साबित करने की दलील", "en": "argument" },
+        { "hi": "बिगड़ीं", "mean": "नाराज़ हुईं", "en": "got cross" },
+        { "hi": "स्नेह", "mean": "प्यार", "en": "affection" },
+        { "hi": "दुआएँ", "mean": "आशीर्वाद", "en": "blessings" }
+      ],
+      "questions": [
+        {
+          "hi": "हामिद के पास मेले में ख़र्च करने के लिए कितने पैसे थे?",
+          "en": "How much money did Hamid have to spend at the fair?",
+          "answer": "तीन पैसे",
+          "options": ["तीन पैसे", "बारह पैसे", "पंद्रह पैसे"],
+          "text": true
+        },
+        {
+          "hi": "हामिद ने मेले से क्या ख़रीदा?",
+          "en": "What did Hamid buy at the fair?",
+          "answer": "चिमटा",
+          "options": ["चिमटा", "मिट्टी का सिपाही", "रेवड़ियाँ"],
+          "text": true
+        },
+        {
+          "hi": "हामिद ने चिमटा क्यों ख़रीदा?",
+          "en": "Why did Hamid buy the tongs?",
+          "answer": "दादी की उँगलियाँ तवे से जलती थीं",
+          "options": ["दादी की उँगलियाँ तवे से जलती थीं", "उसे खिलौने अच्छे नहीं लगते थे", "वह मेले में सबसे सस्ता था"],
+          "text": true
+        },
+        {
+          "hi": "आख़िर में दादी के आँसू किस बात के थे?",
+          "en": "What were the grandmother’s tears about in the end?",
+          "answer": "प्यार और ख़ुशी के",
+          "options": ["प्यार और ख़ुशी के", "ग़ुस्से के", "जली उँगलियों के दर्द के"],
+          "text": true
+        }
+      ],
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"रमज़ान के पूरे तीस रोज़ों के बाद आज … आई है। सुबह कितनी सुहावनी है! पेड़ों पर नई हरियाली है, और आसमान पर एक अनोखी लाली।\" (ईद)",
+          "en": "Say this and let your child fill the gap: \"रमज़ान के पूरे तीस रोज़ों के बाद आज … आई है। सुबह कितनी सुहावनी है! पेड़ों पर नई हरियाली है, और आसमान पर एक अनोखी लाली।\" (ईद)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"रमज़ान के पूरे तीस रोज़ों के बाद आज ईद आई है। सुबह कितनी सुहावनी है! पेड़ों पर नई हरियाली है, और आसमान पर एक अनोखी लाली।\")",
+          "en": "Ask: what happened first in the story? (\"After thirty days of Ramzan fasting, today is Eid. How lovely the morning is! The trees are freshly green and the sky has a special glow.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर मेला है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the fair and ask: what is happening here?"
+        },
+        {
+          "type": "why",
+          "hi": "दोस्तों के खिलौनों और मिठाइयों के बीच हामिद ने अपने लिए कुछ क्यों नहीं लिया?",
+          "en": "With his friends buying toys and sweets, why did Hamid buy nothing for himself?"
+        },
+        {
+          "type": "you",
+          "hi": "तुमने कभी किसी अपने के लिए अपनी कोई चीज़ छोड़ी है? कब?",
+          "en": "Have you ever given up something of yours for someone you love? When?"
+        }
+      ]
+    },
+    {
+      "id": "g7-do-bail",
+      "level": "grade7",
+      "title": { "hi": "दो बैलों की कथा", "en": "The story of two bullocks" },
+      "source": { "hi": "मुंशी प्रेमचंद की कहानी \"दो बैलों की कथा\" से, छोटी करके", "en": "Abridged from Munshi Premchand’s story \"Do Bailon ki Katha\"" },
+      "cover": "ox",
+      "pages": [
+        {
+          "word": "donkey",
+          "hi": "गधे को लोग सबसे बुद्धिहीन जानवर मानते हैं, क्योंकि वह सब कुछ चुपचाप सह लेता है। बैल भी कुछ ऐसा ही है, पर कभी-कभी वह अड़ भी जाता है। यह ऐसे ही दो बैलों की कथा है।",
+          "en": "People think the donkey is the most foolish animal, because it bears everything in silence. The bullock is rather like it, but now and then it digs in its heels. This is the story of two such bullocks."
+        },
+        {
+          "word": "ox",
+          "hi": "झूरी किसान के पास हीरा और मोती नाम के दो बैल थे। दोनों एक-दूसरे को चाटकर और सूँघकर अपना प्रेम जताते थे। हल में जुतते, तो दोनों की यही कोशिश रहती कि ज़्यादा बोझ मेरी गर्दन पर पड़े।",
+          "en": "Jhuri the farmer had two bullocks, Heera and Moti. They showed their love by licking and nuzzling each other. Yoked to the plough, each tried to take more of the load on his own neck."
+        },
+        {
+          "word": "door",
+          "hi": "एक बार झूरी ने दोनों को अपने साले गया के घर भेज दिया। बैलों ने समझा, मालिक ने हमें बेच दिया। रात को वे पगहे तुड़ाकर भागे, और सुबह झूरी के दरवाज़े पर खड़े थे।",
+          "en": "Once Jhuri sent them to his brother-in-law Gaya’s house. The bullocks thought their master had sold them. At night they broke their tethers and ran, and by morning they stood at Jhuri’s door."
+        },
+        {
+          "word": "grass",
+          "hi": "झूरी तो उन्हें देखकर ख़ुश हुआ, पर उसकी पत्नी ग़ुस्से से बोली, \"कैसे नमकहराम बैल हैं, एक दिन वहाँ काम नहीं किया!\" और उन्हें खाने को सिर्फ़ सूखा भूसा दिया।",
+          "en": "Jhuri was glad to see them, but his wife said angrily, \"What ungrateful bullocks, not one day’s work there!\" and gave them only dry straw to eat."
+        },
+        {
+          "word": "field",
+          "hi": "दूसरे दिन गया उन्हें फिर ले गया। इस बार उसने दोनों को मोटी रस्सियों से बाँधा, दिन भर हल में जोता, और खाने को रूखा-सूखा दिया। मोती का मन विद्रोह करने लगा, पर हीरा ने उसे शांत रखा।",
+          "en": "The next day Gaya took them again. This time he tied them with thick ropes, worked them at the plough all day and fed them scraps. Moti’s heart rose in revolt, but Heera kept him calm."
+        },
+        {
+          "word": "girl",
+          "hi": "गया के घर एक छोटी लड़की थी। उसकी माँ नहीं रही थी, और सौतेली माँ उसे मारती थी। वह रात को चुपके से आती और दोनों बैलों को एक-एक रोटी खिला जाती। उसके स्नेह से बैल अपनी थकान भूल जाते।",
+          "en": "In Gaya’s house lived a little girl. Her mother had died and her stepmother beat her. At night she crept out and gave each bullock a roti. Her kindness made them forget their weariness."
+        },
+        {
+          "word": "night",
+          "hi": "एक रात उसी लड़की ने दोनों की रस्सियाँ खोल दीं, और फिर ख़ुद ही चिल्लाई, \"फूफा के बैल भागे जा रहे हैं!\" ताकि किसी को उस पर शक न हो।",
+          "en": "One night that same girl untied their ropes, then shouted herself, \"Uncle’s bullocks are running away!\" so that no one would suspect her."
+        },
+        {
+          "word": "ox",
+          "hi": "रास्ते में एक मोटा-ताज़ा साँड़ मिला। हीरा और मोती ने तय किया कि मिलकर लड़ेंगे। एक आगे से सींग मारता, दूसरा पीछे से। थककर साँड़ भाग खड़ा हुआ।",
+          "en": "On the way they met a huge bull. Heera and Moti agreed to fight it together. One charged from the front, the other from behind. Worn out, the bull fled."
+        },
+        {
+          "word": "peas",
+          "hi": "भूख लगी तो दोनों मटर के एक खेत में घुस गए। खेत वालों ने उन्हें पकड़ लिया और काँजीहौस में बंद कर दिया, जहाँ जानवरों को न खाना मिलता था, न पानी।",
+          "en": "Hungry, they wandered into a field of peas. The owners caught them and shut them in the cattle pound, where the animals got neither food nor water."
+        },
+        {
+          "word": "buffalo",
+          "hi": "काँजीहौस में कई भैंसें, बकरियाँ और गधे भी बंद थे, सब भूख से अधमरे। रात को मोती ने सींगों से दीवार तोड़ दी। सारे जानवर भाग निकले, पर हीरा रस्सी से बँधा था।",
+          "en": "Many buffaloes, goats and donkeys were shut in the pound too, all half-dead with hunger. At night Moti broke the wall with his horns. All the animals escaped, but Heera was tied with a rope."
+        },
+        {
+          "word": "sticks",
+          "hi": "मोती भी नहीं भागा। \"जो विपत्ति पड़ेगी, हम दोनों मिलकर सहेंगे,\" उसने कहा। सुबह उसकी ख़ूब पिटाई हुई, पर वह हीरा के पास ही रहा।",
+          "en": "Moti did not run either. \"Whatever hardship comes, we will bear it together,\" he said. In the morning he was beaten hard, but he stayed by Heera."
+        },
+        {
+          "word": "coins",
+          "hi": "एक हफ़्ते बाद दोनों को नीलाम किया गया। एक दढ़ियल आदमी ने उन्हें ख़रीद लिया। उसकी आँखों में कुछ ऐसा था कि दोनों बैल डर से काँप गए।",
+          "en": "A week later they were auctioned. A bearded man bought them. There was something in his eyes that made both bullocks tremble with fear."
+        },
+        {
+          "word": "house",
+          "hi": "रास्ते में अचानक उन्हें जानी-पहचानी राह दिखी: यही तो उनके गाँव की राह है! दोनों जान लगाकर दौड़े, और सीधे झूरी के थान पर जा खड़े हुए।",
+          "en": "On the way they suddenly saw a road they knew: the road to their own village! They ran with all their might and went straight to their stall at Jhuri’s."
+        },
+        {
+          "word": "farmer",
+          "hi": "झूरी ने दौड़कर उन्हें गले से लगा लिया। दढ़ियल ने उन्हें ज़बरदस्ती ले जाना चाहा, तो मोती ने सींग चलाकर उसे दूर तक खदेड़ दिया। झूरी की पत्नी ने भी आकर दोनों के माथे चूम लिए।",
+          "en": "Jhuri ran and hugged them. When the bearded man tried to drag them away, Moti charged and chased him far off. Jhuri’s wife came too and kissed both their foreheads."
+        }
+      ],
+      "words": [
+        { "hi": "बुद्धिहीन", "mean": "जिसमें समझ न हो, मूर्ख", "en": "foolish" },
+        { "hi": "पगहे", "mean": "जानवर बाँधने की रस्सियाँ", "en": "tethers" },
+        { "hi": "नमकहराम", "mean": "जो अपने मालिक का एहसान न माने", "en": "ungrateful" },
+        { "hi": "विद्रोह", "mean": "बग़ावत, विरोध में उठ खड़ा होना", "en": "revolt" },
+        { "hi": "सौतेली", "mean": "पिता की दूसरी पत्नी, जो सगी माँ न हो", "en": "step-" },
+        { "hi": "काँजीहौस", "mean": "आवारा जानवरों को बंद रखने का बाड़ा", "en": "cattle pound" },
+        { "hi": "विपत्ति", "mean": "मुसीबत", "en": "hardship" },
+        { "hi": "नीलाम", "mean": "बोली लगाकर बेचना", "en": "auction" },
+        { "hi": "थान", "mean": "जहाँ पशु बाँधे जाते हैं", "en": "stall" }
+      ],
+      "questions": [
+        {
+          "hi": "हीरा और मोती किसके बैल थे?",
+          "en": "Whose bullocks were Heera and Moti?",
+          "answer": "झूरी के",
+          "options": ["झूरी के", "गया के", "दढ़ियल के"],
+          "text": true
+        },
+        {
+          "hi": "गया के घर बैलों को रोटी कौन खिलाता था?",
+          "en": "Who fed the bullocks rotis at Gaya’s house?",
+          "answer": "एक छोटी लड़की",
+          "options": ["एक छोटी लड़की", "गया की पत्नी", "झूरी"],
+          "text": true
+        },
+        {
+          "hi": "काँजीहौस की दीवार टूटने पर भी मोती क्यों नहीं भागा?",
+          "en": "Why didn’t Moti run when the wall of the pound was broken?",
+          "answer": "हीरा बँधा था, और वह उसे छोड़ना नहीं चाहता था",
+          "options": ["हीरा बँधा था, और वह उसे छोड़ना नहीं चाहता था", "वह बहुत थक गया था", "उसे वहाँ खाना मिल रहा था"],
+          "text": true
+        },
+        {
+          "hi": "आख़िर में दोनों बैल कहाँ पहुँचे?",
+          "en": "Where did the two bullocks end up?",
+          "answer": "झूरी के थान पर",
+          "options": ["झूरी के थान पर", "दढ़ियल के घर", "मटर के खेत में"],
+          "text": true
+        }
+      ],
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"… को लोग सबसे बुद्धिहीन जानवर मानते हैं, क्योंकि वह सब कुछ चुपचाप सह लेता है। बैल भी कुछ ऐसा ही है, पर कभी-कभी वह अड़ भी जाता है। यह ऐसे ही दो बैलों की कथा है।\" (गधे)",
+          "en": "Say this and let your child fill the gap: \"… को लोग सबसे बुद्धिहीन जानवर मानते हैं, क्योंकि वह सब कुछ चुपचाप सह लेता है। बैल भी कुछ ऐसा ही है, पर कभी-कभी वह अड़ भी जाता है। यह ऐसे ही दो बैलों की कथा है।\" (गधे)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"गधे को लोग सबसे बुद्धिहीन जानवर मानते हैं, क्योंकि वह सब कुछ चुपचाप सह लेता है। बैल भी कुछ ऐसा ही है, पर कभी-कभी वह अड़ भी जाता है। यह ऐसे ही दो बैलों की कथा है।\")",
+          "en": "Ask: what happened first in the story? (\"People think the donkey is the most foolish animal, because it bears everything in silence. The bullock is rather like it, but now and then it digs in its heels. This is the story of two such bullocks.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर बैल है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the ox and ask: what is happening here?"
+        },
+        {
+          "type": "why",
+          "hi": "हीरा ने मोती को ग़ुस्से में कुछ करने से बार-बार क्यों रोका?",
+          "en": "Why did Heera keep stopping Moti from acting in anger?"
+        },
+        {
+          "type": "you",
+          "hi": "तुम्हारा सबसे पक्का दोस्त कौन है, और उसके साथ तुमने कौन सी मुश्किल पार की?",
+          "en": "Who is your truest friend, and what hard time have you got through together?"
+        }
+      ]
+    },
+    {
+      "id": "g7-kabuliwala",
+      "level": "grade7",
+      "title": { "hi": "काबुलीवाला", "en": "The man from Kabul" },
+      "source": { "hi": "रवींद्रनाथ ठाकुर की बांग्ला कहानी \"काबुलीवाला\" से, छोटी करके", "en": "Retold from Rabindranath Tagore’s Bengali story \"Kabuliwala\"" },
+      "cover": "bag",
+      "pages": [
+        {
+          "word": "girl",
+          "hi": "मेरी पाँच बरस की बेटी मिनी एक पल भी चुप नहीं रह सकती। सुबह से शाम तक वह कुछ न कुछ बोलती ही रहती है।",
+          "en": "My five-year-old daughter Mini cannot keep quiet for a moment. From morning to night she chatters about something or other."
+        },
+        {
+          "word": "window",
+          "hi": "एक दिन मिनी खिड़की के पास खेल रही थी, कि उसने सड़क पर एक काबुलीवाले को देखा: ढीला कुर्ता, सिर पर पगड़ी, कंधे पर झोली। वह ज़ोर से पुकार उठी, \"काबुलीवाले! ओ काबुलीवाले!\"",
+          "en": "One day Mini was playing by the window when she saw a man from Kabul in the street: a loose kurta, a turban, a bag on his shoulder. She called out loudly, \"Kabuliwala! O Kabuliwala!\""
+        },
+        {
+          "word": "bag",
+          "hi": "पर जब वह सचमुच दरवाज़े की ओर आया, तो मिनी डरकर भीतर भाग गई। उसके मन में यह बात बैठी थी कि उस झोली में उसके जैसे दो-चार बच्चे ज़रूर बंद होंगे!",
+          "en": "But when he really came towards the door, Mini ran inside in fright. She was sure that there must be two or three children like her shut up in that bag!"
+        },
+        {
+          "word": "grapes",
+          "hi": "कुछ दिन बाद मैंने देखा, मिनी उसी काबुलीवाले के पास बैठी बातें कर रही है, और उसकी गोद में किशमिश-बादाम का ढेर है। उसका नाम रहमत था।",
+          "en": "A few days later I saw Mini sitting by that same man, chatting away, with a heap of raisins and almonds in her lap. His name was Rahmat."
+        },
+        {
+          "word": "girl",
+          "hi": "धीरे-धीरे दोनों में गहरी दोस्ती हो गई। रहमत हँसकर पूछता, \"मुन्नी, तुम ससुराल कब जाएगी?\" मिनी उलटकर पूछती, \"तुम ससुराल कब जाओगे?\" और रहमत घूँसा तानकर कहता, \"हम ससुर को मारेगा!\"",
+          "en": "Slowly the two became close friends. Rahmat would laugh and ask, \"Little one, when will you go to your in-laws?\" Mini would ask back, \"When will you go to yours?\" and Rahmat would shake his fist: \"I will beat my father-in-law!\""
+        },
+        {
+          "word": "coins",
+          "hi": "एक दिन ख़बर आई कि रहमत ने एक आदमी पर छुरा चला दिया है। उस आदमी ने उससे उधार लिया था, और अब झूठ बोलकर मुकर गया था। सिपाही रहमत को पकड़कर ले गए।",
+          "en": "One day the news came that Rahmat had attacked a man with a knife. The man had borrowed money from him and now lied that he never had. The police took Rahmat away."
+        },
+        {
+          "word": "clock",
+          "hi": "रहमत को कई बरस की जेल हो गई। धीरे-धीरे हम सब उसे भूल गए। मिनी भी नए-नए दोस्त बनाकर बड़ी होती गई।",
+          "en": "Rahmat was sent to prison for many years. Slowly we all forgot him. Mini, too, grew up and made new friends."
+        },
+        {
+          "word": "garland",
+          "hi": "कई बरस बीत गए। आज मिनी का ब्याह है। घर में शहनाई बज रही है, आँगन में चहल-पहल है।",
+          "en": "Many years went by. Today is Mini’s wedding. The shehnai is playing in the house and the courtyard is bustling."
+        },
+        {
+          "word": "door",
+          "hi": "तभी एक आदमी ने आकर सलाम किया। सिर मुँडा हुआ, चेहरा थका हुआ। बड़ी मुश्किल से मैंने पहचाना: रहमत! आज ही वह जेल से छूटा था।",
+          "en": "Just then a man came and greeted me. His head was shaven and his face was tired. Only with difficulty did I know him: Rahmat! He had been let out of prison that very day."
+        },
+        {
+          "word": "grapes",
+          "hi": "\"आज घर में काम है, फिर कभी आना,\" मैंने कहा। वह जाने लगा, फिर लौटकर बोला, \"मुन्नी के लिए थोड़ा किशमिश-बादाम लाया था। उसे दे दीजिए। पैसे मत दीजिए।\"",
+          "en": "\"There is a lot to do at home today, come another time,\" I said. He turned to go, then came back and said, \"I brought a few raisins and almonds for the little one. Please give them to her. Don’t pay me.\""
+        },
+        {
+          "word": "hand",
+          "hi": "फिर उसने अपने कुर्ते की जेब से एक मैला-सा काग़ज़ निकाला। उस पर एक नन्हे हाथ की छाप थी। \"यह मेरी बेटी के हाथ की छाप है, बाबूजी। उसे देखे बरसों हो गए।\"",
+          "en": "Then he took a crumpled piece of paper from his kurta pocket. On it was the print of a tiny hand. \"This is my daughter’s handprint, sir. It is years since I saw her.\""
+        },
+        {
+          "word": "girl",
+          "hi": "मेरी आँखें भर आईं। मैंने मिनी को बुलाया। वह लाल जोड़े में दुल्हन बनी, सकुचाती हुई आई। रहमत पहले हैरान हुआ, फिर ज़मीन पर बैठ गया। उसे समझ आया कि उसकी अपनी बेटी भी अब इतनी ही बड़ी हो गई होगी।",
+          "en": "My eyes filled with tears. I called Mini. She came shyly, a bride in red. Rahmat was astonished at first, then sat down on the ground. He understood that his own daughter must have grown just as big."
+        },
+        {
+          "word": "lamp",
+          "hi": "मैंने उसे कुछ रुपये दिए और कहा, \"अपनी बेटी के पास अपने देश लौट जाओ, रहमत।\" इसके लिए ब्याह में बिजली की रोशनी और बाजे कम कर दिए। पर मुझे लगा, आज का शुभ दिन सचमुच शुभ हो गया।",
+          "en": "I gave him some money and said, \"Go home to your country, to your daughter, Rahmat.\" For this I cut down the electric lights and the band at the wedding. But I felt that the auspicious day had truly become auspicious."
+        }
+      ],
+      "words": [
+        { "hi": "झोली", "mean": "कंधे पर लटकने वाला थैला", "en": "shoulder bag" },
+        { "hi": "ससुराल", "mean": "पति या पत्नी के माता-पिता का घर", "en": "in-laws’ home" },
+        { "hi": "उधार", "mean": "बाद में लौटाने के वादे पर लिया पैसा", "en": "loan" },
+        { "hi": "मुकर", "mean": "अपनी कही बात से इनकार करना", "en": "to go back on one’s word" },
+        { "hi": "ब्याह", "mean": "शादी", "en": "wedding" },
+        { "hi": "छाप", "mean": "निशान", "en": "print" },
+        { "hi": "सकुचाती", "mean": "शरमाती हुई", "en": "shyly" },
+        { "hi": "शुभ", "mean": "मंगल, अच्छा", "en": "auspicious" }
+      ],
+      "questions": [
+        {
+          "hi": "रहमत अपनी झोली में क्या लाता था?",
+          "en": "What did Rahmat bring in his bag?",
+          "answer": "किशमिश-बादाम",
+          "options": ["किशमिश-बादाम", "खिलौने", "किताबें"],
+          "text": true
+        },
+        {
+          "hi": "मिनी पहले काबुलीवाले से क्यों डरी?",
+          "en": "Why was Mini afraid of the man from Kabul at first?",
+          "answer": "उसे लगा कि झोली में बच्चे हैं",
+          "options": ["उसे लगा कि झोली में बच्चे हैं", "वह बहुत ज़ोर से बोलता था", "उसने मिनी को डाँटा था"],
+          "text": true
+        },
+        {
+          "hi": "रहमत अपनी जेब में कौन सा काग़ज़ रखता था?",
+          "en": "What piece of paper did Rahmat keep in his pocket?",
+          "answer": "अपनी बेटी के हाथ की छाप",
+          "options": ["अपनी बेटी के हाथ की छाप", "एक पुरानी चिट्ठी", "मिनी की तस्वीर"],
+          "text": true
+        },
+        {
+          "hi": "लेखक ने रहमत को रुपये क्यों दिए?",
+          "en": "Why did the writer give Rahmat money?",
+          "answer": "ताकि वह अपनी बेटी के पास लौट सके",
+          "options": ["ताकि वह अपनी बेटी के पास लौट सके", "ताकि वह और मेवे लाए", "ताकि वह ब्याह में बाजा बजाए"],
+          "text": true
+        }
+      ],
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"एक दिन मिनी … के पास खेल रही थी, कि उसने सड़क पर एक काबुलीवाले को देखा: ढीला कुर्ता, सिर पर पगड़ी, कंधे पर झोली। वह ज़ोर से पुकार उठी, \"काबुलीवाले! ओ काबुलीवाले!\"\" (खिड़की)",
+          "en": "Say this and let your child fill the gap: \"एक दिन मिनी … के पास खेल रही थी, कि उसने सड़क पर एक काबुलीवाले को देखा: ढीला कुर्ता, सिर पर पगड़ी, कंधे पर झोली। वह ज़ोर से पुकार उठी, \"काबुलीवाले! ओ काबुलीवाले!\"\" (खिड़की)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"मेरी पाँच बरस की बेटी मिनी एक पल भी चुप नहीं रह सकती। सुबह से शाम तक वह कुछ न कुछ बोलती ही रहती है।\")",
+          "en": "Ask: what happened first in the story? (\"My five-year-old daughter Mini cannot keep quiet for a moment. From morning to night she chatters about something or other.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर घड़ी है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the clock and ask: what is happening here?"
+        },
+        {
+          "type": "why",
+          "hi": "मिनी को दुल्हन बने देखकर रहमत ज़मीन पर क्यों बैठ गया?",
+          "en": "Why did Rahmat sit down on the ground when he saw Mini as a bride?"
+        },
+        {
+          "type": "you",
+          "hi": "तुमसे दूर रहने वाले किस अपने की तुम्हें सबसे ज़्यादा याद आती है?",
+          "en": "Which of your loved ones who lives far away do you miss the most?"
+        }
+      ]
+    },
+    {
+      "id": "g7-tota",
+      "level": "grade7",
+      "title": { "hi": "तोता-कहानी", "en": "The parrot’s training" },
+      "source": {
+        "hi": "रवींद्रनाथ ठाकुर की बांग्ला कहानी \"तोता-कहानी\" से, छोटी करके",
+        "en": "Retold from Rabindranath Tagore’s Bengali story \"Tota-kahini\" (The parrot’s training)"
+      },
+      "cover": "cage",
+      "pages": [
+        {
+          "word": "parrot",
+          "hi": "एक था तोता। वह गाता था, उड़ता था, पर शास्त्र नहीं पढ़ता था, और क़ायदे-क़ानून तो बिल्कुल नहीं जानता था।",
+          "en": "There was once a parrot. It sang and it flew, but it did not read the scriptures, and it knew nothing at all of rules and manners."
+        },
+        {
+          "word": "king",
+          "hi": "राजा ने कहा, \"ऐसा तोता किस काम का? इसे पढ़ाओ!\" तोते को पढ़ाने की ज़िम्मेदारी राजा के भानजों को मिली।",
+          "en": "The king said, \"What use is such a parrot? Educate it!\" The task of teaching the parrot went to the king’s nephews."
+        },
+        {
+          "word": "minister",
+          "hi": "पंडितों की सभा बैठी। लंबी बहस के बाद तय हुआ कि तोते की मूर्खता का कारण उसका तिनकों वाला घोंसला है। सबसे पहले एक अच्छा पिंजरा चाहिए।",
+          "en": "The scholars met. After a long debate they decided the cause of the parrot’s foolishness was its nest of straw. First of all, it needed a proper cage."
+        },
+        {
+          "word": "cage",
+          "hi": "सुनार ने सोने का ऐसा पिंजरा बनाया कि देश-विदेश से लोग उसे देखने आने लगे। कोई कहता, \"वाह, क्या शिक्षा है!\" कोई कहता, \"शिक्षा न भी हो, पिंजरा तो है!\"",
+          "en": "The goldsmith made such a golden cage that people came from far and wide to see it. Some said, \"What an education!\" Others said, \"Education or not, what a cage!\""
+        },
+        {
+          "word": "books",
+          "hi": "फिर पोथियाँ आईं। नकल करने वालों ने इतनी नकलें कीं कि पोथियों का पहाड़ लग गया। नकल करने वालों की जेबें भी ख़ूब भरीं।",
+          "en": "Then came the books. The copyists made so many copies that the books piled up like a mountain. The copyists’ pockets filled up nicely too."
+        },
+        {
+          "word": "coins",
+          "hi": "पिंजरे की देखभाल और मरम्मत के लिए भी लोग रखे गए। ख़र्च बढ़ता गया, और ख़र्च के साथ भानजों की कमाई भी।",
+          "en": "People were hired to look after and repair the cage. The costs kept rising, and with the costs, the nephews’ earnings."
+        },
+        {
+          "word": "bell",
+          "hi": "एक दिन राजा शिक्षा देखने आए। शंख बजे, घंटे बजे, पंडितों ने ऊँचे स्वर में पाठ किया। इतना शोर-शराबा देखकर राजा गदगद हो गए; तोते को देखने की ज़रूरत ही नहीं समझी।",
+          "en": "One day the king came to see the education. Conches blew, bells rang, the scholars chanted loudly. Seeing all this din, the king was overjoyed; he didn’t think it necessary to look at the parrot."
+        },
+        {
+          "word": "king",
+          "hi": "पर एक निंदक ने कहा, \"महाराज, पिंजरा तो सबने देखा, क्या किसी ने तोते को भी देखा है?\" भानजों ने उस निंदक को ही सज़ा दिलवा दी।",
+          "en": "But a fault-finder said, \"Your Majesty, everyone has seen the cage. Has anyone seen the parrot?\" The nephews had the fault-finder punished instead."
+        },
+        {
+          "word": "book",
+          "hi": "पढ़ाने का तरीक़ा यह था: पोथी के पन्ने फाड़कर तोते की चोंच में ठूँस देना। तोता गाना तो भूल ही गया; उसके पास चीख़ने की भी जगह नहीं बची।",
+          "en": "The teaching method was this: tear pages out of the books and stuff them into the parrot’s beak. The parrot forgot how to sing; there wasn’t even room left in it to scream."
+        },
+        {
+          "word": "sun",
+          "hi": "कभी-कभी सुबह की धूप में तोता पुरानी आदत से पंख फड़फड़ाता। इसे बदतमीज़ी माना गया। लोहार ने उसके पैरों में लोहे की ज़ंजीर डाल दी, और उसके पंख काट दिए गए।",
+          "en": "Sometimes, in the morning sun, the parrot fluttered its wings out of old habit. This was called bad manners. The blacksmith put an iron chain on its feet, and its wings were clipped."
+        },
+        {
+          "word": "tree",
+          "hi": "बाहर वसंत आ गया था; पेड़ों पर नए पत्ते थे। पर पिंजरे में तोता चुपचाप मर गया। कब मरा, यह किसी को पता भी नहीं चला।",
+          "en": "Outside, spring had come; the trees had new leaves. But in its cage the parrot quietly died. No one even knew when."
+        },
+        {
+          "word": "cage",
+          "hi": "भानजे ने राजा से कहा, \"महाराज, तोते की शिक्षा पूरी हो गई!\" राजा ने पूछा, \"अब वह उछलता है?\" \"जी नहीं।\" \"उड़ता है?\" \"नहीं।\" \"गाता है?\" \"नहीं।\"",
+          "en": "The nephew told the king, \"Your Majesty, the parrot’s education is complete!\" The king asked, \"Does it hop now?\" \"No, sir.\" \"Does it fly?\" \"No.\" \"Does it sing?\" \"No.\""
+        },
+        {
+          "word": "parrot",
+          "hi": "राजा ने तोते को उँगली से दबाया। उसके पेट में पोथियों के सूखे पन्ने खड़खड़ाते रहे, बस। बाहर वसंत की हवा में नई कोंपलें सरसरा रही थीं।",
+          "en": "The king poked the parrot with his finger. Only the dry pages of the books rustled in its belly. Outside, new shoots whispered in the spring breeze."
+        }
+      ],
+      "words": [
+        { "hi": "शास्त्र", "mean": "धर्म और ज्ञान की पुरानी किताबें", "en": "scriptures" },
+        { "hi": "भानजों", "mean": "बहन के बेटों", "en": "nephews" },
+        { "hi": "पोथियाँ", "mean": "हाथ से लिखी पुरानी किताबें", "en": "manuscripts" },
+        { "hi": "गदगद", "mean": "बहुत ख़ुश", "en": "overjoyed" },
+        { "hi": "निंदक", "mean": "कमियाँ गिनाने वाला", "en": "critic" },
+        { "hi": "ठूँस", "mean": "ज़बरदस्ती भरना", "en": "stuff" },
+        { "hi": "ज़ंजीर", "mean": "लोहे की कड़ियों से बनी रस्सी", "en": "chain" },
+        { "hi": "कोंपलें", "mean": "पौधों पर निकले नए, कोमल पत्ते", "en": "new shoots" }
+      ],
+      "questions": [
+        {
+          "hi": "तोते को पढ़ाने के लिए सबसे पहले क्या बनाया गया?",
+          "en": "What was made first of all to teach the parrot?",
+          "answer": "सोने का पिंजरा",
+          "options": ["सोने का पिंजरा", "एक स्कूल", "एक नया घोंसला"],
+          "text": true
+        },
+        {
+          "hi": "तोते को कैसे पढ़ाया जाता था?",
+          "en": "How was the parrot taught?",
+          "answer": "पोथियों के पन्ने चोंच में ठूँसकर",
+          "options": ["पोथियों के पन्ने चोंच में ठूँसकर", "उसके साथ गाना गाकर", "उसे बाग़ में उड़ाकर"],
+          "text": true
+        },
+        {
+          "hi": "निंदक ने राजा से क्या पूछा?",
+          "en": "What did the critic ask the king?",
+          "answer": "क्या किसी ने तोते को देखा है",
+          "options": ["क्या किसी ने तोते को देखा है", "पिंजरा कितने का है", "पंडित कौन-कौन हैं"],
+          "text": true
+        },
+        {
+          "hi": "यह कहानी असल में किस पर व्यंग्य है?",
+          "en": "What is this story really mocking?",
+          "answer": "रटंत शिक्षा और दिखावे पर",
+          "options": ["रटंत शिक्षा और दिखावे पर", "तोतों की बीमारी पर", "सोने की क़ीमत पर"],
+          "text": true
+        }
+      ],
+      "moral": {
+        "hi": "शिक्षा का अर्थ पिंजरा सजाना नहीं, मन को खुलकर उड़ने देना है।",
+        "en": "Education is not about decorating the cage, but about letting the mind fly free."
+      },
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"एक था … वह गाता था, उड़ता था, पर शास्त्र नहीं पढ़ता था, और क़ायदे-क़ानून तो बिल्कुल नहीं जानता था।\" (तोता)",
+          "en": "Say this and let your child fill the gap: \"एक था … वह गाता था, उड़ता था, पर शास्त्र नहीं पढ़ता था, और क़ायदे-क़ानून तो बिल्कुल नहीं जानता था।\" (तोता)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"एक था तोता। वह गाता था, उड़ता था, पर शास्त्र नहीं पढ़ता था, और क़ायदे-क़ानून तो बिल्कुल नहीं जानता था।\")",
+          "en": "Ask: what happened first in the story? (\"There was once a parrot. It sang and it flew, but it did not read the scriptures, and it knew nothing at all of rules and manners.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर घंटी है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the bell and ask: what is happening here?"
+        },
+        {
+          "type": "why",
+          "hi": "राजा ने तोते को देखने के बजाय पिंजरा और शोर देखकर ही ख़ुशी क्यों मान ली?",
+          "en": "Why was the king pleased by the cage and the noise without ever looking at the parrot?"
+        },
+        {
+          "type": "you",
+          "hi": "तुम्हें कौन सी चीज़ सीखने में सबसे ज़्यादा मज़ा आया, और क्यों?",
+          "en": "What has been the most fun thing for you to learn, and why?"
+        }
+      ]
+    },
+    {
+      "id": "g7-jadugar",
+      "level": "grade7",
+      "title": { "hi": "जादूगर की जान", "en": "Where the magician kept his life" },
+      "source": { "hi": "दक्खिन (दक्षिण भारत) की एक पुरानी लोक कथा, छोटी करके", "en": "An old folk tale from the Deccan, retold" },
+      "cover": "parrot",
+      "pages": [
+        {
+          "word": "king",
+          "hi": "दक्खिन की एक पुरानी लोक कथा है। एक राजा के सात बेटे थे। सबसे छोटे राजकुमार का ब्याह एक समझदार राजकुमारी से हुआ, और उनके घर एक नन्हा बेटा हुआ।",
+          "en": "This is an old folk tale of the Deccan. A king had seven sons. The youngest prince married a wise princess, and a little son was born to them."
+        },
+        {
+          "word": "cave",
+          "hi": "उसी देश में एक दुष्ट जादूगर रहता था। उसने राजकुमारी को देखा, और उसे अपनी रानी बनाना चाहा। राजकुमारी ने साफ़ मना कर दिया।",
+          "en": "In that same land lived a wicked magician. He saw the princess and wanted to make her his queen. The princess flatly refused."
+        },
+        {
+          "word": "stone",
+          "hi": "क्रोध में आकर जादूगर ने मंत्र पढ़ा, और राजकुमार और उसके छहों भाई पत्थर बन गए! जादूगर राजकुमारी को अपने ऊँचे बुर्ज में क़ैद करके ले गया।",
+          "en": "In a rage the magician chanted a spell, and the prince and all six of his brothers turned to stone! The magician carried the princess off, a prisoner in his high tower."
+        },
+        {
+          "word": "boy",
+          "hi": "राजकुमारी का नन्हा बेटा एक दयालु माली के घर पलता रहा। बारह बरस बीत गए। लड़का बड़ा, बहादुर और समझदार निकला। एक दिन उसे अपने माता-पिता की सच्चाई पता चली।",
+          "en": "The princess’s little son grew up in the house of a kind gardener. Twelve years passed. The boy grew tall, brave and wise. One day he learned the truth about his parents."
+        },
+        {
+          "word": "fort",
+          "hi": "\"मैं माँ को छुड़ाकर लाऊँगा,\" उसने कहा, और निकल पड़ा। चलते-चलते वह जादूगर के बुर्ज तक पहुँचा, और वहाँ माली का काम माँगकर रहने लगा।",
+          "en": "\"I will set my mother free,\" he said, and set off. On and on he went till he reached the magician’s tower, where he asked for a gardener’s job and stayed."
+        },
+        {
+          "word": "flower",
+          "hi": "बुर्ज की खिड़की से एक उदास रानी रोज़ बाग़ को देखती थी। लड़के ने फूलों के गुलदस्ते में एक चिट्ठी छिपाकर भेजी। रानी ने पहचान लिया: यह मेरा बेटा है!",
+          "en": "Every day a sad queen looked down at the garden from the tower window. The boy hid a letter in a bunch of flowers and sent it up. The queen knew at once: this is my son!"
+        },
+        {
+          "word": "queen",
+          "hi": "रानी ने एक चाल चली। उसने जादूगर से मीठी बातें कीं और पूछा, \"तुम्हें तो कोई मार ही नहीं सकता, है न?\" जादूगर घमंड से हँसा, \"मेरी जान मेरे शरीर में है ही नहीं।\"",
+          "en": "The queen played a trick. She spoke sweetly to the magician and asked, \"No one can ever kill you, can they?\" The magician laughed proudly, \"My life is not in my body at all.\""
+        },
+        {
+          "word": "parrot",
+          "hi": "\"बहुत दूर, सात समुंदर पार, एक घने जंगल के बीच ताड़ के पेड़ों का एक घेरा है। वहाँ हज़ारों राक्षस पहरा देते हैं। वहीं एक पिंजरे में एक हरा तोता है। मेरी जान उसी तोते में है!\"",
+          "en": "\"Far away, across seven seas, in the middle of a deep forest, is a ring of palm trees. Thousands of demons stand guard there. There, in a cage, is a green parrot. My life is in that parrot!\""
+        },
+        {
+          "word": "snake",
+          "hi": "रानी ने यह भेद बेटे तक पहुँचा दिया। लड़का चल पड़ा। रास्ते में उसने देखा कि एक बड़ा साँप चील के बच्चों के घोंसले की ओर बढ़ रहा है। उसने साँप को भगाकर बच्चों को बचा लिया।",
+          "en": "The queen passed the secret to her son. The boy set off. On the way he saw a big snake creeping towards a nest of baby kites. He drove the snake away and saved the chicks."
+        },
+        {
+          "word": "bird",
+          "hi": "चील के बच्चे बोले, \"तुमने हमें बचाया, अब हम तुम्हारी मदद करेंगे।\" वे उसे अपनी पीठ पर बिठाकर सात समुंदर पार उड़ा ले गए।",
+          "en": "The young kites said, \"You saved us, now we will help you.\" They carried him on their backs across the seven seas."
+        },
+        {
+          "word": "cage",
+          "hi": "दोपहर की गर्मी में, जब सारे राक्षस सो रहे थे, लड़का चुपके से घेरे में घुसा और पिंजरे समेत तोते को उठा लाया।",
+          "en": "In the heat of noon, when all the demons were asleep, the boy slipped into the ring and carried off the parrot, cage and all."
+        },
+        {
+          "word": "parrot",
+          "hi": "जादूगर को फ़ौरन पता चल गया। वह दौड़ता हुआ आया, \"वह तोता मुझे दे दो! बदले में जो चाहो ले लो!\" लड़का बोला, \"पहले मेरे पिता और ताऊओं को फिर से इंसान बनाओ।\"",
+          "en": "The magician knew at once. He came running: \"Give me that parrot! Take whatever you want in return!\" The boy said, \"First turn my father and uncles back into men.\""
+        },
+        {
+          "word": "stone",
+          "hi": "जादूगर ने मंत्र पढ़ा, और सारे पत्थर फिर से राजकुमार बन गए। तब लड़के ने पिंजरा खोलकर तोते को आज़ाद कर दिया। तोता उड़ा, और उसके साथ ही जादूगर की सारी ताक़त हवा हो गई; वह धुआँ बनकर उड़ गया।",
+          "en": "The magician chanted, and all the stones became princes again. Then the boy opened the cage and set the parrot free. The parrot flew off, and with it all the magician’s power vanished; he turned to smoke and blew away."
+        },
+        {
+          "word": "lamp",
+          "hi": "रानी, राजकुमार और उनका बहादुर बेटा धूमधाम से घर लौटे। उस रात पूरे राज्य में दीये जले।",
+          "en": "The queen, the prince and their brave son came home in great celebration. That night lamps were lit across the whole kingdom."
+        }
+      ],
+      "words": [
+        { "hi": "दक्खिन", "mean": "दक्षिण भारत का पुराना नाम", "en": "the Deccan" },
+        { "hi": "बुर्ज", "mean": "क़िले की ऊँची मीनार", "en": "tower" },
+        { "hi": "क़ैद", "mean": "बंद करके रखना", "en": "captivity" },
+        { "hi": "गुलदस्ते", "mean": "फूलों के गुच्छे", "en": "bouquet" },
+        { "hi": "घेरा", "mean": "चारों ओर से घिरी जगह", "en": "enclosure" },
+        { "hi": "पहरा", "mean": "रखवाली", "en": "guard" },
+        { "hi": "भेद", "mean": "राज़", "en": "secret" },
+        { "hi": "चील", "mean": "एक बड़ा शिकारी पक्षी", "en": "kite (the bird)" },
+        { "hi": "धूमधाम", "mean": "बड़े उत्सव के साथ", "en": "with great celebration" }
+      ],
+      "questions": [
+        {
+          "hi": "जादूगर ने राजकुमार और उसके भाइयों के साथ क्या किया?",
+          "en": "What did the magician do to the prince and his brothers?",
+          "answer": "उन्हें पत्थर बना दिया",
+          "options": ["उन्हें पत्थर बना दिया", "उन्हें जंगल भेज दिया", "उन्हें बुर्ज में बंद कर दिया"],
+          "text": true
+        },
+        {
+          "hi": "जादूगर की जान किसमें थी?",
+          "en": "Where was the magician’s life?",
+          "answer": "एक हरे तोते में",
+          "options": ["एक हरे तोते में", "एक अँगूठी में", "एक दीये में"],
+          "text": true
+        },
+        {
+          "hi": "लड़का सात समुंदर पार कैसे पहुँचा?",
+          "en": "How did the boy cross the seven seas?",
+          "answer": "चील के बच्चों की पीठ पर बैठकर",
+          "options": ["चील के बच्चों की पीठ पर बैठकर", "नाव से", "जादू के घोड़े पर"],
+          "text": true
+        },
+        {
+          "hi": "तोता आज़ाद होते ही क्या हुआ?",
+          "en": "What happened as soon as the parrot was free?",
+          "answer": "जादूगर की ताक़त ख़त्म हो गई",
+          "options": ["जादूगर की ताक़त ख़त्म हो गई", "तोता बोलने लगा", "जादूगर राजा बन गया"],
+          "text": true
+        }
+      ],
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"दक्खिन की एक पुरानी लोक कथा है। एक … के सात बेटे थे। सबसे छोटे राजकुमार का ब्याह एक समझदार राजकुमारी से हुआ, और उनके घर एक नन्हा बेटा हुआ।\" (राजा)",
+          "en": "Say this and let your child fill the gap: \"दक्खिन की एक पुरानी लोक कथा है। एक … के सात बेटे थे। सबसे छोटे राजकुमार का ब्याह एक समझदार राजकुमारी से हुआ, और उनके घर एक नन्हा बेटा हुआ।\" (राजा)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"दक्खिन की एक पुरानी लोक कथा है। एक राजा के सात बेटे थे। सबसे छोटे राजकुमार का ब्याह एक समझदार राजकुमारी से हुआ, और उनके घर एक नन्हा बेटा हुआ।\")",
+          "en": "Ask: what happened first in the story? (\"This is an old folk tale of the Deccan. A king had seven sons. The youngest prince married a wise princess, and a little son was born to them.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर तोता है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the parrot and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "चील के बच्चों ने लड़के की मदद क्यों की?", "en": "Why did the young kites help the boy?" },
+        {
+          "type": "you",
+          "hi": "तुमने कभी किसी की मदद की, और बाद में उसने भी तुम्हारी मदद की? बताओ।",
+          "en": "Have you ever helped someone who later helped you too? Tell me about it."
+        }
+      ]
+    },
+    {
+      "id": "g7-diary",
+      "level": "grade7",
+      "kind": "diary",
+      "title": { "hi": "मेरी डायरी: नानी के गाँव में", "en": "My diary: at Nani’s village" },
+      "cover": "diary",
+      "pages": [
+        {
+          "word": "diary",
+          "hi": "शनिवार, 1 जून। आज से मैं डायरी लिखना शुरू कर रही हूँ। मम्मी कहती हैं कि डायरी में सच-सच लिखना, क्योंकि यह किसी और के लिए नहीं, सिर्फ़ मेरे लिए है।",
+          "en": "Saturday, 1 June. Today I am starting a diary. Mummy says to write the truth in it, because it is for nobody else, only for me."
+        },
+        {
+          "word": "train",
+          "hi": "रविवार, 2 जून। रात भर रेल का सफ़र! ऊपर वाली बर्थ पर लेटकर मैं पटरियों की खटर-पटर सुनती रही। सुबह-सुबह हम नानी के गाँव वाले छोटे-से स्टेशन पर उतरे।",
+          "en": "Sunday, 2 June. A whole night on the train! Lying on the upper berth, I listened to the clatter of the tracks. Early in the morning we got off at the little station near Nani’s village."
+        },
+        {
+          "word": "cart",
+          "hi": "स्टेशन पर मामा बैलगाड़ी लेकर आए थे। कार से धीमी, पर कहीं ज़्यादा मज़ेदार! रास्ते भर आम के बाग़ों की महक आती रही। नानी ने दरवाज़े पर ही मुझे गले लगा लिया।",
+          "en": "Mama had come to the station with a bullock cart. Slower than a car, but far more fun! All the way came the scent of mango orchards. Nani hugged me right at the door."
+        },
+        {
+          "word": "lamp",
+          "hi": "सोमवार, 3 जून। आज पूरे दिन बिजली नहीं आई। फ़ोन की बैटरी ख़त्म हो गई, तो मैं बहुत ऊब गई। मुझे लगा, यह छुट्टी तो बेकार जाएगी।",
+          "en": "Monday, 3 June. There was no electricity all day. My phone battery died and I got very bored. I thought this holiday would be wasted."
+        },
+        {
+          "word": "star",
+          "hi": "पर शाम को नानी मुझे छत पर ले गईं। इतने तारे मैंने पहले कभी नहीं देखे थे! नानी ने सप्तर्षि दिखाए, और ध्रुव तारा भी। शहर की रोशनी में ये सब कहाँ छिप जाते हैं?",
+          "en": "But in the evening Nani took me up on the roof. I had never seen so many stars! Nani showed me the Great Bear, and the Pole Star too. Where do they all hide in the city lights?"
+        },
+        {
+          "word": "mango",
+          "hi": "बुधवार, 5 जून। आज मामा के साथ आम के बाग़ में गई। पता चला कि कच्चे आमों को पुआल में दबाकर रखते हैं, तो वे कुछ दिनों में अपने-आप पक जाते हैं। मैंने अपने हाथ से तोड़ा आम खाया। इतना मीठा!",
+          "en": "Wednesday, 5 June. Today I went to the mango orchard with Mama. I learned that if you bury raw mangoes in straw, they ripen by themselves in a few days. I ate a mango I picked myself. So sweet!"
+        },
+        {
+          "word": "well",
+          "hi": "शुक्रवार, 7 जून। गाँव में पानी कुएँ और हैंडपंप से आता है। सुबह मैंने भी मौसी के साथ दो बाल्टी पानी भरा। हाथ दुख गए। अब घर पर नल खुला छोड़ने से पहले दो बार सोचूँगी।",
+          "en": "Friday, 7 June. In the village, water comes from the well and the hand pump. This morning I filled two buckets with Mausi. My arms ached. At home I will think twice before leaving a tap running."
+        },
+        {
+          "word": "kite",
+          "hi": "रविवार, 9 जून। आज ममेरे भाई बिट्टू से पतंग पर झगड़ा हो गया। मैंने ग़ुस्से में उसकी पतंग की डोर तोड़ दी। रात को सोचा, तो लगा कि ग़लती मेरी थी।",
+          "en": "Sunday, 9 June. Today I fought with my cousin Bittu over a kite. In anger I broke his kite string. Thinking it over at night, I felt the fault was mine."
+        },
+        {
+          "word": "boy",
+          "hi": "सोमवार, 10 जून। सुबह मैंने बिट्टू से माफ़ी माँगी, और अपने जेब-ख़र्च से उसके लिए नई पतंग ख़रीदी। शाम को हमने मिलकर उड़ाई। माफ़ी माँगना उतना मुश्किल नहीं था, जितना मैं सोच रही थी।",
+          "en": "Monday, 10 June. In the morning I said sorry to Bittu and bought him a new kite with my pocket money. In the evening we flew it together. Saying sorry was not as hard as I had thought."
+        },
+        {
+          "word": "rain",
+          "hi": "बुधवार, 12 जून। आज इस मौसम की पहली बारिश हुई! गीली मिट्टी की सोंधी ख़ुशबू से पूरा आँगन भर गया। गाँव के सारे बच्चे बारिश में नाचे, और मैं भी।",
+          "en": "Wednesday, 12 June. Today the season’s first rain fell! The earthy smell of wet soil filled the whole courtyard. All the village children danced in the rain, and so did I."
+        },
+        {
+          "word": "grandmother",
+          "hi": "शनिवार, 15 जून। कल हम लौट रहे हैं। नानी ने मेरे लिए आम का अचार बाँधा है। विदा के समय उनकी आँखें भीग गईं, और मेरी भी।",
+          "en": "Saturday, 15 June. Tomorrow we go back. Nani has packed mango pickle for me. At the farewell her eyes filled with tears, and so did mine."
+        },
+        {
+          "word": "diary",
+          "hi": "इन दो हफ़्तों में मैंने सीखा कि बिना बिजली के भी शाम सुंदर हो सकती है, पानी कितना क़ीमती है, और \"सॉरी\" कहना बहादुरी है। अगली छुट्टियों का इंतज़ार अभी से है।",
+          "en": "In these two weeks I learned that an evening can be beautiful without electricity, how precious water is, and that saying \"sorry\" takes courage. I am already waiting for the next holidays."
+        }
+      ],
+      "words": [
+        { "hi": "महक", "mean": "ख़ुशबू", "en": "fragrance" },
+        { "hi": "ऊब", "mean": "मन न लगना", "en": "to get bored" },
+        { "hi": "सप्तर्षि", "mean": "सात तारों का एक समूह", "en": "the Great Bear (seven stars)" },
+        { "hi": "पुआल", "mean": "धान के सूखे डंठल", "en": "straw" },
+        { "hi": "ममेरे", "mean": "मामा के", "en": "mother’s brother’s" },
+        { "hi": "जेब-ख़र्च", "mean": "अपने छोटे-मोटे ख़र्च के लिए मिला पैसा", "en": "pocket money" },
+        { "hi": "सोंधी", "mean": "भीगी मिट्टी जैसी भीनी ख़ुशबू वाली", "en": "earthy-fragrant" },
+        { "hi": "विदा", "mean": "जाते समय अलग होना", "en": "farewell" }
+      ],
+      "questions": [
+        {
+          "hi": "लेखिका नानी के गाँव कैसे पहुँची?",
+          "en": "How did the writer get to Nani’s village?",
+          "answer": "रेल और बैलगाड़ी से",
+          "options": ["रेल और बैलगाड़ी से", "हवाई जहाज़ से", "बस से"],
+          "text": true
+        },
+        {
+          "hi": "बिजली न होने पर भी शाम कैसे सुंदर बनी?",
+          "en": "How did the evening become lovely with no electricity?",
+          "answer": "छत पर तारे देखकर",
+          "options": ["छत पर तारे देखकर", "टीवी देखकर", "फ़ोन पर खेलकर"],
+          "text": true
+        },
+        {
+          "hi": "पानी भरने के बाद लेखिका ने क्या सीखा?",
+          "en": "What did the writer learn after fetching water?",
+          "answer": "पानी क़ीमती है",
+          "options": ["पानी क़ीमती है", "कुआँ बहुत गहरा होता है", "हैंडपंप चलाना आसान है"],
+          "text": true
+        },
+        {
+          "hi": "डायरी किस तरह का लेखन है?",
+          "en": "What kind of writing is a diary?",
+          "answer": "तारीख़ के साथ अपने लिए लिखी बातें",
+          "options": ["तारीख़ के साथ अपने लिए लिखी बातें", "किसी को भेजी गई चिट्ठी", "अख़बार की ख़बर"],
+          "text": true
+        }
+      ],
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"शनिवार, 1 जून। आज से मैं … लिखना शुरू कर रही हूँ। मम्मी कहती हैं कि डायरी में सच-सच लिखना, क्योंकि यह किसी और के लिए नहीं, सिर्फ़ मेरे लिए है।\" (डायरी)",
+          "en": "Say this and let your child fill the gap: \"शनिवार, 1 जून। आज से मैं … लिखना शुरू कर रही हूँ। मम्मी कहती हैं कि डायरी में सच-सच लिखना, क्योंकि यह किसी और के लिए नहीं, सिर्फ़ मेरे लिए है।\" (डायरी)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"शनिवार, 1 जून। आज से मैं डायरी लिखना शुरू कर रही हूँ। मम्मी कहती हैं कि डायरी में सच-सच लिखना, क्योंकि यह किसी और के लिए नहीं, सिर्फ़ मेरे लिए है।\")",
+          "en": "Ask: what happened first in the story? (\"Saturday, 1 June. Today I am starting a diary. Mummy says to write the truth in it, because it is for nobody else, only for me.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर कुआँ है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the well and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "लेखिका को \"सॉरी\" कहना बहादुरी क्यों लगा?", "en": "Why did the writer feel that saying sorry takes courage?" },
+        {
+          "type": "you",
+          "hi": "आज के दिन की एक बात बताओ जो तुम अपनी डायरी में लिखना चाहो।",
+          "en": "Tell me one thing from today that you would like to write in your diary."
+        }
+      ]
+    },
+    {
+      "id": "g8-bade-bhai",
+      "level": "grade8",
+      "title": { "hi": "बड़े भाई साहब", "en": "My elder brother" },
+      "source": { "hi": "मुंशी प्रेमचंद की कहानी \"बड़े भाई साहब\" से, छोटी करके", "en": "Abridged from Munshi Premchand’s story \"Bade Bhai Sahab\"" },
+      "cover": "kite",
+      "pages": [
+        {
+          "word": "brother",
+          "hi": "मेरे भाई साहब मुझसे पाँच साल बड़े थे, पर सिर्फ़ तीन दरजे आगे। पढ़ाई जैसे महत्त्व के काम में वे जल्दबाज़ी पसंद नहीं करते थे; एक-एक दरजे में दो-दो, तीन-तीन साल लगाते थे।",
+          "en": "My elder brother was five years older than me, but only three classes ahead. In a matter as important as studies he disliked haste; he spent two or three years in each class."
+        },
+        {
+          "word": "books",
+          "hi": "भाई साहब हर समय किताब खोले बैठे रहते। कभी कॉपी के हाशियों पर चिड़ियों और कुत्तों की तस्वीरें बनाते, कभी एक ही शब्द दस बार लिखते। मेरा मन तो मैदान में, गुल्ली-डंडे और कंकड़ उछालने में लगता था।",
+          "en": "My brother sat with a book open all the time. Sometimes he drew birds and dogs in the margins of his notebook, sometimes he wrote one word ten times. My heart was in the playground, in gulli-danda and tossing pebbles."
+        },
+        {
+          "word": "clock",
+          "hi": "जब भी मैं खेलकर लौटता, भाई साहब का भाषण शुरू हो जाता: \"अंग्रेज़ी पढ़ना कोई हँसी-खेल नहीं है! दिन-रात आँखें फोड़नी पड़ती हैं, तब कहीं जाकर यह विद्या आती है।\"",
+          "en": "Whenever I came back from playing, my brother’s lecture began: \"Learning English is no joke! You have to strain your eyes day and night before this learning comes to you.\""
+        },
+        {
+          "word": "medal",
+          "hi": "सालाना इम्तिहान हुआ। मैं अव्वल आया, और भाई साहब फ़ेल हो गए। मेरे मन में थोड़ा घमंड जागा, पर भाई साहब की उदासी देखकर दुख भी हुआ।",
+          "en": "The annual exams came. I came first, and my brother failed. A little pride stirred in me, but seeing his sadness I felt sorry too."
+        },
+        {
+          "word": "brother",
+          "hi": "फिर भी भाई साहब ने मुझे ही डाँटा: \"घमंड मत करो! रावण भी घमंड से मिट गया। और इम्तिहान पास कर लेना कोई चीज़ नहीं, असल चीज़ है बुद्धि का विकास।\"",
+          "en": "Even so, my brother scolded me: \"Don’t be proud! Even Ravan was destroyed by pride. And passing exams is nothing; what matters is the growth of the mind.\""
+        },
+        {
+          "word": "book",
+          "hi": "फिर उन्होंने अगले दरजे का हाल सुनाया: \"इतिहास में इतने बादशाह हैं कि नाम याद न रहें! ज्यामिति में अ ब ज की जगह अ ज ब लिख दो, तो सारे नंबर कट जाते हैं!\" मैं डर गया, पर डर कुछ ही दिन रहा।",
+          "en": "Then he described the next class: \"History has so many emperors you can’t remember their names! In geometry, write ACB instead of ABC and you lose all your marks!\" I was frightened, but the fear lasted only a few days."
+        },
+        {
+          "word": "school",
+          "hi": "मैं फिर खेलने लगा, और अगले साल फिर अव्वल आया। भाई साहब इस बार भी फ़ेल हो गए। अब हम दोनों के बीच सिर्फ़ एक दरजे का अंतर रह गया।",
+          "en": "I went back to playing, and the next year I came first again. My brother failed once more. Now there was only one class between us."
+        },
+        {
+          "word": "brother",
+          "hi": "अब भाई साहब का स्वर नरम पड़ गया। वे डाँटते कम थे। मुझे लगा कि अब मुझ पर उनका कोई ज़ोर नहीं, और मैं और ज़्यादा आज़ादी से घूमने लगा।",
+          "en": "Now my brother’s tone grew softer. He scolded less. I felt he no longer had any hold on me, and I roamed about even more freely."
+        },
+        {
+          "word": "kite",
+          "hi": "एक शाम मैं एक कटी पतंग के पीछे बेतहाशा दौड़ रहा था। तभी भाई साहब से सामना हो गया। उन्होंने मेरा हाथ पकड़ लिया।",
+          "en": "One evening I was running headlong after a kite that had been cut loose. Just then I ran into my brother. He caught hold of my hand."
+        },
+        {
+          "word": "brother",
+          "hi": "वे बोले, \"मैं तुमसे पाँच साल बड़ा हूँ। जीवन का अनुभव किताबों से नहीं आता। पतंग मुझे भी अच्छी लगती है, पर अगर मैं ही बेराह चलूँ, तो तुम्हें कौन सँभालेगा? तुम्हारे लिए मैं अपना मन मारता हूँ।\"",
+          "en": "He said, \"I am five years older than you. The experience of life does not come from books. I like kites too, but if I go astray, who will look after you? For your sake I hold myself back.\""
+        },
+        {
+          "word": "kite",
+          "hi": "मैं लज्जित हो गया। तभी वही कटी पतंग हमारे ऊपर से गुज़री, उसकी डोर लटकती हुई। भाई साहब लंबे थे; उन्होंने उछलकर डोर पकड़ ली, और बेतहाशा हॉस्टल की ओर दौड़े। मैं उनके पीछे-पीछे भागा।",
+          "en": "I felt ashamed. Just then the same loose kite passed over us, its string trailing. My brother was tall; he leapt, caught the string and ran headlong towards the hostel. I ran after him."
+        },
+        {
+          "word": "boy",
+          "hi": "उस दिन मुझे समझ आया कि भाई साहब के कठोर भाषणों के पीछे कितना प्यार, और कितना त्याग छिपा था।",
+          "en": "That day I understood how much love, and how much sacrifice, lay hidden behind my brother’s stern lectures."
+        }
+      ],
+      "words": [
+        { "hi": "दरजे", "mean": "कक्षा", "en": "class, grade" },
+        { "hi": "हाशियों", "mean": "पन्ने के किनारे की ख़ाली जगह", "en": "margins" },
+        { "hi": "अव्वल", "mean": "पहले नंबर पर", "en": "first" },
+        { "hi": "घमंड", "mean": "अभिमान", "en": "pride" },
+        { "hi": "ज्यामिति", "mean": "रेखाओं, कोणों और आकारों का गणित", "en": "geometry" },
+        { "hi": "बेतहाशा", "mean": "बिना रुके, बहुत तेज़", "en": "headlong" },
+        { "hi": "लज्जित", "mean": "शर्मिंदा", "en": "ashamed" },
+        { "hi": "त्याग", "mean": "किसी के लिए अपनी ख़ुशी छोड़ देना", "en": "sacrifice" }
+      ],
+      "questions": [
+        {
+          "hi": "शुरू में भाई साहब छोटे भाई से कितने दरजे आगे थे?",
+          "en": "At first, how many classes ahead was the elder brother?",
+          "answer": "तीन दरजे",
+          "options": ["तीन दरजे", "पाँच दरजे", "दो दरजे"],
+          "text": true
+        },
+        {
+          "hi": "सालाना इम्तिहान में क्या हुआ?",
+          "en": "What happened in the annual exams?",
+          "answer": "छोटा भाई अव्वल आया और बड़े भाई फ़ेल हुए",
+          "options": ["छोटा भाई अव्वल आया और बड़े भाई फ़ेल हुए", "दोनों भाई फ़ेल हुए", "बड़े भाई अव्वल आए"],
+          "text": true
+        },
+        {
+          "hi": "भाई साहब पतंग से दूर क्यों रहते थे?",
+          "en": "Why did the elder brother keep away from kites?",
+          "answer": "छोटे भाई के सामने अच्छा उदाहरण रखने के लिए",
+          "options": ["छोटे भाई के सामने अच्छा उदाहरण रखने के लिए", "उन्हें पतंग से डर लगता था", "उनके पास पैसे नहीं थे"],
+          "text": true
+        },
+        {
+          "hi": "आख़िर में भाई साहब ने क्या किया?",
+          "en": "What did the elder brother do in the end?",
+          "answer": "उछलकर कटी पतंग की डोर पकड़ी",
+          "options": ["उछलकर कटी पतंग की डोर पकड़ी", "पतंग फाड़ दी", "छोटे भाई को घर भेज दिया"],
+          "text": true
+        }
+      ],
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"मेरे … साहब मुझसे पाँच साल बड़े थे, पर सिर्फ़ तीन दरजे आगे। पढ़ाई जैसे महत्त्व के काम में वे जल्दबाज़ी पसंद नहीं करते थे; एक-एक दरजे में दो-दो, तीन-तीन साल लगाते थे।\" (भाई)",
+          "en": "Say this and let your child fill the gap: \"मेरे … साहब मुझसे पाँच साल बड़े थे, पर सिर्फ़ तीन दरजे आगे। पढ़ाई जैसे महत्त्व के काम में वे जल्दबाज़ी पसंद नहीं करते थे; एक-एक दरजे में दो-दो, तीन-तीन साल लगाते थे।\" (भाई)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"मेरे भाई साहब मुझसे पाँच साल बड़े थे, पर सिर्फ़ तीन दरजे आगे। पढ़ाई जैसे महत्त्व के काम में वे जल्दबाज़ी पसंद नहीं करते थे; एक-एक दरजे में दो-दो, तीन-तीन साल लगाते थे।\")",
+          "en": "Ask: what happened first in the story? (\"My elder brother was five years older than me, but only three classes ahead. In a matter as important as studies he disliked haste; he spent two or three years in each class.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर स्कूल है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the school and ask: what is happening here?"
+        },
+        {
+          "type": "why",
+          "hi": "भाई साहब ख़ुद फ़ेल होकर भी छोटे भाई को बार-बार क्यों समझाते थे?",
+          "en": "Why did the elder brother keep advising the younger one, even though he failed himself?"
+        },
+        {
+          "type": "you",
+          "hi": "घर में कोई बड़ा तुम्हें किस बात पर सबसे ज़्यादा टोकता है? क्या अब उसकी वजह समझ आती है?",
+          "en": "What does a grown-up at home tell you off about most? Do you understand why now?"
+        }
+      ]
+    },
+    {
+      "id": "g8-panch",
+      "level": "grade8",
+      "title": { "hi": "पंच परमेश्वर", "en": "The judge is God" },
+      "source": { "hi": "मुंशी प्रेमचंद की कहानी \"पंच परमेश्वर\" से, छोटी करके", "en": "Abridged from Munshi Premchand’s story \"Panch Parmeshwar\"" },
+      "cover": "tree",
+      "pages": [
+        {
+          "word": "farmer",
+          "hi": "जुम्मन शेख़ और अलगू चौधरी में गहरी दोस्ती थी। दोनों का धर्म अलग था, खान-पान अलग था, पर विचार मिलते थे। उनकी दोस्ती गाँव भर में मशहूर थी।",
+          "en": "Jumman Sheikh and Algu Chaudhari were close friends. Their faiths were different and so were their ways of eating, but their thinking matched. Their friendship was famous in the whole village."
+        },
+        {
+          "word": "grandmother",
+          "hi": "जुम्मन की एक बूढ़ी ख़ाला थीं। उन्होंने अपनी थोड़ी-सी ज़मीन जुम्मन के नाम लिख दी। बदले में जुम्मन ने वादा किया कि वह जीवन भर उनकी सेवा करेगा।",
+          "en": "Jumman had an old aunt. She signed over her small piece of land to Jumman. In return Jumman promised to look after her all her life."
+        },
+        {
+          "word": "roti",
+          "hi": "पर ज़मीन के काग़ज़ बनते ही सेवा-सत्कार ख़त्म! जुम्मन की पत्नी ख़ाला को रूखी रोटियों के साथ कड़वी बातें भी परोसने लगी। ख़ाला ने कहा, \"मुझे महीने का ख़र्च दे दो, मैं अलग पका-खा लूँगी।\" जुम्मन ने मना कर दिया।",
+          "en": "But once the land papers were made, the care stopped! Jumman’s wife began serving the aunt bitter words along with dry rotis. The aunt said, \"Give me a monthly allowance and I will cook for myself.\" Jumman refused."
+        },
+        {
+          "word": "tree",
+          "hi": "ख़ाला ने पंचायत बुलाई। शाम को गाँव के लोग एक पेड़ के नीचे जमा हुए। ख़ाला ने अलगू को सरपंच चुना। जुम्मन मन ही मन ख़ुश हुआ: \"अलगू तो मेरा दोस्त है।\"",
+          "en": "The aunt called the village council. In the evening the villagers gathered under a tree. The aunt chose Algu as head judge. Jumman was secretly pleased: \"Algu is my friend.\""
+        },
+        {
+          "word": "grandmother",
+          "hi": "अलगू ने झिझककर कहा, \"ख़ाला, जुम्मन मेरा दोस्त है।\" ख़ाला बोलीं, \"बेटा, क्या बिगाड़ के डर से ईमान की बात न कहोगे? पंच के दिल में ख़ुदा बसता है।\"",
+          "en": "Algu said hesitantly, \"Aunt, Jumman is my friend.\" The aunt said, \"Son, will you not speak the truth for fear of a quarrel? God lives in the heart of a judge.\""
+        },
+        {
+          "word": "house",
+          "hi": "अलगू ने दोनों तरफ़ की बात सुनी और फ़ैसला सुनाया: \"जुम्मन ख़ाला को हर महीने ख़र्च दें, वरना ज़मीन लौटा दें।\" जुम्मन सन्न रह गया। उसी दिन से दोनों की दोस्ती टूट गई।",
+          "en": "Algu heard both sides and gave his judgement: \"Jumman must give the aunt a monthly allowance, or return the land.\" Jumman was stunned. From that day their friendship was broken."
+        },
+        {
+          "word": "ox",
+          "hi": "कुछ दिन बाद अलगू ने अपना एक सुंदर बैल समझू साहू को उधार पर बेचा। तय हुआ कि दाम एक महीने बाद मिलेगा।",
+          "en": "Some days later Algu sold a fine bullock of his to Samjhu Sahu on credit. It was agreed that the price would be paid a month later."
+        },
+        {
+          "word": "cart",
+          "hi": "साहू बैल से दिन-रात गाड़ी खिंचवाता, पर उसे ढंग से चारा-पानी न देता। एक दिन बोझ से लदी गाड़ी खींचते-खींचते बैल गिर पड़ा, और फिर न उठा।",
+          "en": "Sahu made the bullock pull his cart day and night but never fed or watered it properly. One day, hauling a heavily loaded cart, the bullock fell down and never got up again."
+        },
+        {
+          "word": "coins",
+          "hi": "जब अलगू ने दाम माँगा, तो साहू भड़क उठा, \"तुमने मरियल बैल दिया, उलटे मेरा नुक़सान हुआ!\" बात फिर पंचायत तक पहुँची।",
+          "en": "When Algu asked for the price, Sahu flared up: \"You gave me a feeble bullock; I am the one who lost!\" The matter went to the council again."
+        },
+        {
+          "word": "tree",
+          "hi": "इस बार साहू ने जुम्मन को सरपंच चुना। अलगू का दिल बैठ गया: अब जुम्मन बदला लेगा।",
+          "en": "This time Sahu chose Jumman as head judge. Algu’s heart sank: now Jumman would take his revenge."
+        },
+        {
+          "word": "lamp",
+          "hi": "पर सरपंच के आसन पर बैठते ही जुम्मन के मन में बदलाव आया। उसने सोचा, \"मैं इस समय न्याय के ऊँचे आसन पर हूँ। मेरे मुँह से जो निकलेगा, वह परमेश्वर की वाणी है। मुझे सच से ज़रा भी नहीं डिगना चाहिए।\"",
+          "en": "But as soon as he sat in the judge’s seat, something changed in Jumman’s heart. He thought, \"I am now in the high seat of justice. What I say will be the voice of God. I must not waver from the truth at all.\""
+        },
+        {
+          "word": "coins",
+          "hi": "जुम्मन ने फ़ैसला सुनाया: \"बैल बीमारी से नहीं, ज़्यादा काम और कम चारे से मरा। साहू को बैल का पूरा दाम देना होगा।\"",
+          "en": "Jumman gave his judgement: \"The bullock died not of illness, but of too much work and too little fodder. Sahu must pay the full price of the bullock.\""
+        },
+        {
+          "word": "farmer",
+          "hi": "अलगू ख़ुशी से उछल पड़ा, और दौड़कर जुम्मन के गले लग गया: \"आज मुझे पता चला कि पंच में परमेश्वर बसते हैं!\" दोस्ती की मुरझाई बेल फिर से हरी हो गई।",
+          "en": "Algu leapt up with joy and ran to embrace Jumman: \"Today I learned that God lives in the judge!\" The withered vine of their friendship turned green again."
+        }
+      ],
+      "words": [
+        { "hi": "ख़ाला", "mean": "मौसी", "en": "aunt (mother’s sister)" },
+        { "hi": "सेवा-सत्कार", "mean": "आदर के साथ देखभाल", "en": "care and respect" },
+        { "hi": "सरपंच", "mean": "पंचायत का मुखिया", "en": "head of the village council" },
+        { "hi": "बिगाड़", "mean": "आपस में संबंध ख़राब होना", "en": "falling out" },
+        { "hi": "ईमान", "mean": "सच्चाई और धर्म", "en": "integrity" },
+        { "hi": "मरियल", "mean": "बहुत कमज़ोर", "en": "feeble" },
+        { "hi": "आसन", "mean": "बैठने की जगह, पद", "en": "seat" },
+        { "hi": "डिगना", "mean": "अपनी जगह से हिलना, पीछे हटना", "en": "to waver" }
+      ],
+      "questions": [
+        {
+          "hi": "ख़ाला ने पंचायत क्यों बुलाई?",
+          "en": "Why did the aunt call the council?",
+          "answer": "जुम्मन ने वादा तोड़ा और ख़र्च देने से मना किया",
+          "options": ["जुम्मन ने वादा तोड़ा और ख़र्च देने से मना किया", "अलगू ने उनकी ज़मीन छीन ली", "उनका बैल मर गया"],
+          "text": true
+        },
+        {
+          "hi": "अलगू ने ख़ाला के मामले में क्या फ़ैसला दिया?",
+          "en": "What did Algu decide in the aunt’s case?",
+          "answer": "जुम्मन ख़ाला को हर महीने ख़र्च दे",
+          "options": ["जुम्मन ख़ाला को हर महीने ख़र्च दे", "ख़ाला गाँव छोड़ दें", "जुम्मन को कुछ नहीं देना होगा"],
+          "text": true
+        },
+        {
+          "hi": "समझू साहू के पास बैल क्यों मरा?",
+          "en": "Why did the bullock die at Samjhu Sahu’s?",
+          "answer": "ज़्यादा काम और कम चारे से",
+          "options": ["ज़्यादा काम और कम चारे से", "किसी बीमारी से", "बुढ़ापे से"],
+          "text": true
+        },
+        {
+          "hi": "सरपंच बनकर जुम्मन ने क्या किया?",
+          "en": "What did Jumman do as head judge?",
+          "answer": "सच्चा न्याय किया, चाहे अलगू से अनबन थी",
+          "options": ["सच्चा न्याय किया, चाहे अलगू से अनबन थी", "अलगू से बदला लिया", "फ़ैसला अगले साल पर टाल दिया"],
+          "text": true
+        }
+      ],
+      "moral": {
+        "hi": "न्याय के आसन पर बैठकर कोई किसी का दोस्त या दुश्मन नहीं होता; वहाँ सिर्फ़ सच होता है।",
+        "en": "In the seat of justice no one is friend or foe; there is only the truth."
+      },
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"पर ज़मीन के काग़ज़ बनते ही सेवा-सत्कार ख़त्म! जुम्मन की पत्नी ख़ाला को रूखी … के साथ कड़वी बातें भी परोसने लगी। ख़ाला ने कहा, \"मुझे महीने का ख़र्च दे दो, मैं अलग पका-खा लूँगी।\" जुम्मन ने मना कर दिया।\" (रोटियों)",
+          "en": "Say this and let your child fill the gap: \"पर ज़मीन के काग़ज़ बनते ही सेवा-सत्कार ख़त्म! जुम्मन की पत्नी ख़ाला को रूखी … के साथ कड़वी बातें भी परोसने लगी। ख़ाला ने कहा, \"मुझे महीने का ख़र्च दे दो, मैं अलग पका-खा लूँगी।\" जुम्मन ने मना कर दिया।\" (रोटियों)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"जुम्मन शेख़ और अलगू चौधरी में गहरी दोस्ती थी। दोनों का धर्म अलग था, खान-पान अलग था, पर विचार मिलते थे। उनकी दोस्ती गाँव भर में मशहूर थी।\")",
+          "en": "Ask: what happened first in the story? (\"Jumman Sheikh and Algu Chaudhari were close friends. Their faiths were different and so were their ways of eating, but their thinking matched. Their friendship was famous in the whole village.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर बैल है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the ox and ask: what is happening here?"
+        },
+        {
+          "type": "why",
+          "hi": "सरपंच के आसन पर बैठते ही जुम्मन का मन क्यों बदल गया?",
+          "en": "Why did Jumman’s heart change as soon as he sat in the judge’s seat?"
+        },
+        {
+          "type": "you",
+          "hi": "कभी ऐसा हुआ कि तुम्हें किसी दोस्त के ख़िलाफ़ सच बोलना पड़ा? तब कैसा लगा?",
+          "en": "Have you ever had to tell the truth against a friend? How did it feel?"
+        }
+      ]
+    },
+    {
+      "id": "g8-namak",
+      "level": "grade8",
+      "title": { "hi": "नमक का दारोगा", "en": "The salt inspector" },
+      "source": { "hi": "मुंशी प्रेमचंद की कहानी \"नमक का दारोगा\" से, छोटी करके", "en": "Abridged from Munshi Premchand’s story \"Namak ka Daroga\"" },
+      "cover": "salt",
+      "pages": [
+        {
+          "word": "salt",
+          "hi": "उन दिनों नमक पर सरकार का कड़ा क़ानून था, और नमक के महकमे में नौकरी पाना बड़ी बात मानी जाती थी। लोग कहते थे, वहाँ ऊपरी कमाई बहुत है।",
+          "en": "In those days there was a strict government law on salt, and a job in the salt department was thought a great prize. People said there was plenty of \"extra\" income there."
+        },
+        {
+          "word": "father",
+          "hi": "मुंशी वंशीधर को नौकरी पर भेजते हुए उनके बूढ़े पिता ने समझाया, \"बेटा, महीने की तनख़्वाह तो पूर्णमासी का चाँद है, जो घटते-घटते लुप्त हो जाता है। ऊपरी आमदनी बहता हुआ सोता है, जिससे प्यास हमेशा बुझती है।\"",
+          "en": "Sending Munshi Vanshidhar off to work, his old father advised him: \"Son, a monthly salary is the full moon, which wanes until it vanishes. Extra income is a flowing spring that always quenches your thirst.\""
+        },
+        {
+          "word": "pen",
+          "hi": "पर वंशीधर ने पिता की यह सीख नहीं मानी। वे नमक विभाग में दारोगा बने, और पूरी ईमानदारी से काम करने लगे।",
+          "en": "But Vanshidhar did not take this advice. He became an inspector in the salt department and worked with complete honesty."
+        },
+        {
+          "word": "night",
+          "hi": "जाड़े की एक अँधेरी रात थी। दारोगा जी को यमुना के पुल पर गाड़ियों की गड़गड़ाहट और मल्लाहों का शोर सुनाई दिया। \"इतनी रात को गाड़ियाँ कहाँ जा रही हैं?\"",
+          "en": "It was a dark winter night. The inspector heard the rumble of carts and the shouts of boatmen at the bridge over the Yamuna. \"Where are carts going so late at night?\""
+        },
+        {
+          "word": "cart",
+          "hi": "पूछताछ हुई तो पता चला कि ये गाड़ियाँ पंडित अलोपीदीन की हैं, और इनमें नमक के बोरे हैं, बिना महसूल चुकाए।",
+          "en": "On asking, he found that the carts belonged to Pandit Alopideen and were loaded with sacks of salt on which no duty had been paid."
+        },
+        {
+          "word": "minister",
+          "hi": "पंडित अलोपीदीन इलाक़े के सबसे बड़े ज़मींदार थे। उन्हें अपने धन पर पूरा भरोसा था। वे मुस्कुराकर बोले, \"बाबूजी, हम तो आपके सेवक हैं। कुछ भेंट स्वीकार कीजिए।\"",
+          "en": "Pandit Alopideen was the biggest landlord in the area. He had full faith in his money. He smiled and said, \"Sir, we are your servants. Please accept a small gift.\""
+        },
+        {
+          "word": "coins",
+          "hi": "वंशीधर ने दृढ़ता से कहा, \"हम उन लोगों में नहीं, जो कौड़ियों पर अपना ईमान बेचते हैं।\" पंडित जी एक हज़ार से बढ़ते-बढ़ते चालीस हज़ार तक पहुँच गए, पर दारोगा ज़रा भी नहीं डिगे।",
+          "en": "Vanshidhar said firmly, \"I am not one of those who sell their honour for pennies.\" The Pandit went up from a thousand to forty thousand rupees, but the inspector did not waver at all."
+        },
+        {
+          "word": "bridge",
+          "hi": "उन्होंने पंडित जी को गिरफ़्तार कर लिया। धन और धर्म की इस लड़ाई में आज धर्म जीता था।",
+          "en": "He arrested the Pandit. In this battle between wealth and duty, duty had won that day."
+        },
+        {
+          "word": "pen",
+          "hi": "पर अदालत में पंडित जी के धन का जादू चला। वकील, गवाह, सब उनके पक्ष में थे। पंडित जी बरी हो गए, और उलटे वंशीधर को नौकरी से निकाल दिया गया।",
+          "en": "But in court the magic of the Pandit’s money worked. The lawyers and the witnesses were all on his side. The Pandit was acquitted, and Vanshidhar was dismissed instead."
+        },
+        {
+          "word": "father",
+          "hi": "घर लौटे तो पिता ने सिर पीट लिया, \"पढ़-लिखकर भी तुम्हें अक़्ल न आई!\" माँ भी दुखी थीं। वंशीधर चुपचाप सब सुनते रहे।",
+          "en": "When he came home, his father beat his brow: \"All that education and still no sense!\" His mother was unhappy too. Vanshidhar listened to it all in silence."
+        },
+        {
+          "word": "horse",
+          "hi": "एक हफ़्ते बाद, एक शाम, एक सजा हुआ रथ वंशीधर के दरवाज़े पर आकर रुका। उसमें से पंडित अलोपीदीन उतरे! पिता जी दौड़कर उनके स्वागत में झुक गए।",
+          "en": "A week later, one evening, a decorated carriage stopped at Vanshidhar’s door. Out stepped Pandit Alopideen! Father ran to greet him with a bow."
+        },
+        {
+          "word": "minister",
+          "hi": "पंडित जी ने वंशीधर के सामने एक काग़ज़ रखा: \"मैं चाहता हूँ कि आप मेरी सारी जायदाद के स्थायी मैनेजर बनें। मैंने हज़ारों लोगों को धन के आगे झुकते देखा है; आप अकेले हैं जो नहीं झुके।\"",
+          "en": "The Pandit placed a paper before Vanshidhar: \"I want you to be the permanent manager of all my property. I have seen thousands bow before wealth; you are the only one who did not.\""
+        },
+        {
+          "word": "hand",
+          "hi": "वंशीधर की आँखों में आँसू आ गए। उन्होंने काँपते हाथ से काग़ज़ पर दस्तख़त कर दिए। जिस ईमानदारी ने उनकी नौकरी छीनी थी, उसी ने आज उन्हें सम्मान दिलाया।",
+          "en": "Tears came to Vanshidhar’s eyes. With a trembling hand he signed the paper. The honesty that had cost him his job had now won him respect."
+        }
+      ],
+      "words": [
+        { "hi": "महकमे", "mean": "सरकारी विभाग", "en": "department" },
+        { "hi": "पूर्णमासी", "mean": "पूरे चाँद वाली रात", "en": "full-moon night" },
+        { "hi": "लुप्त", "mean": "ग़ायब", "en": "vanished" },
+        { "hi": "सोता", "mean": "पानी का झरना", "en": "spring of water" },
+        { "hi": "महसूल", "mean": "सरकारी कर", "en": "duty, tax" },
+        { "hi": "दृढ़ता", "mean": "मज़बूती, अटल रहना", "en": "firmness" },
+        { "hi": "बरी", "mean": "आरोप से छूट जाना", "en": "acquitted" },
+        { "hi": "जायदाद", "mean": "ज़मीन-मकान और संपत्ति", "en": "property" },
+        { "hi": "दस्तख़त", "mean": "हस्ताक्षर", "en": "signature" }
+      ],
+      "questions": [
+        {
+          "hi": "वंशीधर के पिता ने ऊपरी आमदनी की तुलना किससे की?",
+          "en": "What did Vanshidhar’s father compare extra income to?",
+          "answer": "बहते हुए सोते से",
+          "options": ["बहते हुए सोते से", "पूर्णमासी के चाँद से", "अँधेरी रात से"],
+          "text": true
+        },
+        {
+          "hi": "पंडित अलोपीदीन की गाड़ियों में क्या था?",
+          "en": "What was in Pandit Alopideen’s carts?",
+          "answer": "बिना महसूल का नमक",
+          "options": ["बिना महसूल का नमक", "अनाज के बोरे", "कपड़े के थान"],
+          "text": true
+        },
+        {
+          "hi": "अदालत के फ़ैसले के बाद वंशीधर का क्या हुआ?",
+          "en": "What happened to Vanshidhar after the court’s verdict?",
+          "answer": "उनकी नौकरी चली गई",
+          "options": ["उनकी नौकरी चली गई", "उन्हें इनाम मिला", "उन्हें जेल हुई"],
+          "text": true
+        },
+        {
+          "hi": "अलोपीदीन ने वंशीधर को मैनेजर क्यों बनाया?",
+          "en": "Why did Alopideen make Vanshidhar his manager?",
+          "answer": "वे धन के आगे नहीं झुके थे",
+          "options": ["वे धन के आगे नहीं झुके थे", "वे उनके रिश्तेदार थे", "उन्हें बहिखाता आता था"],
+          "text": true
+        }
+      ],
+      "moral": {
+        "hi": "ईमानदारी कुछ समय के लिए हार सकती है, पर आख़िर उसी की क़द्र होती है।",
+        "en": "Honesty may lose for a while, but in the end it is honesty that is valued."
+      },
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"उन दिनों … पर सरकार का कड़ा क़ानून था, और नमक के महकमे में नौकरी पाना बड़ी बात मानी जाती थी। लोग कहते थे, वहाँ ऊपरी कमाई बहुत है।\" (नमक)",
+          "en": "Say this and let your child fill the gap: \"उन दिनों … पर सरकार का कड़ा क़ानून था, और नमक के महकमे में नौकरी पाना बड़ी बात मानी जाती थी। लोग कहते थे, वहाँ ऊपरी कमाई बहुत है।\" (नमक)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"उन दिनों नमक पर सरकार का कड़ा क़ानून था, और नमक के महकमे में नौकरी पाना बड़ी बात मानी जाती थी। लोग कहते थे, वहाँ ऊपरी कमाई बहुत है।\")",
+          "en": "Ask: what happened first in the story? (\"In those days there was a strict government law on salt, and a job in the salt department was thought a great prize. People said there was plenty of \"extra\" income there.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर सिक्के है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the coins and ask: what is happening here?"
+        },
+        {
+          "type": "why",
+          "hi": "अलोपीदीन ने उसी आदमी को नौकरी क्यों दी, जिसने उन्हें गिरफ़्तार किया था?",
+          "en": "Why did Alopideen give a job to the very man who had arrested him?"
+        },
+        { "type": "you", "hi": "तुम्हारी नज़र में ईमानदार रहना सबसे मुश्किल कब होता है?", "en": "When do you think it is hardest to stay honest?" }
+      ]
+    },
+    {
+      "id": "g8-singhasan",
+      "level": "grade8",
+      "title": { "hi": "सिंहासन बत्तीसी: चार रत्न", "en": "The throne of thirty-two: four jewels" },
+      "source": { "hi": "लोक कथाओं \"सिंहासन बत्तीसी\" से, छोटी करके", "en": "Retold from the old tales of \"Singhasan Battisi\"" },
+      "cover": "throne",
+      "pages": [
+        {
+          "word": "king",
+          "hi": "बहुत पुरानी बात है। उज्जैन में राजा भोज राज करते थे। उनके राज्य के एक गाँव में एक अनोखी बात होने लगी।",
+          "en": "Long, long ago, King Bhoj ruled in Ujjain. In a village of his kingdom, something strange began to happen."
+        },
+        {
+          "word": "field",
+          "hi": "गाँव का एक चरवाहा लड़का खेत में बने एक ऊँचे टीले पर बैठता, तो बड़ा बुद्धिमान बन जाता। लोग अपने झगड़े लेकर आते, और वह ऐसा सच्चा न्याय करता कि सब दंग रह जाते।",
+          "en": "Whenever a village herd-boy sat on a high mound in a field, he became very wise. People brought him their quarrels, and he judged them so truly that everyone was amazed."
+        },
+        {
+          "word": "cow",
+          "hi": "पर टीले से उतरते ही वह फिर वही भोला-भाला चरवाहा बन जाता। यह ख़बर राजा भोज तक पहुँची।",
+          "en": "But as soon as he came down from the mound, he was once again a simple herd-boy. The news reached King Bhoj."
+        },
+        {
+          "word": "throne",
+          "hi": "राजा ने टीले की खुदाई करवाई। कई दिनों की खुदाई के बाद धरती से एक अद्भुत सिंहासन निकला। उस पर रत्न जड़े थे, और उसके चारों ओर बत्तीस पुतलियाँ बनी थीं।",
+          "en": "The king had the mound dug up. After many days of digging, a wondrous throne came out of the earth. It was set with jewels, and thirty-two statuettes stood all around it."
+        },
+        {
+          "word": "minister",
+          "hi": "विद्वानों ने बताया, \"महाराज, यह राजा विक्रमादित्य का सिंहासन है, जो अपने न्याय और दान के लिए अमर हैं।\" राजा भोज ने शुभ दिन देखकर उस पर बैठने की तैयारी की।",
+          "en": "The learned men said, \"Your Majesty, this is the throne of King Vikramaditya, who is remembered for ever for his justice and generosity.\" King Bhoj chose an auspicious day and got ready to sit on it."
+        },
+        {
+          "word": "crown",
+          "hi": "जैसे ही भोज ने पहला पाँव बढ़ाया, एक पुतली खिलखिलाकर हँस पड़ी, \"ठहरो राजन! इस पर वही बैठ सकता है, जो विक्रमादित्य जैसा दानी और न्यायी हो। पहले उनकी एक कहानी सुनो।\"",
+          "en": "As Bhoj took his first step, one statuette burst out laughing: \"Stop, O king! Only one as generous and just as Vikramaditya may sit here. First hear a story of his.\""
+        },
+        {
+          "word": "sea",
+          "hi": "\"एक बार विक्रमादित्य समुद्र की यात्रा पर गए। उनकी विनम्रता और साहस से प्रसन्न होकर समुद्र देवता ने उन्हें चार अनमोल रत्न भेंट किए।\"",
+          "en": "\"Once Vikramaditya went on a journey by sea. Pleased by his humility and courage, the god of the sea gave him four priceless jewels.\""
+        },
+        {
+          "word": "ring",
+          "hi": "\"पहला रत्न माँगने पर धन देता था, दूसरा भोजन, तीसरा सेना, और चौथा सुंदर गहने।\"",
+          "en": "\"The first jewel gave wealth when asked, the second food, the third an army, and the fourth fine ornaments.\""
+        },
+        {
+          "word": "sage",
+          "hi": "\"लौटते समय रास्ते में एक ग़रीब ब्राह्मण मिला। उसने कहा, 'महाराज, मेरे घर में कई दिनों से चूल्हा नहीं जला।' विक्रम ने कहा, 'इन चार में से जो रत्न चाहो, ले लो।'\"",
+          "en": "\"On the way back he met a poor Brahmin, who said, 'Your Majesty, no fire has been lit in my kitchen for days.' Vikram said, 'Take whichever of these four jewels you like.'\""
+        },
+        {
+          "word": "house",
+          "hi": "\"ब्राह्मण घर जाकर सबसे पूछने लगा। पत्नी ने कहा, 'भोजन वाला लो।' बेटे ने कहा, 'सेना वाला!' बहू बोली, 'गहनों वाला!' और वह ख़ुद धन वाला चाहता था। घर में झगड़ा होने लगा।\"",
+          "en": "\"The Brahmin went home and asked everyone. His wife said, 'Take the one for food.' His son said, 'The one for an army!' His daughter-in-law said, 'The one for ornaments!' And he himself wanted the one for wealth. A quarrel broke out.\""
+        },
+        {
+          "word": "ring",
+          "hi": "\"उदास होकर ब्राह्मण लौटा और सारी बात बताई। विक्रम मुस्कुराए, 'झगड़ा क्यों? चारों ही ले जाओ।' और उन्होंने चारों रत्न उसे दे दिए।\"",
+          "en": "\"Sadly the Brahmin went back and told him everything. Vikram smiled: 'Why quarrel? Take all four.' And he gave him all four jewels.\""
+        },
+        {
+          "word": "throne",
+          "hi": "पुतली ने पूछा, \"राजन, क्या आप इतने दानी हैं?\" राजा भोज चुप रह गए, और उस दिन सिंहासन पर नहीं बैठे।",
+          "en": "The statuette asked, \"O king, are you so generous?\" King Bhoj was silent, and did not sit on the throne that day."
+        },
+        {
+          "word": "king",
+          "hi": "कहते हैं, इसी तरह बत्तीस पुतलियों ने विक्रमादित्य की बत्तीस कहानियाँ सुनाईं। हर कहानी से भोज ने कुछ नया सीखा: कोई आसन से बड़ा नहीं बनता, अपने कामों से बनता है।",
+          "en": "They say that in this way the thirty-two statuettes told thirty-two stories of Vikramaditya. From each story Bhoj learned something new: no one becomes great by a seat, only by their deeds."
+        }
+      ],
+      "words": [
+        { "hi": "चरवाहा", "mean": "पशु चराने वाला", "en": "herdsman" },
+        { "hi": "टीले", "mean": "मिट्टी का ऊँचा ढेर", "en": "mound" },
+        { "hi": "अद्भुत", "mean": "अनोखा, हैरान करने वाला", "en": "wondrous" },
+        { "hi": "पुतलियाँ", "mean": "छोटी मूर्तियाँ", "en": "statuettes" },
+        { "hi": "दानी", "mean": "दिल खोलकर देने वाला", "en": "generous" },
+        { "hi": "विनम्रता", "mean": "नम्रता, घमंड न होना", "en": "humility" },
+        { "hi": "अनमोल", "mean": "इतना क़ीमती कि मोल न लगे", "en": "priceless" },
+        { "hi": "चूल्हा", "mean": "आग जलाकर खाना पकाने की जगह", "en": "stove" }
+      ],
+      "questions": [
+        {
+          "hi": "चरवाहा कहाँ बैठकर बुद्धिमान बन जाता था?",
+          "en": "Where did the herd-boy sit to become wise?",
+          "answer": "खेत के टीले पर",
+          "options": ["खेत के टीले पर", "पेड़ के नीचे", "नदी के किनारे"],
+          "text": true
+        },
+        {
+          "hi": "टीले की खुदाई में क्या निकला?",
+          "en": "What was found when the mound was dug up?",
+          "answer": "विक्रमादित्य का सिंहासन",
+          "options": ["विक्रमादित्य का सिंहासन", "सोने से भरा घड़ा", "एक पुरानी किताब"],
+          "text": true
+        },
+        {
+          "hi": "ब्राह्मण के घर झगड़ा क्यों हुआ?",
+          "en": "Why was there a quarrel in the Brahmin’s house?",
+          "answer": "सब अलग-अलग रत्न चाहते थे",
+          "options": ["सब अलग-अलग रत्न चाहते थे", "रत्न खो गया था", "रत्न नकली निकला"],
+          "text": true
+        },
+        {
+          "hi": "पुतली ने राजा भोज को क्यों रोका?",
+          "en": "Why did the statuette stop King Bhoj?",
+          "answer": "उस पर विक्रम जैसा दानी और न्यायी ही बैठ सकता था",
+          "options": ["उस पर विक्रम जैसा दानी और न्यायी ही बैठ सकता था", "सिंहासन टूटा हुआ था", "भोज के पास मुकुट नहीं था"],
+          "text": true
+        }
+      ],
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"बहुत पुरानी बात है। उज्जैन में … भोज राज करते थे। उनके राज्य के एक गाँव में एक अनोखी बात होने लगी।\" (राजा)",
+          "en": "Say this and let your child fill the gap: \"बहुत पुरानी बात है। उज्जैन में … भोज राज करते थे। उनके राज्य के एक गाँव में एक अनोखी बात होने लगी।\" (राजा)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"बहुत पुरानी बात है। उज्जैन में राजा भोज राज करते थे। उनके राज्य के एक गाँव में एक अनोखी बात होने लगी।\")",
+          "en": "Ask: what happened first in the story? (\"Long, long ago, King Bhoj ruled in Ujjain. In a village of his kingdom, something strange began to happen.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर समुद्र है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the sea and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "विक्रम ने ब्राह्मण को चारों रत्न क्यों दे दिए?", "en": "Why did Vikram give the Brahmin all four jewels?" },
+        {
+          "type": "you",
+          "hi": "अगर तुम्हें इन चार में से एक रत्न मिले, तो तुम कौन सा चुनना चाहो, और क्यों?",
+          "en": "If you could have one of these four jewels, which would you choose, and why?"
+        }
+      ]
+    },
+    {
+      "id": "g8-chitthi",
+      "level": "grade8",
+      "kind": "letter",
+      "title": { "hi": "दादाजी को चिट्ठी", "en": "A letter to Grandpa" },
+      "cover": "envelope",
+      "pages": [
+        {
+          "word": "envelope",
+          "hi": "भोपाल, 20 नवंबर। पूज्य दादाजी, सादर चरण-स्पर्श। आशा है, आप और दादीजी स्वस्थ होंगे। यहाँ हम सब ठीक हैं।",
+          "en": "Bhopal, 20 November. Respected Grandpa, I touch your feet. I hope you and Grandma are well. All is well here."
+        },
+        {
+          "word": "pen",
+          "hi": "आपका पिछला पत्र मिला। आपने लिखा था कि अब आप फ़ोन से ज़्यादा चिट्ठी में बातें किया करेंगे, क्योंकि चिट्ठी बार-बार पढ़ी जा सकती है। सच कहूँ, आपकी चिट्ठी मैंने तीन बार पढ़ी!",
+          "en": "I got your last letter. You wrote that from now on you would talk to me more by letter than by phone, because a letter can be read again and again. To tell the truth, I read yours three times!"
+        },
+        {
+          "word": "school",
+          "hi": "पिछले हफ़्ते हमारे स्कूल में विज्ञान मेला हुआ। मैंने और मेरी सहेली ने मिलकर \"बारिश का पानी कैसे बचाएँ\" पर एक मॉडल बनाया था।",
+          "en": "Last week there was a science fair at our school. My friend and I made a model together on \"How to save rainwater\"."
+        },
+        {
+          "word": "rain",
+          "hi": "हमने छत से पाइप लगाकर पानी को एक गड्ढे तक पहुँचाया, जहाँ से वह धरती में समा जाता है। आपने ही तो बताया था कि गाँव का पुराना कुआँ ऐसे ही भरा रहता है!",
+          "en": "We ran a pipe from the roof to carry the water to a pit, where it soaks into the ground. It was you who told me that the old village well stays full this way!"
+        },
+        {
+          "word": "medal",
+          "hi": "हमारे मॉडल को दूसरा इनाम मिला। जज ने पूछा कि यह विचार कहाँ से आया, तो मैंने गर्व से कहा, \"मेरे दादाजी से!\"",
+          "en": "Our model won second prize. When the judge asked where the idea came from, I said proudly, \"From my grandpa!\""
+        },
+        {
+          "word": "field",
+          "hi": "अब आप बताइए, खेत में इस बार गेहूँ की बुआई हो गई? पिछली बार आपने लिखा था कि बारिश देर से आई थी। मुझे आपकी फ़िक्र रहती है।",
+          "en": "Now you tell me: has the wheat been sown in the field this time? Last time you wrote that the rain came late. I worry about you."
+        },
+        {
+          "word": "calf",
+          "hi": "और हमारी गौरी गाय कैसी है? उसकी बछिया अब तो बड़ी हो गई होगी। मैंने उसका नाम \"चंदा\" सोचा है। दादीजी से पूछकर बताइएगा कि यह नाम उन्हें पसंद है या नहीं।",
+          "en": "And how is our cow Gauri? Her calf must be big by now. I have thought of the name \"Chanda\" for her. Please ask Grandma and tell me whether she likes the name."
+        },
+        {
+          "word": "book",
+          "hi": "दादाजी, स्कूल की लाइब्रेरी से मैंने प्रेमचंद की कहानियों की एक किताब ली है। \"पंच परमेश्वर\" पढ़कर मुझे आपकी चौपाल याद आ गई, जहाँ आप सबके झगड़े सुलझाते हैं।",
+          "en": "Grandpa, I have borrowed a book of Premchand’s stories from the school library. Reading \"Panch Parmeshwar\" reminded me of your village gatherings, where you settle everyone’s quarrels."
+        },
+        {
+          "word": "train",
+          "hi": "दिसंबर की छुट्टियों में हम गाँव आ रहे हैं। पापा ने रेल के टिकट ले लिए हैं। इस बार मुझे आपके साथ सुबह-सुबह खेत पर चलना है।",
+          "en": "We are coming to the village in the December holidays. Papa has bought the train tickets. This time I want to go to the field with you early in the morning."
+        },
+        {
+          "word": "grandmother",
+          "hi": "दादीजी को मेरा प्रणाम कहिएगा, और उनसे कहिएगा कि उनके हाथ के गुड़ के लड्डू अभी से याद आ रहे हैं। मम्मी-पापा भी आप दोनों को प्रणाम कहते हैं।",
+          "en": "Please give Grandma my regards, and tell her I am already missing her jaggery laddoos. Mummy and Papa send their regards to you both."
+        },
+        {
+          "word": "envelope",
+          "hi": "पत्र का उत्तर जल्दी दीजिएगा। आपकी प्यारी पोती, अनु। पुनश्च: लिफ़ाफ़े में अपने मॉडल की एक तस्वीर भी भेज रही हूँ!",
+          "en": "Please reply soon. Your loving granddaughter, Anu. P.S. I am sending a photo of my model in the envelope too!"
+        },
+        {
+          "word": "postbox",
+          "hi": "अनु ने लिफ़ाफ़े पर दादाजी का पता साफ़-साफ़ लिखा, डाक टिकट लगाया, और स्कूल जाते समय उसे लाल लेटर बॉक्स में डाल दिया।",
+          "en": "Anu wrote Grandpa’s address neatly on the envelope, stuck on a stamp, and posted it in the red letter box on her way to school."
+        }
+      ],
+      "words": [
+        { "hi": "पूज्य", "mean": "आदर के योग्य", "en": "respected" },
+        { "hi": "सादर", "mean": "आदर के साथ", "en": "respectfully" },
+        { "hi": "चरण-स्पर्श", "mean": "पैर छूकर प्रणाम करना", "en": "touching the feet in respect" },
+        { "hi": "स्वस्थ", "mean": "तंदुरुस्त", "en": "healthy" },
+        { "hi": "बुआई", "mean": "खेत में बीज बोना", "en": "sowing" },
+        { "hi": "चौपाल", "mean": "गाँव में मिल-बैठकर बात करने की जगह", "en": "village meeting place" },
+        { "hi": "पुनश्च", "mean": "पत्र पूरा होने के बाद जोड़ी गई बात", "en": "postscript (P.S.)" },
+        { "hi": "लिफ़ाफ़े", "mean": "चिट्ठी रखने का काग़ज़ का खोल", "en": "envelope" }
+      ],
+      "questions": [
+        {
+          "hi": "यह किस तरह का पत्र है?",
+          "en": "What kind of letter is this?",
+          "answer": "अनौपचारिक पत्र, अपनों को लिखा",
+          "options": ["अनौपचारिक पत्र, अपनों को लिखा", "औपचारिक पत्र, दफ़्तर को लिखा", "अख़बार की ख़बर"],
+          "text": true
+        },
+        {
+          "hi": "अनु के मॉडल का विचार कहाँ से आया था?",
+          "en": "Where did the idea for Anu’s model come from?",
+          "answer": "दादाजी की बताई बात से",
+          "options": ["दादाजी की बताई बात से", "एक किताब से", "टीवी से"],
+          "text": true
+        },
+        {
+          "hi": "पत्र में \"पुनश्च\" के बाद क्या लिखा है?",
+          "en": "What is written after \"P.S.\" in the letter?",
+          "answer": "लिफ़ाफ़े में मॉडल की तस्वीर है",
+          "options": ["लिफ़ाफ़े में मॉडल की तस्वीर है", "छुट्टियों की तारीख़", "बछिया का नाम"],
+          "text": true
+        },
+        {
+          "hi": "पत्र में दादाजी को कैसे संबोधित किया गया है?",
+          "en": "How is Grandpa addressed in the letter?",
+          "answer": "पूज्य दादाजी",
+          "options": ["पूज्य दादाजी", "प्रिय मित्र", "माननीय प्रधानाचार्य जी"],
+          "text": true
+        }
+      ],
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"पिछले हफ़्ते हमारे … में विज्ञान मेला हुआ। मैंने और मेरी सहेली ने मिलकर \"बारिश का पानी कैसे बचाएँ\" पर एक मॉडल बनाया था।\" (स्कूल)",
+          "en": "Say this and let your child fill the gap: \"पिछले हफ़्ते हमारे … में विज्ञान मेला हुआ। मैंने और मेरी सहेली ने मिलकर \"बारिश का पानी कैसे बचाएँ\" पर एक मॉडल बनाया था।\" (स्कूल)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"भोपाल, 20 नवंबर। पूज्य दादाजी, सादर चरण-स्पर्श। आशा है, आप और दादीजी स्वस्थ होंगे। यहाँ हम सब ठीक हैं।\")",
+          "en": "Ask: what happened first in the story? (\"Bhopal, 20 November. Respected Grandpa, I touch your feet. I hope you and Grandma are well. All is well here.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर बछड़ा है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the calf and ask: what is happening here?"
+        },
+        {
+          "type": "why",
+          "hi": "अनु के दादाजी को फ़ोन से ज़्यादा चिट्ठी क्यों अच्छी लगती है?",
+          "en": "Why does Anu’s grandpa like letters more than the phone?"
+        },
+        {
+          "type": "you",
+          "hi": "तुम किसे चिट्ठी लिखना चाहो, और उसमें सबसे पहले क्या लिखो?",
+          "en": "Who would you like to write a letter to, and what would you write first?"
+        }
+      ]
+    },
+    {
+      "id": "g8-khabar",
+      "level": "grade8",
+      "kind": "news",
+      "title": { "hi": "ख़बर: बच्चों ने लौटाई तालाब की रौनक़", "en": "News: children bring the pond back to life" },
+      "source": { "hi": "अभ्यास के लिए लिखी गई काल्पनिक ख़बर", "en": "A made-up news report, for practice" },
+      "cover": "newspaper",
+      "pages": [
+        {
+          "word": "newspaper",
+          "hi": "स्कूली बच्चों ने लौटाई तालाब की रौनक़: तीन महीने की मेहनत से सूखा तालाब फिर लबालब।",
+          "en": "Schoolchildren bring the pond back to life: three months’ work fills a dry pond to the brim."
+        },
+        {
+          "word": "water",
+          "hi": "रामपुर, 15 सितंबर (हमारे संवाददाता)। रामपुर के सरकारी स्कूल की कक्षा 7 और 8 के बच्चों ने गाँव के सौ साल पुराने तालाब को फिर से ज़िंदा कर दिया है। इस साल की बारिश के बाद तालाब पूरा भर गया है।",
+          "en": "Rampur, 15 September (our correspondent). Children of Classes 7 and 8 at Rampur’s government school have brought the village’s hundred-year-old pond back to life. After this year’s rains the pond is full."
+        },
+        {
+          "word": "bottle",
+          "hi": "पिछले दस साल से यह तालाब सूखा पड़ा था। उसमें कूड़ा, प्लास्टिक और गाद भर गई थी, और बारिश का पानी लाने वाली नालियाँ बंद हो गई थीं।",
+          "en": "For the last ten years the pond had been dry. It had filled with rubbish, plastic and silt, and the channels that brought rainwater to it were blocked."
+        },
+        {
+          "word": "school",
+          "hi": "मई में स्कूल की विज्ञान शिक्षिका ने बच्चों से पूछा कि गाँव में पानी की कमी क्यों है। बच्चों ने बुज़ुर्गों से बात की, तो तालाब की कहानी सामने आई।",
+          "en": "In May the school’s science teacher asked the children why the village was short of water. When the children talked to the elders, the story of the pond came out."
+        },
+        {
+          "word": "bucket",
+          "hi": "छुट्टियों में हर रविवार साठ से ज़्यादा बच्चे तालाब पर जुटे। उन्होंने तीन ट्रॉली कूड़ा निकाला और पुरानी नालियों की सफ़ाई की।",
+          "en": "Every Sunday in the holidays more than sixty children gathered at the pond. They took out three trolley-loads of rubbish and cleared the old channels."
+        },
+        {
+          "word": "tractor",
+          "hi": "ग्राम पंचायत ने गाद निकालने के लिए ट्रैक्टर दिया, और गाँव वालों ने श्रमदान किया।",
+          "en": "The village council lent a tractor to dig out the silt, and the villagers gave their labour free."
+        },
+        {
+          "word": "plant",
+          "hi": "बच्चों ने तालाब के किनारे नीम और पीपल के पचास पौधे भी लगाए, ताकि किनारों की मिट्टी न बहे।",
+          "en": "The children also planted fifty neem and peepal saplings along the banks, so that the soil on the banks would not wash away."
+        },
+        {
+          "word": "rain",
+          "hi": "जुलाई-अगस्त की बारिश में तालाब पूरा भर गया। गाँव के कुओं और हैंडपंपों में भी पानी का स्तर ऊपर आ गया है।",
+          "en": "In the July and August rains the pond filled completely. The water level in the village wells and hand pumps has risen too."
+        },
+        {
+          "word": "girl",
+          "hi": "कक्षा 8 की छात्रा प्रिया ने बताया, \"पहले हमें लगता था कि यह काम बड़ों का है। अब पता चला कि हम भी बदलाव ला सकते हैं।\"",
+          "en": "Priya, a Class 8 student, said, \"We used to think this was a job for grown-ups. Now we know we can make a difference too.\""
+        },
+        {
+          "word": "grandfather",
+          "hi": "गाँव के बुज़ुर्ग रामदीन (72) ने कहा, \"बचपन में हम इसी तालाब में तैरते थे। बच्चों ने हमें हमारा बचपन लौटा दिया।\"",
+          "en": "Ramdeen (72), an elder of the village, said, \"As children we used to swim in this very pond. The children have given us back our childhood.\""
+        },
+        {
+          "word": "lotus",
+          "hi": "तालाब में अब कमल भी खिलने लगे हैं। पंचायत ने तय किया है कि हर साल गर्मियों में तालाब की सफ़ाई का अभियान चलेगा। बच्चों की इस पहल की ज़िले भर में चर्चा है।",
+          "en": "Lotuses have begun to bloom in the pond. The council has decided to hold a pond-cleaning drive every summer. The children’s initiative is being talked about across the district."
+        },
+        {
+          "word": "newspaper",
+          "hi": "ख़बर की बनावट देखो: सबसे ऊपर शीर्षक; फिर जगह और तारीख़; पहले ही अनुच्छेद में कौन, क्या, कब और कहाँ; फिर पूरी बात, और लोगों के कहे शब्द।",
+          "en": "Look at how a news report is built: the headline at the top; then the place and date; in the very first paragraph who, what, when and where; then the full story, and people’s own words."
+        }
+      ],
+      "words": [
+        { "hi": "रौनक़", "mean": "चहल-पहल और सुंदरता", "en": "liveliness" },
+        { "hi": "लबालब", "mean": "किनारों तक भरा हुआ", "en": "brimful" },
+        { "hi": "संवाददाता", "mean": "ख़बर भेजने वाला पत्रकार", "en": "correspondent" },
+        { "hi": "गाद", "mean": "पानी की तली में जमी मिट्टी", "en": "silt" },
+        { "hi": "श्रमदान", "mean": "बिना पैसे लिए मेहनत का दान", "en": "voluntary labour" },
+        { "hi": "स्तर", "mean": "ऊँचाई का माप", "en": "level" },
+        { "hi": "पहल", "mean": "किसी काम की शुरुआत", "en": "initiative" },
+        { "hi": "अभियान", "mean": "किसी काम के लिए चलाई गई मुहिम", "en": "campaign, drive" }
+      ],
+      "questions": [
+        {
+          "hi": "ख़बर के पहले अनुच्छेद में क्या बताया जाता है?",
+          "en": "What does the first paragraph of a news report tell you?",
+          "answer": "कौन, क्या, कब और कहाँ",
+          "options": ["कौन, क्या, कब और कहाँ", "सिर्फ़ लोगों के कहे शब्द", "कहानी की सीख"],
+          "text": true
+        },
+        {
+          "hi": "तालाब क्यों सूख गया था?",
+          "en": "Why had the pond dried up?",
+          "answer": "उसमें कूड़ा और गाद भर गई, और नालियाँ बंद थीं",
+          "options": ["उसमें कूड़ा और गाद भर गई, और नालियाँ बंद थीं", "गाँव वालों ने उसका पानी बेच दिया", "उसमें मछलियाँ बहुत थीं"],
+          "text": true
+        },
+        {
+          "hi": "बच्चों ने तालाब के किनारे पौधे क्यों लगाए?",
+          "en": "Why did the children plant saplings on the banks?",
+          "answer": "ताकि किनारों की मिट्टी न बहे",
+          "options": ["ताकि किनारों की मिट्टी न बहे", "ताकि फल बेच सकें", "ताकि छाया में क्रिकेट खेलें"],
+          "text": true
+        },
+        {
+          "hi": "तालाब भरने से गाँव को क्या फ़ायदा हुआ?",
+          "en": "How did the full pond help the village?",
+          "answer": "कुओं और हैंडपंपों में पानी बढ़ा",
+          "options": ["कुओं और हैंडपंपों में पानी बढ़ा", "गाँव में बिजली आ गई", "नई सड़क बन गई"],
+          "text": true
+        }
+      ],
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"मई में … की विज्ञान शिक्षिका ने बच्चों से पूछा कि गाँव में पानी की कमी क्यों है। बच्चों ने बुज़ुर्गों से बात की, तो तालाब की कहानी सामने आई।\" (स्कूल)",
+          "en": "Say this and let your child fill the gap: \"मई में … की विज्ञान शिक्षिका ने बच्चों से पूछा कि गाँव में पानी की कमी क्यों है। बच्चों ने बुज़ुर्गों से बात की, तो तालाब की कहानी सामने आई।\" (स्कूल)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"स्कूली बच्चों ने लौटाई तालाब की रौनक़: तीन महीने की मेहनत से सूखा तालाब फिर लबालब।\")",
+          "en": "Ask: what happened first in the story? (\"Schoolchildren bring the pond back to life: three months’ work fills a dry pond to the brim.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर पौधा है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the plant and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "प्रिया को पहले क्यों लगता था कि यह काम बड़ों का है?", "en": "Why did Priya use to think this was a job for grown-ups?" },
+        {
+          "type": "you",
+          "hi": "तुम्हारे आसपास ऐसी कौन सी चीज़ है, जिसे तुम और तुम्हारे दोस्त मिलकर बेहतर बना सको?",
+          "en": "What is there around you that you and your friends could make better together?"
+        }
+      ]
     }
   ],
   "levels": [
@@ -22175,7 +23860,7 @@
       "mascot": "gyanu",
       "color": "#16A34A",
       "collection": "vyakaran7",
-      "tags": ["grammar", "vocabulary", "writing"],
+      "tags": ["grammar", "vocabulary", "writing", "stories"],
       "name": { "hi": "ज्ञानू का पुस्तकालय", "en": "Gyanu's Grammar Library" },
       "letterSets": [],
       "units": [
@@ -22322,6 +24007,46 @@
               "config": { "topics": ["g7-shabd", "g7-shuddh"], "rounds": 10 }
             }
           ]
+        },
+        {
+          "id": "g7-gadya-1",
+          "title": { "hi": "प्रेमचंद और रवींद्रनाथ", "en": "Premchand and Tagore" },
+          "skill": "Reading · Stories",
+          "icon": "chimta",
+          "lessons": [
+            { "id": "g7-gadya-1-1", "game": "story", "icon": "chimta", "title": { "hi": "ईदगाह", "en": "Idgah" }, "config": { "story": "g7-idgah" } },
+            {
+              "id": "g7-gadya-1-2",
+              "game": "story",
+              "icon": "ox",
+              "title": { "hi": "दो बैलों की कथा", "en": "The story of two bullocks" },
+              "config": { "story": "g7-do-bail" }
+            },
+            { "id": "g7-gadya-1-3", "game": "story", "icon": "bag", "title": { "hi": "काबुलीवाला", "en": "The man from Kabul" }, "config": { "story": "g7-kabuliwala" } },
+            { "id": "g7-gadya-1-4", "game": "story", "icon": "cage", "title": { "hi": "तोता-कहानी", "en": "The parrot’s training" }, "config": { "story": "g7-tota" } }
+          ]
+        },
+        {
+          "id": "g7-gadya-2",
+          "title": { "hi": "लोक कथा और डायरी", "en": "A folk tale and a diary" },
+          "skill": "Reading · Stories",
+          "icon": "diary",
+          "lessons": [
+            {
+              "id": "g7-gadya-2-1",
+              "game": "story",
+              "icon": "parrot",
+              "title": { "hi": "जादूगर की जान", "en": "Where the magician kept his life" },
+              "config": { "story": "g7-jadugar" }
+            },
+            {
+              "id": "g7-gadya-2-2",
+              "game": "story",
+              "icon": "diary",
+              "title": { "hi": "मेरी डायरी: नानी के गाँव में", "en": "My diary: at Nani’s village" },
+              "config": { "story": "g7-diary" }
+            }
+          ]
         }
       ]
     },
@@ -22333,7 +24058,7 @@
       "mascot": "chatur",
       "color": "#EA580C",
       "collection": "vyakaran8",
-      "tags": ["grammar", "vocabulary", "writing"],
+      "tags": ["grammar", "vocabulary", "writing", "stories"],
       "name": { "hi": "चतुर की शब्द-प्रयोगशाला", "en": "Chatur's Word Lab" },
       "letterSets": [],
       "units": [
@@ -22478,6 +24203,52 @@
               "icon": "letter:★",
               "title": { "hi": "मिला-जुला अभ्यास", "en": "Mixed review (Grade 8)" },
               "config": { "topics": ["g8-alankar", "g8-muhavare", "g8-ashuddhi"], "rounds": 10 }
+            }
+          ]
+        },
+        {
+          "id": "g8-gadya-1",
+          "title": { "hi": "प्रेमचंद की कहानियाँ", "en": "Stories by Premchand" },
+          "skill": "Reading · Stories",
+          "icon": "salt",
+          "lessons": [
+            {
+              "id": "g8-gadya-1-1",
+              "game": "story",
+              "icon": "kite",
+              "title": { "hi": "बड़े भाई साहब", "en": "My elder brother" },
+              "config": { "story": "g8-bade-bhai" }
+            },
+            { "id": "g8-gadya-1-2", "game": "story", "icon": "tree", "title": { "hi": "पंच परमेश्वर", "en": "The judge is God" }, "config": { "story": "g8-panch" } },
+            { "id": "g8-gadya-1-3", "game": "story", "icon": "salt", "title": { "hi": "नमक का दारोगा", "en": "The salt inspector" }, "config": { "story": "g8-namak" } }
+          ]
+        },
+        {
+          "id": "g8-gadya-2",
+          "title": { "hi": "लोक कथा, चिट्ठी और ख़बर", "en": "A folk tale, a letter and the news" },
+          "skill": "Reading · Stories",
+          "icon": "envelope",
+          "lessons": [
+            {
+              "id": "g8-gadya-2-1",
+              "game": "story",
+              "icon": "throne",
+              "title": { "hi": "सिंहासन बत्तीसी: चार रत्न", "en": "The throne of thirty-two: four jewels" },
+              "config": { "story": "g8-singhasan" }
+            },
+            {
+              "id": "g8-gadya-2-2",
+              "game": "story",
+              "icon": "envelope",
+              "title": { "hi": "दादाजी को चिट्ठी", "en": "A letter to Grandpa" },
+              "config": { "story": "g8-chitthi" }
+            },
+            {
+              "id": "g8-gadya-2-3",
+              "game": "story",
+              "icon": "newspaper",
+              "title": { "hi": "ख़बर: बच्चों ने लौटाई तालाब की रौनक़", "en": "News: children bring the pond back to life" },
+              "config": { "story": "g8-khabar" }
             }
           ]
         }
