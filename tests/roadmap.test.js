@@ -119,6 +119,7 @@ const DONE = {
   "Festival stories for everyone's calendar": () => ['fest-idgah', 'fest-sacha-sauda', 'fest-pahad-christmas', 'fest-lohri', 'fest-pongal', 'fest-mahabali', 'k3-gurpurab'].every((id) => content.stories.some((s) => s.id === id && s.talk?.length === 5)) && /export function festStory/.test(read('js/festivals.js')) && /id: 'gurpurab'/.test(read('js/festivals.js')),
   'Tales from across India': () => ['punyakoti', 'sheikh-chilli', 'jataka-bater', 'gonu-jha', 'birbal-hara-ghoda', 'birbal-oont', 'tenali-laal-mor', 'tenali-baingan', 'jataka-hiran', 'tejimola', 'lalkamal-neelkamal'].every((id) => content.stories.some((s) => s.id === id && s.talk?.length === 5)) && ['tenali', 'redpeacock', 'brinjal'].every((w) => content.words[w]),
   'True stories of real people': () => content.stories.filter((s) => s.kind === 'true').length >= 10 && /STORY_BADGE/.test(read('js/games/story.js')) && /'true'/.test(read('js/validate.js')),
+  'Google voice for every word the app says': () => exists('js/mathspeech.js') && exists('tools/math-pieces.json') && /mathVoiceLines/.test(read('tools/make-voices.mjs')) && /langRuns/.test(read('js/logic.js')),
   'Voice speed for beginners': () => /export const voicePace/.test(read('js/logic.js')) && /prefs\.slow/.test(read('js/audio.js')) && /Slower voice for little ones/.test(read('js/parent.js')),
   'A style guide for the words': () => exists('docs/STYLE-GUIDE.md') && exists('tools/style-guide.mjs') && /One spelling for each word/.test(read('docs/STYLE-GUIDE.md')),
   'Re-record the very short lines inside a carrier phrase': () => JSON.parse(read('voices/index.json')).fellBack?.length === 0 && /carrierText/.test(read('tools/make-voices.mjs')),
@@ -134,10 +135,7 @@ const DONE = {
 };
 
 // title of an open row -> a sign in the code that it has been built (then its row must be ✅)
-const WATCH = {
-  // the maths lines go into the voice pack (today only the fixed lessons' lines do)
-  'Google voice for every word the app says': () => /mathgen/.test(read('js/logic.js') + read('tools/make-voices.mjs')),
-};
+const WATCH = {};
 
 test('every ticked roadmap item has a check, and the check finds it in the app', () => {
   for (const r of rows.filter((x) => x.done)) {

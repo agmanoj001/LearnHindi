@@ -1,5 +1,5 @@
 // The voice pack is downloaded as a few large bundles rather than thousands of small files: one request
-// per bundle (about 6 MB each), which a phone fetches in seconds instead of making 6,000 round trips.
+// per bundle (about 7.5 MB each), which a phone fetches in seconds instead of making 6,000 round trips.
 // A bundle is the MP3 files of one grade (or of lines every grade shares) laid end to end; the index
 // says where each recording starts and how long it is. The app cuts them apart on the device.
 //
@@ -13,7 +13,7 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, unlink
 const ROOT = new URL('..', import.meta.url);
 const OUT = new URL('voices/', ROOT);
 const PACKS = new URL('voices/packs/', ROOT);
-const TARGET = 6 * 1048576;
+const TARGET = 7.5 * 1048576;
 
 const storyOf = (key) => key.match(/^story-(.+)-(?:title|moral|q\d+|\d+)_(?:hi|en)$/)?.[1] || null;
 export const groupOf = (idx, key) => (storyOf(key) ? idx.stories?.[storyOf(key)] : idx.levels?.[key]) || null;

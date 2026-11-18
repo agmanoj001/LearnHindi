@@ -15,6 +15,7 @@ import {
   COMBO_MILESTONES,
   comboText,
   voicePace,
+  langRuns,
   synLine,
 } from './logic.js';
 import { findLesson, lessonRecord, lessonLetters, applyLessonResult, adaptTier, addPlayTime, isoDay, worldLessons } from './curriculum.js';
@@ -29,7 +30,8 @@ import { giftSoundToday } from './surprise.js';
 import { readForScreen } from './readfor.js';
 import { wordBook } from './wordbook.js';
 import { cornerScreen, idiomScreen } from './corner.js';
-import { initAudio, setVoicePack, preload, play, stop, isSpeaking, wordSegs, letterSegs, numberSegs, soundSegs, sentenceSegs, phraseSegs, setVoicePrefs } from './audio.js';
+import { initAudio, setVoicePack, preload, play, stop, isSpeaking, wordSegs, letterSegs, numberSegs, soundSegs, sentenceSegs, phraseSegs, setVoicePrefs, hasRecording } from './audio.js';
+import { mathPlan } from './mathspeech.js';
 import { KEYS, load, save, normalizeProfiles, profileKey, keepStorage } from './storage.js';
 import { sfx, music, FEEDBACK } from './sfx.js';
 import { el, sleep, bounce, ICONS, applyReadingComfort, applyLeftHanded } from './ui.js';
@@ -439,8 +441,24 @@ function say(key, item = null, ls = item ? itemLangs(item) : langs()) {
   return play(joinLangs(ls, (l) => phraseFor(key, item, l)));
 }
 
+// A line said from its text. A maths line made up on the spot, or any English line with no recording of its
+// own, is said in recorded pieces (js/mathspeech.js, roadmap 6.8), under one caption for the whole line;
+// the device voice is only for a line whose pieces aren't all there (the voice pack not downloaded yet).
 function sayText(text, lang) {
-  return play([{ text, lang }]);
+  const whole = { text, lang };
+  if (lang === 'en' && text && !hasRecording(whole)) {
+    const plan = mathPlan(text);
+    const segs = plan.map((p) => (typeof p === 'number' ? { pause: p } : { text: p, lang: 'en', quiet: true }));
+    if (segs.length && segs.every((x) => x.pause || hasRecording(x))) {
+      window.dispatchEvent(new CustomEvent('vt-caption', { detail: { text, lang } }));
+      return play(segs);
+    }
+  }
+  return play([whole]);
+}
+// a line in Hindi and English runs (a talk prompt quoting the story), each run in its own voice
+function sayMixed(text) {
+  return play(langRuns(text));
 }
 
 function sayItem(item, ls = itemLangs(item)) {
@@ -810,6 +828,7 @@ const api = {
   say,
   sayItem,
   sayLines,
+  sayMixed,
   sayAbout,
   saySound,
   stop,

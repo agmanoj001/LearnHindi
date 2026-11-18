@@ -333,7 +333,10 @@ test('the voice pack in voices/ matches its index, and every file is a line the 
   const { castVoiceName } = await import('../js/castvoices.js');
   const dir = new URL('../voices/', import.meta.url);
   const idx = JSON.parse(readFileSync(new URL('index.json', dir), 'utf8'));
-  const lines = new Set([...voiceLines(content), ...comicVoiceLines(content, castVoiceName), ...storyRadioVoiceLines(content)].map((l) => l.key));
+  const { textKey } = await import('../js/logic.js');
+  // and the maths pieces (roadmap 6.8): tools/math-pieces.json
+  const math = JSON.parse(readFileSync(new URL('../tools/math-pieces.json', import.meta.url), 'utf8')).map(([text]) => ({ key: textKey('en', text) }));
+  const lines = new Set([...voiceLines(content), ...comicVoiceLines(content, castVoiceName), ...storyRadioVoiceLines(content), ...math].map((l) => l.key));
   for (const key of Object.keys(idx.files)) assert.ok(lines.has(key), `${key} is a line the app says`);
   // the recordings are downloaded as bundles: every one is in exactly one bundle, at the right size,
   // and each bundle is the size the index says
@@ -417,14 +420,17 @@ test('a grade downloads in a few bundles, and only the ones it is missing', () =
   const idx = JSON.parse(readFileSync(new URL('../voices/index.json', import.meta.url), 'utf8'));
   const kg = packFiles(idx, ['toddler', 'kg']);
   const bundles = bundlesFor(idx, kg);
-  assert.ok(bundles.length <= 10, `${bundles.length} bundles for Kindergarten, not ${kg.length} files`);
-  assert.ok(bundles.every((p) => p.level === null || ['toddler', 'kg'].includes(p.level)));
+  // (about 80 MB with every maths line and talk prompt recorded: each bundle is at most 8 MB)
+  assert.ok(bundles.length <= 14, `${bundles.length} bundles for Kindergarten, not ${kg.length} files`);
+  assert.ok(bundles.every((p) => p.level === null || ['toddler', 'kg', 'maths'].includes(p.level)));
   // everything already saved: nothing to fetch; one bundle's worth saved: that bundle is skipped
   assert.equal(bundlesFor(idx, kg, new Set(kg.map((f) => f.key))).length, 0);
   const first = new Set(bundles[0].items.map(([k]) => k));
   assert.equal(bundlesFor(idx, kg, first).length, bundles.length - 1);
   const g8 = bundlesFor(idx, packFiles(idx, ['grade7', 'grade8']));
   assert.ok(g8.length <= 25, `${g8.length} bundles for Grades 7 and 8`);
+  // Grades 7 and 8 have no maths games, so they don't download the maths pieces
+  assert.ok(g8.every((p) => p.level !== 'maths'));
 });
 
 test('stories are never locked, and the youngest grade’s library includes the grade above', async () => {

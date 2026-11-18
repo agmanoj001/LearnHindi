@@ -388,3 +388,33 @@ test('6.7 a slower voice for Toddler and Kindergarten, on top of the chosen spee
   assert.match(read('js/app.js'), /setVoicePrefs\(\{ \.\.\.state\.settings\.voice, \.\.\.voicePace\(state\.settings\) \}\)[\s\S]*function persistSettings\(\) \{[\s\S]*voicePace/);
   assert.match(read('js/parent.js'), /toggle\('Slower voice for little ones'/);
 });
+
+test('6.8 the Google voice for every line: maths said in recorded pieces, talk prompts recorded, none left to the device', async () => {
+  const { mathPlan, numberPieces, under1000, numberVoicePieces } = await import('../js/mathspeech.js');
+  const { samplePieces, problemLines } = await import('../tools/math-pieces.mjs');
+  const { handsVoiceTexts } = await import('../js/games/handson.js');
+  const pieces = new Set(JSON.parse(read('tools/math-pieces.json')).map(([t]) => t));
+  for (const p of numberVoicePieces()) assert.ok(pieces.has(p), `number piece "${p}" is listed`);
+  // the number speller: any number, the Indian way too
+  assert.equal(under1000(342), 'three hundred forty-two');
+  assert.deepEqual(numberPieces(345678), ['three hundred forty-five', 'thousand', 'six hundred seventy-eight']);
+  assert.deepEqual(numberPieces(345678, true), ['three', 'lakh', 'forty-five', 'thousand', 'six hundred seventy-eight']);
+  assert.deepEqual(mathPlan('Pay $2.31.'), ['Pay', 'two', 'dollars', 'and', 'thirty-one', 'cents']);
+  assert.deepEqual(mathPlan('Shade 3/4 of the bar.'), ['Shade', 'three', 'fourths', 'of the bar.']);
+  // a fresh sample of every maths skill at every level, with seeds the list was not made from: every piece
+  // of every line is recorded, so no maths line is left to the device voice
+  for (const seed of [31337, 2718]) {
+    const missing = [...samplePieces(25, seed).keys()].filter((p) => !pieces.has(p));
+    assert.deepEqual(missing, [], `maths pieces with no recording (run node tools/math-pieces.mjs, then tools/make-voices.mjs)`);
+  }
+  for (const line of handsVoiceTexts((id) => content.words[id]?.en || id)) for (const p of mathPlan(line)) if (typeof p === 'string') assert.ok(pieces.has(p), `hands-on: "${p}" in "${line}"`);
+  assert.ok(problemLines({ ask: 'What is 3 + 4?', options: [{ say: '7' }] }).length === 2);
+  // the talk-together prompts are voice lines (run by run, Hindi and English) and can be read aloud
+  const keys = new Set(L.lessonVoiceLines(content).map((l) => l.key));
+  const s = content.stories.find((x) => x.id === 'g7-idgah');
+  for (const t of s.talk) for (const lg of ['hi', 'en']) for (const r of L.langRuns(t[lg])) assert.ok(keys.has(L.textKey(r.lang, r.text)), r.text);
+  assert.deepEqual(L.langRuns('Say this: "चूँ-चूँ!" (चूज़ा)').map((r) => r.lang), ['en', 'hi']);
+  assert.match(read('js/screens.js'), /talk-say[\s\S]*api\.sayMixed/);
+  // the app says an English line with no recording of its own in its recorded pieces
+  assert.match(read('js/app.js'), /const plan = mathPlan\(text\)/);
+});

@@ -72,9 +72,13 @@ export async function savedVoiceKeys() {
 // belong to their story's grade, lesson lines to their lesson's grade (index.levels); everything else
 // (the prompts, words, letters, guides' jokes) is shared, so it comes with every grade.
 export const storyOfKey = (key) => key.match(/^story-(.+)-(?:title|moral|q\d+|\d+)_(?:hi|en)$/)?.[1] || null;
+// the maths pieces every maths grade shares (the number speller, the hands-on games: roadmap 6.8) come with
+// the grades that have maths, not with Grades 7 and 8
+export const MATHS_LEVELS = ['kg', 'grade1', 'grade2', 'grade3', 'grade4'];
 export function packFiles(idx, levels = []) {
   if (!idx?.files) return [];
   const want = new Set(levels);
+  if (levels.some((l) => MATHS_LEVELS.includes(l))) want.add('maths');
   return Object.entries(idx.files)
     .filter(([key]) => {
       if (!want.size) return true;

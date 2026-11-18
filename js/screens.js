@@ -910,6 +910,13 @@ export function showTalk(api, story) {
             el('span', { class: 'talk-kind' }, [el('b', { lang: 'hi', text: TALK_LABELS[t.type]?.hi || t.type }), el('small', { text: TALK_LABELS[t.type]?.en || '' })]),
             el('span', { class: 'talk-q', lang: 'hi', text: t.hi }),
             el('small', { class: 'talk-en', text: t.en }),
+            // read aloud in the Google voice, Hindi then (if shown) English (roadmap 6.8)
+            el('button', {
+              class: 'round-btn small talk-say',
+              'aria-label': 'Read it aloud',
+              html: ICONS.speaker,
+              onclick: () => api.sayMixed(api.state.lang === 'en' ? t.en : api.state.lang === 'hi' ? t.hi : `${t.hi} ${t.en}`),
+            }),
           ]),
         ),
       ),

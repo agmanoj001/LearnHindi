@@ -13511,3 +13511,14 @@ body:has(.game-grammar) .caption-bar,
 .scene.has-backdrop .scene-ground {
   opacity: 0;
 }
+
+/* ---- each talk-together prompt can be read aloud in the Google voice (roadmap 6.8) ---- */
+.talk-item {
+  position: relative;
+  padding-right: 60px;
+}
+.talk-say {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}

@@ -33,6 +33,7 @@ const SHELL = [
   'js/festivals.js',
   'js/covers.js',
   'js/praise.js',
+  'js/mathspeech.js',
   'js/art-festival.js',
   'js/surprise.js',
   'js/wordbook.js',

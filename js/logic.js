@@ -1074,9 +1074,28 @@ export function lessonVoiceLines(content) {
   for (const st of content.stories || []) for (const p of st.pages) for (const lg of ['hi', 'en']) for (const t of String(p[lg] || '').split(/\s+/)) byText(bareToken(t), lg, st.level);
   // praise at the end of a lesson (roadmap 6.3), in both languages, shared by every grade
   for (const p of ALL_PRAISE) for (const lg of ['hi', 'en']) byText(p[lg], lg);
+  // the talk-together prompts for a grown-up (roadmap 6.8), in Hindi and English, run by run
+  for (const st of content.stories || []) for (const t of st.talk || []) for (const lg of ['hi', 'en']) for (const r of langRuns(t[lg])) byText(r.text, r.lang, st.level);
   // a story's glossary (roadmap 9.12): each word, and the word with its meaning
   for (const st of content.stories || []) for (const w of st.words || []) for (const t of [w.hi, glossLine(w)]) byText(t, 'hi', st.level);
   return [...lines.values()].map(({ level, ...l }) => (level ? { ...l, level } : l));
+}
+
+// A line that mixes Hindi and English (a talk prompt for a grown-up quoting the story: 'Say this … "चूँ-चूँ!
+// … आया।"') is said run by run, each in its own language's voice (roadmap 6.8). Spaces and punctuation stay
+// with the run they follow.
+export function langRuns(text) {
+  const runs = [];
+  for (const ch of String(text ?? '')) {
+    const kind = /[\u0900-\u097F]/.test(ch) ? 'hi' : /[A-Za-z0-9]/.test(ch) ? 'en' : null;
+    const last = runs[runs.length - 1];
+    if (!last || (kind && last.lang && kind !== last.lang)) runs.push({ text: ch, lang: kind });
+    else {
+      last.text += ch;
+      last.lang ||= kind;
+    }
+  }
+  return runs.map((r) => ({ text: r.text.trim(), lang: r.lang || 'en' })).filter((r) => /[\p{L}\p{N}]/u.test(r.text));
 }
 
 // What a story's glossary word says when tapped: "हाशियों। पन्ने के किनारे की ख़ाली जगह"

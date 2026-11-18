@@ -17,7 +17,7 @@
 // they stay on the family's device (see audio/ in .gitignore).
 import { readFileSync, writeFileSync, mkdirSync, existsSync, statSync, readdirSync, unlinkSync } from 'node:fs';
 import { createHash } from 'node:crypto';
-import { voiceLines as baseLines } from '../js/logic.js';
+import { voiceLines as baseLines, textKey } from '../js/logic.js';
 import { comicVoiceLines, storyRadioVoiceLines } from '../js/shows.js';
 import { castVoiceName } from '../js/castvoices.js';
 import { pack, unpack } from './voice-bundles.mjs';
@@ -28,10 +28,19 @@ import { promisify } from 'node:util';
 // everything: stories, the app's own voice, the lessons, and the comics with a voice per character
 // A recording two parts of the app share (a word that is both a comic line and a story word) belongs
 // to every grade, so each grade's download has it.
+// the maths, made up as the child plays (the questions from js/mathgen.js and the hands-on games), said in
+// recorded pieces: tools/math-pieces.mjs lists every piece (roadmap 6.8)
+export const mathVoiceLines = () => {
+  const f = new URL('tools/math-pieces.json', new URL('..', import.meta.url));
+  if (!existsSync(f)) return [];
+  // a piece of one grade's maths belongs to that grade; the rest (the number speller, the hands-on games)
+  // to "maths", which comes with every grade that has maths (js/voicepack.js), not with Grades 7 and 8
+  return JSON.parse(readFileSync(f, 'utf8')).map(([text, level]) => ({ key: textKey('en', text), text, lang: 'en', level: level || 'maths' }));
+};
 const voiceLines = (content) => {
   const out = baseLines(content);
   const byKey = new Map(out.map((l) => [l.key, l]));
-  for (const l of [...comicVoiceLines(content, castVoiceName), ...storyRadioVoiceLines(content)]) {
+  for (const l of [...comicVoiceLines(content, castVoiceName), ...storyRadioVoiceLines(content), ...mathVoiceLines()]) {
     const had = byKey.get(l.key);
     if (!had) byKey.set(l.key, l) && out.push(l);
     else if (had.level !== l.level) delete had.level;
