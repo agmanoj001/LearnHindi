@@ -8,7 +8,7 @@ import { skillName, SKILLS as MATH_SKILLS } from './mathgen.js';
 import { phonicsName } from './phonicsgen.js';
 import { SAMAY_SKILLS } from './samay.js';
 import { pahadaName } from './pahade.js';
-import { worldStars, worldLessons, lessonRecord, weekSummary, dueReviews, learningGains } from './curriculum.js';
+import { worldStars, worldLessons, lessonRecord, weekSummary, dueReviews, learningGains, usageInsight, GAME_NAMES } from './curriculum.js';
 import { refreshClipKeys, voicesFor, setVoicePrefs, hasVoice, play, setVoicePack } from './audio.js';
 import { loadIndex, savedVoiceKeys, savedAudioVersion, packFiles, bundlesFor, downloadVoices, removeVoices, formatMB } from './voicepack.js';
 import { deviceKind, VOICE_SETUP, comprehensionSummary, readAloneList } from './logic.js';
@@ -302,6 +302,7 @@ export function showParent(api) {
       section(
         'Progress',
         weekView(api),
+        insightView(api),
         showsWatched(api),
         gainsView(api),
         storiesView(api),
@@ -564,6 +565,37 @@ function weekView(api) {
       ]),
     )),
     el('p', { class: 'note', text: `This week: ${week.minutes} minutes, ${week.lessons} lessons played. ${due ? `${due} finished lessons are due for a review (they show up in Today's path).` : 'No reviews due.'}` }),
+  ]);
+}
+
+// Play insight (roadmap 8.7): how long, what's hard, what's loved and read again. Worked out on this device.
+function insightView(api) {
+  const hi = api.state.settings.parentLang === 'hi';
+  const u = usageInsight(api.state.progress, api.state.content);
+  const name = (g) => GAME_NAMES[g]?.[hi ? 'hi' : 'en'] || g;
+  const list = (xs) => xs.join(hi ? ', ' : ', ');
+  const rows = [];
+  rows.push(
+    u.played
+      ? hi
+        ? `पिछले 2 हफ़्ते: ${u.played} दिन खेला, खेलने वाले दिन लगभग ${u.perDay} मिनट (सबसे ज़्यादा ${u.longest} मिनट)।`
+        : `Last 2 weeks: played on ${u.played} day${u.played === 1 ? '' : 's'}, about ${u.perDay} minutes on a day of play (longest ${u.longest} minutes).`
+      : hi
+        ? 'पिछले 2 हफ़्ते: अभी खेला नहीं।'
+        : 'Last 2 weeks: no play yet.',
+  );
+  if (u.hard.length)
+    rows.push(
+      hi
+        ? `अभी मुश्किल लगते हैं: ${list(u.hard.map((g) => `${name(g.game)} (${g.score}%)`))}। इनमें से एक साथ में खेलिए।`
+        : `Finds hard right now: ${list(u.hard.map((g) => `${name(g.game)} (${g.score}%)`))}. Try one of these together.`,
+    );
+  if (u.favourite.length) rows.push(hi ? `सबसे ज़्यादा खेले: ${list(u.favourite.map((g) => `${name(g.game)} (${g.plays} बार)`))}।` : `Played most: ${list(u.favourite.map((g) => `${name(g.game)} (${g.plays}×)`))}.`);
+  if (u.replayed.length) rows.push(hi ? `दोबारा पढ़ी: ${list(u.replayed.map((r) => `${r.item.title.hi || r.item.title.en} (${r.plays} बार)`))}।` : `Read again: ${list(u.replayed.map((r) => `${r.item.title.en} (${r.plays}×)`))}.`);
+  return el('div', { class: 'insight', lang: hi ? 'hi' : 'en' }, [
+    el('h3', { text: hi ? 'खेल की झलक' : 'Play insights' }),
+    el('ul', { class: 'insight-list' }, rows.map((t) => el('li', { text: t }))),
+    el('p', { class: 'note', text: hi ? 'यह इसी फ़ोन पर, बच्चे के खेल से निकाला गया है। कुछ भी कहीं भेजा नहीं जाता।' : 'Worked out on this device from what your child played. Nothing is sent anywhere.' }),
   ]);
 }
 

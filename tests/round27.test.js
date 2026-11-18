@@ -126,3 +126,27 @@ test('3.4 understanding stories: every question has a type, answers are counted 
   assert.match(story, /if \(selfRead\) ctx\.readAlone\?\.\(story\.id\)/);
   assert.match(read('js/parent.js'), /storiesView\(api\)/);
 });
+
+test('8.7 play insights: time, the hardest and most played games, and what is read again, all worked out on the device', async () => {
+  const { usageInsight, GAME_NAMES, isoDay } = await import('../js/curriculum.js');
+  const games = new Set(content.worlds.flatMap((w) => w.units.flatMap((u) => u.lessons.map((l) => l.game))));
+  for (const g of games) assert.ok(GAME_NAMES[g]?.hi && GAME_NAMES[g]?.en, `GAME_NAMES has no name for the "${g}" game`);
+  const lessons = content.worlds.flatMap((w) => w.units.flatMap((u) => u.lessons));
+  const story = lessons.find((l) => l.game === 'story');
+  const matra = lessons.find((l) => l.game === 'matra');
+  const math = lessons.find((l) => l.game === 'math');
+  const now = new Date(2026, 10, 18, 12).getTime();
+  const day = (k) => isoDay(new Date(2026, 10, 18 - k));
+  const progress = {
+    time: { [day(0)]: 600, [day(3)]: 1200, [day(20)]: 9000 },
+    lessons: { [story.id]: { plays: 4, recent: 90 }, [matra.id]: { plays: 3, recent: 40 }, [math.id]: { plays: 1, recent: 10 } },
+  };
+  const u = usageInsight(progress, content, now);
+  assert.deepEqual([u.played, u.total, u.perDay, u.longest], [2, 30, 15, 20], 'only the last two weeks count');
+  assert.deepEqual(u.hard.map((g) => g.game), ['matra'], 'hard: played twice or more and under 70%');
+  assert.equal(u.favourite[0].game, 'story');
+  assert.equal(u.replayed[0].item.id, story.config.story);
+  assert.equal(u.replayed[0].plays, 4);
+  assert.deepEqual(usageInsight({}, content, now).hard, []);
+  assert.match(read('js/parent.js'), /insightView\(api\)/);
+});

@@ -370,3 +370,78 @@ export function nextDecodable(stories, taught, isRead) {
     .sort((a, b) => a.d.missing.length - b.d.missing.length || a.d.conjuncts - b.d.conjuncts || a.m - b.m || a.n - b.n);
   return ranked[0]?.s || null;
 }
+
+// ---------- play insight for grown-ups (roadmap 8.7) ----------
+// Worked out on the device from what the child played; nothing is uploaded.
+
+export const GAME_NAMES = {
+  farm: { hi: 'खेत', en: 'Farm animals' },
+  rescue: { hi: 'बचाव', en: 'Rescue' },
+  busdepot: { hi: 'बस डिपो', en: 'Bus depot' },
+  recycling: { hi: 'कबाड़ी', en: 'Recycling' },
+  opposites: { hi: 'उल्टे शब्द', en: 'Opposites' },
+  ginti: { hi: 'गिनती', en: 'Hindi numbers' },
+  construction: { hi: 'शब्द बनाओ', en: 'Building words' },
+  story: { hi: 'कहानियाँ', en: 'Stories' },
+  rhyme: { hi: 'तुकबंदी', en: 'Rhymes' },
+  firstsound: { hi: 'पहली आवाज़', en: 'First sounds' },
+  railway: { hi: 'रेलगाड़ी', en: 'Railway' },
+  trace: { hi: 'लिखना', en: 'Writing letters' },
+  read: { hi: 'पढ़ना', en: 'Reading words' },
+  samay: { hi: 'समय', en: 'Days, time and money' },
+  math: { hi: 'गणित', en: 'Maths' },
+  handson: { hi: 'करके सीखो', en: 'Hands-on maths' },
+  phonics: { hi: 'अंग्रेज़ी की आवाज़ें', en: 'English phonics' },
+  matra: { hi: 'मात्राएँ', en: 'Matras' },
+  quiz: { hi: 'प्रश्नोत्तरी', en: 'Quizzes' },
+  sentence: { hi: 'वाक्य', en: 'Sentences' },
+  sequence: { hi: 'क्रम', en: 'Putting in order' },
+  sort: { hi: 'छाँटना', en: 'Sorting' },
+  pairs: { hi: 'जोड़ियाँ', en: 'Pairs' },
+  pahade: { hi: 'पहाड़े', en: 'Times tables' },
+  comic: { hi: 'कॉमिक्स', en: 'Comics' },
+  grammar: { hi: 'व्याकरण', en: 'Grammar' },
+};
+
+export function usageInsight(progress, content, now = Date.now(), span = 14) {
+  // time: the last `span` days
+  const d = new Date(now);
+  let total = 0;
+  let played = 0;
+  let longest = 0;
+  for (let i = 0; i < span; i++) {
+    const m = Math.round((progress.time?.[isoDay(new Date(d.getFullYear(), d.getMonth(), d.getDate() - i))] || 0) / 60);
+    total += m;
+    if (m > 0) played++;
+    longest = Math.max(longest, m);
+  }
+  // games: plays, and the average latest score (right on the first try) of the lessons played
+  const byGame = new Map();
+  const reads = new Map();
+  for (const w of content.worlds || [])
+    for (const u of w.units)
+      for (const l of u.lessons) {
+        const r = progress.lessons?.[l.id];
+        if (!r?.plays) continue;
+        const g = byGame.get(l.game) || { game: l.game, plays: 0, scores: [] };
+        g.plays += r.plays;
+        if (Number.isFinite(r.recent)) g.scores.push(r.recent);
+        byGame.set(l.game, g);
+        // stories and comics read more than once
+        const item = l.game === 'story' ? content.stories?.find((s) => s.id === l.config?.story) : l.game === 'comic' ? content.comics?.find((c) => c.id === l.config?.comic) : null;
+        if (item) reads.set(item.id, { item, kind: l.game, plays: (reads.get(item.id)?.plays || 0) + r.plays });
+      }
+  const games = [...byGame.values()].map((g) => ({ game: g.game, plays: g.plays, score: g.scores.length ? Math.round(g.scores.reduce((a, b) => a + b, 0) / g.scores.length) : null }));
+  return {
+    span,
+    total,
+    played,
+    perDay: played ? Math.round(total / played) : 0,
+    longest,
+    games,
+    // hard: played at least twice and under 70% right first time, hardest first
+    hard: games.filter((g) => g.score != null && g.plays >= 2 && g.score < 70).sort((a, b) => a.score - b.score).slice(0, 3),
+    favourite: [...games].sort((a, b) => b.plays - a.plays).slice(0, 3),
+    replayed: [...reads.values()].filter((r) => r.plays >= 2).sort((a, b) => b.plays - a.plays).slice(0, 5),
+  };
+}

@@ -13264,3 +13264,13 @@ body:has(.game-grammar) .caption-bar,
 .read-alone small {
   color: var(--muted);
 }
+
+/* ---- play insights in the parent area (roadmap 8.7) ---- */
+.insight-list {
+  margin: 4px 0 6px;
+  padding-left: 20px;
+}
+.insight-list li {
+  margin: 5px 0;
+  line-height: 1.45;
+}
