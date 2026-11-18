@@ -359,3 +359,13 @@ test('6.5 the review sheets for a Hindi teacher cover every story line, prompt a
   assert.match(read('.gitignore'), /^review\/$/m);
   assert.match(read('docs/TEACHER-REVIEW.md'), /tools\/review-sheet\.mjs/);
 });
+
+test('6.6 the style guide is written from the rules the content check enforces, and is up to date', async () => {
+  const { styleGuide, GLOSSARY } = await import('../tools/style-guide.mjs');
+  const { BOOKISH, SPELLING } = await import('../tools/style-rules.mjs');
+  const doc = read('docs/STYLE-GUIDE.md');
+  assert.equal(doc, styleGuide(), 'docs/STYLE-GUIDE.md is out of date: run node tools/style-guide.mjs');
+  for (const [a, b] of [...Object.entries(BOOKISH), ...Object.entries(SPELLING)]) assert.ok(doc.includes(`| ${a} | ${b} |`), a);
+  assert.ok(GLOSSARY.length >= 10);
+  assert.match(doc, /करोगे \/ करोगी/);
+});
