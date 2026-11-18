@@ -219,3 +219,17 @@ test('3.2 low-end devices: a 2 GB phone starts with lighter animations, and the 
   // the two performance tools share one server, served as GitHub Pages serves the app
   assert.match(read('tools/perf-budget.mjs'), /startPagesServer/);
 });
+
+test('9.7 festival stories: a longer story for older children on the festival’s day, and Guru Nanak Jayanti', async () => {
+  const { FESTIVALS, festStory, festivalNow } = await import('../js/festivals.js');
+  for (const f of FESTIVALS.filter((x) => x.more)) {
+    const s = content.stories.find((x) => x.id === f.more);
+    assert.ok(s && s.level !== 'kg' && s.talk.length === 5, `${f.id}: ${f.more}`);
+    assert.equal(festStory(f, 'kg'), f.story);
+    assert.equal(festStory(f, 'grade2'), f.more);
+  }
+  assert.equal(festStory(FESTIVALS.find((f) => f.id === 'holi'), 'grade3'), 'k2-holi', 'no longer story: the short one');
+  assert.equal(festivalNow(new Date('2026-11-24T10:00:00').getTime()).festival.id, 'gurpurab');
+  for (const id of ['fest-idgah', 'fest-sacha-sauda', 'fest-pahad-christmas', 'fest-lohri', 'fest-pongal', 'fest-mahabali']) assert.ok(content.stories.some((s) => s.id === id), id);
+  assert.match(content.stories.find((s) => s.id === 'fest-idgah').source.hi, /प्रेमचंद/);
+});

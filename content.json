@@ -48,6 +48,7 @@
     "gintiTake": { "hi": "कुछ गुब्बारे उड़ गए! अब कितने बचे?", "en": "Some balloons flew away! How many are left?" },
     "gintiHalf": { "hi": "आधा कौन सा है?", "en": "Which one is half?" },
     "gintiHalfIs": { "hi": "यह आधा है!", "en": "That one is half!" },
+    "fest_gurpurab": { "hi": "गुरुपर्व की लख-लख बधाइयाँ!", "en": "Happy Guru Nanak's birthday!" },
     "togetherHi": { "hi": "चलो, साथ खेलें! कौन-कौन खेलेगा?", "en": "Let's play together! Who's playing?" },
     "turnOne": { "hi": "पहले खिलाड़ी की बारी!", "en": "Player one's turn!" },
     "turnTwo": { "hi": "दूसरे खिलाड़ी की बारी!", "en": "Player two's turn!" },
@@ -477,7 +478,8 @@
     "bharat": { "hi": "भरत", "translit": "bharat", "en": "Bharat", "picture": "bharat" },
     "sudama": { "hi": "सुदामा", "translit": "sudaama", "en": "Sudama", "picture": "sudama", "level": "grade1", "syllables": ["सु", "दा", "मा"] },
     "arjun": { "hi": "अर्जुन", "translit": "arjun", "en": "Arjun", "picture": "arjun", "level": "grade2", "syllables": ["अ", "र्जु", "न"] },
-    "eklavya": { "hi": "एकलव्य", "translit": "eklavya", "en": "Eklavya", "picture": "eklavya", "level": "grade2", "syllables": ["ए", "क", "ल", "व्य"] }
+    "eklavya": { "hi": "एकलव्य", "translit": "eklavya", "en": "Eklavya", "picture": "eklavya", "level": "grade2", "syllables": ["ए", "क", "ल", "व्य"] },
+    "chimta": { "hi": "चिमटा", "translit": "chimta", "en": "tongs", "picture": "chimta", "level": "grade1", "syllables": ["चि", "म", "टा"] }
   },
   "sentences": [
     { "id": "bus-here", "about": "bus", "hi": "बस आई!", "translit": "bas aai", "en": "The bus is here!", "level": "grade2" },
@@ -13773,6 +13775,540 @@
         { "type": "why", "hi": "क्या गुरु का अँगूठा माँगना ठीक था? क्यों?", "en": "Was it fair of the teacher to ask for his thumb? Why?" },
         { "type": "you", "hi": "रोज़ थोड़ा-थोड़ा करके तुम्हें क्या सीखना अच्छा लगता है?", "en": "What do you like learning a little every day?" }
       ]
+    },
+    {
+      "id": "fest-idgah",
+      "level": "grade3",
+      "title": { "hi": "हामिद का चिमटा", "en": "Hamid's tongs" },
+      "cover": "chimta",
+      "source": { "hi": "मुंशी प्रेमचंद की कहानी \"ईदगाह\" से, छोटी करके", "en": "Retold from Munshi Premchand’s story \"Idgah\"" },
+      "pages": [
+        {
+          "word": "eidmoon",
+          "hi": "रमज़ान के तीस रोज़ों के बाद ईद आई। गाँव में सब ख़ुश थे।",
+          "en": "After thirty days of Ramzan fasting, Eid came. Everyone in the village was happy."
+        },
+        {
+          "word": "boy",
+          "hi": "चार-पाँच साल का हामिद अपनी दादी अमीना के साथ रहता था।",
+          "en": "Four- or five-year-old Hamid lived with his grandmother Amina."
+        },
+        { "word": "coins", "hi": "मेले के लिए हामिद के पास सिर्फ़ तीन पैसे थे।", "en": "For the fair, Hamid had only three paise." },
+        { "word": "fair", "hi": "ईदगाह के मेले में झूले, खिलौने और मिठाइयाँ थीं।", "en": "At the Idgah fair there were rides, toys and sweets." },
+        {
+          "word": "laddoo",
+          "hi": "दोस्तों ने मिठाइयाँ और खिलौने ख़रीदे। हामिद ने कुछ नहीं लिया।",
+          "en": "His friends bought sweets and toys. Hamid bought nothing."
+        },
+        {
+          "word": "chimta",
+          "hi": "तभी उसे एक चिमटा दिखा। उसने सोचा, \"रोटी सेंकते हुए दादी की उँगलियाँ जल जाती हैं।\"",
+          "en": "Then he saw some tongs. He thought, \"Grandma burns her fingers making rotis.\""
+        },
+        { "word": "chimta", "hi": "हामिद ने तीन पैसे में वह चिमटा ख़रीद लिया।", "en": "Hamid bought the tongs for his three paise." },
+        {
+          "word": "boy",
+          "hi": "दोस्त हँसे, पर हामिद बोला, \"मेरा चिमटा बहादुर है! यह आग से भी नहीं डरता।\"",
+          "en": "His friends laughed, but Hamid said, \"My tongs are brave! They aren’t even afraid of fire.\""
+        },
+        {
+          "word": "grandmother",
+          "hi": "घर पर दादी ने चिमटा देखा, तो उनकी आँखें भर आईं। उन्होंने हामिद को गले लगा लिया।",
+          "en": "At home Grandma saw the tongs, and her eyes filled with tears. She hugged Hamid."
+        }
+      ],
+      "questions": [
+        { "hi": "हामिद के पास कितने पैसे थे?", "en": "How many paise did Hamid have?", "answer": "तीन", "options": ["तीन", "दस", "सौ"], "text": true },
+        {
+          "hi": "हामिद ने चिमटा किसके लिए ख़रीदा?",
+          "en": "Who did Hamid buy the tongs for?",
+          "answer": "दादी के लिए",
+          "options": ["दादी के लिए", "अपने लिए", "दोस्तों के लिए"],
+          "text": true
+        },
+        {
+          "hi": "दादी की आँखें क्यों भर आईं?",
+          "en": "Why did Grandma’s eyes fill with tears?",
+          "answer": "हामिद के प्यार से",
+          "options": ["हामिद के प्यार से", "चोट लगने से", "धुएँ से"],
+          "text": true
+        }
+      ],
+      "moral": { "hi": "सबसे अच्छा तोहफ़ा वह है, जिसमें दूसरों का ख़याल हो।", "en": "The best gift is the one that thinks of someone else." },
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"रमज़ान के तीस रोज़ों के बाद … आई। गाँव में सब ख़ुश थे।\" (ईद)",
+          "en": "Say this and let your child fill the gap: \"रमज़ान के तीस रोज़ों के बाद … आई। गाँव में सब ख़ुश थे।\" (ईद)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"रमज़ान के तीस रोज़ों के बाद ईद आई। गाँव में सब ख़ुश थे।\")",
+          "en": "Ask: what happened first in the story? (\"After thirty days of Ramzan fasting, Eid came. Everyone in the village was happy.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर लड्डू है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the laddoo and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "हामिद ने अपने लिए खिलौना क्यों नहीं लिया?", "en": "Why didn’t Hamid buy a toy for himself?" },
+        { "type": "you", "hi": "तुम्हें घर में किसके लिए कुछ करना अच्छा लगता है? क्या?", "en": "Who at home do you like doing things for? What?" }
+      ]
+    },
+    {
+      "id": "fest-sacha-sauda",
+      "level": "grade2",
+      "title": { "hi": "सच्चा सौदा", "en": "The true bargain" },
+      "cover": "roti",
+      "pages": [
+        {
+          "word": "house",
+          "hi": "बहुत पहले, तलवंडी गाँव में नानक नाम का एक बालक रहता था।",
+          "en": "Long ago, a boy called Nanak lived in the village of Talwandi.",
+          "act": { "move": "walk", "sky": "field" }
+        },
+        {
+          "word": "father",
+          "hi": "पिता ने उसे बीस रुपये दिए, \"जाओ, कोई खरा सौदा करके आओ।\"",
+          "en": "His father gave him twenty rupees. \"Go and make a good bargain.\"",
+          "act": { "move": "talk", "sky": "home", "with": "coins" }
+        },
+        {
+          "word": "coins",
+          "hi": "नानक पैसे लेकर बाज़ार की ओर चल पड़ा।",
+          "en": "Nanak set off for the market with the money.",
+          "act": { "move": "walk", "sky": "field", "with": "coins" }
+        },
+        {
+          "word": "sage",
+          "hi": "रास्ते में कुछ साधु मिले, जो कई दिनों से भूखे थे।",
+          "en": "On the way he met some holy men who had been hungry for days.",
+          "act": { "move": "sway", "sky": "field", "mood": "sad" }
+        },
+        {
+          "word": "roti",
+          "hi": "नानक ने सारे पैसों से खाना ख़रीदा, और सबको प्यार से खिलाया।",
+          "en": "Nanak spent all the money on food, and fed them all with love.",
+          "act": { "move": "approach", "sky": "field", "with": "sage", "fx": "hearts" }
+        },
+        {
+          "word": "father",
+          "hi": "घर लौटा, तो पिता ने पूछा, \"क्या सौदा किया?\"",
+          "en": "When he got home, his father asked, \"What bargain did you make?\"",
+          "act": { "move": "talk", "sky": "home" }
+        },
+        {
+          "word": "roti",
+          "hi": "नानक बोले, \"भूखों को खाना खिलाया। इससे सच्चा सौदा क्या होगा?\"",
+          "en": "Nanak said, \"I fed the hungry. What bargain could be truer than that?\"",
+          "act": { "move": "grow", "sky": "home", "with": "father", "fx": "glow" }
+        },
+        {
+          "word": "rice",
+          "hi": "आज भी गुरुद्वारों के लंगर में सब साथ बैठकर खाना खाते हैं।",
+          "en": "Even today, in the langar of every gurdwara, everyone sits and eats together.",
+          "act": { "move": "grow", "sky": "day", "fx": "hearts", "mood": "happy" }
+        }
+      ],
+      "questions": [
+        { "hi": "नानक को पिता ने क्या दिया?", "en": "What did Nanak’s father give him?", "answer": "coins", "options": ["coins", "kite", "ball"] },
+        { "hi": "नानक ने किसको खाना खिलाया?", "en": "Who did Nanak feed?", "answer": "sage", "options": ["sage", "king", "lion"] }
+      ],
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"… ने उसे बीस रुपये दिए, \"जाओ, कोई खरा सौदा करके आओ।\"\" (पिता)",
+          "en": "Say this and let your child fill the gap: \"… ने उसे बीस रुपये दिए, \"जाओ, कोई खरा सौदा करके आओ।\"\" (पिता)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"बहुत पहले, तलवंडी गाँव में नानक नाम का एक बालक रहता था।\")",
+          "en": "Ask: what happened first in the story? (\"Long ago, a boy called Nanak lived in the village of Talwandi.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर रोटी है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the roti and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "नानक ने भूखों को खाना खिलाने को सच्चा सौदा क्यों कहा?", "en": "Why did Nanak call feeding the hungry the truest bargain?" },
+        { "type": "you", "hi": "तुमने कभी किसी के साथ अपना खाना बाँटा है?", "en": "Have you ever shared your food with someone?" }
+      ]
+    },
+    {
+      "id": "fest-pahad-christmas",
+      "level": "grade2",
+      "title": { "hi": "पहाड़ों में क्रिसमस", "en": "Christmas in the hills" },
+      "cover": "xmastree",
+      "pages": [
+        {
+          "word": "mountain",
+          "hi": "पहाड़ों पर बसे शहर में ठंड थी, और बर्फ़ गिर रही थी।",
+          "en": "In the town in the hills it was cold, and snow was falling.",
+          "act": { "move": "float", "sky": "snow", "fx": "snow" }
+        },
+        {
+          "word": "girl",
+          "hi": "रोज़ी और उसका भाई टॉम क्रिसमस की तैयारी में लगे थे।",
+          "en": "Rosie and her brother Tom were getting ready for Christmas.",
+          "act": { "move": "dance", "sky": "snow", "fx": "snow", "mood": "happy" }
+        },
+        {
+          "word": "xmastree",
+          "hi": "उन्होंने देवदार के पेड़ को रंग-बिरंगी बत्तियों से सजाया।",
+          "en": "They decorated a deodar tree with coloured lights.",
+          "act": { "move": "grow", "sky": "home", "fx": "sparkles" }
+        },
+        {
+          "word": "star",
+          "hi": "सबसे ऊपर एक चमकता तारा लगाया।",
+          "en": "Right at the top they put a shining star.",
+          "act": { "move": "grow", "sky": "home", "with": "xmastree", "fx": "glow" }
+        },
+        {
+          "word": "cake",
+          "hi": "माँ ने किशमिश वाला केक बनाया। ख़ुशबू पूरे घर में फैल गई!",
+          "en": "Mum baked a raisin cake. The smell filled the whole house!",
+          "act": { "move": "float", "sky": "home", "fx": "steam" }
+        },
+        {
+          "word": "bell",
+          "hi": "रात को सब चर्च गए। घंटियाँ बजीं, और सबने गाने गाए।",
+          "en": "At night they all went to church. Bells rang, and everyone sang.",
+          "act": { "move": "shake", "sky": "night", "fx": "music", "sound": "jingle" }
+        },
+        {
+          "word": "grandmother",
+          "hi": "रोज़ी ने अकेली रहने वाली पड़ोसी दादी को केक दिया, \"मेरी क्रिसमस, दादी!\"",
+          "en": "Rosie gave cake to the old neighbour who lived alone. \"Merry Christmas, Grandma!\"",
+          "act": { "move": "approach", "sky": "snow", "with": "cake", "fx": "hearts", "mood": "happy" }
+        }
+      ],
+      "questions": [
+        { "hi": "पेड़ के सबसे ऊपर क्या लगाया?", "en": "What went on top of the tree?", "answer": "star", "options": ["star", "moon", "ball"] },
+        { "hi": "रोज़ी ने पड़ोसी दादी को क्या दिया?", "en": "What did Rosie give the old neighbour?", "answer": "cake", "options": ["cake", "kite", "shoe"] }
+      ],
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"… पर बसे शहर में ठंड थी, और बर्फ़ गिर रही थी।\" (पहाड़ों)",
+          "en": "Say this and let your child fill the gap: \"… पर बसे शहर में ठंड थी, और बर्फ़ गिर रही थी।\" (पहाड़ों)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"पहाड़ों पर बसे शहर में ठंड थी, और बर्फ़ गिर रही थी।\")",
+          "en": "Ask: what happened first in the story? (\"In the town in the hills it was cold, and snow was falling.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर तारा है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the star and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "रोज़ी ने पड़ोसी दादी को केक क्यों दिया?", "en": "Why did Rosie give cake to the neighbour?" },
+        { "type": "you", "hi": "तुम्हें त्योहार पर किसके साथ ख़ुशियाँ बाँटना अच्छा लगता है?", "en": "Who do you like to share festival joy with?" }
+      ]
+    },
+    {
+      "id": "fest-lohri",
+      "level": "grade1",
+      "title": { "hi": "लोहड़ी की रात", "en": "The night of Lohri" },
+      "cover": "bonfire",
+      "pages": [
+        {
+          "word": "boy",
+          "hi": "सर्दी की शाम थी। बच्चे घर-घर लोहड़ी माँगने निकले।",
+          "en": "It was a winter evening. The children went from house to house for Lohri.",
+          "act": { "move": "walk", "sky": "night", "fx": "stars" }
+        },
+        {
+          "word": "drum",
+          "hi": "ढोल बजा, ढम-ढम! बच्चे गाने लगे, \"सुंदर मुंदरिये, हो!\"",
+          "en": "The dhol beat, dhum-dhum! The children sang, \"Sundar mundriye, ho!\"",
+          "act": { "move": "dance", "sky": "night", "fx": "music" }
+        },
+        {
+          "word": "peanut",
+          "hi": "हर घर से मूँगफली, रेवड़ी और गुड़ मिला।",
+          "en": "Every house gave them peanuts, sesame sweets and jaggery.",
+          "act": { "move": "talk", "sky": "night", "with": "boy" }
+        },
+        {
+          "word": "bonfire",
+          "hi": "रात को आँगन में बड़ी आग जलाई गई।",
+          "en": "At night a big fire was lit in the courtyard.",
+          "act": { "move": "grow", "sky": "night", "fx": "glow" }
+        },
+        {
+          "word": "corn",
+          "hi": "सबने आग में तिल और मक्की के दाने डाले। चट-चट!",
+          "en": "Everyone tossed sesame and corn into the fire. Pop, pop!",
+          "act": { "move": "jump", "sky": "night", "fx": "sparkles" }
+        },
+        {
+          "word": "girl",
+          "hi": "सब आग के चारों ओर नाचे और गाए।",
+          "en": "Everyone danced and sang around the fire.",
+          "act": { "move": "dance", "sky": "night", "fx": ["music", "glow"], "mood": "happy" }
+        },
+        {
+          "word": "bonfire",
+          "hi": "लोहड़ी पर हम धूप, फ़सल और आग को धन्यवाद कहते हैं।",
+          "en": "At Lohri we say thank you for the sun, the harvest and the fire.",
+          "act": { "move": "float", "sky": "night", "fx": "glow" }
+        }
+      ],
+      "questions": [
+        { "hi": "घर-घर से क्या मिला?", "en": "What did they get at every house?", "answer": "peanut", "options": ["peanut", "shoe", "pen"] },
+        { "hi": "आँगन में क्या जलाई गई?", "en": "What was lit in the courtyard?", "answer": "bonfire", "options": ["bonfire", "lamp", "sun"] }
+      ],
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"… बजा, ढम-ढम! बच्चे गाने लगे, \"सुंदर मुंदरिये, हो!\"\" (ढोल)",
+          "en": "Say this and let your child fill the gap: \"… बजा, ढम-ढम! बच्चे गाने लगे, \"सुंदर मुंदरिये, हो!\"\" (ढोल)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"सर्दी की शाम थी। बच्चे घर-घर लोहड़ी माँगने निकले।\")",
+          "en": "Ask: what happened first in the story? (\"It was a winter evening. The children went from house to house for Lohri.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर लोहड़ी की आग है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the Lohri fire and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "लोहड़ी पर सब आग के पास इकट्ठे क्यों होते हैं?", "en": "Why does everyone gather by the fire at Lohri?" },
+        { "type": "you", "hi": "सर्दी की रात में तुम्हें क्या करना सबसे अच्छा लगता है?", "en": "What do you like doing best on a winter night?" }
+      ]
+    },
+    {
+      "id": "fest-pongal",
+      "level": "grade1",
+      "title": { "hi": "पोंगल का मीठा भात", "en": "Pongal's sweet rice" },
+      "cover": "pongalpot",
+      "pages": [
+        {
+          "word": "sun",
+          "hi": "तमिलनाडु में सुबह-सुबह सूरज निकला। आज पोंगल है!",
+          "en": "In Tamil Nadu the sun came up early. Today is Pongal!",
+          "act": { "move": "peek", "sky": "dawn", "fx": "glow" }
+        },
+        {
+          "word": "rangoli",
+          "hi": "मीनाक्षी ने दरवाज़े पर चावल के आटे से कोलम बनाया।",
+          "en": "Meenakshi drew a kolam at the door with rice flour.",
+          "act": { "move": "grow", "sky": "day", "fx": "sparkles" }
+        },
+        {
+          "word": "pongalpot",
+          "hi": "आँगन में मिट्टी की हांडी में दूध और चावल पकने रखे।",
+          "en": "In the courtyard, milk and rice were set to cook in a clay pot.",
+          "act": { "move": "float", "sky": "day", "fx": "steam" }
+        },
+        {
+          "word": "milk",
+          "hi": "दूध उफनकर बाहर आया! सब बोले, \"पोंगलो पोंगल!\"",
+          "en": "The milk bubbled over! Everyone shouted, \"Pongalo Pongal!\"",
+          "act": { "move": "grow", "sky": "day", "fx": "bubbles", "sound": "cheer", "mood": "happy" }
+        },
+        {
+          "word": "rice",
+          "hi": "गुड़ डालकर मीठा पोंगल बना। पहले सूरज को चढ़ाया।",
+          "en": "With jaggery it became sweet pongal. First it was offered to the sun.",
+          "act": { "move": "talk", "sky": "day", "with": "sun", "fx": "steam" }
+        },
+        {
+          "word": "cow",
+          "hi": "अगले दिन गायों को नहलाकर सजाया, सींगों पर रंग लगाया।",
+          "en": "The next day the cows were bathed and decorated, their horns painted.",
+          "act": { "move": "dance", "sky": "field", "fx": "sparkles" }
+        }
+      ],
+      "questions": [
+        { "hi": "पोंगल किससे बना?", "en": "What was the pongal made from?", "answer": "rice", "options": ["rice", "stone", "leaf"] },
+        { "hi": "अगले दिन किसे सजाया?", "en": "Who was decorated the next day?", "answer": "cow", "options": ["cow", "car", "tree"] }
+      ],
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"तमिलनाडु में सुबह-सुबह … निकला। आज पोंगल है!\" (सूरज)",
+          "en": "Say this and let your child fill the gap: \"तमिलनाडु में सुबह-सुबह … निकला। आज पोंगल है!\" (सूरज)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"तमिलनाडु में सुबह-सुबह सूरज निकला। आज पोंगल है!\")",
+          "en": "Ask: what happened first in the story? (\"In Tamil Nadu the sun came up early. Today is Pongal!\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर दूध है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the milk and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "पोंगल पहले सूरज को क्यों चढ़ाया?", "en": "Why was the pongal first offered to the sun?" },
+        { "type": "you", "hi": "तुम्हारे घर में त्योहार पर कौन सा खाना बनता है?", "en": "What food is made at home for a festival?" }
+      ]
+    },
+    {
+      "id": "fest-mahabali",
+      "level": "grade2",
+      "title": { "hi": "राजा महाबली", "en": "King Mahabali comes home" },
+      "cover": "pookalam",
+      "pages": [
+        {
+          "word": "king",
+          "hi": "बहुत पहले केरल में महाबली नाम के एक दयालु राजा थे।",
+          "en": "Long ago, a kind king called Mahabali ruled Kerala.",
+          "act": { "move": "walk", "sky": "day", "fx": "glow" }
+        },
+        {
+          "word": "house",
+          "hi": "उनके राज में सब ख़ुश थे। कोई भूखा नहीं, कोई दुखी नहीं।",
+          "en": "In his kingdom everyone was happy. No one was hungry, no one was sad.",
+          "act": { "move": "dance", "sky": "field", "fx": "hearts", "mood": "happy" }
+        },
+        {
+          "word": "boy",
+          "hi": "एक दिन वामन नाम का एक छोटा बालक आया, हाथ में छाता लिए।",
+          "en": "One day a little boy called Vaman came, holding an umbrella.",
+          "act": { "move": "enter", "sky": "day", "with": "umbrella" }
+        },
+        {
+          "word": "boy",
+          "hi": "वामन बोला, \"मुझे बस तीन क़दम ज़मीन चाहिए।\"",
+          "en": "Vaman said, \"I only want three steps of land.\"",
+          "act": { "move": "talk", "sky": "day", "with": "king" }
+        },
+        {
+          "word": "earth",
+          "hi": "वामन बड़ा, और बड़ा होता गया! दो क़दमों में उसने धरती और आसमान नाप लिए।",
+          "en": "Vaman grew bigger and bigger! In two steps he measured the earth and the sky.",
+          "act": { "move": "grow", "sky": "sky", "fx": "sparkles", "mood": "surprised" }
+        },
+        {
+          "word": "king",
+          "hi": "महाबली ने सिर झुकाया, \"तीसरा क़दम मेरे सिर पर रखिए।\"",
+          "en": "Mahabali bowed his head. \"Place the third step on my head.\"",
+          "act": { "move": "talk", "sky": "field", "with": "boy" }
+        },
+        {
+          "word": "king",
+          "hi": "वामन ख़ुश हुए, \"हर साल एक बार अपने लोगों से मिलने आना।\"",
+          "en": "Vaman was pleased. \"Come and visit your people once every year.\"",
+          "act": { "move": "grow", "sky": "dawn", "fx": "glow" }
+        },
+        {
+          "word": "pookalam",
+          "hi": "इसलिए ओणम पर लोग फूलों का पूकलम बनाकर महाबली का स्वागत करते हैं।",
+          "en": "So at Onam people make a pookalam of flowers to welcome Mahabali.",
+          "act": { "move": "grow", "sky": "day", "fx": ["sparkles", "confetti"], "mood": "happy" }
+        },
+        {
+          "word": "boat",
+          "hi": "नदी में नावों की दौड़ होती है, और केले के पत्ते पर दावत!",
+          "en": "There are boat races on the river, and a feast on banana leaves!",
+          "act": { "move": "float", "sky": "river", "fx": "music" }
+        }
+      ],
+      "questions": [
+        {
+          "hi": "वामन ने कितने क़दम ज़मीन माँगी?",
+          "en": "How many steps of land did Vaman ask for?",
+          "answer": "तीन",
+          "options": ["तीन", "दस", "एक"],
+          "text": true
+        },
+        {
+          "hi": "ओणम पर फूलों से क्या बनाते हैं?",
+          "en": "What do people make with flowers at Onam?",
+          "answer": "pookalam",
+          "options": ["pookalam", "kite", "cake"]
+        }
+      ],
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"बहुत पहले केरल में महाबली नाम के एक दयालु … थे।\" (राजा)",
+          "en": "Say this and let your child fill the gap: \"बहुत पहले केरल में महाबली नाम के एक दयालु … थे।\" (राजा)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"बहुत पहले केरल में महाबली नाम के एक दयालु राजा थे।\")",
+          "en": "Ask: what happened first in the story? (\"Long ago, a kind king called Mahabali ruled Kerala.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर पृथ्वी है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the Earth and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "महाबली के राज में सब ख़ुश क्यों थे?", "en": "Why was everyone happy in Mahabali's kingdom?" },
+        { "type": "you", "hi": "घर में मेहमान आएँ, तो हम उनका स्वागत कैसे करते हैं?", "en": "When guests come home, how do we welcome them?" }
+      ]
+    },
+    {
+      "id": "k3-gurpurab",
+      "level": "kg",
+      "title": { "hi": "गुरुपर्व का लंगर", "en": "The langar on Gurpurab" },
+      "cover": "lamp",
+      "pages": [
+        {
+          "word": "lamp",
+          "hi": "आज गुरुपर्व है! गुरुद्वारे में दीये जगमगा रहे थे।",
+          "en": "It’s Gurpurab! Lamps were glowing at the gurdwara.",
+          "act": { "move": "grow", "sky": "night", "fx": "lamps" }
+        },
+        {
+          "word": "house",
+          "hi": "अंदर मीठे शबद गाए जा रहे थे।",
+          "en": "Inside, sweet hymns were being sung.",
+          "act": { "move": "float", "sky": "day", "fx": "music" }
+        },
+        {
+          "word": "roti",
+          "hi": "फिर लंगर! सब ज़मीन पर साथ-साथ बैठे।",
+          "en": "Then the langar! Everyone sat together on the floor.",
+          "act": { "move": "talk", "sky": "day", "with": "rice" }
+        },
+        {
+          "word": "dal",
+          "hi": "किसी ने दाल परोसी, किसी ने रोटी।",
+          "en": "Someone served dal, someone served roti.",
+          "act": { "move": "grow", "sky": "day", "fx": "steam" }
+        },
+        {
+          "word": "boy",
+          "hi": "जस्सी ने भी सबको पानी पिलाया।",
+          "en": "Jassi helped too, giving everyone water.",
+          "act": { "move": "walk", "sky": "day", "with": "water" }
+        },
+        {
+          "word": "girl",
+          "hi": "सबने मिलकर खाया। कोई बड़ा नहीं, कोई छोटा नहीं।",
+          "en": "They all ate together. No one big, no one small.",
+          "act": { "move": "dance", "sky": "day", "fx": "hearts", "mood": "happy" }
+        }
+      ],
+      "questions": [
+        { "hi": "गुरुद्वारे में क्या जगमगा रहे थे?", "en": "What was glowing at the gurdwara?", "answer": "lamp", "options": ["lamp", "car", "fish"] },
+        { "hi": "लंगर में क्या खाया?", "en": "What did they eat at the langar?", "answer": "roti", "options": ["roti", "cake", "kite"] }
+      ],
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"आज गुरुपर्व है! गुरुद्वारे में … जगमगा रहे थे।\" (दीये)",
+          "en": "Say this and let your child fill the gap: \"आज गुरुपर्व है! गुरुद्वारे में … जगमगा रहे थे।\" (दीये)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"आज गुरुपर्व है! गुरुद्वारे में दीये जगमगा रहे थे।\")",
+          "en": "Ask: what happened first in the story? (\"It’s Gurpurab! Lamps were glowing at the gurdwara.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर दाल है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the dal and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "लंगर में सब साथ-साथ ज़मीन पर क्यों बैठते हैं?", "en": "Why does everyone sit together on the floor at the langar?" },
+        { "type": "you", "hi": "खाने के समय घर में मदद कैसे करें? बताओ!", "en": "How can we help at home at mealtimes? Tell me!" }
+      ]
     }
   ],
   "levels": [
@@ -15028,6 +15564,13 @@
               "icon": "pookalam",
               "title": { "hi": "ओणम का पूकलम", "en": "The Onam flower carpet" },
               "config": { "story": "k3-onam" }
+            },
+            {
+              "id": "k-parv-6",
+              "game": "story",
+              "icon": "lamp",
+              "title": { "hi": "गुरुपर्व का लंगर", "en": "The langar on Gurpurab" },
+              "config": { "story": "k3-gurpurab" }
             }
           ]
         },
@@ -16019,6 +16562,28 @@
               "icon": "sage",
               "title": { "hi": "चूहा बना शेर", "en": "The mouse who became a lion" },
               "config": { "story": "g1b-chuha-sher" }
+            }
+          ]
+        },
+        {
+          "id": "g1-tyohar-kahani",
+          "title": { "hi": "त्योहार की कहानियाँ", "en": "Festival stories" },
+          "skill": "Listening · Stories",
+          "icon": "bonfire",
+          "lessons": [
+            {
+              "id": "g1-tyohar-kahani-1",
+              "game": "story",
+              "icon": "bonfire",
+              "title": { "hi": "लोहड़ी की रात", "en": "The night of Lohri" },
+              "config": { "story": "fest-lohri" }
+            },
+            {
+              "id": "g1-tyohar-kahani-2",
+              "game": "story",
+              "icon": "pongalpot",
+              "title": { "hi": "पोंगल का मीठा भात", "en": "Pongal's sweet rice" },
+              "config": { "story": "fest-pongal" }
             }
           ]
         }
@@ -17158,6 +17723,35 @@
             { "id": "g2-katha-5", "game": "story", "icon": "arjun", "title": { "hi": "चिड़िया की आँख", "en": "The bird's eye" }, "config": { "story": "arjun-aankh" } },
             { "id": "g2-katha-6", "game": "story", "icon": "eklavya", "title": { "hi": "एकलव्य", "en": "Eklavya" }, "config": { "story": "eklavya" } }
           ]
+        },
+        {
+          "id": "g2-tyohar-kahani",
+          "title": { "hi": "हर त्योहार की कहानी", "en": "A story for every festival" },
+          "skill": "Listening · Stories",
+          "icon": "pookalam",
+          "lessons": [
+            {
+              "id": "g2-tyohar-kahani-1",
+              "game": "story",
+              "icon": "roti",
+              "title": { "hi": "सच्चा सौदा", "en": "The true bargain" },
+              "config": { "story": "fest-sacha-sauda" }
+            },
+            {
+              "id": "g2-tyohar-kahani-2",
+              "game": "story",
+              "icon": "xmastree",
+              "title": { "hi": "पहाड़ों में क्रिसमस", "en": "Christmas in the hills" },
+              "config": { "story": "fest-pahad-christmas" }
+            },
+            {
+              "id": "g2-tyohar-kahani-3",
+              "game": "story",
+              "icon": "pookalam",
+              "title": { "hi": "राजा महाबली", "en": "King Mahabali comes home" },
+              "config": { "story": "fest-mahabali" }
+            }
+          ]
         }
       ],
       "helpers": { "vendor": "squirrel" }
@@ -17669,6 +18263,21 @@
               "icon": "letter:10×",
               "title": { "hi": "दस का पहाड़ा", "en": "The 10 times table" },
               "config": { "table": 10, "rounds": 6 }
+            }
+          ]
+        },
+        {
+          "id": "g3-tyohar-kahani",
+          "title": { "hi": "ईद का मेला", "en": "Eid at the fair" },
+          "skill": "Listening · Stories",
+          "icon": "chimta",
+          "lessons": [
+            {
+              "id": "g3-tyohar-kahani-1",
+              "game": "story",
+              "icon": "chimta",
+              "title": { "hi": "हामिद का चिमटा", "en": "Hamid's tongs" },
+              "config": { "story": "fest-idgah" }
             }
           ]
         }

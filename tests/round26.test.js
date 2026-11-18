@@ -285,7 +285,7 @@ import { pictureExists } from '../js/art.js';
 const at = (iso) => new Date(`${iso}T10:00:00`).getTime();
 
 test('each festival comes near its day, from the device date alone', () => {
-  assert.deepEqual(FESTIVALS.map((f) => f.id), ['diwali', 'holi', 'rakhi', 'eid', 'christmas', 'lohri', 'pongal', 'onam']);
+  assert.deepEqual(FESTIVALS.map((f) => f.id), ['diwali', 'holi', 'rakhi', 'eid', 'christmas', 'lohri', 'pongal', 'onam', 'gurpurab']);
   assert.equal(festivalNow(at('2026-11-08')).festival.id, 'diwali');
   assert.equal(festivalNow(at('2026-11-06')).diff, 2, 'two days to go');
   assert.equal(festivalNow(at('2026-11-10')).diff, -2, 'and two days after');
@@ -317,8 +317,8 @@ test('every festival has its story, its sticker and its greeting', () => {
   assert.ok(content.phrases.festSticker?.hi);
   // the five new festival stories: moving scenes, questions, a lesson, talk prompts; in their own unit
   const unit = content.worlds.find((w) => w.id === 'town').units.find((u) => u.id === 'k-parv');
-  assert.deepEqual(unit.lessons.map((l) => l.config.story), ['k3-eid', 'k3-christmas', 'k3-lohri', 'k3-pongal', 'k3-onam']);
-  for (const id of ['k3-eid', 'k3-christmas', 'k3-lohri', 'k3-pongal', 'k3-onam']) {
+  assert.deepEqual(unit.lessons.map((l) => l.config.story), ['k3-eid', 'k3-christmas', 'k3-lohri', 'k3-pongal', 'k3-onam', 'k3-gurpurab']);
+  for (const id of ['k3-eid', 'k3-christmas', 'k3-lohri', 'k3-pongal', 'k3-onam', 'k3-gurpurab']) {
     const s = content.stories.find((x) => x.id === id);
     assert.ok(s.pages.every((p) => p.act && content.words[p.word]), id);
     assert.equal(s.questions.length, 2);

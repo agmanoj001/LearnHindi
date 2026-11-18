@@ -168,6 +168,12 @@ export const THINGS = {
   rangoli: () => `<polygon points="${starPoints(100, 70, 58, 30, 8)}" fill="#FF6B9A"/>` + `<polygon points="${starPoints(100, 70, 40, 20, 8)}" fill="#FFC93C"/>` + circ(100, 70, 16, '#3D7BFF') + circ(100, 70, 7, '#fff') + [0, 1, 2, 3, 4, 5, 6, 7].map((k) => circ((100 + 52 * Math.cos((k * Math.PI) / 4 + 0.39)).toFixed(1), (70 + 52 * Math.sin((k * Math.PI) / 4 + 0.39)).toFixed(1), 5, '#2EC27E')).join(''),
 
   // ---------- story animals and things ----------
+  // चिमटा: iron tongs with a ring at the top (roadmap 9.7: Hamid's tongs, after Premchand's ईदगाह)
+  chimta: () =>
+    circ(100, 22, 12, 'none').replace('fill="none"', 'fill="none" stroke="#5B6478" stroke-width="5"') +
+    path('M94 32 L66 128 M106 32 L134 128', 'none', stroke('#7A8496', 8)) +
+    path('M94 32 L66 128 M106 32 L134 128', 'none', stroke('#AEB6C4', 3)) +
+    path('M60 126 L72 130 M128 130 L140 126', 'none', stroke('#5B6478', 5)),
   // बेर: a handful of berries with two leaves (roadmap 9.6: Shabari's berries)
   ber: () =>
     path('M70 70 Q84 40 110 46 Q92 58 70 70 Z', '#4FAF63') + path('M110 46 Q132 34 150 52 Q128 58 110 46 Z', '#2EC27E') +
