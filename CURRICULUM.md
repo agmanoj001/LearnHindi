@@ -64,11 +64,11 @@ Every story page from Toddler to Grade 2 is a small moving scene that follows th
 
 | Unit | Standards |
 | --- | --- |
-| Let's count! | NC.K.CC.4–5: count to tell how many (rows, scattered, up to 20); quick looks at dot patterns and ten frames |
-| Let's learn numbers | NC.K.CC.1–3: read numbers 0–20, count on from any number, count by tens to 100 |
+| Let's count! | NC.K.CC.4–5: count to tell how many (rows, scattered, up to 20); quick looks at dot patterns and ten frames; counting back from 10 like a rocket's countdown (NC.K.CC.2); what comes next in a pattern (AB, AAB) |
+| Let's learn numbers | NC.K.CC.1–3: read numbers 0–20, count on from any number, count by tens to 100; first, second, third … fifth in a race to the flag |
 | Let's compare | NC.K.CC.6–7: more, fewer or the same (the smaller group is sometimes drawn bigger); which number is bigger |
-| Let's add and take away | NC.K.OA.1, 2, 5: story problems with objects; facts within 5 |
-| Let's make 10 | NC.K.OA.3–4, NBT.1: number partners on a ten frame, how many more make 10, teen numbers as ten and some ones |
+| Let's add and take away | NC.K.OA.1, 2, 5: story problems with objects; facts within 5, then ten of them with no hurry (a fact missed comes back two rounds later) |
+| Let's make 10 | NC.K.OA.3–4, NBT.1: number partners on a ten frame, how many more make 10, teen numbers as ten and some ones; number bonds (the whole and its two parts); bubbles to pop in pairs that make 10 |
 | Let's find shapes | NC.K.G.1–3: above, below, beside, in front of, behind; name flat shapes in any size or turn; flat or solid |
 | Let's measure and sort | NC.K.MD.1–3: longer, taller, heavier (on a balance); sort a mixed group and count each kind |
 | Number party! | Mixed review of the year |
@@ -92,15 +92,63 @@ Every story page from Toddler to Grade 2 is a small moving scene that follows th
 
 | Unit | Standards |
 | --- | --- |
-| Let's count to 150 | NC.1.NBT.1: count on from any number to 150, across the hundreds; read numbers to 150 (105 is not 15) |
+| Let's count to 150 | NC.1.NBT.1: count on from any number to 150, across the hundreds; read numbers to 150 (105 is not 15); count back from 20, and across a ten (51, 50, 49); skip count by 2s, 5s and 10s (NC.1.OA.5) |
 | Let's learn tens and ones | NC.1.NBT.2–3: base-ten blocks, tens and ones, compare with >, = and < |
-| Let's add and subtract to 20 | NC.1.OA.2, 3, 6: make a ten on two ten frames (8 + 5 = 8 + 2 + 3), three addends, missing numbers |
+| Let's add and subtract to 20 | NC.1.OA.2, 3, 6: make a ten on two ten frames (8 + 5 = 8 + 2 + 3), three addends, missing numbers; doubles and near doubles (6 + 7 is double 6 and one more); number bonds to 20; facts practice with no timer; bubbles to pop in pairs that make 20 |
 | Let's solve story problems | NC.1.OA.1, 7, 8: add to, take from, put together, compare (Pip and Tiko line up their kites); is this equation true? |
 | Let's add big numbers | NC.1.NBT.4–6: 10 more and 10 less, add tens and ones, subtract tens |
 | Let's measure and tell time | NC.1.MD.1–3: order by length, measure with cubes, tell time to the hour and half hour (the hour hand sits halfway at half past) |
 | Let's learn coins and graphs | NC.1.MD.4–5: penny, nickel, dime and quarter and their value in pennies; read picture graphs (how many, most, how many more) |
 | Let's explore shapes | NC.1.G.1–3: sides and corners, put two shapes together, halves and fourths (a half is bigger than a fourth) |
 | Carnival challenge | Mixed review of the year |
+
+### Grade 2 · Gilu's Number Bazaar (math, English)
+
+*A market street of stalls, with Gilu the squirrel (docs/ROADMAP.md 10.5).*
+
+| Unit | Standards |
+| --- | --- |
+| Let's learn hundreds, tens and ones | NC.2.NBT.1, 3, 4: hundreds flats, tens and ones; what a digit is worth; 400 + 6 is 406, not 46; numbers in words; compare with >, = and < |
+| Let's count to 1,000 | NC.2.NBT.2, 8: skip count by 5s, 10s and 100s across a hundred; 10 and 100 more and less |
+| Let's add and subtract to 100 | NC.2.OA.2, NBT.5: facts to 20 with no hurry (make a ten); two-digit adding and taking away, with base-ten blocks first; the common slips (forgetting the new ten, taking the smaller ones from the bigger) are among the wrong answers; jumps of ten and one on a number line |
+| Let's solve big sums and story problems | NC.2.NBT.7, OA.1: adding and taking away within 1,000; story problems in one and two steps (add to, take from, compare, start unknown) |
+| Let's find odd, even and equal groups | NC.2.OA.3–4: odd or even by making pairs, then by the ones digit; arrays as rows of the same and their adding sentence; build an array |
+| Let's tell time and count money | NC.2.MD.7–8: time to five minutes, a.m. or p.m.; count coins and dollar bills; turn the clock's hands; pay in the market shop |
+| Let's measure and read graphs | NC.2.MD.1–4, 10: read a ruler in inches and centimetres (also when the thing doesn't start at 0), inches or feet, how much longer; bar graphs |
+| Let's explore shapes and equal parts | NC.2.G.1–3: sides and angles, faces of a cube; rows and columns of squares; halves, thirds and fourths |
+| Bazaar challenge | Mixed review of the year |
+
+### Grade 3 · Robu's Number Factory (math, English)
+
+*A factory of turning gears and a moving belt, with Robu the robot (docs/ROADMAP.md 10.8).*
+
+| Unit | Standards |
+| --- | --- |
+| Let's multiply | NC.3.OA.1, 5, 7: equal groups; facts to 10 × 10, also ten with no hurry; turn it around (4 × 9 = 9 × 4), × 1, × 0, break it apart (7 × 8 = 7 × 5 + 7 × 3); build an array |
+| Let's divide | NC.3.OA.2, 4, 6: share equally; the unknown number in × and ÷ |
+| Let's solve stories and patterns | NC.3.OA.3, 8, 9: story problems with × and ÷, two steps; count by 3s to 9s, even or odd products, find the rule |
+| Let's round and add | NC.3.NBT.1–3: round to the nearest 10 and 100; add and subtract within 1,000; 6 × 40 |
+| Let's learn fractions | NC.3.NF.1–3, G.2: equal parts, fractions of a bar or a circle, fractions on a number line (to 2), comparing (same top or same bottom), 2/3 = ?/9; shade the fraction |
+| Let's tell time and measure | NC.3.MD.1–2: time to the minute, when a show ends, how many minutes from … to …; grams, kilograms or litres, a measuring jug |
+| Let's find area and perimeter | NC.3.MD.3, 5–8: area by squares, then length × width, a missing side; perimeter of rectangles and polygons, a missing side; bar graphs that count in 2s and 5s |
+| Let's sort quadrilaterals | NC.3.G.1: not a quadrilateral, rectangle, rhombus, trapezoid; a square is always a rectangle |
+| Factory challenge | Mixed review of the year |
+
+### Grade 4 · Jugnu's Number Observatory (math, English)
+
+*An open-air observatory at dusk, its giant stone instruments for measuring the sky, with Jugnu the firefly.*
+
+| Unit | Standards |
+| --- | --- |
+| Let's read big numbers | NC.4.NBT.1–3: place value to a million, read and compare; round to any place; **lakh and crore**, the Indian way of grouping (3,45,678), how many thousands make a lakh and lakhs a crore |
+| Let's add, subtract and multiply | NC.4.NBT.4–5: add and subtract to a million; multiply up to 4 digits by 1, and 2 digits by 2 with an area model |
+| Let's do long division | NC.4.NBT.6, OA.3: long division with remainders (the bracket drawn), also with no hurry; how many vans are needed, how many are left over |
+| Let's find factors and patterns | NC.4.OA.1, 2, 4, 5: factors, multiples, prime or composite; times as many; patterns from a rule |
+| Let's work with fractions | NC.4.NF.1–4: equal fractions, comparing with 1/2 and a common bottom, adding and subtracting (and mixed numbers), a whole number times a fraction |
+| Let's learn decimals | NC.4.NF.5–7: a hundred grid, tenths and hundredths, 0.5 or 0.45 |
+| Let's convert and measure | NC.4.MD.1–3: km, m, cm, kg, g, L, mL, hours and minutes; area and perimeter with a missing side |
+| Let's measure angles | NC.4.MD.5–7, G.1–3: acute, right, obtuse; read a protractor; angles that make a right angle or a straight line; parallel and perpendicular lines; lines of symmetry; turn the angle on a protractor |
+| Observatory challenge | Mixed review of the year |
 
 ### Kindergarten · Buzz's Letter Garden (English phonics)
 
@@ -210,9 +258,51 @@ Sounds are always said with a key word ("c, as in cat"): text-to-speech can't sa
 | `g1-read-words` | NC.1.RF.3b | Read words with blends and digraphs | Let's learn blends, Castle challenge |
 | `g1-sight` | NC.1.RF.3g | Tricky sight words | Let's learn tricky words, Castle challenge |
 
+### समय और पैसे: days, months, time and money in Hindi (Kindergarten to Grade 3)
+
+*Everyday number talk at home is in these words (docs/ROADMAP.md 10.6). One game, js/games/samay.js, in seven kinds of round; every sentence is fixed and recorded.*
+
+| Grade · world | Unit | What the child does |
+| --- | --- | --- |
+| Kindergarten · Vehicle Town | सात दिन | The week train: what comes after सोमवार? (all seven carriages shown) |
+| Grade 1 · Jolly Jungle | दिन, मौसम और घड़ी | आज सोमवार है: कल कौन-सा दिन होगा, कल कौन-सा दिन था? (the tense tells tomorrow from yesterday); which season (rain, sweaters, mangoes, Holi, flowers), with pictures; कितने बजे हैं? to the hour, then साढ़े |
+| Grade 2 · Desert | महीने, घड़ी और बाज़ार | The months in order, the first and the last; साढ़े, डेढ़ and ढाई; count coins and notes; the market: pay the exact price in rupees |
+| Grade 3 · Village | ऋतुएँ, घड़ी और रुपये-पैसे | The six ऋतुएँ in order; सवा and पौने; rupees and paise (₹12.50 is बारह रुपये पचास पैसे) |
+
+The Grade 4 quiz on days and months (दिन और महीने) stays.
+
+### पहाड़े: the times tables chanted the Hindi way (Grades 2–4)
+
+*Chanted tables are how generations learned them (docs/ROADMAP.md 10.7). js/games/pahade.js.*
+
+| Grade · world | Unit | What the child does |
+| --- | --- | --- |
+| Grade 2 · Forest | पहाड़े गाओ | The 2, 3, 4 and 5 tables: chanted call and response over a dhol beat ("दो एकम दो, दो दूनी चार …"), then the gaps to fill |
+| Grade 3 · Palace | पहाड़े गाओ | The 6, 7, 8, 9 and 10 tables, the same way |
+| Grade 4 · Mountain | पहाड़ों की दौड़ | Mixed races: tables 2–5, and 6–10, in any order |
+
+The multipliers are said the traditional way: एकम, दूनी, तिया, चौके, पंजे, छक्के, सत्ते, अट्ठे, नवें, दहाई.
+
+### Maths stories and puzzles (Grades 3–8)
+
+*Maths as something people did and enjoyed (docs/ROADMAP.md 10.9).*
+
+| Grade · world | Unit | Stories and comics |
+| --- | --- | --- |
+| Grade 3 · Palace | गणित की कहानियाँ | *सबसे बड़ी गिनती*: Akbar asks for the biggest number; हज़ार, लाख, करोड़… and Birbal adds one to any of them (counting never ends). *इक्कीस घड़े*: Tenali Raman shares 7 full, 7 half-full and 7 empty jars of ghee equally among three brothers without pouring (halves) |
+| Grade 4 · Mountain | गणित की कहानियाँ | *शतरंज और चावल के दाने* (doubling: 128 grains on the 8th square, more than a million on the 21st); *सत्रह ऊँट* (a half, a third and a ninth of 17 camels, solved by lending an 18th); *आर्यभट और शून्य* (place value, the empty place and zero, the Earth's spin, India's first satellite) |
+| Grade 7 · Rimjhim | गणित का जादू | *दिमाग़ का कंप्यूटर*: Shakuntala Devi, and the ×11 trick that beats a calculator |
+| Grade 7 · Birbal | बीरबल का हिसाब | *आगरा में कितने कौवे?*: an estimate from a sample (an average per tree × the number of trees) |
+| Grade 8 · Murari | संख्याओं के राज़ | *टैक्सी नंबर 1729*: Ramanujan, Hardy and the sum of two cubes in two ways; National Mathematics Day |
+| Grade 8 · Jasoos | गणित से जासूसी | *तीन अंकों का ताला* (a lock opened by solving 2द + द + द + 1 = 13) and *नौ सिक्के, एक नकली* (the fake coin found in two weighings by splitting into threes) |
+
+Every comic stops for the reader to guess before the reveal; every story has its five talk-together prompts.
+
 ## Math skills
 
-Besides the answer cards, each unit with a hands-on game (docs/ROADMAP.md 10.1) ends with one: fill a ten-frame (Let's make 10), frog hops on a number line (Let's add and take away), the pattern train (Let's count!), a shape builder (Let's find shapes) and measuring with cubes (Let's measure and sort) in Kindergarten; a balance for "equal" (Let's add and subtract to 20), a coin shop (Let's learn coins and graphs) and a clock with hands to turn (Let's measure and tell time) in Grade 1. They record the skill of the unit, so the grown-ups' area counts them with the rest.
+Besides the answer cards, each unit with a hands-on game (docs/ROADMAP.md 10.1) ends with one: fill a ten-frame (Let's make 10), frog hops on a number line (Let's add and take away), the pattern train (Let's count!), a shape builder (Let's find shapes) and measuring with cubes (Let's measure and sort) in Kindergarten; a balance for "equal" (Let's add and subtract to 20), a coin shop (Let's learn coins and graphs) and a clock with hands to turn (Let's measure and tell time) in Grade 1. They record the skill of the unit, so the grown-ups' area counts them with the rest. Number-bond bubbles (docs/ROADMAP.md 10.4) are a ninth: pop two bubbles that make 10 (Let's make 10) or 20 (Let's add and subtract to 20).
+
+The facts-practice lessons (*Facts, no hurry* and *Facts practice, no hurry*) have no clock at all: ten facts, and any fact missed the first time comes back two rounds later, the same fact, so it is practised until it is known.
 
 Each skill makes problems at three levels: level 1 uses small numbers with objects to count, level 2 uses bigger numbers and pictorial models (ten frames, number lines, base-ten blocks), level 3 uses the biggest numbers with fewer pictures (concrete → pictorial → abstract).
 
@@ -237,6 +327,9 @@ Each skill makes problems at three levels: level 1 uses small numbers with objec
 | `k-measure` | NC.K.MD.2 | Longer, taller, heavier | Let's measure and sort, Number party! |
 | `k-sort` | NC.K.MD.3 | Sort and count groups | Let's measure and sort |
 | `k-pattern` | K.MP.7 | Patterns: what comes next (AB, AAB, ABC) | Let's count! (the pattern train), Number party! |
+| `k-countback` | NC.K.CC.2 | Count back from 10 | Let's count!, Number party! |
+| `k-ordinal` | NC.K.CC.4 | First, second, third… | Let's learn numbers, Number party! |
+| `k-bond10` | NC.K.OA.3 | Number bonds to 10 | Let's make 10 (and the make-10 bubbles), Number party! |
 | `g1-count150` | NC.1.NBT.1 | Count to 150 from any number | Let's count to 150 |
 | `g1-numerals` | NC.1.NBT.1 | Read numbers to 150 | Let's count to 150 |
 | `g1-place` | NC.1.NBT.2 | Tens and ones | Let's learn tens and ones, Carnival challenge |
@@ -256,6 +349,70 @@ Each skill makes problems at three levels: level 1 uses small numbers with objec
 | `g1-sides` | NC.1.G.1 | Sides and corners of shapes | Let's explore shapes, Carnival challenge |
 | `g1-halves` | NC.1.G.3 | Halves and fourths | Let's explore shapes, Carnival challenge |
 | `g1-compose` | NC.1.G.2 | Put shapes together | Let's explore shapes |
+| `g1-countback` | NC.1.OA.5 | Count back from 20 (and across a ten) | Let's count to 150, Carnival challenge |
+| `g1-skip` | NC.1.OA.5 | Skip count by 2s, 5s and 10s | Let's count to 150, Carnival challenge |
+| `g1-doubles` | NC.1.OA.6 | Doubles and near doubles | Let's add and subtract to 20, Carnival challenge |
+| `g1-bond20` | NC.1.OA.6 | Number bonds to 20 | Let's add and subtract to 20 (and the make-20 bubbles), Carnival challenge |
+| `g1-fluency` | NC.1.OA.6 | Facts within 10 (and 20), no hurry | Let's add and subtract to 20 |
+| `g2-place` | NC.2.NBT.1 | Hundreds, tens and ones | Let's learn hundreds, tens and ones, Bazaar challenge |
+| `g2-readwrite` | NC.2.NBT.3 | Read and write numbers to 1,000 | Let's learn hundreds, tens and ones |
+| `g2-compare` | NC.2.NBT.4 | Compare three-digit numbers (> = <) | Let's learn hundreds, tens and ones, Bazaar challenge |
+| `g2-skip` | NC.2.NBT.2 | Skip count by 5s, 10s and 100s to 1,000 | Let's count to 1,000, Bazaar challenge |
+| `g2-tenmore` | NC.2.NBT.8 | 10 or 100 more and less | Let's count to 1,000 |
+| `g2-facts` | NC.2.OA.2 | Add and subtract within 20 in your head | Let's add and subtract to 100 |
+| `g2-add100` | NC.2.NBT.5 | Add two-digit numbers | Let's add and subtract to 100 (and jumps of ten), Bazaar challenge |
+| `g2-sub100` | NC.2.NBT.5 | Subtract two-digit numbers | Let's add and subtract to 100, Bazaar challenge |
+| `g2-add1000` | NC.2.NBT.7 | Add and subtract within 1,000 | Let's solve big sums and story problems, Bazaar challenge |
+| `g2-story` | NC.2.OA.1 | Story problems in one and two steps | Let's solve big sums and story problems, Bazaar challenge |
+| `g2-oddeven` | NC.2.OA.3 | Odd and even | Let's find odd, even and equal groups, Bazaar challenge |
+| `g2-arrays` | NC.2.OA.4 | Arrays: rows and columns | Let's find odd, even and equal groups (and build an array), Bazaar challenge |
+| `g2-time` | NC.2.MD.7 | Tell time to five minutes; a.m. and p.m. | Let's tell time and count money (and turn the clock), Bazaar challenge |
+| `g2-money` | NC.2.MD.8 | Count money: coins and dollars | Let's tell time and count money (and the market shop), Bazaar challenge |
+| `g2-length` | NC.2.MD.1 | Measure with a ruler: inches and centimetres | Let's measure and read graphs, Bazaar challenge |
+| `g2-graph` | NC.2.MD.10 | Bar graphs | Let's measure and read graphs, Bazaar challenge |
+| `g2-shapes` | NC.2.G.1 | Shapes by their sides, angles and faces | Let's explore shapes and equal parts, Bazaar challenge |
+| `g2-partition` | NC.2.G.2 | Rows and columns of squares | Let's explore shapes and equal parts, Bazaar challenge |
+| `g2-fractions` | NC.2.G.3 | Halves, thirds and fourths | Let's explore shapes and equal parts, Bazaar challenge |
+| `g3-groups` | NC.3.OA.1 | Equal groups: what multiplication means | Let's multiply |
+| `g3-multfacts` | NC.3.OA.7 | Multiplication facts to 10 × 10 | Let's multiply, Factory challenge |
+| `g3-divide` | NC.3.OA.2 | Division: sharing equally | Let's divide, Factory challenge |
+| `g3-missing` | NC.3.OA.4 | The unknown number in × and ÷ | Let's divide, Factory challenge |
+| `g3-properties` | NC.3.OA.5 | Turn it around, break it apart | Let's multiply |
+| `g3-wordprob` | NC.3.OA.3 | Story problems with × and ÷ (and two steps) | Let's solve stories and patterns, Factory challenge |
+| `g3-patterns` | NC.3.OA.9 | Patterns in the times tables | Let's solve stories and patterns |
+| `g3-round` | NC.3.NBT.1 | Round to the nearest 10 or 100 | Let's round and add, Factory challenge |
+| `g3-addsub` | NC.3.NBT.2 | Add and subtract within 1,000 (regrouping) | Let's round and add, Factory challenge |
+| `g3-times10` | NC.3.NBT.3 | Multiply by 10, 20, 30 … | Let's round and add |
+| `g3-equalparts` | NC.3.G.2 | Equal parts of a whole | Let's learn fractions |
+| `g3-fraction` | NC.3.NF.1 | Fractions of a shape | Let's learn fractions, Factory challenge |
+| `g3-fracline` | NC.3.NF.2 | Fractions on a number line | Let's learn fractions, Factory challenge |
+| `g3-fraccompare` | NC.3.NF.3 | Compare fractions; equal fractions | Let's learn fractions |
+| `g3-time` | NC.3.MD.1 | Time to the minute; how long it takes | Let's tell time and measure, Factory challenge |
+| `g3-measure` | NC.3.MD.2 | Grams, kilograms and litres | Let's tell time and measure, Factory challenge |
+| `g3-graph` | NC.3.MD.3 | Scaled bar graphs | Let's find area and perimeter, Factory challenge |
+| `g3-area` | NC.3.MD.7 | Area: square units, length × width | Let's find area and perimeter, Factory challenge |
+| `g3-perimeter` | NC.3.MD.8 | Perimeter: the distance around | Let's find area and perimeter, Factory challenge |
+| `g3-quad` | NC.3.G.1 | Quadrilaterals: squares, rectangles, rhombuses | Let's sort quadrilaterals, Factory challenge |
+| `g4-placevalue` | NC.4.NBT.2 | Place value to a million | Let's read big numbers, Observatory challenge |
+| `g4-round` | NC.4.NBT.3 | Round big numbers to any place | Let's read big numbers |
+| `g4-lakh` | NCERT lakh, crore | The Indian way: lakh and crore | Let's read big numbers, Observatory challenge |
+| `g4-addsub` | NC.4.NBT.4 | Add and subtract big numbers | Let's add, subtract and multiply, Observatory challenge |
+| `g4-multiply` | NC.4.NBT.5 | Multiply: by one digit, and two digits by two | Let's add, subtract and multiply, Observatory challenge |
+| `g4-divide` | NC.4.NBT.6 | Long division, with remainders | Let's do long division, Observatory challenge |
+| `g4-factors` | NC.4.OA.4 | Factors, multiples, prime and composite | Let's find factors and patterns, Observatory challenge |
+| `g4-compare` | NC.4.OA.1 | Times as many | Let's find factors and patterns |
+| `g4-patterns` | NC.4.OA.5 | Number patterns from a rule | Let's find factors and patterns |
+| `g4-wordprob` | NC.4.OA.3 | Story problems in several steps (and what to do with a remainder) | Let's do long division, Observatory challenge |
+| `g4-equivfrac` | NC.4.NF.1 | Equivalent fractions | Let's work with fractions, Observatory challenge |
+| `g4-comparefrac` | NC.4.NF.2 | Compare fractions with different denominators | Let's work with fractions |
+| `g4-addfrac` | NC.4.NF.3 | Add and subtract fractions (same denominator) | Let's work with fractions, Observatory challenge |
+| `g4-multfrac` | NC.4.NF.4 | A whole number times a fraction | Let's work with fractions |
+| `g4-decimals` | NC.4.NF.6 | Tenths and hundredths as decimals | Let's learn decimals, Observatory challenge |
+| `g4-convert` | NC.4.MD.1 | Change units: km, m, cm, kg, g, L, mL, hours | Let's convert and measure, Observatory challenge |
+| `g4-areaperim` | NC.4.MD.3 | Area and perimeter of rectangles | Let's convert and measure, Observatory challenge |
+| `g4-angles` | NC.4.MD.6 | Angles: acute, right, obtuse; measure and add | Let's measure angles, Observatory challenge |
+| `g4-lines` | NC.4.G.1 | Parallel and perpendicular lines; right triangles | Let's measure angles |
+| `g4-symmetry` | NC.4.G.3 | Lines of symmetry | Let's measure angles, Observatory challenge |
 
 **Not covered yet:** NC.K.G.4–6 (comparing, building and composing shapes with real materials), NC.K.CC.4's one-to-one counting of real objects (the app's tap-to-count is the closest), and NC.1.OA.3's properties of operations as a separate skill. These are better done with blocks, beads and paper shapes at a table.
 

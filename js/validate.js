@@ -4,6 +4,8 @@ import { PHONICS } from './phonicsgen.js';
 import { BEAT_KINDS, beatKind, tapTokens, SHOW_MODELS } from './logic.js';
 import { CAST, CAST_IDS, FACES, ARMS, PROPS, BACKGROUND_IDS } from './art-comic.js';
 import { actProblems } from './scene.js';
+import { SAMAY_MODES } from './samay.js';
+import { TABLES } from './pahade.js';
 
 export const COMIC_SERIES = ['mishti', 'dadi', 'birbal', 'chippu', 'betal', 'murari', 'rimjhim'];
 // Errors stop the app from using the content; warnings are shown in parent settings.
@@ -33,10 +35,12 @@ export const GAME_TYPES = [
   'grammar',
   'ginti',
   'handson', // maths with the hands (js/games/handson.js)
+  'samay', // days, months, seasons, time and rupees in Hindi (js/games/samay.js)
+  'pahade', // the times tables chanted the Hindi way (js/games/pahade.js)
   'together', // started from the home screen, not a map (js/together.js)
 ];
 // the hands-on maths activities (js/games/handson.js ACTIVITIES)
-export const HANDS_ACTIVITIES = ['tenframe', 'numberline', 'pattern', 'shapes', 'measure', 'balance', 'shop', 'clock'];
+export const HANDS_ACTIVITIES = ['tenframe', 'numberline', 'pattern', 'shapes', 'measure', 'balance', 'shop', 'clock', 'bonds', 'jumps', 'array', 'fraction', 'angle'];
 // the kinds of round in the Hindi numbers game (js/games/ginti.js)
 export const GINTI_MODES = ['count', 'show', 'hear', 'digits', 'next', 'compare', 'read', 'add', 'take', 'half'];
 export const NUMBERS_MAX = 100;
@@ -501,11 +505,29 @@ export function validateContent(c, { knownPictures = null, pictureExists = null,
       case 'math':
         if (!Array.isArray(x.skills) || !x.skills.length) err(`${at}.skills must list math skills`);
         else for (const s of x.skills) if (!SKILLS[s]) err(`${at}: "${s}" is not a math skill (see js/mathgen.js)`);
+        // a missed problem comes back later in the lesson (fluency practice with no timer)
+        if (x.retry !== undefined && typeof x.retry !== 'boolean') err(`${at}.retry must be true or false`);
         if (x.rounds !== undefined) count('rounds');
         break;
       case 'handson':
         if (!HANDS_ACTIVITIES.includes(x.activity)) err(`${at}.activity must be one of ${HANDS_ACTIVITIES.join(', ')}`);
         if (x.skill !== undefined && !SKILLS[x.skill]) err(`${at}: "${x.skill}" is not a math skill (see js/mathgen.js)`);
+        // the number the bubbles make (bonds)
+        if (x.target !== undefined && ![10, 20].includes(x.target)) err(`${at}.target must be 10 or 20`);
+        // the clock to five minutes, and the shop with dollar bills (Grade 2)
+        if (x.minutes !== undefined && x.minutes !== 5) err(`${at}.minutes must be 5`);
+        if (x.dollars !== undefined && typeof x.dollars !== 'boolean') err(`${at}.dollars must be true or false`);
+        if (x.rounds !== undefined) count('rounds');
+        break;
+      case 'pahade': {
+        const ts = x.tables || [x.table];
+        if (!Array.isArray(ts) || !ts.length || !ts.every((t) => TABLES.includes(t))) err(`${at}: "table" (or "tables") must be from ${TABLES[0]} to ${TABLES.at(-1)}`);
+        if (x.rounds !== undefined) count('rounds');
+        break;
+      }
+      case 'samay':
+        if (!Array.isArray(x.modes) || !x.modes.length || !x.modes.every((m) => SAMAY_MODES[m])) err(`${at}.modes must list kinds of round: ${Object.keys(SAMAY_MODES).join(', ')}`);
+        if (x.minLevel !== undefined && ![0, 1, 2].includes(x.minLevel)) err(`${at}.minLevel must be 0, 1 or 2`);
         if (x.rounds !== undefined) count('rounds');
         break;
       case 'ginti':

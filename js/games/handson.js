@@ -6,10 +6,11 @@
 // A lesson names its activity: { "activity": "tenframe", "rounds": 5 }.
 import { el, sleep, runRounds, cheer, bounce, wobble, flyTo, ICONS, stepHint } from './kit.js';
 import { mathModel } from '../art-math.js';
+import { shuffle } from '../logic.js';
 
-export const ACTIVITIES = ['tenframe', 'numberline', 'pattern', 'shapes', 'measure', 'balance', 'shop', 'clock'];
+export const ACTIVITIES = ['tenframe', 'numberline', 'pattern', 'shapes', 'measure', 'balance', 'shop', 'clock', 'bonds', 'jumps', 'array', 'fraction', 'angle'];
 // the skill each records (js/mathgen.js), so the grown-ups' area shows it with the others
-export const ACTIVITY_SKILL = { tenframe: 'k-make10', numberline: 'k-add', pattern: 'k-pattern', shapes: 'g1-compose', measure: 'g1-units', balance: 'g1-equal', shop: 'g1-coins', clock: 'g1-time' };
+export const ACTIVITY_SKILL = { tenframe: 'k-make10', numberline: 'k-add', pattern: 'k-pattern', shapes: 'g1-compose', measure: 'g1-units', balance: 'g1-equal', shop: 'g1-coins', clock: 'g1-time', bonds: 'k-bond10', jumps: 'g2-add100', array: 'g2-arrays', fraction: 'g3-fraction', angle: 'g4-angles' };
 
 const int = (rng, lo, hi) => lo + Math.floor(rng() * (hi - lo + 1));
 const pick = (rng, xs) => xs[Math.floor(rng() * xs.length)];
@@ -356,15 +357,19 @@ async function balance(ctx) {
 }
 
 // ---------- 7. the coin shop (NC.1.MD.5) ----------
-const COINS = { penny: 1, nickel: 5, dime: 10, quarter: 25 };
+const COINS = { penny: 1, nickel: 5, dime: 10, quarter: 25, dollar: 100 };
+// Grade 2 writes $1.25; Grade 1 only knows cents (125¢)
+const money = (c, dollars = true) => (dollars && c >= 100 ? `$${(c / 100).toFixed(2)}` : `${c}¢`);
 const SHOP = ['ball', 'kite', 'balloon', 'apple', 'book', 'cake', 'drum', 'cap'];
 async function shop(ctx) {
   const t = ctx.tier;
-  const kinds = t === 0 ? ['penny', 'nickel'] : t === 1 ? ['penny', 'nickel', 'dime'] : ['penny', 'nickel', 'dime', 'quarter'];
-  const price = int(ctx.rng, t === 0 ? 2 : 11, t === 0 ? 9 : t === 1 ? 40 : 75);
+  // Grade 2 pays with dollar bills too (NC.2.MD.8): { "dollars": true }
+  const dollars = !!ctx.config.dollars;
+  const kinds = dollars ? ['dollar', 'quarter', 'dime', 'nickel', 'penny'] : t === 0 ? ['penny', 'nickel'] : t === 1 ? ['penny', 'nickel', 'dime'] : ['penny', 'nickel', 'dime', 'quarter'];
+  const price = dollars ? int(ctx.rng, t === 0 ? 21 : 22, t === 0 ? 30 : 50) * 5 + (t === 2 ? int(ctx.rng, 1, 4) : 0) : int(ctx.rng, t === 0 ? 2 : 11, t === 0 ? 9 : t === 1 ? 40 : 75);
   const item = pick(ctx.rng, SHOP);
   const name = ctx.word(item)?.en || item;
-  const ask = `The ${name} costs ${price} cents. Pay with coins.`;
+  const ask = dollars ? `The ${name} costs ${money(price)}. Pay with money.` : `The ${name} costs ${price} cents. Pay with coins.`;
   const { work, tools, check } = board(ctx, ask, 'hands-shop');
   const paid = [];
   const tray = el('div', { class: 'sh-tray', 'aria-label': 'Coins paid' });
@@ -384,16 +389,16 @@ async function shop(ctx) {
       }),
     );
     // the running total helps at first; at the top tier the child adds it up
-    total.textContent = t < 2 ? `${sum()}¢` : '?';
+    total.textContent = t < 2 ? money(sum(), dollars) : '?';
   };
-  work.append(el('div', { class: 'sh-item' }, [el('span', { class: 'sh-pic', html: ctx.picture(ctx.word(item)) }), el('b', { class: 'sh-price', text: `${price}¢` })]), el('p', { class: 'hands-readout' }, [el('span', { text: 'Paid: ' }), total]), tray);
+  work.append(el('div', { class: 'sh-item' }, [el('span', { class: 'sh-pic', html: ctx.picture(ctx.word(item)) }), el('b', { class: 'sh-price', text: money(price, dollars) })]), el('p', { class: 'hands-readout' }, [el('span', { text: 'Paid: ' }), total]), tray);
   const coins = kinds.map((k) => {
-    const b = el('button', { class: 'sh-coin', 'aria-label': `Add a ${k}, ${COINS[k]} cents`, html: mathModel({ kind: 'coin', coin: k, label: true }) });
+    const b = el('button', { class: `sh-coin${k === 'dollar' ? ' bill' : ''}`, 'aria-label': k === 'dollar' ? 'Add a dollar' : `Add a ${k}, ${COINS[k]} cents`, html: mathModel({ kind: 'coin', coin: k, label: true }) });
     b.addEventListener('click', () => {
       if (paid.length >= 15) return wobble(b);
       paid.push(k);
       ctx.sfx.pop();
-      ctx.sayText(`${k}, ${COINS[k]} ${COINS[k] === 1 ? 'cent' : 'cents'}`, 'en');
+      ctx.sayText(k === 'dollar' ? 'one dollar' : `${k}, ${COINS[k]} ${COINS[k] === 1 ? 'cent' : 'cents'}`, 'en');
       draw();
       hint.step();
     });
@@ -410,20 +415,24 @@ async function shop(ctx) {
     return coins.filter((b) => COINS[b.coin] <= left).sort((x, y) => COINS[y.coin] - COINS[x.coin])[0];
   };
   const hint = stepHint(ctx, nextCoin, { coach: 'each' });
-  const first = await untilRight(ctx, check, () => (sum() === price ? true : sum() < price ? `That's ${sum()} cents. The ${name} costs ${price}.` : `That's ${sum()} cents: too much. Take a coin back.`), hint);
-  return { first, explain: `${price} cents. Thank you for shopping!`, node: tray };
+  const first = await untilRight(ctx, check, () => (sum() === price ? true : sum() < price ? `That's ${money(sum(), dollars)}. The ${name} costs ${money(price, dollars)}.` : `That's ${money(sum(), dollars)}: too much. Take some back.`), hint);
+  return { first, explain: `${money(price, dollars)}. Thank you for shopping!`, node: tray };
 }
 
 // ---------- 8. turn the clock's hands (NC.1.MD.3) ----------
 async function clock(ctx) {
   const t = ctx.tier;
+  // Grade 2 tells time to five minutes (NC.2.MD.7): { "minutes": 5 }
+  const five = ctx.config.minutes === 5;
+  const step = five ? 5 : 15;
   const h = int(ctx.rng, 1, 12);
-  const m = t === 2 ? 30 : 0;
-  const ask = m ? `Show half past ${h}. Turn the hands.` : `Show ${h} o'clock. Turn the short hand${t ? ' and the long hand' : ''}.`;
+  const m = five ? (t === 0 ? pick(ctx.rng, [15, 30, 45]) : int(ctx.rng, 1, 11) * 5) : t === 2 ? 30 : 0;
+  const pad = (x) => String(x).padStart(2, '0');
+  const ask = five ? `Show ${h}:${pad(m)}. Turn the hands.` : m ? `Show half past ${h}. Turn the hands.` : `Show ${h} o'clock. Turn the short hand${t ? ' and the long hand' : ''}.`;
   const { work, tools, check } = board(ctx, ask, 'hands-clock');
   // where the hands start: not already right
   let hh = ((h + int(ctx.rng, 2, 9) - 1) % 12) + 1;
-  let mm = t === 0 ? 0 : pick(ctx.rng, [15, 30, 45].filter((x) => x !== m));
+  let mm = five ? pick(ctx.rng, Array.from({ length: 12 }, (_, i) => i * 5).filter((x) => x !== m)) : t === 0 ? 0 : pick(ctx.rng, [15, 30, 45].filter((x) => x !== m));
   const face = Array.from({ length: 12 }, (_, i) => {
     const n = i + 1;
     const a = (n / 12) * 2 * Math.PI;
@@ -456,7 +465,7 @@ async function clock(ctx) {
   const near = (a, b) => Math.min(Math.abs(a - b), 360 - Math.abs(a - b));
   svg.addEventListener('pointerdown', (e) => {
     const a = angleAt(e);
-    grabbed = t === 0 ? 'hour' : near(a, mm * 6) < near(a, (hh % 12) * 30 + mm * 0.5) ? 'min' : 'hour';
+    grabbed = t === 0 && !five ? 'hour' : near(a, mm * 6) < near(a, (hh % 12) * 30 + mm * 0.5) ? 'min' : 'hour';
     svg.setPointerCapture?.(e.pointerId);
     move(e);
   });
@@ -467,7 +476,7 @@ async function clock(ctx) {
       const n = Math.round(a / 30) % 12 || 12;
       if (n !== hh) (hh = n), ctx.sfx.tick?.() || ctx.sfx.pop();
     } else {
-      const n = (Math.round(a / 90) * 15) % 60;
+      const n = (Math.round(a / (step * 6)) * step) % 60;
       if (n !== mm) (mm = n), ctx.sfx.pop();
     }
     draw();
@@ -486,20 +495,286 @@ async function clock(ctx) {
     hint.step();
   });
   minBtn.addEventListener('click', () => {
-    mm = (mm + 15) % 60;
+    mm = (mm + step) % 60;
     ctx.sfx.pop();
     draw();
     hint.step();
   });
-  tools.append(hourBtn, ...(t ? [minBtn] : []));
+  tools.append(hourBtn, ...(t || five ? [minBtn] : []));
   work.append(pic, t === 0 ? digital : null);
   const hint = stepHint(ctx, () => (hh !== h ? hourBtn : mm !== m ? minBtn : check), { coach: 'each' });
-  const say = (H, M) => (M ? `half past ${H}` : M === 0 ? `${H} o'clock` : `${H}:${M}`);
+  const say = (H, M) => (five ? `${H}:${pad(M)}` : M === 30 ? `half past ${H}` : M === 0 ? `${H} o'clock` : `${H}:${pad(M)}`);
   const first = await untilRight(ctx, check, () => (hh === h && mm === m ? true : `The clock says ${say(hh, mm)}. Show ${say(h, m)}.`), hint);
+  if (five) return { first, explain: `The long hand points to ${m / 5}: ${m / 5} fives make ${m} minutes. It's ${h}:${pad(m)}!`, node: pic };
   return { first, explain: m ? `The long hand points to 6: it's half past ${h}!` : `The short hand points to ${h} and the long hand to 12. It's ${h} o'clock!`, node: pic };
 }
 
-const PLAY = { tenframe, numberline, pattern, shapes, measure, balance, shop, clock };
+// ---------- 9. number-bond bubbles: tap two that make 10, or 20 (NC.K.OA.4, NC.1.OA.6; docs/ROADMAP.md 10.4) ----------
+async function bonds(ctx) {
+  const t = ctx.tier;
+  const target = ctx.config.target === 20 ? 20 : 10;
+  const count = t === 0 ? 2 : 3;
+  // the smaller number of each pair, all different; for 20 at first, the pairs around 10 (3 and 17)
+  const lows = shuffle(Array.from({ length: target / 2 }, (_, i) => i + 1).filter((a) => target === 10 || t > 0 || a >= 3), ctx.rng).slice(0, count);
+  const values = lows.flatMap((a) => [a, target - a]);
+  // at the top level, one bubble has no partner
+  if (t === 2) {
+    const free = Array.from({ length: target - 1 }, (_, i) => i + 1).filter((d) => !values.includes(d) && !values.includes(target - d));
+    if (free.length) values.push(pick(ctx.rng, free));
+  }
+  const ask = `Pop two bubbles that make ${target}.`;
+  const { work, tools, check } = board(ctx, ask, 'hands-bonds');
+  check.hidden = true;
+  const found = el('div', { class: 'bd-found', 'aria-live': 'polite' });
+  let picked = null;
+  let wrong = 0;
+  let pairsFound = 0;
+  let finish;
+  const done = new Promise((r) => (finish = r));
+  const bubbles = shuffle(values, ctx.rng).map((v, i) => {
+    const dots = t === 0 && target === 10 ? `<span class="bd-dots">${'<i></i>'.repeat(v)}</span>` : '';
+    const b = el('button', { class: 'bd-bubble', style: { '--i': String(i) }, 'aria-label': String(v), html: `<b>${v}</b>${dots}` });
+    b.v = v;
+    b.addEventListener('click', () => {
+      if (b.classList.contains('popped')) return;
+      if (!picked) {
+        picked = b;
+        b.classList.add('picked');
+        ctx.sfx.pop();
+        ctx.sayText(String(v), 'en');
+        hint.step();
+        return;
+      }
+      if (picked === b) {
+        b.classList.remove('picked');
+        picked = null;
+        return;
+      }
+      const a = picked;
+      picked = null;
+      a.classList.remove('picked');
+      if (a.v + b.v === target) {
+        for (const x of [a, b]) x.classList.add('popped');
+        found.append(el('span', { class: 'bd-pair', text: `${a.v} + ${b.v} = ${target}` }));
+        ctx.sfx.feel ? ctx.sfx.feel('right') : ctx.sfx.chime();
+        hint.step();
+        ctx.sayText(`${a.v} and ${b.v} make ${target}!`, 'en');
+        if (++pairsFound === count) {
+          hint.done();
+          setTimeout(finish, 700);
+        }
+      } else {
+        wrong++;
+        wobble(a);
+        wobble(b);
+        ctx.miss?.();
+        hint.miss();
+        ctx.sayText(`${a.v} and ${b.v} make ${a.v + b.v}. We need ${target}.`, 'en');
+      }
+    });
+    return b;
+  });
+  work.append(el('div', { class: 'bd-field' }, bubbles), found);
+  tools.append(el('span', { class: 'hands-help', text: `Tap one bubble, then the one that makes ${target} with it.` }));
+  // the next step: the partner of the bubble picked, or any bubble that has a partner
+  const partner = (b) => bubbles.find((x) => x !== b && !x.classList.contains('popped') && x.v + b.v === target);
+  const hint = stepHint(ctx, () => (picked ? partner(picked) : bubbles.find((b) => !b.classList.contains('popped') && partner(b))), { coach: 'each' });
+  await done;
+  return { first: wrong === 0 && hint.used === 0, explain: `You found ${count} ways to make ${target}!`, node: found };
+}
+
+// ---------- 10. jumps of ten and one along a number line (NC.2.NBT.5; docs/ROADMAP.md 10.5) ----------
+async function jumps(ctx) {
+  const t = ctx.tier;
+  const a = int(ctx.rng, 12, 58);
+  const b = t === 0 ? int(ctx.rng, 1, 3) * 10 : int(ctx.rng, 11, t === 1 ? 29 : 39);
+  const answer = a + b;
+  const ask = `Start at ${a}. Jump ${b} more. Where do you land?`;
+  const { work, tools, check } = board(ctx, ask, 'hands-jumps');
+  const eq = el('p', { class: 'math-eq' }, [`${a} + ${b} = `, el('span', { class: 'gap', text: '?' })]);
+  const hops = [];
+  const at = () => a + hops.reduce((s, x) => s + x, 0);
+  const span = b + 12;
+  const X = (v) => 20 + ((v - a) / span) * 560;
+  const line = el('div', { class: 'jl-line' });
+  const readout = el('p', { class: 'hands-readout' }, [el('span', { text: 'On ' }), el('b', { class: 'hands-count', text: String(a) })]);
+  const draw = () => {
+    let arcs = '';
+    let v = a;
+    for (const hop of hops) {
+      const [x1, x2] = [X(v), X(v + hop)];
+      arcs += `<path d="M${x1.toFixed(1)} 70 Q${((x1 + x2) / 2).toFixed(1)} ${hop === 10 ? 8 : 40} ${x2.toFixed(1)} 70" fill="none" stroke="${hop === 10 ? '#3D7BFF' : '#2EC27E'}" stroke-width="${hop === 10 ? 4 : 3}"/>`;
+      if (hop === 10) arcs += `<text x="${((x1 + x2) / 2).toFixed(1)}" y="32" font-size="15" font-weight="800" fill="#3D7BFF" text-anchor="middle">+10</text>`;
+      v += hop;
+    }
+    const marks = [a, ...new Set(hops.map((_, i) => a + hops.slice(0, i + 1).reduce((s, x) => s + x, 0)).filter((x, i, all) => hops[i] === 10 || i === all.length - 1))];
+    const labels = marks.map((m) => `<line x1="${X(m).toFixed(1)}" y1="62" x2="${X(m).toFixed(1)}" y2="78" stroke="#2B2D42" stroke-width="3"/><text x="${X(m).toFixed(1)}" y="100" font-size="17" font-weight="800" fill="${m === a ? '#FF5A5F' : '#2B2D42'}" text-anchor="middle">${m}</text>`).join('');
+    line.innerHTML = `<svg viewBox="0 0 600 110" aria-hidden="true"><line x1="10" y1="70" x2="590" y2="70" stroke="#2B2D42" stroke-width="4" stroke-linecap="round"/>${arcs}${labels}<circle cx="${X(at()).toFixed(1)}" cy="70" r="10" fill="#FFC93C" stroke="#2B2D42" stroke-width="2.5"/></svg>`;
+    readout.querySelector('b').textContent = String(at());
+  };
+  draw();
+  const hop = (k, btn) => () => {
+    if (at() + k > a + span) return wobble(btn);
+    hops.push(k);
+    draw();
+    if (ctx.sfx.boing) ctx.sfx.boing();
+    else ctx.sfx.pop();
+    ctx.sayText(String(at()), 'en');
+    hint.step();
+  };
+  const ten = toolBtn('+10', 'ten', 'Jump ten');
+  const one = toolBtn('+1', 'one', 'Jump one');
+  const undo = toolBtn('↩', 'undo', 'Undo a jump');
+  ten.addEventListener('click', hop(10, ten));
+  one.addEventListener('click', hop(1, one));
+  undo.addEventListener('click', () => {
+    if (!hops.length) return wobble(undo);
+    hops.pop();
+    draw();
+    ctx.sfx.pop();
+  });
+  tools.append(undo, one, ten);
+  work.append(eq, line, readout);
+  const hint = stepHint(ctx, () => (at() > answer ? undo : answer - at() >= 10 ? ten : answer - at() > 0 ? one : check), { coach: 'each' });
+  const first = await untilRight(ctx, check, () => (at() === answer ? true : `You jumped ${at() - a}. Jump ${b} in all: tens first, then ones.`), hint);
+  eq.querySelector('.gap').textContent = String(answer);
+  eq.classList.add('done');
+  return { first, explain: `${a} + ${b} = ${answer}: ${Math.floor(b / 10)} ${Math.floor(b / 10) === 1 ? 'jump' : 'jumps'} of ten and ${b % 10} of one.`, node: line };
+}
+
+// ---------- 11. build an array: rows of the same (NC.2.OA.4; docs/ROADMAP.md 10.5) ----------
+async function arrayBuild(ctx) {
+  const t = ctx.tier;
+  const R = int(ctx.rng, 2, t === 0 ? 3 : 4);
+  const C = int(ctx.rng, 2, t === 0 ? 4 : 5);
+  const total = R * C;
+  // at the top level only the total and the rows are given
+  const byTotal = t === 2;
+  const ask = byTotal ? `Make ${total} in ${R} equal rows.` : `Make ${R} rows of ${C}.`;
+  const { work, tools, check } = board(ctx, ask, 'hands-array');
+  const thingPic = pick(ctx.rng, ['apple', 'mango', 'laddoo', 'balloon', 'flower']);
+  let rows = 1;
+  let cols = 1;
+  const pic = el('div', { class: 'ar-pic' });
+  const readout = el('p', { class: 'hands-readout' });
+  const draw = () => {
+    pic.innerHTML = mathModel({ kind: 'array', rows, cols, pic: thingPic });
+    readout.textContent = `${rows} ${rows === 1 ? 'row' : 'rows'} of ${cols}: ${rows * cols}`;
+  };
+  draw();
+  const change = (dr, dc, btn) => () => {
+    const [r, c] = [rows + dr, cols + dc];
+    if (r < 1 || c < 1 || r > 6 || c > 6) return wobble(btn);
+    [rows, cols] = [r, c];
+    draw();
+    ctx.sfx.pop();
+    hint.step();
+  };
+  const addRow = toolBtn('+ row', 'add-row', 'Add a row');
+  const subRow = toolBtn('− row', 'sub-row', 'Take a row away');
+  const addCol = toolBtn('+ in each row', 'add-col', 'One more in each row');
+  const subCol = toolBtn('− in each row', 'sub-col', 'One fewer in each row');
+  addRow.addEventListener('click', change(1, 0, addRow));
+  subRow.addEventListener('click', change(-1, 0, subRow));
+  addCol.addEventListener('click', change(0, 1, addCol));
+  subCol.addEventListener('click', change(0, -1, subCol));
+  tools.append(subRow, addRow, subCol, addCol);
+  work.append(pic, readout);
+  const hint = stepHint(ctx, () => (rows < R ? addRow : rows > R ? subRow : cols < C ? addCol : cols > C ? subCol : check), { coach: 'each' });
+  const first = await untilRight(ctx, check, () => (rows === R && cols === C ? true : `That's ${rows} ${rows === 1 ? 'row' : 'rows'} of ${cols}. ${ask}`), hint);
+  return { first, explain: `${R} rows of ${C}: ${Array.from({ length: R }, () => C).join(' + ')} = ${total}!`, node: pic };
+}
+
+// ---------- 12. shade the fraction (NC.3.NF.1, NF.3; docs/ROADMAP.md 10.8) ----------
+async function fraction(ctx) {
+  const t = ctx.tier;
+  const b = pick(ctx.rng, t === 0 ? [2, 3, 4] : [3, 4, 5, 6, 8]);
+  const k = t === 0 ? 1 : int(ctx.rng, 1, b - 1);
+  // at the top level the bar has more pieces than the fraction asks for: 1/2 of a bar of 8
+  const m = t === 2 ? pick(ctx.rng, [2, 3].filter((x) => b * x <= 12)) || 1 : 1;
+  const parts = b * m;
+  const want = k * m;
+  const ask = m > 1 ? `Shade ${k}/${b} of the bar. It has ${parts} pieces.` : `Shade ${k}/${b} of the bar.`;
+  const { work, tools, check } = board(ctx, ask, 'hands-fraction');
+  const cells = Array.from({ length: parts }, (_, i) => {
+    const c = el('button', { class: 'fr-cell', 'aria-label': `Piece ${i + 1}` });
+    c.addEventListener('click', () => {
+      c.classList.toggle('on');
+      ctx.sfx.pop();
+      draw();
+      hint.step();
+    });
+    return c;
+  });
+  const readout = el('p', { class: 'hands-readout' });
+  const on = () => cells.filter((c) => c.classList.contains('on')).length;
+  const draw = () => (readout.textContent = `${on()} of ${parts} pieces shaded: ${on()}/${parts}`);
+  draw();
+  work.append(el('div', { class: 'fr-bar', style: { '--n': String(parts) } }, cells), readout);
+  tools.append(el('span', { class: 'hands-help', text: 'Tap a piece to shade it, or to clear it.' }));
+  const hint = stepHint(ctx, () => (on() < want ? cells.find((c) => !c.classList.contains('on')) : on() > want ? cells.filter((c) => c.classList.contains('on')).at(-1) : check), { coach: 'each' });
+  const first = await untilRight(ctx, check, () => (on() === want ? true : `That's ${on()}/${parts}. Shade ${k}/${b}${m > 1 ? `: that is ${want} of the ${parts} pieces` : ''}.`), hint);
+  return { first, explain: m > 1 ? `${want}/${parts} is the same as ${k}/${b}!` : `${k} of ${b} equal pieces: ${k}/${b}!`, node: work };
+}
+
+// ---------- 13. turn the angle on the protractor (NC.4.MD.6; docs/ROADMAP.md 10.8) ----------
+async function angleTurn(ctx) {
+  const t = ctx.tier;
+  const step = [30, 10, 5][t];
+  const target = int(ctx.rng, 1, Math.floor(175 / step)) * step;
+  const ask = `Make an angle of ${target}°.`;
+  const { work, tools, check } = board(ctx, ask, 'hands-angle');
+  // the arm starts on the buttons' own steps, well away from the answer, so it can always be reached
+  const starts = Array.from({ length: Math.floor(180 / step) - 1 }, (_, i) => (i + 1) * step).filter((d) => Math.abs(d - target) >= 2 * step);
+  let deg = pick(ctx.rng, starts.length ? starts : [target === step ? 2 * step : step]);
+  const pic = el('div', { class: 'an-pic' });
+  const readout = el('b', { class: 'ck-digital' });
+  const draw = () => {
+    pic.innerHTML = mathModel({ kind: 'angle', deg, protractor: true });
+    readout.textContent = `${deg}°`;
+  };
+  draw();
+  // drag the arm round, or use the buttons
+  pic.addEventListener('pointerdown', (e) => {
+    const move = (ev) => {
+      const r = pic.getBoundingClientRect();
+      // the corner of the angle is at (150, 170) of the 300 × 190 picture
+      const x = ev.clientX - (r.left + (r.width * 150) / 300);
+      const y = r.top + (r.height * 170) / 190 - ev.clientY;
+      // snap to the buttons' own steps, so the buttons (and the 💡) can always finish the angle
+      const a = Math.round((Math.atan2(y, x) * 180) / Math.PI / step) * step;
+      if (a >= 0 && a <= 180 && a !== deg) {
+        deg = a;
+        draw();
+        ctx.sfx.tick?.();
+        hint.step();
+      }
+    };
+    move(e);
+    pic.setPointerCapture?.(e.pointerId);
+    pic.onpointermove = move;
+    pic.onpointerup = pic.onpointercancel = () => (pic.onpointermove = null);
+  });
+  const turn = (d, btn) => () => {
+    if (deg + d < 0 || deg + d > 180) return wobble(btn);
+    deg += d;
+    draw();
+    ctx.sfx.pop();
+    hint.step();
+  };
+  const less = toolBtn(`− ${step}°`, 'less', `Close by ${step} degrees`);
+  const more = toolBtn(`+ ${step}°`, 'more', `Open by ${step} degrees`);
+  less.addEventListener('click', turn(-step, less));
+  more.addEventListener('click', turn(step, more));
+  tools.append(less, more);
+  work.append(pic, readout);
+  const hint = stepHint(ctx, () => (deg < target ? more : deg > target ? less : check), { coach: 'each' });
+  const first = await untilRight(ctx, check, () => (deg === target ? true : `That angle is ${deg}°. Make ${target}°.`), hint);
+  const kind = target < 90 ? 'an acute angle' : target === 90 ? 'a right angle' : target < 180 ? 'an obtuse angle' : 'a straight angle';
+  return { first, explain: `${target}°: ${kind}!`, node: pic };
+}
+
+const PLAY = { tenframe, numberline, pattern, shapes, measure, balance, shop, clock, bonds, jumps, array: arrayBuild, fraction, angle: angleTurn };
 
 export default {
   async start(ctx) {

@@ -1,4 +1,6 @@
 // Pure game logic: no DOM, no storage. Everything here is unit-tested in tests/.
+import { samayLines } from './samay.js';
+import { pahadaLines } from './pahade.js';
 
 export const LANG_MODES = ['hi', 'en', 'both'];
 
@@ -940,6 +942,12 @@ export function lessonVoiceLines(content) {
   for (const r of content.riddles || []) for (const t of [r.hi, ...r.options, `${r.answer}! ${r.why.hi}`]) byText(t, 'hi', r.level);
   // ... and each idiom, its meanings and the sentence (the strip's bubbles are in the comic voices)
   for (const x of content.idioms || []) for (const t of [x.hi, ...x.options, `${x.hi}: ${x.meaning.hi}`]) byText(t, 'hi', x.level);
+  // days, months, seasons, the time and rupees in Hindi (js/samay.js): every sentence, shared by every grade
+  for (const t of samayLines()) byText(t, 'hi');
+  // the times tables chanted the Hindi way (js/pahade.js): every line, in the grades that chant them
+  const numWord = (n) => content.numbers?.[n - 1]?.hi || String(n);
+  const chantLevel = oneLevel((l) => l.game === 'pahade');
+  if (content.numbers?.length >= 100) for (const t of pahadaLines(numWord)) byText(t, 'hi', chantLevel);
 
   // the barakhadi: each lesson's rows, said together, and each syllable on its own
   const matras = new Map((content.matras || []).map((m) => [m.id, m]));

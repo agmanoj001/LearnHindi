@@ -99,16 +99,19 @@ const DONE = {
     /guideSays\(show\.next/.test(read('js/shows.js')),
   '"Words I know" book': () => exists('js/wordbook.js') && /wordsChip\(api\)/.test(read('js/screens.js')) && /case 'words'/.test(read('js/app.js')) && /\.words-page/.test(css),
   'Free play between lessons': () => exists('js/freeplay.js') && /freeplayDue\(/.test(read('js/screens.js')) && ['drive', 'feed', 'colour'].every((m) => read('js/freeplay.js').includes(`'${m}'`)),
+  'Fill the gaps in Kindergarten and Grade 1': () => ['k-countback', 'k-ordinal', 'k-bond10', 'g1-countback', 'g1-skip', 'g1-doubles', 'g1-bond20', 'g1-fluency'].every((s) => JSON.stringify(content.worlds).includes(`"${s}"`)) && /"target":20/.test(JSON.stringify(content.worlds)) && /retry/.test(read('js/games/math.js')),
+  'A Grade 2 maths world': () => (content.worlds.find((w) => w.subject === 'math' && w.level === 'grade2')?.units || []).reduce((n, u) => n + u.lessons.length, 0) >= 24,
+  'Days, months, time and money in Hindi': () => exists('js/games/samay.js') && ['days', 'months', 'seasons', 'clock', 'pay'].every((m) => JSON.stringify(content.worlds.filter((w) => w.subject === 'hindi')).includes(`"${m}"`)) && /ढाई|डेढ़/.test(read('js/samay.js')) && /पैसे/.test(read('js/samay.js')),
+  'पहाड़े: times tables sung the Hindi way': () => exists('js/games/pahade.js') && [2, 3, 4, 5, 6, 7, 8, 9, 10].every((n) => content.worlds.some((w) => w.units.some((u) => u.lessons.some((l) => l.game === 'pahade' && (l.config.table === n || l.config.tables?.includes(n)))))) && /dhol/.test(read('js/sfx.js')),
+  'Grade 3 and Grade 4 maths worlds': () => ['grade3', 'grade4'].every((lv) => (content.worlds.find((w) => w.subject === 'math' && w.level === lv)?.units || []).reduce((n, u) => n + u.lessons.length, 0) >= 20) && /g4-lakh/.test(read('js/mathgen.js')),
+  'Maths stories and puzzles for older children': () => ['chess-rice', 'seventeen-camels', 'aryabhata-zero', 'birbal-biggest', 'tenali-jars'].every((id) => content.stories.some((s) => s.id === id)) && ['mu-1729', 'r-shakuntala', 'b-crows', 'd-lock', 'd-coins'].every((id) => content.comics.some((c) => c.id === id && c.guess)),
+  'More maths in Show time': () => ['km-count', 'km-compare', 'km-ten', 'km-shapes', 'km-measure'].every((u) => content.shows.some((s) => s.level === 'kg' && s.lang === 'en' && String(s.lesson).startsWith(u))),
 };
 
 // title of an open row -> a sign in the code that it has been built (then its row must be ✅)
 const WATCH = {
   'A "what\'s new" note': () => /whatsNew|changelog/i.test(js),
   'More decodable books for Grade 1': () => content.stories.filter((s) => s.decodable != null).length >= 25,
-  'A Grade 2 maths world': () => content.worlds.some((w) => w.subject === 'math' && w.level === 'grade2'),
-  'पहाड़े: times tables sung the Hindi way': () => /पहाड़े/.test(JSON.stringify(content.worlds)),
-  // (a Grade 4 quiz on days and months is already there; the row stays open for time and money)
-  'Days, months, time and money in Hindi': () => /बजे|पैसे/.test(JSON.stringify(content.worlds.filter((w) => w.subject === 'hindi')) + JSON.stringify(content.quizzes || {})),
   'A reading-comfort option': () => /readingComfort|reading-comfort/.test(js + css),
 };
 

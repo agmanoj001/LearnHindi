@@ -169,6 +169,16 @@ export const THINGS = {
   sticks: () => [-8, -3, 2, 7, 12].map((r, i) => `<g transform="rotate(${r} 100 70)">${rect(30, 54 + i * 7, 140, 8, ['#A47864', '#8A5A44'][i % 2], 4)}</g>`).join('') + rect(84, 46, 10, 52, '#FF5A5F', 3) + rect(116, 46, 10, 52, '#FF5A5F', 3),
   axe: () => bigAxe('#A0A7B4'),
   goldenaxe: () => bigAxe('#FFC93C') + `<polygon points="${starPoints(150, 30, 10, 4)}" fill="#FFE45C"/>` + `<polygon points="${starPoints(52, 46, 7, 3)}" fill="#FFE45C"/>`,
+  // a chessboard with grains of rice doubling square by square: 1, 2, 4, 8 (the rice-on-the-chessboard story)
+  chessboard: () => {
+    let s = rect(38, 4, 124, 124, '#8A5A44', 6);
+    for (let r = 0; r < 8; r++) for (let c = 0; c < 8; c++) s += rect(44 + c * 14, 10 + r * 14, 14, 14, (r + c) % 2 ? '#7B4A2E' : '#F3DFB8', 0);
+    const grains = [1, 2, 4, 8];
+    grains.forEach((g, i) => {
+      for (let k = 0; k < g; k++) s += ell(44 + i * 14 + 3.5 + (k % 3) * 3.5, 108 + 4 + Math.floor(k / 3) * 3.5, 1.6, 1.1, '#FFFFFF');
+    });
+    return s;
+  },
   coins: () => [
       [70, 100],
       [110, 104],

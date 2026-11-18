@@ -467,7 +467,8 @@
     "xmastree": { "hi": "क्रिसमस का पेड़", "translit": "krismas ka ped", "en": "Christmas tree", "picture": "xmastree" },
     "bonfire": { "hi": "लोहड़ी की आग", "translit": "lohdee kee aag", "en": "Lohri fire", "picture": "bonfire" },
     "pongalpot": { "hi": "पोंगल की हांडी", "translit": "pongal kee haandee", "en": "Pongal pot", "picture": "pongalpot" },
-    "pookalam": { "hi": "पूकलम", "translit": "pookalam", "en": "flower carpet", "picture": "pookalam" }
+    "pookalam": { "hi": "पूकलम", "translit": "pookalam", "en": "flower carpet", "picture": "pookalam" },
+    "chessboard": { "hi": "शतरंज", "translit": "shatranj", "en": "chessboard", "picture": "chessboard" }
   },
   "sentences": [
     { "id": "bus-here", "about": "bus", "hi": "बस आई!", "translit": "bas aai", "en": "The bus is here!", "level": "grade2" },
@@ -10647,6 +10648,426 @@
         { "type": "why", "hi": "खीरा बोतल में कैसे पहुँचा?", "en": "How did the cucumber get into the bottle?" },
         { "type": "you", "hi": "कोई काम नामुमकिन लगे, तो कैसे सोचें?", "en": "When a job seems impossible, how can we think it through?" }
       ]
+    },
+    {
+      "id": "birbal-biggest",
+      "level": "grade3",
+      "title": { "hi": "सबसे बड़ी गिनती", "en": "The biggest number" },
+      "cover": "king",
+      "pages": [
+        {
+          "word": "king",
+          "hi": "एक दिन बादशाह अकबर ने दरबार में पूछा, \"दुनिया की सबसे बड़ी संख्या कौन-सी है?\"",
+          "en": "One day Emperor Akbar asked his court, \"What is the biggest number in the world?\""
+        },
+        {
+          "word": "minister",
+          "hi": "एक दरबारी बोला, \"हज़ार, जहाँपनाह!\" दूसरा बोला, \"नहीं, लाख!\" तीसरा बोला, \"करोड़!\"",
+          "en": "One courtier said, \"A thousand, Your Majesty!\" Another said, \"No, a lakh!\" A third said, \"A crore!\""
+        },
+        { "word": "king", "hi": "अकबर ने बीरबल की ओर देखा, \"तुम क्या कहते हो, बीरबल?\"", "en": "Akbar looked at Birbal. \"What do you say, Birbal?\"" },
+        {
+          "word": "star",
+          "hi": "बीरबल मुस्कुराए, \"जहाँपनाह, आप कोई भी संख्या बोलिए। मैं उसमें एक जोड़ दूँगा, और वह उससे बड़ी हो जाएगी।\"",
+          "en": "Birbal smiled. \"Your Majesty, say any number at all. I will add one to it, and it will be bigger.\""
+        },
+        {
+          "word": "king",
+          "hi": "अकबर बोले, \"एक करोड़!\" बीरबल तुरंत बोले, \"एक करोड़ एक!\"",
+          "en": "Akbar said, \"One crore!\" At once Birbal said, \"One crore and one!\""
+        },
+        {
+          "word": "star",
+          "hi": "बीरबल ने समझाया, \"गिनती कभी ख़त्म नहीं होती, आसमान के तारों की तरह। इसलिए कोई सबसे बड़ी संख्या नहीं है।\"",
+          "en": "Birbal explained, \"Counting never ends, like the stars in the sky. So there is no biggest number.\""
+        },
+        { "word": "king", "hi": "अकबर हँस पड़े, \"बीरबल, तुम्हारी बुद्धि भी अनगिनत है!\"", "en": "Akbar laughed. \"Birbal, your wisdom is countless too!\"" }
+      ],
+      "questions": [
+        {
+          "hi": "अकबर ने क्या पूछा?",
+          "en": "What did Akbar ask?",
+          "text": true,
+          "answer": "सबसे बड़ी संख्या कौन-सी है",
+          "options": ["सबसे बड़ी संख्या कौन-सी है", "सबसे लंबी नदी कौन-सी है", "सबसे ऊँचा पेड़ कौन-सा है"]
+        },
+        {
+          "hi": "बीरबल किसी भी संख्या को बड़ा कैसे बनाते?",
+          "en": "How would Birbal make any number bigger?",
+          "text": true,
+          "answer": "उसमें एक जोड़कर",
+          "options": ["उसमें एक जोड़कर", "उसे आधा करके", "उसे मिटाकर"]
+        },
+        {
+          "hi": "एक करोड़ में एक जोड़ें, तो क्या बनेगा?",
+          "en": "What is one crore plus one?",
+          "text": true,
+          "answer": "एक करोड़ एक",
+          "options": ["एक करोड़ एक", "दो करोड़", "एक लाख"]
+        }
+      ],
+      "moral": { "hi": "गिनती कभी ख़त्म नहीं होती: हर संख्या के बाद एक और संख्या आती है।", "en": "Counting never ends: after every number comes another one." },
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"बीरबल ने समझाया, \"गिनती कभी ख़त्म नहीं होती, आसमान के … की तरह। इसलिए कोई सबसे बड़ी संख्या नहीं है।\"\" (तारों)",
+          "en": "Say this and let your child fill the gap: \"बीरबल ने समझाया, \"गिनती कभी ख़त्म नहीं होती, आसमान के … की तरह। इसलिए कोई सबसे बड़ी संख्या नहीं है।\"\" (तारों)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"एक दिन बादशाह अकबर ने दरबार में पूछा, \"दुनिया की सबसे बड़ी संख्या कौन-सी है?\"\")",
+          "en": "Ask: what happened first in the story? (\"One day Emperor Akbar asked his court, \"What is the biggest number in the world?\"\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर तारा है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the star and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "कोई सबसे बड़ी संख्या क्यों नहीं होती?", "en": "Why is there no biggest number?" },
+        { "type": "you", "hi": "सबसे बड़ी संख्या बोलो जो तुम्हें आती हो, फिर उसमें एक जोड़ो!", "en": "Say the biggest number you know, then add one to it!" }
+      ]
+    },
+    {
+      "id": "tenali-jars",
+      "level": "grade3",
+      "title": { "hi": "इक्कीस घड़े", "en": "Twenty-one jars" },
+      "cover": "jar",
+      "pages": [
+        {
+          "word": "jar",
+          "hi": "एक व्यापारी अपने तीन बेटों के लिए इक्कीस घड़े घी छोड़ गया।",
+          "en": "A trader left twenty-one jars of ghee for his three sons."
+        },
+        {
+          "word": "jar",
+          "hi": "सात घड़े पूरे भरे थे, सात आधे भरे थे, और सात बिलकुल ख़ाली थे।",
+          "en": "Seven jars were full, seven were half full, and seven were empty."
+        },
+        {
+          "word": "boy",
+          "hi": "शर्त थी: हर बेटे को बराबर घड़े मिलें और बराबर घी, पर घी एक घड़े से दूसरे में डालना मना था।",
+          "en": "The rule: each son must get the same number of jars and the same amount of ghee, but no ghee may be poured from jar to jar."
+        },
+        {
+          "word": "king",
+          "hi": "भाई झगड़ने लगे, तो वे राजा कृष्णदेवराय के दरबार में पहुँचे। राजा ने तेनालीराम को बुलाया।",
+          "en": "The brothers began to quarrel, so they went to King Krishnadevaraya. The king called Tenali Raman."
+        },
+        {
+          "word": "pot",
+          "hi": "तेनालीराम ने गिना: सारा घी मिलाकर साढ़े दस घड़े भरेगा। तो हर भाई को सात घड़े और साढ़े तीन घड़े घी चाहिए।",
+          "en": "Tenali Raman counted: all the ghee together would fill ten and a half jars. So each brother needs seven jars and three and a half jars of ghee."
+        },
+        {
+          "word": "jar",
+          "hi": "पहले भाई को मिले तीन पूरे, एक आधा और तीन ख़ाली घड़े।",
+          "en": "The first brother got three full jars, one half-full jar and three empty jars."
+        },
+        {
+          "word": "jar",
+          "hi": "बाक़ी दोनों भाइयों में हर एक को मिले दो पूरे, तीन आधे और दो ख़ाली घड़े।",
+          "en": "The other two brothers each got two full jars, three half-full jars and two empty jars."
+        },
+        {
+          "word": "king",
+          "hi": "सबके पास सात घड़े और साढ़े तीन घड़े घी! राजा ने तेनालीराम को इनाम दिया।",
+          "en": "Everyone had seven jars and three and a half jars of ghee! The king rewarded Tenali Raman."
+        }
+      ],
+      "questions": [
+        { "hi": "कुल कितने घड़े थे?", "en": "How many jars were there in all?", "text": true, "answer": "इक्कीस", "options": ["इक्कीस", "सात", "दस"] },
+        { "hi": "हर भाई को कितने घड़े मिले?", "en": "How many jars did each brother get?", "text": true, "answer": "सात", "options": ["सात", "तीन", "दस"] },
+        {
+          "hi": "दो आधे भरे घड़े मिलकर कितने के बराबर हैं?",
+          "en": "Two half-full jars together are the same as what?",
+          "text": true,
+          "answer": "एक पूरा घड़ा",
+          "options": ["एक पूरा घड़ा", "दो पूरे घड़े", "एक ख़ाली घड़ा"]
+        }
+      ],
+      "moral": { "hi": "झगड़ने से पहले सोचो और गिनो: हर मुश्किल का हल निकलता है।", "en": "Think and count before you quarrel: every problem has an answer." },
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"भाई झगड़ने लगे, तो वे … कृष्णदेवराय के दरबार में पहुँचे। राजा ने तेनालीराम को बुलाया।\" (राजा)",
+          "en": "Say this and let your child fill the gap: \"भाई झगड़ने लगे, तो वे … कृष्णदेवराय के दरबार में पहुँचे। राजा ने तेनालीराम को बुलाया।\" (राजा)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"एक व्यापारी अपने तीन बेटों के लिए इक्कीस घड़े घी छोड़ गया।\")",
+          "en": "Ask: what happened first in the story? (\"A trader left twenty-one jars of ghee for his three sons.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर घड़ा है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the clay pot and ask: what is happening here?"
+        },
+        {
+          "type": "why",
+          "hi": "तेनालीराम ने घी को एक घड़े से दूसरे में क्यों नहीं डाला?",
+          "en": "Why didn’t Tenali Raman pour the ghee from one jar to another?"
+        },
+        { "type": "you", "hi": "चलो, घर की कोई चीज़ तीन लोगों में बराबर बाँटकर दिखाओ!", "en": "Let’s share something at home equally between three people!" }
+      ]
+    },
+    {
+      "id": "chess-rice",
+      "level": "grade4",
+      "title": { "hi": "शतरंज और चावल के दाने", "en": "Rice on the chessboard" },
+      "cover": "chessboard",
+      "pages": [
+        {
+          "word": "king",
+          "hi": "बहुत पहले, एक राजा को एक नया खेल भेंट में मिला: शतरंज। राजा को खेल बहुत पसंद आया।",
+          "en": "Long ago, a king was given a new game: chess. The king loved it."
+        },
+        {
+          "word": "chessboard",
+          "hi": "उसने खेल बनाने वाले विद्वान से कहा, \"जो चाहो माँग लो!\"",
+          "en": "He said to the scholar who had made it, \"Ask for whatever you want!\""
+        },
+        {
+          "word": "rice",
+          "hi": "विद्वान बोले, \"महाराज, पहले खाने पर चावल का एक दाना रखिए, दूसरे पर दो, तीसरे पर चार। हर खाने पर पिछले से दुगुने।\"",
+          "en": "The scholar said, \"Your Majesty, put one grain of rice on the first square, two on the second, four on the third: double on every square.\""
+        },
+        { "word": "king", "hi": "राजा हँसे, \"बस इतना-सा? कुछ मुट्ठी चावल!\"", "en": "The king laughed. \"Is that all? A few handfuls of rice!\"" },
+        {
+          "word": "grain",
+          "hi": "पर दाने तेज़ी से बढ़ते गए: आठवें खाने पर 128, और इक्कीसवें पर दस लाख से भी ज़्यादा!",
+          "en": "But the grains grew fast: 128 on the eighth square, and more than a million on the twenty-first!"
+        },
+        {
+          "word": "field",
+          "hi": "आख़िरी, चौंसठवें खाने तक पहुँचने के लिए इतना चावल चाहिए था जितना पूरी दुनिया के खेतों में सैकड़ों साल में उगता है।",
+          "en": "To reach the last, sixty-fourth square they would need more rice than all the fields of the world grow in hundreds of years."
+        },
+        {
+          "word": "king",
+          "hi": "राजा समझ गए कि बार-बार दुगुना होने से छोटी चीज़ भी बहुत बड़ी हो जाती है। उन्होंने विद्वान की बुद्धि को सलाम किया।",
+          "en": "The king understood that doubling again and again makes even a tiny thing enormous. He saluted the scholar’s wisdom."
+        }
+      ],
+      "questions": [
+        { "hi": "पहले खाने पर कितने दाने थे?", "en": "How many grains were on the first square?", "text": true, "answer": "एक", "options": ["एक", "दो", "चार"] },
+        { "hi": "चौथे खाने पर कितने दाने होंगे?", "en": "How many grains on the fourth square?", "text": true, "answer": "आठ", "options": ["आठ", "चार", "छह"] },
+        {
+          "hi": "शतरंज की बिसात पर कितने खाने होते हैं?",
+          "en": "How many squares does a chessboard have?",
+          "text": true,
+          "answer": "चौंसठ",
+          "options": ["चौंसठ", "सोलह", "सौ"]
+        }
+      ],
+      "moral": { "hi": "बार-बार दुगुना करने से छोटी चीज़ भी बहुत बड़ी हो जाती है।", "en": "Doubling again and again makes even something tiny huge." },
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"बहुत पहले, एक … को एक नया खेल भेंट में मिला: शतरंज। राजा को खेल बहुत पसंद आया।\" (राजा)",
+          "en": "Say this and let your child fill the gap: \"बहुत पहले, एक … को एक नया खेल भेंट में मिला: शतरंज। राजा को खेल बहुत पसंद आया।\" (राजा)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"बहुत पहले, एक राजा को एक नया खेल भेंट में मिला: शतरंज। राजा को खेल बहुत पसंद आया।\")",
+          "en": "Ask: what happened first in the story? (\"Long ago, a king was given a new game: chess. The king loved it.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर राजा है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the king and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "राजा पहले क्यों हँसे, और बाद में हैरान क्यों हुए?", "en": "Why did the king laugh at first, and why was he amazed later?" },
+        {
+          "type": "you",
+          "hi": "एक रुपये से शुरू करके रोज़ दुगुना करो: दस दिन में कितने हो जाएँगे? साथ में गिनो!",
+          "en": "Start with one rupee and double it every day: how much after ten days? Count it together!"
+        }
+      ]
+    },
+    {
+      "id": "seventeen-camels",
+      "level": "grade4",
+      "title": { "hi": "सत्रह ऊँट", "en": "Seventeen camels" },
+      "cover": "camel",
+      "pages": [
+        {
+          "word": "camel",
+          "hi": "रेगिस्तान के एक गाँव में एक बूढ़े व्यापारी के पास सत्रह ऊँट थे।",
+          "en": "In a desert village, an old trader had seventeen camels."
+        },
+        {
+          "word": "grandfather",
+          "hi": "उसने कहा था: बड़े बेटे को आधे ऊँट मिलें, मँझले को एक-तिहाई, और छोटे को नौवाँ हिस्सा।",
+          "en": "He had said: the eldest son gets half the camels, the middle son a third, and the youngest a ninth."
+        },
+        {
+          "word": "boy",
+          "hi": "पर सत्रह का आधा साढ़े आठ होता है! ऊँट को आधा कैसे करें? तीनों भाई परेशान हो गए।",
+          "en": "But half of seventeen is eight and a half! How can you halve a camel? The three brothers were stuck."
+        },
+        {
+          "word": "grandmother",
+          "hi": "तभी एक समझदार दादी अपने ऊँट पर वहाँ से गुज़रीं। उन्होंने कहा, \"मेरा ऊँट भी ले लो।\"",
+          "en": "Just then a wise grandmother rode by on her camel. She said, \"Take my camel too.\""
+        },
+        {
+          "word": "camel",
+          "hi": "अब अठारह ऊँट हो गए। बड़े को आधे: नौ। मँझले को तिहाई: छह। छोटे को नौवाँ हिस्सा: दो।",
+          "en": "Now there were eighteen camels. The eldest got half: nine. The middle son a third: six. The youngest a ninth: two."
+        },
+        {
+          "word": "camel",
+          "hi": "नौ, छह और दो मिलाकर सत्रह! एक ऊँट बच गया, और वह दादी का अपना ऊँट था।",
+          "en": "Nine, six and two make seventeen! One camel was left over, and it was the grandmother’s own."
+        },
+        {
+          "word": "grandmother",
+          "hi": "दादी मुस्कुराईं, अपने ऊँट पर बैठीं और चल दीं। भाइयों ने सीखा: बँटवारे से पहले ठंडे दिमाग़ से सोचो।",
+          "en": "The grandmother smiled, climbed onto her camel and rode away. The brothers learned to think calmly before sharing."
+        }
+      ],
+      "questions": [
+        {
+          "hi": "व्यापारी के पास कितने ऊँट थे?",
+          "en": "How many camels did the trader have?",
+          "text": true,
+          "answer": "सत्रह",
+          "options": ["सत्रह", "अठारह", "नौ"]
+        },
+        { "hi": "अठारह का आधा कितना है?", "en": "What is half of eighteen?", "text": true, "answer": "नौ", "options": ["नौ", "आठ", "छह"] },
+        {
+          "hi": "दादी ने अपना ऊँट क्यों दिया?",
+          "en": "Why did the grandmother lend her camel?",
+          "text": true,
+          "answer": "ताकि बँटवारा पूरा-पूरा हो सके",
+          "options": ["ताकि बँटवारा पूरा-पूरा हो सके", "क्योंकि वह थक गई थीं", "क्योंकि उन्हें ऊँट पसंद नहीं था"]
+        }
+      ],
+      "moral": { "hi": "ठंडे दिमाग़ से सोचने पर मुश्किल सवाल भी हल हो जाते हैं।", "en": "Think calmly and even hard problems get solved." },
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"रेगिस्तान के एक गाँव में एक बूढ़े व्यापारी के पास सत्रह … थे।\" (ऊँट)",
+          "en": "Say this and let your child fill the gap: \"रेगिस्तान के एक गाँव में एक बूढ़े व्यापारी के पास सत्रह … थे।\" (ऊँट)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"रेगिस्तान के एक गाँव में एक बूढ़े व्यापारी के पास सत्रह ऊँट थे।\")",
+          "en": "Ask: what happened first in the story? (\"In a desert village, an old trader had seventeen camels.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर दादी है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the grandmother and ask: what is happening here?"
+        },
+        {
+          "type": "why",
+          "hi": "आधा, तिहाई और नौवाँ हिस्सा जोड़ने पर पूरे सत्रह ऊँट क्यों नहीं बनते?",
+          "en": "Why don’t a half, a third and a ninth add up to all seventeen camels?"
+        },
+        {
+          "type": "you",
+          "hi": "तुमने कभी कोई चीज़ भाई-बहन या दोस्त के साथ बाँटी है? कैसे बाँटी?",
+          "en": "Have you ever shared something with a brother, sister or friend? How did you share it?"
+        }
+      ]
+    },
+    {
+      "id": "aryabhata-zero",
+      "level": "grade4",
+      "title": { "hi": "आर्यभट और शून्य", "en": "Aryabhata and zero" },
+      "cover": "satellite",
+      "pages": [
+        {
+          "word": "boy",
+          "hi": "लगभग डेढ़ हज़ार साल पहले, कुसुमपुर में, जो आज के पटना के पास था, आर्यभट नाम के एक गणितज्ञ रहते थे।",
+          "en": "About fifteen hundred years ago, a mathematician named Aryabhata lived in Kusumapura, near today’s Patna."
+        },
+        {
+          "word": "book",
+          "hi": "सिर्फ़ तेईस साल की उम्र में उन्होंने गणित और तारों पर एक पूरी किताब लिख दी: आर्यभटीय।",
+          "en": "When he was only twenty-three, he wrote a whole book on maths and the stars: the Aryabhatiya."
+        },
+        {
+          "word": "pen",
+          "hi": "भारत में अंक लिखने का एक ख़ास तरीक़ा था: अंक की जगह बदलते ही उसकी क़ीमत बदल जाती है। इकाई की जगह 5 पाँच है, दहाई की जगह पचास।",
+          "en": "India had a special way of writing numbers: move a digit to another place and its value changes. A 5 in the ones place is five; in the tens place it is fifty."
+        },
+        {
+          "word": "hand",
+          "hi": "पर अगर किसी जगह पर कुछ न हो, तो? वहाँ भी कुछ लिखना होगा! भारत के गणितज्ञों ने उस ख़ाली जगह के लिए एक निशान बनाया: शून्य।",
+          "en": "But what if a place is empty? Something must still be written there! India’s mathematicians made a mark for the empty place: zero."
+        },
+        {
+          "word": "ring",
+          "hi": "शून्य की वजह से 5, 50 और 500 अलग-अलग पढ़े जा सकते हैं। बाद में ब्रह्मगुप्त ने शून्य से जोड़ने और घटाने के नियम भी लिखे।",
+          "en": "Thanks to zero, 5, 50 and 500 can be told apart. Later, Brahmagupta even wrote down the rules for adding and subtracting with zero."
+        },
+        {
+          "word": "earth",
+          "hi": "आर्यभट ने यह भी बताया कि पृथ्वी अपनी धुरी पर घूमती है, इसीलिए दिन और रात होते हैं।",
+          "en": "Aryabhata also said that the Earth spins on its axis, and that is why we have day and night."
+        },
+        {
+          "word": "satellite",
+          "hi": "उनके सम्मान में भारत के पहले उपग्रह का नाम आर्यभट रखा गया। वह 1975 में अंतरिक्ष में गया।",
+          "en": "In his honour, India’s first satellite was named Aryabhata. It went into space in 1975."
+        }
+      ],
+      "questions": [
+        {
+          "hi": "आर्यभट ने अपनी किताब कितनी उम्र में लिखी?",
+          "en": "How old was Aryabhata when he wrote his book?",
+          "text": true,
+          "answer": "तेईस साल",
+          "options": ["तेईस साल", "दस साल", "साठ साल"]
+        },
+        {
+          "hi": "50 में 0 क्या बताता है?",
+          "en": "What does the 0 in 50 tell us?",
+          "text": true,
+          "answer": "इकाई की जगह ख़ाली है",
+          "options": ["इकाई की जगह ख़ाली है", "कुछ नहीं", "पचास का आधा"]
+        },
+        {
+          "hi": "भारत के पहले उपग्रह का नाम क्या था?",
+          "en": "What was the name of India’s first satellite?",
+          "text": true,
+          "answer": "आर्यभट",
+          "options": ["आर्यभट", "चंद्रयान", "मंगलयान"]
+        }
+      ],
+      "moral": {
+        "hi": "शून्य दिखता कुछ नहीं, पर उसके बिना बड़ी संख्याएँ लिखना मुश्किल है।",
+        "en": "Zero looks like nothing, but without it big numbers are hard to write."
+      },
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"सिर्फ़ तेईस साल की उम्र में उन्होंने गणित और तारों पर एक पूरी … लिख दी: आर्यभटीय।\" (किताब)",
+          "en": "Say this and let your child fill the gap: \"सिर्फ़ तेईस साल की उम्र में उन्होंने गणित और तारों पर एक पूरी … लिख दी: आर्यभटीय।\" (किताब)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"लगभग डेढ़ हज़ार साल पहले, कुसुमपुर में, जो आज के पटना के पास था, आर्यभट नाम के एक गणितज्ञ रहते थे।\")",
+          "en": "Ask: what happened first in the story? (\"About fifteen hundred years ago, a mathematician named Aryabhata lived in Kusumapura, near today’s Patna.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर हाथ है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the hand and ask: what is happening here?"
+        },
+        {
+          "type": "why",
+          "hi": "संख्या लिखते समय ख़ाली जगह के लिए निशान क्यों चाहिए?",
+          "en": "Why do we need a mark for an empty place when we write a number?"
+        },
+        {
+          "type": "you",
+          "hi": "घर में कहाँ-कहाँ शून्य दिखता है? घड़ी, फ़ोन नंबर, पैसे… ढूँढो!",
+          "en": "Where can you see a zero at home? On a clock, a phone number, money… find them!"
+        }
+      ]
     }
   ],
   "levels": [
@@ -10815,7 +11236,9 @@
         "peacock",
         "umbrella",
         "clock",
-        "lock"
+        "lock",
+        "coins",
+        "box"
       ]
     },
     "vyakaran7": {
@@ -10847,7 +11270,8 @@
         "lion",
         "rose",
         "drum",
-        "pot"
+        "pot",
+        "crow"
       ]
     },
     "chippu": {
@@ -10898,7 +11322,8 @@
         "lamp",
         "rain",
         "cloud",
-        "leaf"
+        "leaf",
+        "car"
       ]
     },
     "rimjhim": {
@@ -10924,9 +11349,16 @@
         "cloud",
         "star",
         "house",
-        "balloon"
+        "balloon",
+        "pen"
       ]
-    }
+    },
+    "bazaar": {
+      "name": { "hi": "बाज़ार की चीज़ें", "en": "Market finds" },
+      "items": ["mango", "banana", "grapes", "peanut", "rasgulla", "laddoo", "pot", "drum", "umbrella", "squirrel"]
+    },
+    "factory": { "name": { "hi": "फ़ैक्टरी की चीज़ें", "en": "Factory finds" }, "items": ["box", "bottle", "fan", "clock", "lock", "bell", "scooter", "cup", "ball", "drum"] },
+    "jantar": { "name": { "hi": "आसमान के इनाम", "en": "Sky prizes" }, "items": ["telescope", "moon", "sun", "comet", "satellite", "rocket", "earth", "saturn", "mars", "lamp"] }
   },
   "worlds": [
     {
@@ -11875,6 +12307,13 @@
             },
             { "id": "k-dadi-8", "game": "story", "icon": "kite", "title": { "hi": "पतंग उड़ी", "en": "The kite flies free" }, "config": { "story": "k2-kite" } }
           ]
+        },
+        {
+          "id": "k-din",
+          "title": { "hi": "सात दिन", "en": "Seven days" },
+          "skill": "Vocabulary",
+          "icon": "train",
+          "lessons": [{ "id": "k-din-1", "game": "samay", "icon": "train", "title": { "hi": "हफ़्ते की रेल", "en": "The week train" }, "config": { "rounds": 5, "modes": ["days"] } }]
         }
       ],
       "tags": ["letters", "phonics", "reading"]
@@ -11907,6 +12346,20 @@
               "config": { "skills": ["k-count", "k-quick"] }
             },
             {
+              "id": "km-count-back",
+              "game": "math",
+              "icon": "rocket",
+              "title": { "hi": "उल्टी गिनती", "en": "Count back from 10" },
+              "config": { "skills": ["k-countback"] }
+            },
+            {
+              "id": "km-count-next",
+              "game": "math",
+              "icon": "train",
+              "title": { "hi": "आगे क्या आएगा?", "en": "What comes next?" },
+              "config": { "skills": ["k-pattern"] }
+            },
+            {
               "id": "km-count-hands",
               "game": "handson",
               "icon": "train",
@@ -11929,7 +12382,14 @@
               "config": { "skills": ["k-numerals"] }
             },
             { "id": "km-numbers-2", "game": "math", "icon": "letter:8", "title": { "hi": "आगे क्या?", "en": "What comes next?" }, "config": { "skills": ["k-next"] } },
-            { "id": "km-numbers-3", "game": "math", "icon": "letter:10", "title": { "hi": "दस-दस गिनो", "en": "Count by tens" }, "config": { "skills": ["k-tens"] } }
+            { "id": "km-numbers-3", "game": "math", "icon": "letter:10", "title": { "hi": "दस-दस गिनो", "en": "Count by tens" }, "config": { "skills": ["k-tens"] } },
+            {
+              "id": "km-numbers-order",
+              "game": "math",
+              "icon": "letter:1st",
+              "title": { "hi": "पहला, दूसरा, तीसरा", "en": "First, second, third" },
+              "config": { "skills": ["k-ordinal"] }
+            }
           ]
         },
         {
@@ -11951,6 +12411,13 @@
             { "id": "km-add-1", "game": "math", "icon": "duck", "title": { "hi": "जोड़ की कहानियाँ", "en": "Adding stories" }, "config": { "skills": ["k-add"] } },
             { "id": "km-add-2", "game": "math", "icon": "balloon", "title": { "hi": "घटाव की कहानियाँ", "en": "Take-away stories" }, "config": { "skills": ["k-sub"] } },
             { "id": "km-add-3", "game": "math", "icon": "letter:+", "title": { "hi": "5 तक के जोड़", "en": "Quick facts to 5" }, "config": { "skills": ["k-facts5"] } },
+            {
+              "id": "km-add-facts",
+              "game": "math",
+              "icon": "letter:5",
+              "title": { "hi": "जोड़-घटाव, आराम से", "en": "Facts, no hurry" },
+              "config": { "skills": ["k-facts5"], "rounds": 10, "retry": true }
+            },
             {
               "id": "km-add-hands",
               "game": "handson",
@@ -11976,11 +12443,25 @@
             { "id": "km-ten-2", "game": "math", "icon": "letter:10", "title": { "hi": "10 बनाओ", "en": "Make 10" }, "config": { "skills": ["k-make10"] } },
             { "id": "km-ten-3", "game": "math", "icon": "letter:14", "title": { "hi": "11 से 19", "en": "Teen numbers" }, "config": { "skills": ["k-teens"] } },
             {
+              "id": "km-ten-bonds",
+              "game": "math",
+              "icon": "letter:10",
+              "title": { "hi": "दो हिस्से, एक पूरा", "en": "Number bonds" },
+              "config": { "skills": ["k-bond10"] }
+            },
+            {
               "id": "km-ten-hands",
               "game": "handson",
               "icon": "letter:10",
               "title": { "hi": "दस का डिब्बा भरो", "en": "Fill the ten-frame" },
               "config": { "activity": "tenframe", "skill": "k-make10", "rounds": 5 }
+            },
+            {
+              "id": "km-ten-bubbles",
+              "game": "handson",
+              "icon": "balloon",
+              "title": { "hi": "10 के बुलबुले", "en": "Make-10 bubbles" },
+              "config": { "activity": "bonds", "target": 10, "skill": "k-bond10", "rounds": 4 }
             }
           ]
         },
@@ -12042,14 +12523,14 @@
               "game": "math",
               "icon": "snowman",
               "title": { "hi": "मिला-जुला 1", "en": "Party mix 1" },
-              "config": { "skills": ["k-count", "k-add", "k-make10", "k-shapes", "k-next", "k-pattern"], "rounds": 8 }
+              "config": { "skills": ["k-count", "k-add", "k-make10", "k-shapes", "k-next", "k-pattern", "k-countback", "k-bond10"], "rounds": 8 }
             },
             {
               "id": "km-party-2",
               "game": "math",
               "icon": "igloo",
               "title": { "hi": "मिला-जुला 2", "en": "Party mix 2" },
-              "config": { "skills": ["k-numerals", "k-compare", "k-teens", "k-sub", "k-position", "k-measure"], "rounds": 8 }
+              "config": { "skills": ["k-numerals", "k-compare", "k-teens", "k-sub", "k-position", "k-measure", "k-ordinal"], "rounds": 8 }
             }
           ]
         }
@@ -12628,6 +13109,35 @@
               "config": { "rounds": 6, "modes": ["half", "compare"], "from": 1, "to": 10 }
             }
           ]
+        },
+        {
+          "id": "g1-samay",
+          "title": { "hi": "दिन, मौसम और घड़ी", "en": "Days, seasons and the clock" },
+          "skill": "Vocabulary",
+          "icon": "clock",
+          "lessons": [
+            {
+              "id": "g1-samay-1",
+              "game": "samay",
+              "icon": "train",
+              "title": { "hi": "आज और कल", "en": "Today and tomorrow" },
+              "config": { "rounds": 6, "modes": ["days"] }
+            },
+            {
+              "id": "g1-samay-2",
+              "game": "samay",
+              "icon": "raincloud",
+              "title": { "hi": "कौन-सा मौसम?", "en": "Which season?" },
+              "config": { "rounds": 6, "modes": ["seasons"] }
+            },
+            {
+              "id": "g1-samay-3",
+              "game": "samay",
+              "icon": "clock",
+              "title": { "hi": "कितने बजे हैं?", "en": "What's the time?" },
+              "config": { "rounds": 6, "modes": ["clock"] }
+            }
+          ]
         }
       ],
       "tags": ["phonics", "reading", "vocabulary", "stories"],
@@ -12658,6 +13168,20 @@
               "icon": "letter:105",
               "title": { "hi": "बड़े नंबर पढ़ो", "en": "Read big numbers" },
               "config": { "skills": ["g1-numerals"] }
+            },
+            {
+              "id": "g1m-count-back",
+              "game": "math",
+              "icon": "letter:20",
+              "title": { "hi": "20 से उल्टी गिनती", "en": "Count back from 20" },
+              "config": { "skills": ["g1-countback"] }
+            },
+            {
+              "id": "g1m-count-skip",
+              "game": "math",
+              "icon": "letter:2s",
+              "title": { "hi": "दो-दो, पाँच-पाँच गिनो", "en": "Skip counting" },
+              "config": { "skills": ["g1-skip"] }
             }
           ]
         },
@@ -12693,11 +13217,39 @@
             },
             { "id": "g1m-facts-3", "game": "math", "icon": "letter:?", "title": { "hi": "छूटा नंबर", "en": "Missing numbers" }, "config": { "skills": ["g1-missing"] } },
             {
+              "id": "g1m-facts-doubles",
+              "game": "math",
+              "icon": "letter:6+6",
+              "title": { "hi": "दुगुना", "en": "Doubles and near doubles" },
+              "config": { "skills": ["g1-doubles"] }
+            },
+            {
+              "id": "g1m-facts-bonds",
+              "game": "math",
+              "icon": "letter:20",
+              "title": { "hi": "20 के दो हिस्से", "en": "Number bonds to 20" },
+              "config": { "skills": ["g1-bond20"] }
+            },
+            {
+              "id": "g1m-facts-fluency",
+              "game": "math",
+              "icon": "letter:+−",
+              "title": { "hi": "आराम से अभ्यास", "en": "Facts practice, no hurry" },
+              "config": { "skills": ["g1-fluency"], "rounds": 10, "retry": true }
+            },
+            {
               "id": "g1m-facts-hands",
               "game": "handson",
               "icon": "letter:=",
               "title": { "hi": "तराज़ू बराबर करो", "en": "Balance it" },
               "config": { "activity": "balance", "skill": "g1-equal", "rounds": 5 }
+            },
+            {
+              "id": "g1m-facts-bubbles",
+              "game": "handson",
+              "icon": "balloon",
+              "title": { "hi": "20 के बुलबुले", "en": "Make-20 bubbles" },
+              "config": { "activity": "bonds", "target": 20, "skill": "g1-bond20", "rounds": 4 }
             }
           ]
         },
@@ -12826,14 +13378,14 @@
               "game": "math",
               "icon": "ferris",
               "title": { "hi": "चुनौती 1", "en": "Challenge 1" },
-              "config": { "skills": ["g1-facts20", "g1-place", "g1-time", "g1-story", "g1-halves"], "rounds": 8 }
+              "config": { "skills": ["g1-facts20", "g1-place", "g1-time", "g1-story", "g1-halves", "g1-doubles", "g1-skip"], "rounds": 8 }
             },
             {
               "id": "g1m-challenge-2",
               "game": "math",
               "icon": "drum",
               "title": { "hi": "चुनौती 2", "en": "Challenge 2" },
-              "config": { "skills": ["g1-missing", "g1-compare", "g1-coins", "g1-tenmore", "g1-graph", "g1-sides"], "rounds": 8 }
+              "config": { "skills": ["g1-missing", "g1-compare", "g1-coins", "g1-tenmore", "g1-graph", "g1-sides", "g1-bond20", "g1-countback"], "rounds": 8 }
             }
           ]
         }
@@ -13124,6 +13676,244 @@
       "helpers": { "courier": "pterodactyl", "vendor": "triceratops", "lifter": "brachiosaurus", "engine": "stegosaurus", "holder": "stegosaurus" }
     },
     {
+      "id": "bazaar",
+      "level": "grade2",
+      "subject": "math",
+      "lang": "en",
+      "theme": "bazaar",
+      "mascot": "gilu",
+      "color": "#F97316",
+      "collection": "bazaar",
+      "name": { "hi": "गिलू का गिनती बाज़ार", "en": "Gilu's Number Bazaar" },
+      "tags": ["math", "counting", "shapes"],
+      "letterSets": [],
+      "units": [
+        {
+          "id": "g2m-place",
+          "title": { "hi": "सैकड़ा, दहाई, इकाई", "en": "Let's learn hundreds, tens and ones" },
+          "skill": "Place value to 1,000 · NC.2.NBT.1, 3, 4",
+          "icon": "letter:100",
+          "lessons": [
+            {
+              "id": "g2m-place-1",
+              "game": "math",
+              "icon": "letter:342",
+              "title": { "hi": "सैकड़ा, दहाई, इकाई", "en": "Hundreds, tens and ones" },
+              "config": { "skills": ["g2-place"] }
+            },
+            {
+              "id": "g2m-place-2",
+              "game": "math",
+              "icon": "letter:abc",
+              "title": { "hi": "शब्दों में गिनती", "en": "Numbers in words" },
+              "config": { "skills": ["g2-readwrite"] }
+            },
+            {
+              "id": "g2m-place-3",
+              "game": "math",
+              "icon": "letter:>",
+              "title": { "hi": "बड़ा या छोटा?", "en": "Greater or less?" },
+              "config": { "skills": ["g2-compare"] }
+            }
+          ]
+        },
+        {
+          "id": "g2m-count",
+          "title": { "hi": "1000 तक गिनती", "en": "Let's count to 1,000" },
+          "skill": "Skip counting, 10 and 100 more · NC.2.NBT.2, 8",
+          "icon": "letter:1000",
+          "lessons": [
+            {
+              "id": "g2m-count-1",
+              "game": "math",
+              "icon": "letter:5,10",
+              "title": { "hi": "पाँच-पाँच, दस-दस, सौ-सौ", "en": "Count by 5s, 10s and 100s" },
+              "config": { "skills": ["g2-skip"] }
+            },
+            {
+              "id": "g2m-count-2",
+              "game": "math",
+              "icon": "letter:+100",
+              "title": { "hi": "10 या 100 ज़्यादा", "en": "10 or 100 more" },
+              "config": { "skills": ["g2-tenmore"] }
+            }
+          ]
+        },
+        {
+          "id": "g2m-add",
+          "title": { "hi": "100 तक जोड़-घटाव", "en": "Let's add and subtract to 100" },
+          "skill": "Facts to 20, two-digit numbers · NC.2.OA.2, NBT.5",
+          "icon": "letter:+",
+          "lessons": [
+            {
+              "id": "g2m-add-1",
+              "game": "math",
+              "icon": "letter:9+7",
+              "title": { "hi": "झटपट जोड़, आराम से", "en": "Quick facts, no hurry" },
+              "config": { "skills": ["g2-facts"], "rounds": 10, "retry": true }
+            },
+            {
+              "id": "g2m-add-2",
+              "game": "math",
+              "icon": "letter:+",
+              "title": { "hi": "दो अंकों का जोड़", "en": "Add two-digit numbers" },
+              "config": { "skills": ["g2-add100"] }
+            },
+            {
+              "id": "g2m-add-3",
+              "game": "math",
+              "icon": "letter:−",
+              "title": { "hi": "दो अंकों का घटाव", "en": "Subtract two-digit numbers" },
+              "config": { "skills": ["g2-sub100"] }
+            },
+            {
+              "id": "g2m-add-4",
+              "game": "handson",
+              "icon": "frog",
+              "title": { "hi": "दस की छलाँग", "en": "Jumps of ten" },
+              "config": { "rounds": 4, "activity": "jumps", "skill": "g2-add100" }
+            }
+          ]
+        },
+        {
+          "id": "g2m-big",
+          "title": { "hi": "बड़े जोड़ और कहानियाँ", "en": "Let's solve big sums and story problems" },
+          "skill": "Within 1,000; story problems · NC.2.NBT.7, OA.1",
+          "icon": "letter:1000",
+          "lessons": [
+            {
+              "id": "g2m-big-1",
+              "game": "math",
+              "icon": "letter:300+",
+              "title": { "hi": "1000 तक जोड़-घटाव", "en": "Add and subtract to 1,000" },
+              "config": { "skills": ["g2-add1000"] }
+            },
+            { "id": "g2m-big-2", "game": "math", "icon": "kite", "title": { "hi": "कहानी के सवाल", "en": "Story problems" }, "config": { "skills": ["g2-story"] } }
+          ]
+        },
+        {
+          "id": "g2m-groups",
+          "title": { "hi": "सम, विषम और कतारें", "en": "Let's find odd, even and equal groups" },
+          "skill": "Odd and even, arrays · NC.2.OA.3–4",
+          "icon": "apple",
+          "lessons": [
+            {
+              "id": "g2m-groups-1",
+              "game": "math",
+              "icon": "letter:2,4,6",
+              "title": { "hi": "सम या विषम?", "en": "Odd or even?" },
+              "config": { "skills": ["g2-oddeven"] }
+            },
+            { "id": "g2m-groups-2", "game": "math", "icon": "apple", "title": { "hi": "कतारें", "en": "Rows and columns" }, "config": { "skills": ["g2-arrays"] } },
+            {
+              "id": "g2m-groups-3",
+              "game": "handson",
+              "icon": "laddoo",
+              "title": { "hi": "कतारें बनाओ", "en": "Build an array" },
+              "config": { "rounds": 4, "activity": "array", "skill": "g2-arrays" }
+            }
+          ]
+        },
+        {
+          "id": "g2m-time",
+          "title": { "hi": "समय और पैसे", "en": "Let's tell time and count money" },
+          "skill": "Time to five minutes, money · NC.2.MD.7–8",
+          "icon": "clock",
+          "lessons": [
+            {
+              "id": "g2m-time-1",
+              "game": "math",
+              "icon": "clock",
+              "title": { "hi": "पाँच-पाँच मिनट", "en": "Time to five minutes" },
+              "config": { "skills": ["g2-time"] }
+            },
+            { "id": "g2m-time-2", "game": "math", "icon": "coins", "title": { "hi": "पैसे गिनो", "en": "Count the money" }, "config": { "skills": ["g2-money"] } },
+            {
+              "id": "g2m-time-3",
+              "game": "handson",
+              "icon": "clock",
+              "title": { "hi": "घड़ी घुमाओ", "en": "Turn the clock" },
+              "config": { "rounds": 4, "activity": "clock", "minutes": 5, "skill": "g2-time" }
+            },
+            {
+              "id": "g2m-time-4",
+              "game": "handson",
+              "icon": "coins",
+              "title": { "hi": "बाज़ार की दुकान", "en": "Market shop" },
+              "config": { "rounds": 4, "activity": "shop", "dollars": true, "skill": "g2-money" }
+            }
+          ]
+        },
+        {
+          "id": "g2m-measure",
+          "title": { "hi": "नाप और ग्राफ़", "en": "Let's measure and read graphs" },
+          "skill": "Length and bar graphs · NC.2.MD.1–4, 10",
+          "icon": "letter:cm",
+          "lessons": [
+            {
+              "id": "g2m-measure-1",
+              "game": "math",
+              "icon": "letter:in",
+              "title": { "hi": "स्केल से नापो", "en": "Measure with a ruler" },
+              "config": { "skills": ["g2-length"] }
+            },
+            { "id": "g2m-measure-2", "game": "math", "icon": "balloon", "title": { "hi": "बार ग्राफ़", "en": "Bar graphs" }, "config": { "skills": ["g2-graph"] } }
+          ]
+        },
+        {
+          "id": "g2m-shapes",
+          "title": { "hi": "आकार और बराबर हिस्से", "en": "Let's explore shapes and equal parts" },
+          "skill": "Shapes and fractions · NC.2.G.1–3",
+          "icon": "shape-triangle",
+          "lessons": [
+            {
+              "id": "g2m-shapes-1",
+              "game": "math",
+              "icon": "shape-triangle",
+              "title": { "hi": "भुजाएँ और कोने", "en": "Sides and angles" },
+              "config": { "skills": ["g2-shapes"] }
+            },
+            {
+              "id": "g2m-shapes-2",
+              "game": "math",
+              "icon": "shape-square",
+              "title": { "hi": "खानों की कतारें", "en": "Rows of squares" },
+              "config": { "skills": ["g2-partition"] }
+            },
+            {
+              "id": "g2m-shapes-3",
+              "game": "math",
+              "icon": "roti",
+              "title": { "hi": "आधा, तिहाई, चौथाई", "en": "Halves, thirds, fourths" },
+              "config": { "skills": ["g2-fractions"] }
+            }
+          ]
+        },
+        {
+          "id": "g2m-review",
+          "title": { "hi": "बाज़ार चुनौती", "en": "Bazaar challenge" },
+          "skill": "Review · mixed practice",
+          "icon": "squirrel",
+          "lessons": [
+            {
+              "id": "g2m-review-1",
+              "game": "math",
+              "icon": "squirrel",
+              "title": { "hi": "चुनौती 1", "en": "Challenge 1" },
+              "config": { "skills": ["g2-place", "g2-add100", "g2-sub100", "g2-time", "g2-oddeven", "g2-fractions", "g2-skip"], "rounds": 8 }
+            },
+            {
+              "id": "g2m-review-2",
+              "game": "math",
+              "icon": "mango",
+              "title": { "hi": "चुनौती 2", "en": "Challenge 2" },
+              "config": { "skills": ["g2-compare", "g2-add1000", "g2-story", "g2-money", "g2-arrays", "g2-length", "g2-graph", "g2-shapes", "g2-partition"], "rounds": 8 }
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "desert",
       "level": "grade2",
       "subject": "hindi",
@@ -13205,6 +13995,42 @@
               "icon": "talk:camel",
               "title": { "hi": "वाक्य", "en": "Sentences" },
               "config": { "levels": ["grade1", "grade2"], "rounds": 4 }
+            }
+          ]
+        },
+        {
+          "id": "g2-samay",
+          "title": { "hi": "महीने, घड़ी और बाज़ार", "en": "Months, the clock and the market" },
+          "skill": "Vocabulary",
+          "icon": "coins",
+          "lessons": [
+            {
+              "id": "g2-samay-1",
+              "game": "samay",
+              "icon": "letter:12",
+              "title": { "hi": "साल के महीने", "en": "The months of the year" },
+              "config": { "rounds": 6, "modes": ["months"] }
+            },
+            {
+              "id": "g2-samay-2",
+              "game": "samay",
+              "icon": "clock",
+              "title": { "hi": "साढ़े, डेढ़ और ढाई", "en": "Half past, the Hindi way" },
+              "config": { "rounds": 6, "modes": ["clock"], "minLevel": 1 }
+            },
+            {
+              "id": "g2-samay-3",
+              "game": "samay",
+              "icon": "coins",
+              "title": { "hi": "कितने रुपये हैं?", "en": "How many rupees?" },
+              "config": { "rounds": 6, "modes": ["count"] }
+            },
+            {
+              "id": "g2-samay-4",
+              "game": "samay",
+              "icon": "mango",
+              "title": { "hi": "बाज़ार चलें", "en": "Let's go to the market" },
+              "config": { "rounds": 4, "modes": ["pay"] }
             }
           ]
         }
@@ -13387,6 +14213,42 @@
               "config": { "story": "farmer-bear" }
             }
           ]
+        },
+        {
+          "id": "g2-pahade",
+          "title": { "hi": "पहाड़े गाओ", "en": "Sing the times tables" },
+          "skill": "Maths in Hindi",
+          "icon": "drum",
+          "lessons": [
+            {
+              "id": "g2-pahade-2",
+              "game": "pahade",
+              "icon": "letter:2×",
+              "title": { "hi": "दो का पहाड़ा", "en": "The 2 times table" },
+              "config": { "table": 2, "rounds": 6 }
+            },
+            {
+              "id": "g2-pahade-3",
+              "game": "pahade",
+              "icon": "letter:3×",
+              "title": { "hi": "तीन का पहाड़ा", "en": "The 3 times table" },
+              "config": { "table": 3, "rounds": 6 }
+            },
+            {
+              "id": "g2-pahade-4",
+              "game": "pahade",
+              "icon": "letter:4×",
+              "title": { "hi": "चार का पहाड़ा", "en": "The 4 times table" },
+              "config": { "table": 4, "rounds": 6 }
+            },
+            {
+              "id": "g2-pahade-5",
+              "game": "pahade",
+              "icon": "letter:5×",
+              "title": { "hi": "पाँच का पहाड़ा", "en": "The 5 times table" },
+              "config": { "table": 5, "rounds": 6 }
+            }
+          ]
         }
       ],
       "helpers": { "vendor": "squirrel" }
@@ -13481,6 +14343,194 @@
       ],
       "tags": ["grammar", "vocabulary"],
       "helpers": { "courier": "satellite", "engine": "rocket" }
+    },
+    {
+      "id": "factory",
+      "level": "grade3",
+      "subject": "math",
+      "lang": "en",
+      "theme": "factory",
+      "mascot": "robu",
+      "color": "#6366F1",
+      "collection": "factory",
+      "name": { "hi": "रोबू की गिनती फ़ैक्टरी", "en": "Robu's Number Factory" },
+      "tags": ["math", "counting", "shapes"],
+      "letterSets": [],
+      "units": [
+        {
+          "id": "g3m-mult",
+          "title": { "hi": "गुणा", "en": "Let's multiply" },
+          "skill": "Multiplication · NC.3.OA.1, 5, 7",
+          "icon": "letter:×",
+          "lessons": [
+            { "id": "g3m-mult-1", "game": "math", "icon": "apple", "title": { "hi": "बराबर समूह", "en": "Equal groups" }, "config": { "skills": ["g3-groups"] } },
+            { "id": "g3m-mult-2", "game": "math", "icon": "letter:×", "title": { "hi": "गुणा के तथ्य", "en": "Times tables" }, "config": { "skills": ["g3-multfacts"] } },
+            {
+              "id": "g3m-mult-3",
+              "game": "math",
+              "icon": "letter:7×8",
+              "title": { "hi": "आराम से अभ्यास", "en": "Facts practice, no hurry" },
+              "config": { "skills": ["g3-multfacts"], "rounds": 10, "retry": true }
+            },
+            {
+              "id": "g3m-mult-4",
+              "game": "math",
+              "icon": "letter:↔",
+              "title": { "hi": "उलटो और तोड़ो", "en": "Turn it around, break it apart" },
+              "config": { "skills": ["g3-properties"] }
+            },
+            {
+              "id": "g3m-mult-5",
+              "game": "handson",
+              "icon": "laddoo",
+              "title": { "hi": "कतारें बनाओ", "en": "Build an array" },
+              "config": { "rounds": 4, "activity": "array", "skill": "g3-multfacts" }
+            }
+          ]
+        },
+        {
+          "id": "g3m-div",
+          "title": { "hi": "भाग", "en": "Let's divide" },
+          "skill": "Division · NC.3.OA.2, 4, 6",
+          "icon": "letter:÷",
+          "lessons": [
+            { "id": "g3m-div-1", "game": "math", "icon": "letter:÷", "title": { "hi": "बराबर बाँटो", "en": "Share equally" }, "config": { "skills": ["g3-divide"] } },
+            { "id": "g3m-div-2", "game": "math", "icon": "letter:?", "title": { "hi": "छूटी संख्या", "en": "Missing numbers" }, "config": { "skills": ["g3-missing"] } }
+          ]
+        },
+        {
+          "id": "g3m-story",
+          "title": { "hi": "कहानियाँ और पैटर्न", "en": "Let's solve stories and patterns" },
+          "skill": "Story problems, patterns · NC.3.OA.3, 8, 9",
+          "icon": "kite",
+          "lessons": [
+            { "id": "g3m-story-1", "game": "math", "icon": "kite", "title": { "hi": "कहानी के सवाल", "en": "Story problems" }, "config": { "skills": ["g3-wordprob"] } },
+            { "id": "g3m-story-2", "game": "math", "icon": "letter:2,4,6", "title": { "hi": "पैटर्न", "en": "Patterns" }, "config": { "skills": ["g3-patterns"] } }
+          ]
+        },
+        {
+          "id": "g3m-numbers",
+          "title": { "hi": "बड़ी संख्याएँ", "en": "Let's round and add" },
+          "skill": "Rounding, adding, tens · NC.3.NBT.1–3",
+          "icon": "letter:≈",
+          "lessons": [
+            {
+              "id": "g3m-numbers-1",
+              "game": "math",
+              "icon": "letter:≈",
+              "title": { "hi": "नज़दीकी दहाई और सैकड़ा", "en": "Round to 10 and 100" },
+              "config": { "skills": ["g3-round"] }
+            },
+            {
+              "id": "g3m-numbers-2",
+              "game": "math",
+              "icon": "letter:+",
+              "title": { "hi": "1000 तक जोड़-घटाव", "en": "Add and subtract to 1,000" },
+              "config": { "skills": ["g3-addsub"] }
+            },
+            {
+              "id": "g3m-numbers-3",
+              "game": "math",
+              "icon": "letter:×10",
+              "title": { "hi": "दहाई से गुणा", "en": "Times 10, 20, 30" },
+              "config": { "skills": ["g3-times10"] }
+            }
+          ]
+        },
+        {
+          "id": "g3m-frac",
+          "title": { "hi": "भिन्न", "en": "Let's learn fractions" },
+          "skill": "Fractions · NC.3.NF.1–3, G.2",
+          "icon": "roti",
+          "lessons": [
+            { "id": "g3m-frac-1", "game": "math", "icon": "roti", "title": { "hi": "बराबर हिस्से", "en": "Equal parts" }, "config": { "skills": ["g3-equalparts"] } },
+            {
+              "id": "g3m-frac-2",
+              "game": "math",
+              "icon": "letter:3/4",
+              "title": { "hi": "आकार के भिन्न", "en": "Fractions of a shape" },
+              "config": { "skills": ["g3-fraction"] }
+            },
+            {
+              "id": "g3m-frac-3",
+              "game": "math",
+              "icon": "letter:0–1",
+              "title": { "hi": "संख्या रेखा पर भिन्न", "en": "Fractions on a number line" },
+              "config": { "skills": ["g3-fracline"] }
+            },
+            {
+              "id": "g3m-frac-4",
+              "game": "math",
+              "icon": "letter:>",
+              "title": { "hi": "भिन्नों की तुलना", "en": "Compare fractions" },
+              "config": { "skills": ["g3-fraccompare"] }
+            },
+            {
+              "id": "g3m-frac-5",
+              "game": "handson",
+              "icon": "roti",
+              "title": { "hi": "भिन्न रँगो", "en": "Shade the fraction" },
+              "config": { "rounds": 4, "activity": "fraction", "skill": "g3-fraction" }
+            }
+          ]
+        },
+        {
+          "id": "g3m-measure",
+          "title": { "hi": "समय और नाप", "en": "Let's tell time and measure" },
+          "skill": "Time, mass, volume · NC.3.MD.1–2",
+          "icon": "clock",
+          "lessons": [
+            { "id": "g3m-measure-1", "game": "math", "icon": "clock", "title": { "hi": "मिनट तक समय", "en": "Time to the minute" }, "config": { "skills": ["g3-time"] } },
+            {
+              "id": "g3m-measure-2",
+              "game": "math",
+              "icon": "bottle",
+              "title": { "hi": "ग्राम, किलो, लीटर", "en": "Grams, kilograms, litres" },
+              "config": { "skills": ["g3-measure"] }
+            }
+          ]
+        },
+        {
+          "id": "g3m-area",
+          "title": { "hi": "क्षेत्रफल और परिमाप", "en": "Let's find area and perimeter" },
+          "skill": "Area, perimeter, graphs · NC.3.MD.3, 5–8",
+          "icon": "letter:▦",
+          "lessons": [
+            { "id": "g3m-area-1", "game": "math", "icon": "letter:▦", "title": { "hi": "क्षेत्रफल", "en": "Area" }, "config": { "skills": ["g3-area"] } },
+            { "id": "g3m-area-2", "game": "math", "icon": "letter:▭", "title": { "hi": "परिमाप", "en": "Perimeter" }, "config": { "skills": ["g3-perimeter"] } },
+            { "id": "g3m-area-3", "game": "math", "icon": "balloon", "title": { "hi": "बार ग्राफ़", "en": "Scaled bar graphs" }, "config": { "skills": ["g3-graph"] } }
+          ]
+        },
+        {
+          "id": "g3m-shapes",
+          "title": { "hi": "चतुर्भुज", "en": "Let's sort quadrilaterals" },
+          "skill": "Shapes · NC.3.G.1",
+          "icon": "shape-square",
+          "lessons": [{ "id": "g3m-shapes-1", "game": "math", "icon": "shape-square", "title": { "hi": "चतुर्भुज", "en": "Quadrilaterals" }, "config": { "skills": ["g3-quad"] } }]
+        },
+        {
+          "id": "g3m-review",
+          "title": { "hi": "फ़ैक्टरी चुनौती", "en": "Factory challenge" },
+          "skill": "Review · mixed practice",
+          "icon": "box",
+          "lessons": [
+            {
+              "id": "g3m-review-1",
+              "game": "math",
+              "icon": "box",
+              "title": { "hi": "चुनौती 1", "en": "Challenge 1" },
+              "config": { "skills": ["g3-multfacts", "g3-divide", "g3-round", "g3-fraction", "g3-area", "g3-time"], "rounds": 8 }
+            },
+            {
+              "id": "g3m-review-2",
+              "game": "math",
+              "icon": "bell",
+              "title": { "hi": "चुनौती 2", "en": "Challenge 2" },
+              "config": { "skills": ["g3-wordprob", "g3-missing", "g3-addsub", "g3-fracline", "g3-perimeter", "g3-quad", "g3-graph", "g3-measure"], "rounds": 8 }
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "palace",
@@ -13653,6 +14703,65 @@
             },
             { "id": "g3-birbal-2", "game": "story", "icon": "pen", "title": { "hi": "छोटी लकीर", "en": "The shorter line" }, "config": { "story": "birbal-line" } }
           ]
+        },
+        {
+          "id": "g3-ganit-katha",
+          "title": { "hi": "गणित की कहानियाँ", "en": "Maths stories" },
+          "skill": "Stories",
+          "icon": "king",
+          "lessons": [
+            {
+              "id": "g3-ganit-katha-1",
+              "game": "story",
+              "icon": "king",
+              "title": { "hi": "सबसे बड़ी गिनती", "en": "The biggest number" },
+              "config": { "story": "birbal-biggest" }
+            },
+            { "id": "g3-ganit-katha-2", "game": "story", "icon": "jar", "title": { "hi": "इक्कीस घड़े", "en": "Twenty-one jars" }, "config": { "story": "tenali-jars" } }
+          ]
+        },
+        {
+          "id": "g3-pahade",
+          "title": { "hi": "पहाड़े गाओ", "en": "Sing the times tables" },
+          "skill": "Maths in Hindi",
+          "icon": "drum",
+          "lessons": [
+            {
+              "id": "g3-pahade-6",
+              "game": "pahade",
+              "icon": "letter:6×",
+              "title": { "hi": "छह का पहाड़ा", "en": "The 6 times table" },
+              "config": { "table": 6, "rounds": 6 }
+            },
+            {
+              "id": "g3-pahade-7",
+              "game": "pahade",
+              "icon": "letter:7×",
+              "title": { "hi": "सात का पहाड़ा", "en": "The 7 times table" },
+              "config": { "table": 7, "rounds": 6 }
+            },
+            {
+              "id": "g3-pahade-8",
+              "game": "pahade",
+              "icon": "letter:8×",
+              "title": { "hi": "आठ का पहाड़ा", "en": "The 8 times table" },
+              "config": { "table": 8, "rounds": 6 }
+            },
+            {
+              "id": "g3-pahade-9",
+              "game": "pahade",
+              "icon": "letter:9×",
+              "title": { "hi": "नौ का पहाड़ा", "en": "The 9 times table" },
+              "config": { "table": 9, "rounds": 6 }
+            },
+            {
+              "id": "g3-pahade-10",
+              "game": "pahade",
+              "icon": "letter:10×",
+              "title": { "hi": "दस का पहाड़ा", "en": "The 10 times table" },
+              "config": { "table": 10, "rounds": 6 }
+            }
+          ]
         }
       ]
     },
@@ -13718,6 +14827,35 @@
               "icon": "talk:buffalo",
               "title": { "hi": "वाक्य", "en": "Sentences" },
               "config": { "levels": ["grade2", "grade3"], "rounds": 4 }
+            }
+          ]
+        },
+        {
+          "id": "g3-samay",
+          "title": { "hi": "ऋतुएँ, घड़ी और रुपये-पैसे", "en": "Seasons, the clock, rupees and paise" },
+          "skill": "Vocabulary",
+          "icon": "flower",
+          "lessons": [
+            {
+              "id": "g3-samay-1",
+              "game": "samay",
+              "icon": "flower",
+              "title": { "hi": "छह ऋतुएँ", "en": "The six seasons" },
+              "config": { "rounds": 6, "modes": ["ritu", "seasons"] }
+            },
+            {
+              "id": "g3-samay-2",
+              "game": "samay",
+              "icon": "clock",
+              "title": { "hi": "सवा, साढ़े, पौने", "en": "Quarter past, half past, quarter to" },
+              "config": { "rounds": 6, "modes": ["clock"], "minLevel": 2 }
+            },
+            {
+              "id": "g3-samay-3",
+              "game": "samay",
+              "icon": "coins",
+              "title": { "hi": "रुपये और पैसे", "en": "Rupees and paise" },
+              "config": { "rounds": 6, "modes": ["count", "pay"], "minLevel": 2 }
             }
           ]
         }
@@ -13812,6 +14950,225 @@
       ],
       "tags": ["grammar", "vocabulary"],
       "helpers": { "courier": "dolphin", "engine": "whale" }
+    },
+    {
+      "id": "jantar",
+      "level": "grade4",
+      "subject": "math",
+      "lang": "en",
+      "theme": "jantar",
+      "mascot": "jugnu",
+      "color": "#7C3AED",
+      "collection": "jantar",
+      "name": { "hi": "जुगनू की गिनती वेधशाला", "en": "Jugnu's Number Observatory" },
+      "tags": ["math", "counting", "shapes"],
+      "letterSets": [],
+      "units": [
+        {
+          "id": "g4m-big",
+          "title": { "hi": "बड़ी संख्याएँ", "en": "Let's read big numbers" },
+          "skill": "Place value, rounding, lakh and crore · NC.4.NBT.1–3",
+          "icon": "telescope",
+          "lessons": [
+            {
+              "id": "g4m-big-1",
+              "game": "math",
+              "icon": "telescope",
+              "title": { "hi": "दस लाख तक स्थानीय मान", "en": "Place value to a million" },
+              "config": { "skills": ["g4-placevalue"] }
+            },
+            {
+              "id": "g4m-big-2",
+              "game": "math",
+              "icon": "letter:≈",
+              "title": { "hi": "बड़ी संख्याएँ: नज़दीकी", "en": "Round big numbers" },
+              "config": { "skills": ["g4-round"] }
+            },
+            { "id": "g4m-big-3", "game": "math", "icon": "letter:लाख", "title": { "hi": "लाख और करोड़", "en": "Lakh and crore" }, "config": { "skills": ["g4-lakh"] } }
+          ]
+        },
+        {
+          "id": "g4m-ops",
+          "title": { "hi": "जोड़, घटाव, गुणा", "en": "Let's add, subtract and multiply" },
+          "skill": "Multi-digit numbers · NC.4.NBT.4–5",
+          "icon": "letter:×",
+          "lessons": [
+            { "id": "g4m-ops-1", "game": "math", "icon": "letter:+", "title": { "hi": "बड़े जोड़-घटाव", "en": "Big sums" }, "config": { "skills": ["g4-addsub"] } },
+            { "id": "g4m-ops-2", "game": "math", "icon": "letter:×", "title": { "hi": "गुणा", "en": "Multiply" }, "config": { "skills": ["g4-multiply"] } }
+          ]
+        },
+        {
+          "id": "g4m-div",
+          "title": { "hi": "लंबा भाग", "en": "Let's do long division" },
+          "skill": "Division with remainders · NC.4.NBT.6, OA.3",
+          "icon": "letter:÷",
+          "lessons": [
+            { "id": "g4m-div-1", "game": "math", "icon": "letter:÷", "title": { "hi": "लंबा भाग", "en": "Long division" }, "config": { "skills": ["g4-divide"] } },
+            {
+              "id": "g4m-div-2",
+              "game": "math",
+              "icon": "letter:R",
+              "title": { "hi": "भाग का अभ्यास, आराम से", "en": "Division practice, no hurry" },
+              "config": { "skills": ["g4-divide"], "rounds": 8, "retry": true }
+            },
+            { "id": "g4m-div-3", "game": "math", "icon": "bus", "title": { "hi": "कहानी के सवाल", "en": "Story problems" }, "config": { "skills": ["g4-wordprob"] } }
+          ]
+        },
+        {
+          "id": "g4m-factors",
+          "title": { "hi": "गुणनखंड और पैटर्न", "en": "Let's find factors and patterns" },
+          "skill": "Factors, comparing, patterns · NC.4.OA.1, 2, 4, 5",
+          "icon": "letter:12",
+          "lessons": [
+            {
+              "id": "g4m-factors-1",
+              "game": "math",
+              "icon": "letter:12",
+              "title": { "hi": "गुणनखंड और गुणज", "en": "Factors and multiples" },
+              "config": { "skills": ["g4-factors"] }
+            },
+            {
+              "id": "g4m-factors-2",
+              "game": "math",
+              "icon": "letter:3×",
+              "title": { "hi": "कितने गुना", "en": "Times as many" },
+              "config": { "skills": ["g4-compare"] }
+            },
+            {
+              "id": "g4m-factors-3",
+              "game": "math",
+              "icon": "letter:+5",
+              "title": { "hi": "नियम से पैटर्न", "en": "Patterns from a rule" },
+              "config": { "skills": ["g4-patterns"] }
+            }
+          ]
+        },
+        {
+          "id": "g4m-frac",
+          "title": { "hi": "भिन्न", "en": "Let's work with fractions" },
+          "skill": "Fractions · NC.4.NF.1–4",
+          "icon": "roti",
+          "lessons": [
+            {
+              "id": "g4m-frac-1",
+              "game": "math",
+              "icon": "letter:½",
+              "title": { "hi": "तुल्य भिन्न", "en": "Equal fractions" },
+              "config": { "skills": ["g4-equivfrac"] }
+            },
+            {
+              "id": "g4m-frac-2",
+              "game": "math",
+              "icon": "letter:>",
+              "title": { "hi": "भिन्नों की तुलना", "en": "Compare fractions" },
+              "config": { "skills": ["g4-comparefrac"] }
+            },
+            {
+              "id": "g4m-frac-3",
+              "game": "math",
+              "icon": "letter:+",
+              "title": { "hi": "भिन्नों का जोड़", "en": "Add fractions" },
+              "config": { "skills": ["g4-addfrac"] }
+            },
+            {
+              "id": "g4m-frac-4",
+              "game": "math",
+              "icon": "letter:3×",
+              "title": { "hi": "भिन्न का गुणा", "en": "Times a fraction" },
+              "config": { "skills": ["g4-multfrac"] }
+            }
+          ]
+        },
+        {
+          "id": "g4m-dec",
+          "title": { "hi": "दशमलव", "en": "Let's learn decimals" },
+          "skill": "Decimals · NC.4.NF.5–7",
+          "icon": "letter:0.5",
+          "lessons": [
+            {
+              "id": "g4m-dec-1",
+              "game": "math",
+              "icon": "letter:0.5",
+              "title": { "hi": "दशांश और शतांश", "en": "Tenths and hundredths" },
+              "config": { "skills": ["g4-decimals"] }
+            }
+          ]
+        },
+        {
+          "id": "g4m-measure",
+          "title": { "hi": "नाप-तौल", "en": "Let's convert and measure" },
+          "skill": "Units, area and perimeter · NC.4.MD.1–3",
+          "icon": "letter:km",
+          "lessons": [
+            {
+              "id": "g4m-measure-1",
+              "game": "math",
+              "icon": "letter:km",
+              "title": { "hi": "इकाई बदलो", "en": "Change the units" },
+              "config": { "skills": ["g4-convert"] }
+            },
+            {
+              "id": "g4m-measure-2",
+              "game": "math",
+              "icon": "letter:▭",
+              "title": { "hi": "क्षेत्रफल और परिमाप", "en": "Area and perimeter" },
+              "config": { "skills": ["g4-areaperim"] }
+            }
+          ]
+        },
+        {
+          "id": "g4m-angles",
+          "title": { "hi": "कोण और रेखाएँ", "en": "Let's measure angles" },
+          "skill": "Angles, lines, symmetry · NC.4.MD.5–7, G.1–3",
+          "icon": "letter:∠",
+          "lessons": [
+            { "id": "g4m-angles-1", "game": "math", "icon": "letter:∠", "title": { "hi": "कोण", "en": "Angles" }, "config": { "skills": ["g4-angles"] } },
+            {
+              "id": "g4m-angles-2",
+              "game": "math",
+              "icon": "letter:∥",
+              "title": { "hi": "समांतर और लंब", "en": "Parallel and perpendicular" },
+              "config": { "skills": ["g4-lines"] }
+            },
+            {
+              "id": "g4m-angles-3",
+              "game": "math",
+              "icon": "letter:⟷",
+              "title": { "hi": "सममिति रेखा", "en": "Lines of symmetry" },
+              "config": { "skills": ["g4-symmetry"] }
+            },
+            {
+              "id": "g4m-angles-4",
+              "game": "handson",
+              "icon": "telescope",
+              "title": { "hi": "कोण बनाओ", "en": "Turn the angle" },
+              "config": { "rounds": 4, "activity": "angle", "skill": "g4-angles" }
+            }
+          ]
+        },
+        {
+          "id": "g4m-review",
+          "title": { "hi": "वेधशाला चुनौती", "en": "Observatory challenge" },
+          "skill": "Review · mixed practice",
+          "icon": "moon",
+          "lessons": [
+            {
+              "id": "g4m-review-1",
+              "game": "math",
+              "icon": "moon",
+              "title": { "hi": "चुनौती 1", "en": "Challenge 1" },
+              "config": { "skills": ["g4-placevalue", "g4-multiply", "g4-divide", "g4-equivfrac", "g4-decimals", "g4-angles"], "rounds": 8 }
+            },
+            {
+              "id": "g4m-review-2",
+              "game": "math",
+              "icon": "comet",
+              "title": { "hi": "चुनौती 2", "en": "Challenge 2" },
+              "config": { "skills": ["g4-lakh", "g4-addsub", "g4-factors", "g4-addfrac", "g4-convert", "g4-areaperim", "g4-symmetry", "g4-wordprob"], "rounds": 8 }
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "mountain",
@@ -13954,6 +15311,57 @@
               "icon": "cucumber",
               "title": { "hi": "बोतल में खीरा", "en": "The cucumber in the bottle" },
               "config": { "story": "birbal-bottle" }
+            }
+          ]
+        },
+        {
+          "id": "g4-ganit-katha",
+          "title": { "hi": "गणित की कहानियाँ", "en": "Maths stories" },
+          "skill": "Stories",
+          "icon": "chessboard",
+          "lessons": [
+            {
+              "id": "g4-ganit-katha-1",
+              "game": "story",
+              "icon": "chessboard",
+              "title": { "hi": "शतरंज और चावल के दाने", "en": "Rice on the chessboard" },
+              "config": { "story": "chess-rice" }
+            },
+            {
+              "id": "g4-ganit-katha-2",
+              "game": "story",
+              "icon": "camel",
+              "title": { "hi": "सत्रह ऊँट", "en": "Seventeen camels" },
+              "config": { "story": "seventeen-camels" }
+            },
+            {
+              "id": "g4-ganit-katha-3",
+              "game": "story",
+              "icon": "satellite",
+              "title": { "hi": "आर्यभट और शून्य", "en": "Aryabhata and zero" },
+              "config": { "story": "aryabhata-zero" }
+            }
+          ]
+        },
+        {
+          "id": "g4-pahade",
+          "title": { "hi": "पहाड़ों की दौड़", "en": "Times tables race" },
+          "skill": "Maths in Hindi",
+          "icon": "drum",
+          "lessons": [
+            {
+              "id": "g4-pahade-1",
+              "game": "pahade",
+              "icon": "letter:2–5",
+              "title": { "hi": "दो से पाँच तक", "en": "Tables 2 to 5, mixed" },
+              "config": { "tables": [2, 3, 4, 5], "rounds": 8 }
+            },
+            {
+              "id": "g4-pahade-2",
+              "game": "pahade",
+              "icon": "letter:6–10",
+              "title": { "hi": "छह से दस तक", "en": "Tables 6 to 10, mixed" },
+              "config": { "tables": [6, 7, 8, 9, 10], "rounds": 10 }
             }
           ]
         }
@@ -14367,6 +15775,21 @@
           "skill": "Vocabulary",
           "icon": "comic-zoya",
           "lessons": [{ "id": "rj-idioms-1", "game": "quiz", "icon": "comic-zoya", "title": { "hi": "मुहावरे", "en": "Idioms" }, "config": { "bank": "rj-idioms", "rounds": 6 } }]
+        },
+        {
+          "id": "r-ganit",
+          "title": { "hi": "गणित का जादू", "en": "Maths magic" },
+          "skill": "Comics",
+          "icon": "comic-rimjhim",
+          "lessons": [
+            {
+              "id": "c-r-shakuntala",
+              "game": "comic",
+              "icon": "comic-rimjhim",
+              "title": { "hi": "दिमाग़ का कंप्यूटर", "en": "The human computer" },
+              "config": { "comic": "r-shakuntala" }
+            }
+          ]
         }
       ]
     },
@@ -14535,6 +15958,28 @@
               "icon": "comic-inspector",
               "title": { "hi": "मुहावरे", "en": "Idioms" },
               "config": { "bank": "g8-idioms", "rounds": 6 }
+            }
+          ]
+        },
+        {
+          "id": "g8-ganit",
+          "title": { "hi": "गणित से जासूसी", "en": "Detective maths" },
+          "skill": "Comics",
+          "icon": "comic-dadi",
+          "lessons": [
+            {
+              "id": "c-d-lock",
+              "game": "comic",
+              "icon": "comic-dadi",
+              "title": { "hi": "तीन अंकों का ताला", "en": "The three-digit lock" },
+              "config": { "comic": "d-lock" }
+            },
+            {
+              "id": "c-d-coins",
+              "game": "comic",
+              "icon": "comic-dadi",
+              "title": { "hi": "नौ सिक्के, एक नकली", "en": "Nine coins, one fake" },
+              "config": { "comic": "d-coins" }
             }
           ]
         }
@@ -14984,6 +16429,21 @@
           "skill": "Vocabulary",
           "icon": "peacock",
           "lessons": [{ "id": "b-idioms-1", "game": "quiz", "icon": "peacock", "title": { "hi": "मुहावरे", "en": "Idioms" }, "config": { "bank": "b-idioms", "rounds": 6 } }]
+        },
+        {
+          "id": "b-ganit",
+          "title": { "hi": "बीरबल का हिसाब", "en": "Birbal's sums" },
+          "skill": "Comics",
+          "icon": "comic-birbal",
+          "lessons": [
+            {
+              "id": "c-b-crows",
+              "game": "comic",
+              "icon": "comic-birbal",
+              "title": { "hi": "आगरा में कितने कौवे?", "en": "How many crows in Agra?" },
+              "config": { "comic": "b-crows" }
+            }
+          ]
         }
       ]
     },
@@ -15427,6 +16887,21 @@
           "skill": "Vocabulary",
           "icon": "telescope",
           "lessons": [{ "id": "mu-idioms-1", "game": "quiz", "icon": "telescope", "title": { "hi": "मुहावरे", "en": "Idioms" }, "config": { "bank": "mu-idioms", "rounds": 6 } }]
+        },
+        {
+          "id": "mu-ganit",
+          "title": { "hi": "संख्याओं के राज़", "en": "The secrets of numbers" },
+          "skill": "Comics",
+          "icon": "comic-murari",
+          "lessons": [
+            {
+              "id": "c-mu-1729",
+              "game": "comic",
+              "icon": "comic-murari",
+              "title": { "hi": "टैक्सी नंबर 1729", "en": "Taxi number 1729" },
+              "config": { "comic": "mu-1729" }
+            }
+          ]
         }
       ]
     }
@@ -17801,6 +19276,12 @@
       "guide": "tiko",
       "title": { "hi": "टीको का नंबर मेला", "en": "Tiko's number carnival" },
       "about": "Grade 1 maths in English: tens and ones, comparing, story sums, length, time and shapes"
+    },
+    {
+      "id": "pip",
+      "guide": "pip",
+      "title": { "hi": "पिप की बर्फ़ीली गिनती", "en": "Pip's snowy numbers" },
+      "about": "Kindergarten maths in English: counting, numbers, comparing, adding, making ten, shapes and measuring"
     }
   ],
   "riddles": [
@@ -21378,6 +22859,557 @@
             { "say": "tiko", "en": "You're a carnival maths star. Hoo hoo, goodbye!", "do": "dance" },
             { "do": "wave", "who": "pip" },
             { "sfx": "cheer" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pip-count",
+      "series": "pip",
+      "ep": 1,
+      "level": "kg",
+      "world": "igloo",
+      "lang": "en",
+      "title": { "hi": "पिप की मछलियाँ", "en": "Pip counts the fish" },
+      "teaches": { "en": "Counting to tell how many: one number for each thing, and the last number says how many; a quick look at a ten frame (NC.K.CC.4–5)" },
+      "lesson": "km-count-1",
+      "recap": { "lines": ["5 fish", "7 fish: the last number says how many", "A full row of a ten frame is 5"] },
+      "next": { "en": "Next time: footprints in the snow, with numbers on them! What number comes after seven?" },
+      "scenes": [
+        {
+          "bg": "igloo",
+          "beats": [
+            { "narrate": true, "en": "Snow is falling on the Number Igloo." },
+            { "enter": "pip", "at": 28 },
+            { "say": "pip", "en": "Brr! I went fishing. Let's count my fish together!", "do": "happy" },
+            { "model": { "kind": "objects", "groups": [{ "n": 5, "pic": "fish" }], "layout": "rows", "countable": true }, "at": 62 },
+            { "say": "pip", "en": "One, two, three, four, five! Touch each fish once as you count." },
+            { "number": "5", "at": 62 },
+            { "echo": { "en": "One fish, one number!" } }
+          ]
+        },
+        {
+          "bg": "igloo",
+          "actors": { "pip": 28 },
+          "beats": [
+            { "enter": "tiko", "at": 76, "from": "right" },
+            { "say": "tiko", "en": "Hoo! I caught some too. How many fish now?", "do": "cheer" },
+            { "model": { "kind": "objects", "groups": [{ "n": 7, "pic": "fish" }], "layout": "rows", "countable": true }, "at": 62 },
+            {
+              "ask": { "en": "How many fish?" },
+              "who": "pip",
+              "kind": "number",
+              "options": [6, 7, 8],
+              "answer": 7,
+              "then": { "en": "Seven! The last number you say tells how many." }
+            },
+            { "number": "7", "at": 62 },
+            { "echo": { "en": "The last number tells how many!" } },
+            { "say": "tiko", "en": "If I count them in a different order, is it still seven?" },
+            { "say": "pip", "en": "Yes! However you count them, seven fish are seven fish." },
+            { "exit": "tiko", "to": "right" }
+          ]
+        },
+        {
+          "bg": "igloo",
+          "actors": { "pip": 28 },
+          "beats": [
+            { "narrate": true, "en": "Then Pip played a quick-look game." },
+            { "model": { "kind": "tenframe", "frames": [{ "a": 5 }] }, "at": 62 },
+            { "say": "pip", "en": "Quick! Look at the ten frame without counting." },
+            {
+              "ask": { "en": "How many dots?" },
+              "who": "pip",
+              "kind": "number",
+              "options": [4, 5, 6],
+              "answer": 5,
+              "then": { "en": "Five! One full row of the ten frame is five." }
+            },
+            { "clear": true },
+            { "say": "pip", "en": "Count each one once, and the last number tells how many. Waddle waddle!", "do": "dance" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pip-numbers",
+      "series": "pip",
+      "ep": 2,
+      "level": "kg",
+      "world": "igloo",
+      "lang": "en",
+      "title": { "hi": "बर्फ़ पर नंबर वाले निशान", "en": "Numbers in the snow" },
+      "teaches": { "en": "Counting on from any number, counting by tens, reading numbers to 20 (NC.K.CC.1–3)" },
+      "lesson": "km-numbers-1",
+      "recap": { "lines": ["3, 4, 5, 6: count on", "10, 20, 30, 40: count by tens", "12 is not 21"] },
+      "answer": { "en": "Last time I asked: what number comes after seven? Eight! Seven, eight." },
+      "next": { "en": "Next time: Tiko and I make snowballs. Who has more? Think how you could find out!" },
+      "scenes": [
+        {
+          "bg": "igloo",
+          "beats": [
+            { "narrate": true, "en": "Someone left footprints in the snow, with numbers on them!" },
+            { "enter": "pip", "at": 28 },
+            { "say": "pip", "en": "Let's follow them. We're standing on three.", "do": "happy" },
+            { "model": { "kind": "numberline", "from": 0, "to": 10, "start": 3 }, "at": 62 },
+            { "say": "pip", "en": "Count on: four, five, six!" },
+            { "echo": { "en": "Count on from any number!" } }
+          ]
+        },
+        {
+          "bg": "igloo",
+          "actors": { "pip": 28 },
+          "beats": [
+            { "enter": "buzz", "at": 76, "from": "right" },
+            { "say": "buzz", "en": "Bzzz! Over here the footprints jump by tens: ten, twenty, thirty!", "do": "cheer" },
+            { "number": "10, 20, 30, ?", "at": 62 },
+            {
+              "ask": { "en": "What comes after thirty, counting by tens?" },
+              "who": "pip",
+              "kind": "number",
+              "options": [31, 40, 50],
+              "answer": 40,
+              "then": { "en": "Forty! Ten, twenty, thirty, forty." }
+            },
+            { "echo": { "en": "Ten, twenty, thirty, forty!" } },
+            { "exit": "buzz", "to": "right" }
+          ]
+        },
+        {
+          "bg": "igloo",
+          "actors": { "pip": 28 },
+          "beats": [
+            { "say": "pip", "en": "The last footprint says a number. Which one is twelve?" },
+            {
+              "ask": { "en": "Find twelve." },
+              "who": "pip",
+              "kind": "number",
+              "options": [2, 12, 21],
+              "answer": 12,
+              "then": { "en": "Twelve: a one, then a two. Twenty-one is a different number!" }
+            },
+            { "say": "pip", "en": "In twelve, the one is for one full ten, and the two is two more." },
+            { "number": "12 = 10 + 2", "at": 62 },
+            { "clear": true },
+            { "say": "pip", "en": "Count on, count by tens, and read the numbers. You can do it all!", "do": "dance" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pip-compare",
+      "series": "pip",
+      "ep": 3,
+      "level": "kg",
+      "world": "igloo",
+      "lang": "en",
+      "title": { "hi": "किसके पास ज़्यादा गोले?", "en": "Who has more snowballs?" },
+      "teaches": { "en": "More, fewer or the same, by counting or matching; which number is bigger (NC.K.CC.6–7)" },
+      "lesson": "km-compare-1",
+      "recap": { "lines": ["6 is more than 4", "6 and 6 are the same", "8 is bigger than 3"] },
+      "answer": { "en": "Last time I asked: who has more snowballs, and how can you find out? Count each pile, or match them up one by one!" },
+      "next": { "en": "Next time: two penguins are sliding, and three more come along. How many penguins then?" },
+      "scenes": [
+        {
+          "bg": "igloo",
+          "beats": [
+            { "narrate": true, "en": "It's a snowball contest at the igloo!" },
+            { "enter": "pip", "at": 26 },
+            { "enter": "tiko", "at": 76, "from": "right" },
+            { "say": "tiko", "en": "I made six snowballs!", "do": "cheer" },
+            { "say": "pip", "en": "I made four. Let me line them up and match them." },
+            {
+              "model": { "kind": "objects", "groups": [{ "n": 6, "pic": "dot", "color": "#3D7BFF" }, { "n": 4, "pic": "dot", "color": "#FF5A5F" }], "layout": "rows", "cols": 6 },
+              "at": 62
+            },
+            {
+              "ask": { "en": "Who has more, six or four?" },
+              "who": "pip",
+              "kind": "number",
+              "options": [4, 6],
+              "answer": 6,
+              "then": { "en": "Six! Tiko has two left over with no partner." }
+            },
+            { "echo": { "en": "Six is more than four!" } }
+          ]
+        },
+        {
+          "bg": "igloo",
+          "actors": { "pip": 26, "tiko": 76 },
+          "beats": [
+            { "narrate": true, "en": "Pip quickly made two more." },
+            { "say": "pip", "en": "Now I have six too!", "do": "happy" },
+            {
+              "model": { "kind": "objects", "groups": [{ "n": 6, "pic": "dot", "color": "#3D7BFF" }, { "n": 6, "pic": "dot", "color": "#FF5A5F" }], "layout": "rows", "cols": 6 },
+              "at": 62
+            },
+            {
+              "ask": { "en": "How many more does Tiko have now?" },
+              "who": "tiko",
+              "kind": "number",
+              "options": [0, 1, 2],
+              "answer": 0,
+              "then": { "en": "None! Six and six are the same." }
+            },
+            { "echo": { "en": "Six and six are the same!" } }
+          ]
+        },
+        {
+          "bg": "igloo",
+          "actors": { "pip": 26, "tiko": 76 },
+          "beats": [
+            { "say": "tiko", "en": "Last one, without snowballs. Which number is bigger, three or eight?" },
+            {
+              "ask": { "en": "Which is bigger?" },
+              "who": "pip",
+              "kind": "number",
+              "options": [3, 8],
+              "answer": 8,
+              "then": { "en": "Eight! When you count, eight comes after three." }
+            },
+            { "clear": true },
+            { "say": "pip", "en": "Count both, or match them up. Then you know who has more!", "do": "dance" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pip-add",
+      "series": "pip",
+      "ep": 4,
+      "level": "kg",
+      "world": "igloo",
+      "lang": "en",
+      "title": { "hi": "फिसलती पेंगुइन", "en": "Penguins come and go" },
+      "teaches": { "en": "Adding to and taking from, with objects; facts within 5 (NC.K.OA.1, 2, 5)" },
+      "lesson": "km-add-1",
+      "recap": { "lines": ["2 + 3 = 5", "4 − 1 = 3", "1 + 1 = 2"] },
+      "answer": { "en": "Last time I asked: two penguins are sliding, and three more come along. How many? Five! Two and three make five." },
+      "next": { "en": "Next time: I have six fish in my ten frame. How many more make ten?" },
+      "scenes": [
+        {
+          "bg": "igloo",
+          "beats": [
+            { "narrate": true, "en": "Penguins love the ice slide." },
+            { "enter": "pip", "at": 28 },
+            {
+              "model": { "kind": "objects", "groups": [{ "n": 2, "pic": "penguin" }, { "n": 3, "pic": "penguin", "arrive": true }], "op": "+", "layout": "rows", "countable": true },
+              "at": 62
+            },
+            { "say": "pip", "en": "Two penguins, and three more slide in. Two and three make five!", "do": "happy" },
+            { "say": "pip", "en": "Count them all to check: one, two, three, four, five." },
+            { "number": "2 + 3 = 5", "at": 62 },
+            { "echo": { "en": "Two and three make five!" } }
+          ]
+        },
+        {
+          "bg": "igloo",
+          "actors": { "pip": 28 },
+          "beats": [
+            { "enter": "tiko", "at": 76, "from": "right" },
+            { "say": "tiko", "en": "Four penguins on the slide... and one goes home for dinner.", "do": "oops" },
+            { "say": "tiko", "en": "Bye-bye, little penguin!" },
+            { "model": { "kind": "objects", "groups": [{ "n": 4, "pic": "penguin", "gone": 1 }], "layout": "rows", "countable": true }, "at": 62 },
+            {
+              "ask": { "en": "Four take away one leaves...?" },
+              "who": "pip",
+              "kind": "number",
+              "options": [2, 3, 5],
+              "answer": 3,
+              "then": { "en": "Three! Four take away one is three." }
+            },
+            { "number": "4 − 1 = 3", "at": 62 },
+            { "echo": { "en": "Take away makes fewer!" } },
+            { "exit": "tiko", "to": "right" }
+          ]
+        },
+        {
+          "bg": "igloo",
+          "actors": { "pip": 28 },
+          "beats": [
+            { "say": "pip", "en": "A quick one. One penguin, and one more." },
+            { "ask": { "en": "One plus one?" }, "who": "pip", "kind": "number", "options": [1, 2, 3], "answer": 2, "then": { "en": "Two! One and one make two." } },
+            { "say": "pip", "en": "And five take away five? None left: zero!" },
+            { "clear": true },
+            { "say": "pip", "en": "Adding makes more, taking away makes fewer. Slide time!", "do": "dance" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pip-ten",
+      "series": "pip",
+      "ep": 5,
+      "level": "kg",
+      "world": "igloo",
+      "lang": "en",
+      "title": { "hi": "दस का डिब्बा", "en": "Fill the ten frame" },
+      "teaches": { "en": "Partners that make 10, and teen numbers as ten and some more (NC.K.OA.3–4, NBT.1)" },
+      "lesson": "km-ten-2",
+      "recap": { "lines": ["6 + 4 = 10", "7 + 3 = 10", "10 + 4 = 14"] },
+      "answer": { "en": "Last time I asked: six fish in the ten frame. How many more make ten? Four! Six and four make ten." },
+      "next": { "en": "Next time: I'm building an igloo with shapes. Which shape has three sides?" },
+      "scenes": [
+        {
+          "bg": "igloo",
+          "beats": [
+            { "narrate": true, "en": "Pip is packing fish into a ten-frame box." },
+            { "enter": "pip", "at": 28 },
+            { "model": { "kind": "tenframe", "frames": [{ "a": 6, "b": 4, "hideB": true }] }, "at": 62 },
+            { "say": "pip", "en": "Six fish. Now count the empty spots: one, two, three, four.", "do": "happy" },
+            { "number": "6 + 4 = 10", "at": 62 },
+            { "say": "pip", "en": "Six and four are partners. Together they make ten!" },
+            { "echo": { "en": "Six and four make ten!" } }
+          ]
+        },
+        {
+          "bg": "igloo",
+          "actors": { "pip": 28 },
+          "beats": [
+            { "enter": "tiko", "at": 76, "from": "right" },
+            { "say": "tiko", "en": "My box has seven fish.", "do": "cheer" },
+            { "model": { "kind": "tenframe", "frames": [{ "a": 7, "b": 3, "hideB": true }] }, "at": 62 },
+            {
+              "ask": { "en": "How many more make ten?" },
+              "who": "pip",
+              "kind": "number",
+              "options": [2, 3, 4],
+              "answer": 3,
+              "then": { "en": "Three! Seven and three make ten." }
+            },
+            { "say": "tiko", "en": "Or count on from seven: eight, nine, ten. Three jumps!" },
+            { "echo": { "en": "Count the empty spots!" } },
+            { "exit": "tiko", "to": "right" }
+          ]
+        },
+        {
+          "bg": "igloo",
+          "actors": { "pip": 28 },
+          "beats": [
+            { "narrate": true, "en": "Then Pip had one full box, and some more fish." },
+            { "model": { "kind": "tenframe", "frames": [{ "a": 10 }, { "a": 4 }] }, "at": 62 },
+            {
+              "ask": { "en": "Ten and four make...?" },
+              "who": "pip",
+              "kind": "number",
+              "options": [4, 14, 41],
+              "answer": 14,
+              "then": { "en": "Fourteen! One full ten and four more." }
+            },
+            { "say": "pip", "en": "In fourteen, the one is for the full ten, and the four is for four more." },
+            { "clear": true },
+            { "say": "pip", "en": "Ten is a full frame. Teen numbers are ten and some more!", "do": "dance" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pip-shapes",
+      "series": "pip",
+      "ep": 6,
+      "level": "kg",
+      "world": "igloo",
+      "lang": "en",
+      "title": { "hi": "बर्फ़ में आकार", "en": "Shapes in the snow" },
+      "teaches": { "en": "Naming shapes by their sides and corners: triangle, square, circle (NC.K.G.2–3)" },
+      "lesson": "km-shapes-2",
+      "recap": { "lines": ["triangle: 3 sides", "square: 4 equal sides", "circle: no corners"] },
+      "answer": { "en": "Last time I asked: which shape has three sides? A triangle!" },
+      "next": { "en": "Next time: my scarf and Tiko's scarf. Whose is longer? How could we check?" },
+      "scenes": [
+        {
+          "bg": "igloo",
+          "beats": [
+            { "narrate": true, "en": "Pip finds shapes all around the igloo." },
+            { "enter": "pip", "at": 28 },
+            { "model": { "kind": "shape", "shape": "triangle", "color": "#FF8A3D", "marks": "sides" }, "at": 62 },
+            { "say": "pip", "en": "This snow roof is a triangle: three sides and three corners. One, two, three!", "do": "happy" },
+            { "say": "pip", "en": "Draw a triangle in the air with your finger: one, two, three sides!" },
+            { "echo": { "en": "Three sides make a triangle!" } }
+          ]
+        },
+        {
+          "bg": "igloo",
+          "actors": { "pip": 28 },
+          "beats": [
+            { "enter": "tiko", "at": 76, "from": "right" },
+            { "model": { "kind": "shape", "shape": "square", "color": "#3D7BFF", "marks": "sides" }, "at": 62 },
+            { "say": "tiko", "en": "My ice block has sides that are all the same.", "do": "cheer" },
+            {
+              "ask": { "en": "How many sides does a square have?" },
+              "who": "pip",
+              "kind": "number",
+              "options": [3, 4, 5],
+              "answer": 4,
+              "then": { "en": "Four! Four equal sides." }
+            },
+            { "say": "tiko", "en": "A rectangle has four sides too, but two are long and two are short." },
+            { "echo": { "en": "Four equal sides make a square!" } },
+            { "exit": "tiko", "to": "right" }
+          ]
+        },
+        {
+          "bg": "igloo",
+          "actors": { "pip": 28 },
+          "beats": [
+            { "model": { "kind": "shape", "shape": "circle", "color": "#FFB020" }, "at": 62 },
+            { "say": "pip", "en": "And the sun is a circle: round all the way, with no corners." },
+            {
+              "ask": { "en": "How many corners does a circle have?" },
+              "who": "pip",
+              "kind": "number",
+              "options": [0, 1, 4],
+              "answer": 0,
+              "then": { "en": "None! A circle has no corners at all." }
+            },
+            { "say": "pip", "en": "Roll a ball, roll a coin: circles roll because they are round!" },
+            { "clear": true },
+            { "say": "pip", "en": "Triangle, square, circle. Shapes are everywhere!", "do": "dance" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pip-measure",
+      "series": "pip",
+      "ep": 7,
+      "level": "kg",
+      "world": "igloo",
+      "lang": "en",
+      "title": { "hi": "किसका मफ़लर लंबा?", "en": "Whose scarf is longer?" },
+      "teaches": { "en": "Comparing lengths with the ends lined up; sorting and counting groups (NC.K.MD.1–3)" },
+      "lesson": "km-measure-1",
+      "recap": { "lines": ["7 cubes is longer than 5", "Line things up at one end", "Sort first, then count"] },
+      "answer": { "en": "Last time I asked: whose scarf is longer, and how can we check? Lay them side by side, with the ends lined up!" },
+      "next": { "en": "Next time is the Number Party! Can you guess what comes next: fish, penguin, fish, penguin...?" },
+      "scenes": [
+        {
+          "bg": "igloo",
+          "beats": [
+            { "narrate": true, "en": "Two warm scarves for a snowy day." },
+            { "enter": "pip", "at": 26 },
+            { "enter": "tiko", "at": 76, "from": "right" },
+            { "model": { "kind": "measure", "len": 5, "thing": "ribbon", "color": "#FF5A5F" }, "at": 62 },
+            { "say": "pip", "en": "My scarf is five cubes long.", "do": "happy" },
+            { "say": "pip", "en": "Wait! We line up the ends first. No cheating!", "do": "oops" },
+            { "model": { "kind": "measure", "len": 7, "thing": "ribbon", "color": "#3D7BFF" }, "at": 62 },
+            {
+              "ask": { "en": "Mine is seven cubes long. How many cubes long is the longer scarf?" },
+              "who": "tiko",
+              "kind": "number",
+              "options": [5, 7],
+              "answer": 7,
+              "then": { "en": "Seven! Tiko's scarf is longer." }
+            },
+            { "echo": { "en": "Line up the ends, then compare!" } }
+          ]
+        },
+        {
+          "bg": "igloo",
+          "actors": { "pip": 26, "tiko": 76 },
+          "beats": [
+            { "narrate": true, "en": "Then they sorted their snowy things." },
+            {
+              "model": {
+                "kind": "objects",
+                "groups": [{ "n": 1, "pic": "fish" }, { "n": 1, "pic": "penguin" }, { "n": 1, "pic": "fish" }, { "n": 1, "pic": "penguin" }, { "n": 1, "pic": "fish" }],
+                "layout": "mixed",
+                "countable": true
+              },
+              "at": 62
+            },
+            {
+              "ask": { "en": "How many fish?" },
+              "who": "pip",
+              "kind": "number",
+              "options": [2, 3, 5],
+              "answer": 3,
+              "then": { "en": "Three fish! Sort them first, then count each kind." }
+            },
+            { "echo": { "en": "Sort, then count!" } }
+          ]
+        },
+        {
+          "bg": "igloo",
+          "actors": { "pip": 26, "tiko": 76 },
+          "beats": [
+            { "say": "tiko", "en": "And an elephant is heavier than a mouse!", "do": "oops" },
+            { "say": "pip", "en": "On a seesaw, the elephant would go down and the mouse would go up!" },
+            { "say": "tiko", "en": "Long, short, heavy, light!" },
+            { "clear": true },
+            { "say": "pip", "en": "Longer, shorter, heavier, lighter. We can compare anything!", "do": "dance" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pip-party",
+      "series": "pip",
+      "ep": 8,
+      "level": "kg",
+      "world": "igloo",
+      "lang": "en",
+      "title": { "hi": "गिनती पार्टी", "en": "The Number Party" },
+      "teaches": { "en": "Review of the year: patterns, counting back, and everything Pip has learned (K.MP.7, NC.K.CC.2)" },
+      "lesson": "km-party-1",
+      "recap": { "lines": ["fish, penguin, fish, penguin...", "3, 2, 1, 0: blast off!", "count, compare, add, make ten, shapes, measure"] },
+      "answer": { "en": "Last time I asked: fish, penguin, fish, penguin... what comes next? Fish! The pattern goes on." },
+      "scenes": [
+        {
+          "bg": "igloo",
+          "beats": [
+            { "narrate": true, "en": "It's the Number Party at the igloo! Everyone is here." },
+            { "enter": "pip", "at": 26 },
+            { "enter": "tiko", "at": 76, "from": "right" },
+            {
+              "model": {
+                "kind": "objects",
+                "groups": [{ "n": 1, "pic": "fish" }, { "n": 1, "pic": "penguin" }, { "n": 1, "pic": "fish" }, { "n": 1, "pic": "penguin" }, { "n": 1, "pic": "fish" }],
+                "layout": "mixed"
+              },
+              "at": 62
+            },
+            { "say": "pip", "en": "The party flags make a pattern: fish, penguin, fish, penguin, fish...", "do": "happy" },
+            { "say": "pip", "en": "Clap it with me: fish, penguin, fish, penguin!" },
+            {
+              "ask": { "en": "What comes next?" },
+              "who": "tiko",
+              "options": ["fish", "penguin"],
+              "answer": "penguin",
+              "then": { "en": "Penguin! The pattern goes on." }
+            },
+            { "echo": { "en": "Say the pattern out loud!" } }
+          ]
+        },
+        {
+          "bg": "igloo",
+          "actors": { "pip": 26, "tiko": 76 },
+          "beats": [
+            { "enter": "buzz", "at": 52, "from": "right" },
+            { "say": "buzz", "en": "Bzzz! Fireworks! Let's count back for blast off.", "do": "cheer" },
+            { "say": "buzz", "en": "Ten, nine, eight, seven, six, five, four..." },
+            { "number": "3, 2, 1, ?", "at": 62 },
+            {
+              "ask": { "en": "Three, two, one... what comes next?" },
+              "who": "pip",
+              "kind": "number",
+              "options": [0, 4, 10],
+              "answer": 0,
+              "then": { "en": "Zero! Blast off!" }
+            },
+            { "echo": { "en": "Ten, nine, eight... blast off!" } },
+            { "exit": "buzz", "to": "right" }
+          ]
+        },
+        {
+          "bg": "igloo",
+          "actors": { "pip": 26, "tiko": 76 },
+          "beats": [
+            { "clear": true },
+            { "narrate": true, "en": "The fireworks lit up the snowy sky." },
+            { "say": "pip", "en": "Thank you for playing with me all year!", "do": "happy" },
+            { "say": "pip", "en": "We counted, compared, added, made ten, found shapes and measured. You did it all!", "do": "dance" },
+            { "say": "tiko", "en": "Hoo hoo! See you in Grade 1, at my Number Carnival!", "do": "cheer" }
           ]
         }
       ]
@@ -38899,6 +40931,541 @@
           "options": ["आपसी शिकायतें मिट जाना", "दूर चले जाना", "शिकायत लिखना"],
           "answer": "आपसी शिकायतें मिट जाना"
         }
+      ]
+    },
+    {
+      "series": "murari",
+      "level": "grade8",
+      "id": "mu-1729",
+      "title": { "hi": "टैक्सी नंबर 1729", "en": "Taxi number 1729" },
+      "blurb": "गोलू को टैक्सी का नंबर 1729 बोरिंग लगा, पर मास्टर मुरारी ने सुनाई रामानुजन की वह कहानी जिसने इस नंबर को दुनिया भर में मशहूर कर दिया।",
+      "parts": { "hardy": { "look": "man-old", "name": "प्रोफ़ेसर हार्डी" }, "ramanujan": { "look": "man-b", "name": "श्रीनिवास रामानुजन" } },
+      "panels": [
+        {
+          "bg": "station",
+          "cast": [{ "who": "golu", "at": 30, "face": "grin", "arms": "point" }, { "who": "murari", "at": 70, "face": "smile" }],
+          "cap": "स्टेशन के बाहर मास्टर मुरारी और गोलू टैक्सी का इंतज़ार कर रहे थे।",
+          "say": [{ "who": "golu", "text": "मास्टरजी, देखिए, इस टैक्सी का नंबर 1729 है। कितना बोरिंग नंबर!" }]
+        },
+        {
+          "bg": "station",
+          "cast": [{ "who": "murari", "at": 50, "face": "think", "arms": "chin" }],
+          "say": [
+            {
+              "who": "murari",
+              "text": "बोरिंग? अरे गोलू, लगभग सौ साल पहले एक अंग्रेज़ गणितज्ञ ने भी यही कहा था, और उन्हें ऐसा जवाब मिला कि वे हैरान रह गए!"
+            }
+          ]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "hardy", "at": 30, "face": "smile" }, { "who": "ramanujan", "at": 70, "face": "smile" }],
+          "cap": "इंग्लैंड, सौ साल से भी पहले। भारत के महान गणितज्ञ श्रीनिवास रामानुजन बीमार थे। उनके दोस्त प्रोफ़ेसर हार्डी उनसे मिलने आए।",
+          "say": [{ "who": "hardy", "text": "मैं जिस टैक्सी से आया, उसका नंबर 1729 था। बड़ा फीका नंबर है।" }]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "ramanujan", "at": 50, "face": "grin" }],
+          "say": [
+            {
+              "who": "ramanujan",
+              "text": "नहीं, यह तो बहुत दिलचस्प नंबर है! यह सबसे छोटी संख्या है जिसे दो घनों के जोड़ के रूप में दो अलग-अलग तरीक़ों से लिखा जा सकता है।"
+            }
+          ]
+        },
+        {
+          "bg": "station",
+          "cast": [{ "who": "golu", "at": 30, "face": "think" }, { "who": "murari", "at": 70, "face": "smile", "arms": "point" }],
+          "say": [{ "who": "golu", "text": "घन? मतलब?" }, { "who": "murari", "text": "किसी संख्या को तीन बार गुणा करो। 2 का घन: 2 × 2 × 2 = 8। और 10 का घन: 1000।" }]
+        },
+        {
+          "bg": "station",
+          "cast": [{ "who": "murari", "at": 50, "face": "smile", "hold": "notebook" }],
+          "say": [{ "who": "murari", "text": "अब देखो: 12 का घन है 1728, और 1 का घन 1। जोड़ो: 1729!" }]
+        },
+        {
+          "bg": "station",
+          "cast": [{ "who": "golu", "at": 35, "face": "shock", "hold": "notebook" }, { "who": "murari", "at": 75, "face": "smile" }],
+          "say": [{ "who": "golu", "text": "और दूसरा तरीक़ा?" }, { "who": "murari", "text": "9 का घन 729, और 10 का घन 1000। जोड़ो: फिर 1729!" }]
+        },
+        {
+          "bg": "station",
+          "cast": [{ "who": "golu", "at": 50, "face": "laugh", "arms": "up" }],
+          "cap": "इसीलिए 1729 को आज “हार्डी-रामानुजन संख्या” कहते हैं।",
+          "say": [{ "who": "golu", "text": "वाह! एक नंबर, दो रास्ते!" }],
+          "sfx": "वाह!"
+        },
+        {
+          "bg": "station",
+          "cast": [{ "who": "murari", "at": 50, "face": "smile" }],
+          "say": [{ "who": "murari", "text": "रामानुजन तमिलनाडु के कुंभकोणम में पले-बढ़े। ज़्यादातर गणित उन्होंने ख़ुद सीखा, और हज़ारों नए सूत्र खोजे।" }]
+        },
+        {
+          "bg": "station",
+          "cast": [{ "who": "golu", "at": 35, "face": "grin" }, { "who": "murari", "at": 75, "face": "smile" }],
+          "say": [{ "who": "golu", "text": "इसीलिए 22 दिसंबर, उनके जन्मदिन पर, राष्ट्रीय गणित दिवस मनाते हैं न?" }, { "who": "murari", "text": "बिलकुल सही!" }]
+        },
+        {
+          "bg": "station",
+          "cast": [{ "who": "golu", "at": 50, "face": "grin", "arms": "point" }],
+          "say": [{ "who": "golu", "text": "मास्टरजी, आज तो मेरी आँखें खुल गईं! अब मैं हर गाड़ी के नंबर में कुछ ख़ास ढूँढूँगा!" }],
+          "sfx": "पीं-पीं!"
+        },
+        {
+          "bg": "station",
+          "cast": [{ "who": "murari", "at": 35, "face": "smile" }, { "who": "golu", "at": 70, "face": "grin" }],
+          "say": [{ "who": "murari", "text": "याद रखो: कोई संख्या बोरिंग नहीं होती, बस हमें उसकी कहानी पता नहीं होती।" }],
+          "wide": true
+        }
+      ],
+      "guess": {
+        "at": 5,
+        "q": "1729 को दो घनों के जोड़ के रूप में कैसे लिखें?",
+        "options": ["1 का घन + 12 का घन", "2 का घन + 7 का घन", "17 का घन + 29 का घन"],
+        "answer": "1 का घन + 12 का घन",
+        "hint": "12 × 12 × 12 = 1728। अब 1729 तक पहुँचने के लिए कितना और चाहिए?"
+      },
+      "words": [
+        { "hi": "आँखें खुल", "mean": "मुहावरा: सच्चाई समझ में आ जाना (आँखें खुलना)", "en": "to have one’s eyes opened" },
+        { "hi": "घन", "mean": "किसी संख्या को तीन बार गुणा करना (2 × 2 × 2 = 8)", "en": "cube" },
+        { "hi": "गणितज्ञ", "mean": "गणित का विद्वान", "en": "mathematician" },
+        { "hi": "दिलचस्प", "mean": "मज़ेदार, ध्यान खींचने वाला", "en": "interesting" },
+        { "hi": "सूत्र", "mean": "गणित का नियम या फ़ॉर्मूला", "en": "formula" },
+        { "hi": "फीका", "mean": "बिना मज़े का", "en": "dull" }
+      ],
+      "questions": [
+        {
+          "q": "1729 किन घनों का जोड़ है?",
+          "options": ["1 और 12 के घन, और 9 और 10 के घन", "2 और 7 के घन", "17 और 29 के घन"],
+          "answer": "1 और 12 के घन, और 9 और 10 के घन"
+        },
+        { "q": "रामानुजन कहाँ पले-बढ़े?", "options": ["कुंभकोणम, तमिलनाडु", "लंदन", "पटना"], "answer": "कुंभकोणम, तमिलनाडु" },
+        { "q": "राष्ट्रीय गणित दिवस कब मनाते हैं?", "options": ["22 दिसंबर", "15 अगस्त", "5 सितंबर"], "answer": "22 दिसंबर" }
+      ]
+    },
+    {
+      "series": "rimjhim",
+      "level": "grade7",
+      "id": "r-shakuntala",
+      "title": { "hi": "दिमाग़ का कंप्यूटर", "en": "The human computer" },
+      "blurb": "बबलू को अपने फ़ोन के कैलकुलेटर पर बड़ा घमंड था। तब अम्मा ने सुनाई शकुंतला देवी की कहानी, और रिमझिम ने सीखी 11 की जादुई तरकीब।",
+      "parts": { "shakuntala": { "look": "girl-a", "name": "नन्ही शकुंतला" }, "shakuntala2": { "look": "woman-b", "name": "शकुंतला देवी" } },
+      "panels": [
+        {
+          "bg": "colony",
+          "cast": [{ "who": "rimjhim", "at": 30, "face": "smile" }, { "who": "bablu", "at": 70, "face": "grin", "hold": "phone" }],
+          "cap": "गुलमोहर कॉलोनी में बबलू अपने नए फ़ोन के कैलकुलेटर पर इतरा रहा था।",
+          "say": [{ "who": "bablu", "text": "कोई भी सवाल दो, मेरा कैलकुलेटर पलक झपकते जवाब देगा!" }]
+        },
+        {
+          "bg": "colony",
+          "cast": [{ "who": "amma", "at": 50, "face": "smile" }],
+          "say": [{ "who": "amma", "text": "कैलकुलेटर? हमारे ज़माने में एक ऐसी महिला थीं जिनसे बड़े-बड़े कंप्यूटर भी हार जाते थे: शकुंतला देवी!" }]
+        },
+        {
+          "bg": "stage",
+          "cast": [{ "who": "shakuntala", "at": 50, "face": "grin" }],
+          "cap": "शकुंतला देवी 1929 में बेंगलुरु में पैदा हुईं। उनके पिता सर्कस में करतब दिखाते थे।",
+          "say": [{ "who": "shakuntala", "text": "पापा, ताश का यह खेल तो मैं गिनकर जीत जाऊँगी!" }]
+        },
+        {
+          "bg": "colony",
+          "cast": [{ "who": "amma", "at": 40, "face": "smile" }, { "who": "rimjhim", "at": 75, "face": "think" }],
+          "say": [
+            {
+              "who": "amma",
+              "text": "तीन साल की उम्र में ही वे ताश के खेल में संख्याएँ याद रखने लगीं। स्कूल ज़्यादा नहीं गईं, पर गणित में कमाल करती रहीं।"
+            }
+          ]
+        },
+        {
+          "bg": "stage",
+          "cast": [{ "who": "shakuntala2", "at": 50, "face": "smile" }],
+          "cap": "1980 में लंदन के एक कॉलेज में उन्हें तेरह-तेरह अंकों की दो संख्याएँ गुणा करने को दी गईं। उन्होंने सिर्फ़ 28 सेकंड में सही जवाब दे दिया!",
+          "say": [{ "who": "shakuntala2", "text": "जवाब है छब्बीस अंकों की यह संख्या!" }]
+        },
+        {
+          "bg": "colony",
+          "cast": [{ "who": "rimjhim", "at": 35, "face": "shock" }, { "who": "zoya", "at": 75, "face": "think" }],
+          "say": [
+            { "who": "rimjhim", "text": "अट्ठाईस सेकंड! क्या हम भी कोई जादू सीख सकते हैं, अम्मा?" },
+            { "who": "zoya", "text": "और उनका नाम गिनीज़ बुक में भी आया होगा!" }
+          ]
+        },
+        {
+          "bg": "colony",
+          "cast": [{ "who": "amma", "at": 40, "face": "smile", "arms": "point" }, { "who": "rimjhim", "at": 75, "face": "think" }],
+          "say": [
+            {
+              "who": "amma",
+              "text": "एक छोटी-सी तरकीब सिखाती हूँ: दो अंकों की संख्या को 11 से गुणा करना। 34 × 11: पहला अंक 3, आख़िरी 4, और बीच में 3 और 4 का जोड़, 7। जवाब: 374!"
+            }
+          ]
+        },
+        {
+          "bg": "colony",
+          "cast": [{ "who": "rimjhim", "at": 50, "face": "grin", "hold": "notebook" }],
+          "say": [{ "who": "rimjhim", "text": "वाह! तो 52 × 11: पहले 5, बीच में 5 और 2 का जोड़ 7, फिर 2। हुआ 572!" }]
+        },
+        {
+          "bg": "colony",
+          "cast": [{ "who": "zoya", "at": 30, "face": "smile" }, { "who": "bablu", "at": 70, "face": "worried", "hold": "phone" }],
+          "say": [{ "who": "zoya", "text": "चलो, मुक़ाबला! 45 × 11?" }, { "who": "bablu", "text": "रुको, फ़ोन का ताला खोल रहा हूँ..." }]
+        },
+        {
+          "bg": "colony",
+          "cast": [{ "who": "rimjhim", "at": 50, "face": "laugh", "arms": "up" }],
+          "say": [{ "who": "rimjhim", "text": "चार सौ पंचानवे: 495!" }],
+          "sfx": "टिंग!"
+        },
+        {
+          "bg": "colony",
+          "cast": [{ "who": "bablu", "at": 50, "face": "shock", "hold": "phone" }],
+          "say": [{ "who": "bablu", "text": "मेरे कैलकुलेटर ने भी 495 कहा... पर रिमझिम के बाद!" }]
+        },
+        {
+          "bg": "colony",
+          "cast": [{ "who": "amma", "at": 30, "face": "smile" }, { "who": "rimjhim", "at": 60, "face": "grin" }, { "who": "zoya", "at": 85, "face": "grin" }],
+          "say": [{ "who": "amma", "text": "याद रखो: गणित रटने की चीज़ नहीं, खेलने की चीज़ है।" }],
+          "wide": true
+        }
+      ],
+      "guess": {
+        "at": 9,
+        "q": "45 × 11 कितना होगा? अम्मा की तरकीब लगाओ!",
+        "options": ["495", "455", "4511"],
+        "answer": "495",
+        "hint": "पहला अंक 4, आख़िरी 5, और बीच में 4 और 5 का जोड़।"
+      },
+      "words": [
+        { "hi": "पलक झपकते", "mean": "मुहावरा: बहुत जल्दी, एक पल में (पलक झपकते)", "en": "in the blink of an eye" },
+        { "hi": "इतरा", "mean": "घमंड दिखाना (इतराना)", "en": "to show off" },
+        { "hi": "करतब", "mean": "कमाल का खेल या कारनामा", "en": "feat, trick" },
+        { "hi": "तरकीब", "mean": "काम करने का चतुर तरीक़ा", "en": "trick, method" },
+        { "hi": "मुक़ाबला", "mean": "दो लोगों की होड़", "en": "contest" },
+        { "hi": "गिनीज़ बुक", "mean": "दुनिया के रिकॉर्ड की किताब", "en": "Guinness Book of Records" }
+      ],
+      "questions": [
+        { "q": "शकुंतला देवी ने तेरह अंकों की दो संख्याओं का गुणा कितनी देर में किया?", "options": ["28 सेकंड", "28 मिनट", "2 घंटे"], "answer": "28 सेकंड" },
+        { "q": "34 × 11 कितना होता है?", "options": ["374", "344", "3411"], "answer": "374" },
+        { "q": "शकुंतला देवी कहाँ पैदा हुईं?", "options": ["बेंगलुरु", "लंदन", "पटना"], "answer": "बेंगलुरु" }
+      ]
+    },
+    {
+      "series": "birbal",
+      "level": "grade7",
+      "id": "b-crows",
+      "title": { "hi": "आगरा में कितने कौवे?", "en": "How many crows in Agra?" },
+      "blurb": "अकबर ने पूछा कि आगरा में कुल कितने कौवे हैं। चुगल को लगा बीरबल फँस गए, पर बीरबल ने गिनने का एक चतुर गणित निकाला।",
+      "panels": [
+        {
+          "bg": "bagh",
+          "cast": [{ "who": "akbar", "at": 35, "face": "think" }, { "who": "birbal", "at": 75, "face": "smile" }],
+          "cap": "एक सुबह बादशाह अकबर बाग़ में टहल रहे थे। चारों ओर कौवे काँव-काँव कर रहे थे।",
+          "say": [{ "who": "akbar", "text": "बीरबल, बताओ, आगरा शहर में कुल कितने कौवे हैं?" }],
+          "sfx": "काँव-काँव!"
+        },
+        {
+          "bg": "bagh",
+          "cast": [{ "who": "chugal", "at": 50, "face": "sly" }],
+          "say": [{ "who": "chugal", "text": "हुज़ूर, इसका जवाब कोई नहीं दे सकता। बीरबल भी नहीं!" }]
+        },
+        {
+          "bg": "bagh",
+          "cast": [{ "who": "birbal", "at": 50, "face": "think", "arms": "chin" }],
+          "say": [{ "who": "birbal", "text": "जहाँपनाह, ठीक-ठीक गिनने में तो सालों लगेंगे। पर अंदाज़ा लगाने का एक गणित है।" }]
+        },
+        {
+          "bg": "bagh",
+          "cast": [{ "who": "birbal", "at": 40, "face": "smile", "arms": "point" }, { "who": "akbar", "at": 75, "face": "think" }],
+          "say": [{ "who": "birbal", "text": "पहले देखें कि एक पेड़ पर औसतन कितने कौवे बैठते हैं। इस बाग़ के दस पेड़ों के कौवे गिनवाइए।" }]
+        },
+        {
+          "bg": "bagh",
+          "cast": [{ "who": "courtier", "at": 50, "face": "smile", "hold": "notebook" }],
+          "cap": "सिपाहियों ने दस पेड़ों के कौवे गिने।",
+          "say": [{ "who": "courtier", "text": "हुज़ूर, दस पेड़ों पर कुल 120 कौवे!" }]
+        },
+        {
+          "bg": "bagh",
+          "cast": [{ "who": "birbal", "at": 50, "face": "smile" }],
+          "say": [{ "who": "birbal", "text": "यानी एक पेड़ पर औसतन 12 कौवे। अब बताइए, आगरा में कितने पेड़ हैं?" }]
+        },
+        { "bg": "darbar", "cast": [{ "who": "akbar", "at": 50, "face": "think", "arms": "chin" }], "say": [{ "who": "akbar", "text": "माली बताते हैं, लगभग आठ हज़ार।" }] },
+        {
+          "bg": "darbar",
+          "cast": [{ "who": "birbal", "at": 40, "face": "grin", "hold": "notebook" }],
+          "say": [{ "who": "birbal", "text": "तो 8000 × 12 = 96,000। आगरा में लगभग छियानवे हज़ार कौवे हैं, जहाँपनाह!" }]
+        },
+        {
+          "bg": "darbar",
+          "cast": [{ "who": "chugal", "at": 35, "face": "sly" }, { "who": "birbal", "at": 75, "face": "smile" }],
+          "say": [{ "who": "chugal", "text": "और अगर गिनने पर कम निकले तो?" }, { "who": "birbal", "text": "तो समझिए कुछ कौवे रिश्तेदारों से मिलने दूसरे शहर गए हैं!" }]
+        },
+        {
+          "bg": "darbar",
+          "cast": [{ "who": "chugal", "at": 35, "face": "angry" }, { "who": "birbal", "at": 75, "face": "laugh" }],
+          "say": [{ "who": "chugal", "text": "और ज़्यादा निकले तो?" }, { "who": "birbal", "text": "तो दूसरे शहरों के कौवे मेहमान बनकर आए हैं!" }]
+        },
+        {
+          "bg": "darbar",
+          "cast": [{ "who": "akbar", "at": 50, "face": "laugh", "arms": "up" }],
+          "cap": "चुगल ने दाँतों तले उँगली दबा ली।",
+          "say": [{ "who": "akbar", "text": "हा हा! चतुर जवाब भी, और गिनने का सही तरीक़ा भी!" }],
+          "sfx": "हा हा!"
+        },
+        {
+          "bg": "darbar",
+          "cast": [{ "who": "birbal", "at": 35, "face": "smile" }, { "who": "akbar", "at": 70, "face": "smile" }],
+          "say": [{ "who": "birbal", "text": "हुज़ूर, जब सब कुछ न गिन सकें, तो थोड़ा-सा गिनकर पूरे का अंदाज़ा लगाते हैं। इसे “नमूना” लेना कहते हैं।" }],
+          "wide": true
+        }
+      ],
+      "guess": {
+        "at": 7,
+        "q": "एक पेड़ पर औसतन 12 कौवे, और आगरा में लगभग 8000 पेड़। कुल कितने कौवे?",
+        "options": ["लगभग 96,000", "लगभग 9,600", "लगभग 8,012"],
+        "answer": "लगभग 96,000",
+        "hint": "8 × 12 = 96। अब उसे हज़ार से गुणा करो।"
+      },
+      "words": [
+        { "hi": "दाँतों तले उँगली दबा", "mean": "मुहावरा: बहुत हैरान होना (दाँतों तले उँगली दबाना)", "en": "to be amazed" },
+        { "hi": "अंदाज़ा", "mean": "लगभग सही अनुमान", "en": "estimate" },
+        { "hi": "औसत", "mean": "सबको बराबर बाँटने पर एक के हिस्से में आने वाली संख्या", "en": "average" },
+        { "hi": "नमूना", "mean": "जाँचने के लिए पूरे में से थोड़ा-सा हिस्सा", "en": "sample" },
+        { "hi": "जहाँपनाह", "mean": "बादशाह को आदर से बुलाने का शब्द", "en": "Your Majesty" },
+        { "hi": "माली", "mean": "बाग़ की देखभाल करने वाला", "en": "gardener" }
+      ],
+      "questions": [
+        {
+          "q": "बीरबल ने कौवों का अंदाज़ा कैसे लगाया?",
+          "options": ["एक पेड़ के औसत कौवों को पेड़ों की गिनती से गुणा करके", "सारे कौवे एक-एक करके गिनकर", "कौवों से पूछकर"],
+          "answer": "एक पेड़ के औसत कौवों को पेड़ों की गिनती से गुणा करके"
+        },
+        { "q": "दस पेड़ों पर 120 कौवे हों, तो एक पेड़ पर औसतन कितने?", "options": ["12", "10", "120"], "answer": "12" },
+        { "q": "8000 × 12 कितना होता है?", "options": ["96,000", "9,600", "80,012"], "answer": "96,000" }
+      ]
+    },
+    {
+      "series": "dadi",
+      "level": "grade8",
+      "id": "d-lock",
+      "title": { "hi": "तीन अंकों का ताला", "en": "The three-digit lock" },
+      "blurb": "शर्मा अंकल के दादाजी के पुराने संदूक़ पर तीन अंकों का ताला था, और साथ में एक पहेली। तभी एक “ताले वाला” दो हज़ार रुपये माँगने आ पहुँचा...",
+      "parts": { "sharma": { "look": "man-a", "name": "शर्मा अंकल" } },
+      "panels": [
+        {
+          "bg": "room",
+          "cast": [{ "who": "dadi", "at": 30, "face": "smile" }, { "who": "roohi", "at": 70, "face": "think" }],
+          "cap": "पड़ोस के शर्मा अंकल को अपने दादाजी का पुराना संदूक़ मिला था, पर उस पर तीन अंकों का ताला लगा था।"
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "sharma", "at": 40, "face": "worried", "hold": "scroll" }, { "who": "dadi", "at": 78, "face": "think" }],
+          "say": [{ "who": "sharma", "text": "संदूक़ के साथ बस यह पर्ची मिली है। दादाजी पहेलियों के बड़े शौक़ीन थे।" }]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "roohi", "at": 50, "face": "think", "hold": "scroll" }],
+          "say": [{ "who": "roohi", "text": "पर्ची पर लिखा है: “पहला अंक, दूसरे का दुगुना। तीसरा अंक, दूसरे से एक ज़्यादा। तीनों का जोड़: तेरह।”" }]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "sharma", "at": 25, "face": "worried" }, { "who": "chhedilal", "at": 65, "face": "sly" }],
+          "cap": "तभी एक “ताले वाला” आ पहुँचा।",
+          "say": [{ "who": "chhedilal", "text": "साहब, पहेली-वहेली छोड़िए! दो हज़ार रुपये दीजिए, मैं ताला तोड़कर अंदर का सब निकाल दूँगा।" }]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "dadi", "at": 40, "face": "think", "arms": "chin" }, { "who": "chhedilal", "at": 78, "face": "grin" }],
+          "say": [{ "who": "dadi", "text": "तोड़ने की क्या ज़रूरत? यह ताला गणित से खुलेगा।" }]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "dadi", "at": 50, "face": "smile", "hold": "notebook" }],
+          "say": [{ "who": "dadi", "text": "दूसरे अंक को “द” मान लो। पहला 2 × द, तीसरा द + 1। सबका जोड़: 2द + द + द + 1 = 13।" }]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "roohi", "at": 50, "face": "think", "arms": "chin" }],
+          "say": [{ "who": "roohi", "text": "मतलब 4 बार द, और 1... रुको, मैं हल करती हूँ!" }]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "roohi", "at": 40, "face": "grin", "hold": "notebook" }, { "who": "dadi", "at": 78, "face": "smile" }],
+          "say": [{ "who": "roohi", "text": "4 × द = 12, यानी द = 3! पहला अंक 6, तीसरा 4। ताला है 634!" }]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "sharma", "at": 50, "face": "laugh", "arms": "up" }],
+          "cap": "ताला खुल गया!",
+          "say": [{ "who": "sharma", "text": "अंदर दादाजी की चिट्ठियाँ और पुराने सिक्के हैं!" }],
+          "sfx": "खट!"
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "chhedilal", "at": 50, "face": "worried" }],
+          "cap": "छेदीलाल चुपके से खिसकने लगा।",
+          "say": [{ "who": "chhedilal", "text": "अरे... मुझे दूसरी जगह ताला खोलने जाना है..." }]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "dadi", "at": 35, "face": "angry", "arms": "point" }, { "who": "chhedilal", "at": 75, "face": "shock" }],
+          "say": [{ "who": "dadi", "text": "रुको छेदीलाल! पिछले हफ़्ते मिश्रा जी का संदूक़ “खोलकर” उनका चाँदी का गिलास भी तुम्हीं ले गए थे न?" }]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "chhedilal", "at": 30, "face": "shock" }, { "who": "inspector", "at": 65, "face": "angry" }],
+          "say": [{ "who": "inspector", "text": "चलो थाने! रंगे हाथों पकड़े गए हो। इस बार ताला हम लगाएँगे।" }],
+          "sfx": "पकड़ा गया!"
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "roohi", "at": 30, "face": "grin" }, { "who": "dadi", "at": 60, "face": "smile" }, { "who": "sharma", "at": 85, "face": "smile" }],
+          "say": [
+            { "who": "roohi", "text": "दादी, गणित तो जासूसी का सबसे बड़ा हथियार निकला!" },
+            { "who": "dadi", "text": "सोचो, लिखो, जाँचो: हर ताले की चाबी यही है।" }
+          ],
+          "wide": true
+        }
+      ],
+      "guess": {
+        "at": 7,
+        "q": "ताले का नंबर क्या है?",
+        "options": ["634", "463", "364"],
+        "answer": "634",
+        "hint": "दूसरा अंक सोचो: पहला उसका दुगुना है, तीसरा उससे एक ज़्यादा, और जोड़ तेरह।"
+      },
+      "words": [
+        { "hi": "रंगे हाथों", "mean": "मुहावरा: ग़लत काम करते हुए पकड़ा जाना (रंगे हाथों पकड़ना)", "en": "red-handed" },
+        { "hi": "संदूक़", "mean": "सामान रखने का बड़ा बक्सा", "en": "trunk" },
+        { "hi": "पर्ची", "mean": "काग़ज़ का छोटा टुकड़ा", "en": "slip of paper" },
+        { "hi": "शौक़ीन", "mean": "किसी चीज़ को बहुत पसंद करने वाला", "en": "fond of" },
+        { "hi": "अंक", "mean": "संख्या लिखने का एक निशान (0 से 9)", "en": "digit" },
+        { "hi": "खिसकने", "mean": "चुपके से चले जाना (खिसकना)", "en": "to slip away" }
+      ],
+      "questions": [
+        { "q": "ताले का नंबर क्या था?", "options": ["634", "436", "643"], "answer": "634" },
+        { "q": "पहेली में तीनों अंकों का जोड़ कितना था?", "options": ["तेरह", "बारह", "दस"], "answer": "तेरह" },
+        {
+          "q": "छेदीलाल ताला क्यों तोड़ना चाहता था?",
+          "options": ["अंदर का सामान चुराने के लिए", "शर्मा अंकल की मदद के लिए", "पहेली हल करने के लिए"],
+          "answer": "अंदर का सामान चुराने के लिए"
+        }
+      ]
+    },
+    {
+      "series": "dadi",
+      "level": "grade8",
+      "id": "d-coins",
+      "title": { "hi": "नौ सिक्के, एक नकली", "en": "Nine coins, one fake" },
+      "blurb": "मंदिर के लिए बने नौ सोने के सिक्कों में एक नकली था, और तराज़ू बस दो बार तौल सकता था। दादी ने पकड़ा नकली सिक्का भी, और उसे बदलने वाला भी।",
+      "parts": { "gopal": { "look": "man-old", "name": "सुनार गोपाल जी" }, "kalu": { "look": "man-c", "name": "नौकर कालू" } },
+      "panels": [
+        {
+          "bg": "bazaar",
+          "cast": [{ "who": "dadi", "at": 30, "face": "smile" }, { "who": "roohi", "at": 70, "face": "grin" }],
+          "cap": "दादी और रूही सुनार गोपाल जी की दुकान पर पहुँचीं।"
+        },
+        {
+          "bg": "bazaar",
+          "cast": [{ "who": "gopal", "at": 50, "face": "worried", "hold": "coins" }],
+          "say": [{ "who": "gopal", "text": "दादी, मंदिर के लिए नौ सोने के सिक्के बनाए थे। पर ख़बर मिली है कि इनमें एक नकली है, थोड़ा हल्का।" }]
+        },
+        {
+          "bg": "bazaar",
+          "cast": [{ "who": "gopal", "at": 35, "face": "worried" }, { "who": "kalu", "at": 75, "face": "sly" }],
+          "say": [
+            { "who": "gopal", "text": "और मुश्किल यह कि मेरे पुराने तराज़ू का काँटा ढीला है। वह बस दो बार और तौल पाएगा।" },
+            { "who": "kalu", "text": "मालिक, सारे सिक्के एक-एक करके तौल लीजिए न!" }
+          ]
+        },
+        {
+          "bg": "bazaar",
+          "cast": [{ "who": "roohi", "at": 50, "face": "think", "arms": "chin" }],
+          "say": [{ "who": "roohi", "text": "एक-एक करके तो आठ बार तौलना पड़ेगा! दो बार में कैसे? और कालू की मुस्कान देखकर लगता है, दाल में कुछ काला है।" }]
+        },
+        {
+          "bg": "bazaar",
+          "cast": [{ "who": "dadi", "at": 50, "face": "smile", "arms": "chin" }],
+          "say": [{ "who": "dadi", "text": "सोचो, रूही। तराज़ू एक बार में तीन बातें बताता है: बायाँ भारी, दायाँ भारी, या दोनों बराबर।" }]
+        },
+        {
+          "bg": "bazaar",
+          "cast": [{ "who": "roohi", "at": 40, "face": "think" }, { "who": "dadi", "at": 78, "face": "smile" }],
+          "say": [{ "who": "roohi", "text": "तीन बातें... तो सिक्कों को भी तीन हिस्सों में बाँटें?" }]
+        },
+        {
+          "bg": "bazaar",
+          "cast": [{ "who": "dadi", "at": 45, "face": "smile", "arms": "point" }],
+          "say": [
+            {
+              "who": "dadi",
+              "text": "हाँ! तीन-तीन सिक्के दोनों पलड़ों पर, तीन बाहर। पलड़े बराबर रहे, तो नकली बाहर वाले तीन में है; नहीं तो हल्के पलड़े में।"
+            }
+          ]
+        },
+        {
+          "bg": "bazaar",
+          "cast": [{ "who": "gopal", "at": 50, "face": "shock" }],
+          "cap": "पहली तौल: बायाँ पलड़ा ऊपर उठ गया!",
+          "say": [{ "who": "gopal", "text": "बायाँ हल्का है! तो नकली इन तीन में है।" }],
+          "sfx": "ठक!"
+        },
+        {
+          "bg": "bazaar",
+          "cast": [{ "who": "roohi", "at": 50, "face": "grin", "hold": "coins" }],
+          "cap": "दूसरी तौल: दोनों पलड़े बराबर रहे।",
+          "say": [{ "who": "roohi", "text": "इन तीन में से एक-एक सिक्का दोनों पलड़ों पर, एक बाहर। पलड़े बराबर, तो बाहर वाला नकली!" }]
+        },
+        {
+          "bg": "bazaar",
+          "cast": [{ "who": "dadi", "at": 40, "face": "smile", "hold": "coins" }, { "who": "gopal", "at": 78, "face": "laugh" }],
+          "say": [{ "who": "dadi", "text": "यह रहा नकली सिक्का। और देखो, इस पर एक छोटा-सा निशान भी है: “क”।" }]
+        },
+        {
+          "bg": "bazaar",
+          "cast": [{ "who": "gopal", "at": 30, "face": "angry" }, { "who": "kalu", "at": 70, "face": "shock" }],
+          "say": [
+            { "who": "gopal", "text": "कालू! यह निशान तो तुम्हारे औज़ार का है!" },
+            { "who": "kalu", "text": "म... माफ़ कीजिए मालिक, असली सिक्का मैंने अपनी जेब में रख लिया था।" }
+          ]
+        },
+        {
+          "bg": "bazaar",
+          "cast": [{ "who": "gopal", "at": 30, "face": "angry" }, { "who": "kalu", "at": 70, "face": "sad", "hold": "coins" }],
+          "cap": "कालू ने जेब से असली सिक्का निकालकर लौटा दिया।",
+          "say": [{ "who": "gopal", "text": "ईमानदारी की तौल में तुम हल्के निकले, कालू।" }]
+        },
+        {
+          "bg": "bazaar",
+          "cast": [{ "who": "roohi", "at": 30, "face": "grin" }, { "who": "dadi", "at": 60, "face": "smile" }, { "who": "gopal", "at": 85, "face": "smile" }],
+          "say": [
+            { "who": "roohi", "text": "दादी, तीन हिस्सों वाली तरकीब तो कमाल की है!" },
+            { "who": "dadi", "text": "हाँ! तीन तौल में तो सत्ताईस सिक्कों में से भी नकली पकड़ सकते हैं।" }
+          ],
+          "wide": true
+        }
+      ],
+      "guess": {
+        "at": 6,
+        "q": "दो ही तौल हैं। पहली बार तराज़ू पर क्या रखें?",
+        "options": ["तीन-तीन सिक्के दोनों पलड़ों पर, तीन बाहर", "चार-चार सिक्के दोनों पलड़ों पर, एक बाहर", "एक-एक सिक्का दोनों पलड़ों पर"],
+        "answer": "तीन-तीन सिक्के दोनों पलड़ों पर, तीन बाहर",
+        "hint": "हर तौल के तीन नतीजे हो सकते हैं। सिक्कों के तीन बराबर हिस्से करो, तो दो तौल में 3 × 3 = 9 सिक्के जाँचे जा सकते हैं।"
+      },
+      "words": [
+        { "hi": "दाल में कुछ काला", "mean": "मुहावरा: कुछ गड़बड़ होने का शक (दाल में कुछ काला होना)", "en": "something fishy" },
+        { "hi": "सुनार", "mean": "सोने-चाँदी के गहने बनाने वाला", "en": "goldsmith" },
+        { "hi": "पलड़ा", "mean": "तराज़ू की थाली", "en": "scale pan" },
+        { "hi": "तौल", "mean": "वज़न नापना", "en": "weighing" },
+        { "hi": "नकली", "mean": "जो असली न हो", "en": "fake" },
+        { "hi": "ईमानदारी", "mean": "सच्चाई और सही बर्ताव", "en": "honesty" }
+      ],
+      "questions": [
+        { "q": "नौ सिक्कों में नकली ढूँढने के लिए कितनी तौल लगीं?", "options": ["दो", "आठ", "नौ"], "answer": "दो" },
+        { "q": "पहली तौल में दोनों पलड़ों पर कितने-कितने सिक्के रखे?", "options": ["तीन-तीन", "चार-चार", "एक-एक"], "answer": "तीन-तीन" },
+        { "q": "नकली सिक्का किसने बदला था?", "options": ["कालू ने", "गोपाल जी ने", "रूही ने"], "answer": "कालू ने" }
       ]
     }
   ],

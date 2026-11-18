@@ -403,7 +403,7 @@ import { THEMES } from '../js/art-scenes.js';
 test('each guide has a series of 8 to 10 episodes, numbered in order, in its own world', () => {
   assert.deepEqual(
     content.showSeries.map((s) => s.id),
-    ['gappu', 'chiku', 'tiko'],
+    ['gappu', 'chiku', 'tiko', 'pip'],
   );
   for (const sr of content.showSeries) {
     const eps = seriesEpisodes(content, sr.id);
@@ -448,7 +448,7 @@ test('Show time has a shelf per series, open at the episode to watch next', () =
   assert.equal(shelves[0].info.id, 'gappu', "this grade's series first");
   assert.equal(shelves[0].upNext.id, 'gappu-ta');
   assert.equal(shelves[0].watched, 2);
-  assert.equal(shelves.length, 3);
+  assert.equal(shelves.length, 4);
   // after a series ends, the next one to watch is from the same grade
   const all = Object.fromEntries(seriesEpisodes(content, 'tiko').map((s) => [s.id, { views: 1 }]));
   assert.equal(nextShow(content, 'grade1', 'tiko-shapes', { shows: all }).level, 'grade1');
@@ -802,17 +802,19 @@ import { ACTIVITIES, ACTIVITY_SKILL, DESIGNS } from '../js/games/handson.js';
 import { HANDS_ACTIVITIES } from '../js/validate.js';
 import { SKILLS, makeProblem } from '../js/mathgen.js';
 
-test('eight hands-on maths activities, each a lesson in the maths world of its grade, recording a skill of that grade', () => {
+test('the hands-on maths activities, each a lesson in a maths world, recording a skill of that world\'s grade', () => {
+  const PREFIX = { kg: 'k-', grade1: 'g1-', grade2: 'g2-', grade3: 'g3-', grade4: 'g4-' };
   assert.deepEqual(ACTIVITIES, HANDS_ACTIVITIES);
   const math = content.worlds.filter((w) => w.subject === 'math');
   for (const a of ACTIVITIES) {
     const found = math.flatMap((w) => w.units.flatMap((u) => u.lessons.filter((l) => l.game === 'handson' && l.config.activity === a).map((l) => ({ l, w }))));
-    assert.equal(found.length, 1, `one ${a} lesson`);
-    const { l, w } = found[0];
-    const skill = l.config.skill || ACTIVITY_SKILL[a];
-    assert.ok(SKILLS[skill], `${l.id}: ${skill} is a maths skill`);
-    assert.ok(skill.startsWith(w.level === 'kg' ? 'k-' : 'g1-'), `${l.id} records a ${w.level} skill`);
-    assert.ok(l.title.hi && l.title.en && l.icon);
+    assert.ok(found.length >= 1, `a ${a} lesson`);
+    for (const { l, w } of found) {
+      const skill = l.config.skill || ACTIVITY_SKILL[a];
+      assert.ok(SKILLS[skill], `${l.id}: ${skill} is a maths skill`);
+      assert.ok(skill.startsWith(PREFIX[w.level]), `${l.id} records a ${w.level} skill`);
+      assert.ok(l.title.hi && l.title.en && l.icon);
+    }
   }
   assert.match(read('sw.js'), /'js\/games\/handson\.js'/);
 });

@@ -75,22 +75,28 @@ test('a clock at half past shows the hour hand between two numbers', () => {
 
 const math = content.worlds.filter((w) => w.subject === 'math');
 
-test('Kindergarten and Grade 1 each have an English math world', () => {
+// the grades with a maths world, and the prefix of their skills (docs/ROADMAP.md 10.5, 10.8)
+const PREFIX = { kg: 'k-', grade1: 'g1-', grade2: 'g2-', grade3: 'g3-', grade4: 'g4-' };
+
+test('every grade from Kindergarten to Grade 4 has an English maths world', () => {
   assert.deepEqual(
     math.map((w) => [w.level, w.lang]),
     [
       ['kg', 'en'],
       ['grade1', 'en'],
+      ['grade2', 'en'],
+      ['grade3', 'en'],
+      ['grade4', 'en'],
     ],
   );
   const { errors } = validateContent(content);
   assert.deepEqual(errors, []);
 });
 
-test('the Kindergarten world teaches K skills and the Grade 1 world Grade 1 skills, all of them', () => {
+test('each maths world teaches its own grade\'s skills, and every skill is taught', () => {
   const used = new Set();
   for (const w of math) {
-    const prefix = w.level === 'kg' ? 'k-' : 'g1-';
+    const prefix = PREFIX[w.level];
     for (const lesson of worldLessons(w)) {
       // answer cards (math) and maths with the hands (handson, docs/ROADMAP.md 10.1)
       assert.ok(['math', 'handson'].includes(lesson.game), lesson.id);

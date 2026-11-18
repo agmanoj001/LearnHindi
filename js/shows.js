@@ -564,7 +564,7 @@ export async function showPlayer(api, show) {
       api.sfx.pop();
       await sleep(700);
     } else if (k === 'number') {
-      propAt('number', el('div', { class: 'show-number', text: String(b.number) }), b.at ?? 50);
+      propAt('number', el('div', { class: 'show-number', style: { '--len': String(String(b.number).length) }, text: String(b.number) }), b.at ?? 50);
       api.sfx.pop();
       await sleep(500);
     } else if (k === 'ask') return ask(b);

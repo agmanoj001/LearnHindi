@@ -5,6 +5,8 @@ import { applyMotion, liteMotion, slowDevice } from './motion.js';
 import { normalizeProgress, clipKeysFor, clipKeyFromFileName, practiceReport, DAILY_LIMITS, showLines, storyVoiceLines } from './logic.js';
 import { skillName, SKILLS as MATH_SKILLS } from './mathgen.js';
 import { phonicsName } from './phonicsgen.js';
+import { SAMAY_SKILLS } from './samay.js';
+import { pahadaName } from './pahade.js';
 import { worldStars, worldLessons, lessonRecord, weekSummary, dueReviews, learningGains } from './curriculum.js';
 import { refreshClipKeys, voicesFor, setVoicePrefs, hasVoice, play, setVoicePack } from './audio.js';
 import { loadIndex, savedVoiceKeys, savedAudioVersion, packFiles, bundlesFor, downloadVoices, removeVoices, formatMB } from './voicepack.js';
@@ -161,7 +163,7 @@ export function showParent(api) {
     const [kind, id] = [key[0], key.slice(2)];
     if (kind === 'w') return api.word(id) ? `${api.word(id).hi} · ${api.word(id).en}` : id;
     if (kind === 'l') return content.letterSets.flatMap((x) => x.letters).find((l) => l.id === id)?.char ?? id;
-    if (kind === 's') return MATH_SKILLS[id] ? skillName(id) : phonicsName(id);
+    if (kind === 's') return MATH_SKILLS[id] ? skillName(id) : SAMAY_SKILLS[id] || pahadaName(id) || phonicsName(id);
     if (kind === 'g') return content.grammar?.[id] ? `${content.grammar[id].title.hi} · ${content.grammar[id].title.en}` : id;
     if (kind === 'm') {
       const m = content.matras.find((x) => x.id === id);

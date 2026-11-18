@@ -2,6 +2,8 @@
 // A lesson lists the skills it practises ({ "skills": ["k-count", "k-quick"] }); rounds interleave
 // them and weaker skills come up more often. The level (ctx.tier) moves inside the lesson like in
 // every game: two right in a row make it harder, two misses easier. Objects can be tapped to count.
+// With { "retry": true } (fluency practice with no timer, docs/ROADMAP.md 10.4) a fact missed the first time
+// comes back two rounds later, the same fact, so it is practised until it is known.
 import { makeProblem, SKILLS } from '../mathgen.js';
 import { mathModel } from '../art-math.js';
 import { el, sleep, choose, runRounds, cheer, bounce, animate } from './kit.js';
@@ -17,9 +19,12 @@ export default {
     const order = seq.length > 1 ? interleave(seq, ctx.rng) : seq;
 
     let lastSay = 0;
+    // facts to ask again, by round
+    const again = new Map();
 
     const ok = await runRounds(ctx, order.length, async (i) => {
-      const p = makeProblem(order[i], { tier: ctx.tier, n: ctx.nChoices, rng: ctx.rng });
+      const back = again.get(i);
+      const p = back || makeProblem(order[i], { tier: ctx.tier, n: ctx.nChoices, rng: ctx.rng });
       const board = el('div', { class: `math-board${p.model ? '' : ' no-model'}` });
       const ask = el('p', { class: 'math-ask', text: p.ask });
       const eq = p.eq ? el('div', { class: 'math-eq' }, p.eq.split('?').flatMap((part, k) => (k ? [el('span', { class: 'gap', text: '?' }), part] : [part]))) : null;
@@ -49,6 +54,7 @@ export default {
       }
 
       const prompt = () => ctx.sayText(p.say || p.ask, 'en');
+      if (back) board.prepend(el('p', { class: 'math-again', text: 'This one again!' }));
       ctx.setRepeat(prompt);
       prompt();
 
@@ -67,6 +73,11 @@ export default {
         },
       });
       ctx.record({ skill: p.skill }, right.firstTry);
+      if (ctx.config.retry && !right.firstTry) {
+        let j = Math.min(i + 2, order.length - 1);
+        while (j > i && again.has(j)) j--;
+        if (j > i) again.set(j, p);
+      }
 
       // reveal: fill the gap, count the objects, slide shapes together
       const label = p.options.find((o) => o.value === p.answer)?.label ?? String(p.answer);
