@@ -14,6 +14,7 @@ import {
   weightedSequence,
   COMBO_MILESTONES,
   comboText,
+  voicePace,
   synLine,
 } from './logic.js';
 import { findLesson, lessonRecord, lessonLetters, applyLessonResult, adaptTier, addPlayTime, isoDay, worldLessons } from './curriculum.js';
@@ -208,7 +209,7 @@ function loadProfile() {
   state.progress = normalizeProgress(load(profileKey(KEYS.progress, id)), state.content);
   state.lang = state.settings.lang;
   state.hubTag = null;
-  setVoicePrefs(state.settings.voice);
+  setVoicePrefs({ ...state.settings.voice, ...voicePace(state.settings) });
   setVoicePack(null, state.settings.storyVoices);
   sfx.enabled = state.settings.sfx;
   music.enabled = state.settings.music;
@@ -522,6 +523,8 @@ function iconHtml(icon) {
 
 function persistSettings() {
   save(profileKey(KEYS.settings, state.profiles.current), state.settings);
+  // the grade or the beginner's pace may have changed (roadmap 6.7)
+  setVoicePrefs({ ...state.settings.voice, ...voicePace(state.settings) });
 }
 
 function persistProgress() {

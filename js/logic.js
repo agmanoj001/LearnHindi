@@ -465,9 +465,17 @@ export function defaultSettings(content) {
     radioDark: false, // Story radio: a dark screen instead of the moving pictures (kinder on car rides)
     singAlong: true, // rhymes are sung along with a bouncing ball and claps (roadmap 7.7)
     motion: 'auto', // animations: 'auto' (lighter on a device that measured slow), 'full' or 'lite' (js/motion.js)
+    slowBeginners: true, // a slower voice, with more time between words, for Toddler and Kindergarten (roadmap 6.7)
     voice: { hi: '', en: '', rate: 0.9 },
   };
 }
+
+// Voice speed for beginners (roadmap 6.7): a child learning a sound needs more time between words than an
+// older reader. In Toddler and Kindergarten the voice (recorded or the device's) plays a little slower, with a
+// short pause between one word or line and the next, on top of the speed chosen under Grown-ups › Voices.
+export const BEGINNER_LEVELS = ['toddler', 'kg'];
+export const BEGINNER_PACE = { slow: 0.85, gap: 250 };
+export const voicePace = (settings) => (settings?.slowBeginners !== false && BEGINNER_LEVELS.includes(settings?.level) ? { ...BEGINNER_PACE } : { slow: 1, gap: 0 });
 
 export function normalizeSettings(saved, content) {
   const base = defaultSettings(content);
@@ -479,7 +487,7 @@ export function normalizeSettings(saved, content) {
   if (saved.parentLang === 'hi' || saved.parentLang === 'en') out.parentLang = saved.parentLang;
   if (saved.showMode === 'watch' || saved.showMode === 'play') out.showMode = saved.showMode;
   if (['auto', 'full', 'lite'].includes(saved.motion)) out.motion = saved.motion;
-  for (const k of ['onboarded', 'lockGrade', 'simpleHome', 'unlockAll', 'math', 'captions', 'retell', 'readAloud', 'music', 'sfx', 'bigText', 'readingComfort', 'leftHanded', 'storyVoices', 'radioDark', 'singAlong']) if (typeof saved[k] === 'boolean') out[k] = saved[k];
+  for (const k of ['onboarded', 'lockGrade', 'simpleHome', 'unlockAll', 'math', 'captions', 'retell', 'readAloud', 'music', 'sfx', 'bigText', 'readingComfort', 'leftHanded', 'storyVoices', 'radioDark', 'singAlong', 'slowBeginners']) if (typeof saved[k] === 'boolean') out[k] = saved[k];
   if (saved.voice && typeof saved.voice === 'object') {
     for (const l of ['hi', 'en']) if (typeof saved.voice[l] === 'string') out.voice[l] = saved.voice[l];
     if (typeof saved.voice.rate === 'number' && saved.voice.rate >= 0.5 && saved.voice.rate <= 1.3) out.voice.rate = saved.voice.rate;

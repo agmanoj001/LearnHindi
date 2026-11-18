@@ -16,7 +16,8 @@ const failedFiles = new Set();
 let token = 0;
 let currentAudio = null;
 let currentResolve = null;
-let prefs = { hi: '', en: '', rate: 0.9 };
+// slow and gap: the beginner's pace for Toddler and Kindergarten (roadmap 6.7), on top of the chosen speed
+let prefs = { hi: '', en: '', rate: 0.9, slow: 1, gap: 0 };
 
 // The parent's choice of voice per language and speaking speed (Parent area › Voices).
 export function setVoicePrefs(p) {
@@ -106,7 +107,7 @@ export function preload(segs) {
   }
 }
 // The voice pack was recorded a little slowly (0.9); the speed chosen under Grown-ups › Voices applies
-const packRate = () => Math.max(0.75, Math.min(1.5, (prefs.rate || 0.9) / 0.9));
+const packRate = () => Math.max(0.7, Math.min(1.5, ((prefs.rate || 0.9) / 0.9) * (prefs.slow || 1)));
 
 // Voices load a moment after the page does; wait for them (or give up quietly after a while).
 export function voicesReady(timeout = 2500) {
@@ -145,9 +146,14 @@ export async function play(segments) {
   preload(segments);
   const mine = token;
   setSpeaking(true);
+  let spoken = false;
   for (const seg of segments) {
     if (mine !== token) return;
+    // a beginner gets a little more time between one word or line and the next (roadmap 6.7)
+    if (spoken && prefs.gap && !seg.pause) await wait(prefs.gap);
+    if (mine !== token) return;
     await playSegment(seg, mine);
+    spoken = !seg.pause;
   }
   if (mine === token) setSpeaking(false);
 }
@@ -174,7 +180,7 @@ async function playSegment(seg, mine) {
   if (seg.text) window.dispatchEvent(new CustomEvent('vt-caption', { detail: { text: seg.text, lang: seg.lang } }));
   const url = seg.clipKey ? await clipUrl(seg.clipKey) : null;
   if (mine !== token) return;
-  if (url && (await playUrl(url, seg))) return;
+  if (url && (await playUrl(url, seg, prefs.slow || 1))) return;
   if (mine !== token) return;
   // the voice pack (a line with no name of its own is recorded under its text)
   const pk = packKeyFor(seg);
@@ -249,7 +255,7 @@ function speak(text, lang, pitch = 1.05) {
     u.lang = TTS_LANG[lang] || 'en-US';
     const voice = pickVoice(lang);
     if (voice) u.voice = voice;
-    u.rate = prefs.rate || 0.9;
+    u.rate = (prefs.rate || 0.9) * (prefs.slow || 1);
     u.pitch = Math.max(0.5, Math.min(2, pitch));
     let done = false;
     const finish = () => {

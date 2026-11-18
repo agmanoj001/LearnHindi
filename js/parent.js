@@ -11,7 +11,7 @@ import { pahadaName } from './pahade.js';
 import { worldStars, worldLessons, lessonRecord, weekSummary, dueReviews, learningGains, usageInsight, GAME_NAMES } from './curriculum.js';
 import { refreshClipKeys, voicesFor, setVoicePrefs, hasVoice, play, setVoicePack } from './audio.js';
 import { loadIndex, savedVoiceKeys, savedAudioVersion, packFiles, bundlesFor, downloadVoices, removeVoices, formatMB } from './voicepack.js';
-import { deviceKind, VOICE_SETUP, comprehensionSummary, readAloneList } from './logic.js';
+import { deviceKind, VOICE_SETUP, comprehensionSummary, readAloneList, voicePace } from './logic.js';
 import { KEYS, save, load, clips, resizeImage, addProfile, removeProfile, MAX_PROFILES, makeBackup, readBackup, localKeys, keepOffline, exportClips, readClipsFile, BACKUP_AT, BACKUP_LATER, backupReminderDue, backupLaterUntil, shareBackup, canShareFiles } from './storage.js';
 import { MASCOTS, MASCOT_IDS, mascotSvg } from './mascot.js';
 import { specialVehicle, pictureForWord } from './art.js';
@@ -82,7 +82,7 @@ export function showParent(api) {
         'aria-label': `${label} voice`,
         onchange: (e) => {
           s.voice[lang] = e.target.value;
-          setVoicePrefs(s.voice);
+          setVoicePrefs({ ...s.voice, ...voicePace(s) });
           persist();
         },
       },
@@ -103,7 +103,7 @@ export function showParent(api) {
     value: String(s.voice.rate),
     oninput: (e) => {
       s.voice.rate = Number(e.target.value);
-      setVoicePrefs(s.voice);
+      setVoicePrefs({ ...s.voice, ...voicePace(s) });
       persist();
     },
   });
@@ -300,7 +300,15 @@ export function showParent(api) {
         toggle('Sound effects', s.sfx, (v) => ((s.sfx = v), persist(), (api.sfx.enabled = v))),
       ),
       storyVoicesSection(api),
-      section('Voices', voiceRow('hi', 'Hindi'), voiceRow('en', 'English'), el('label', { class: 'rate' }, [el('span', { text: 'Speed' }), rate]), voiceNote),
+      section(
+        'Voices',
+        voiceRow('hi', 'Hindi'),
+        voiceRow('en', 'English'),
+        el('label', { class: 'rate' }, [el('span', { text: 'Speed' }), rate]),
+        // roadmap 6.7: a slower pace for the youngest, on by default
+        toggle('Slower voice for little ones', s.slowBeginners !== false, (v) => ((s.slowBeginners = v), persist()), 'In Toddler and Kindergarten the voice speaks a little slower, with a short pause between words, so a child learning the sounds can follow.'),
+        voiceNote,
+      ),
       storyRecorderSection(api),
       recorder,
       section(

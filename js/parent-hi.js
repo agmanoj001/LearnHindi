@@ -98,6 +98,9 @@ const HI = {
   'In lessons, the hint and "say it again" buttons move to the left and the guide to the right, for a child who taps with the left hand.':
     'पाठों में संकेत और "फिर से बोलो" वाले बटन बाईं ओर और साथी दाईं ओर आ जाते हैं, उस बच्चे के लिए जो बाएँ हाथ से छूता है।',
   'This device has little memory (2 GB or less), so Automatic uses lighter animations.': 'इस डिवाइस में मेमोरी कम है (2 GB या उससे कम), इसलिए "अपने आप" में हल्के एनिमेशन चल रहे हैं।',
+  'Slower voice for little ones': 'छोटे बच्चों के लिए धीमी आवाज़',
+  'In Toddler and Kindergarten the voice speaks a little slower, with a short pause between words, so a child learning the sounds can follow.':
+    'नन्हे और बालवाटिका में आवाज़ थोड़ा धीरे बोलती है, और शब्दों के बीच ज़रा रुकती है, ताकि आवाज़ें सीख रहा बच्चा साथ चल सके।',
   'Easier reading': 'आसान पढ़ाई',
   'More space between words and lines, on a soft cream page, in the stories, comics and reading games. Helps children who find reading hard, including dyslexic readers.':
     'कहानियों, कॉमिक्स और पढ़ने के खेलों में शब्दों और पंक्तियों के बीच ज़्यादा जगह, हल्के क्रीम रंग के पन्ने पर। जिन बच्चों को पढ़ना मुश्किल लगता है, डिस्लेक्सिया वाले बच्चों को भी, इससे मदद मिलती है।',

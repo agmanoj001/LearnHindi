@@ -369,3 +369,22 @@ test('6.6 the style guide is written from the rules the content check enforces, 
   assert.ok(GLOSSARY.length >= 10);
   assert.match(doc, /करोगे \/ करोगी/);
 });
+
+test('6.7 a slower voice for Toddler and Kindergarten, on top of the chosen speed, that a grown-up can turn off', () => {
+  const base = L.normalizeSettings({}, content);
+  assert.equal(base.slowBeginners, true);
+  for (const level of ['toddler', 'kg']) assert.deepEqual(L.voicePace({ ...base, level }), L.BEGINNER_PACE, level);
+  for (const level of ['grade1', 'grade3', 'grade8']) assert.deepEqual(L.voicePace({ ...base, level }), { slow: 1, gap: 0 }, level);
+  assert.deepEqual(L.voicePace({ ...base, level: 'kg', slowBeginners: false }), { slow: 1, gap: 0 });
+  assert.equal(L.normalizeSettings({ slowBeginners: false }, content).slowBeginners, false);
+  assert.ok(L.BEGINNER_PACE.slow < 1 && L.BEGINNER_PACE.gap > 0);
+  // the recorded voice, a family's recordings and the device voice all slow down, with a pause between lines
+  const audio = read('js/audio.js');
+  assert.match(audio, /\(\(prefs\.rate \|\| 0\.9\) \/ 0\.9\) \* \(prefs\.slow \|\| 1\)/);
+  assert.match(audio, /playUrl\(url, seg, prefs\.slow \|\| 1\)/);
+  assert.match(audio, /u\.rate = \(prefs\.rate \|\| 0\.9\) \* \(prefs\.slow \|\| 1\)/);
+  assert.match(audio, /if \(spoken && prefs\.gap && !seg\.pause\) await wait\(prefs\.gap\)/);
+  // set when a profile loads and whenever the settings change, and offered to the grown-up
+  assert.match(read('js/app.js'), /setVoicePrefs\(\{ \.\.\.state\.settings\.voice, \.\.\.voicePace\(state\.settings\) \}\)[\s\S]*function persistSettings\(\) \{[\s\S]*voicePace/);
+  assert.match(read('js/parent.js'), /toggle\('Slower voice for little ones'/);
+});
