@@ -19276,6 +19276,12 @@
       "guide": "tiko",
       "title": { "hi": "टीको का नंबर मेला", "en": "Tiko's number carnival" },
       "about": "Grade 1 maths in English: tens and ones, comparing, story sums, length, time and shapes"
+    },
+    {
+      "id": "pip",
+      "guide": "pip",
+      "title": { "hi": "पिप की बर्फ़ीली गिनती", "en": "Pip's snowy numbers" },
+      "about": "Kindergarten maths in English: counting, numbers, comparing, adding, making ten, shapes and measuring"
     }
   ],
   "riddles": [
@@ -22853,6 +22859,557 @@
             { "say": "tiko", "en": "You're a carnival maths star. Hoo hoo, goodbye!", "do": "dance" },
             { "do": "wave", "who": "pip" },
             { "sfx": "cheer" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pip-count",
+      "series": "pip",
+      "ep": 1,
+      "level": "kg",
+      "world": "igloo",
+      "lang": "en",
+      "title": { "hi": "पिप की मछलियाँ", "en": "Pip counts the fish" },
+      "teaches": { "en": "Counting to tell how many: one number for each thing, and the last number says how many; a quick look at a ten frame (NC.K.CC.4–5)" },
+      "lesson": "km-count-1",
+      "recap": { "lines": ["5 fish", "7 fish: the last number says how many", "A full row of a ten frame is 5"] },
+      "next": { "en": "Next time: footprints in the snow, with numbers on them! What number comes after seven?" },
+      "scenes": [
+        {
+          "bg": "igloo",
+          "beats": [
+            { "narrate": true, "en": "Snow is falling on the Number Igloo." },
+            { "enter": "pip", "at": 28 },
+            { "say": "pip", "en": "Brr! I went fishing. Let's count my fish together!", "do": "happy" },
+            { "model": { "kind": "objects", "groups": [{ "n": 5, "pic": "fish" }], "layout": "rows", "countable": true }, "at": 62 },
+            { "say": "pip", "en": "One, two, three, four, five! Touch each fish once as you count." },
+            { "number": "5", "at": 62 },
+            { "echo": { "en": "One fish, one number!" } }
+          ]
+        },
+        {
+          "bg": "igloo",
+          "actors": { "pip": 28 },
+          "beats": [
+            { "enter": "tiko", "at": 76, "from": "right" },
+            { "say": "tiko", "en": "Hoo! I caught some too. How many fish now?", "do": "cheer" },
+            { "model": { "kind": "objects", "groups": [{ "n": 7, "pic": "fish" }], "layout": "rows", "countable": true }, "at": 62 },
+            {
+              "ask": { "en": "How many fish?" },
+              "who": "pip",
+              "kind": "number",
+              "options": [6, 7, 8],
+              "answer": 7,
+              "then": { "en": "Seven! The last number you say tells how many." }
+            },
+            { "number": "7", "at": 62 },
+            { "echo": { "en": "The last number tells how many!" } },
+            { "say": "tiko", "en": "If I count them in a different order, is it still seven?" },
+            { "say": "pip", "en": "Yes! However you count them, seven fish are seven fish." },
+            { "exit": "tiko", "to": "right" }
+          ]
+        },
+        {
+          "bg": "igloo",
+          "actors": { "pip": 28 },
+          "beats": [
+            { "narrate": true, "en": "Then Pip played a quick-look game." },
+            { "model": { "kind": "tenframe", "frames": [{ "a": 5 }] }, "at": 62 },
+            { "say": "pip", "en": "Quick! Look at the ten frame without counting." },
+            {
+              "ask": { "en": "How many dots?" },
+              "who": "pip",
+              "kind": "number",
+              "options": [4, 5, 6],
+              "answer": 5,
+              "then": { "en": "Five! One full row of the ten frame is five." }
+            },
+            { "clear": true },
+            { "say": "pip", "en": "Count each one once, and the last number tells how many. Waddle waddle!", "do": "dance" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pip-numbers",
+      "series": "pip",
+      "ep": 2,
+      "level": "kg",
+      "world": "igloo",
+      "lang": "en",
+      "title": { "hi": "बर्फ़ पर नंबर वाले निशान", "en": "Numbers in the snow" },
+      "teaches": { "en": "Counting on from any number, counting by tens, reading numbers to 20 (NC.K.CC.1–3)" },
+      "lesson": "km-numbers-1",
+      "recap": { "lines": ["3, 4, 5, 6: count on", "10, 20, 30, 40: count by tens", "12 is not 21"] },
+      "answer": { "en": "Last time I asked: what number comes after seven? Eight! Seven, eight." },
+      "next": { "en": "Next time: Tiko and I make snowballs. Who has more? Think how you could find out!" },
+      "scenes": [
+        {
+          "bg": "igloo",
+          "beats": [
+            { "narrate": true, "en": "Someone left footprints in the snow, with numbers on them!" },
+            { "enter": "pip", "at": 28 },
+            { "say": "pip", "en": "Let's follow them. We're standing on three.", "do": "happy" },
+            { "model": { "kind": "numberline", "from": 0, "to": 10, "start": 3 }, "at": 62 },
+            { "say": "pip", "en": "Count on: four, five, six!" },
+            { "echo": { "en": "Count on from any number!" } }
+          ]
+        },
+        {
+          "bg": "igloo",
+          "actors": { "pip": 28 },
+          "beats": [
+            { "enter": "buzz", "at": 76, "from": "right" },
+            { "say": "buzz", "en": "Bzzz! Over here the footprints jump by tens: ten, twenty, thirty!", "do": "cheer" },
+            { "number": "10, 20, 30, ?", "at": 62 },
+            {
+              "ask": { "en": "What comes after thirty, counting by tens?" },
+              "who": "pip",
+              "kind": "number",
+              "options": [31, 40, 50],
+              "answer": 40,
+              "then": { "en": "Forty! Ten, twenty, thirty, forty." }
+            },
+            { "echo": { "en": "Ten, twenty, thirty, forty!" } },
+            { "exit": "buzz", "to": "right" }
+          ]
+        },
+        {
+          "bg": "igloo",
+          "actors": { "pip": 28 },
+          "beats": [
+            { "say": "pip", "en": "The last footprint says a number. Which one is twelve?" },
+            {
+              "ask": { "en": "Find twelve." },
+              "who": "pip",
+              "kind": "number",
+              "options": [2, 12, 21],
+              "answer": 12,
+              "then": { "en": "Twelve: a one, then a two. Twenty-one is a different number!" }
+            },
+            { "say": "pip", "en": "In twelve, the one is for one full ten, and the two is two more." },
+            { "number": "12 = 10 + 2", "at": 62 },
+            { "clear": true },
+            { "say": "pip", "en": "Count on, count by tens, and read the numbers. You can do it all!", "do": "dance" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pip-compare",
+      "series": "pip",
+      "ep": 3,
+      "level": "kg",
+      "world": "igloo",
+      "lang": "en",
+      "title": { "hi": "किसके पास ज़्यादा गोले?", "en": "Who has more snowballs?" },
+      "teaches": { "en": "More, fewer or the same, by counting or matching; which number is bigger (NC.K.CC.6–7)" },
+      "lesson": "km-compare-1",
+      "recap": { "lines": ["6 is more than 4", "6 and 6 are the same", "8 is bigger than 3"] },
+      "answer": { "en": "Last time I asked: who has more snowballs, and how can you find out? Count each pile, or match them up one by one!" },
+      "next": { "en": "Next time: two penguins are sliding, and three more come along. How many penguins then?" },
+      "scenes": [
+        {
+          "bg": "igloo",
+          "beats": [
+            { "narrate": true, "en": "It's a snowball contest at the igloo!" },
+            { "enter": "pip", "at": 26 },
+            { "enter": "tiko", "at": 76, "from": "right" },
+            { "say": "tiko", "en": "I made six snowballs!", "do": "cheer" },
+            { "say": "pip", "en": "I made four. Let me line them up and match them." },
+            {
+              "model": { "kind": "objects", "groups": [{ "n": 6, "pic": "dot", "color": "#3D7BFF" }, { "n": 4, "pic": "dot", "color": "#FF5A5F" }], "layout": "rows", "cols": 6 },
+              "at": 62
+            },
+            {
+              "ask": { "en": "Who has more, six or four?" },
+              "who": "pip",
+              "kind": "number",
+              "options": [4, 6],
+              "answer": 6,
+              "then": { "en": "Six! Tiko has two left over with no partner." }
+            },
+            { "echo": { "en": "Six is more than four!" } }
+          ]
+        },
+        {
+          "bg": "igloo",
+          "actors": { "pip": 26, "tiko": 76 },
+          "beats": [
+            { "narrate": true, "en": "Pip quickly made two more." },
+            { "say": "pip", "en": "Now I have six too!", "do": "happy" },
+            {
+              "model": { "kind": "objects", "groups": [{ "n": 6, "pic": "dot", "color": "#3D7BFF" }, { "n": 6, "pic": "dot", "color": "#FF5A5F" }], "layout": "rows", "cols": 6 },
+              "at": 62
+            },
+            {
+              "ask": { "en": "How many more does Tiko have now?" },
+              "who": "tiko",
+              "kind": "number",
+              "options": [0, 1, 2],
+              "answer": 0,
+              "then": { "en": "None! Six and six are the same." }
+            },
+            { "echo": { "en": "Six and six are the same!" } }
+          ]
+        },
+        {
+          "bg": "igloo",
+          "actors": { "pip": 26, "tiko": 76 },
+          "beats": [
+            { "say": "tiko", "en": "Last one, without snowballs. Which number is bigger, three or eight?" },
+            {
+              "ask": { "en": "Which is bigger?" },
+              "who": "pip",
+              "kind": "number",
+              "options": [3, 8],
+              "answer": 8,
+              "then": { "en": "Eight! When you count, eight comes after three." }
+            },
+            { "clear": true },
+            { "say": "pip", "en": "Count both, or match them up. Then you know who has more!", "do": "dance" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pip-add",
+      "series": "pip",
+      "ep": 4,
+      "level": "kg",
+      "world": "igloo",
+      "lang": "en",
+      "title": { "hi": "फिसलती पेंगुइन", "en": "Penguins come and go" },
+      "teaches": { "en": "Adding to and taking from, with objects; facts within 5 (NC.K.OA.1, 2, 5)" },
+      "lesson": "km-add-1",
+      "recap": { "lines": ["2 + 3 = 5", "4 − 1 = 3", "1 + 1 = 2"] },
+      "answer": { "en": "Last time I asked: two penguins are sliding, and three more come along. How many? Five! Two and three make five." },
+      "next": { "en": "Next time: I have six fish in my ten frame. How many more make ten?" },
+      "scenes": [
+        {
+          "bg": "igloo",
+          "beats": [
+            { "narrate": true, "en": "Penguins love the ice slide." },
+            { "enter": "pip", "at": 28 },
+            {
+              "model": { "kind": "objects", "groups": [{ "n": 2, "pic": "penguin" }, { "n": 3, "pic": "penguin", "arrive": true }], "op": "+", "layout": "rows", "countable": true },
+              "at": 62
+            },
+            { "say": "pip", "en": "Two penguins, and three more slide in. Two and three make five!", "do": "happy" },
+            { "say": "pip", "en": "Count them all to check: one, two, three, four, five." },
+            { "number": "2 + 3 = 5", "at": 62 },
+            { "echo": { "en": "Two and three make five!" } }
+          ]
+        },
+        {
+          "bg": "igloo",
+          "actors": { "pip": 28 },
+          "beats": [
+            { "enter": "tiko", "at": 76, "from": "right" },
+            { "say": "tiko", "en": "Four penguins on the slide... and one goes home for dinner.", "do": "oops" },
+            { "say": "tiko", "en": "Bye-bye, little penguin!" },
+            { "model": { "kind": "objects", "groups": [{ "n": 4, "pic": "penguin", "gone": 1 }], "layout": "rows", "countable": true }, "at": 62 },
+            {
+              "ask": { "en": "Four take away one leaves...?" },
+              "who": "pip",
+              "kind": "number",
+              "options": [2, 3, 5],
+              "answer": 3,
+              "then": { "en": "Three! Four take away one is three." }
+            },
+            { "number": "4 − 1 = 3", "at": 62 },
+            { "echo": { "en": "Take away makes fewer!" } },
+            { "exit": "tiko", "to": "right" }
+          ]
+        },
+        {
+          "bg": "igloo",
+          "actors": { "pip": 28 },
+          "beats": [
+            { "say": "pip", "en": "A quick one. One penguin, and one more." },
+            { "ask": { "en": "One plus one?" }, "who": "pip", "kind": "number", "options": [1, 2, 3], "answer": 2, "then": { "en": "Two! One and one make two." } },
+            { "say": "pip", "en": "And five take away five? None left: zero!" },
+            { "clear": true },
+            { "say": "pip", "en": "Adding makes more, taking away makes fewer. Slide time!", "do": "dance" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pip-ten",
+      "series": "pip",
+      "ep": 5,
+      "level": "kg",
+      "world": "igloo",
+      "lang": "en",
+      "title": { "hi": "दस का डिब्बा", "en": "Fill the ten frame" },
+      "teaches": { "en": "Partners that make 10, and teen numbers as ten and some more (NC.K.OA.3–4, NBT.1)" },
+      "lesson": "km-ten-2",
+      "recap": { "lines": ["6 + 4 = 10", "7 + 3 = 10", "10 + 4 = 14"] },
+      "answer": { "en": "Last time I asked: six fish in the ten frame. How many more make ten? Four! Six and four make ten." },
+      "next": { "en": "Next time: I'm building an igloo with shapes. Which shape has three sides?" },
+      "scenes": [
+        {
+          "bg": "igloo",
+          "beats": [
+            { "narrate": true, "en": "Pip is packing fish into a ten-frame box." },
+            { "enter": "pip", "at": 28 },
+            { "model": { "kind": "tenframe", "frames": [{ "a": 6, "b": 4, "hideB": true }] }, "at": 62 },
+            { "say": "pip", "en": "Six fish. Now count the empty spots: one, two, three, four.", "do": "happy" },
+            { "number": "6 + 4 = 10", "at": 62 },
+            { "say": "pip", "en": "Six and four are partners. Together they make ten!" },
+            { "echo": { "en": "Six and four make ten!" } }
+          ]
+        },
+        {
+          "bg": "igloo",
+          "actors": { "pip": 28 },
+          "beats": [
+            { "enter": "tiko", "at": 76, "from": "right" },
+            { "say": "tiko", "en": "My box has seven fish.", "do": "cheer" },
+            { "model": { "kind": "tenframe", "frames": [{ "a": 7, "b": 3, "hideB": true }] }, "at": 62 },
+            {
+              "ask": { "en": "How many more make ten?" },
+              "who": "pip",
+              "kind": "number",
+              "options": [2, 3, 4],
+              "answer": 3,
+              "then": { "en": "Three! Seven and three make ten." }
+            },
+            { "say": "tiko", "en": "Or count on from seven: eight, nine, ten. Three jumps!" },
+            { "echo": { "en": "Count the empty spots!" } },
+            { "exit": "tiko", "to": "right" }
+          ]
+        },
+        {
+          "bg": "igloo",
+          "actors": { "pip": 28 },
+          "beats": [
+            { "narrate": true, "en": "Then Pip had one full box, and some more fish." },
+            { "model": { "kind": "tenframe", "frames": [{ "a": 10 }, { "a": 4 }] }, "at": 62 },
+            {
+              "ask": { "en": "Ten and four make...?" },
+              "who": "pip",
+              "kind": "number",
+              "options": [4, 14, 41],
+              "answer": 14,
+              "then": { "en": "Fourteen! One full ten and four more." }
+            },
+            { "say": "pip", "en": "In fourteen, the one is for the full ten, and the four is for four more." },
+            { "clear": true },
+            { "say": "pip", "en": "Ten is a full frame. Teen numbers are ten and some more!", "do": "dance" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pip-shapes",
+      "series": "pip",
+      "ep": 6,
+      "level": "kg",
+      "world": "igloo",
+      "lang": "en",
+      "title": { "hi": "बर्फ़ में आकार", "en": "Shapes in the snow" },
+      "teaches": { "en": "Naming shapes by their sides and corners: triangle, square, circle (NC.K.G.2–3)" },
+      "lesson": "km-shapes-2",
+      "recap": { "lines": ["triangle: 3 sides", "square: 4 equal sides", "circle: no corners"] },
+      "answer": { "en": "Last time I asked: which shape has three sides? A triangle!" },
+      "next": { "en": "Next time: my scarf and Tiko's scarf. Whose is longer? How could we check?" },
+      "scenes": [
+        {
+          "bg": "igloo",
+          "beats": [
+            { "narrate": true, "en": "Pip finds shapes all around the igloo." },
+            { "enter": "pip", "at": 28 },
+            { "model": { "kind": "shape", "shape": "triangle", "color": "#FF8A3D", "marks": "sides" }, "at": 62 },
+            { "say": "pip", "en": "This snow roof is a triangle: three sides and three corners. One, two, three!", "do": "happy" },
+            { "say": "pip", "en": "Draw a triangle in the air with your finger: one, two, three sides!" },
+            { "echo": { "en": "Three sides make a triangle!" } }
+          ]
+        },
+        {
+          "bg": "igloo",
+          "actors": { "pip": 28 },
+          "beats": [
+            { "enter": "tiko", "at": 76, "from": "right" },
+            { "model": { "kind": "shape", "shape": "square", "color": "#3D7BFF", "marks": "sides" }, "at": 62 },
+            { "say": "tiko", "en": "My ice block has sides that are all the same.", "do": "cheer" },
+            {
+              "ask": { "en": "How many sides does a square have?" },
+              "who": "pip",
+              "kind": "number",
+              "options": [3, 4, 5],
+              "answer": 4,
+              "then": { "en": "Four! Four equal sides." }
+            },
+            { "say": "tiko", "en": "A rectangle has four sides too, but two are long and two are short." },
+            { "echo": { "en": "Four equal sides make a square!" } },
+            { "exit": "tiko", "to": "right" }
+          ]
+        },
+        {
+          "bg": "igloo",
+          "actors": { "pip": 28 },
+          "beats": [
+            { "model": { "kind": "shape", "shape": "circle", "color": "#FFB020" }, "at": 62 },
+            { "say": "pip", "en": "And the sun is a circle: round all the way, with no corners." },
+            {
+              "ask": { "en": "How many corners does a circle have?" },
+              "who": "pip",
+              "kind": "number",
+              "options": [0, 1, 4],
+              "answer": 0,
+              "then": { "en": "None! A circle has no corners at all." }
+            },
+            { "say": "pip", "en": "Roll a ball, roll a coin: circles roll because they are round!" },
+            { "clear": true },
+            { "say": "pip", "en": "Triangle, square, circle. Shapes are everywhere!", "do": "dance" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pip-measure",
+      "series": "pip",
+      "ep": 7,
+      "level": "kg",
+      "world": "igloo",
+      "lang": "en",
+      "title": { "hi": "किसका मफ़लर लंबा?", "en": "Whose scarf is longer?" },
+      "teaches": { "en": "Comparing lengths with the ends lined up; sorting and counting groups (NC.K.MD.1–3)" },
+      "lesson": "km-measure-1",
+      "recap": { "lines": ["7 cubes is longer than 5", "Line things up at one end", "Sort first, then count"] },
+      "answer": { "en": "Last time I asked: whose scarf is longer, and how can we check? Lay them side by side, with the ends lined up!" },
+      "next": { "en": "Next time is the Number Party! Can you guess what comes next: fish, penguin, fish, penguin...?" },
+      "scenes": [
+        {
+          "bg": "igloo",
+          "beats": [
+            { "narrate": true, "en": "Two warm scarves for a snowy day." },
+            { "enter": "pip", "at": 26 },
+            { "enter": "tiko", "at": 76, "from": "right" },
+            { "model": { "kind": "measure", "len": 5, "thing": "ribbon", "color": "#FF5A5F" }, "at": 62 },
+            { "say": "pip", "en": "My scarf is five cubes long.", "do": "happy" },
+            { "say": "pip", "en": "Wait! We line up the ends first. No cheating!", "do": "oops" },
+            { "model": { "kind": "measure", "len": 7, "thing": "ribbon", "color": "#3D7BFF" }, "at": 62 },
+            {
+              "ask": { "en": "Mine is seven cubes long. How many cubes long is the longer scarf?" },
+              "who": "tiko",
+              "kind": "number",
+              "options": [5, 7],
+              "answer": 7,
+              "then": { "en": "Seven! Tiko's scarf is longer." }
+            },
+            { "echo": { "en": "Line up the ends, then compare!" } }
+          ]
+        },
+        {
+          "bg": "igloo",
+          "actors": { "pip": 26, "tiko": 76 },
+          "beats": [
+            { "narrate": true, "en": "Then they sorted their snowy things." },
+            {
+              "model": {
+                "kind": "objects",
+                "groups": [{ "n": 1, "pic": "fish" }, { "n": 1, "pic": "penguin" }, { "n": 1, "pic": "fish" }, { "n": 1, "pic": "penguin" }, { "n": 1, "pic": "fish" }],
+                "layout": "mixed",
+                "countable": true
+              },
+              "at": 62
+            },
+            {
+              "ask": { "en": "How many fish?" },
+              "who": "pip",
+              "kind": "number",
+              "options": [2, 3, 5],
+              "answer": 3,
+              "then": { "en": "Three fish! Sort them first, then count each kind." }
+            },
+            { "echo": { "en": "Sort, then count!" } }
+          ]
+        },
+        {
+          "bg": "igloo",
+          "actors": { "pip": 26, "tiko": 76 },
+          "beats": [
+            { "say": "tiko", "en": "And an elephant is heavier than a mouse!", "do": "oops" },
+            { "say": "pip", "en": "On a seesaw, the elephant would go down and the mouse would go up!" },
+            { "say": "tiko", "en": "Long, short, heavy, light!" },
+            { "clear": true },
+            { "say": "pip", "en": "Longer, shorter, heavier, lighter. We can compare anything!", "do": "dance" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pip-party",
+      "series": "pip",
+      "ep": 8,
+      "level": "kg",
+      "world": "igloo",
+      "lang": "en",
+      "title": { "hi": "गिनती पार्टी", "en": "The Number Party" },
+      "teaches": { "en": "Review of the year: patterns, counting back, and everything Pip has learned (K.MP.7, NC.K.CC.2)" },
+      "lesson": "km-party-1",
+      "recap": { "lines": ["fish, penguin, fish, penguin...", "3, 2, 1, 0: blast off!", "count, compare, add, make ten, shapes, measure"] },
+      "answer": { "en": "Last time I asked: fish, penguin, fish, penguin... what comes next? Fish! The pattern goes on." },
+      "scenes": [
+        {
+          "bg": "igloo",
+          "beats": [
+            { "narrate": true, "en": "It's the Number Party at the igloo! Everyone is here." },
+            { "enter": "pip", "at": 26 },
+            { "enter": "tiko", "at": 76, "from": "right" },
+            {
+              "model": {
+                "kind": "objects",
+                "groups": [{ "n": 1, "pic": "fish" }, { "n": 1, "pic": "penguin" }, { "n": 1, "pic": "fish" }, { "n": 1, "pic": "penguin" }, { "n": 1, "pic": "fish" }],
+                "layout": "mixed"
+              },
+              "at": 62
+            },
+            { "say": "pip", "en": "The party flags make a pattern: fish, penguin, fish, penguin, fish...", "do": "happy" },
+            { "say": "pip", "en": "Clap it with me: fish, penguin, fish, penguin!" },
+            {
+              "ask": { "en": "What comes next?" },
+              "who": "tiko",
+              "options": ["fish", "penguin"],
+              "answer": "penguin",
+              "then": { "en": "Penguin! The pattern goes on." }
+            },
+            { "echo": { "en": "Say the pattern out loud!" } }
+          ]
+        },
+        {
+          "bg": "igloo",
+          "actors": { "pip": 26, "tiko": 76 },
+          "beats": [
+            { "enter": "buzz", "at": 52, "from": "right" },
+            { "say": "buzz", "en": "Bzzz! Fireworks! Let's count back for blast off.", "do": "cheer" },
+            { "say": "buzz", "en": "Ten, nine, eight, seven, six, five, four..." },
+            { "number": "3, 2, 1, ?", "at": 62 },
+            {
+              "ask": { "en": "Three, two, one... what comes next?" },
+              "who": "pip",
+              "kind": "number",
+              "options": [0, 4, 10],
+              "answer": 0,
+              "then": { "en": "Zero! Blast off!" }
+            },
+            { "echo": { "en": "Ten, nine, eight... blast off!" } },
+            { "exit": "buzz", "to": "right" }
+          ]
+        },
+        {
+          "bg": "igloo",
+          "actors": { "pip": 26, "tiko": 76 },
+          "beats": [
+            { "clear": true },
+            { "narrate": true, "en": "The fireworks lit up the snowy sky." },
+            { "say": "pip", "en": "Thank you for playing with me all year!", "do": "happy" },
+            { "say": "pip", "en": "We counted, compared, added, made ten, found shapes and measured. You did it all!", "do": "dance" },
+            { "say": "tiko", "en": "Hoo hoo! See you in Grade 1, at my Number Carnival!", "do": "cheer" }
           ]
         }
       ]

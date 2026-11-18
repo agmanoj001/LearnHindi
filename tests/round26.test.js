@@ -403,7 +403,7 @@ import { THEMES } from '../js/art-scenes.js';
 test('each guide has a series of 8 to 10 episodes, numbered in order, in its own world', () => {
   assert.deepEqual(
     content.showSeries.map((s) => s.id),
-    ['gappu', 'chiku', 'tiko'],
+    ['gappu', 'chiku', 'tiko', 'pip'],
   );
   for (const sr of content.showSeries) {
     const eps = seriesEpisodes(content, sr.id);
@@ -448,7 +448,7 @@ test('Show time has a shelf per series, open at the episode to watch next', () =
   assert.equal(shelves[0].info.id, 'gappu', "this grade's series first");
   assert.equal(shelves[0].upNext.id, 'gappu-ta');
   assert.equal(shelves[0].watched, 2);
-  assert.equal(shelves.length, 3);
+  assert.equal(shelves.length, 4);
   // after a series ends, the next one to watch is from the same grade
   const all = Object.fromEntries(seriesEpisodes(content, 'tiko').map((s) => [s.id, { views: 1 }]));
   assert.equal(nextShow(content, 'grade1', 'tiko-shapes', { shows: all }).level, 'grade1');

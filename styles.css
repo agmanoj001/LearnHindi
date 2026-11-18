@@ -5050,7 +5050,9 @@ body.speaking .mascot .m-mouth-closed {
 .show-number {
   padding: 0 0.3em;
   border-radius: 26px;
-  font: 800 min(18vh, 120px) 'Fredoka', var(--font);
+  /* a long sum (10, 20, 30, ?) shrinks to fit the screen; a short number stays big */
+  font: 800 min(18vh, 120px, calc(88vw / (var(--len, 2) * 0.62))) 'Fredoka', var(--font);
+  white-space: nowrap;
   color: var(--place);
   background: #fff;
   box-shadow: var(--shadow-lg);

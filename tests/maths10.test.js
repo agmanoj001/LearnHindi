@@ -363,3 +363,26 @@ test('10.9: maths stories for Grades 3–4 and maths comics for Grades 7–8, ea
   // the lock: the first digit twice the second, the third one more than the second, all three make 13
   assert.ok(6 === 2 * 3 && 4 === 3 + 1 && 6 + 3 + 4 === 13);
 });
+
+// ---- 10.10 more maths in Show time ----
+test('10.10: Pip\'s snowy numbers: an episode for each Kindergarten maths unit, chained by questions', () => {
+  const sr = content.showSeries.find((s) => s.id === 'pip');
+  assert.equal(sr.guide, 'pip');
+  const eps = content.shows.filter((s) => s.series === 'pip').sort((a, b) => a.ep - b.ep);
+  assert.equal(eps.length, 8);
+  const igloo = content.worlds.find((w) => w.id === 'igloo');
+  const units = igloo.units.map((u) => u.id);
+  // every unit of the Kindergarten maths world has its episode, and each leads to a lesson in that unit
+  for (const u of units) assert.ok(eps.some((s) => s.lesson.startsWith(`${u}-`)), `${u} has an episode`);
+  for (const s of eps) {
+    assert.equal(s.level, 'kg');
+    assert.equal(s.world, 'igloo');
+    assert.ok(lessons.some((l) => l.id === s.lesson && l.world.id === 'igloo'), s.lesson);
+    // questions as the story goes
+    assert.ok(s.scenes.flatMap((sc) => sc.beats).filter((b) => b.ask).length >= 2, `${s.id} asks`);
+  }
+  // each but the last ends on a question the next one answers
+  assert.equal(eps.filter((s) => s.next).length, 7);
+  assert.equal(eps.filter((s) => s.answer).length, 7);
+  assert.ok(!eps[0].answer && !eps.at(-1).next);
+});
