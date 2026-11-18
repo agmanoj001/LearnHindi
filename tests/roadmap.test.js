@@ -113,6 +113,8 @@ const WATCH = {
   'A "what\'s new" note': () => /whatsNew|changelog/i.test(js),
   'More decodable books for Grade 1': () => content.stories.filter((s) => s.decodable != null).length >= 25,
   'A reading-comfort option': () => /readingComfort|reading-comfort/.test(js + css),
+  // the maths lines go into the voice pack (today only the fixed lessons' lines do)
+  'Google voice for every word the app says': () => /mathgen/.test(read('js/logic.js') + read('tools/make-voices.mjs')),
 };
 
 test('every ticked roadmap item has a check, and the check finds it in the app', () => {
