@@ -6,6 +6,8 @@
   "type": "module",
   "scripts": {
     "test": "node --test tests/*.test.js",
+    "check-content": "node tools/content-check.mjs",
+    "check-devices": "node tools/device-check.mjs",
     "serve": "python3 -m http.server 8080"
   }
 }

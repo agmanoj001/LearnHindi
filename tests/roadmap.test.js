@@ -105,17 +105,37 @@ const DONE = {
   'पहाड़े: times tables sung the Hindi way': () => exists('js/games/pahade.js') && [2, 3, 4, 5, 6, 7, 8, 9, 10].every((n) => content.worlds.some((w) => w.units.some((u) => u.lessons.some((l) => l.game === 'pahade' && (l.config.table === n || l.config.tables?.includes(n)))))) && /dhol/.test(read('js/sfx.js')),
   'Grade 3 and Grade 4 maths worlds': () => ['grade3', 'grade4'].every((lv) => (content.worlds.find((w) => w.subject === 'math' && w.level === lv)?.units || []).reduce((n, u) => n + u.lessons.length, 0) >= 20) && /g4-lakh/.test(read('js/mathgen.js')),
   'Maths stories and puzzles for older children': () => ['chess-rice', 'seventeen-camels', 'aryabhata-zero', 'birbal-biggest', 'tenali-jars'].every((id) => content.stories.some((s) => s.id === id)) && ['mu-1729', 'r-shakuntala', 'b-crows', 'd-lock', 'd-coins'].every((id) => content.comics.some((c) => c.id === id && c.guess)),
+  'A reading-comfort option': () => /export function applyReadingComfort/.test(read('js/ui.js')) && /readingComfort: false/.test(read('js/logic.js')) && /\.reading-comfort \.story-page/.test(css) && /'Easier reading'/.test(read('js/parent.js')),
+  'A "what\'s new" note': () => exists('changes.json') && /export function changesSince/.test(read('js/changes.js')) && /update-more/.test(read('js/app.js')) && /whatsNewSection/.test(read('js/parent.js')),
+  "Children's-app store rules": () => /export function grownUpCheck/.test(read('js/screens.js')) && /Content-Security-Policy[\s\S]*connect-src 'self'/.test(read('index.html')) && exists('docs/PRIVACY.md') && /function privacySection/.test(read('js/parent.js')),
+  'comprehension by question type': () => /export function questionType/.test(read('js/logic.js')) && /function storiesView/.test(read('js/parent.js')) && /ctx\.comprehend\?\./.test(read('js/games/story.js')) && /ctx\.readAlone\?\./.test(read('js/games/story.js')),
+  'Local, private usage insight for grown-ups': () => /export function usageInsight/.test(read('js/curriculum.js')) && /function insightView/.test(read('js/parent.js')),
+  'Read it aloud and hear yourself': () => /function readBack\(ctx, story, n, narration\)/.test(read('js/games/story.js')) && /readAloud: false/.test(read('js/logic.js')) && /function readAloudView/.test(read('js/parent.js')),
+  'Content tooling': () => exists('tools/content-check.mjs') && exists('tools/style-rules.mjs') && /"check-content"/.test(read('package.json')),
+  'Vehicle stories for Kindergarten': () => ['k4-firestation', 'k4-kooda', 'k4-raat-rail', 'k4-metro', 'k4-hawai-adda', 'k4-school-bus', 'k4-ambulance', 'k4-sadak'].every((id) => content.stories.some((s) => s.id === id && s.level === 'kg' && s.talk?.length === 5)) && lessons.filter((l) => l.config?.story?.startsWith('k4-')).length === 8,
+  'Cumulative and call-back folk tales for Kindergarten and Grade 1': () => ['k5-matka', 'k5-chidiya-dana', 'k5-chidiya-kauwa', 'k5-gadha-gaana', 'g1b-chinti-tidda', 'g1b-teen-machhli', 'g1b-bagula', 'g1b-chuha-sher'].every((id) => content.stories.some((s) => s.id === id && s.talk?.length === 5)) && ['heron', 'grasshopper', 'sage'].every((w) => content.words[w]),
+  'More decodable books for Grade 1': () => content.stories.filter((s) => s.decodable != null).length >= 28 && content.stories.some((s) => s.decodable === 5),
+  'Ramayana and Krishna, continued': () => ['ram-shabari', 'ram-setu', 'ram-bharat', 'ram-ghar-aaye', 'k-sudama', 'k-kaliya', 'dhruv-tara', 'ganesh-chanda', 'arjun-aankh', 'eklavya'].every((id) => content.stories.some((s) => s.id === id && s.talk?.length === 5)) && ['ber', 'khadau', 'bharat', 'sudama', 'arjun', 'eklavya'].every((w) => content.words[w]),
+  "Festival stories for everyone's calendar": () => ['fest-idgah', 'fest-sacha-sauda', 'fest-pahad-christmas', 'fest-lohri', 'fest-pongal', 'fest-mahabali', 'k3-gurpurab'].every((id) => content.stories.some((s) => s.id === id && s.talk?.length === 5)) && /export function festStory/.test(read('js/festivals.js')) && /id: 'gurpurab'/.test(read('js/festivals.js')),
+  'Tales from across India': () => ['punyakoti', 'sheikh-chilli', 'jataka-bater', 'gonu-jha', 'birbal-hara-ghoda', 'birbal-oont', 'tenali-laal-mor', 'tenali-baingan', 'jataka-hiran', 'tejimola', 'lalkamal-neelkamal'].every((id) => content.stories.some((s) => s.id === id && s.talk?.length === 5)) && ['tenali', 'redpeacock', 'brinjal'].every((w) => content.words[w]),
+  'True stories of real people': () => content.stories.filter((s) => s.kind === 'true').length >= 10 && /STORY_BADGE/.test(read('js/games/story.js')) && /'true'/.test(read('js/validate.js')),
+  'Google voice for every word the app says': () => exists('js/mathspeech.js') && exists('tools/math-pieces.json') && /mathVoiceLines/.test(read('tools/make-voices.mjs')) && /langRuns/.test(read('js/logic.js')),
+  'Voice speed for beginners': () => /export const voicePace/.test(read('js/logic.js')) && /prefs\.slow/.test(read('js/audio.js')) && /Slower voice for little ones/.test(read('js/parent.js')),
+  'A style guide for the words': () => exists('docs/STYLE-GUIDE.md') && exists('tools/style-guide.mjs') && /One spelling for each word/.test(read('docs/STYLE-GUIDE.md')),
+  'Re-record the very short lines inside a carrier phrase': () => JSON.parse(read('voices/index.json')).fellBack?.length === 0 && /carrierText/.test(read('tools/make-voices.mjs')),
+  'More praise, mostly for effort': () => exists('js/praise.js') && /lessonPraise/.test(read('js/screens.js')),
+  'Illustrated covers and one backdrop per story': () => exists('js/covers.js') && /export const COVERS/.test(read('js/covers.js')) && /coverSvg/.test(read('js/games/story.js')) && /coverSvg/.test(read('js/screens.js')),
+  'Scenes for Grades 3 and 4, calmer and fewer': () => content.stories.filter((s) => ['grade3', 'grade4'].includes(s.level)).every((s) => s.pages[0].act && s.pages.filter((p) => p.act).length <= Math.ceil(s.pages.length / 2)) && /calmProblems/.test(read('js/validate.js')) && /\.scene\.calm/.test(css),
+  'Prose for Grades 7–8': () => {
+    const prose = content.stories.filter((s) => ['grade7', 'grade8'].includes(s.level));
+    return prose.length >= 12 && prose.every((s) => s.words?.length >= 6 && s.questions.length >= 4 && s.talk?.length === 5) && ['diary', 'letter', 'news'].every((k) => prose.some((s) => s.kind === k)) && /glossaryCard/.test(read('js/games/story.js'));
+  },
+  '"How things work" books': () => content.stories.filter((s) => s.kind === 'info').length >= 8 && ['forest', 'palace', 'mountain'].every((id) => content.worlds.find((w) => w.id === id).tags.includes('science')),
   'More maths in Show time': () => ['km-count', 'km-compare', 'km-ten', 'km-shapes', 'km-measure'].every((u) => content.shows.some((s) => s.level === 'kg' && s.lang === 'en' && String(s.lesson).startsWith(u))),
 };
 
 // title of an open row -> a sign in the code that it has been built (then its row must be ✅)
-const WATCH = {
-  'A "what\'s new" note': () => /whatsNew|changelog/i.test(js),
-  'More decodable books for Grade 1': () => content.stories.filter((s) => s.decodable != null).length >= 25,
-  'A reading-comfort option': () => /readingComfort|reading-comfort/.test(js + css),
-  // the maths lines go into the voice pack (today only the fixed lessons' lines do)
-  'Google voice for every word the app says': () => /mathgen/.test(read('js/logic.js') + read('tools/make-voices.mjs')),
-};
+const WATCH = {};
 
 test('every ticked roadmap item has a check, and the check finds it in the app', () => {
   for (const r of rows.filter((x) => x.done)) {

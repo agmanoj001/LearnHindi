@@ -12,7 +12,7 @@ const HI = {
   'New, faster voices are ready: no pauses before each line, and every word clear. Your saved voices keep working until you update.':
     'नई, तेज़ आवाज़ें तैयार हैं: हर पंक्ति से पहले कोई रुकावट नहीं, और हर शब्द साफ़। जब तक आप अपडेट न करें, पुरानी आवाज़ें चलती रहेंगी।',
   'A natural recorded voice reads every story (title, pages, questions and lesson) and says the app’s prompts and words, in Hindi and English, instead of the device’s computer voice. Download once and it works offline. Anything you record yourself always plays instead.':
-    'एक असली-सी रिकॉर्ड की हुई आवाज़ हर कहानी (नाम, पन्ने, सवाल और सीख) पढ़ती है और ऐप के निर्देश और शब्द बोलती है, हिन्दी और अंग्रेज़ी में, फ़ोन की कंप्यूटर आवाज़ की जगह। एक बार डाउनलोड करें, फिर बिना इंटरनेट चलती है। जो आप ख़ुद रिकॉर्ड करें, वही बजता है।',
+    'एक असली-सी रिकॉर्ड की हुई आवाज़ हर कहानी (नाम, पन्ने, सवाल और सीख) पढ़ती है और ऐप के निर्देश और शब्द बोलती है, हिंदी और अंग्रेज़ी में, फ़ोन की कंप्यूटर आवाज़ की जगह। एक बार डाउनलोड करें, फिर बिना इंटरनेट चलती है। जो आप ख़ुद रिकॉर्ड करें, वही बजता है।',
   'Use the story voices': 'कहानी की आवाज़ें चलाएँ',
   'Not downloaded yet.': 'अभी डाउनलोड नहीं हुईं।',
   'Checking…': 'देख रहे हैं…',
@@ -74,12 +74,36 @@ const HI = {
   'English math for Kindergarten and Grade 1, following the North Carolina Standard Course of Study.': 'बालवाटिका और कक्षा 1 के लिए अंग्रेज़ी में गणित (नॉर्थ कैरोलिना पाठ्यक्रम)।',
   Language: 'भाषा',
   English: 'अंग्रेज़ी',
-  Hindi: 'हिन्दी',
-  'For Hindi worlds. Math worlds are always in English.': 'हिन्दी दुनिया के लिए। गणित की दुनिया हमेशा अंग्रेज़ी में रहती है।',
+  Hindi: 'हिंदी',
+  'For Hindi worlds. Math worlds are always in English.': 'हिंदी दुनिया के लिए। गणित की दुनिया हमेशा अंग्रेज़ी में रहती है।',
   'Play time and reading support': 'खेलने का समय और पढ़ने में मदद',
   'Daily limit': 'रोज़ की सीमा',
   'No limit': 'कोई सीमा नहीं',
   Captions: 'लिखा हुआ भी दिखाएँ',
+  Privacy: 'निजता',
+  'Nothing about your child leaves this device. There are no accounts, ads, analytics or tracking, and no links to other websites.':
+    'आपके बच्चे की कोई भी जानकारी इस फ़ोन से बाहर नहीं जाती। कोई खाता, विज्ञापन, गिनती या निगरानी नहीं, और दूसरी वेबसाइटों के कोई लिंक नहीं।',
+  'Kept on this device only: nicknames, grades, settings, progress, voice recordings and the vehicle photo.':
+    'सिर्फ़ इसी फ़ोन पर रहते हैं: बच्चों के नाम, कक्षा, सेटिंग, प्रगति, आवाज़ की रिकॉर्डिंग और गाड़ी की फ़ोटो।',
+  'The app only downloads its own files (the app, its updates and the story voices) from the site it came from. A backup leaves the device only when you save or share it.':
+    'ऐप सिर्फ़ अपनी ही फ़ाइलें (ऐप, उसके अपडेट और कहानी की आवाज़ें) उसी साइट से लेता है जहाँ से वह आया है। बैकअप फ़ोन से बाहर तभी जाता है जब आप उसे सहेजें या भेजें।',
+  'For grown-ups: answer in numbers': 'बड़ों के लिए: अंकों में जवाब दें',
+  "What's new": 'नया क्या है',
+  'The list of changes needs the internet the first time.': 'बदलावों की सूची पहली बार इंटरनेट से आती है।',
+  'Read aloud and hear yourself': 'पढ़कर सुनाओ, ख़ुद सुनो',
+  'When the child reads a story on their own, a red button on each page records them reading it, then plays it back followed by the narrator, so they hear the difference. Recordings stay on this device; see them under Progress.':
+    'जब बच्चा कहानी ख़ुद पढ़ता है, तो हर पन्ने पर एक लाल बटन उसकी पढ़ाई रिकॉर्ड करता है, फिर पहले उसकी आवाज़ और फिर कहानी वाली आवाज़ सुनाता है, ताकि वह फ़र्क़ सुन सके। रिकॉर्डिंग इसी फ़ोन पर रहती हैं; प्रगति में देखिए।',
+  'Read aloud': 'पढ़कर सुनाया',
+  'Left-handed layout': 'बाएँ हाथ वालों के लिए',
+  'In lessons, the hint and "say it again" buttons move to the left and the guide to the right, for a child who taps with the left hand.':
+    'पाठों में संकेत और "फिर से बोलो" वाले बटन बाईं ओर और साथी दाईं ओर आ जाते हैं, उस बच्चे के लिए जो बाएँ हाथ से छूता है।',
+  'This device has little memory (2 GB or less), so Automatic uses lighter animations.': 'इस डिवाइस में मेमोरी कम है (2 GB या उससे कम), इसलिए "अपने आप" में हल्के एनिमेशन चल रहे हैं।',
+  'Slower voice for little ones': 'छोटे बच्चों के लिए धीमी आवाज़',
+  'In Toddler and Kindergarten the voice speaks a little slower, with a short pause between words, so a child learning the sounds can follow.':
+    'नन्हे और बालवाटिका में आवाज़ थोड़ा धीरे बोलती है, और शब्दों के बीच ज़रा रुकती है, ताकि आवाज़ें सीख रहा बच्चा साथ चल सके।',
+  'Easier reading': 'आसान पढ़ाई',
+  'More space between words and lines, on a soft cream page, in the stories, comics and reading games. Helps children who find reading hard, including dyslexic readers.':
+    'कहानियों, कॉमिक्स और पढ़ने के खेलों में शब्दों और पंक्तियों के बीच ज़्यादा जगह, हल्के क्रीम रंग के पन्ने पर। जिन बच्चों को पढ़ना मुश्किल लगता है, डिस्लेक्सिया वाले बच्चों को भी, इससे मदद मिलती है।',
   'Shows everything the app says as text. Helps children who are hard of hearing, and helps early readers match sounds to words.': 'ऐप जो भी बोलता है, वह लिखा हुआ भी दिखता है। कम सुनने वाले बच्चों की मदद होती है, और नए पढ़ने वाले आवाज़ को शब्द से जोड़ना सीखते हैं।',
   'Tell it back': 'कहानी दोबारा सुनाओ',
   'After each story the child can record themselves retelling it, with the pictures as prompts. Retelling is one of the best checks of understanding. Recordings stay on this device; listen to them under Progress.':
@@ -135,8 +159,8 @@ const HI = {
   'Not on the home screen': 'होम स्क्रीन पर नहीं है',
   'It opens like an app, without the browser.': 'यह ब्राउज़र के बिना, ऐप की तरह खुलता है।',
   'Browser menu › Add to Home screen (or Install app). On iPhone and iPad this also stops Safari clearing its data.': 'ब्राउज़र मेन्यू › Add to Home screen (या Install app)। iPhone और iPad पर इससे Safari इसका डेटा भी नहीं मिटाता।',
-  'Hindi voice found': 'हिन्दी आवाज़ मिली',
-  'No Hindi voice on this device': 'इस फ़ोन में हिन्दी आवाज़ नहीं है',
+  'Hindi voice found': 'हिंदी आवाज़ मिली',
+  'No Hindi voice on this device': 'इस फ़ोन में हिंदी आवाज़ नहीं है',
   'On Android, make sure it works offline: Settings › System › Languages › Text-to-speech › Google › Install voice data › Hindi.': 'Android पर देख लें कि यह बिना इंटरनेट चले: Settings › System › Languages › Text-to-speech › Google › Install voice data › Hindi।',
   'Recorded voices always work offline. Record a few words or episode lines under Record your voice.': 'रिकॉर्ड की हुई आवाज़ें हमेशा बिना इंटरनेट चलती हैं। "अपनी आवाज़ रिकॉर्ड करें" में कुछ शब्द या कार्टून की लाइनें रिकॉर्ड करें।',
   'Storage kept safe': 'डेटा सुरक्षित रहेगा',
@@ -159,7 +183,7 @@ const PATTERNS = [
   [/^(\d+) family recording\(s\)$/, 'परिवार की $1 रिकॉर्डिंग'],
   [/^Daily limit: (\d+) minutes$/, 'रोज़ की सीमा: $1 मिनट'],
   [/^(\d+) recording\(s\) saved on this device\.$/, 'इस फ़ोन में $1 रिकॉर्डिंग।'],
-  [/^This device has no (Hindi or English|Hindi|English) voice\. .*$/, (m, which) => `इस फ़ोन में ${{ 'Hindi or English': 'हिन्दी या अंग्रेज़ी', Hindi: 'हिन्दी', English: 'अंग्रेज़ी' }[which]} की आवाज़ नहीं है। Android पर: Settings › System › Languages › Text-to-speech › Google › Install voice data.`],
+  [/^This device has no (Hindi or English|Hindi|English) voice\. .*$/, (m, which) => `इस फ़ोन में ${{ 'Hindi or English': 'हिंदी या अंग्रेज़ी', Hindi: 'हिंदी', English: 'अंग्रेज़ी' }[which]} की आवाज़ नहीं है। Android पर: Settings › System › Languages › Text-to-speech › Google › Install voice data.`],
 ];
 
 const MORE = [

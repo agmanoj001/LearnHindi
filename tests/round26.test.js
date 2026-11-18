@@ -285,7 +285,7 @@ import { pictureExists } from '../js/art.js';
 const at = (iso) => new Date(`${iso}T10:00:00`).getTime();
 
 test('each festival comes near its day, from the device date alone', () => {
-  assert.deepEqual(FESTIVALS.map((f) => f.id), ['diwali', 'holi', 'rakhi', 'eid', 'christmas', 'lohri', 'pongal', 'onam']);
+  assert.deepEqual(FESTIVALS.map((f) => f.id), ['diwali', 'holi', 'rakhi', 'eid', 'christmas', 'lohri', 'pongal', 'onam', 'gurpurab']);
   assert.equal(festivalNow(at('2026-11-08')).festival.id, 'diwali');
   assert.equal(festivalNow(at('2026-11-06')).diff, 2, 'two days to go');
   assert.equal(festivalNow(at('2026-11-10')).diff, -2, 'and two days after');
@@ -317,8 +317,8 @@ test('every festival has its story, its sticker and its greeting', () => {
   assert.ok(content.phrases.festSticker?.hi);
   // the five new festival stories: moving scenes, questions, a lesson, talk prompts; in their own unit
   const unit = content.worlds.find((w) => w.id === 'town').units.find((u) => u.id === 'k-parv');
-  assert.deepEqual(unit.lessons.map((l) => l.config.story), ['k3-eid', 'k3-christmas', 'k3-lohri', 'k3-pongal', 'k3-onam']);
-  for (const id of ['k3-eid', 'k3-christmas', 'k3-lohri', 'k3-pongal', 'k3-onam']) {
+  assert.deepEqual(unit.lessons.map((l) => l.config.story), ['k3-eid', 'k3-christmas', 'k3-lohri', 'k3-pongal', 'k3-onam', 'k3-gurpurab']);
+  for (const id of ['k3-eid', 'k3-christmas', 'k3-lohri', 'k3-pongal', 'k3-onam', 'k3-gurpurab']) {
     const s = content.stories.find((x) => x.id === id);
     assert.ok(s.pages.every((p) => p.act && content.words[p.word]), id);
     assert.equal(s.questions.length, 2);
@@ -736,7 +736,15 @@ test('content/ is content.json split into a core and a pack per grade, and nothi
   const toddler = mergeContent(core, firstPacks(core, 'toddler').map((p) => JSON.parse(files[p.file])));
   assert.ok(toddler.stories.length && toddler.stories.every((s) => s.level === 'toddler'));
   assert.deepEqual(toddler.comics, []);
-  assert.deepEqual(firstPacks(core, 'grade7').map((p) => p.level).sort(), ['grade7', 'kg']);
+  // only the child's own grade before the first screen (the Grade 7–8 mission's Kindergarten stories follow),
+  // and without its comics, which come in a pack of their own after the home screen is up
+  assert.deepEqual(firstPacks(core, 'grade7').map((p) => p.file.split('.')[0]), ['grade7']);
+  const g7 = JSON.parse(files[firstPacks(core, 'grade7')[0].file]);
+  assert.equal(g7.comics, undefined);
+  assert.ok(g7.stories.length && g7.grammar);
+  const comics = core.packs.find((p) => p.level === 'grade7' && p.part === 'comics');
+  assert.ok(comics && JSON.parse(files[comics.file]).comics.every((c) => c.level === 'grade7'));
+  assert.ok(firstPacks(core, 'grade7')[0].bytes < 250 * 1024, 'Grade 7 loads little before its first screen');
   // every story is still known, for favourites
   assert.equal(core.storyIds.length, content.stories.length);
 });

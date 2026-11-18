@@ -24,7 +24,7 @@ Every story in `content.json` has a `talk` list: five prompts a grown-up can ask
 - `why`: a "why" question about this story, written for it (not a template).
 - `you`: a "what about you" question that links the story to the child's own life, written for it.
 
-Each prompt has `hi` and `en`. Write the Hindi addressed to the child so it fits a boy or a girl ("तुम्हें…", a ने-construction or an imperative; not करोगे/करोगी). `validateContent` (js/validate.js) and `npm test` fail when a story is missing any of the five, so a story can't land without them. Like everything the app says, the prompts are spoken in the Google voice, so they need their recordings (see the next section). Until roadmap 6.8 adds that, they are only shown to the grown-up.
+Each prompt has `hi` and `en`. Write the Hindi addressed to the child so it fits a boy or a girl ("तुम्हें…", a ने-construction or an imperative; not करोगे/करोगी). `validateContent` (js/validate.js) and `npm test` fail when a story is missing any of the five, so a story can't land without them. Like everything the app says, the prompts are spoken in the Google voice (each has a 🔊 button), so they need their recordings (see the next section): run `tools/make-voices.mjs` in the same change.
 
 ## Everything the phone says is the Google voice
 
@@ -32,7 +32,7 @@ Anything the app says aloud, in Hindi or English, is the recorded Google text-to
 
 - When a change adds or changes anything the app can say, its recordings are part of the **same change**, never a follow-up. The line must be in a list the generator reads, usually `lessonVoiceLines` in `js/logic.js`. Then run `tools/make-voices.mjs`, and for story pages also `tools/align-words.mjs`.
 - A line made up as the child plays (new numbers, names or answers each time) must be recorded too. List every line its generator can make, or build the line from recorded pieces. Never leave it to the device voice.
-- Roadmap 6.8 tracks the lines that have no recording yet: most maths lines, and the talk-together prompts.
+- The maths lines are built from recorded pieces (js/mathspeech.js). After changing a maths generator (js/mathgen.js) or the hands-on games' `SAY` table (js/games/handson.js), run `node tools/math-pieces.mjs` and then `tools/make-voices.mjs`; `npm test` fails while a maths piece has no recording.
 
 ## Long work: push after each piece, and keep a restart check-in
 

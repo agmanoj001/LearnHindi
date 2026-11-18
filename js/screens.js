@@ -15,6 +15,8 @@ import { picture, pictureForWord, specialVehicle } from './art.js';
 import { weekDays, trailSticker, dayFinished, weekFull, isoDay, stickyPlan } from './curriculum.js';
 import { worldLessons, lessonRecord, isUnlocked, currentLesson, nextLesson, worldStars, hubWorlds, streak, nextCollectible, todayPlan, storyLang, worldStoryLang, storyNeeds, taughtMatras, decodability, nextDecodable, MATRA_SIGNS } from './curriculum.js';
 import { SHOW_ICONS } from './show-icons.js';
+import { coverSvg } from './covers.js';
+import { lessonPraise } from './praise.js';
 import { greeting, timeSlot, HELLO, milestoneLine, totalStars } from './guide.js';
 import { playersFrom, GROWN_UP } from './together.js';
 import { load, KEYS, profileKey, backupReminderDue } from './storage.js';
@@ -85,7 +87,7 @@ const fill = (node, kids) => {
 const bigName = (w, text, cls) => (english(w) ? el('span', { class: `${cls} latin`, text: text.en }) : el('span', { class: cls, lang: 'hi', text: text.hi }));
 
 function subjectName(world) {
-  return { math: { hi: 'गणित', en: 'Math' }, english: { hi: 'अंग्रेज़ी', en: 'English' } }[world.subject] || { hi: 'हिन्दी', en: 'Hindi' };
+  return { math: { hi: 'गणित', en: 'Math' }, english: { hi: 'अंग्रेज़ी', en: 'English' } }[world.subject] || { hi: 'हिंदी', en: 'Hindi' };
 }
 
 // What a world teaches, from content.json "tags": Phonics, Grammar, Stories, Math …
@@ -581,6 +583,8 @@ export async function results(api, { world, lesson, result, collection, session,
   );
   const next = nextLesson(world, lesson.id);
   const isStory = lesson.id.startsWith('story:');
+  // praise for the effort or the care it took, said by the guide and shown on the ribbon (roadmap 6.3)
+  const praise = lessonPraise(session || {});
   // free play after every two lessons (docs/ROADMAP.md 7.14); not for the oldest readers' comics and grammar
   const playTime = freeplayDue(world.level, api.state.sessionLessons || 0);
   const btns = el('div', { class: 'result-buttons' }, [
@@ -603,7 +607,7 @@ export async function results(api, { world, lesson, result, collection, session,
       el('div', { class: 'confetti' }, Array.from({ length: 36 }, (_, i) => el('i', { style: { left: `${(i * 37) % 100}%`, animationDelay: `${(i % 12) * 0.1}s`, background: ['#FF5A5F', '#FFC93C', '#2EC27E', '#3D7BFF', '#A66BFF', '#FF8FB1'][i % 6] } }))),
       el('div', { class: `result-card${result.stars === 3 ? ' perfect' : ''}` }, [
         el('div', { class: 'result-mascot' }, [mascot.node]),
-        praiseRibbon(world, result.stars),
+        praiseRibbon(world, praise),
         stars,
         session?.answered
           ? el('div', { class: 'result-stats' }, [
@@ -638,7 +642,7 @@ export async function results(api, { world, lesson, result, collection, session,
     api.sfx.sparkle();
     await sleep(500);
     await api.say(collection.id === 'vehicles' ? 'newVehicle' : 'newItem', item);
-  } else await api.say(result.stars === 3 ? 'great' : 'yay');
+  } else await api.sayLines(praise);
   if (result.unitComplete && token === api.state.token) await api.say('unitDone');
   if (playTime && token === api.state.token) await api.say('freeplayTime');
   if (milestone && token === api.state.token) {
@@ -742,7 +746,9 @@ function newPrizeCard(api, r) {
 // Grades 7–8: read a story for a little brother or sister (roadmap 7.9)
 function missionCard(api) {
   if (!MISSION_LEVELS.includes(api.state.settings.level)) return null;
-  const done = Object.keys(readByAll()).filter((id) => missionStories(api.state.content).some((s) => s.id === id)).length;
+  // the stories read so far, counted from the ids in the core: Kindergarten's pack may not be here yet
+  const known = new Set(api.state.content.storyIds || missionStories(api.state.content).map((s) => s.id));
+  const done = Object.keys(readByAll()).filter((id) => known.has(id)).length;
   return el('button', { class: 'mission-card', 'aria-label': 'Read to your brother or sister', onclick: () => (api.sfx.pop(), api.go('readfor')) }, [
     el('span', { class: 'mission-icon', 'aria-hidden': 'true', text: '📖' }),
     el('span', { class: 'mission-text' }, [el('b', { lang: 'hi', text: 'छोटों के लिए कहानी पढ़ो' }), el('small', { text: 'Read a story for your brother or sister' })]),
@@ -906,6 +912,13 @@ export function showTalk(api, story) {
             el('span', { class: 'talk-kind' }, [el('b', { lang: 'hi', text: TALK_LABELS[t.type]?.hi || t.type }), el('small', { text: TALK_LABELS[t.type]?.en || '' })]),
             el('span', { class: 'talk-q', lang: 'hi', text: t.hi }),
             el('small', { class: 'talk-en', text: t.en }),
+            // read aloud in the Google voice, Hindi then (if shown) English (roadmap 6.8)
+            el('button', {
+              class: 'round-btn small talk-say',
+              'aria-label': 'Read it aloud',
+              html: ICONS.speaker,
+              onclick: () => api.sayMixed(api.state.lang === 'en' ? t.en : api.state.lang === 'hi' ? t.hi : `${t.hi} ${t.en}`),
+            }),
           ]),
         ),
       ),
@@ -916,15 +929,9 @@ export function showTalk(api, story) {
   sheet.querySelector('.round-btn')?.focus();
 }
 
-// A ribbon across the results card. Praise names the effort, not the child (Mueller & Dweck).
-export const PRAISE = [
-  { hi: 'अच्छी कोशिश!', en: 'Good try!' },
-  { hi: 'अच्छी कोशिश!', en: 'Good try!' },
-  { hi: 'शाबाश!', en: 'Well done!' },
-  { hi: 'शानदार!', en: 'Amazing!' },
-];
-function praiseRibbon(world, starCount) {
-  const p = PRAISE[Math.max(0, Math.min(3, starCount | 0))];
+// A ribbon across the results card, with the line the guide says. Praise names the effort, not the child
+// (Mueller & Dweck): chosen by how the lesson went (js/praise.js, roadmap 6.3).
+function praiseRibbon(world, p) {
   return el('div', { class: 'result-ribbon' }, english(world) ? [el('b', { text: p.en })] : [el('b', { lang: 'hi', text: p.hi }), el('span', { text: p.en })]);
 }
 
@@ -1143,7 +1150,7 @@ export function library(api, w) {
     const b = el('button', { class: `book ${read ? 'read' : ''} ${s.kind === 'poem' ? 'poem' : ''}${hero ? ' next-book' : ''}`, 'data-grow': `story:${s.id}`, 'aria-label': s.title.en }, [
       hero ? el('span', { class: 'next-ribbon' }, said(api, { hi: 'अब यह पढ़ो!', en: 'Read this next!' })) : null,
       s.kind === 'poem' ? el('span', { class: 'poem-ribbon', text: s.lang === 'en' ? 'Rhyme' : 'कविता · Poem' }) : null,
-      drawWhenSeen('span', { class: 'book-cover' }, () => pictureForWord(api.word(s.cover)), { now: hero || shown++ < 6 }),
+      drawWhenSeen('span', { class: 'book-cover' }, () => coverSvg(s.id, (id) => pictureForWord(api.word(id))) || pictureForWord(api.word(s.cover)), { now: hero || shown++ < 6 }),
       // English rhymes lead with their English title
       s.lang === 'en' ? el('span', { class: 'book-title latin', text: s.title.en }) : el('span', { class: 'book-title', lang: 'hi', text: s.title.hi }),
       el('span', { class: 'book-title-en', lang: s.lang === 'en' ? 'hi' : 'en', text: s.lang === 'en' ? s.title.hi : s.title.en }),
@@ -1239,7 +1246,7 @@ export function parentGate(api, { onDone = () => api.go('parent'), html = ICONS.
     btn.classList.remove('show-hint');
     api.sfx?.pop?.();
     api.sfx?.haptic?.(30);
-    onDone();
+    grownUpCheck(api, onDone);
   };
   const begin = () => {
     if (start) return;
@@ -1266,6 +1273,60 @@ export function parentGate(api, { onDone = () => api.go('parent'), html = ICONS.
   btn.addEventListener('blur', reset);
   btn.addEventListener('contextmenu', (e) => e.preventDefault());
   return btn;
+}
+
+// ---------- the grown-up question (roadmap 8.4) ----------
+// After the hold, a sum written in words ("twenty-six plus seven"): a young child can't read it, a grown-up
+// answers in a second. The app stores require a gate like this before settings and anything outside play.
+// Once answered, the gates stay open for a few minutes so a grown-up isn't asked again and again.
+
+export const GROWN_UP_MINUTES = 10;
+let grownUpUntil = 0;
+
+export function grownUpQuestion(rng = Math.random, numbers = []) {
+  const a = 11 + Math.floor(rng() * 19); // 11 to 29
+  const b = 3 + Math.floor(rng() * 7); // 3 to 9
+  const word = (n, lg) => numbers[n - 1]?.[lg] || String(n);
+  return { a, b, answer: a + b, hi: `${word(a, 'hi')} और ${word(b, 'hi')} मिलाकर कितने?`, en: `What is ${word(a, 'en')} plus ${word(b, 'en')}?` };
+}
+
+export function grownUpCheck(api, onDone) {
+  if (Date.now() < grownUpUntil) return onDone();
+  let q = grownUpQuestion(api.rng || Math.random, api.state.content?.numbers);
+  const ask = el('p', { class: 'grown-q' });
+  const showQ = () => ask.replaceChildren(el('b', { lang: 'hi', text: q.hi }), el('span', { text: q.en }));
+  showQ();
+  const input = el('input', { class: 'grown-in', type: 'text', inputmode: 'numeric', pattern: '[0-9]*', autocomplete: 'off', 'aria-label': 'Answer in numbers' });
+  const sheet = el('div', { class: 'talk-sheet grown-sheet', role: 'dialog', 'aria-modal': 'true', 'aria-label': 'For grown-ups' });
+  const close = () => sheet.remove();
+  const check = () => {
+    if (Number(input.value.trim()) === q.answer) {
+      grownUpUntil = Date.now() + GROWN_UP_MINUTES * 60 * 1000;
+      close();
+      return onDone();
+    }
+    // a wrong answer: a new sum, so guessing doesn't help
+    card.classList.remove('shake');
+    void card.offsetWidth;
+    card.classList.add('shake');
+    q = grownUpQuestion(api.rng || Math.random, api.state.content?.numbers);
+    showQ();
+    input.value = '';
+    input.focus();
+  };
+  input.addEventListener('keydown', (e) => e.key === 'Enter' && check());
+  const card = el('form', { class: 'talk-card grown-card', onsubmit: (e) => (e.preventDefault(), check()) }, [
+    el('header', { class: 'talk-head' }, [
+      el('div', {}, [el('b', { lang: 'hi', text: 'बड़ों के लिए' }), el('small', { text: 'For grown-ups: answer in numbers' })]),
+      el('button', { type: 'button', class: 'round-btn small', 'aria-label': 'Close', html: ICONS.back, onclick: close }),
+    ]),
+    ask,
+    el('div', { class: 'grown-row' }, [input, el('button', { type: 'submit', class: 'btn primary', text: 'OK' })]),
+  ]);
+  sheet.append(card);
+  sheet.addEventListener('click', (e) => e.target === sheet && close());
+  document.body.append(sheet);
+  input.focus();
 }
 
 // ---------- break time: the daily limit was reached ----------

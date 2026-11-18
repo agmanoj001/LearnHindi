@@ -50,6 +50,16 @@ export function drawWhenSeen(tag, props, draw, { now = false } = {}) {
 // hidden inside `scope` until its ⓘ is tapped; the button shows or hides all of it at once.
 const INFO_SVG =
   '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M12 10.5v6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><circle cx="12" cy="7.2" r="1.5" fill="currentColor"/></svg>';
+// easier reading (roadmap 3.3): wider word and line spacing and a cream page wherever a child reads
+export function applyReadingComfort(on) {
+  document.documentElement.classList.toggle('reading-comfort', !!on);
+}
+
+// left-handed layout (roadmap 8.3): the hint and "say it again" buttons move under the left thumb
+export function applyLeftHanded(on) {
+  document.documentElement.classList.toggle('left-handed', !!on);
+}
+
 export function infoButton(scope, { cls = '' } = {}) {
   scope.classList.add('grownup-scope');
   const b = el('button', { class: `info-btn ${cls}`.trim(), 'aria-label': 'For grown-ups', 'aria-expanded': 'false', html: INFO_SVG });

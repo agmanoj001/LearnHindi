@@ -3692,7 +3692,7 @@ body.speaking .mascot .m-mouth-closed {
 }
 .tag-filter {
   flex: none;
-  min-height: 40px;
+  min-height: 48px;
   padding: 7px 16px;
   border-radius: 999px;
   font: 700 14px 'Fredoka', var(--font);
@@ -6024,7 +6024,10 @@ body:has(.game-comic) .caption-bar {
 
 /* words with a meaning */
 .gloss {
-  border-bottom: 2px dotted var(--place);
+  /* an inline word you can tap: the padding makes the finger target taller without moving the lines (roadmap 8.3) */
+  padding-block: 12px;
+  text-decoration: underline dotted var(--place) 2px;
+  text-underline-offset: 4px;
   cursor: help;
 }
 .gloss-pop {
@@ -13103,4 +13106,419 @@ body:has(.game-grammar) .caption-bar,
   display: block;
   width: 100%;
   height: auto;
+}
+
+/* ---- easier reading (roadmap 3.3): more space between words and lines, on a soft cream page.
+   Hindi gets word and line spacing only: spacing out the letters would break the line along the top
+   of each word (शिरोरेखा) and pull the matras away from their letters. English also gets a little
+   letter spacing. ---- */
+.reading-comfort {
+  --comfort-page: #fbf3dc;
+  --comfort-ink: #2b2418;
+}
+.reading-comfort .story-page {
+  background: var(--comfort-page);
+}
+.reading-comfort .story-line,
+.reading-comfort .comic-bubble,
+.reading-comfort .comic-cap,
+.reading-comfort .comic-blurb,
+.reading-comfort .gr-rule,
+.reading-comfort .gr-examples,
+.reading-comfort .gr-sentence-text,
+.reading-comfort .riddle-text,
+.reading-comfort .verse-line {
+  line-height: 1.95;
+  word-spacing: 0.3em;
+}
+.reading-comfort .story-line.hi {
+  color: var(--comfort-ink);
+}
+.reading-comfort .story-line.en,
+.reading-comfort :is(.comic-bubble, .comic-cap, .comic-blurb, .gr-rule, .gr-examples):lang(en) {
+  letter-spacing: 0.05em;
+  word-spacing: 0.18em;
+}
+.reading-comfort .story-word {
+  padding: 0 0.18em;
+}
+.reading-comfort .comic-bubble {
+  background: #fff8e4;
+}
+.reading-comfort .card.text:lang(en) .word-text {
+  letter-spacing: 0.05em;
+}
+
+/* ---- what's new (roadmap 8.6): the refresh bar names what changed, and lists it on a tap ---- */
+.update-more {
+  align-self: flex-start;
+  margin-top: 4px;
+  padding: 3px 10px;
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
+  border-radius: 999px;
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  font-size: 13px;
+  display: inline-flex;
+  gap: 6px;
+  align-items: baseline;
+  cursor: pointer;
+}
+.update-more small {
+  opacity: 0.8;
+}
+.changes-sheet .change h3,
+.changes .change h3 {
+  margin: 14px 0 6px;
+  font-size: 17px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 8px;
+  align-items: baseline;
+}
+.changes-sheet .change h3 small,
+.changes .change h3 small {
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 13px;
+}
+.change-list {
+  margin: 0;
+  padding-left: 20px;
+}
+.change-list li {
+  margin: 4px 0;
+  line-height: 1.45;
+}
+.changes-sheet .change-list li small {
+  display: block;
+  color: var(--muted);
+}
+
+/* ---- the grown-up question after the press-and-hold (roadmap 8.4) ---- */
+.grown-card {
+  width: min(420px, 100%);
+}
+.grown-q {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 14px 0 12px;
+}
+.grown-q b {
+  font-size: 20px;
+}
+.grown-q span {
+  color: var(--muted);
+}
+.grown-row {
+  display: flex;
+  gap: 10px;
+}
+.grown-row .btn {
+  flex: 0 0 auto;
+  width: auto;
+  min-width: 88px;
+  margin: 0;
+}
+.grown-in {
+  flex: 1;
+  min-width: 0;
+  min-height: 48px;
+  padding: 8px 14px;
+  border: 2px solid #d9d6f0;
+  border-radius: 14px;
+  font: inherit;
+  font-size: 22px;
+}
+.grown-in:focus {
+  outline: 3px solid var(--place, #6c63ff);
+  outline-offset: 1px;
+}
+.grown-card.shake {
+  animation: grown-shake 0.35s ease-in-out;
+}
+@keyframes grown-shake {
+  20%,
+  60% {
+    transform: translateX(-8px);
+  }
+  40%,
+  80% {
+    transform: translateX(8px);
+  }
+}
+
+/* ---- understanding stories in the parent area (roadmap 3.4) ---- */
+.understand .note.focus {
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: #fff6d8;
+  color: #4a3b00;
+}
+.read-alone {
+  margin: 4px 0 0;
+  padding-left: 20px;
+}
+.read-alone li {
+  margin: 3px 0;
+}
+.read-alone small {
+  color: var(--muted);
+}
+
+/* ---- play insights in the parent area (roadmap 8.7) ---- */
+.insight-list {
+  margin: 4px 0 6px;
+  padding-left: 20px;
+}
+.insight-list li {
+  margin: 5px 0;
+  line-height: 1.45;
+}
+
+/* ---- read it aloud and hear yourself (roadmap 1.5): under a page the child reads alone ---- */
+.read-back {
+  display: grid;
+  grid-template-columns: auto 1fr 1fr;
+  grid-template-areas:
+    'mic status status'
+    'mic me them';
+  align-items: center;
+  gap: 6px 10px;
+  width: min(94vw, 560px);
+  margin: 10px auto 0;
+  padding: 8px 12px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: var(--shadow);
+}
+.rb-mic {
+  grid-area: mic;
+  width: 52px;
+  height: 52px;
+  padding: 13px;
+  color: #fff;
+  background: #ff5a5f;
+  flex: 0 0 auto;
+}
+.rb-mic.on {
+  animation: pulse 1s ease-in-out infinite;
+  box-shadow: 0 0 0 8px rgba(255, 90, 95, 0.3);
+}
+.rb-status {
+  grid-area: status;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.2;
+}
+.rb-status small,
+.rb-play small {
+  color: var(--muted);
+  font-size: 12px;
+}
+.rb-play {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 48px;
+  padding: 6px 14px;
+  line-height: 1.15;
+}
+.rb-play[disabled] {
+  opacity: 0.45;
+}
+.read-back.recording .rb-play {
+  opacity: 0.45;
+  pointer-events: none;
+}
+.rb-me {
+  grid-area: me;
+  border-color: #ff5a5f;
+}
+.rb-them {
+  grid-area: them;
+}
+
+/* ---- accessibility pass (roadmap 8.3) ---- */
+/* right and wrong told apart by shape as well as colour: a ✓ or a ✕ in the corner */
+.answer-mark {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  font: 800 17px/1 var(--font);
+  font-style: normal;
+  color: #fff;
+  pointer-events: none;
+  box-shadow: var(--shadow-sm);
+  animation: mark-in 0.25s var(--spring, ease-out);
+}
+.answer-mark.yes {
+  background: #1f7a4d;
+}
+.answer-mark.no {
+  background: #b42318;
+}
+@keyframes mark-in {
+  from {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+}
+/* the games that keep their right and wrong answers marked (the balance pans are already positioned) */
+:is(.riddle-opt, .duel-opt, .comic-answer, .gr-word) {
+  position: relative;
+}
+:is(.riddle-opt, .duel-opt, .comic-answer, .gr-word, .bl-pan).right::after,
+:is(.riddle-opt, .duel-opt).wrong::after {
+  content: '✓';
+  position: absolute;
+  top: -9px;
+  right: -9px;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  font: 800 15px/1 var(--font);
+  color: #fff;
+  background: #1f7a4d;
+  pointer-events: none;
+}
+:is(.riddle-opt, .duel-opt).wrong::after {
+  content: '✕';
+  background: #b42318;
+}
+/* form controls in the grown-ups' area are at least 44 px tall */
+.settings input[type='range'] {
+  min-height: 44px;
+}
+/* left-handed layout: the hint and "say it again" buttons on the left, the guide on the right */
+.left-handed .game-head {
+  flex-direction: row-reverse;
+}
+.left-handed .mascot-corner {
+  left: auto;
+  right: max(8px, env(safe-area-inset-right));
+}
+
+/* ---- a true story or a how-things-work book says so on its cover, and a retelling names its source (9.7, 9.9, 9.10) ---- */
+.story-kind {
+  display: inline-flex;
+  gap: 6px;
+  align-items: baseline;
+  margin-top: 6px;
+  padding: 3px 12px;
+  border-radius: 999px;
+  background: #fff3c4;
+  color: #6b4e00;
+  font-size: 14px;
+}
+.story-kind.info {
+  background: #dcf5ea;
+  color: #0e5c3d;
+}
+.story-kind small,
+.story-source small {
+  opacity: 0.8;
+  font-size: 12px;
+}
+.story-source {
+  margin: 6px 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--muted);
+  font-size: 13px;
+  text-align: center;
+}
+
+/* ---- prose for Grades 7–8 (roadmap 9.12): a glossary word on the page, its meaning, and the word list ---- */
+.story-word.glossed {
+  text-decoration: underline dotted var(--place, #6b4e00) 2px;
+  text-underline-offset: 5px;
+}
+.story-gloss-pop.on {
+  pointer-events: auto;
+}
+.story-words {
+  width: min(100%, 720px);
+  max-height: calc(100% - 96px);
+  overflow-y: auto;
+  margin-inline: auto;
+}
+.story-words li.reading {
+  border-color: var(--place, #6b4e00);
+  background: #fff8db;
+}
+.story-kind.diary {
+  background: #e0ecff;
+  color: #1d3f85;
+}
+.story-kind.letter {
+  background: #ffe4e6;
+  color: #8a1c2b;
+}
+.story-kind.news {
+  background: #ececf1;
+  color: #2b2d42;
+}
+
+/* ---- calmer scenes for Grades 3 and 4 (roadmap 1.6): each movement plays through twice and settles, with
+   half the bits of an effect and softer colours, so the words stay the thing to look at ---- */
+.scene.calm.play .actor,
+.scene.calm.play .actor *,
+.scene.calm .fx i {
+  animation-iteration-count: 2 !important;
+}
+.scene.calm .fx i:nth-child(2n) {
+  display: none;
+}
+.scene.calm {
+  filter: saturate(0.85);
+}
+
+/* ---- the best-loved stories' painted covers and backdrops (roadmap 3.1) ---- */
+.cover-art {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+}
+.book-cover:has(> .cover-art) {
+  padding: 0;
+  overflow: hidden;
+}
+.story-cover .pic.cover-pic {
+  aspect-ratio: 320 / 200;
+  overflow: hidden;
+  border-radius: 18px;
+}
+.scene.has-backdrop {
+  background-size: cover;
+  background-position: center bottom;
+}
+.scene.has-backdrop .scene-ground {
+  opacity: 0;
+}
+
+/* ---- each talk-together prompt can be read aloud in the Google voice (roadmap 6.8) ---- */
+.talk-item {
+  position: relative;
+  padding-right: 60px;
+}
+.talk-say {
+  position: absolute;
+  top: 8px;
+  right: 8px;
 }

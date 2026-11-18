@@ -242,7 +242,7 @@ export function showsHome(api) {
       show.ep ? el('span', { class: 'show-ep' }, [el('b', { lang: 'hi', text: `भाग ${show.ep}` }), upNext ? el('span', { text: 'अब यह!' }) : null]) : null,
       el('span', { class: 'show-thumb', html: sceneSvg(first.bg, { crop: 'bottom' }) }, [el('span', { class: 'show-thumb-guide', html: mascotSvg(w?.mascot || 'gappu') }), el('span', { class: 'show-play', html: ICONS.play })]),
       el('span', { class: 'show-card-text' }, [
-        el('span', { class: 'chips' }, [el('span', { class: 'chip grade', text: levelName(api, show.level).en }), el('span', { class: `chip subject ${show.lang === 'en' ? 'math' : 'hindi'}`, text: show.lang === 'en' ? 'English' : 'हिन्दी' })]),
+        el('span', { class: 'chips' }, [el('span', { class: 'chip grade', text: levelName(api, show.level).en }), el('span', { class: `chip subject ${show.lang === 'en' ? 'math' : 'hindi'}`, text: show.lang === 'en' ? 'English' : 'हिंदी' })]),
         show.lang === 'en' ? el('b', { class: 'show-title latin', text: show.title.en }) : el('b', { class: 'show-title', lang: 'hi', text: show.title.hi }),
         show.lang === 'en' ? null : el('span', { class: 'show-sub', text: show.title.en }),
         forGrownups(el('span', { class: 'show-teaches', text: show.teaches.en })),

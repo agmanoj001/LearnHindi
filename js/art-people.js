@@ -102,6 +102,26 @@ export const PEOPLE = {
     ell(70, 40, 16, 20, '#F0B7A4') + ell(130, 40, 16, 20, '#F0B7A4') + ell(70, 40, 9, 13, '#F7D1C4') + ell(130, 40, 9, 13, '#F7D1C4') +
     circ(100, 40, 24, '#F0B7A4') + path('M90 50 L84 60 L94 55 Z M110 50 L116 60 L106 55 Z', '#FFFFFF') + path('M100 48 Q100 76 116 84 Q128 88 128 76', 'none', stroke('#DE9A84', 12)) + path('M100 48 Q100 76 116 84 Q128 88 128 76', 'none', stroke('#E9AC98', 7)) + eye(91, 36, 3.4) + eye(109, 36, 3.4) +
     path('M86 20 L84 8 L94 14 L100 4 L106 14 L116 8 L114 20 Z', '#FFC93C') + tilak(),
+  // roadmap 9.6: Ram's brother Bharat, Krishna's friend Sudama, Arjun and Eklavya
+  bharat: () => person({ skin: SKIN[0], top: '#FF9F43', bottom: '#FFC93C', hat: 'crown', mustache: false }) + tilak() + garland('#FFE08A'),
+  sudama: () =>
+    person({ style: 'grey', hair: '#D9DEE7', top: '#F3F4F8', bottom: '#F3F4F8', skin: SKIN[2], beard: '#D9DEE7' }) +
+    path('M136 104 Q132 86 146 84 Q160 86 156 104 Q150 112 142 112 Q136 110 136 104 Z', '#C9A26B') + path('M140 86 Q146 76 152 86', 'none', stroke('#8A5A44', 3)) +
+    tilak(),
+  arjun: () => person({ skin: SKIN[1], top: '#3D7BFF', bottom: '#F3F4F8', hat: 'crown', mustache: true, prop: bow(66) }) + tilak(),
+  eklavya: () =>
+    person({ kid: true, skin: SKIN[2], top: '#8A5A44', bottom: '#5B3A2E', prop: bow(66) }) +
+    path('M106 6 Q118 -10 114 16', 'none', stroke('#2EC27E', 4)) + path('M100 16 Q100 10 112 12', 'none', stroke('#E2583E', 4)),
+  // roadmap 9.8: tales from across India
+  tenali: () => person({ skin: SKIN[2], top: '#2EC27E', bottom: '#F3F4F8', hat: 'turban', mustache: true }) + tilak() + path('M120 70 Q136 62 140 74', 'none', stroke('#FFC93C', 3)),
+  prince: () => person({ kid: true, skin: SKIN[1], top: '#3D7BFF', bottom: '#FFC93C', hat: 'crown' }),
+  queen: () => person({ style: 'long', skin: SKIN[0], top: '#9B5DE5', dress: true, bindi: true, hat: 'crown' }) + garland('#FFC93C'),
+  // a sage in saffron, with a staff and a water pot (roadmap 9.4: the mouse who became a lion)
+  sage: () =>
+    person({ style: 'grey', hair: '#E3E6ED', top: '#FF9F43', bottom: '#FF9F43', beard: '#EEF0F5', skin: SKIN[1], prop: line(150, 128, 146, 52, '#8A5A44', 5) }) +
+    path('M138 52 Q146 40 156 50', 'none', stroke('#8A5A44', 4)) +
+    path('M50 112 Q50 98 62 98 Q74 98 74 112 Q74 124 62 124 Q50 124 50 112 Z', '#B9774A') + rect(56, 92, 12, 8, '#8A5A44', 3) +
+    tilak(),
   tailor: () => person({ top: '#2EC27E', bottom: '#2B2D42', glasses: true, skin: SKIN[1], prop: path('M82 56 Q82 90 78 100 M118 56 Q118 90 122 100', 'none', stroke('#FFC93C', 4)) }) + line(134, 96, 150, 76, '#94A3B8', 4) + line(134, 96, 152, 88, '#94A3B8', 4) + circ(130, 100, 5, 'none', stroke('#94A3B8', 3)) + circ(136, 104, 5, 'none', stroke('#94A3B8', 3)),
 };
 
@@ -152,6 +172,116 @@ export const THINGS = {
   rangoli: () => `<polygon points="${starPoints(100, 70, 58, 30, 8)}" fill="#FF6B9A"/>` + `<polygon points="${starPoints(100, 70, 40, 20, 8)}" fill="#FFC93C"/>` + circ(100, 70, 16, '#3D7BFF') + circ(100, 70, 7, '#fff') + [0, 1, 2, 3, 4, 5, 6, 7].map((k) => circ((100 + 52 * Math.cos((k * Math.PI) / 4 + 0.39)).toFixed(1), (70 + 52 * Math.sin((k * Math.PI) / 4 + 0.39)).toFixed(1), 5, '#2EC27E')).join(''),
 
   // ---------- story animals and things ----------
+  // roadmap 9.9, true stories: Kalam's newspapers, Ramanujan's slate, a medal, a dancer's ghungroo
+  newspaper: () =>
+    path('M44 40 L150 30 L156 116 L50 124 Z', '#F3F4F8') + path('M44 40 L150 30 L151 42 L45 52 Z', '#D9DEE7') +
+    [60, 72, 84, 96, 108].map((y, i) => line(56, y + 2 - i * 0.6, i % 2 ? 96 : 140, y - (i % 2 ? 3 : 7), '#9AA3B5', 3)).join('') +
+    rect(104, 62, 36, 28, '#B9C1D0', 3) + path('M150 30 L172 44 L176 128 L156 116 Z', '#E3E6ED'),
+  slate: () =>
+    rect(40, 28, 120, 92, '#8A5A44', 8) + rect(50, 38, 100, 72, '#2B3A3A', 4) +
+    `<text x="100" y="68" text-anchor="middle" font-size="22" font-family="sans-serif" fill="#F3F4F8">1729</text>` +
+    `<text x="100" y="96" text-anchor="middle" font-size="16" font-family="sans-serif" fill="#C4C9D4">π ∑ √</text>` +
+    rect(138, 112, 26, 6, '#F3F4F8', 3),
+  medal: () =>
+    path('M76 20 L100 70 L124 20 L108 20 L100 40 L92 20 Z', '#E2583E') + path('M88 20 L100 46 L112 20', 'none', stroke('#FFFFFF', 3)) +
+    circ(100, 92, 30, '#E8A51C') + circ(100, 92, 23, '#FFC93C') +
+    `<polygon points="${starPoints(100, 92, 14, 6, 5)}" fill="#E8A51C"/>`,
+  ghungroo: () =>
+    path('M30 92 Q100 120 170 92', 'none', stroke('#B9774A', 10)) +
+    [44, 62, 80, 98, 116, 134, 152].map((x, i) => { const y = 96 + Math.sin((Math.PI * (x - 30)) / 140) * 14; return circ(x, y + 12, 9, '#FFC93C') + circ(x, y + 14, 3, '#B58300') + line(x, y + 2, x, y + 4, '#B58300', 2); }).join(''),
+  // roadmap 9.10, how things work: a beehive, a seed sprouting, a post box, the moon's shapes, a rail track
+  beehive: () =>
+    line(100, 4, 100, 24, '#8A5A44', 5) +
+    [[100, 34, 30], [100, 56, 42], [100, 80, 48], [100, 104, 42], [100, 124, 28]].map(([x, y, r], i) => ell(x, y, r, 13, i % 2 ? '#E8A51C' : '#FFC93C')).join('') +
+    ell(100, 98, 9, 8, '#5B3A2E') +
+    [[148, 50], [160, 82], [44, 70]].map(([x, y]) => ell(x, y, 7, 5, '#FFC93C') + line(x - 2, y - 5, x + 2, y + 5, INK, 2) + ell(x - 3, y - 6, 5, 3, '#E3F2FF') + ell(x + 3, y - 6, 5, 3, '#E3F2FF')).join(''),
+  seed: () =>
+    path('M10 104 Q100 92 190 104 V140 H10 Z', '#8A5A44') + path('M10 104 Q100 92 190 104', 'none', stroke('#6B4430', 4)) +
+    ell(100, 118, 16, 11, '#D9A066') + path('M92 112 Q100 106 108 112', 'none', stroke('#B9774A', 2)) +
+    path('M100 112 Q98 82 100 62', 'none', stroke('#2EC27E', 5)) + path('M100 70 Q80 54 70 62 Q84 76 100 70 Z', '#4FAF63') + path('M100 66 Q122 46 134 56 Q118 72 100 66 Z', '#2EC27E') +
+    path('M98 124 Q90 134 92 140 M102 124 Q110 134 108 140', 'none', stroke('#F3E3D3', 3)),
+  postbox: () =>
+    rect(66, 30, 68, 96, '#E2583E', 18) + rect(66, 30, 68, 30, '#C8102E', 18) + rect(78, 60, 44, 8, '#2B2D42', 3) +
+    rect(84, 80, 32, 22, '#F3F4F8', 3) + `<text x="100" y="96" text-anchor="middle" font-size="12" font-family="sans-serif" fill="#C8102E">डाक</text>` + rect(60, 122, 80, 8, '#5B6478', 3),
+  moonphases: () =>
+    [[30, 'new'], [70, 'cres'], [110, 'half'], [150, 'full']].map(([x, k]) =>
+      circ(x, 70, 17, '#2B2D42') +
+      (k === 'cres' ? path(`M${x} 53 A17 17 0 0 1 ${x} 87 A10 17 0 0 0 ${x} 53 Z`, '#FFE08A') : k === 'half' ? path(`M${x} 53 A17 17 0 0 1 ${x} 87 Z`, '#FFE08A') : k === 'full' ? circ(x, 70, 17, '#FFE08A') : '')
+    ).join('') + path('M24 104 H176', 'none', stroke('#9AA3B5', 2)) + `<text x="30" y="122" text-anchor="middle" font-size="11" font-family="sans-serif" fill="#5B6478">अमावस</text><text x="150" y="122" text-anchor="middle" font-size="11" font-family="sans-serif" fill="#5B6478">पूनम</text>`,
+  track: () =>
+    path('M60 140 L92 20 H108 L140 140 Z', '#C9B79C') +
+    [128, 106, 86, 68, 52, 38, 26].map((y, i) => rect(70 + i * 3.4, y, 60 - i * 6.8, 6, '#8A5A44', 2)).join('') +
+    path('M78 140 L96 20 M122 140 L104 20', 'none', stroke('#7A8496', 6)) + path('M78 140 L96 20 M122 140 L104 20', 'none', stroke('#C4C9D4', 2)),
+  // बैंगन: two purple brinjals (roadmap 9.8: Tenali Rama and the brinjal curry)
+  brinjal: () =>
+    [[76, 84, -18], [124, 80, 14]].map(([x, y, r]) => `<g transform="rotate(${r} ${x} ${y})">` + ell(x, y + 10, 24, 36, '#6B3FA0') + ell(x - 7, y + 2, 7, 16, '#8E63C7') + path(`M${x - 18} ${y - 22} Q${x} ${y - 34} ${x + 18} ${y - 22} Q${x} ${y - 12} ${x - 18} ${y - 22} Z`, '#2EC27E') + line(x, y - 30, x + 4, y - 44, '#1F9D63', 5) + '</g>').join(''),
+  // बछड़ा: a small calf
+  calf: () =>
+    ell(100, 84, 40, 22, '#F3E3D3') + ell(86, 80, 12, 9, '#A0703F') + ell(116, 90, 9, 7, '#A0703F') +
+    [74, 88, 112, 126].map((x) => rect(x - 4, 98, 8, 26, '#F3E3D3', 3)).join('') +
+    circ(140, 66, 16, '#F3E3D3') + ell(148, 74, 9, 7, '#F7C6C0') + ell(128, 54, 7, 4, '#A0703F') + ell(152, 54, 7, 4, '#A0703F') + eye(142, 62, 2.6) +
+    path('M60 80 Q48 84 50 100', 'none', stroke('#A0703F', 3)),
+  // चिमटा: iron tongs with a ring at the top (roadmap 9.7: Hamid's tongs, after Premchand's ईदगाह)
+  // roadmap 9.12, prose for Grades 7–8: a bird cage with a parrot (Tagore's तोता-कहानी), a throne
+  // (सिंहासन बत्तीसी), a diary with a ribbon, and a bullock cart (Premchand's stories)
+  cage: () =>
+    path('M56 120 V62 Q56 20 100 20 Q144 20 144 62 V120', 'none', stroke('#C79A3B', 4)) +
+    [72, 86, 100, 114, 128].map((x) => path(`M${x} 120 V${(22 + ((x - 100) / 44) ** 2 * 40).toFixed(1)}`, 'none', stroke('#D9B45A', 2.5))).join('') +
+    path('M56 62 H144', 'none', stroke('#C79A3B', 3)) + rect(48, 118, 104, 10, '#A0703F', 4) + circ(100, 14, 7, 'none', stroke('#C79A3B', 3)) +
+    line(64, 96, 136, 96, '#8A5A44', 3) +
+    ell(100, 82, 13, 16, '#2EC27E') + circ(100, 64, 10, '#2EC27E') + path('M106 62 Q116 66 108 72 Z', '#E2583E') + eye(102, 61, 2.2) +
+    path('M96 96 L92 112 M104 96 L108 112', 'none', stroke('#1F9D63', 5)),
+  throne: () =>
+    path('M58 30 Q100 6 142 30 V84 H58 Z', '#E2583E') + path('M66 34 Q100 16 134 34 V80 H66 Z', '#C8102E') +
+    path('M58 30 Q100 6 142 30', 'none', stroke('#FFC93C', 6)) + circ(100, 14, 8, '#FFC93C') + circ(58, 30, 6, '#FFC93C') + circ(142, 30, 6, '#FFC93C') +
+    rect(44, 80, 112, 20, '#FFC93C', 6) + rect(52, 84, 96, 10, '#F5B82E', 4) +
+    rect(50, 100, 14, 26, '#E8A51C', 4) + rect(136, 100, 14, 26, '#E8A51C', 4) + rect(40, 68, 14, 34, '#FFC93C', 5) + rect(146, 68, 14, 34, '#FFC93C', 5) +
+    [76, 100, 124].map((x) => circ(x, 90, 3.5, '#3D7BFF')).join(''),
+  diary: () =>
+    rect(52, 18, 96, 110, '#3D7BFF', 8) + rect(52, 18, 14, 110, '#2F5BD3', 6) + rect(72, 34, 64, 26, '#F3F4F8', 4) +
+    path('M80 44 H128 M80 52 H118', 'none', stroke('#9AA3B5', 3)) + `<text x="96" y="94" text-anchor="middle" font-size="16" font-family="sans-serif" fill="#FFFFFF">डायरी</text>` +
+    path('M136 18 V128 L131 120 L126 128 V18', '#FFC93C') + path('M148 26 H152 V122 H148', 'none', stroke('#E3E6ED', 3)),
+  cart: () =>
+    path('M24 76 H132 L126 92 H30 Z', '#B9774A') + path('M30 62 H126 M30 62 V78 M126 62 V78 M62 62 V78 M94 62 V78', 'none', stroke('#8A5A44', 4)) +
+    circ(78, 104, 24, 'none', stroke('#8A5A44', 6)) + [0, 1, 2, 3].map((k) => line(78 + 24 * Math.cos((k * Math.PI) / 4), 104 + 24 * Math.sin((k * Math.PI) / 4), 78 - 24 * Math.cos((k * Math.PI) / 4), 104 - 24 * Math.sin((k * Math.PI) / 4), '#A0703F', 3)).join('') + circ(78, 104, 5, '#5B3A2E') +
+    line(130, 82, 150, 76, '#8A5A44', 5) +
+    [150, 158, 172, 180].map((x) => rect(x - 3, 86, 6, 34, '#E8DCCB', 2)).join('') +
+    ell(164, 82, 24, 15, '#E8DCCB') + ell(152, 68, 9, 7, '#E8DCCB') + circ(184, 70, 11, '#E8DCCB') + ell(189, 78, 7, 5, '#F7C6C0') +
+    path('M178 62 Q172 50 178 46 M190 62 Q196 50 190 46', 'none', stroke('#9AA3B5', 3)) + eye(186, 67, 2.2) + path('M140 80 Q134 92 138 104', 'none', stroke('#C9B79C', 3)),
+  chimta: () =>
+    circ(100, 22, 12, 'none').replace('fill="none"', 'fill="none" stroke="#5B6478" stroke-width="5"') +
+    path('M94 32 L66 128 M106 32 L134 128', 'none', stroke('#7A8496', 8)) +
+    path('M94 32 L66 128 M106 32 L134 128', 'none', stroke('#AEB6C4', 3)) +
+    path('M60 126 L72 130 M128 130 L140 126', 'none', stroke('#5B6478', 5)),
+  // बेर: a handful of berries with two leaves (roadmap 9.6: Shabari's berries)
+  ber: () =>
+    path('M70 70 Q84 40 110 46 Q92 58 70 70 Z', '#4FAF63') + path('M110 46 Q132 34 150 52 Q128 58 110 46 Z', '#2EC27E') +
+    [[72, 96, '#E2583E'], [98, 100, '#F28C28'], [124, 96, '#E2583E'], [86, 78, '#F28C28'], [112, 78, '#E2583E'], [140, 82, '#F28C28'], [110, 118, '#E2583E']]
+      .map(([x, y, c]) => circ(x, y, 15, c) + circ(x - 5, y - 5, 4, '#FFFFFF')).join(''),
+  // खड़ाऊँ: a pair of wooden sandals, each with its toe knob (roadmap 9.6: Bharat and the sandals)
+  khadau: () =>
+    [62, 118].map((x) => path(`M${x} 30 Q${x + 22} 24 ${x + 22} 46 L${x + 20} 118 Q${x + 10} 130 ${x} 118 L${x - 2} 46 Q${x} 26 ${x} 30 Z`, '#B9774A') + path(`M${x + 2} 40 Q${x + 11} 34 ${x + 18} 42 L${x + 16} 112 Q${x + 10} 120 ${x + 4} 112 Z`, '#D9A066') + circ(x + 10, 52, 6, '#8A5A44') + circ(x + 10, 50, 2.5, '#E8B07A')).join(''),
+  // बगुला: a grey-white heron on one leg in the water (roadmap 9.4: बगुला भगत)
+  heron: () =>
+    path('M0 118 Q50 110 100 118 T200 118 V140 H0 Z', '#7DD3FC') +
+    line(104, 96, 102, 124, '#E8A51C', 4) + path('M102 108 L114 112', 'none', stroke('#E8A51C', 3)) +
+    path('M70 78 Q78 54 112 60 Q138 66 132 86 Q120 100 96 98 Q74 96 70 78 Z', '#F3F4F8') +
+    path('M76 74 Q92 66 118 74 Q100 86 76 74 Z', '#D9DEE7') +
+    path('M64 82 L40 92 L66 90 Z', '#C4C9D4') +
+    path('M126 70 Q140 48 128 32 Q120 20 132 14', 'none', stroke('#F3F4F8', 9)) +
+    circ(134, 14, 9, '#F3F4F8') +
+    path('M141 12 L172 18 L141 18 Z', '#FFC93C') +
+    path('M128 8 Q118 4 112 10', 'none', stroke('#5B6478', 2.4)) +
+    eye(136, 11, 2.4),
+  // टिड्डा: a green grasshopper with long back legs (roadmap 9.4: the ant and the grasshopper)
+  grasshopper: () =>
+    path('M60 96 Q66 76 104 78 Q140 80 148 92 Q140 104 104 104 Q70 104 60 96 Z', '#7BD389') +
+    path('M78 84 Q104 70 134 86', 'none', stroke('#4FAF63', 4)) +
+    path('M96 92 L116 56 L150 108', 'none', stroke('#4FAF63', 6)) +
+    path('M84 100 L76 120 M100 102 L98 122', 'none', stroke('#4FAF63', 4)) +
+    circ(152, 90, 13, '#7BD389') + eye(156, 86, 3) +
+    path('M158 80 Q170 54 186 48 M154 78 Q160 52 172 40', 'none', stroke('#4FAF63', 2.4)) +
+    path('M150 98 Q156 102 162 98', 'none', stroke(INK, 1.8)),
   swan: () =>
     path('M0 118 Q50 110 100 118 T200 118 V140 H0 Z', '#7DD3FC') +
     path('M44 100 Q50 70 100 74 Q150 76 156 100 Q130 116 90 114 Q56 114 44 100 Z', '#F3F4F8') +

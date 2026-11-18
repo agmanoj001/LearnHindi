@@ -1,6 +1,7 @@
 // Pure game logic: no DOM, no storage. Everything here is unit-tested in tests/.
 import { samayLines } from './samay.js';
 import { pahadaLines } from './pahade.js';
+import { ALL_PRAISE } from './praise.js';
 
 export const LANG_MODES = ['hi', 'en', 'both'];
 
@@ -109,7 +110,7 @@ export function deviceKind(ua = '', touchPoints = 0) {
 // How to add a Hindi voice on each kind of device (the app speaks with the device's own voices).
 export const VOICE_SETUP = {
   ios: { device: 'iPhone or iPad', steps: 'Settings › Accessibility › Spoken Content › Voices › Hindi › download Lekha. Then close and reopen the app.' },
-  android: { device: 'Android', steps: 'Settings › System › Languages › Text-to-speech output › Speech Services by Google › ⚙ › Install voice data › Hindi (हिन्दी). Then close and reopen the app.' },
+  android: { device: 'Android', steps: 'Settings › System › Languages › Text-to-speech output › Speech Services by Google › ⚙ › Install voice data › Hindi (हिंदी). Then close and reopen the app.' },
   chromeos: { device: 'Chromebook', steps: 'Settings › Accessibility › Text-to-speech › Speech engines and voices › add Hindi. Then reload the app.' },
   windows: { device: 'Windows', steps: 'Settings › Time & language › Speech › Manage voices › Add voices › Hindi. Then restart the browser. Microsoft Edge also has natural Hindi voices built in.' },
   mac: { device: 'Mac', steps: 'System Settings › Accessibility › Spoken Content › System voice › Manage Voices › Hindi › Lekha. Then restart the browser.' },
@@ -451,19 +452,30 @@ export function defaultSettings(content) {
     math: true, // English math worlds (NC standards) for Kindergarten and Grade 1
     captions: true, // show what the app says, as text
     retell: false, // after a story, the child records themselves telling it back (stays on this device)
+    readAloud: false, // reading a story alone: record each page and hear it next to the narrator (roadmap 1.5)
     parentLang: 'en', // the parent area in English or Hindi
     showMode: 'watch', // Show time: 'watch' answers questions itself after a few seconds; 'play' waits for a tap
     dailyLimit: 0, // minutes of play a day before a break screen (0 = no limit)
     music: true,
     sfx: true,
     bigText: false, // larger text in the comics
+    leftHanded: false, // the lesson buttons and the guide swap sides, for a child who taps with the left hand (roadmap 8.3)
+    readingComfort: false, // easier reading: wider word and line spacing on a cream page (roadmap 3.3)
     storyVoices: true, // use the story voice pack when it has been downloaded
     radioDark: false, // Story radio: a dark screen instead of the moving pictures (kinder on car rides)
     singAlong: true, // rhymes are sung along with a bouncing ball and claps (roadmap 7.7)
     motion: 'auto', // animations: 'auto' (lighter on a device that measured slow), 'full' or 'lite' (js/motion.js)
+    slowBeginners: true, // a slower voice, with more time between words, for Toddler and Kindergarten (roadmap 6.7)
     voice: { hi: '', en: '', rate: 0.9 },
   };
 }
+
+// Voice speed for beginners (roadmap 6.7): a child learning a sound needs more time between words than an
+// older reader. In Toddler and Kindergarten the voice (recorded or the device's) plays a little slower, with a
+// short pause between one word or line and the next, on top of the speed chosen under Grown-ups › Voices.
+export const BEGINNER_LEVELS = ['toddler', 'kg'];
+export const BEGINNER_PACE = { slow: 0.85, gap: 250 };
+export const voicePace = (settings) => (settings?.slowBeginners !== false && BEGINNER_LEVELS.includes(settings?.level) ? { ...BEGINNER_PACE } : { slow: 1, gap: 0 });
 
 export function normalizeSettings(saved, content) {
   const base = defaultSettings(content);
@@ -475,7 +487,7 @@ export function normalizeSettings(saved, content) {
   if (saved.parentLang === 'hi' || saved.parentLang === 'en') out.parentLang = saved.parentLang;
   if (saved.showMode === 'watch' || saved.showMode === 'play') out.showMode = saved.showMode;
   if (['auto', 'full', 'lite'].includes(saved.motion)) out.motion = saved.motion;
-  for (const k of ['onboarded', 'lockGrade', 'simpleHome', 'unlockAll', 'math', 'captions', 'retell', 'music', 'sfx', 'bigText', 'storyVoices', 'radioDark', 'singAlong']) if (typeof saved[k] === 'boolean') out[k] = saved[k];
+  for (const k of ['onboarded', 'lockGrade', 'simpleHome', 'unlockAll', 'math', 'captions', 'retell', 'readAloud', 'music', 'sfx', 'bigText', 'readingComfort', 'leftHanded', 'storyVoices', 'radioDark', 'singAlong', 'slowBeginners']) if (typeof saved[k] === 'boolean') out[k] = saved[k];
   if (saved.voice && typeof saved.voice === 'object') {
     for (const l of ['hi', 'en']) if (typeof saved.voice[l] === 'string') out.voice[l] = saved.voice[l];
     if (typeof saved.voice.rate === 'number' && saved.voice.rate >= 0.5 && saved.voice.rate <= 1.3) out.voice.rate = saved.voice.rate;
@@ -486,7 +498,7 @@ export function normalizeSettings(saved, content) {
 export function defaultProgress(content) {
   const collected = {};
   for (const [id, col] of Object.entries(content.collections || {})) collected[id] = col.items.slice(0, col.start || 0);
-  return { lessons: {}, collected, days: [], trainPos: {}, storyPos: {}, comicPos: {}, stats: {}, time: {}, shows: {}, scenes: {}, coached: [], favs: [], trail: {}, style: { outfit: null, backdrop: null, sound: null }, myBooks: [], festStickers: {} };
+  return { lessons: {}, collected, days: [], trainPos: {}, storyPos: {}, comicPos: {}, stats: {}, comprehension: {}, readAlone: {}, time: {}, shows: {}, scenes: {}, coached: [], favs: [], trail: {}, style: { outfit: null, backdrop: null, sound: null }, myBooks: [], festStickers: {} };
 }
 
 export function normalizeProgress(saved, content) {
@@ -531,6 +543,15 @@ export function normalizeProgress(saved, content) {
         .map(([id, r]) => [id, { panel: Math.min(r.panel, 99), solved: r.solved === true }]),
     ),
     stats: obj(saved.stats),
+    // first-try answers to story questions by type, and stories read alone (roadmap 3.4)
+    comprehension: Object.fromEntries(
+      QUESTION_TYPES.filter((t) => saved.comprehension?.[t] && typeof saved.comprehension[t] === 'object').map((t) => {
+        const r = saved.comprehension[t];
+        const seen = Math.max(0, r.seen | 0);
+        return [t, { seen, first: Math.max(0, Math.min(seen, r.first | 0)) }];
+      }),
+    ),
+    readAlone: Object.fromEntries(Object.entries(obj(saved.readAlone)).filter(([k, v]) => /^[\w-]+$/.test(k) && Number.isInteger(v) && v > 0)),
     // today's surprise, once opened (js/surprise.js, roadmap 7.12)
     ...(saved.gift && typeof saved.gift === 'object' && /^\d{4}-\d\d-\d\d$/.test(saved.gift.day) && ['sticker', 'joke', 'sound'].includes(saved.gift.kind) ? { gift: { day: saved.gift.day, kind: saved.gift.kind, value: saved.gift.value } } : {}),
     // riddles of the day solved: { riddleId: the day } (js/corner.js, roadmap 7.16)
@@ -714,6 +735,10 @@ export function sentenceTokens(text) {
   return text.trim().split(/\s+/);
 }
 
+// A story's glossary (Grades 7–8, roadmap 9.12) marks a word on the page where it first appears; a token
+// matches its glossary word once the punctuation around it is gone.
+export const glossToken = (token) => String(token).replace(/[।.!?,;:"'“”‘’()]/g, '');
+
 // ---- Rhymes and word pairs ----
 
 export function makeRhymeRound(groups, lang, rng = Math.random, wrong = 2) {
@@ -772,6 +797,43 @@ export function itemKey(item) {
   if (typeof item.value === 'number') return `n:${item.value}`;
   if (typeof item.hi === 'string' && item.id) return `w:${item.id}`;
   return null;
+}
+
+// ---------- understanding stories (roadmap 3.4) ----------
+// What a story question asks, from its wording: 'who', 'what' (what, where, when, which, how many: remembering
+// what happened) or 'why' (why and how: understanding it). The parent area shows first-try answers by type.
+export const QUESTION_TYPES = ['who', 'what', 'why'];
+export function questionType(q) {
+  const en = String(q?.en || '').trim().toLowerCase();
+  if (/^(why|how come)\b/.test(en) || /क्यों/.test(String(q?.hi || ''))) return 'why';
+  if (/^how\b(?!\s+(many|much|old|long|far|big|tall))/.test(en)) return 'why';
+  if (/^(who|whom|whose)\b/.test(en)) return 'who';
+  return 'what';
+}
+// { who: { seen, first }, ... }
+export function recordComprehension(comp, type, firstTry) {
+  if (!QUESTION_TYPES.includes(type)) return comp || {};
+  const old = comp?.[type] || { seen: 0, first: 0 };
+  return { ...(comp || {}), [type]: { seen: old.seen + 1, first: old.first + (firstTry ? 1 : 0) } };
+}
+// rows for the parent area, and the type to talk about most (the weakest, once there are enough answers)
+export function comprehensionSummary(progress) {
+  const comp = progress?.comprehension || {};
+  const rows = QUESTION_TYPES.map((type) => {
+    const r = comp[type] || { seen: 0, first: 0 };
+    return { type, seen: r.seen, first: r.first, pct: r.seen ? Math.round((100 * r.first) / r.seen) : null };
+  });
+  const enough = rows.filter((r) => r.seen >= 3);
+  const weakest = enough.length >= 2 ? enough.reduce((a, b) => (b.pct < a.pct ? b : a)) : null;
+  const best = enough.length ? Math.max(...enough.map((r) => r.pct)) : 0;
+  return { rows, focus: weakest && best - weakest.pct >= 10 ? weakest.type : null, total: rows.reduce((n, r) => n + r.seen, 0) };
+}
+// the stories a child has read on their own ("मैं ख़ुद पढ़ूँ"), most read first
+export function readAloneList(progress, content) {
+  return Object.entries(progress?.readAlone || {})
+    .map(([id, times]) => ({ story: content.stories.find((s) => s.id === id), times }))
+    .filter((r) => r.story)
+    .sort((a, b) => b.times - a.times);
 }
 
 // stats[key] = { seen, first } where `first` counts answers right on the first tap.
@@ -1010,8 +1072,34 @@ export function lessonVoiceLines(content) {
       }
   // the words a child can tap in a story, and the sentence tokens
   for (const st of content.stories || []) for (const p of st.pages) for (const lg of ['hi', 'en']) for (const t of String(p[lg] || '').split(/\s+/)) byText(bareToken(t), lg, st.level);
+  // praise at the end of a lesson (roadmap 6.3), in both languages, shared by every grade
+  for (const p of ALL_PRAISE) for (const lg of ['hi', 'en']) byText(p[lg], lg);
+  // the talk-together prompts for a grown-up (roadmap 6.8), in Hindi and English, run by run
+  for (const st of content.stories || []) for (const t of st.talk || []) for (const lg of ['hi', 'en']) for (const r of langRuns(t[lg])) byText(r.text, r.lang, st.level);
+  // a story's glossary (roadmap 9.12): each word, and the word with its meaning
+  for (const st of content.stories || []) for (const w of st.words || []) for (const t of [w.hi, glossLine(w)]) byText(t, 'hi', st.level);
   return [...lines.values()].map(({ level, ...l }) => (level ? { ...l, level } : l));
 }
+
+// A line that mixes Hindi and English (a talk prompt for a grown-up quoting the story: 'Say this … "चूँ-चूँ!
+// … आया।"') is said run by run, each in its own language's voice (roadmap 6.8). Spaces and punctuation stay
+// with the run they follow.
+export function langRuns(text) {
+  const runs = [];
+  for (const ch of String(text ?? '')) {
+    const kind = /[\u0900-\u097F]/.test(ch) ? 'hi' : /[A-Za-z0-9]/.test(ch) ? 'en' : null;
+    const last = runs[runs.length - 1];
+    if (!last || (kind && last.lang && kind !== last.lang)) runs.push({ text: ch, lang: kind });
+    else {
+      last.text += ch;
+      last.lang ||= kind;
+    }
+  }
+  return runs.map((r) => ({ text: r.text.trim(), lang: r.lang || 'en' })).filter((r) => /[\p{L}\p{N}]/u.test(r.text));
+}
+
+// What a story's glossary word says when tapped: "हाशियों। पन्ने के किनारे की ख़ाली जगह"
+export const glossLine = (w) => `${w.hi}। ${w.mean}`;
 
 // A word's synonym, said after a right answer to grow vocabulary: "हाथी, यानी गज।"
 export const synLine = (word) => (word?.syn ? `${word.hi}, यानी ${word.syn}।` : null);

@@ -157,3 +157,23 @@ export function actProblems(act, hasWord) {
   if (act.sound !== undefined && !SOUNDS.includes(act.sound)) out.push(`sound "${act.sound}" is not a sound effect`);
   return out;
 }
+
+// ---- Grades 3 and 4 (roadmap 1.6): fewer, calmer scenes, so an older reader's eyes stay on the words ----
+// A Grade 3–4 story moves on only a few pages (its first, one in the middle and its last), with a gentle move,
+// at most one soft effect, no counting and no sound; each movement plays through and then settles.
+export const CALM_LEVELS = ['grade3', 'grade4'];
+export const calmLevel = (level) => CALM_LEVELS.includes(level);
+export const CALM_MOVES = ['enter', 'enter-right', 'walk', 'float', 'sway', 'swim', 'sleep', 'talk', 'peek', 'grow', 'fly-across', 'fly-up', 'approach'];
+export const CALM_FX = ['stars', 'leaves', 'glow', 'rain', 'snow', 'lamps'];
+// at most this many pages of a calm story have a scene
+export const calmMax = (pages) => Math.ceil(pages / 2);
+export function calmProblems(act) {
+  const out = [];
+  if (act.move !== undefined && !CALM_MOVES.includes(act.move)) out.push(`move "${act.move}" is too busy for Grades 3–4 (calm moves: ${CALM_MOVES.join(', ')})`);
+  const fx = fxList(act);
+  if (fx.length > 1) out.push('a calm scene has one effect at most');
+  for (const f of fx) if (!CALM_FX.includes(f)) out.push(`fx "${f}" is too busy for Grades 3–4 (calm effects: ${CALM_FX.join(', ')})`);
+  if (act.sound !== undefined) out.push('a calm scene makes no sound');
+  if (act.count !== undefined) out.push('a calm scene does not count');
+  return out;
+}

@@ -1,16 +1,17 @@
 // The grown-ups' area (behind a 3-second press): grade, language, voices and recordings,
 // sound, unlocking, the special photo, and a progress report. Nothing here leaves the device.
-import { el, ICONS } from './ui.js';
-import { applyMotion, liteMotion, slowDevice } from './motion.js';
+import { el, ICONS, applyReadingComfort, applyLeftHanded } from './ui.js';
+import { loadChanges, changeDate } from './changes.js';
+import { applyMotion, liteMotion, slowDevice, lowMemoryDevice } from './motion.js';
 import { normalizeProgress, clipKeysFor, clipKeyFromFileName, practiceReport, DAILY_LIMITS, showLines, storyVoiceLines } from './logic.js';
 import { skillName, SKILLS as MATH_SKILLS } from './mathgen.js';
 import { phonicsName } from './phonicsgen.js';
 import { SAMAY_SKILLS } from './samay.js';
 import { pahadaName } from './pahade.js';
-import { worldStars, worldLessons, lessonRecord, weekSummary, dueReviews, learningGains } from './curriculum.js';
+import { worldStars, worldLessons, lessonRecord, weekSummary, dueReviews, learningGains, usageInsight, GAME_NAMES } from './curriculum.js';
 import { refreshClipKeys, voicesFor, setVoicePrefs, hasVoice, play, setVoicePack } from './audio.js';
 import { loadIndex, savedVoiceKeys, savedAudioVersion, packFiles, bundlesFor, downloadVoices, removeVoices, formatMB } from './voicepack.js';
-import { deviceKind, VOICE_SETUP } from './logic.js';
+import { deviceKind, VOICE_SETUP, comprehensionSummary, readAloneList, voicePace } from './logic.js';
 import { KEYS, save, load, clips, resizeImage, addProfile, removeProfile, MAX_PROFILES, makeBackup, readBackup, localKeys, keepOffline, exportClips, readClipsFile, BACKUP_AT, BACKUP_LATER, backupReminderDue, backupLaterUntil, shareBackup, canShareFiles } from './storage.js';
 import { MASCOTS, MASCOT_IDS, mascotSvg } from './mascot.js';
 import { specialVehicle, pictureForWord } from './art.js';
@@ -51,7 +52,7 @@ export function showParent(api) {
     'div',
     { class: 'seg' },
     [
-      ['hi', 'हिन्दी Hindi'],
+      ['hi', 'हिंदी Hindi'],
       ['en', 'English'],
       ['both', 'Both / दोनों'],
     ].map(([value, text]) =>
@@ -81,7 +82,7 @@ export function showParent(api) {
         'aria-label': `${label} voice`,
         onchange: (e) => {
           s.voice[lang] = e.target.value;
-          setVoicePrefs(s.voice);
+          setVoicePrefs({ ...s.voice, ...voicePace(s) });
           persist();
         },
       },
@@ -102,7 +103,7 @@ export function showParent(api) {
     value: String(s.voice.rate),
     oninput: (e) => {
       s.voice.rate = Number(e.target.value);
-      setVoicePrefs(s.voice);
+      setVoicePrefs({ ...s.voice, ...voicePace(s) });
       persist();
     },
   });
@@ -253,7 +254,19 @@ export function showParent(api) {
           ),
         ]),
         el('p', { class: 'note', text: 'Lighter animations keep the backgrounds still and leave out the extra effects; the stories, the guide and the games move as usual. Automatic switches to lighter if this device measured slow.' }),
-        slowDevice() ? el('p', { class: 'note', text: 'This device measured slow, so Automatic uses lighter animations.' }) : null,
+        slowDevice() ? el('p', { class: 'note', text: lowMemoryDevice() ? 'This device has little memory (2 GB or less), so Automatic uses lighter animations.' : 'This device measured slow, so Automatic uses lighter animations.' }) : null,
+        toggle(
+          'Easier reading',
+          s.readingComfort,
+          (v) => ((s.readingComfort = v), persist(), applyReadingComfort(v)),
+          'More space between words and lines, on a soft cream page, in the stories, comics and reading games. Helps children who find reading hard, including dyslexic readers.',
+        ),
+        toggle(
+          'Left-handed layout',
+          s.leftHanded,
+          (v) => ((s.leftHanded = v), persist(), applyLeftHanded(v)),
+          'In lessons, the hint and "say it again" buttons move to the left and the guide to the right, for a child who taps with the left hand.',
+        ),
         toggle('Captions', s.captions, (v) => ((s.captions = v), persist()), 'Shows everything the app says as text. Helps children who are hard of hearing, and helps early readers match sounds to words.'),
         toggle(
           'Tell it back',
@@ -266,16 +279,36 @@ export function showParent(api) {
           },
           'After each story the child can record themselves retelling it, with the pictures as prompts. Retelling is one of the best checks of understanding. Recordings stay on this device; listen to them under Progress.',
         ),
+        toggle(
+          'Read aloud and hear yourself',
+          s.readAloud,
+          (v) => {
+            s.readAloud = v;
+            persist();
+            if (v && navigator.mediaDevices?.getUserMedia) navigator.mediaDevices.getUserMedia({ audio: true }).then((st) => st.getTracks().forEach((t) => t.stop())).catch(() => {});
+          },
+          'When the child reads a story on their own, a red button on each page records them reading it, then plays it back followed by the narrator, so they hear the difference. Recordings stay on this device; see them under Progress.',
+        ),
       ),
       tripSection(api),
       backupSection(api),
+      whatsNewSection(api),
+      privacySection(),
       section(
         'Sound',
         toggle('Music', s.music, (v) => ((s.music = v), persist(), api.music.setEnabled(v))),
         toggle('Sound effects', s.sfx, (v) => ((s.sfx = v), persist(), (api.sfx.enabled = v))),
       ),
       storyVoicesSection(api),
-      section('Voices', voiceRow('hi', 'Hindi'), voiceRow('en', 'English'), el('label', { class: 'rate' }, [el('span', { text: 'Speed' }), rate]), voiceNote),
+      section(
+        'Voices',
+        voiceRow('hi', 'Hindi'),
+        voiceRow('en', 'English'),
+        el('label', { class: 'rate' }, [el('span', { text: 'Speed' }), rate]),
+        // roadmap 6.7: a slower pace for the youngest, on by default
+        toggle('Slower voice for little ones', s.slowBeginners !== false, (v) => ((s.slowBeginners = v), persist()), 'In Toddler and Kindergarten the voice speaks a little slower, with a short pause between words, so a child learning the sounds can follow.'),
+        voiceNote,
+      ),
       storyRecorderSection(api),
       recorder,
       section(
@@ -293,9 +326,12 @@ export function showParent(api) {
       section(
         'Progress',
         weekView(api),
+        insightView(api),
         showsWatched(api),
         gainsView(api),
+        storiesView(api),
         retellView(api),
+        readAloudView(api),
         el('div', { class: 'world-rows' }, worldRows),
         el('h3', { text: 'Practise together' }),
         report.practise.length ? chips(report.practise) : el('p', { class: 'note', text: 'Items show up here after a few tries.' }),
@@ -376,7 +412,7 @@ function storyRecorderSection(api) {
     const done = lines.filter((l) => have.has(l.key)).length;
     count.textContent = `${done} of ${lines.length} lines recorded`;
     langSeg.replaceChildren(
-      ...(story.lang === 'en' ? [['en', 'English']] : [['hi', 'हिन्दी'], ['en', 'English']]).map(([v, t]) =>
+      ...(story.lang === 'en' ? [['en', 'English']] : [['hi', 'हिंदी'], ['en', 'English']]).map(([v, t]) =>
         el('label', {}, [el('input', { type: 'radio', name: 'srec-lang', value: v, checked: lang === v, onchange: () => ((lang = v), (at = 0), render()) }), el('span', { text: t })]),
       ),
     );
@@ -534,7 +570,7 @@ function recorderSection(api) {
     el('h2', { text: 'Record your voice' }),
     el('p', { class: 'note', text: 'Children learn best from a familiar voice. Tap Record, say the word, tap Stop. Your recording replaces the computer voice. Recordings stay on this device.' }),
     seg('rec-filter', [['words', 'Words'], ['letters', 'Letters'], ['stories', 'Stories'], ['shows', 'Shows'], ['phrases', 'Phrases']], () => filter, (v) => (filter = v)),
-    seg('rec-lang', [['hi', 'हिन्दी'], ['en', 'English']], () => lang, (v) => (lang = v)),
+    seg('rec-lang', [['hi', 'हिंदी'], ['en', 'English']], () => lang, (v) => (lang = v)),
     list,
   ]);
 }
@@ -554,6 +590,37 @@ function weekView(api) {
       ]),
     )),
     el('p', { class: 'note', text: `This week: ${week.minutes} minutes, ${week.lessons} lessons played. ${due ? `${due} finished lessons are due for a review (they show up in Today's path).` : 'No reviews due.'}` }),
+  ]);
+}
+
+// Play insight (roadmap 8.7): how long, what's hard, what's loved and read again. Worked out on this device.
+function insightView(api) {
+  const hi = api.state.settings.parentLang === 'hi';
+  const u = usageInsight(api.state.progress, api.state.content);
+  const name = (g) => GAME_NAMES[g]?.[hi ? 'hi' : 'en'] || g;
+  const list = (xs) => xs.join(hi ? ', ' : ', ');
+  const rows = [];
+  rows.push(
+    u.played
+      ? hi
+        ? `पिछले 2 हफ़्ते: ${u.played} दिन खेला, खेलने वाले दिन लगभग ${u.perDay} मिनट (सबसे ज़्यादा ${u.longest} मिनट)।`
+        : `Last 2 weeks: played on ${u.played} day${u.played === 1 ? '' : 's'}, about ${u.perDay} minutes on a day of play (longest ${u.longest} minutes).`
+      : hi
+        ? 'पिछले 2 हफ़्ते: अभी खेला नहीं।'
+        : 'Last 2 weeks: no play yet.',
+  );
+  if (u.hard.length)
+    rows.push(
+      hi
+        ? `अभी मुश्किल लगते हैं: ${list(u.hard.map((g) => `${name(g.game)} (${g.score}%)`))}। इनमें से एक साथ में खेलिए।`
+        : `Finds hard right now: ${list(u.hard.map((g) => `${name(g.game)} (${g.score}%)`))}. Try one of these together.`,
+    );
+  if (u.favourite.length) rows.push(hi ? `सबसे ज़्यादा खेले: ${list(u.favourite.map((g) => `${name(g.game)} (${g.plays} बार)`))}।` : `Played most: ${list(u.favourite.map((g) => `${name(g.game)} (${g.plays}×)`))}.`);
+  if (u.replayed.length) rows.push(hi ? `दोबारा पढ़ी: ${list(u.replayed.map((r) => `${r.item.title.hi || r.item.title.en} (${r.plays} बार)`))}।` : `Read again: ${list(u.replayed.map((r) => `${r.item.title.en} (${r.plays}×)`))}.`);
+  return el('div', { class: 'insight', lang: hi ? 'hi' : 'en' }, [
+    el('h3', { text: hi ? 'खेल की झलक' : 'Play insights' }),
+    el('ul', { class: 'insight-list' }, rows.map((t) => el('li', { text: t }))),
+    el('p', { class: 'note', text: hi ? 'यह इसी फ़ोन पर, बच्चे के खेल से निकाला गया है। कुछ भी कहीं भेजा नहीं जाता।' : 'Worked out on this device from what your child played. Nothing is sent anywhere.' }),
   ]);
 }
 
@@ -723,6 +790,35 @@ function backupReminder(api) {
   return card;
 }
 
+// Privacy (roadmap 8.4): what the app keeps and what it never does, for families and the app stores (docs/PRIVACY.md)
+function privacySection() {
+  return el('section', { class: 'privacy' }, [
+    el('h2', { text: 'Privacy' }),
+    el('p', { class: 'note', text: 'Nothing about your child leaves this device. There are no accounts, ads, analytics or tracking, and no links to other websites.' }),
+    el('p', { class: 'note', text: 'Kept on this device only: nicknames, grades, settings, progress, voice recordings and the vehicle photo.' }),
+    el('p', { class: 'note', text: 'The app only downloads its own files (the app, its updates and the story voices) from the site it came from. A backup leaves the device only when you save or share it.' }),
+  ]);
+}
+
+// What's new (roadmap 8.6): the last few versions, in the parent area's language
+function whatsNewSection(api) {
+  const hi = api.state.settings.parentLang === 'hi';
+  const list = el('div', { class: 'changes' }, [el('p', { class: 'note', text: '…' })]);
+  loadChanges().then((changes) =>
+    list.replaceChildren(
+      ...(changes.length
+        ? changes.slice(0, 3).map((c) =>
+            el('div', { class: 'change' }, [
+              el('h3', { lang: hi ? 'hi' : 'en' }, [el('span', { text: hi ? c.hi : c.en }), el('small', { text: ` · ${changeDate(c.date, hi ? 'hi' : 'en')}` })]),
+              el('ul', { class: 'change-list' }, (c.items || []).map((i) => el('li', { lang: hi ? 'hi' : 'en', text: hi ? i.hi : i.en }))),
+            ]),
+          )
+        : [el('p', { class: 'note', text: 'The list of changes needs the internet the first time.' })]),
+    ),
+  );
+  return el('section', {}, [el('h2', { text: "What's new" }), list]);
+}
+
 function backupSection(api) {
   const status = el('p', { class: 'note', text: 'Checking whether this device keeps the app…' });
   keepOffline().then((kept) => {
@@ -800,6 +896,7 @@ function childrenSection(api) {
     const name = el('input', {
       class: 'select',
       type: 'text',
+      'aria-label': `Child ${i + 1} nickname`,
       maxlength: '20',
       placeholder: `Child ${i + 1} (nickname, optional)`,
       value: p.name,
@@ -843,6 +940,75 @@ function gainsView(api) {
   ]);
 }
 
+// Understanding stories (roadmap 3.4): first-try answers to the questions after each story, by what they ask,
+// and the stories the child has read on their own. Written in both languages here (the numbers change).
+const QTYPE = {
+  who: { en: 'Who', hi: 'कौन' },
+  what: { en: 'What, where, when', hi: 'क्या, कहाँ, कब' },
+  why: { en: 'Why and how', hi: 'क्यों और कैसे' },
+};
+const QFOCUS = {
+  who: { en: 'Who-questions are hardest right now. While reading together, point at each character and ask "Who is this? What are they doing?"', hi: '"कौन" वाले सवाल अभी सबसे मुश्किल हैं। साथ पढ़ते हुए हर पात्र पर उँगली रखकर पूछिए: "यह कौन है? यह क्या कर रहा है?"' },
+  what: { en: 'Remembering what happened is hardest right now. After each page, ask "What happened just now?" before turning it.', hi: 'क्या हुआ, यह याद रखना अभी सबसे मुश्किल है। हर पन्ना पलटने से पहले पूछिए: "अभी क्या हुआ?"' },
+  why: { en: 'Why-questions are hardest right now. After a story, ask one "why" together: the "Talk together" button has one for every story.', hi: '"क्यों" वाले सवाल अभी सबसे मुश्किल हैं। कहानी के बाद साथ में एक "क्यों" पूछिए: "साथ में बात करें" बटन में हर कहानी के लिए एक है।' },
+};
+function storiesView(api) {
+  const hi = api.state.settings.parentLang === 'hi';
+  const t = (x) => (hi ? x.hi : x.en);
+  const sum = comprehensionSummary(api.state.progress);
+  const alone = readAloneList(api.state.progress, api.state.content);
+  if (!sum.total && !alone.length) return el('p', { class: 'note', lang: hi ? 'hi' : 'en', text: hi ? 'कहानियों की समझ: कहानियों के बाद के सवालों के जवाब यहाँ दिखेंगे।' : 'Understanding stories: answers to the questions after stories will show here.' });
+  return el('div', { class: 'understand', lang: hi ? 'hi' : 'en' }, [
+    el('h3', { text: hi ? 'कहानियों की समझ' : 'Understanding stories' }),
+    el('p', { class: 'note', text: hi ? 'कहानी के बाद के सवाल, पहली बार में सही, सवाल के हिसाब से:' : 'The questions after each story, right on the first try, by what they ask:' }),
+    ...sum.rows.map((r) =>
+      el('div', { class: `gain-row q-${r.type}` }, [
+        el('span', { class: 'gain-name', text: t(QTYPE[r.type]) }),
+        el('span', { class: 'gain-bar' }, [el('span', { class: 'gain-recent', style: { width: `${r.pct ?? 0}%` } })]),
+        el('span', { class: 'gain-num', text: r.seen ? `${r.first}/${r.seen} · ${r.pct}%` : '–' }),
+      ]),
+    ),
+    sum.focus ? el('p', { class: 'note focus', text: t(QFOCUS[sum.focus]) }) : null,
+    el('h3', { text: hi ? 'ख़ुद पढ़ी कहानियाँ' : 'Stories read on their own' }),
+    alone.length
+      ? el(
+          'ul',
+          { class: 'read-alone' },
+          alone.slice(0, 12).map((r) => el('li', {}, [el('span', { lang: 'hi', text: r.story.title.hi || r.story.title.en }), el('small', { text: ` ${r.story.title.en}${r.times > 1 ? (hi ? ` · ${r.times} बार` : ` · ${r.times} times`) : ''}` })])),
+        )
+      : el('p', { class: 'note', text: hi ? 'अभी कोई नहीं। कहानी की शुरुआत में "मैं ख़ुद पढ़ूँ" दबाकर बच्चा अपने आप पढ़ सकता है।' : 'None yet. At the start of a story, "मैं ख़ुद पढ़ूँ · I\'ll read it" lets the child read it alone.' }),
+  ]);
+}
+
+// Pages the child recorded reading aloud (roadmap 1.5), by story: hear the latest page, or delete them.
+function readAloudView(api) {
+  const box = el('div', { class: 'retells' });
+  const prefix = `readaloud:${api.state.profiles.current}:`;
+  const refresh = async () => {
+    const mine = (await clips.keys()).filter((k) => String(k).startsWith(prefix));
+    const byStory = new Map();
+    for (const k of mine) {
+      const [id, page] = String(k).slice(prefix.length).split(':');
+      byStory.set(id, [...(byStory.get(id) || []), { k, page: Number(page) }]);
+    }
+    box.replaceChildren(
+      ...(byStory.size ? [el('h3', { text: 'Read aloud' })] : []),
+      ...[...byStory].map(([id, pages]) => {
+        const story = api.state.content.stories.find((x) => x.id === id);
+        pages.sort((a, b) => a.page - b.page);
+        const last = pages[pages.length - 1];
+        return el('div', { class: 'rec-row has' }, [
+          el('span', { class: 'rec-text' }, [el('b', { lang: 'hi', text: story?.title.hi || id }), el('small', { text: `${story?.title.en || ''} · ${pages.length} page${pages.length === 1 ? '' : 's'}` })]),
+          el('button', { class: 'btn', text: '▶', 'aria-label': 'play', onclick: async () => new Audio(URL.createObjectURL(await clips.get(last.k))).play().catch(() => {}) }),
+          el('button', { class: 'btn', text: '✕', 'aria-label': 'delete', onclick: async () => (await Promise.all(pages.map((p) => clips.del(p.k))), refresh()) }),
+        ]);
+      }),
+    );
+  };
+  refresh();
+  return box;
+}
+
 // The child's "tell it back" recordings.
 function retellView(api) {
   const box = el('div', { class: 'retells' });
@@ -874,7 +1040,7 @@ function parentLangSwitch(api) {
     { class: 'seg parent-lang', role: 'group', 'aria-label': 'Parent area language' },
     [
       ['en', 'English'],
-      ['hi', 'हिन्दी'],
+      ['hi', 'हिंदी'],
     ].map(([value, text]) =>
       el('label', {}, [
         el('input', { type: 'radio', name: 'parent-lang', value, checked: s.parentLang === value, onchange: () => ((s.parentLang = value), api.persistSettings(), showParent(api)) }),

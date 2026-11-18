@@ -15,6 +15,58 @@ export const ACTIVITY_SKILL = { tenframe: 'k-make10', numberline: 'k-add', patte
 const int = (rng, lo, hi) => lo + Math.floor(rng() * (hi - lo + 1));
 const pick = (rng, xs) => xs[Math.floor(rng() * xs.length)];
 const WORDS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'];
+const pad2 = (x) => String(x).padStart(2, '0');
+const money = (c, dollars = true) => (dollars && c >= 100 ? `$${(c / 100).toFixed(2)}` : `${c}¢`);
+const clockSay = (five, H, M) => (five ? `${H}:${pad2(M)}` : M === 30 ? `half past ${H}` : M === 0 ? `${H} o'clock` : `${H}:${pad2(M)}`);
+const angleKind = (target) => (target < 90 ? 'an acute angle' : target === 90 ? 'a right angle' : target < 180 ? 'an obtuse angle' : 'a straight angle');
+
+// Everything these games say, in one place (roadmap 6.8): the games call these, and handsVoiceTexts()
+// below runs them over every value they can take, so every line is in the Google voice pack (said whole,
+// or in recorded pieces: js/mathspeech.js).
+export const SAY = {
+  tenframeAsk: (t, start, target) => (t === 2 ? `There are ${start}. Fill the frame to make 10.` : `Put ${target} ${target === 1 ? 'counter' : 'counters'} in the ten-frame.`),
+  tenframeNo: (t, n, target) => `You have ${n}. ${t === 2 ? 'Make 10' : `Make ${target}`}.`,
+  tenframeWhy: (t, start, target) => (t === 2 ? `${start} and ${10 - start} make 10!` : `${target}! ${WORDS[target] ? `${WORDS[target][0].toUpperCase()}${WORDS[target].slice(1)} ${target === 1 ? 'counter' : 'counters'}.` : ''}`),
+  hopAsk: (back, a, b) => (back ? `The frog is on ${a}. Hop back ${b}. Where does it land?` : `The frog is on ${a}. Hop ${b} more. Where does it land?`),
+  hopNo: (hops, b) => `The frog hopped ${hops} ${hops === 1 ? 'time' : 'times'}. Hop ${b}.`,
+  hopWhy: (a, back, b, answer) => `${a} ${back ? 'take away' : 'plus'} ${b} is ${answer}!`,
+  patternAsk: () => 'What comes next on the train? Fill the empty cars.',
+  patternNo: (names) => `Look at the train: ${names.join(', ')}…`,
+  patternWhy: (names) => `${names.join(', ')}. The pattern goes on!`,
+  shapesAsk: (d) => `Build ${d.name} with the shapes. Tap a shape to put it in.`,
+  shapeNo: (shape) => `A ${shape} doesn't fit. Look at the spaces.`,
+  shapeYes: (shape) => `A ${shape}!`,
+  measureAsk: (thing) => `How long is the ${thing}? Lay cubes along it, end to end.`,
+  measureNo: (cubes, len, thing) => (cubes < len ? `${cubes} cubes. The ${thing} is longer: add more.` : `${cubes} cubes go past the end. Take some away.`),
+  measureWhy: (thing, len) => `The ${thing} is ${len} cubes long.`,
+  balanceAsk: (a, b, c) => (c ? `Make the scale level: ${a} + ${b} = ${c} + ?` : `Make the scale level: put ${a} + ${b} blocks on the other side.`),
+  balanceNo: (lighter) => (lighter ? 'That side is lighter. Add blocks.' : 'That side is heavier. Take blocks away.'),
+  balanceWhy: (a, b, c, added, total) => `${a} + ${b} = ${c ? `${c} + ${added}` : added}. Both sides are ${total}!`,
+  shopAsk: (dollars, name, price) => (dollars ? `The ${name} costs ${money(price)}. Pay with money.` : `The ${name} costs ${price} cents. Pay with coins.`),
+  coin: (k) => (k === 'dollar' ? 'one dollar' : `${k}, ${COINS[k]} ${COINS[k] === 1 ? 'cent' : 'cents'}`),
+  shopNo: (sum, price, dollars, name) => (sum < price ? `That's ${money(sum, dollars)}. The ${name} costs ${money(price, dollars)}.` : `That's ${money(sum, dollars)}: too much. Take some back.`),
+  shopWhy: (price, dollars) => `${money(price, dollars)}. Thank you for shopping!`,
+  clockAsk: (five, h, m, t) => (five ? `Show ${h}:${pad2(m)}. Turn the hands.` : m ? `Show half past ${h}. Turn the hands.` : `Show ${h} o'clock. Turn the short hand${t ? ' and the long hand' : ''}.`),
+  clockNo: (five, hh, mm, h, m) => `The clock says ${clockSay(five, hh, mm)}. Show ${clockSay(five, h, m)}.`,
+  clockWhy: (five, h, m) =>
+    five ? `The long hand points to ${m / 5}: ${m / 5} fives make ${m} minutes. It's ${h}:${pad2(m)}!` : m ? `The long hand points to 6: it's half past ${h}!` : `The short hand points to ${h} and the long hand to 12. It's ${h} o'clock!`,
+  bondsAsk: (target) => `Pop two bubbles that make ${target}.`,
+  bondsYes: (a, b, target) => `${a} and ${b} make ${target}!`,
+  bondsNo: (a, b, target) => `${a} and ${b} make ${a + b}. We need ${target}.`,
+  bondsWhy: (count, target) => `You found ${count} ways to make ${target}!`,
+  jumpsAsk: (a, b) => `Start at ${a}. Jump ${b} more. Where do you land?`,
+  jumpsNo: (jumped, b) => `You jumped ${jumped}. Jump ${b} in all: tens first, then ones.`,
+  jumpsWhy: (a, b, answer) => `${a} + ${b} = ${answer}: ${Math.floor(b / 10)} ${Math.floor(b / 10) === 1 ? 'jump' : 'jumps'} of ten and ${b % 10} of one.`,
+  arrayAsk: (byTotal, total, R, C) => (byTotal ? `Make ${total} in ${R} equal rows.` : `Make ${R} rows of ${C}.`),
+  arrayNo: (rows, cols, ask) => `That's ${rows} ${rows === 1 ? 'row' : 'rows'} of ${cols}. ${ask}`,
+  arrayWhy: (R, C, total) => `${R} rows of ${C}: ${Array.from({ length: R }, () => C).join(' + ')} = ${total}!`,
+  fractionAsk: (m, k, b, parts) => (m > 1 ? `Shade ${k}/${b} of the bar. It has ${parts} pieces.` : `Shade ${k}/${b} of the bar.`),
+  fractionNo: (on, parts, k, b, m, want) => `That's ${on}/${parts}. Shade ${k}/${b}${m > 1 ? `: that is ${want} of the ${parts} pieces` : ''}.`,
+  fractionWhy: (m, want, parts, k, b) => (m > 1 ? `${want}/${parts} is the same as ${k}/${b}!` : `${k} of ${b} equal pieces: ${k}/${b}!`),
+  angleAsk: (target) => `Make an angle of ${target}°.`,
+  angleNo: (deg, target) => `That angle is ${deg}°. Make ${target}°.`,
+  angleWhy: (target) => `${target}°: ${angleKind(target)}!`,
+};
 
 // ---- the frame every activity shares: what to do, the thing to work on, and the ✓ ----
 function board(ctx, ask, cls) {
@@ -55,7 +107,7 @@ async function tenframe(ctx) {
   const t = ctx.tier;
   const start = t === 2 ? int(ctx.rng, 3, 8) : 0;
   const target = t === 2 ? 10 : t === 1 ? int(ctx.rng, 5, 10) : int(ctx.rng, 1, 5);
-  const ask = t === 2 ? `There are ${start}. Fill the frame to make 10.` : `Put ${target} counters in the ten-frame.`;
+  const ask = SAY.tenframeAsk(t, start, target);
   const { work, tools, check } = board(ctx, ask, 'hands-tenframe');
   const count = el('b', { class: 'hands-count', text: String(start) });
   const cells = Array.from({ length: 10 }, (_, i) => {
@@ -75,8 +127,8 @@ async function tenframe(ctx) {
   tools.append(el('span', { class: 'hands-help', text: 'Tap a box to put a counter in, or take it out.' }));
   const n = () => cells.filter((x) => x.classList.contains('on')).length;
   const hint = stepHint(ctx, () => (n() < target ? cells.find((c) => !c.classList.contains('on')) : n() > target ? cells.filter((c) => c.classList.contains('on') && !c.classList.contains('given')).at(-1) : check), { coach: 'each' });
-  const first = await untilRight(ctx, check, () => (n() === target ? true : `You have ${n()}. ${t === 2 ? 'Make 10' : `Make ${target}`}.`), hint);
-  return { first, explain: t === 2 ? `${start} and ${10 - start} make 10!` : `${target}! ${WORDS[target] ? `${WORDS[target][0].toUpperCase()}${WORDS[target].slice(1)} counters.` : ''}`, node: work };
+  const first = await untilRight(ctx, check, () => (n() === target ? true : SAY.tenframeNo(t, n(), target)), hint);
+  return { first, explain: SAY.tenframeWhy(t, start, target), node: work };
 }
 
 // ---------- 2. hop the frog along the number line (NC.K.OA.2, NC.K.OA.5) ----------
@@ -86,7 +138,7 @@ async function numberline(ctx) {
   const b = int(ctx.rng, 1, t === 0 ? 3 : 5);
   const a = back ? int(ctx.rng, b + 1, 10) : int(ctx.rng, 0, 10 - b);
   const answer = back ? a - b : a + b;
-  const ask = back ? `The frog is on ${a}. Hop back ${b}. Where does it land?` : `The frog is on ${a}. Hop ${b} more. Where does it land?`;
+  const ask = SAY.hopAsk(back, a, b);
   const { work, tools, check } = board(ctx, ask, 'hands-line');
   const eq = el('p', { class: 'math-eq' }, [`${a} ${back ? '−' : '+'} ${b} = `, el('span', { class: 'gap', text: '?' })]);
   const X = (n) => 20 + n * 36; // 0..10 across 400
@@ -126,10 +178,10 @@ async function numberline(ctx) {
   tools.append(undo, hopBtn);
   work.append(eq, line);
   const hint = stepHint(ctx, () => (hops < b ? hopBtn : hops > b ? undo : check), { coach: 'order' });
-  const first = await untilRight(ctx, check, () => (at === answer ? true : `The frog hopped ${hops} ${hops === 1 ? 'time' : 'times'}. Hop ${b}.`), hint);
+  const first = await untilRight(ctx, check, () => (at === answer ? true : SAY.hopNo(hops, b)), hint);
   eq.querySelector('.gap').textContent = String(answer);
   eq.classList.add('done');
-  return { first, explain: `${a} ${back ? 'take away' : 'plus'} ${b} is ${answer}!`, node: frog };
+  return { first, explain: SAY.hopWhy(a, back, b, answer), node: frog };
 }
 
 // ---------- 3. the pattern train ----------
@@ -144,7 +196,7 @@ async function pattern(ctx) {
   const length = unit.length * (t === 2 ? 2 : 3);
   const seq = Array.from({ length }, (_, i) => of(unit[i % unit.length]));
   const blanks = t === 2 ? 3 : 2;
-  const ask = 'What comes next on the train? Fill the empty cars.';
+  const ask = SAY.patternAsk();
   const { work, tools, check } = board(ctx, ask, 'hands-pattern');
   check.hidden = true; // the train fills car by car; it is done when it is full
   const name = (id) => ctx.word(id)?.en || id;
@@ -172,7 +224,7 @@ async function pattern(ctx) {
           wobble(b);
           ctx.miss?.();
           hint.miss();
-          ctx.sayText(`Look at the train: ${seq.slice(0, unit.length).map(name).join(', ')}…`, 'en');
+          ctx.sayText(SAY.patternNo(seq.slice(0, unit.length).map(name)), 'en');
           return;
         }
         hint.step();
@@ -193,7 +245,7 @@ async function pattern(ctx) {
         }
       });
   });
-  return { first, explain: `${seq.slice(0, unit.length * 2).map(name).join(', ')}. The pattern goes on!`, node: cars.at(-1) };
+  return { first, explain: SAY.patternWhy(seq.slice(0, unit.length * 2).map(name)), node: cars.at(-1) };
 }
 
 // ---------- 4. build a shape from pieces (NC.K.G.6, NC.1.G.2) ----------
@@ -220,7 +272,7 @@ const pieceIcon = (shape) =>
 async function shapes(ctx) {
   const t = ctx.tier;
   const d = pick(ctx.rng, DESIGNS.filter((x) => x.tier <= t && x.tier >= t - 1));
-  const ask = `Build ${d.name} with the shapes. Tap a shape to put it in.`;
+  const ask = SAY.shapesAsk(d);
   const { work, tools, check } = board(ctx, ask, 'hands-shapes');
   check.hidden = true; // done when every space is filled
   const filled = d.slots.map(() => false);
@@ -244,14 +296,14 @@ async function shapes(ctx) {
           wobble(b);
           ctx.miss?.();
           hint.miss();
-          ctx.sayText(`A ${b.shape} doesn't fit. Look at the spaces.`, 'en');
+          ctx.sayText(SAY.shapeNo(b.shape), 'en');
           return;
         }
         filled[i] = true;
         draw();
         bounce(pic);
         ctx.sfx.pop();
-        ctx.sayText(`A ${b.shape}!`, 'en');
+        ctx.sayText(SAY.shapeYes(b.shape), 'en');
         hint.step();
         if (filled.every(Boolean)) {
           hint.done();
@@ -268,7 +320,7 @@ async function measure(ctx) {
   const t = ctx.tier;
   const len = int(ctx.rng, [2, 4, 6][t], [5, 8, 12][t]);
   const thing = pick(ctx.rng, ['pencil', 'snake', 'train', 'ribbon']);
-  const ask = `How long is the ${thing}? Lay cubes along it, end to end.`;
+  const ask = SAY.measureAsk(thing);
   const { work, tools, check } = board(ctx, ask, 'hands-measure');
   // the thing alone (art-math draws it with its cubes; those come off), on a strip long enough for 13 cubes
   const pic = el('div', { class: 'ms-picture', html: mathModel({ kind: 'measure', len, thing }) });
@@ -302,8 +354,8 @@ async function measure(ctx) {
   tools.append(take, add);
   work.append(pic, el('p', { class: 'hands-readout' }, [count, el('span', { text: ' cubes' })]));
   const hint = stepHint(ctx, () => (cubes < len ? add : cubes > len ? take : check), { coach: 'each' });
-  const first = await untilRight(ctx, check, () => (cubes === len ? true : cubes < len ? `${cubes} cubes. The ${thing} is longer: add more.` : `${cubes} cubes go past the end. Take some away.`), hint);
-  return { first, explain: `The ${thing} is ${len} cubes long.`, node: pic };
+  const first = await untilRight(ctx, check, () => (cubes === len ? true : SAY.measureNo(cubes, len, thing)), hint);
+  return { first, explain: SAY.measureWhy(thing, len), node: pic };
 }
 
 // ---------- 6. the balance: both sides the same (NC.1.OA.7) ----------
@@ -315,7 +367,7 @@ async function balance(ctx) {
   const c = t === 0 ? 0 : int(ctx.rng, 1, total - 1);
   let added = t === 2 ? int(ctx.rng, 0, Math.max(0, total - c + 2)) : 0;
   if (t === 2 && c + added === total) added++;
-  const ask = c ? `Make the scale level: ${a} + ${b} = ${c} + ?` : `Make the scale level: put ${a} + ${b} blocks on the other side.`;
+  const ask = SAY.balanceAsk(a, b, c);
   const { work, tools, check } = board(ctx, ask, 'hands-balance');
   const eq = el('p', { class: 'math-eq' }, [`${a} + ${b} = ${c ? `${c} + ` : ''}`, el('span', { class: 'gap', text: '?' })]);
   const blocks = (n, color) => Array.from({ length: n }, () => `<i style="--c:${color}"></i>`).join('');
@@ -350,16 +402,15 @@ async function balance(ctx) {
   tools.append(take, add);
   work.append(eq, scale);
   const hint = stepHint(ctx, () => (c + added < total ? add : c + added > total ? take : check), { coach: 'each' });
-  const first = await untilRight(ctx, check, () => (c + added === total ? true : c + added < total ? 'That side is lighter. Add blocks.' : 'That side is heavier. Take blocks away.'), hint);
+  const first = await untilRight(ctx, check, () => (c + added === total ? true : SAY.balanceNo(c + added < total)), hint);
   eq.querySelector('.gap').textContent = String(added);
   eq.classList.add('done');
-  return { first, explain: `${a} + ${b} = ${c ? `${c} + ${added}` : added}. Both sides are ${total}!`, node: scale };
+  return { first, explain: SAY.balanceWhy(a, b, c, added, total), node: scale };
 }
 
 // ---------- 7. the coin shop (NC.1.MD.5) ----------
 const COINS = { penny: 1, nickel: 5, dime: 10, quarter: 25, dollar: 100 };
 // Grade 2 writes $1.25; Grade 1 only knows cents (125¢)
-const money = (c, dollars = true) => (dollars && c >= 100 ? `$${(c / 100).toFixed(2)}` : `${c}¢`);
 const SHOP = ['ball', 'kite', 'balloon', 'apple', 'book', 'cake', 'drum', 'cap'];
 async function shop(ctx) {
   const t = ctx.tier;
@@ -369,7 +420,7 @@ async function shop(ctx) {
   const price = dollars ? int(ctx.rng, t === 0 ? 21 : 22, t === 0 ? 30 : 50) * 5 + (t === 2 ? int(ctx.rng, 1, 4) : 0) : int(ctx.rng, t === 0 ? 2 : 11, t === 0 ? 9 : t === 1 ? 40 : 75);
   const item = pick(ctx.rng, SHOP);
   const name = ctx.word(item)?.en || item;
-  const ask = dollars ? `The ${name} costs ${money(price)}. Pay with money.` : `The ${name} costs ${price} cents. Pay with coins.`;
+  const ask = SAY.shopAsk(dollars, name, price);
   const { work, tools, check } = board(ctx, ask, 'hands-shop');
   const paid = [];
   const tray = el('div', { class: 'sh-tray', 'aria-label': 'Coins paid' });
@@ -398,7 +449,7 @@ async function shop(ctx) {
       if (paid.length >= 15) return wobble(b);
       paid.push(k);
       ctx.sfx.pop();
-      ctx.sayText(k === 'dollar' ? 'one dollar' : `${k}, ${COINS[k]} ${COINS[k] === 1 ? 'cent' : 'cents'}`, 'en');
+      ctx.sayText(SAY.coin(k), 'en');
       draw();
       hint.step();
     });
@@ -415,8 +466,8 @@ async function shop(ctx) {
     return coins.filter((b) => COINS[b.coin] <= left).sort((x, y) => COINS[y.coin] - COINS[x.coin])[0];
   };
   const hint = stepHint(ctx, nextCoin, { coach: 'each' });
-  const first = await untilRight(ctx, check, () => (sum() === price ? true : sum() < price ? `That's ${money(sum(), dollars)}. The ${name} costs ${money(price, dollars)}.` : `That's ${money(sum(), dollars)}: too much. Take some back.`), hint);
-  return { first, explain: `${money(price, dollars)}. Thank you for shopping!`, node: tray };
+  const first = await untilRight(ctx, check, () => (sum() === price ? true : SAY.shopNo(sum(), price, dollars, name)), hint);
+  return { first, explain: SAY.shopWhy(price, dollars), node: tray };
 }
 
 // ---------- 8. turn the clock's hands (NC.1.MD.3) ----------
@@ -427,8 +478,7 @@ async function clock(ctx) {
   const step = five ? 5 : 15;
   const h = int(ctx.rng, 1, 12);
   const m = five ? (t === 0 ? pick(ctx.rng, [15, 30, 45]) : int(ctx.rng, 1, 11) * 5) : t === 2 ? 30 : 0;
-  const pad = (x) => String(x).padStart(2, '0');
-  const ask = five ? `Show ${h}:${pad(m)}. Turn the hands.` : m ? `Show half past ${h}. Turn the hands.` : `Show ${h} o'clock. Turn the short hand${t ? ' and the long hand' : ''}.`;
+  const ask = SAY.clockAsk(five, h, m, t);
   const { work, tools, check } = board(ctx, ask, 'hands-clock');
   // where the hands start: not already right
   let hh = ((h + int(ctx.rng, 2, 9) - 1) % 12) + 1;
@@ -503,10 +553,8 @@ async function clock(ctx) {
   tools.append(hourBtn, ...(t || five ? [minBtn] : []));
   work.append(pic, t === 0 ? digital : null);
   const hint = stepHint(ctx, () => (hh !== h ? hourBtn : mm !== m ? minBtn : check), { coach: 'each' });
-  const say = (H, M) => (five ? `${H}:${pad(M)}` : M === 30 ? `half past ${H}` : M === 0 ? `${H} o'clock` : `${H}:${pad(M)}`);
-  const first = await untilRight(ctx, check, () => (hh === h && mm === m ? true : `The clock says ${say(hh, mm)}. Show ${say(h, m)}.`), hint);
-  if (five) return { first, explain: `The long hand points to ${m / 5}: ${m / 5} fives make ${m} minutes. It's ${h}:${pad(m)}!`, node: pic };
-  return { first, explain: m ? `The long hand points to 6: it's half past ${h}!` : `The short hand points to ${h} and the long hand to 12. It's ${h} o'clock!`, node: pic };
+  const first = await untilRight(ctx, check, () => (hh === h && mm === m ? true : SAY.clockNo(five, hh, mm, h, m)), hint);
+  return { first, explain: SAY.clockWhy(five, h, m), node: pic };
 }
 
 // ---------- 9. number-bond bubbles: tap two that make 10, or 20 (NC.K.OA.4, NC.1.OA.6; docs/ROADMAP.md 10.4) ----------
@@ -522,7 +570,7 @@ async function bonds(ctx) {
     const free = Array.from({ length: target - 1 }, (_, i) => i + 1).filter((d) => !values.includes(d) && !values.includes(target - d));
     if (free.length) values.push(pick(ctx.rng, free));
   }
-  const ask = `Pop two bubbles that make ${target}.`;
+  const ask = SAY.bondsAsk(target);
   const { work, tools, check } = board(ctx, ask, 'hands-bonds');
   check.hidden = true;
   const found = el('div', { class: 'bd-found', 'aria-live': 'polite' });
@@ -558,7 +606,7 @@ async function bonds(ctx) {
         found.append(el('span', { class: 'bd-pair', text: `${a.v} + ${b.v} = ${target}` }));
         ctx.sfx.feel ? ctx.sfx.feel('right') : ctx.sfx.chime();
         hint.step();
-        ctx.sayText(`${a.v} and ${b.v} make ${target}!`, 'en');
+        ctx.sayText(SAY.bondsYes(a.v, b.v, target), 'en');
         if (++pairsFound === count) {
           hint.done();
           setTimeout(finish, 700);
@@ -569,7 +617,7 @@ async function bonds(ctx) {
         wobble(b);
         ctx.miss?.();
         hint.miss();
-        ctx.sayText(`${a.v} and ${b.v} make ${a.v + b.v}. We need ${target}.`, 'en');
+        ctx.sayText(SAY.bondsNo(a.v, b.v, target), 'en');
       }
     });
     return b;
@@ -580,7 +628,7 @@ async function bonds(ctx) {
   const partner = (b) => bubbles.find((x) => x !== b && !x.classList.contains('popped') && x.v + b.v === target);
   const hint = stepHint(ctx, () => (picked ? partner(picked) : bubbles.find((b) => !b.classList.contains('popped') && partner(b))), { coach: 'each' });
   await done;
-  return { first: wrong === 0 && hint.used === 0, explain: `You found ${count} ways to make ${target}!`, node: found };
+  return { first: wrong === 0 && hint.used === 0, explain: SAY.bondsWhy(count, target), node: found };
 }
 
 // ---------- 10. jumps of ten and one along a number line (NC.2.NBT.5; docs/ROADMAP.md 10.5) ----------
@@ -589,7 +637,7 @@ async function jumps(ctx) {
   const a = int(ctx.rng, 12, 58);
   const b = t === 0 ? int(ctx.rng, 1, 3) * 10 : int(ctx.rng, 11, t === 1 ? 29 : 39);
   const answer = a + b;
-  const ask = `Start at ${a}. Jump ${b} more. Where do you land?`;
+  const ask = SAY.jumpsAsk(a, b);
   const { work, tools, check } = board(ctx, ask, 'hands-jumps');
   const eq = el('p', { class: 'math-eq' }, [`${a} + ${b} = `, el('span', { class: 'gap', text: '?' })]);
   const hops = [];
@@ -636,10 +684,10 @@ async function jumps(ctx) {
   tools.append(undo, one, ten);
   work.append(eq, line, readout);
   const hint = stepHint(ctx, () => (at() > answer ? undo : answer - at() >= 10 ? ten : answer - at() > 0 ? one : check), { coach: 'each' });
-  const first = await untilRight(ctx, check, () => (at() === answer ? true : `You jumped ${at() - a}. Jump ${b} in all: tens first, then ones.`), hint);
+  const first = await untilRight(ctx, check, () => (at() === answer ? true : SAY.jumpsNo(at() - a, b)), hint);
   eq.querySelector('.gap').textContent = String(answer);
   eq.classList.add('done');
-  return { first, explain: `${a} + ${b} = ${answer}: ${Math.floor(b / 10)} ${Math.floor(b / 10) === 1 ? 'jump' : 'jumps'} of ten and ${b % 10} of one.`, node: line };
+  return { first, explain: SAY.jumpsWhy(a, b, answer), node: line };
 }
 
 // ---------- 11. build an array: rows of the same (NC.2.OA.4; docs/ROADMAP.md 10.5) ----------
@@ -650,7 +698,7 @@ async function arrayBuild(ctx) {
   const total = R * C;
   // at the top level only the total and the rows are given
   const byTotal = t === 2;
-  const ask = byTotal ? `Make ${total} in ${R} equal rows.` : `Make ${R} rows of ${C}.`;
+  const ask = SAY.arrayAsk(byTotal, total, R, C);
   const { work, tools, check } = board(ctx, ask, 'hands-array');
   const thingPic = pick(ctx.rng, ['apple', 'mango', 'laddoo', 'balloon', 'flower']);
   let rows = 1;
@@ -681,8 +729,8 @@ async function arrayBuild(ctx) {
   tools.append(subRow, addRow, subCol, addCol);
   work.append(pic, readout);
   const hint = stepHint(ctx, () => (rows < R ? addRow : rows > R ? subRow : cols < C ? addCol : cols > C ? subCol : check), { coach: 'each' });
-  const first = await untilRight(ctx, check, () => (rows === R && cols === C ? true : `That's ${rows} ${rows === 1 ? 'row' : 'rows'} of ${cols}. ${ask}`), hint);
-  return { first, explain: `${R} rows of ${C}: ${Array.from({ length: R }, () => C).join(' + ')} = ${total}!`, node: pic };
+  const first = await untilRight(ctx, check, () => (rows === R && cols === C ? true : SAY.arrayNo(rows, cols, ask)), hint);
+  return { first, explain: SAY.arrayWhy(R, C, total), node: pic };
 }
 
 // ---------- 12. shade the fraction (NC.3.NF.1, NF.3; docs/ROADMAP.md 10.8) ----------
@@ -694,7 +742,7 @@ async function fraction(ctx) {
   const m = t === 2 ? pick(ctx.rng, [2, 3].filter((x) => b * x <= 12)) || 1 : 1;
   const parts = b * m;
   const want = k * m;
-  const ask = m > 1 ? `Shade ${k}/${b} of the bar. It has ${parts} pieces.` : `Shade ${k}/${b} of the bar.`;
+  const ask = SAY.fractionAsk(m, k, b, parts);
   const { work, tools, check } = board(ctx, ask, 'hands-fraction');
   const cells = Array.from({ length: parts }, (_, i) => {
     const c = el('button', { class: 'fr-cell', 'aria-label': `Piece ${i + 1}` });
@@ -713,8 +761,8 @@ async function fraction(ctx) {
   work.append(el('div', { class: 'fr-bar', style: { '--n': String(parts) } }, cells), readout);
   tools.append(el('span', { class: 'hands-help', text: 'Tap a piece to shade it, or to clear it.' }));
   const hint = stepHint(ctx, () => (on() < want ? cells.find((c) => !c.classList.contains('on')) : on() > want ? cells.filter((c) => c.classList.contains('on')).at(-1) : check), { coach: 'each' });
-  const first = await untilRight(ctx, check, () => (on() === want ? true : `That's ${on()}/${parts}. Shade ${k}/${b}${m > 1 ? `: that is ${want} of the ${parts} pieces` : ''}.`), hint);
-  return { first, explain: m > 1 ? `${want}/${parts} is the same as ${k}/${b}!` : `${k} of ${b} equal pieces: ${k}/${b}!`, node: work };
+  const first = await untilRight(ctx, check, () => (on() === want ? true : SAY.fractionNo(on(), parts, k, b, m, want)), hint);
+  return { first, explain: SAY.fractionWhy(m, want, parts, k, b), node: work };
 }
 
 // ---------- 13. turn the angle on the protractor (NC.4.MD.6; docs/ROADMAP.md 10.8) ----------
@@ -722,7 +770,7 @@ async function angleTurn(ctx) {
   const t = ctx.tier;
   const step = [30, 10, 5][t];
   const target = int(ctx.rng, 1, Math.floor(175 / step)) * step;
-  const ask = `Make an angle of ${target}°.`;
+  const ask = SAY.angleAsk(target);
   const { work, tools, check } = board(ctx, ask, 'hands-angle');
   // the arm starts on the buttons' own steps, well away from the answer, so it can always be reached
   const starts = Array.from({ length: Math.floor(180 / step) - 1 }, (_, i) => (i + 1) * step).filter((d) => Math.abs(d - target) >= 2 * step);
@@ -769,12 +817,42 @@ async function angleTurn(ctx) {
   tools.append(less, more);
   work.append(pic, readout);
   const hint = stepHint(ctx, () => (deg < target ? more : deg > target ? less : check), { coach: 'each' });
-  const first = await untilRight(ctx, check, () => (deg === target ? true : `That angle is ${deg}°. Make ${target}°.`), hint);
-  const kind = target < 90 ? 'an acute angle' : target === 90 ? 'a right angle' : target < 180 ? 'an obtuse angle' : 'a straight angle';
-  return { first, explain: `${target}°: ${kind}!`, node: pic };
+  const first = await untilRight(ctx, check, () => (deg === target ? true : SAY.angleNo(deg, target)), hint);
+  return { first, explain: SAY.angleWhy(target), node: pic };
 }
 
 const PLAY = { tenframe, numberline, pattern, shapes, measure, balance, shop, clock, bonds, jumps, array: arrayBuild, fraction, angle: angleTurn };
+
+// Every line these games can say (roadmap 6.8): each SAY line over every value it can take. `en` names a
+// picture word in English. Numbers alone (a counter tapped, a cube laid) are said by the number speller.
+export function handsVoiceTexts(en = (id) => id) {
+  const out = new Set();
+  const add = (x) => x && out.add(x);
+  const range = (a, b, step = 1) => Array.from({ length: Math.floor((b - a) / step) + 1 }, (_, i) => a + i * step);
+  for (const t of [0, 1, 2]) for (const start of range(0, 8)) for (const target of range(1, 10)) (add(SAY.tenframeAsk(t, start, target)), add(SAY.tenframeNo(t, start, target)), add(SAY.tenframeWhy(t, start, target)));
+  for (const back of [false, true]) for (const a of range(0, 10)) for (const b of range(1, 5)) (add(SAY.hopAsk(back, a, b)), add(SAY.hopWhy(a, back, b, back ? a - b : a + b)));
+  for (const hops of range(0, 10)) for (const b of range(1, 5)) add(SAY.hopNo(hops, b));
+  add(SAY.patternAsk());
+  const names = PATTERN_PICS.map(en);
+  for (const x of names) for (const y of names) for (const z of names) (add(SAY.patternNo([x, y])), add(SAY.patternNo([x, x, y])), add(SAY.patternNo([x, y, z])), add(SAY.patternWhy([x, y, x, y])), add(SAY.patternWhy([x, x, y, x, x, y])), add(SAY.patternWhy([x, y, z, x, y, z])), add(x));
+  for (const d of DESIGNS) (add(SAY.shapesAsk(d)), add(d.say));
+  for (const shape of ['triangle', 'square', 'rectangle', 'circle']) (add(SAY.shapeNo(shape)), add(SAY.shapeYes(shape)));
+  for (const thing of ['pencil', 'snake', 'train', 'ribbon']) {
+    add(SAY.measureAsk(thing));
+    for (const len of range(2, 12)) (add(SAY.measureWhy(thing, len)), add(SAY.measureNo(len - 1, len, thing)), add(SAY.measureNo(len + 1, len, thing)));
+  }
+  for (const c of [0, 3]) (add(SAY.balanceAsk(2, 3, c)), add(SAY.balanceWhy(2, 3, c, 2, 5)));
+  for (const lighter of [true, false]) add(SAY.balanceNo(lighter));
+  for (const item of SHOP) for (const dollars of [false, true]) for (const price of [35, 135]) (add(SAY.shopAsk(dollars, en(item), price)), add(SAY.shopNo(price - 10, price, dollars, en(item))), add(SAY.shopNo(price + 10, price, dollars, en(item))), add(SAY.shopWhy(price, dollars)));
+  for (const k of Object.keys(COINS)) add(SAY.coin(k));
+  for (const five of [false, true]) for (const t of [0, 1, 2]) for (const m of five ? range(5, 55, 5) : [0, 30]) for (const h of [3, 12]) (add(SAY.clockAsk(five, h, m, t)), add(SAY.clockNo(five, h, (m + 30) % 60, h, m)), add(SAY.clockNo(five, h, 0, h, m)), add(SAY.clockNo(five, h, 30, h, m)), add(SAY.clockWhy(five, h, m)));
+  for (const target of [10, 20]) (add(SAY.bondsAsk(target)), add(SAY.bondsYes(3, target - 3, target)), add(SAY.bondsNo(3, 4, target)), add(SAY.bondsWhy(4, target)));
+  for (const b of [10, 11, 21]) (add(SAY.jumpsAsk(12, b)), add(SAY.jumpsNo(5, b)), add(SAY.jumpsWhy(12, b, 12 + b)));
+  for (const R of range(1, 4)) for (const C of range(2, 5)) (add(SAY.arrayAsk(false, R * C, R, C)), add(SAY.arrayAsk(true, R * C, R, C)), add(SAY.arrayWhy(R, C, R * C)), add(SAY.arrayNo(R, C, SAY.arrayAsk(false, R * C, R, C))), add(SAY.arrayNo(R, C, SAY.arrayAsk(true, R * C, R, C))));
+  for (const m of [1, 2]) (add(SAY.fractionAsk(m, 1, 4, 4 * m)), add(SAY.fractionNo(2, 4 * m, 1, 4, m, m)), add(SAY.fractionWhy(m, m, 4 * m, 1, 4)));
+  for (const target of range(5, 175, 5)) (add(SAY.angleAsk(target)), add(SAY.angleNo(target + 5, target)), add(SAY.angleWhy(target)));
+  return [...out];
+}
 
 export default {
   async start(ctx) {

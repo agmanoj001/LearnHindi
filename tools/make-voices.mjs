@@ -17,7 +17,7 @@
 // they stay on the family's device (see audio/ in .gitignore).
 import { readFileSync, writeFileSync, mkdirSync, existsSync, statSync, readdirSync, unlinkSync } from 'node:fs';
 import { createHash } from 'node:crypto';
-import { voiceLines as baseLines } from '../js/logic.js';
+import { voiceLines as baseLines, textKey } from '../js/logic.js';
 import { comicVoiceLines, storyRadioVoiceLines } from '../js/shows.js';
 import { castVoiceName } from '../js/castvoices.js';
 import { pack, unpack } from './voice-bundles.mjs';
@@ -28,10 +28,19 @@ import { promisify } from 'node:util';
 // everything: stories, the app's own voice, the lessons, and the comics with a voice per character
 // A recording two parts of the app share (a word that is both a comic line and a story word) belongs
 // to every grade, so each grade's download has it.
+// the maths, made up as the child plays (the questions from js/mathgen.js and the hands-on games), said in
+// recorded pieces: tools/math-pieces.mjs lists every piece (roadmap 6.8)
+export const mathVoiceLines = () => {
+  const f = new URL('tools/math-pieces.json', new URL('..', import.meta.url));
+  if (!existsSync(f)) return [];
+  // a piece of one grade's maths belongs to that grade; the rest (the number speller, the hands-on games)
+  // to "maths", which comes with every grade that has maths (js/voicepack.js), not with Grades 7 and 8
+  return JSON.parse(readFileSync(f, 'utf8')).map(([text, level]) => ({ key: textKey('en', text), text, lang: 'en', level: level || 'maths' }));
+};
 const voiceLines = (content) => {
   const out = baseLines(content);
   const byKey = new Map(out.map((l) => [l.key, l]));
-  for (const l of [...comicVoiceLines(content, castVoiceName), ...storyRadioVoiceLines(content)]) {
+  for (const l of [...comicVoiceLines(content, castVoiceName), ...storyRadioVoiceLines(content), ...mathVoiceLines()]) {
     const had = byKey.get(l.key);
     if (!had) byKey.set(l.key, l) && out.push(l);
     else if (had.level !== l.level) delete had.level;
@@ -133,6 +142,57 @@ async function loudness(buf) {
     unlinkSync(f);
   }
 }
+// Roadmap 6.4: so that one narrator says everything, a short line that comes back silent is said inside a
+// carrier first: the same voice says it three times in a row ("है। है। है।"), which it does clearly, and the
+// middle one is cut out where ffmpeg hears the pauses. Only if that fails does the other voice say it.
+async function soundSpans(buf) {
+  const f = new URL(`voices/.carrier-${process.pid}-${Math.random().toString(36).slice(2)}.mp3`, ROOT).pathname;
+  writeFileSync(f, buf);
+  try {
+    const { stderr } = await ffrun('ffmpeg', ['-hide_banner', '-i', f, '-af', 'silencedetect=noise=-38dB:d=0.12', '-f', 'null', '-']);
+    const total = Number(stderr.match(/time=(\d+):(\d+):([\d.]+)/g)?.pop()?.match(/(\d+):(\d+):([\d.]+)/).slice(1).reduce((a, x, i) => a + Number(x) * [3600, 60, 1][i], 0) || 0);
+    const starts = [...stderr.matchAll(/silence_start: ([\d.]+)/g)].map((m) => Number(m[1]));
+    const ends = [...stderr.matchAll(/silence_end: ([\d.]+)/g)].map((m) => Number(m[1]));
+    // the stretches of sound between the silences
+    const spans = [];
+    let at = 0;
+    for (let i = 0; i < starts.length; i++) {
+      if (starts[i] - at > 0.06) spans.push([at, starts[i]]);
+      at = ends[i] ?? total;
+    }
+    if (total - at > 0.06) spans.push([at, total]);
+    return { f, spans };
+  } catch (e) {
+    unlinkSync(f);
+    throw e;
+  }
+}
+// the line three times over, with full stops between; then, for a single letter the voice runs together
+// ("P. P. P."), with longer pauses ("P … P … P")
+export function carrierText(text, lang, long = false) {
+  const core = text.replace(/[\s।.!?,;:]+$/u, '').trim();
+  const stop = lang === 'hi' ? '।' : '.';
+  return long ? `${core} … ${core} … ${core}${stop}` : [core, core, core].join(`${stop} `) + stop;
+}
+async function carrier(text, voice) {
+  for (const long of [false, true]) {
+    const said = await synth(carrierText(text, langOf(voice).slice(0, 2), long), voice);
+    const { f, spans } = await soundSpans(said);
+    try {
+      if (spans.length < 2) continue;
+      const [a, b] = spans[Math.floor(spans.length / 2)];
+      const out = `${f}.cut.mp3`;
+      await ffrun('ffmpeg', ['-hide_banner', '-y', '-i', f, '-ss', String(Math.max(0, a - 0.04)), '-to', String(b + 0.06), '-c:a', 'libmp3lame', '-q:a', '4', out]);
+      const cut = readFileSync(out);
+      unlinkSync(out);
+      if ((await loudness(cut)) >= -25) return cut;
+    } finally {
+      unlinkSync(f);
+    }
+  }
+  return null;
+}
+
 let checked = null;
 async function speakChecked(text, voice) {
   checked ??= await hasFfmpeg();
@@ -140,6 +200,8 @@ async function speakChecked(text, voice) {
   if (!checked) return { buf, fell: false };
   for (let t = 0; t < 2 && (await loudness(buf)) < -25; t++) buf = await synth(text, voice);
   if ((await loudness(buf)) >= -25) return { buf, fell: false };
+  const carried = await carrier(text, voice).catch(() => null);
+  if (carried) return { buf: carried, fell: false, carried: true };
   return { buf: await synth(text, fallbackVoice(voice)), fell: true };
 }
 
@@ -167,22 +229,34 @@ async function main() {
   console.log(`voices: ${voices.hi} (Hindi), ${voices.en} (English)`);
   // --adopt: a file made by a run that stopped before saving its index counts as made (its text is current)
   if (flag('--adopt')) for (const l of lines) if (!old.sums?.[l.key] && existsSync(new URL(`${l.key}.mp3`, OUT))) (old.sums ||= {})[l.key] = sum(l.text, l.voiceName || voices[l.lang]);
-  const todo = lines.filter((l) => flag('--all') || old.sums?.[l.key] !== sum(l.text, l.voiceName || voices[l.lang]) || !existsSync(new URL(`${l.key}.mp3`, OUT)));
+  // --short: make every very short line again (one or two letters, "है", "Yes"), so any said by the other
+  // voice before the carrier existed is now said by the narrator (roadmap 6.4)
+  const graphemes = new Intl.Segmenter('hi', { granularity: 'grapheme' });
+  const isShort = (l) => [...graphemes.segment(l.text.replace(/[\s।.!?,;:"'“”‘’()…-]/gu, ''))].length <= 2;
+  // --fallbacks: try again the lines the other voice still says
+  const fellBefore = new Set(old.fellBack || []);
+  const todo = lines.filter((l) => flag('--all') || (flag('--short') && isShort(l)) || (flag('--fallbacks') && fellBefore.has(l.key)) || old.sums?.[l.key] !== sum(l.text, l.voiceName || voices[l.lang]) || !existsSync(new URL(`${l.key}.mp3`, OUT)));
   // stories first (the youngest listeners), then everything else, then the comics' cast
   const rank = (l) => (l.key.startsWith('story-') ? 0 : l.voiceName ? 2 : 1);
   todo.sort((a, b) => rank(a) - rank(b));
   console.log(`${lines.length} lines, ${todo.length} to make`);
   const sums = { ...(old.sums || {}) };
+  // which lines were said inside a carrier, and which still by the other voice (kept in the index)
+  const carried = new Set(old.carried || []);
+  const fellBack = new Set(old.fellBack || []);
   let done = 0;
   let failed = 0;
   const work = async () => {
     for (let l = todo.shift(); l; l = todo.shift()) {
       try {
         const voice = l.voiceName || voices[l.lang];
-        const { buf, fell } = await speakChecked(l.text, voice);
+        const { buf, fell, carried: inCarrier } = await speakChecked(l.text, voice);
         const file = new URL(`${l.key}.mp3`, OUT);
         writeFileSync(file, buf);
         if (checked) await trimFile(file.pathname); // no dead air before or after
+        carried[inCarrier ? 'add' : 'delete'](l.key);
+        fellBack[fell ? 'add' : 'delete'](l.key);
+        if (inCarrier) console.log(`  ${l.key} ("${l.text}"): said inside a carrier`);
         if (fell) console.log(`  ${l.key} ("${l.text}"): said by ${fallbackVoice(voice)}`);
         sums[l.key] = sum(l.text, voice);
       } catch (e) {
@@ -207,7 +281,8 @@ async function main() {
     // lesson lines that belong to one grade (the rest come with every grade)
     const levels = Object.fromEntries(all.filter((l) => l.level && files[l.key]).map((l) => [l.key, l.level]));
     const keep = Object.fromEntries(Object.entries(sums).filter(([k]) => files[k]));
-    writeFileSync(indexFile, `${JSON.stringify({ version: new Date().toISOString().slice(0, 10), audioVersion: AUDIO_VERSION, voices, files, stories, levels, sums: keep })}\n`);
+    const listed = (set) => [...set].filter((k) => files[k]).sort();
+    writeFileSync(indexFile, `${JSON.stringify({ version: new Date().toISOString().slice(0, 10), audioVersion: AUDIO_VERSION, voices, files, stories, levels, sums: keep, carried: listed(carried), fellBack: listed(fellBack) })}\n`);
   }
 
   await Promise.all(Array.from({ length: Number(opt('--workers')) || 4 }, work));

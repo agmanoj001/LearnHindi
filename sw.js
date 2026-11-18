@@ -1,5 +1,5 @@
 // Offline support: cache the app shell, then serve from cache and refresh in the background.
-const VERSION = 'kkm-v33';
+const VERSION = 'kkm-v34';
 // the story voice pack is saved by the page (Grown-ups › Story voices) into its own cache, kept across versions
 const VOICES = 'kkm-voices';
 const SHELL = [
@@ -8,6 +8,8 @@ const SHELL = [
   'styles.css',
   // the content: a core and a pack per grade; the packs are added from the core's list below
   'content/core.json',
+  // what's new in each version (roadmap 8.6)
+  'changes.json',
   'manifest.webmanifest',
   'icons/icon.svg',
   'icons/icon-192.png',
@@ -16,6 +18,7 @@ const SHELL = [
   'fonts/baloo2-latin.woff2',
   'fonts/fredoka-latin.woff2',
   'js/app.js',
+  'js/changes.js',
   'js/packs.js',
   'js/show-icons.js',
   'js/guide.js',
@@ -28,6 +31,9 @@ const SHELL = [
   'js/mybooks.js',
   'js/readfor.js',
   'js/festivals.js',
+  'js/covers.js',
+  'js/praise.js',
+  'js/mathspeech.js',
   'js/art-festival.js',
   'js/surprise.js',
   'js/wordbook.js',

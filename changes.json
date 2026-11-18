@@ -1,0 +1,49 @@
+{
+  "changes": [
+    {
+      "version": "kkm-v34",
+      "date": "2026-11-18",
+      "hi": "आसान पढ़ाई, और नया क्या है",
+      "en": "Easier reading, and what's new",
+      "items": [
+        { "hi": "आसान पढ़ाई: शब्दों और पंक्तियों के बीच ज़्यादा जगह, क्रीम रंग के पन्ने पर (बड़ों के लिए › पढ़ने में मदद)।", "en": "Easier reading: more space between words and lines, on a cream page (Grown-ups › reading support)." },
+        { "hi": "नया संस्करण आने पर अब बताया जाता है कि क्या बदला है।", "en": "When a new version arrives, the app now says what changed." },
+        { "hi": "बड़ों वाला हिस्सा खोलने के लिए अब दबाए रखने के बाद शब्दों में लिखा एक जोड़ भी हल करना होता है। बड़ों के हिस्से में निजता के बारे में साफ़ जानकारी।", "en": "The grown-ups' area now asks a sum written in words after the press-and-hold, and has a clear privacy statement." },
+        { "hi": "प्रगति में नया: कहानियों की समझ (कौन, क्या, क्यों) और बच्चे ने कौन सी कहानियाँ ख़ुद पढ़ीं।", "en": "New in Progress: understanding stories (who, what, why) and the stories your child read on their own." },
+        { "hi": "प्रगति में नया: खेल की झलक, कितनी देर खेला, क्या मुश्किल लगता है, क्या दोबारा पढ़ा। यह सब इसी फ़ोन पर रहता है।", "en": "New in Progress: play insights, how long, what's hard, what's read again. It all stays on this device." },
+        { "hi": "पढ़कर सुनाओ, ख़ुद सुनो: बच्चा कहानी का पन्ना पढ़कर रिकॉर्ड करे, फिर अपनी और कहानी वाली आवाज़ एक के बाद एक सुने (बड़ों के लिए › पढ़ने में मदद)।", "en": "Read aloud and hear yourself: a child records a page, then hears their voice and the narrator's one after the other (Grown-ups › reading support)." },
+        { "hi": "सही जवाब पर ✓ और ग़लत पर ✕, सिर्फ़ रंग नहीं। बाएँ हाथ वालों के लिए नई सेटिंग। बड़े बटन।", "en": "A ✓ for right and a ✕ for wrong, not only colours. A left-handed layout setting. Bigger buttons." },
+        { "hi": "2 GB वाले फ़ोन पर ऐप अपने-आप हल्के एनिमेशन के साथ खुलता है, ताकि सब आराम से चले।", "en": "On a phone with 2 GB of memory, the app starts with lighter animations so everything runs smoothly." },
+        { "hi": "बालवाटिका में गाड़ियों की 8 नई कहानियाँ: दमकल केंद्र, कूड़ा गाड़ी, रात की रेल, मेट्रो, हवाई अड्डा, स्कूल बस, एम्बुलेंस और सड़क बनाती मशीनें।", "en": "8 new vehicle stories in Kindergarten: the fire station, the garbage truck, the night train, the metro, the airport, the school bus, the ambulance and the road-building machines." },
+        { "hi": "मिलकर बोलने वाली 8 लोक कथाएँ: चल रे मटके टम्मक टू, चिड़िया का दाना, चिड़िया और कौआ, गाने वाला गधा, चींटी और टिड्डा, तीन मछलियाँ, बगुला भगत, चूहा बना शेर।", "en": "8 join-in folk tales: the rolling pot, the sparrow's grain, the sparrow and the crow, the singing donkey, the ant and the grasshopper, the three fish, the sly heron and the mouse who became a lion." },
+        { "hi": "कक्षा 1 के लिए 18 नई ख़ुद पढ़ने वाली किताबें, हर मात्रा के बाद, और ं ँ के लिए भी।", "en": "18 new read-it-yourself books for Grade 1, after each matra, and for ं and ँ too." },
+        { "hi": "रामायण की आगे की कहानी (शबरी, पुल, भरत, दिवाली) और कृष्ण-सुदामा, कालिया, ध्रुव, गणेश और चाँद, अर्जुन और एकलव्य की कहानियाँ।", "en": "The Ramayana continued (Shabari, the bridge, Bharat, the first Diwali), and stories of Krishna and Sudama, Kaliya, Dhruv, Ganesh and the moon, Arjun and Eklavya." },
+        { "hi": "त्योहारों की नई कहानियाँ: हामिद का चिमटा (ईद), सच्चा सौदा, पहाड़ों में क्रिसमस, लोहड़ी, पोंगल, राजा महाबली, और गुरुपर्व। त्योहार के दिन बड़े बच्चों को बड़ी कहानी मिलती है।", "en": "New festival stories: Hamid's tongs (Eid), the true bargain, Christmas in the hills, Lohri, Pongal, King Mahabali, and Gurpurab. On a festival's day, older children get the longer story." },
+        { "hi": "भारत भर की 11 कहानियाँ: पुण्यकोटि, शेख़चिल्ली, बटेरें, गोनू झा, बीरबल का हरा घोड़ा और ऊँट, तेनालीराम का लाल मोर और बैंगन, बरगद हिरन, तेजीमोला, लालकमल-नीलकमल।", "en": "11 tales from across India: Punyakoti, Sheikh Chilli, the wise quails, Gonu Jha, Birbal's green horse and the camel, Tenali Rama's red peacock and brinjals, the banyan deer, Tejimola, and Lalkamal and Neelkamal." },
+        { "hi": "कक्षा 3 और 4 के लिए 10 सच्ची कहानियाँ: कलाम, सालिम अली, गांधी जी, सावित्रीबाई फुले, रामानुजन, कल्पना चावला, सी. वी. रमन, रानी लक्ष्मीबाई, मिल्खा सिंह, सुधा चंद्रन।", "en": "10 true stories for Grades 3 and 4: Kalam, Salim Ali, Gandhi, Savitribai Phule, Ramanujan, Kalpana Chawla, C. V. Raman, Rani Lakshmibai, Milkha Singh and Sudha Chandran." },
+        { "hi": "जानो कैसे: बारिश, बीज से पौधा, दूध, शहद, चिट्ठी का सफ़र, दिन और रात, चाँद की कलाएँ, और ट्रेन की पटरी पर 8 किताबें।", "en": "How things work: 8 books on rain, seeds, milk, honey, a letter's journey, day and night, the moon's phases and train tracks." },
+        { "hi": "कक्षा 7 और 8 के लिए 12 गद्य पाठ: प्रेमचंद की पाँच कहानियाँ, रवींद्रनाथ की काबुलीवाला और तोता-कहानी, दो लोक कथाएँ, एक डायरी, एक चिट्ठी और एक ख़बर। कठिन शब्द छूकर उनका अर्थ सुनो।", "en": "12 prose pieces for Grades 7 and 8: five Premchand stories, Tagore's Kabuliwala and The parrot's training, two folk tales, a diary, a letter and a news report. Tap a hard word to hear its meaning." },
+        { "hi": "कक्षा 3 और 4 की कहानियों में अब शांत चलती तस्वीरें: पहले, बीच के और आख़िरी पन्ने पर, बिना आवाज़ के, ताकि ध्यान शब्दों पर रहे।", "en": "Grade 3 and 4 stories now have calm moving pictures on their first, middle and last pages, with no sound, so the eyes stay on the words." },
+        { "hi": "20 सबसे प्यारी कहानियों के अपने रंगीन कवर, और कहानी के पन्नों के पीछे उसी जगह का दृश्य: प्यासा कौआ, शेर और चूहा, कछुआ और खरगोश, हनुमान और सूरज, और भी।", "en": "The 20 best-loved stories have their own painted covers, and their place stands behind the pages: the thirsty crow, the lion and the mouse, the tortoise and the hare, Hanuman and the sun, and more." },
+        { "hi": "पाठ के बाद अब 14 तरह की शाबाशी, ज़्यादातर मेहनत की: \"तुमने हार नहीं मानी!\", \"तुमने ध्यान से सुना!\"", "en": "After a lesson the guide now praises in 14 ways, mostly the effort: \"You didn't give up!\", \"You listened carefully!\"" },
+        { "hi": "अब हर छोटा शब्द और अक्षर भी उसी एक आवाज़ में बोला जाता है।", "en": "Every short word and letter is now said in the same one narrator's voice." },
+        { "hi": "नन्हे और बालवाटिका के बच्चों के लिए आवाज़ अब थोड़ा धीरे बोलती है, शब्दों के बीच ज़रा रुककर (बड़ों के लिए › आवाज़ें)।", "en": "For Toddler and Kindergarten the voice now speaks a little slower, with a short pause between words (Grown-ups › Voices)." },
+        { "hi": "गणित के सारे सवाल, संकेत और \"क्यों\" अब उसी Google आवाज़ में, और कहानी के बाद \"साथ में बात करें\" के सवाल भी (🔊 दबाइए)।", "en": "Every maths question, hint and \"why\" is now in the same Google voice, and so are the talk-together questions after a story (tap 🔊)." },
+        { "hi": "ऐप अब और जल्दी खुलता है: पहली स्क्रीन तुरंत दिखती है, और कक्षा 7 और 8 पहली बार भी जल्दी खुलती हैं (उनके कॉमिक्स पीछे-पीछे आ जाते हैं)।", "en": "The app opens faster: the first screen shows at once, and Grades 7 and 8 open sooner the first time (their comics follow in the background)." }
+      ]
+    },
+    {
+      "version": "kkm-v33",
+      "date": "2026-11-18",
+      "hi": "कक्षा 2, 3 और 4 के लिए गणित",
+      "en": "Maths for Grades 2, 3 and 4",
+      "items": [
+        { "hi": "कक्षा 2, 3 और 4 के लिए गणित की नई दुनियाएँ: बाज़ार, कारख़ाना और जंतर मंतर।", "en": "New maths worlds for Grades 2, 3 and 4: the bazaar, the factory and Jantar Mantar." },
+        { "hi": "हिन्दी में दिन, महीने, ऋतुएँ, घड़ी और रुपये।", "en": "Days, months, seasons, the clock and rupees in Hindi." },
+        { "hi": "पहाड़े, हिन्दी वाले ढंग से गाकर।", "en": "Times tables (पहाड़े), sung the Hindi way." },
+        { "hi": "गणित की कहानियाँ और पहेलियाँ, बड़े बच्चों के लिए।", "en": "Maths stories and puzzles for older children." },
+        { "hi": "शो टाइम में गणित की नई कड़ियाँ।", "en": "New maths episodes in Show time." }
+      ]
+    }
+  ]
+}

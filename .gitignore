@@ -8,3 +8,6 @@ node_modules/
 voices/*.mp3
 browser-check/
 out/
+
+# review sheets for a Hindi teacher (node tools/review-sheet.mjs makes them)
+review/

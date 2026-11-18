@@ -160,13 +160,13 @@ Episodes are scripts in `content.json`, built from the app's own drawings, so ea
 
 ## Parent area
 
-**Press and hold the settings button (top right of the home screen) for 1 second.** A ring fills while you hold; a quick tap shows a reminder to hold.
+**Press and hold the settings button (top right of the home screen) for 1 second, then answer the sum written in words** ("What is thirteen plus four?"). A ring fills while you hold; a quick tap shows a reminder to hold. A young child can't read the sum; once answered, the grown-up gates stay open for 10 minutes.
 
 - **Children**: up to four children, each with their own grade, stars and settings, a guide character and an optional nickname. With more than one, the start screen asks "Who's playing?". Voice recordings are shared.
 - **Grade**: who is learning.
 - **Navigation**: *Stay in this grade* shows only this grade's worlds on the home screen. *Unlock every lesson* opens the whole path. *Math worlds* shows or hides the English math worlds.
 - **Language** (Hindi worlds): Hindi, English, or both. In "both", words are said in Hindi then English, and some rounds alternate languages. Math worlds are always in English.
-- **Play time and reading support**: a *daily limit* (15–60 minutes, or none). When it's reached, the next lesson shows a break screen with an idea for off-screen play; a lesson already started is never cut off, and a grown-up can hold *+10* for ten more minutes. *Captions* show everything the app says as text. *Tell it back* lets the child record themselves retelling each story.
+- **Play time and reading support**: *Easier reading* gives more space between words and lines on a cream page, for children who find reading hard. A *daily limit* (15–60 minutes, or none). When it's reached, the next lesson shows a break screen with an idea for off-screen play; a lesson already started is never cut off, and a grown-up can hold *+10* for ten more minutes. *Left-handed layout* puts the hint and "say it again" buttons on the left and the guide on the right. *Captions* show everything the app says as text. *Tell it back* lets the child record themselves retelling each story. *Read aloud and hear yourself* puts a record button on each page a child reads alone: they hear their own reading, then the narrator's.
 - **Sound**: background music and sound effects, each on or off. Music can also be switched off with the ♪ button on the home screen (handy in a car or a quiet room). Each world has its own tune, built from a four-chord progression: its opening phrase stays the same so the world sounds like itself, and the answering phrases change each time round, so it never loops every few seconds. In lessons the music plays quieter and all but stops while anything is said, so children hear the sounds they are learning.
 - **Voices**: pick the Hindi and English text-to-speech voice (the best installed voice is chosen by default), set the speed, and test them.
 - **Before a trip**: a checklist to run while there is still internet: saved for offline use, on the home screen, a Hindi voice on the device, family recordings, storage kept safe, and the daily limit.
@@ -176,7 +176,10 @@ Episodes are scripts in `content.json`, built from the app's own drawings, so ea
 - **Parent area language**: English or हिन्दी, switched at the top.
 - **Progress**: this week's minutes per day, lessons played and reviews due; Show time episodes watched; **Getting better** (each lesson's first score against its latest, as a before-and-after measure); the child's **story retellings**; stars per world, a "practise together" list (words, letters, matras and math skills the child often misses) and a "doing great" list, and a reset button.
 
-Everything stays on the device. Nothing is uploaded.
+- **What's new**: what changed in the last few versions. When a new version arrives, the refresh bar says what it brings.
+- **Privacy**: what stays on the device and what the app never does.
+
+Everything stays on the device. Nothing is uploaded. See [docs/PRIVACY.md](docs/PRIVACY.md): no accounts, ads, analytics or links out, and a security policy in `index.html` lets the app contact nothing but its own site.
 
 ## Voices and recordings
 
@@ -471,6 +474,17 @@ Phonics lessons list skills from [`js/phonicsgen.js`](js/phonicsgen.js), for exa
 Math lessons list skills from [`js/mathgen.js`](js/mathgen.js), for example `{ "game": "math", "config": { "skills": ["k-make10", "k-teens"] } }`. Each skill carries its NC standard code and makes problems at three levels. Kindergarten skills start with `k-`, Grade 1 skills with `g1-`. [CURRICULUM.md](CURRICULUM.md) lists them all. To add a new kind of problem, add a skill to `SKILLS` in `mathgen.js` (and a drawing to `js/art-math.js` if it needs a new picture); the tests check every skill at every level.
 
 Maths you do with your hands (`"game": "handson"`, [`js/games/handson.js`](js/games/handson.js)) names one activity and the skill it records: `{ "activity": "tenframe", "skill": "k-make10", "rounds": 5 }`. The activities: `tenframe` (fill the ten-frame), `numberline` (frog hops), `pattern` (the pattern train), `shapes` (build a picture from shapes), `measure` (lay cubes along a thing), `balance` (make both sides equal), `shop` (pay with coins) and `clock` (turn the hands). Each round ends when the thing is made right and ✓ is pressed; the 💡 shows the next step.
+
+## Checking the content
+
+`npm run check-content` checks every Hindi string against the word rules in `tools/style-rules.mjs`:
+
+- everyday words for ages 2–8 (a school word may follow in brackets from Grade 3);
+- one spelling for each word;
+- `।` for the full stop;
+- sentence length by grade.
+
+It also checks every picture against the art rules. `npm test` runs the same checks and fails on any problem.
 
 ## Run it locally
 
