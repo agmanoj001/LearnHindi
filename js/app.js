@@ -45,9 +45,11 @@ const rng = makeRng();
 
 // ---------- boot ----------
 
-// The content comes as a core and a pack per grade (js/packs.js, roadmap 2.1). When every pack is already
-// saved on this device they all load before the first screen. On a first open only the child's own grade
-// does, the home screen comes up, and the rest follows; any other screen waits for it (render() below).
+// The content comes as a core and a pack per grade (js/packs.js, roadmap 2.1). Only the child's own grade
+// loads before the first screen, on every open; the other grades and the check of the whole content follow
+// once it is up (even from the offline cache, loading them all and checking them first made a slow phone
+// wait about half a second longer for the play button). Any screen but the first few waits for them
+// (render() below).
 const getJSON = async (file) => {
   const res = await fetch(`content/${file}`, { cache: 'no-cache' });
   if (!res.ok) throw new Error(`${file}: ${res.status}`);
@@ -58,8 +60,7 @@ async function loadContent(level) {
   const early = window.__early || {};
   const core = await (early.core || getJSON('core.json')).catch(() => getJSON('core.json'));
   const all = core.packs || [];
-  const saved = typeof caches !== 'undefined' && navigator.serviceWorker?.controller ? (await Promise.all(all.map((p) => caches.match(`content/${p.file}`)))).every(Boolean) : false;
-  const first = saved ? all : firstPacks(core, level);
+  const first = firstPacks(core, level);
   const loaded = await Promise.all(first.map((p) => (early.packs?.[p.file] || getJSON(p.file)).catch(() => getJSON(p.file))));
   const rest = all.filter((p) => !first.includes(p));
   return { core, loaded, rest };
@@ -136,8 +137,9 @@ async function boot() {
     render(route);
   });
   render({ name: 'splash', depth: 0 });
-  // a first open: now fetch the rest of the content (roadmap 2.1 and 8.5)
-  if (state.startRest) requestAnimationFrame(() => setTimeout(state.startRest, 50));
+  // the rest of the content (roadmap 2.1 and 8.5): once the home screen is up, or after a second on the
+  // play button, so it doesn't slow the tap down; a screen that needs it asks for it at once (render below)
+  setTimeout(startRest, 1000);
 }
 
 // ---------- play time and the daily limit ----------
@@ -307,8 +309,15 @@ function goHome() {
 
 // screens that can come up before every grade's content is here (a first open)
 const EARLY_ROUTES = ['splash', 'onboard', 'placement', 'hub'];
+function startRest() {
+  const go = state.startRest;
+  state.startRest = null;
+  go?.();
+}
 function render(route) {
+  if (!state.contentComplete && route.name !== 'splash') requestAnimationFrame(() => setTimeout(startRest, 50));
   if (!state.contentComplete && !EARLY_ROUTES.includes(route.name)) {
+    startRest();
     // wait for the rest of the content (a moment, on a first open), then open the screen asked for
     const t = ++state.token;
     app.querySelector('.screen')?.classList.add('waiting');

@@ -4,12 +4,14 @@
 //   3. a file in the audio/ folder named in content.json (audio/ is git-ignored)
 //   4. the browser's text-to-speech (hi-IN / en-US)
 import { clips } from './storage.js';
-import { savedVoiceKeys, voiceUrl, VOICE_CACHE } from './voicepack.js';
+import { savedVoices, voiceBlob } from './voicepack.js';
 import { splitTemplate, fillTemplate, phrasePartKey, textKey } from './logic.js';
 
 const TTS_LANG = { hi: 'hi-IN', en: 'en-US' };
 let clipKeys = new Set();
-let packKeys = new Set();
+// the voice pack saved on this device (voicepack.js savedVoices: which recordings, and where), once read
+let pack = null;
+let packReady = null;
 let packOn = true;
 const clipUrls = new Map();
 const failedFiles = new Set();
@@ -35,7 +37,11 @@ function setSpeaking(on) {
 
 export async function initAudio() {
   clipKeys = new Set(await clips.keys());
-  packKeys = await savedVoiceKeys().catch(() => new Set());
+  // which recordings the voice pack has saved: read alongside the first screen, not before it (a few small
+  // entries; a line said before then waits for it, see playSegment)
+  packReady = savedVoices()
+    .then((s) => (pack = s))
+    .catch(() => null);
   if ('speechSynthesis' in window) {
     speechSynthesis.getVoices();
     speechSynthesis.addEventListener?.('voiceschanged', () => speechSynthesis.getVoices());
@@ -48,29 +54,27 @@ export function refreshClipKeys(keys) {
   clipKeys = new Set(keys);
 }
 
-// The story voice pack: which recordings are on the device, and whether to use them.
-export function setVoicePack(keys, on = packOn) {
-  if (keys) {
-    packKeys = new Set(keys);
+// The story voice pack: which recordings are on the device (voicepack.js savedVoices), and whether to use them.
+export function setVoicePack(state, on = packOn) {
+  if (state) {
+    pack = state;
     for (const p of packUrls.values()) p.then((u) => u && URL.revokeObjectURL(u));
     packUrls.clear();
-    voiceCache = null;
   }
   packOn = on;
 }
 
 // ---- playing the voice pack quickly ----
-// A recording is read straight from the offline cache by its exact address (a fast, indexed lookup),
-// kept as an in-memory blob, and fetched before it is needed: play() asks for every recording of the
-// sequence at once, and games ask for the next page while this one plays.
-let voiceCache = null;
+// A recording is a slice of its bundle in the offline cache (voicepack.js voiceBlob), kept as an
+// in-memory URL, and fetched before it is needed: play() asks for every recording of the sequence at
+// once, and games ask for the next page while this one plays.
 const packUrls = new Map();
 function packKeyFor(seg) {
-  if (!packOn || seg.pause) return null;
-  if (seg.clipKey && packKeys.has(seg.clipKey)) return seg.clipKey;
-  if (seg.text && packKeys.size) {
+  if (!packOn || seg.pause || !pack) return null;
+  if (seg.clipKey && pack.at.has(seg.clipKey)) return seg.clipKey;
+  if (seg.text && pack.at.size) {
     const tk = textKey(seg.voice ? `${seg.lang}.${seg.voice}` : seg.lang, seg.text);
-    if (packKeys.has(tk)) return tk;
+    if (pack.at.has(tk)) return tk;
   }
   return null;
 }
@@ -78,15 +82,10 @@ function packUrl(key) {
   if (!packUrls.has(key)) {
     packUrls.set(
       key,
-      (async () => {
-        try {
-          voiceCache ||= await caches.open(VOICE_CACHE);
-          const res = await voiceCache.match(voiceUrl(key));
-          return res ? URL.createObjectURL(await res.blob()) : null;
-        } catch {
-          return null;
-        }
-      })(),
+      voiceBlob(key).then(
+        (blob) => (blob ? URL.createObjectURL(blob) : null),
+        () => null,
+      ),
     );
     // keep a few hundred in memory; let the oldest go
     if (packUrls.size > 400) {
@@ -169,8 +168,8 @@ async function clipUrl(key) {
 }
 
 export function hasRecording(seg) {
-  if (seg.clipKey && (clipKeys.has(seg.clipKey) || (packOn && packKeys.has(seg.clipKey)))) return true;
-  if (packOn && seg.text && packKeys.has(textKey(seg.voice ? `${seg.lang}.${seg.voice}` : seg.lang, seg.text))) return true;
+  if (seg.clipKey && (clipKeys.has(seg.clipKey) || (packOn && pack?.at.has(seg.clipKey)))) return true;
+  if (packOn && seg.text && pack?.at.has(textKey(seg.voice ? `${seg.lang}.${seg.voice}` : seg.lang, seg.text))) return true;
   return !!(seg.file && !failedFiles.has(seg.file));
 }
 
@@ -183,7 +182,10 @@ async function playSegment(seg, mine) {
   if (mine !== token) return;
   if (url && (await playUrl(url, seg, prefs.slow || 1))) return;
   if (mine !== token) return;
-  // the voice pack (a line with no name of its own is recorded under its text)
+  // the voice pack (a line with no name of its own is recorded under its text); the first line said may
+  // come before the app has read which recordings are saved
+  if (packOn && !pack && packReady) await packReady;
+  if (mine !== token) return;
   const pk = packKeyFor(seg);
   if (pk) {
     const purl = await packUrl(pk);

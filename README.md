@@ -160,7 +160,9 @@ Episodes are scripts in `content.json`, built from the app's own drawings, so ea
 
 ## Parent area
 
-**Press and hold the settings button (top right of the home screen) for 1 second, then answer the sum written in words** ("What is thirteen plus four?"). A ring fills while you hold; a quick tap shows a reminder to hold. A young child can't read the sum; once answered, the grown-up gates stay open for 10 minutes.
+**Press and hold the settings button (top right of the home screen) for 1 second.** A ring fills while you hold; a quick tap shows a reminder to hold.
+
+The area opens on **Progress**, with a switch between the child's grade and all grades (it filters Play insights and the worlds' progress; time played is the child's). Everything else is folded into five groups that open with a tap: *Child and grade*, *Play and reading*, *Voices and recordings*, *Trips, backup and photo* and *About the app*. A group opens by itself when something in it needs doing (saved voices to update).
 
 - **Children**: up to four children, each with their own grade, stars and settings, a guide character and an optional nickname. With more than one, the start screen asks "Who's playing?". Voice recordings are shared.
 - **Grade**: who is learning.
@@ -196,7 +198,7 @@ If the device has no Hindi voice, the home screen shows a card with the steps fo
 
 ### The voice pack (`voices/`)
 
-One MP3 per line the narrator reads: each story's title, pages, questions and moral (`story-<id>-title_hi.mp3`, `story-<id>-3_en.mp3`, `story-<id>-q1_hi.mp3`, `story-<id>-moral_hi.mp3`), and the app's own voice: prompts (`phrase-great_hi.mp3`; a prompt with a word in it is recorded in pieces around the word, `phrase-thisIs-1_hi.mp3` = यह and `phrase-thisIs-2_hi.mp3` = है), every picture word (`cow_hi.mp3`) and the guides' jokes (`mascot-1_hi.mp3`). Story lines download with their grade; the app's own voice comes with every grade. All of it is made with Google Cloud Text-to-Speech, plus `voices/index.json` (which voice, each file's size, each story's grade). They are computer voices, so unlike family recordings they may live in this repo. They are **not** part of the app's first download: the service worker serves them from a separate cache, `kkm-voices`, that the grown-ups' area fills and that survives app updates.
+One MP3 per line the narrator reads: each story's title, pages, questions and moral (`story-<id>-title_hi.mp3`, `story-<id>-3_en.mp3`, `story-<id>-q1_hi.mp3`, `story-<id>-moral_hi.mp3`), and the app's own voice: prompts (`phrase-great_hi.mp3`; a prompt with a word in it is recorded in pieces around the word, `phrase-thisIs-1_hi.mp3` = यह and `phrase-thisIs-2_hi.mp3` = है), every picture word (`cow_hi.mp3`) and the guides' jokes (`mascot-1_hi.mp3`). Story lines download with their grade; the app's own voice comes with every grade. All of it is made with Google Cloud Text-to-Speech, plus `voices/index.json` (which voice, each file's size, each story's grade). They are computer voices, so unlike family recordings they may live in this repo. They are **not** part of the app's first download: the grown-ups' area downloads them as bundles (`voices/packs/*.bin`, about 7.5 MB each, made by `tools/voice-bundles.mjs`) and keeps each bundle whole in a separate cache, `kkm-voices-2`, that survives app updates; a recording plays as a slice of its bundle (`js/voicepack.js`). Before November 2026 each recording was saved as its own entry, 31,000 of them, which phones were slow to write and then could not list; recordings saved that way (cache `kkm-voices`) still play, and *Update the saved voices* replaces them.
 
 To make or refresh them after editing stories (only new or changed lines are made again):
 

@@ -1214,6 +1214,9 @@ function myShelf(api, redraw) {
 // ---------- parent gate: press and hold ----------
 // Holding (not tapping) keeps small children out of the grown-ups' area. A quick tap shows a hint,
 // a ring fills while the button is held, and it opens after GATE_HOLD_MS. Enter or Space can be held too.
+// (Until November 2026 a sum written in words followed the hold; a family found it a chore, and the app
+// has no links out and nothing to buy, which is what the stores ask a harder gate to guard. If either is
+// ever added, a question a young child can't answer must guard it: roadmap 8.4.)
 
 export const GATE_HOLD_MS = 1000;
 
@@ -1246,7 +1249,7 @@ export function parentGate(api, { onDone = () => api.go('parent'), html = ICONS.
     btn.classList.remove('show-hint');
     api.sfx?.pop?.();
     api.sfx?.haptic?.(30);
-    grownUpCheck(api, onDone);
+    onDone();
   };
   const begin = () => {
     if (start) return;
@@ -1273,60 +1276,6 @@ export function parentGate(api, { onDone = () => api.go('parent'), html = ICONS.
   btn.addEventListener('blur', reset);
   btn.addEventListener('contextmenu', (e) => e.preventDefault());
   return btn;
-}
-
-// ---------- the grown-up question (roadmap 8.4) ----------
-// After the hold, a sum written in words ("twenty-six plus seven"): a young child can't read it, a grown-up
-// answers in a second. The app stores require a gate like this before settings and anything outside play.
-// Once answered, the gates stay open for a few minutes so a grown-up isn't asked again and again.
-
-export const GROWN_UP_MINUTES = 10;
-let grownUpUntil = 0;
-
-export function grownUpQuestion(rng = Math.random, numbers = []) {
-  const a = 11 + Math.floor(rng() * 19); // 11 to 29
-  const b = 3 + Math.floor(rng() * 7); // 3 to 9
-  const word = (n, lg) => numbers[n - 1]?.[lg] || String(n);
-  return { a, b, answer: a + b, hi: `${word(a, 'hi')} और ${word(b, 'hi')} मिलाकर कितने?`, en: `What is ${word(a, 'en')} plus ${word(b, 'en')}?` };
-}
-
-export function grownUpCheck(api, onDone) {
-  if (Date.now() < grownUpUntil) return onDone();
-  let q = grownUpQuestion(api.rng || Math.random, api.state.content?.numbers);
-  const ask = el('p', { class: 'grown-q' });
-  const showQ = () => ask.replaceChildren(el('b', { lang: 'hi', text: q.hi }), el('span', { text: q.en }));
-  showQ();
-  const input = el('input', { class: 'grown-in', type: 'text', inputmode: 'numeric', pattern: '[0-9]*', autocomplete: 'off', 'aria-label': 'Answer in numbers' });
-  const sheet = el('div', { class: 'talk-sheet grown-sheet', role: 'dialog', 'aria-modal': 'true', 'aria-label': 'For grown-ups' });
-  const close = () => sheet.remove();
-  const check = () => {
-    if (Number(input.value.trim()) === q.answer) {
-      grownUpUntil = Date.now() + GROWN_UP_MINUTES * 60 * 1000;
-      close();
-      return onDone();
-    }
-    // a wrong answer: a new sum, so guessing doesn't help
-    card.classList.remove('shake');
-    void card.offsetWidth;
-    card.classList.add('shake');
-    q = grownUpQuestion(api.rng || Math.random, api.state.content?.numbers);
-    showQ();
-    input.value = '';
-    input.focus();
-  };
-  input.addEventListener('keydown', (e) => e.key === 'Enter' && check());
-  const card = el('form', { class: 'talk-card grown-card', onsubmit: (e) => (e.preventDefault(), check()) }, [
-    el('header', { class: 'talk-head' }, [
-      el('div', {}, [el('b', { lang: 'hi', text: 'बड़ों के लिए' }), el('small', { text: 'For grown-ups: answer in numbers' })]),
-      el('button', { type: 'button', class: 'round-btn small', 'aria-label': 'Close', html: ICONS.back, onclick: close }),
-    ]),
-    ask,
-    el('div', { class: 'grown-row' }, [input, el('button', { type: 'submit', class: 'btn primary', text: 'OK' })]),
-  ]);
-  sheet.append(card);
-  sheet.addEventListener('click', (e) => e.target === sheet && close());
-  document.body.append(sheet);
-  input.focus();
 }
 
 // ---------- break time: the daily limit was reached ----------

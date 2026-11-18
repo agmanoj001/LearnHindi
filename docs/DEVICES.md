@@ -15,20 +15,20 @@ For each one it times a first open (nothing saved yet) and an open from the devi
 
 ## Where it stands (November 2026)
 
-Medians of five runs, with the app shell (the first screen painted by `index.html` itself; [PERFORMANCE.md](PERFORMANCE.md), "Launch"). The times are to the play button.
+Medians of three runs, with the app shell (the first screen painted by `index.html` itself; [PERFORMANCE.md](PERFORMANCE.md), "Launch") and only the child's grade loaded before the play button on later opens. The times are to the play button.
 
 | Device | First open | then home | Next opens | then home | Memory (JS) | Most elements | Longest freeze | Lighter animations |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Android Go phone, CPU 6x, slow 4G | 3524 ms | 1037 ms | 1620 ms | 407 ms | 20 MB | 6802 | 378 ms | yes, on its own |
-| Older iPad, CPU 3x, 4G | 1030 ms | 820 ms | 592 ms | 421 ms | 15 MB | 11065 | 219 ms | no (not needed) |
+| Android Go phone, CPU 6x, slow 4G | 3213 ms | 777 ms | 596 ms | 565 ms | 21 MB | 6793 | 232 ms | yes, on its own |
+| Older iPad, CPU 3x, 4G | 995 ms | 564 ms | 324 ms | 443 ms | 22 MB | 7288 | 126 ms | no (not needed) |
 
-Before the app shell, in the same runs: the Android Go phone 3740 ms on a first open and 1426 ms on next opens, the iPad 1082 ms and 996 ms. The phone's next opens differ between runs by ±200 ms; eight runs taking turns between the two versions gave the same mean (1.34 s), but the screen now shows at once (about 0.3 s) instead of at the play button.
+Before the app shell: the Android Go phone 3740 ms on a first open and 1426 ms on next opens, the iPad 1082 ms and 996 ms. Next opens on the phone came down to 0.6 s once a later open stopped loading and checking every grade before the play button.
 
 What this says:
 
 - **Memory is not a worry.** At most about 20 MB of JavaScript memory, where a 2 GB phone gives a browser tab a few hundred megabytes. The stories, comics and voices are loaded per grade (2.1), and pictures are drawn as they come into view.
 - **No freezes a child would notice.** The longest single task is about a third of a second, on the slowest device, while a new screen opens.
-- **Opening from the device is quick on both**: the first screen shows in about 0.3 s, and the play button is ready within 1.7 s on the slowest phone.
+- **Opening from the device is quick on both**: the first screen, play button included, shows in about 0.3 s, and the button is live within 0.6 s on the slowest phone.
 - **The very first open over slow 4G** takes about 3.5 s on the Android Go phone to the play button, as long as the download itself takes, with the first screen painted from the start. That is at the budget in [PERFORMANCE.md](PERFORMANCE.md). Every later open comes from the device.
 - **Lighter animations on a 2 GB phone.** Measuring frames alone did not catch the Android Go phone: an idle screen draws smoothly even on a slow chip, and it is the moment a screen opens that stutters. So a phone that reports 2 GB of memory or less now starts with the lighter animations (`lowMemoryDevice` in `js/motion.js`). Grown-ups can still choose "Full" in Grown-ups › Play time and reading support › Animations. Safari doesn't report memory, so an iPad decides by measuring, as before.
 

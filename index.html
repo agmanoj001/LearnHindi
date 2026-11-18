@@ -44,13 +44,19 @@
         display: grid;
         place-items: center;
         align-content: center;
-        gap: 28px;
+        gap: 22px;
         text-align: center;
+      }
+      /* the guides' parade comes here: its height, so the title and the button sit where the app draws them
+         (styles.css .parade-item: 3 rows of 10, overlapping a little) */
+      .boot-parade {
+        height: calc(3 * clamp(30px, min(14vmin, (100vw - 32px) / 10.6), 112px) - 0.36 * clamp(64px, 16vmin, 120px) + 10px);
       }
       .boot-hi {
         font-size: clamp(44px, 9vmin, 72px);
         font-weight: 800;
         line-height: 1;
+        padding-top: 0.12em;
         background: linear-gradient(90deg, #6c63ff, #3d7bff);
         -webkit-background-clip: text;
         background-clip: text;
@@ -58,20 +64,30 @@
       }
       .boot-en {
         display: block;
-        margin-top: 6px;
         font-size: clamp(13px, 2.2vmin, 17px);
         font-weight: 600;
         color: #6b7090;
         letter-spacing: 0.04em;
         text-transform: uppercase;
       }
+      /* the play button, as the app draws it (styles.css .splash-play.bubble.green); it comes alive when the
+         app is ready, in the same place */
       .boot-play {
         width: 132px;
         height: 132px;
         border-radius: 50%;
-        background: linear-gradient(145deg, #3ddc97, #1fae6c);
-        box-shadow: 0 18px 40px -12px rgba(31, 174, 108, 0.7);
-        opacity: 0.55;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(180deg, #4be3a0, #22b673);
+        box-shadow:
+          0 6px 0 #158a55,
+          0 12px 20px -8px rgba(31, 35, 64, 0.35),
+          inset 0 3px 0 rgba(255, 255, 255, 0.7);
+      }
+      .boot-play svg {
+        width: 56px;
+        height: 56px;
+        margin-left: 8px;
       }
     </style>
     <noscript><link rel="stylesheet" href="styles.css" /></noscript>
@@ -165,8 +181,11 @@
   <body>
     <div id="app">
       <div class="boot">
+        <div class="boot-parade" aria-hidden="true"></div>
         <div><span class="boot-hi" lang="hi">खेल-खेल में</span><span class="boot-en">Khel Khel Mein</span></div>
-        <div class="boot-play" aria-hidden="true"></div>
+        <div class="boot-play" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M8 5.2v13.6a1 1 0 0 0 1.5.86l11-6.8a1 1 0 0 0 0-1.72l-11-6.8A1 1 0 0 0 8 5.2z" fill="#fff" /></svg>
+        </div>
       </div>
       <noscript>Khel Khel Mein needs JavaScript.</noscript>
     </div>

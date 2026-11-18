@@ -1,7 +1,8 @@
 // Offline support: cache the app shell, then serve from cache and refresh in the background.
-const VERSION = 'kkm-v34';
-// the story voice pack is saved by the page (Grown-ups › Story voices) into its own cache, kept across versions
-const VOICES = 'kkm-voices';
+const VERSION = 'kkm-v35';
+// the story voice pack is saved by the page (Grown-ups › Story voices, js/voicepack.js) into its own caches
+// (kkm-voices-2; kkm-voices for recordings saved the old way), kept across versions
+const isVoices = (name) => name.startsWith('kkm-voices');
 const SHELL = [
   './',
   'index.html',
@@ -119,7 +120,7 @@ self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches
       .keys()
-      .then((keys) => Promise.all(keys.filter((k) => k !== VERSION && k !== VOICES).map((k) => caches.delete(k))))
+      .then((keys) => Promise.all(keys.filter((k) => k !== VERSION && !isVoices(k)).map((k) => caches.delete(k))))
       .then(() => self.clients.claim()),
   );
 });
@@ -128,12 +129,9 @@ self.addEventListener('fetch', (event) => {
   const req = event.request;
   const url = new URL(req.url);
   if (req.method !== 'GET' || url.origin !== location.origin) return;
-  // voice recordings: from the voice pack when saved, else from the network (not kept in the app cache)
-  if (url.pathname.includes('/voices/')) {
-    // an exact match: ignoreSearch would make the browser look through every one of ~15,000 recordings
-    event.respondWith(caches.open(VOICES).then(async (c) => (await c.match(req)) || fetch(req).catch(() => new Response('Offline', { status: 503 }))));
-    return;
-  }
+  // the voice pack: the page downloads it and reads it from its own cache (js/voicepack.js), so its files
+  // go to the network as they are (the newest index included) and are never kept in the app cache
+  if (url.pathname.includes('/voices/')) return;
   event.respondWith(
     caches.open(VERSION).then(async (cache) => {
       const key = req.mode === 'navigate' ? 'index.html' : req;

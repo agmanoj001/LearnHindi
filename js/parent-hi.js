@@ -9,8 +9,13 @@ const HI = {
   'Playing now': 'अभी खेल रहा है',
   Backup: 'बैकअप',
   'Story voices': 'कहानी की आवाज़ें',
-  'New, faster voices are ready: no pauses before each line, and every word clear. Your saved voices keep working until you update.':
-    'नई, तेज़ आवाज़ें तैयार हैं: हर पंक्ति से पहले कोई रुकावट नहीं, और हर शब्द साफ़। जब तक आप अपडेट न करें, पुरानी आवाज़ें चलती रहेंगी।',
+  'Child and grade': 'बच्चा और कक्षा',
+  'Play and reading': 'खेल और पढ़ाई',
+  'Voices and recordings': 'आवाज़ें और रिकॉर्डिंग',
+  'Trips, backup and photo': 'सफ़र, बैकअप और फ़ोटो',
+  'About the app': 'ऐप के बारे में',
+  'All grades': 'सभी कक्षाएँ',
+  'Show progress for': 'किसकी प्रगति दिखाएँ',
   'A natural recorded voice reads every story (title, pages, questions and lesson) and says the app’s prompts and words, in Hindi and English, instead of the device’s computer voice. Download once and it works offline. Anything you record yourself always plays instead.':
     'एक असली-सी रिकॉर्ड की हुई आवाज़ हर कहानी (नाम, पन्ने, सवाल और सीख) पढ़ती है और ऐप के निर्देश और शब्द बोलती है, हिंदी और अंग्रेज़ी में, फ़ोन की कंप्यूटर आवाज़ की जगह। एक बार डाउनलोड करें, फिर बिना इंटरनेट चलती है। जो आप ख़ुद रिकॉर्ड करें, वही बजता है।',
   'Use the story voices': 'कहानी की आवाज़ें चलाएँ',
@@ -18,6 +23,7 @@ const HI = {
   'Checking…': 'देख रहे हैं…',
   Remove: 'हटाएँ',
   'The story voices are not available yet. Stories use the device voice (or your recordings).': 'कहानी की आवाज़ें अभी तैयार नहीं हैं। कहानियाँ फ़ोन की आवाज़ (या आपकी रिकॉर्डिंग) में चलती हैं।',
+  'The story voices could not be read on this device. Stories use the device voice (or your recordings).': 'इस फ़ोन पर कहानी की आवाज़ें पढ़ी नहीं जा सकीं। कहानियाँ फ़ोन की आवाज़ (या आपकी रिकॉर्डिंग) में चलती हैं।',
   'Record a story': 'कहानी रिकॉर्ड करें',
   'Read a whole story in your own voice: tap Record, read the line, tap Stop, and the next line comes up. Your recordings play instead of the story voices, on this device only.':
     'पूरी कहानी अपनी आवाज़ में पढ़ें: रिकॉर्ड दबाएँ, पंक्ति पढ़ें, रोकें दबाएँ, और अगली पंक्ति आ जाएगी। आपकी रिकॉर्डिंग कहानी की आवाज़ों की जगह बजती है, सिर्फ़ इसी फ़ोन पर।',
@@ -191,7 +197,13 @@ const MORE = [
   [/^Download for (.+) \(([\d.]+) MB\)$/, '$1 के लिए डाउनलोड करें ($2 MB)'],
   [/^Download all stories \(([\d.]+) MB\)$/, 'सारी कहानियाँ डाउनलोड करें ($1 MB)'],
   [/^Download everything \(([\d.]+) MB\)$/, 'सब कुछ डाउनलोड करें ($1 MB)'],
-  [/^Get the faster voices \(([\d.]+) MB\)$/, 'नई, तेज़ आवाज़ें लें ($1 MB)'],
+  [/^This grade \((.+)\)$/, 'यह कक्षा ($1)'],
+  [/^Update the saved voices \(([\d.]+) MB\)$/, 'सहेजी हुई आवाज़ें अपडेट करें ($1 MB)'],
+  [/^Update for (.+) \(([\d.]+) MB\)$/, '$1 के लिए अपडेट करें ($2 MB)'],
+  [
+    /^Saved on this device: (\d+) of (\d+) recordings, the old way\. .*$/,
+    'इस फ़ोन में: $2 में से $1 रिकॉर्डिंग, पुराने तरीक़े से सहेजी हुई। इन्हें एक बार अपडेट करें, ताकि ये जल्दी चलें: ऐप इन्हें कुछ बड़ी फ़ाइलों में फिर से डाउनलोड करेगा, फिर पुरानी कॉपियाँ हटा देगा। तब तक ये चलती रहेंगी।',
+  ],
   [/^Downloading… ([\d.]+) MB of ([\d.]+) MB$/, 'डाउनलोड हो रहा है… $2 MB में से $1 MB'],
   [/^Downloading… (\d+) of (\d+)$/, 'डाउनलोड हो रहा है… $2 में से $1'],
   [/^(\d+) of (\d+) lines recorded$/, '$2 में से $1 पंक्तियाँ रिकॉर्ड हुईं'],

@@ -52,10 +52,26 @@ The first screen painted (Core Web Vitals' largest contentful paint; before the 
 - **The app shell.** `index.html` paints the first screen itself, the title and the play circle, from a few lines of CSS in the page, before any code, stylesheet or content has arrived. The stylesheet no longer holds up that first paint: a script adds it, and the app waits for it before drawing its own screens in the same place, so nothing jumps. The shell uses the phone's own font, so the app's fonts still download only after the content (naming them in the shell made a first open of Grade 7 over slow 4G about 1.5 seconds slower to become playable, which the measurement caught).
 - **Grade 7 and 8 load less before the first screen.** Their comics are most of their content (716 KB of Grade 7's 880 KB), and no first screen shows them, so each grade's comics are a pack of their own (`grade7-comics.<hash>.json`) that loads after the home screen is up, like the other grades' packs; a comic opened in that moment waits for it, as every screen but the first few already does. And Kindergarten's stories, for the Grade 7–8 "read to your brother or sister" mission, no longer come first: the mission card counts from the story ids in the core. Grade 7's download before the play button went from 608 KB to 436 KB.
 
+### Later opens, and the play button at once (November 2026)
+
+A family reported that on their phone the play button came up late. Two causes, both on later opens:
+
+- **The voice pack.** With every recording downloaded, the app listed the 31,000 entries of the voice cache before its first screen; the browser refused ("Operation too large") after making the phone wait. The voices are now kept as about 90 whole bundles and read alongside the first screen, not before it (`js/voicepack.js`, README "The voice pack").
+- **Everything before the play button.** From the offline cache, a later open loaded every grade's content and checked all of it before the play button. Now it loads only the child's grade, like a first open; the other grades and the check follow once the home screen is up, or after a second on the play button (a screen that needs them asks for them at once). On the emulated Android Go phone that halved the wait: 1.62 s → 0.60 s.
+- **The play button is drawn at once.** The app shell now draws the real button, play sign and all, exactly where the app puts it (a space is kept for the guides' parade above the title), so it is on screen in about a quarter of a second and comes alive in place.
+
+Later opens to the play button (medians of five runs, CPU 4x, slow 4G), across the day's changes:
+
+| Grade | Before the launch work | With the app shell | Now |
+| --- | --- | --- | --- |
+| Toddler | 1149 | 829 | **416** |
+| Kindergarten | 1166 | 802 | **428** |
+| Grade 7 | 1089 | 716 | **441** |
+
 ## What keeps it there
 
 - **The app shell**: the first screen is painted by `index.html` itself, before anything else arrives (above).
-- **Content loaded per grade** (2.1): the core and the child's own grade before the first screen; the other grades, and Grade 7's and 8's comics, after it.
+- **Content loaded per grade** (2.1): the core and the child's own grade before the first screen, on every open; the other grades, Grade 7's and 8's comics and the check of the whole content after it.
 - **The content starts downloading at once**: a few lines in `index.html` fetch the core and the child's grade while the code is still loading, instead of after it.
 - **No waterfall of imports**: `index.html` preloads every module the first screen needs (`<link rel="modulepreload">`), so they download together instead of one import after another. `npm test` fails if that list and the code's imports drift apart.
 - **Code loaded when its screen opens**: the content checks, Show time and Story radio, the grown-ups' area, the comic maker and the quiz duel. The first screen needs 36 modules, 194 KB compressed, instead of about 330 KB.

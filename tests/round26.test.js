@@ -791,8 +791,13 @@ test("index.html preloads exactly the modules the first screen imports, and star
   assert.match(html, /window\.__early = early/);
   assert.doesNotMatch(html, /rel="preload"[^>]*font/);
   assert.match(read('js/app.js'), /window\.__early/);
-  // the other grades' packs wait until the first screen is up
-  assert.match(read('js/app.js'), /requestAnimationFrame\(\(\) => setTimeout\(state\.startRest/);
+  // only the child's grade before the first screen, on every open; the other grades wait until the home
+  // screen is up (or a second on the play button), unless a screen needs them sooner
+  const app = read('js/app.js');
+  assert.match(app, /const first = firstPacks\(core, level\);/);
+  assert.match(app, /setTimeout\(startRest, 1000\)/);
+  assert.match(app, /route\.name !== 'splash'\) requestAnimationFrame\(\(\) => setTimeout\(startRest, 50\)\)/);
+  assert.match(app, /EARLY_ROUTES\.includes\(route\.name\)\) \{\n    startRest\(\);/);
 });
 
 test('long lists draw their pictures as they come near the screen', () => {
@@ -902,7 +907,7 @@ test('sharing sends the backup as a text file through the share sheet; without i
 
 test('the reminder is in the grown-ups\' area (in Hindi too), with a dot on the home screen\'s grown-ups button', () => {
   const parent = read('js/parent.js');
-  assert.match(parent, /backupReminder\(api\),\n\s+childrenSection\(api\)/);
+  assert.match(parent, /backupReminder\(api\),\n\s+group\(\n\s+'Progress'/);
   assert.match(parent, /accept: 'application\/json,\.json,text\/plain,\.txt'/);
   assert.match(read('js/screens.js'), /parentGate\(api, \{ cls: backupReminderDue\(\) \? 'backup-due' : '' \}\)/);
   assert.match(css, /\.gate\.backup-due::after/);

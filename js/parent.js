@@ -10,7 +10,7 @@ import { SAMAY_SKILLS } from './samay.js';
 import { pahadaName } from './pahade.js';
 import { worldStars, worldLessons, lessonRecord, weekSummary, dueReviews, learningGains, usageInsight, GAME_NAMES } from './curriculum.js';
 import { refreshClipKeys, voicesFor, setVoicePrefs, hasVoice, play, setVoicePack } from './audio.js';
-import { loadIndex, savedVoiceKeys, savedAudioVersion, packFiles, bundlesFor, downloadVoices, removeVoices, formatMB } from './voicepack.js';
+import { loadIndex, savedVoices, currentKeys, packFiles, bundlesFor, downloadVoices, removeVoices, formatMB } from './voicepack.js';
 import { deviceKind, VOICE_SETUP, comprehensionSummary, readAloneList, voicePace } from './logic.js';
 import { KEYS, save, load, clips, resizeImage, addProfile, removeProfile, MAX_PROFILES, makeBackup, readBackup, localKeys, keepOffline, exportClips, readClipsFile, BACKUP_AT, BACKUP_LATER, backupReminderDue, backupLaterUntil, shareBackup, canShareFiles } from './storage.js';
 import { MASCOTS, MASCOT_IDS, mascotSvg } from './mascot.js';
@@ -20,6 +20,9 @@ import { translateParent, translateText } from './parent-hi.js';
 
 // the parent area in Hindi when a grown-up picks it
 const localize = (api, root) => api.state.settings.parentLang === 'hi' && translateParent(root);
+
+// Progress for the child's grade, or for every grade (the grown-ups' "This grade / All grades" switch)
+let progressScope = 'grade';
 
 export function showParent(api) {
   api.stop();
@@ -176,11 +179,11 @@ export function showParent(api) {
   const worldRows = content.worlds.map((w) => {
     const st = worldStars(api.state.progress, w);
     const done = worldLessons(w).filter((l) => lessonRecord(api.state.progress, l.id).stars > 0).length;
-    return el('div', { class: 'world-row' }, [
+    return [w, el('div', { class: 'world-row' }, [
       el('span', { class: 'world-row-name', text: `${content.levels.find((l) => l.id === w.level).name.en} · ${w.name.en}` }),
       el('span', { class: 'world-row-bar', style: { '--p': String(st.max ? st.got / st.max : 0) } }),
       el('span', { class: 'world-row-num', text: `${done}/${worldLessons(w).length} lessons · ${st.got}★` }),
-    ]);
+    ])];
   });
 
   const reset = el('button', {
@@ -194,151 +197,205 @@ export function showParent(api) {
     },
   });
 
+  // Play insights and the worlds, for this grade or all of them (the time played is the child's, whatever
+  // they played)
+  const levelName = content.levels.find((l) => l.id === s.level)?.name.en || s.level;
+  const scoped = el('div', { class: 'scoped' });
+  const drawScoped = () => {
+    const only = progressScope === 'grade' ? [s.level] : null;
+    scoped.replaceChildren(insightView(api, only), el('div', { class: 'world-rows' }, worldRows.filter(([w]) => !only || only.includes(w.level)).map(([, row]) => row)));
+    localize(api, scoped);
+  };
+  const scopeRow = el(
+    'div',
+    { class: 'seg scope', role: 'radiogroup', 'aria-label': 'Show progress for' },
+    [
+      ['grade', `This grade (${levelName})`],
+      ['all', 'All grades'],
+    ].map(([value, text]) =>
+      el('label', {}, [
+        el('input', {
+          type: 'radio',
+          name: 'scope',
+          value,
+          checked: progressScope === value,
+          onchange: () => {
+            progressScope = value;
+            drawScoped();
+          },
+        }),
+        el('span', { text }),
+      ]),
+    ),
+  );
+  drawScoped();
+
+  // The screen in a few groups, the most used first: Progress is open, the rest fold away until tapped
+  const group = (title, open, ...kids) => el('details', { class: 'fold', open }, [el('summary', { class: 'fold-head' }, [el('h2', { text: title })]), ...kids.filter(Boolean)]);
+
   api.app.replaceChildren(
     el('div', { class: 'screen settings enter' }, [
       el('div', { class: 'settings-head' }, [el('button', { class: 'round-btn', 'aria-label': 'Done', html: ICONS.back, onclick: () => api.back() }), el('h1', { text: 'Grown-ups' }), parentLangSwitch(api)]),
       // once a month: share a backup (roadmap 2.2)
       backupReminder(api),
-      childrenSection(api),
-      section('Grade', levels, el('button', { class: 'btn', text: 'Not sure? Quick check (2 minutes)', onclick: () => api.go('placement') })),
-      section(
-        'Navigation',
-        toggle('Stay in this grade', s.lockGrade, (v) => ((s.lockGrade = v), persist()), 'The home screen shows only this grade’s worlds.'),
-        toggle('Simple home screen', s.simpleHome, (v) => ((s.simpleHome = v), persist()), 'For Toddler and Kindergarten: one big play button, Show time, Story radio and their worlds. Turn off for the full home screen with filters and every grade.'),
-        toggle('Unlock every lesson', s.unlockAll, (v) => ((s.unlockAll = v), persist()), 'Normally lessons open one after another.'),
-        toggle('Math worlds', s.math, (v) => ((s.math = v), persist()), 'English math for Kindergarten and Grade 1, following the North Carolina Standard Course of Study.'),
-        // the first-time "how to play" hands (js/coach.js) can be shown again, for a new player on this profile
-        el('div', { class: 'row' }, [
-          el('button', {
-            class: 'btn',
-            text: 'Show "how to play" again',
-            onclick: (e) => {
-              api.state.progress.coached = [];
-              api.persistProgress();
-              e.currentTarget.disabled = true;
-            },
-          }),
-        ]),
-        el('p', { class: 'note', text: 'The first time each kind of game is played, a hand shows what to do while the guide says it.' }),
-      ),
-      section('Language', langRow, el('p', { class: 'note', text: 'For Hindi worlds. Math worlds are always in English.' })),
-      section(
-        'Play time and reading support',
-        el('label', { class: 'rate' }, [
-          el('span', { text: 'Daily limit' }),
-          el(
-            'select',
-            { class: 'select', onchange: (e) => ((s.dailyLimit = Number(e.target.value)), persist()) },
-            DAILY_LIMITS.map((m) => el('option', { value: String(m), text: m ? `${m} minutes a day` : 'No limit', selected: s.dailyLimit === m })),
-          ),
-        ]),
-        el('p', { class: 'note', text: `Played today: ${api.minutesToday()} min. When the limit is reached, the next lesson shows a break screen with an idea for off-screen play (a lesson already started is never cut off). WHO and the AAP suggest about an hour a day of good-quality screen time for young children, ideally together with a grown-up.` }),
-        // the motion budget (js/motion.js, roadmap 5.5)
-        el('label', { class: 'rate' }, [
-          el('span', { text: 'Animations' }),
-          el(
-            'select',
-            {
-              class: 'select',
-              onchange: (e) => {
-                s.motion = e.target.value;
-                persist();
-                applyMotion(liteMotion(s.motion, slowDevice()));
-              },
-            },
-            [
-              ['auto', 'Automatic'],
-              ['full', 'Full'],
-              ['lite', 'Lighter (for slower phones)'],
-            ].map(([v, t]) => el('option', { value: v, text: t, selected: (s.motion || 'auto') === v })),
-          ),
-        ]),
-        el('p', { class: 'note', text: 'Lighter animations keep the backgrounds still and leave out the extra effects; the stories, the guide and the games move as usual. Automatic switches to lighter if this device measured slow.' }),
-        slowDevice() ? el('p', { class: 'note', text: lowMemoryDevice() ? 'This device has little memory (2 GB or less), so Automatic uses lighter animations.' : 'This device measured slow, so Automatic uses lighter animations.' }) : null,
-        toggle(
-          'Easier reading',
-          s.readingComfort,
-          (v) => ((s.readingComfort = v), persist(), applyReadingComfort(v)),
-          'More space between words and lines, on a soft cream page, in the stories, comics and reading games. Helps children who find reading hard, including dyslexic readers.',
-        ),
-        toggle(
-          'Left-handed layout',
-          s.leftHanded,
-          (v) => ((s.leftHanded = v), persist(), applyLeftHanded(v)),
-          'In lessons, the hint and "say it again" buttons move to the left and the guide to the right, for a child who taps with the left hand.',
-        ),
-        toggle('Captions', s.captions, (v) => ((s.captions = v), persist()), 'Shows everything the app says as text. Helps children who are hard of hearing, and helps early readers match sounds to words.'),
-        toggle(
-          'Tell it back',
-          s.retell,
-          async (v) => {
-            s.retell = v;
-            persist();
-            // ask for the microphone now, while a grown-up is here
-            if (v && navigator.mediaDevices?.getUserMedia) navigator.mediaDevices.getUserMedia({ audio: true }).then((st) => st.getTracks().forEach((t) => t.stop())).catch(() => {});
-          },
-          'After each story the child can record themselves retelling it, with the pictures as prompts. Retelling is one of the best checks of understanding. Recordings stay on this device; listen to them under Progress.',
-        ),
-        toggle(
-          'Read aloud and hear yourself',
-          s.readAloud,
-          (v) => {
-            s.readAloud = v;
-            persist();
-            if (v && navigator.mediaDevices?.getUserMedia) navigator.mediaDevices.getUserMedia({ audio: true }).then((st) => st.getTracks().forEach((t) => t.stop())).catch(() => {});
-          },
-          'When the child reads a story on their own, a red button on each page records them reading it, then plays it back followed by the narrator, so they hear the difference. Recordings stay on this device; see them under Progress.',
-        ),
-      ),
-      tripSection(api),
-      backupSection(api),
-      whatsNewSection(api),
-      privacySection(),
-      section(
-        'Sound',
-        toggle('Music', s.music, (v) => ((s.music = v), persist(), api.music.setEnabled(v))),
-        toggle('Sound effects', s.sfx, (v) => ((s.sfx = v), persist(), (api.sfx.enabled = v))),
-      ),
-      storyVoicesSection(api),
-      section(
-        'Voices',
-        voiceRow('hi', 'Hindi'),
-        voiceRow('en', 'English'),
-        el('label', { class: 'rate' }, [el('span', { text: 'Speed' }), rate]),
-        // roadmap 6.7: a slower pace for the youngest, on by default
-        toggle('Slower voice for little ones', s.slowBeginners !== false, (v) => ((s.slowBeginners = v), persist()), 'In Toddler and Kindergarten the voice speaks a little slower, with a short pause between words, so a child learning the sounds can follow.'),
-        voiceNote,
-      ),
-      storyRecorderSection(api),
-      recorder,
-      section(
-        'Recordings from files',
-        el('p', { class: 'note', text: 'Or load recordings made elsewhere. Name each file after what it says, e.g. bus_hi.m4a or hc-ka.mp3 (see README).' }),
-        el('div', { class: 'row' }, [el('label', { class: 'btn', for: 'audio-in', text: 'Load files' }), audioInput, el('button', { class: 'btn', text: 'Remove all recordings', onclick: async () => confirm('Remove all voice recordings?') && (await clips.clear(), refreshClipKeys([]), showCount()) })]),
-        audioStatus,
-      ),
-      section(
-        'Special vehicle photo',
-        el('p', { class: 'note', text: 'A photo from this device becomes a vehicle in Vehicle Town. It stays in this browser and is never uploaded.' }),
-        preview,
-        el('div', { class: 'row' }, [el('label', { class: 'btn', for: 'photo-in', text: 'Choose photo' }), photoInput, el('button', { class: 'btn', text: 'Remove', onclick: () => ((api.state.special = null), save(KEYS.special, null), (preview.innerHTML = '')) })]),
-      ),
-      section(
+      group(
         'Progress',
-        weekView(api),
-        insightView(api),
-        showsWatched(api),
-        gainsView(api),
-        storiesView(api),
-        retellView(api),
-        readAloudView(api),
-        el('div', { class: 'world-rows' }, worldRows),
-        el('h3', { text: 'Practise together' }),
-        report.practise.length ? chips(report.practise) : el('p', { class: 'note', text: 'Items show up here after a few tries.' }),
-        el('h3', { text: 'Doing great' }),
-        report.mastered.length ? chips(report.mastered) : el('p', { class: 'note', text: 'Items show up here once they are right first time most of the time.' }),
-        reset,
+        true,
+        el('div', { class: 'fold-body' }, [
+          scopeRow,
+          weekView(api),
+          scoped,
+          showsWatched(api),
+          gainsView(api),
+          storiesView(api),
+          retellView(api),
+          readAloudView(api),
+          el('h3', { text: 'Practise together' }),
+          report.practise.length ? chips(report.practise) : el('p', { class: 'note', text: 'Items show up here after a few tries.' }),
+          el('h3', { text: 'Doing great' }),
+          report.mastered.length ? chips(report.mastered) : el('p', { class: 'note', text: 'Items show up here once they are right first time most of the time.' }),
+          reset,
+        ]),
       ),
+      group(
+        'Child and grade',
+        false,
+        childrenSection(api),
+        section('Grade', levels, el('button', { class: 'btn', text: 'Not sure? Quick check (2 minutes)', onclick: () => api.go('placement') })),
+      ),
+      group(
+        'Play and reading',
+        false,
+        section('Language', langRow, el('p', { class: 'note', text: 'For Hindi worlds. Math worlds are always in English.' })),
+        section(
+          'Navigation',
+          toggle('Stay in this grade', s.lockGrade, (v) => ((s.lockGrade = v), persist()), 'The home screen shows only this grade’s worlds.'),
+          toggle('Simple home screen', s.simpleHome, (v) => ((s.simpleHome = v), persist()), 'For Toddler and Kindergarten: one big play button, Show time, Story radio and their worlds. Turn off for the full home screen with filters and every grade.'),
+          toggle('Unlock every lesson', s.unlockAll, (v) => ((s.unlockAll = v), persist()), 'Normally lessons open one after another.'),
+          toggle('Math worlds', s.math, (v) => ((s.math = v), persist()), 'English math for Kindergarten and Grade 1, following the North Carolina Standard Course of Study.'),
+          // the first-time "how to play" hands (js/coach.js) can be shown again, for a new player on this profile
+          el('div', { class: 'row' }, [
+            el('button', {
+              class: 'btn',
+              text: 'Show "how to play" again',
+              onclick: (e) => {
+                api.state.progress.coached = [];
+                api.persistProgress();
+                e.currentTarget.disabled = true;
+              },
+            }),
+          ]),
+          el('p', { class: 'note', text: 'The first time each kind of game is played, a hand shows what to do while the guide says it.' }),
+        ),
+        section(
+          'Play time and reading support',
+          el('label', { class: 'rate' }, [
+            el('span', { text: 'Daily limit' }),
+            el(
+              'select',
+              { class: 'select', onchange: (e) => ((s.dailyLimit = Number(e.target.value)), persist()) },
+              DAILY_LIMITS.map((m) => el('option', { value: String(m), text: m ? `${m} minutes a day` : 'No limit', selected: s.dailyLimit === m })),
+            ),
+          ]),
+          el('p', { class: 'note', text: `Played today: ${api.minutesToday()} min. When the limit is reached, the next lesson shows a break screen with an idea for off-screen play (a lesson already started is never cut off). WHO and the AAP suggest about an hour a day of good-quality screen time for young children, ideally together with a grown-up.` }),
+          // the motion budget (js/motion.js, roadmap 5.5)
+          el('label', { class: 'rate' }, [
+            el('span', { text: 'Animations' }),
+            el(
+              'select',
+              {
+                class: 'select',
+                onchange: (e) => {
+                  s.motion = e.target.value;
+                  persist();
+                  applyMotion(liteMotion(s.motion, slowDevice()));
+                },
+              },
+              [
+                ['auto', 'Automatic'],
+                ['full', 'Full'],
+                ['lite', 'Lighter (for slower phones)'],
+              ].map(([v, t]) => el('option', { value: v, text: t, selected: (s.motion || 'auto') === v })),
+            ),
+          ]),
+          el('p', { class: 'note', text: 'Lighter animations keep the backgrounds still and leave out the extra effects; the stories, the guide and the games move as usual. Automatic switches to lighter if this device measured slow.' }),
+          slowDevice() ? el('p', { class: 'note', text: lowMemoryDevice() ? 'This device has little memory (2 GB or less), so Automatic uses lighter animations.' : 'This device measured slow, so Automatic uses lighter animations.' }) : null,
+          toggle(
+            'Easier reading',
+            s.readingComfort,
+            (v) => ((s.readingComfort = v), persist(), applyReadingComfort(v)),
+            'More space between words and lines, on a soft cream page, in the stories, comics and reading games. Helps children who find reading hard, including dyslexic readers.',
+          ),
+          toggle(
+            'Left-handed layout',
+            s.leftHanded,
+            (v) => ((s.leftHanded = v), persist(), applyLeftHanded(v)),
+            'In lessons, the hint and "say it again" buttons move to the left and the guide to the right, for a child who taps with the left hand.',
+          ),
+          toggle('Captions', s.captions, (v) => ((s.captions = v), persist()), 'Shows everything the app says as text. Helps children who are hard of hearing, and helps early readers match sounds to words.'),
+          toggle(
+            'Tell it back',
+            s.retell,
+            async (v) => {
+              s.retell = v;
+              persist();
+              // ask for the microphone now, while a grown-up is here
+              if (v && navigator.mediaDevices?.getUserMedia) navigator.mediaDevices.getUserMedia({ audio: true }).then((st) => st.getTracks().forEach((t) => t.stop())).catch(() => {});
+            },
+            'After each story the child can record themselves retelling it, with the pictures as prompts. Retelling is one of the best checks of understanding. Recordings stay on this device; listen to them under Progress.',
+          ),
+          toggle(
+            'Read aloud and hear yourself',
+            s.readAloud,
+            (v) => {
+              s.readAloud = v;
+              persist();
+              if (v && navigator.mediaDevices?.getUserMedia) navigator.mediaDevices.getUserMedia({ audio: true }).then((st) => st.getTracks().forEach((t) => t.stop())).catch(() => {});
+            },
+            'When the child reads a story on their own, a red button on each page records them reading it, then plays it back followed by the narrator, so they hear the difference. Recordings stay on this device; see them under Progress.',
+          ),
+        ),
+        section(
+          'Sound',
+          toggle('Music', s.music, (v) => ((s.music = v), persist(), api.music.setEnabled(v))),
+          toggle('Sound effects', s.sfx, (v) => ((s.sfx = v), persist(), (api.sfx.enabled = v))),
+        ),
+      ),
+      group(
+        'Voices and recordings',
+        false,
+        storyVoicesSection(api),
+        section(
+          'Voices',
+          voiceRow('hi', 'Hindi'),
+          voiceRow('en', 'English'),
+          el('label', { class: 'rate' }, [el('span', { text: 'Speed' }), rate]),
+          // roadmap 6.7: a slower pace for the youngest, on by default
+          toggle('Slower voice for little ones', s.slowBeginners !== false, (v) => ((s.slowBeginners = v), persist()), 'In Toddler and Kindergarten the voice speaks a little slower, with a short pause between words, so a child learning the sounds can follow.'),
+          voiceNote,
+        ),
+        storyRecorderSection(api),
+        recorder,
+        section(
+          'Recordings from files',
+          el('p', { class: 'note', text: 'Or load recordings made elsewhere. Name each file after what it says, e.g. bus_hi.m4a or hc-ka.mp3 (see README).' }),
+          el('div', { class: 'row' }, [el('label', { class: 'btn', for: 'audio-in', text: 'Load files' }), audioInput, el('button', { class: 'btn', text: 'Remove all recordings', onclick: async () => confirm('Remove all voice recordings?') && (await clips.clear(), refreshClipKeys([]), showCount()) })]),
+          audioStatus,
+        ),
+      ),
+      group(
+        'Trips, backup and photo',
+        false,
+        tripSection(api),
+        backupSection(api),
+        section(
+          'Special vehicle photo',
+          el('p', { class: 'note', text: 'A photo from this device becomes a vehicle in Vehicle Town. It stays in this browser and is never uploaded.' }),
+          preview,
+          el('div', { class: 'row' }, [el('label', { class: 'btn', for: 'photo-in', text: 'Choose photo' }), photoInput, el('button', { class: 'btn', text: 'Remove', onclick: () => ((api.state.special = null), save(KEYS.special, null), (preview.innerHTML = '')) })]),
+        ),
+      ),
+      group('About the app', false, whatsNewSection(api), privacySection()),
       api.state.warnings.length ? section('Content warnings', el('ul', {}, api.state.warnings.map((w) => el('li', { text: w })))) : null,
     ]),
   );
@@ -594,9 +651,9 @@ function weekView(api) {
 }
 
 // Play insight (roadmap 8.7): how long, what's hard, what's loved and read again. Worked out on this device.
-function insightView(api) {
+function insightView(api, levels = null) {
   const hi = api.state.settings.parentLang === 'hi';
-  const u = usageInsight(api.state.progress, api.state.content);
+  const u = usageInsight(api.state.progress, api.state.content, Date.now(), 14, { levels });
   const name = (g) => GAME_NAMES[g]?.[hi ? 'hi' : 'en'] || g;
   const list = (xs) => xs.join(hi ? ', ' : ', ');
   const rows = [];
@@ -674,35 +731,36 @@ function storyVoicesSection(api) {
     status.textContent = (settings.parentLang === 'hi' && translateText(text)) || text;
   };
   const render = async () => {
-    const idx = await loadIndex();
-    const have = await savedVoiceKeys();
-    setVoicePack(have, settings.storyVoices);
-    if (!idx?.files) {
+    let idx = null;
+    let state = null;
+    try {
+      [idx, state] = await Promise.all([loadIndex(), savedVoices()]);
+    } catch {
+      /* shown below */
+    }
+    if (state) setVoicePack(state, settings.storyVoices);
+    if (!idx?.packs?.length || !state) {
       buttons.replaceChildren();
-      return say('The story voices are not available yet. Stories use the device voice (or your recordings).');
+      return say(state ? 'The story voices are not available yet. Stories use the device voice (or your recordings).' : 'The story voices could not be read on this device. Stories use the device voice (or your recordings).');
     }
     const mine = packFiles(idx, myLevels);
     const all = packFiles(idx);
-    // what a download costs: the bundles still to fetch (or the single files, for an older index)
-    const size = (files) => (idx.packs?.length ? bundlesFor(idx, files, have).reduce((a, p) => a + p.bytes, 0) : files.reduce((a, f) => a + f.bytes, 0));
-    const missing = (files) => files.filter((f) => !have.has(f.key));
-    const savedBytes = all.filter((f) => have.has(f.key)).reduce((a, f) => a + f.bytes, 0);
-    say(have.size ? `Saved on this device: ${have.size} of ${all.length} recordings (${formatMB(savedBytes)}).` : 'Not downloaded yet.');
-    // the recordings on this device are an older edition (before the silence was trimmed): offer the new one
-    const stale = have.size > 0 && idx.audioVersion > (await savedAudioVersion());
-    const get = (files, fresh = false) => async () => {
+    // saved as bundles of this edition: nothing to fetch for these
+    const current = currentKeys(idx, state);
+    const size = (files) => bundlesFor(idx, files, current).reduce((a, p) => a + p.bytes, 0);
+    const missing = (files) => files.filter((f) => !current.has(f.key));
+    const savedCount = all.filter((f) => state.at.has(f.key)).length;
+    const savedBytes = all.filter((f) => state.at.has(f.key)).reduce((a, f) => a + f.bytes, 0);
+    say(savedCount ? `Saved on this device: ${savedCount} of ${all.length} recordings (${formatMB(savedBytes)}).` : 'Not downloaded yet.');
+    const get = (files) => async () => {
       buttons.querySelectorAll('button').forEach((b) => (b.disabled = true));
       bar.hidden = false;
       try {
-        const failed = await downloadVoices(
-          files,
-          (done, total) => {
-            bar.firstChild.style.width = `${total ? Math.round((done / total) * 100) : 100}%`;
-            say(idx.packs?.length ? `Downloading… ${formatMB(done)} of ${formatMB(total)}` : `Downloading… ${done} of ${total}`);
-          },
-          { fresh },
-        );
-        if (failed) alert(`${failed} recordings could not be downloaded. Check the internet connection and try again.`);
+        const failed = await downloadVoices(files, (done, total) => {
+          bar.firstChild.style.width = `${total ? Math.round((done / total) * 100) : 100}%`;
+          say(`Downloading… ${formatMB(done)} of ${formatMB(total)}`);
+        });
+        if (failed) alert(`${failed} recordings could not be downloaded. Check the internet connection and the free space on this device, and try again.`);
       } catch (e) {
         alert(e.message);
       }
@@ -710,18 +768,25 @@ function storyVoicesSection(api) {
       render();
     };
     const rows = [];
-    if (stale) {
-      const freshSize = bundlesFor(idx, mine).reduce((a, p) => a + p.bytes, 0);
-      rows.push(el('button', { class: 'btn primary', text: `Get the faster voices (${formatMB(freshSize)})`, onclick: get(mine, true) }));
-      say('New, faster voices are ready: no pauses before each line, and every word clear. Your saved voices keep working until you update.');
-    } else if (missing(mine).length) rows.push(el('button', { class: 'btn primary', text: `Download for ${gradeName} (${formatMB(size(mine))})`, onclick: get(mine) }));
-    if (!stale && missing(all).length && missing(all).length !== missing(mine).length) rows.push(el('button', { class: 'btn', text: `Download everything (${formatMB(size(all))})`, onclick: get(all) }));
-    if (have.size) rows.push(el('button', { class: 'btn danger', text: 'Remove', onclick: async () => confirm('Remove the story voices from this device?') && (await removeVoices(), render()) }));
+    // recordings saved the old way, one file each, which a phone is slow to read: offer to save them again
+    // as a few large files (they keep playing until then)
+    const oldWay = all.filter((f) => state.at.get(f.key)?.url);
+    // something to do here: open the group it is folded in
+    if (oldWay.length) sec.closest('details')?.setAttribute('open', '');
+    if (oldWay.length) {
+      rows.push(el('button', { class: 'btn primary', text: `Update the saved voices (${formatMB(size(oldWay))})`, onclick: get(oldWay) }));
+      say(`Saved on this device: ${savedCount} of ${all.length} recordings, the old way. Update them once to make them quicker to start: the app downloads them again as a few large files, then removes the old copies. They keep playing until then.`);
+    } else if (missing(mine).length) {
+      const update = mine.some((f) => state.at.has(f.key));
+      rows.push(el('button', { class: 'btn primary', text: `${update ? 'Update' : 'Download'} for ${gradeName} (${formatMB(size(mine))})`, onclick: get(mine) }));
+    }
+    if (!oldWay.length && missing(all).length && missing(all).length !== missing(mine).length) rows.push(el('button', { class: 'btn', text: `Download everything (${formatMB(size(all))})`, onclick: get(all) }));
+    if (savedCount) rows.push(el('button', { class: 'btn danger', text: 'Remove', onclick: async () => confirm('Remove the story voices from this device?') && (await removeVoices(), render()) }));
     buttons.replaceChildren(...rows);
     localize(api, buttons);
   };
   render();
-  return el('section', {}, [
+  const sec = el('section', {}, [
     el('h2', { text: 'Story voices' }),
     el('p', { class: 'note', text: 'A natural recorded voice reads every story (title, pages, questions and lesson) and says the app’s prompts and words, in Hindi and English, instead of the device’s computer voice. Download once and it works offline. Anything you record yourself always plays instead.' }),
     el('label', { class: 'check' }, [
@@ -740,6 +805,7 @@ function storyVoicesSection(api) {
     bar,
     status,
   ]);
+  return sec;
 }
 
 // Save the stars somewhere safe, and bring them back on a new phone or after the browser was cleared.
@@ -804,18 +870,20 @@ function privacySection() {
 function whatsNewSection(api) {
   const hi = api.state.settings.parentLang === 'hi';
   const list = el('div', { class: 'changes' }, [el('p', { class: 'note', text: '…' })]);
-  loadChanges().then((changes) =>
+  const change = (c) =>
+    el('div', { class: 'change' }, [
+      el('h3', { lang: hi ? 'hi' : 'en' }, [el('span', { text: hi ? c.hi : c.en }), el('small', { text: ` · ${changeDate(c.date, hi ? 'hi' : 'en')}` })]),
+      el('ul', { class: 'change-list' }, (c.items || []).map((i) => el('li', { lang: hi ? 'hi' : 'en', text: hi ? i.hi : i.en }))),
+    ]);
+  // the latest version; the two before it behind a tap
+  loadChanges().then((changes) => {
+    const [latest, ...earlier] = changes.slice(0, 3);
     list.replaceChildren(
-      ...(changes.length
-        ? changes.slice(0, 3).map((c) =>
-            el('div', { class: 'change' }, [
-              el('h3', { lang: hi ? 'hi' : 'en' }, [el('span', { text: hi ? c.hi : c.en }), el('small', { text: ` · ${changeDate(c.date, hi ? 'hi' : 'en')}` })]),
-              el('ul', { class: 'change-list' }, (c.items || []).map((i) => el('li', { lang: hi ? 'hi' : 'en', text: hi ? i.hi : i.en }))),
-            ]),
-          )
+      ...(latest
+        ? [change(latest), earlier.length ? el('details', { class: 'earlier' }, [el('summary', { lang: hi ? 'hi' : 'en', text: hi ? 'पहले के बदलाव' : 'Earlier changes' }), ...earlier.map(change)]) : null]
         : [el('p', { class: 'note', text: 'The list of changes needs the internet the first time.' })]),
-    ),
-  );
+    );
+  });
   return el('section', {}, [el('h2', { text: "What's new" }), list]);
 }
 

@@ -63,6 +63,10 @@ test('the Hindi parent area translates headings, notes and numbers', () => {
   const src = readFileSync(new URL('../js/parent.js', import.meta.url), 'utf8');
   for (const [, title] of src.matchAll(/section\(\s*'([^']+)'/g)) assert.ok(translateText(title), title);
   for (const [, title] of src.matchAll(/toggle\(\s*'([^']+)'/g)) assert.ok(translateText(title), title);
+  // and every group the screen is folded into (and the grade switch in Progress)
+  for (const [, title] of src.matchAll(/group\(\s*'([^']+)'/g)) assert.ok(translateText(title), title);
+  assert.equal(translateText('This grade (Kindergarten)'), 'यह कक्षा (Kindergarten)');
+  assert.ok(translateText('All grades'));
 });
 
 test('English nursery rhymes live in the English worlds; Hindi worlds keep Hindi stories', async () => {
