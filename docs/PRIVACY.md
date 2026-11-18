@@ -29,7 +29,7 @@ A backup is a file a grown-up saves or shares on purpose, from the grown-ups' ar
 
 ## The grown-ups' area
 
-Settings, backups, recordings and anything outside play sit behind a gate: press and hold, then answer a sum written in words. A young child can't open it by accident.
+Settings, backups, recordings and anything outside play sit behind a gate: press and hold for a second (a quick tap only shows how), so a young child doesn't open it by accident. The app has no links out of it and nothing to buy.
 
 ## Children's privacy laws
 

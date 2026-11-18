@@ -52,21 +52,15 @@ test("8.6 what's new: the bar shows what is newer than the running version", () 
   assert.match(read('js/parent.js'), /whatsNewSection\(api\)/);
 });
 
-test("8.4 store rules: a grown-up question after the hold, a security policy that keeps the app to its own site, a privacy statement", async () => {
-  const { grownUpQuestion } = await import('../js/screens.js');
-  let seed = 1;
-  const rng = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
-  for (let i = 0; i < 200; i++) {
-    const q = grownUpQuestion(rng, content.numbers);
-    assert.equal(q.answer, q.a + q.b);
-    assert.ok(q.a >= 11 && q.a <= 29 && q.b >= 3 && q.b <= 9);
-    // written in words, never digits: a young child can't read it
-    assert.doesNotMatch(q.en, /\d/);
-    assert.doesNotMatch(q.hi, /\d/);
-    assert.match(q.hi, DEVANAGARI);
-  }
+test("8.4 store rules: a press-and-hold gate, a security policy that keeps the app to its own site, a privacy statement", async () => {
   const screens = read('js/screens.js');
-  assert.match(screens, /grownUpCheck\(api, onDone\)/, 'the press-and-hold gate asks the question before opening');
+  // the hold opens the grown-ups' area by itself: the sum written in words that followed it was taken out at
+  // a family's request (no links out and nothing to buy, which is what a harder gate is for)
+  assert.match(screens, /api\.sfx\?\.haptic\?\.\(30\);\n    onDone\(\);/);
+  assert.doesNotMatch(screens, /grownUpCheck|grownUpQuestion/);
+  assert.doesNotMatch(read('styles.css'), /\.grown-card/);
+  const { GATE_HOLD_MS } = await import('../js/screens.js');
+  assert.ok(GATE_HOLD_MS >= 1000, 'a hold of at least a second');
 
   // the security policy: only the app's own site, and its hash matches the inline script
   const html = read('index.html');

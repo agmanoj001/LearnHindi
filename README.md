@@ -160,7 +160,7 @@ Episodes are scripts in `content.json`, built from the app's own drawings, so ea
 
 ## Parent area
 
-**Press and hold the settings button (top right of the home screen) for 1 second, then answer the sum written in words** ("What is thirteen plus four?"). A ring fills while you hold; a quick tap shows a reminder to hold. A young child can't read the sum; once answered, the grown-up gates stay open for 10 minutes.
+**Press and hold the settings button (top right of the home screen) for 1 second.** A ring fills while you hold; a quick tap shows a reminder to hold.
 
 - **Children**: up to four children, each with their own grade, stars and settings, a guide character and an optional nickname. With more than one, the start screen asks "Who's playing?". Voice recordings are shared.
 - **Grade**: who is learning.
