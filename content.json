@@ -489,7 +489,12 @@
     "newspaper": { "hi": "अख़बार", "translit": "akhbaar", "en": "newspaper", "picture": "newspaper", "level": "grade1", "syllables": ["अ", "ख़", "बा", "र"] },
     "slate": { "hi": "स्लेट", "translit": "slet", "en": "slate", "picture": "slate", "level": "grade2", "syllables": ["स्ले", "ट"] },
     "medal": { "hi": "पदक", "translit": "padak", "en": "medal", "picture": "medal" },
-    "ghungroo": { "hi": "घुँघरू", "translit": "ghungharoo", "en": "ankle bells", "picture": "ghungroo", "level": "grade1", "syllables": ["घुँ", "घ", "रू"] }
+    "ghungroo": { "hi": "घुँघरू", "translit": "ghungharoo", "en": "ankle bells", "picture": "ghungroo", "level": "grade1", "syllables": ["घुँ", "घ", "रू"] },
+    "beehive": { "hi": "छत्ता", "translit": "chhatta", "en": "beehive", "picture": "beehive", "level": "grade2", "syllables": ["छ", "त्ता"] },
+    "seed": { "hi": "बीज", "translit": "beej", "en": "seed", "picture": "seed", "level": "grade1", "syllables": ["बी", "ज"] },
+    "postbox": { "hi": "लेटर बॉक्स", "translit": "letar boks", "en": "post box", "picture": "postbox" },
+    "moonphases": { "hi": "चाँद की कलाएँ", "translit": "chaand ki kalaayen", "en": "phases of the moon", "picture": "moonphases" },
+    "track": { "hi": "पटरी", "translit": "patri", "en": "rail track", "picture": "track", "level": "grade1", "syllables": ["प", "ट", "री"] }
   },
   "sentences": [
     { "id": "bus-here", "about": "bus", "hi": "बस आई!", "translit": "bas aai", "en": "The bus is here!", "level": "grade2" },
@@ -16119,6 +16124,606 @@
         },
         { "type": "you", "hi": "कोई चीज़ बहुत मुश्किल लगे, तो हिम्मत कैसे बनाए रखें?", "en": "When something feels very hard, how can we keep our courage?" }
       ]
+    },
+    {
+      "id": "info-barish",
+      "level": "grade2",
+      "title": { "hi": "बारिश कहाँ से आती है?", "en": "Where does rain come from?" },
+      "cover": "raincloud",
+      "pages": [
+        {
+          "word": "sun",
+          "hi": "सूरज की गरमी से नदी, तालाब और समुद्र का पानी गरम होता है।",
+          "en": "The sun’s heat warms the water in rivers, ponds and the sea.",
+          "act": { "move": "peek", "sky": "dawn", "fx": "glow" }
+        },
+        {
+          "word": "sea",
+          "hi": "गरम पानी भाप बनकर हवा में ऊपर उड़ जाता है। यह हमें दिखती नहीं।",
+          "en": "Warm water turns into vapour and rises into the air. We can’t see it.",
+          "act": { "move": "float", "sky": "sea", "fx": "steam" }
+        },
+        {
+          "word": "cloud",
+          "hi": "ऊपर ठंड होती है। वहाँ भाप की नन्ही-नन्ही बूँदें बनती हैं, और मिलकर बादल बनता है।",
+          "en": "High up it is cold. There the vapour makes tiny drops, and together they make a cloud.",
+          "act": { "move": "float", "sky": "sky", "fx": "wind" }
+        },
+        {
+          "word": "raincloud",
+          "hi": "बूँदें आपस में जुड़कर बड़ी और भारी हो जाती हैं।",
+          "en": "The drops join together and grow big and heavy.",
+          "act": { "move": "grow", "sky": "sky" }
+        },
+        {
+          "word": "rain",
+          "hi": "भारी बूँदें नीचे गिरती हैं। छम-छम! बारिश आ गई!",
+          "en": "The heavy drops fall down. Pitter-patter! Here comes the rain!",
+          "act": { "move": "shake", "sky": "rain", "fx": "rain", "sound": "rain", "mood": "happy" }
+        },
+        {
+          "word": "river",
+          "hi": "बारिश का पानी फिर नदियों और समुद्र में पहुँचता है, और यह चक्कर चलता रहता है।",
+          "en": "The rainwater flows back into rivers and the sea, and the cycle goes on.",
+          "act": { "move": "float", "sky": "river", "fx": "bubbles" }
+        }
+      ],
+      "questions": [
+        { "hi": "पानी को भाप कौन बनाता है?", "en": "What turns water into vapour?", "answer": "sun", "options": ["sun", "moon", "tree"] },
+        { "hi": "बूँदें मिलकर ऊपर क्या बनाती हैं?", "en": "What do the drops make together up high?", "answer": "cloud", "options": ["cloud", "star", "kite"] }
+      ],
+      "kind": "info",
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"… की गरमी से नदी, तालाब और समुद्र का पानी गरम होता है।\" (सूरज)",
+          "en": "Say this and let your child fill the gap: \"… की गरमी से नदी, तालाब और समुद्र का पानी गरम होता है।\" (सूरज)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"सूरज की गरमी से नदी, तालाब और समुद्र का पानी गरम होता है।\")",
+          "en": "Ask: what happened first in the story? (\"The sun’s heat warms the water in rivers, ponds and the sea.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर काले बादल है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the rain clouds and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "बूँदें नीचे क्यों गिरती हैं?", "en": "Why do the drops fall down?" },
+        { "type": "you", "hi": "बारिश के बाद तुम्हें बाहर क्या-क्या बदला हुआ दिखता है?", "en": "What looks different outside after the rain?" }
+      ]
+    },
+    {
+      "id": "info-beej",
+      "level": "grade2",
+      "title": { "hi": "बीज से पौधा", "en": "From seed to plant" },
+      "cover": "seed",
+      "pages": [
+        { "word": "seed", "hi": "एक छोटा-सा बीज मिट्टी में सोया था।", "en": "A tiny seed lay asleep in the soil.", "act": { "move": "sleep", "sky": "field" } },
+        {
+          "word": "rain",
+          "hi": "बारिश का पानी मिला, और धूप की गरमी। बीज जाग गया!",
+          "en": "It got rainwater and the warmth of the sun. The seed woke up!",
+          "act": { "move": "shake", "sky": "rain", "fx": "rain" }
+        },
+        {
+          "word": "seed",
+          "hi": "बीज का छिलका फटा। सबसे पहले एक जड़ नीचे मिट्टी में गई।",
+          "en": "The seed’s skin split. First of all a root went down into the soil.",
+          "act": { "move": "peek", "sky": "field" }
+        },
+        {
+          "word": "plant",
+          "hi": "फिर एक नन्हा अंकुर ऊपर निकला, धूप की तरफ़।",
+          "en": "Then a little shoot came up, towards the sunlight.",
+          "act": { "move": "grow", "sky": "field", "fx": "sparkles" }
+        },
+        {
+          "word": "leaf",
+          "hi": "पत्ते धूप, हवा और पानी से पौधे का खाना बनाते हैं।",
+          "en": "The leaves make food for the plant from sunlight, air and water.",
+          "act": { "move": "sway", "sky": "day", "fx": "leaves" }
+        },
+        {
+          "word": "flower",
+          "hi": "पौधा बड़ा हुआ, और उस पर फूल खिले।",
+          "en": "The plant grew, and flowers bloomed on it.",
+          "act": { "move": "grow", "sky": "day", "fx": "sparkles", "mood": "happy" }
+        },
+        {
+          "word": "fruit",
+          "hi": "फूल से फल बने, और फल के अंदर नए बीज!",
+          "en": "The flowers became fruit, and inside the fruit, new seeds!",
+          "act": { "move": "dance", "sky": "field", "fx": "confetti" }
+        }
+      ],
+      "questions": [
+        { "hi": "बीज को जगाने के लिए क्या चाहिए?", "en": "What does the seed need to wake up?", "answer": "rain", "options": ["rain", "stone", "shoe"] },
+        { "hi": "पौधे का खाना कौन बनाता है?", "en": "What makes food for the plant?", "answer": "leaf", "options": ["leaf", "stone", "cup"] }
+      ],
+      "kind": "info",
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"एक छोटा-सा … मिट्टी में सोया था।\" (बीज)",
+          "en": "Say this and let your child fill the gap: \"एक छोटा-सा … मिट्टी में सोया था।\" (बीज)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"एक छोटा-सा बीज मिट्टी में सोया था।\")",
+          "en": "Ask: what happened first in the story? (\"A tiny seed lay asleep in the soil.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर पौधा है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the plant and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "जड़ सबसे पहले नीचे क्यों जाती है?", "en": "Why does the root go down first?" },
+        { "type": "you", "hi": "तुमने कभी कोई बीज बोया है? उसमें से क्या निकला?", "en": "Have you ever planted a seed? What came up?" }
+      ]
+    },
+    {
+      "id": "info-doodh",
+      "level": "grade2",
+      "title": { "hi": "दूध कहाँ से आता है?", "en": "Where does milk come from?" },
+      "cover": "milk",
+      "pages": [
+        {
+          "word": "cow",
+          "hi": "गाय घास और चारा खाती है, और ख़ूब पानी पीती है।",
+          "en": "The cow eats grass and fodder, and drinks lots of water.",
+          "act": { "move": "talk", "sky": "field", "with": "grass" }
+        },
+        {
+          "word": "calf",
+          "hi": "गाय अपने बछड़े के लिए दूध बनाती है।",
+          "en": "The cow makes milk for her calf.",
+          "act": { "move": "approach", "sky": "field", "with": "cow", "fx": "hearts" }
+        },
+        {
+          "word": "farmer",
+          "hi": "सुबह-सुबह किसान गाय का दूध दुहता है। बछड़े का हिस्सा पहले!",
+          "en": "Early in the morning the farmer milks the cow. The calf’s share first!",
+          "act": { "move": "talk", "sky": "dawn", "with": "cow" }
+        },
+        {
+          "word": "truck",
+          "hi": "दूध की बड़ी गाड़ी गाँव-गाँव से दूध डेयरी तक ले जाती है।",
+          "en": "A big milk tanker carries milk from village after village to the dairy.",
+          "act": { "move": "drive", "sky": "field", "fx": "dust", "sound": "vroom" }
+        },
+        {
+          "word": "milk",
+          "hi": "डेयरी में दूध को जाँचते हैं, गरम करके जल्दी ठंडा करते हैं, ताकि कीटाणु मर जाएँ।",
+          "en": "At the dairy the milk is tested, heated and quickly cooled, so the germs die.",
+          "act": { "move": "float", "sky": "day", "fx": "steam" }
+        },
+        {
+          "word": "milk",
+          "hi": "फिर दूध पैकेट में भरकर दुकानों पर पहुँचता है, और सुबह हमारे घर।",
+          "en": "Then the milk is packed and goes to the shops, and to our homes in the morning.",
+          "act": { "move": "drive", "sky": "dawn", "with": "house" }
+        },
+        {
+          "word": "cup",
+          "hi": "दूध से दही, मक्खन और पनीर भी बनते हैं। हम-हम!",
+          "en": "Milk also becomes curd, butter and paneer. Yum!",
+          "act": { "move": "dance", "sky": "home", "fx": "hearts", "mood": "happy" }
+        }
+      ],
+      "questions": [
+        { "hi": "गाय क्या खाती है?", "en": "What does the cow eat?", "answer": "grass", "options": ["grass", "cake", "stone"] },
+        { "hi": "दूध पहले किसके लिए होता है?", "en": "Who is the milk for first?", "answer": "calf", "options": ["calf", "cat", "lion"] }
+      ],
+      "kind": "info",
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"… घास और चारा खाती है, और ख़ूब पानी पीती है।\" (गाय)",
+          "en": "Say this and let your child fill the gap: \"… घास और चारा खाती है, और ख़ूब पानी पीती है।\" (गाय)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"गाय घास और चारा खाती है, और ख़ूब पानी पीती है।\")",
+          "en": "Ask: what happened first in the story? (\"The cow eats grass and fodder, and drinks lots of water.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर ट्रक है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the truck and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "डेयरी में दूध को गरम करके ठंडा क्यों करते हैं?", "en": "Why is milk heated and cooled at the dairy?" },
+        { "type": "you", "hi": "दूध से बनी कौन सी चीज़ तुम्हें सबसे अच्छी लगती है?", "en": "Which thing made from milk do you like best?" }
+      ]
+    },
+    {
+      "id": "info-shahad",
+      "level": "grade2",
+      "title": { "hi": "मधुमक्खी शहद कैसे बनाती है?", "en": "How do bees make honey?" },
+      "cover": "beehive",
+      "pages": [
+        {
+          "word": "bee",
+          "hi": "मधुमक्खियाँ फूल-फूल पर जाती हैं। भिन-भिन!",
+          "en": "Bees go from flower to flower. Buzz, buzz!",
+          "act": { "move": "fly-across", "sky": "day", "fx": "sparkles" }
+        },
+        {
+          "word": "flower",
+          "hi": "वे फूलों का मीठा रस चूसती हैं, और उसे अपने पेट की एक थैली में भर लेती हैं।",
+          "en": "They sip the sweet nectar from flowers and store it in a little pouch inside them.",
+          "act": { "move": "talk", "sky": "day", "with": "bee" }
+        },
+        {
+          "word": "beehive",
+          "hi": "छत्ते में लौटकर वे रस दूसरी मधुमक्खियों को देती हैं।",
+          "en": "Back at the hive, they pass the nectar to other bees.",
+          "act": { "move": "enter", "sky": "day", "with": "bee" }
+        },
+        {
+          "word": "bee",
+          "hi": "मधुमक्खियाँ पंख हिला-हिलाकर हवा करती हैं, ताकि रस का पानी सूख जाए।",
+          "en": "The bees fan their wings so that the water in the nectar dries off.",
+          "act": { "move": "shake", "sky": "day", "fx": "wind" }
+        },
+        {
+          "word": "beehive",
+          "hi": "गाढ़ा हुआ रस शहद बन जाता है। उसे मोम के छोटे-छोटे घरों में भरकर बंद कर देती हैं।",
+          "en": "The thickened nectar becomes honey. They fill tiny wax cells with it and seal them.",
+          "act": { "move": "grow", "sky": "day", "fx": "sparkles" }
+        },
+        {
+          "word": "jar",
+          "hi": "मधुमक्खी पालने वाले थोड़ा शहद निकालते हैं, और बाक़ी मधुमक्खियों के लिए छोड़ देते हैं।",
+          "en": "Beekeepers take a little honey and leave the rest for the bees.",
+          "act": { "move": "float", "sky": "home", "fx": "hearts", "mood": "happy" }
+        }
+      ],
+      "questions": [
+        { "hi": "मधुमक्खियाँ रस कहाँ से लाती हैं?", "en": "Where do bees get nectar from?", "answer": "flower", "options": ["flower", "stone", "cloud"] },
+        { "hi": "शहद कहाँ भरा जाता है?", "en": "Where is the honey stored?", "answer": "beehive", "options": ["beehive", "shoe", "box"] }
+      ],
+      "kind": "info",
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"… फूल-फूल पर जाती हैं। भिन-भिन!\" (मधुमक्खियाँ)",
+          "en": "Say this and let your child fill the gap: \"… फूल-फूल पर जाती हैं। भिन-भिन!\" (मधुमक्खियाँ)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"मधुमक्खियाँ फूल-फूल पर जाती हैं। भिन-भिन!\")",
+          "en": "Ask: what happened first in the story? (\"Bees go from flower to flower. Buzz, buzz!\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर मधुमक्खी है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the bee and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "मधुमक्खियाँ पंख हिलाकर हवा क्यों करती हैं?", "en": "Why do the bees fan their wings?" },
+        { "type": "you", "hi": "अगर तुम्हें मधुमक्खी दिखे, तो क्या करना ठीक है?", "en": "If you see a bee, what is the right thing to do?" }
+      ]
+    },
+    {
+      "id": "info-chitthi",
+      "level": "grade3",
+      "title": { "hi": "चिट्ठी का सफ़र", "en": "A letter's journey" },
+      "cover": "postbox",
+      "pages": [
+        {
+          "word": "envelope",
+          "hi": "पिंकी ने नानी को चिट्ठी लिखी। लिफ़ाफ़े पर पता लिखा, और छह अंकों का पिन कोड भी।",
+          "en": "Pinky wrote a letter to her grandma. She wrote the address on the envelope, with the six-digit PIN code."
+        },
+        {
+          "word": "envelope",
+          "hi": "लिफ़ाफ़े पर डाक टिकट लगाया। टिकट से चिट्ठी के सफ़र के पैसे दिए जाते हैं।",
+          "en": "She stuck on a postage stamp. The stamp pays for the letter’s journey."
+        },
+        { "word": "postbox", "hi": "फिर उसने चिट्ठी लाल लेटर बॉक्स में डाल दी।", "en": "Then she dropped the letter into the red post box." },
+        {
+          "word": "postvan",
+          "hi": "डाकिया दिन में लेटर बॉक्स खोलकर सारी चिट्ठियाँ डाक घर ले गया।",
+          "en": "During the day the postman opened the box and took all the letters to the post office."
+        },
+        {
+          "word": "place-postoffice",
+          "hi": "डाक घर में पिन कोड देखकर चिट्ठियाँ छाँटी गईं: किस शहर, किस इलाक़े की।",
+          "en": "At the post office the letters were sorted by PIN code: which city, which area."
+        },
+        {
+          "word": "train",
+          "hi": "चिट्ठियों के थैले ट्रेन से नानी के शहर पहुँचे। दूर की चिट्ठियाँ हवाई जहाज़ से भी जाती हैं।",
+          "en": "The mail bags reached Grandma’s city by train. Letters for far away also go by plane."
+        },
+        {
+          "word": "place-postoffice",
+          "hi": "नानी के इलाक़े के डाक घर से डाकिया चिट्ठी लेकर निकला।",
+          "en": "From the post office in Grandma’s area, the postman set off with the letter."
+        },
+        {
+          "word": "grandmother",
+          "hi": "\"नानी जी, आपकी चिट्ठी!\" नानी ने चश्मा लगाया, और मुस्कुराकर पढ़ने लगीं।",
+          "en": "\"Grandma, a letter for you!\" Grandma put on her glasses and smiled as she read."
+        }
+      ],
+      "questions": [
+        { "hi": "पिन कोड में कितने अंक होते हैं?", "en": "How many digits does a PIN code have?", "answer": "छह", "options": ["छह", "तीन", "दस"], "text": true },
+        {
+          "hi": "डाक टिकट किसलिए लगाते हैं?",
+          "en": "Why do we put a stamp on a letter?",
+          "answer": "सफ़र के पैसे देने के लिए",
+          "options": ["सफ़र के पैसे देने के लिए", "सजाने के लिए", "चिपकाने के लिए"],
+          "text": true
+        },
+        {
+          "hi": "डाक घर में चिट्ठियाँ किस आधार पर छाँटी गईं?",
+          "en": "How were the letters sorted at the post office?",
+          "answer": "पिन कोड से",
+          "options": ["पिन कोड से", "रंग से", "वज़न से"],
+          "text": true
+        }
+      ],
+      "kind": "info",
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"फिर उसने चिट्ठी लाल … बॉक्स में डाल दी।\" (लेटर)",
+          "en": "Say this and let your child fill the gap: \"फिर उसने चिट्ठी लाल … बॉक्स में डाल दी।\" (लेटर)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"पिंकी ने नानी को चिट्ठी लिखी। लिफ़ाफ़े पर पता लिखा, और छह अंकों का पिन कोड भी।\")",
+          "en": "Ask: what happened first in the story? (\"Pinky wrote a letter to her grandma. She wrote the address on the envelope, with the six-digit PIN code.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर डाकघर है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the post office and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "पिन कोड से चिट्ठी जल्दी क्यों पहुँचती है?", "en": "Why does a PIN code help a letter arrive faster?" },
+        {
+          "type": "you",
+          "hi": "तुम्हें किसी को चिट्ठी लिखनी हो, तो किसे लिखनी है, और उसमें क्या लिखना है?",
+          "en": "If you wrote a letter, who would it be to, and what would it say?"
+        }
+      ]
+    },
+    {
+      "id": "info-din-raat",
+      "level": "grade3",
+      "title": { "hi": "दिन और रात", "en": "Day and night" },
+      "cover": "earth",
+      "pages": [
+        { "word": "earth", "hi": "हमारी धरती एक बहुत बड़ी गेंद जैसी गोल है।", "en": "Our Earth is round, like a very big ball." },
+        {
+          "word": "earth",
+          "hi": "धरती अपनी धुरी पर लट्टू की तरह घूमती रहती है। एक चक्कर में चौबीस घंटे लगते हैं।",
+          "en": "The Earth keeps spinning like a top. One turn takes twenty-four hours."
+        },
+        { "word": "sun", "hi": "सूरज की रोशनी धरती के एक तरफ़ ही पड़ती है।", "en": "Sunlight falls on only one side of the Earth." },
+        { "word": "day", "hi": "धरती का जो हिस्सा सूरज की ओर होता है, वहाँ दिन होता है।", "en": "On the part of the Earth facing the sun, it is day." },
+        { "word": "night", "hi": "जो हिस्सा सूरज से दूसरी ओर होता है, वहाँ रात होती है।", "en": "On the part facing away from the sun, it is night." },
+        {
+          "word": "sun",
+          "hi": "सूरज सुबह निकलता और शाम को डूबता दिखता है, पर असल में घूम हमारी धरती रही है!",
+          "en": "The sun seems to rise in the morning and set in the evening, but really it is our Earth that is turning!"
+        },
+        {
+          "word": "night",
+          "hi": "जब भारत में दोपहर होती है, तब अमेरिका में लोग सो रहे होते हैं।",
+          "en": "When it is afternoon in India, people in America are asleep."
+        }
+      ],
+      "questions": [
+        {
+          "hi": "धरती का एक चक्कर कितने घंटे में पूरा होता है?",
+          "en": "How many hours does one turn of the Earth take?",
+          "answer": "चौबीस",
+          "options": ["चौबीस", "बारह", "सात"],
+          "text": true
+        },
+        {
+          "hi": "रात कहाँ होती है?",
+          "en": "Where is it night?",
+          "answer": "जो हिस्सा सूरज से दूसरी ओर है",
+          "options": ["जो हिस्सा सूरज से दूसरी ओर है", "जहाँ बादल हैं", "समुद्र के ऊपर"],
+          "text": true
+        },
+        { "hi": "असल में कौन घूमता है?", "en": "What is really turning?", "answer": "धरती", "options": ["धरती", "सूरज", "चाँद"], "text": true }
+      ],
+      "kind": "info",
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"… की रोशनी धरती के एक तरफ़ ही पड़ती है।\" (सूरज)",
+          "en": "Say this and let your child fill the gap: \"… की रोशनी धरती के एक तरफ़ ही पड़ती है।\" (सूरज)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"हमारी धरती एक बहुत बड़ी गेंद जैसी गोल है।\")",
+          "en": "Ask: what happened first in the story? (\"Our Earth is round, like a very big ball.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर दिन है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the day and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "भारत में दोपहर हो, तो अमेरिका में रात क्यों होती है?", "en": "Why is it night in America when it is afternoon in India?" },
+        {
+          "type": "you",
+          "hi": "तुम्हें दिन में क्या करना सबसे अच्छा लगता है, और रात में क्या?",
+          "en": "What do you like doing best in the day, and at night?"
+        }
+      ]
+    },
+    {
+      "id": "info-chaand",
+      "level": "grade4",
+      "title": { "hi": "चाँद अपना आकार क्यों बदलता है?", "en": "Why does the moon change shape?" },
+      "cover": "moonphases",
+      "pages": [
+        {
+          "word": "moon",
+          "hi": "चाँद की अपनी कोई रोशनी नहीं होती। वह सूरज की रोशनी से चमकता है, जैसे धूप में चमकती गेंद।",
+          "en": "The moon has no light of its own. It shines with the sun’s light, like a ball shining in sunshine."
+        },
+        { "word": "sun", "hi": "सूरज हमेशा चाँद के आधे हिस्से को रोशन रखता है।", "en": "The sun always lights up half of the moon." },
+        {
+          "word": "earth",
+          "hi": "चाँद लगभग साढ़े उनतीस दिन में धरती का एक चक्कर लगाता है।",
+          "en": "The moon goes once around the Earth in about twenty-nine and a half days."
+        },
+        {
+          "word": "moonphases",
+          "hi": "चक्कर लगाते हुए हमें उसका रोशन हिस्सा कभी कम, कभी ज़्यादा दिखता है। इन्हें चाँद की कलाएँ कहते हैं।",
+          "en": "As it goes round, we see more or less of its lit half. These are called the moon’s phases."
+        },
+        {
+          "word": "night",
+          "hi": "अमावस्या को रोशन हिस्सा हमसे उल्टी तरफ़ होता है, इसलिए चाँद दिखता ही नहीं।",
+          "en": "At the new moon, the lit half faces away from us, so we can’t see the moon at all."
+        },
+        {
+          "word": "moonphases",
+          "hi": "फिर एक पतली-सी फाँक दिखती है, फिर आधा चाँद, और पूर्णिमा को पूरा गोल चाँद!",
+          "en": "Then a thin sliver appears, then a half moon, and at the full moon a whole round moon!"
+        },
+        {
+          "word": "ganesh",
+          "hi": "कहानी में गणेश जी की बात से चाँद घटता-बढ़ता है। विज्ञान बताता है कि यह चाँद के घूमने का खेल है!",
+          "en": "In the story, the moon waxes and wanes because of Ganesh. Science tells us it’s the moon going round!"
+        }
+      ],
+      "questions": [
+        {
+          "hi": "चाँद किसकी रोशनी से चमकता है?",
+          "en": "Whose light makes the moon shine?",
+          "answer": "सूरज की",
+          "options": ["सूरज की", "अपनी", "तारों की"],
+          "text": true
+        },
+        {
+          "hi": "पूरा गोल चाँद किस दिन दिखता है?",
+          "en": "On which day do we see the whole round moon?",
+          "answer": "पूर्णिमा",
+          "options": ["पूर्णिमा", "अमावस्या", "रविवार"],
+          "text": true
+        },
+        {
+          "hi": "चाँद धरती का एक चक्कर कितने दिन में लगाता है?",
+          "en": "How long does the moon take to go once around the Earth?",
+          "answer": "लगभग साढ़े उनतीस दिन",
+          "options": ["लगभग साढ़े उनतीस दिन", "एक दिन", "एक साल"],
+          "text": true
+        }
+      ],
+      "kind": "info",
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"… की अपनी कोई रोशनी नहीं होती। वह सूरज की रोशनी से चमकता है, जैसे धूप में चमकती गेंद।\" (चाँद)",
+          "en": "Say this and let your child fill the gap: \"… की अपनी कोई रोशनी नहीं होती। वह सूरज की रोशनी से चमकता है, जैसे धूप में चमकती गेंद।\" (चाँद)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"चाँद की अपनी कोई रोशनी नहीं होती। वह सूरज की रोशनी से चमकता है, जैसे धूप में चमकती गेंद।\")",
+          "en": "Ask: what happened first in the story? (\"The moon has no light of its own. It shines with the sun’s light, like a ball shining in sunshine.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर चाँद की कलाएँ है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the phases of the moon and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "अमावस्या को चाँद दिखता क्यों नहीं?", "en": "Why can’t we see the moon at the new moon?" },
+        { "type": "you", "hi": "आज रात चाँद देखना, और बताना कि वह कैसा दिखा!", "en": "Look at the moon tonight and tell me what shape it is!" }
+      ]
+    },
+    {
+      "id": "info-rail",
+      "level": "grade4",
+      "title": { "hi": "ट्रेन पटरी पर कैसे टिकी रहती है?", "en": "How does a train stay on its track?" },
+      "cover": "track",
+      "pages": [
+        {
+          "word": "train",
+          "hi": "भारी-भरकम ट्रेन दो पतली पटरियों पर तेज़ दौड़ती है, फिर भी गिरती नहीं। कैसे?",
+          "en": "A huge, heavy train races along two thin rails without falling off. How?"
+        },
+        {
+          "word": "wheel",
+          "hi": "ट्रेन के हर पहिए के अंदर की तरफ़ एक उभरा हुआ किनारा होता है, जो पटरी से बाहर फिसलने नहीं देता।",
+          "en": "Each train wheel has a raised lip on its inner side, which stops it slipping off the rail."
+        },
+        {
+          "word": "wheel",
+          "hi": "पहिए थोड़े ढलवाँ, यानी शंकु जैसे होते हैं। इससे मोड़ पर ट्रेन अपने-आप सीधी रहती है।",
+          "en": "The wheels are slightly sloped, like a cone. This keeps the train steady by itself on bends."
+        },
+        {
+          "word": "track",
+          "hi": "पटरियाँ मज़बूत लोहे की होती हैं, और लकड़ी या कंक्रीट के स्लीपरों पर कसी होती हैं।",
+          "en": "The rails are made of strong steel, fixed onto sleepers of wood or concrete."
+        },
+        {
+          "word": "stones",
+          "hi": "स्लीपरों के नीचे बिछी गिट्टी ट्रेन का भारी वज़न ज़मीन पर फैला देती है।",
+          "en": "The stones under the sleepers spread the train’s heavy weight over the ground."
+        },
+        {
+          "word": "place-railway",
+          "hi": "स्टेशन पर \"पॉइंट\" नाम के हिस्से पटरी को खिसकाकर ट्रेन को दूसरी पटरी पर भेजते हैं।",
+          "en": "At stations, parts called \"points\" move the rail to send the train onto another track."
+        },
+        {
+          "word": "train",
+          "hi": "तो ट्रेन पटरी पर इसलिए टिकी रहती है, क्योंकि उसके पहिए और पटरी एक-दूसरे के लिए बने हैं!",
+          "en": "So the train stays on track because its wheels and the rails are made for each other!"
+        }
+      ],
+      "questions": [
+        {
+          "hi": "पहिए के अंदर की तरफ़ क्या होता है?",
+          "en": "What is on the inner side of a train wheel?",
+          "answer": "उभरा हुआ किनारा",
+          "options": ["उभरा हुआ किनारा", "रबर का टायर", "घंटी"],
+          "text": true
+        },
+        {
+          "hi": "स्लीपरों के नीचे क्या बिछी होती है?",
+          "en": "What is spread under the sleepers?",
+          "answer": "गिट्टी",
+          "options": ["गिट्टी", "रेत", "घास"],
+          "text": true
+        },
+        {
+          "hi": "ट्रेन को दूसरी पटरी पर कौन भेजता है?",
+          "en": "What sends a train onto another track?",
+          "answer": "पॉइंट",
+          "options": ["पॉइंट", "सीटी", "झंडा"],
+          "text": true
+        }
+      ],
+      "kind": "info",
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"… मज़बूत लोहे की होती हैं, और लकड़ी या कंक्रीट के स्लीपरों पर कसी होती हैं।\" (पटरियाँ)",
+          "en": "Say this and let your child fill the gap: \"… मज़बूत लोहे की होती हैं, और लकड़ी या कंक्रीट के स्लीपरों पर कसी होती हैं।\" (पटरियाँ)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"भारी-भरकम ट्रेन दो पतली पटरियों पर तेज़ दौड़ती है, फिर भी गिरती नहीं। कैसे?\")",
+          "en": "Ask: what happened first in the story? (\"A huge, heavy train races along two thin rails without falling off. How?\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर पटरी है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the rail track and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "पटरी के नीचे गिट्टी क्यों बिछाते हैं?", "en": "Why are stones spread under the rails?" },
+        { "type": "you", "hi": "तुम्हें ट्रेन की सबसे अच्छी बात क्या लगती है?", "en": "What do you like best about trains?" }
+      ]
     }
   ],
   "levels": [
@@ -19303,7 +19908,7 @@
       "mascot": "bholu",
       "color": "#15803D",
       "collection": "forest",
-      "tags": ["stories", "poems", "listening"],
+      "tags": ["stories", "poems", "listening", "science"],
       "name": { "hi": "भोलू का कहानी वन", "en": "Bholu's Story Forest" },
       "letterSets": [],
       "units": [
@@ -19589,6 +20194,36 @@
               "icon": "net",
               "title": { "hi": "समझदार बटेरें", "en": "The wise quails" },
               "config": { "story": "jataka-bater" }
+            }
+          ]
+        },
+        {
+          "id": "g2-jaano",
+          "title": { "hi": "जानो कैसे", "en": "How things work" },
+          "skill": "Science · Reading",
+          "icon": "raincloud",
+          "lessons": [
+            {
+              "id": "g2-jaano-1",
+              "game": "story",
+              "icon": "raincloud",
+              "title": { "hi": "बारिश कहाँ से आती है?", "en": "Where does rain come from?" },
+              "config": { "story": "info-barish" }
+            },
+            { "id": "g2-jaano-2", "game": "story", "icon": "seed", "title": { "hi": "बीज से पौधा", "en": "From seed to plant" }, "config": { "story": "info-beej" } },
+            {
+              "id": "g2-jaano-3",
+              "game": "story",
+              "icon": "milk",
+              "title": { "hi": "दूध कहाँ से आता है?", "en": "Where does milk come from?" },
+              "config": { "story": "info-doodh" }
+            },
+            {
+              "id": "g2-jaano-4",
+              "game": "story",
+              "icon": "beehive",
+              "title": { "hi": "मधुमक्खी शहद कैसे बनाती है?", "en": "How do bees make honey?" },
+              "config": { "story": "info-shahad" }
             }
           ]
         }
@@ -19882,7 +20517,7 @@
       "mascot": "mitthu",
       "color": "#BE185D",
       "collection": "palace",
-      "tags": ["stories", "poems"],
+      "tags": ["stories", "poems", "science"],
       "name": { "hi": "मिट्ठू का कथा महल", "en": "Mitthu's Folktale Palace" },
       "letterSets": [],
       "units": [
@@ -20211,6 +20846,22 @@
               "title": { "hi": "अंकों का जादूगर: रामानुजन", "en": "The wizard of numbers: Ramanujan" },
               "config": { "story": "sach-ramanujan" }
             }
+          ]
+        },
+        {
+          "id": "g3-jaano",
+          "title": { "hi": "जानो कैसे", "en": "How things work" },
+          "skill": "Science · Reading",
+          "icon": "postbox",
+          "lessons": [
+            {
+              "id": "g3-jaano-1",
+              "game": "story",
+              "icon": "postbox",
+              "title": { "hi": "चिट्ठी का सफ़र", "en": "A letter's journey" },
+              "config": { "story": "info-chitthi" }
+            },
+            { "id": "g3-jaano-2", "game": "story", "icon": "earth", "title": { "hi": "दिन और रात", "en": "Day and night" }, "config": { "story": "info-din-raat" } }
           ]
         }
       ]
@@ -20628,7 +21279,7 @@
       "mascot": "himu",
       "color": "#475569",
       "collection": "mountain",
-      "tags": ["stories", "poems"],
+      "tags": ["stories", "poems", "science"],
       "name": { "hi": "हिमू का कथा पर्वत", "en": "Himu's Story Mountain" },
       "letterSets": [],
       "units": [
@@ -20871,6 +21522,28 @@
               "icon": "ghungroo",
               "title": { "hi": "फिर से नाचीं: सुधा चंद्रन", "en": "Dancing again: Sudha Chandran" },
               "config": { "story": "sach-sudha" }
+            }
+          ]
+        },
+        {
+          "id": "g4-jaano",
+          "title": { "hi": "जानो कैसे", "en": "How things work" },
+          "skill": "Science · Reading",
+          "icon": "moonphases",
+          "lessons": [
+            {
+              "id": "g4-jaano-1",
+              "game": "story",
+              "icon": "moonphases",
+              "title": { "hi": "चाँद अपना आकार क्यों बदलता है?", "en": "Why does the moon change shape?" },
+              "config": { "story": "info-chaand" }
+            },
+            {
+              "id": "g4-jaano-2",
+              "game": "story",
+              "icon": "track",
+              "title": { "hi": "ट्रेन पटरी पर कैसे टिकी रहती है?", "en": "How does a train stay on its track?" },
+              "config": { "story": "info-rail" }
             }
           ]
         }

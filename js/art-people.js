@@ -189,6 +189,29 @@ export const THINGS = {
   ghungroo: () =>
     path('M30 92 Q100 120 170 92', 'none', stroke('#B9774A', 10)) +
     [44, 62, 80, 98, 116, 134, 152].map((x, i) => { const y = 96 + Math.sin((Math.PI * (x - 30)) / 140) * 14; return circ(x, y + 12, 9, '#FFC93C') + circ(x, y + 14, 3, '#B58300') + line(x, y + 2, x, y + 4, '#B58300', 2); }).join(''),
+  // roadmap 9.10, how things work: a beehive, a seed sprouting, a post box, the moon's shapes, a rail track
+  beehive: () =>
+    line(100, 4, 100, 24, '#8A5A44', 5) +
+    [[100, 34, 30], [100, 56, 42], [100, 80, 48], [100, 104, 42], [100, 124, 28]].map(([x, y, r], i) => ell(x, y, r, 13, i % 2 ? '#E8A51C' : '#FFC93C')).join('') +
+    ell(100, 98, 9, 8, '#5B3A2E') +
+    [[148, 50], [160, 82], [44, 70]].map(([x, y]) => ell(x, y, 7, 5, '#FFC93C') + line(x - 2, y - 5, x + 2, y + 5, INK, 2) + ell(x - 3, y - 6, 5, 3, '#E3F2FF') + ell(x + 3, y - 6, 5, 3, '#E3F2FF')).join(''),
+  seed: () =>
+    path('M10 104 Q100 92 190 104 V140 H10 Z', '#8A5A44') + path('M10 104 Q100 92 190 104', 'none', stroke('#6B4430', 4)) +
+    ell(100, 118, 16, 11, '#D9A066') + path('M92 112 Q100 106 108 112', 'none', stroke('#B9774A', 2)) +
+    path('M100 112 Q98 82 100 62', 'none', stroke('#2EC27E', 5)) + path('M100 70 Q80 54 70 62 Q84 76 100 70 Z', '#4FAF63') + path('M100 66 Q122 46 134 56 Q118 72 100 66 Z', '#2EC27E') +
+    path('M98 124 Q90 134 92 140 M102 124 Q110 134 108 140', 'none', stroke('#F3E3D3', 3)),
+  postbox: () =>
+    rect(66, 30, 68, 96, '#E2583E', 18) + rect(66, 30, 68, 30, '#C8102E', 18) + rect(78, 60, 44, 8, '#2B2D42', 3) +
+    rect(84, 80, 32, 22, '#F3F4F8', 3) + `<text x="100" y="96" text-anchor="middle" font-size="12" font-family="sans-serif" fill="#C8102E">डाक</text>` + rect(60, 122, 80, 8, '#5B6478', 3),
+  moonphases: () =>
+    [[30, 'new'], [70, 'cres'], [110, 'half'], [150, 'full']].map(([x, k]) =>
+      circ(x, 70, 17, '#2B2D42') +
+      (k === 'cres' ? path(`M${x} 53 A17 17 0 0 1 ${x} 87 A10 17 0 0 0 ${x} 53 Z`, '#FFE08A') : k === 'half' ? path(`M${x} 53 A17 17 0 0 1 ${x} 87 Z`, '#FFE08A') : k === 'full' ? circ(x, 70, 17, '#FFE08A') : '')
+    ).join('') + path('M24 104 H176', 'none', stroke('#9AA3B5', 2)) + `<text x="30" y="122" text-anchor="middle" font-size="11" font-family="sans-serif" fill="#5B6478">अमावस</text><text x="150" y="122" text-anchor="middle" font-size="11" font-family="sans-serif" fill="#5B6478">पूनम</text>`,
+  track: () =>
+    path('M60 140 L92 20 H108 L140 140 Z', '#C9B79C') +
+    [128, 106, 86, 68, 52, 38, 26].map((y, i) => rect(70 + i * 3.4, y, 60 - i * 6.8, 6, '#8A5A44', 2)).join('') +
+    path('M78 140 L96 20 M122 140 L104 20', 'none', stroke('#7A8496', 6)) + path('M78 140 L96 20 M122 140 L104 20', 'none', stroke('#C4C9D4', 2)),
   // बैंगन: two purple brinjals (roadmap 9.8: Tenali Rama and the brinjal curry)
   brinjal: () =>
     [[76, 84, -18], [124, 80, 14]].map(([x, y, r]) => `<g transform="rotate(${r} ${x} ${y})">` + ell(x, y + 10, 24, 36, '#6B3FA0') + ell(x - 7, y + 2, 7, 16, '#8E63C7') + path(`M${x - 18} ${y - 22} Q${x} ${y - 34} ${x + 18} ${y - 22} Q${x} ${y - 12} ${x - 18} ${y - 22} Z`, '#2EC27E') + line(x, y - 30, x + 4, y - 44, '#1F9D63', 5) + '</g>').join(''),

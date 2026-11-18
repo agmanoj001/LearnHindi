@@ -119,6 +119,7 @@ const DONE = {
   "Festival stories for everyone's calendar": () => ['fest-idgah', 'fest-sacha-sauda', 'fest-pahad-christmas', 'fest-lohri', 'fest-pongal', 'fest-mahabali', 'k3-gurpurab'].every((id) => content.stories.some((s) => s.id === id && s.talk?.length === 5)) && /export function festStory/.test(read('js/festivals.js')) && /id: 'gurpurab'/.test(read('js/festivals.js')),
   'Tales from across India': () => ['punyakoti', 'sheikh-chilli', 'jataka-bater', 'gonu-jha', 'birbal-hara-ghoda', 'birbal-oont', 'tenali-laal-mor', 'tenali-baingan', 'jataka-hiran', 'tejimola', 'lalkamal-neelkamal'].every((id) => content.stories.some((s) => s.id === id && s.talk?.length === 5)) && ['tenali', 'redpeacock', 'brinjal'].every((w) => content.words[w]),
   'True stories of real people': () => content.stories.filter((s) => s.kind === 'true').length >= 10 && /STORY_BADGE/.test(read('js/games/story.js')) && /'true'/.test(read('js/validate.js')),
+  '"How things work" books': () => content.stories.filter((s) => s.kind === 'info').length >= 8 && ['forest', 'palace', 'mountain'].every((id) => content.worlds.find((w) => w.id === id).tags.includes('science')),
   'More maths in Show time': () => ['km-count', 'km-compare', 'km-ten', 'km-shapes', 'km-measure'].every((u) => content.shows.some((s) => s.level === 'kg' && s.lang === 'en' && String(s.lesson).startsWith(u))),
 };
 
