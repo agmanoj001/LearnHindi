@@ -468,7 +468,10 @@
     "bonfire": { "hi": "लोहड़ी की आग", "translit": "lohdee kee aag", "en": "Lohri fire", "picture": "bonfire" },
     "pongalpot": { "hi": "पोंगल की हांडी", "translit": "pongal kee haandee", "en": "Pongal pot", "picture": "pongalpot" },
     "pookalam": { "hi": "पूकलम", "translit": "pookalam", "en": "flower carpet", "picture": "pookalam" },
-    "chessboard": { "hi": "शतरंज", "translit": "shatranj", "en": "chessboard", "picture": "chessboard" }
+    "chessboard": { "hi": "शतरंज", "translit": "shatranj", "en": "chessboard", "picture": "chessboard" },
+    "heron": { "hi": "बगुला", "translit": "bagula", "en": "heron", "picture": "heron", "level": "grade1", "syllables": ["ब", "गु", "ला"] },
+    "grasshopper": { "hi": "टिड्डा", "translit": "tidda", "en": "grasshopper", "picture": "grasshopper", "level": "grade2", "syllables": ["टि", "ड्डा"] },
+    "sage": { "hi": "साधु", "translit": "saadhu", "en": "sage", "picture": "sage", "level": "grade1", "syllables": ["सा", "धु"] }
   },
   "sentences": [
     { "id": "bus-here", "about": "bus", "hi": "बस आई!", "translit": "bas aai", "en": "The bus is here!", "level": "grade2" },
@@ -11621,6 +11624,640 @@
         { "type": "why", "hi": "गाँव वालों को सड़क क्यों चाहिए थी?", "en": "Why did the village need a road?" },
         { "type": "you", "hi": "तुमने अपने घर के पास कौन सी मशीन काम करते देखी है?", "en": "Which machine have you seen working near your home?" }
       ]
+    },
+    {
+      "id": "k5-matka",
+      "title": { "hi": "चल रे मटके, टम्मक टू!", "en": "Roll on, pot, tammak too!" },
+      "cover": "pot",
+      "pages": [
+        {
+          "word": "grandmother",
+          "hi": "एक बुढ़िया अपनी बेटी के घर चली।",
+          "en": "An old woman set off for her daughter’s house.",
+          "act": { "move": "walk", "sky": "field" }
+        },
+        {
+          "word": "tiger",
+          "hi": "रास्ते में बाघ मिला। \"बुढ़िया, मैं तुझे खाऊँगा!\"",
+          "en": "On the way she met a tiger. \"Old woman, I will eat you!\"",
+          "act": { "move": "enter-right", "sky": "field", "with": "grandmother", "mood": "scared" }
+        },
+        {
+          "word": "grandmother",
+          "hi": "बुढ़िया बोली, \"बेटी के घर जाऊँगी, मोटी होकर आऊँगी, तब खाना!\"",
+          "en": "The old woman said, \"I’ll go to my daughter’s, get fat, come back, then eat me!\"",
+          "act": { "move": "talk", "sky": "field", "with": "tiger" }
+        },
+        {
+          "word": "bear",
+          "hi": "फिर भालू मिला। बुढ़िया ने उसे भी यही कहा।",
+          "en": "Then she met a bear. She told him the same.",
+          "act": { "move": "enter-right", "sky": "field", "with": "grandmother" }
+        },
+        {
+          "word": "lion",
+          "hi": "फिर शेर मिला। बुढ़िया ने उसे भी यही कहा।",
+          "en": "Then she met a lion. She told him the same.",
+          "act": { "move": "walk", "sky": "dawn", "with": "grandmother" }
+        },
+        {
+          "word": "house",
+          "hi": "बेटी के घर बुढ़िया ने ख़ूब हलवा-पूरी खाई।",
+          "en": "At her daughter’s house the old woman ate lots of halwa and puri.",
+          "act": { "move": "float", "sky": "home", "fx": "hearts", "mood": "happy" }
+        },
+        {
+          "word": "pot",
+          "hi": "लौटते समय बुढ़िया एक बड़े मटके में बैठ गई।",
+          "en": "On the way back, she sat inside a big pot.",
+          "act": { "move": "roll", "sky": "field" }
+        },
+        {
+          "word": "pot",
+          "hi": "\"चल रे मटके, टम्मक टू!\" मटका लुढ़कता चला।",
+          "en": "\"Roll on, pot, tammak too!\" The pot rolled along.",
+          "act": { "move": "roll", "sky": "field", "fx": "dust", "sound": "boing" }
+        },
+        {
+          "word": "tiger",
+          "hi": "बाघ, भालू, शेर देखते रह गए। बुढ़िया घर पहुँच गई!",
+          "en": "The tiger, the bear and the lion just stared. The old woman was home!",
+          "act": { "move": "shake", "sky": "field", "with": "pot", "mood": "surprised" }
+        }
+      ],
+      "questions": [
+        { "hi": "बुढ़िया किसमें बैठकर लौटी?", "en": "What did the old woman ride home in?", "answer": "pot", "options": ["pot", "bus", "boat"] },
+        { "hi": "सबसे पहले कौन मिला?", "en": "Who did she meet first?", "answer": "tiger", "options": ["tiger", "cow", "duck"] }
+      ],
+      "level": "kg",
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"रास्ते में … मिला। \"बुढ़िया, मैं तुझे खाऊँगा!\"\" (बाघ)",
+          "en": "Say this and let your child fill the gap: \"रास्ते में … मिला। \"बुढ़िया, मैं तुझे खाऊँगा!\"\" (बाघ)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"एक बुढ़िया अपनी बेटी के घर चली।\")",
+          "en": "Ask: what happened first in the story? (\"An old woman set off for her daughter’s house.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर शेर है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the lion and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "बुढ़िया मटके में क्यों बैठी?", "en": "Why did the old woman sit inside the pot?" },
+        { "type": "you", "hi": "तुम्हें किसके घर जाना सबसे अच्छा लगता है?", "en": "Whose home do you love visiting most?" }
+      ]
+    },
+    {
+      "id": "k5-chidiya-dana",
+      "title": { "hi": "चिड़िया का दाना", "en": "The sparrow’s grain" },
+      "cover": "bird",
+      "pages": [
+        {
+          "word": "grain",
+          "hi": "चिड़िया का एक दाना लट्ठे में फँस गया।",
+          "en": "A grain of the sparrow’s got stuck in a log.",
+          "act": { "move": "shake", "sky": "field", "with": "log", "mood": "sad" }
+        },
+        {
+          "word": "woodcutter",
+          "hi": "\"लकड़हारे, लट्ठा चीरो, मेरा दाना निकालो!\" लकड़हारा बोला, \"ना!\"",
+          "en": "\"Woodcutter, split the log, get my grain out!\" The woodcutter said, \"No!\"",
+          "act": { "move": "shake", "sky": "field", "with": "bird" }
+        },
+        {
+          "word": "king",
+          "hi": "\"राजा, लकड़हारे को डाँटो!\" राजा बोला, \"ना!\"",
+          "en": "\"King, tell off the woodcutter!\" The king said, \"No!\"",
+          "act": { "move": "talk", "sky": "field", "with": "bird" }
+        },
+        {
+          "word": "mouse",
+          "hi": "\"चूहे, राजा के कपड़े कुतरो!\" चूहा बोला, \"ना!\"",
+          "en": "\"Mouse, nibble the king’s clothes!\" The mouse said, \"No!\"",
+          "act": { "move": "scurry", "sky": "home", "with": "bird" }
+        },
+        {
+          "word": "cat",
+          "hi": "\"बिल्ली, चूहे को पकड़ो!\" बिल्ली बोली, \"हाँ, चलो!\"",
+          "en": "\"Cat, catch the mouse!\" The cat said, \"Yes, let’s go!\"",
+          "act": { "move": "jump", "sky": "field", "with": "bird", "mood": "happy" }
+        },
+        {
+          "word": "mouse",
+          "hi": "बिल्ली चूहे के पीछे, चूहा राजा के पीछे!",
+          "en": "The cat ran after the mouse, the mouse ran after the king!",
+          "act": { "move": "run", "sky": "field", "with": "cat", "fx": "dust" }
+        },
+        {
+          "word": "king",
+          "hi": "राजा बोला, \"लकड़हारे, जल्दी लट्ठा चीरो!\"",
+          "en": "The king said, \"Woodcutter, split the log, quick!\"",
+          "act": { "move": "talk", "sky": "field", "with": "woodcutter" }
+        },
+        {
+          "word": "log",
+          "hi": "लकड़हारे ने लट्ठा चीरा। खट-खट!",
+          "en": "The woodcutter split the log. Chop, chop!",
+          "act": { "move": "shake", "sky": "field", "with": "woodcutter", "sound": "thud" }
+        },
+        {
+          "word": "bird",
+          "hi": "दाना निकला! चिड़िया फुर्र से उड़ गई।",
+          "en": "Out came the grain! The sparrow flew off, whirr!",
+          "act": { "move": "fly-up", "sky": "sky", "fx": "sparkles", "mood": "happy" }
+        }
+      ],
+      "questions": [
+        { "hi": "दाना किसमें फँसा था?", "en": "What was the grain stuck in?", "answer": "log", "options": ["log", "shoe", "cup"] },
+        { "hi": "किसने \"हाँ\" कहा?", "en": "Who said \"yes\"?", "answer": "cat", "options": ["cat", "king", "mouse"] }
+      ],
+      "level": "kg",
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"चिड़िया का एक … लट्ठे में फँस गया।\" (दाना)",
+          "en": "Say this and let your child fill the gap: \"चिड़िया का एक … लट्ठे में फँस गया।\" (दाना)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"चिड़िया का एक दाना लट्ठे में फँस गया।\")",
+          "en": "Ask: what happened first in the story? (\"A grain of the sparrow’s got stuck in a log.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर बिल्ली है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the cat and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "बिल्ली के \"हाँ\" कहते ही सब क्यों दौड़ पड़े?", "en": "Why did everyone start running once the cat said yes?" },
+        {
+          "type": "you",
+          "hi": "जब तुम्हें मदद चाहिए होती है, तो तुम किससे पूछती या पूछते हो? चलो, बताओ!",
+          "en": "When you need help, who do you ask? Tell me!"
+        }
+      ]
+    },
+    {
+      "id": "k5-chidiya-kauwa",
+      "title": { "hi": "चिड़िया और कौआ", "en": "The sparrow and the crow" },
+      "cover": "crow",
+      "pages": [
+        { "word": "bird", "hi": "एक चिड़िया थी और एक कौआ।", "en": "There was a sparrow and a crow.", "act": { "move": "talk", "sky": "field", "with": "crow" } },
+        { "word": "bird", "hi": "चिड़िया ने मोम का घर बनाया।", "en": "The sparrow built a house of wax.", "act": { "move": "grow", "sky": "home", "fx": "sparkles" } },
+        { "word": "salt", "hi": "कौए ने नमक का घर बनाया।", "en": "The crow built a house of salt.", "act": { "move": "grow", "sky": "home", "with": "crow" } },
+        {
+          "word": "rain",
+          "hi": "ज़ोर की बारिश आई। कौए का घर पानी में घुल गया!",
+          "en": "Heavy rain came. The crow’s house melted away!",
+          "act": { "move": "shake", "sky": "rain", "fx": "rain", "mood": "sad" }
+        },
+        {
+          "word": "crow",
+          "hi": "\"चिड़िया रानी, दरवाज़ा खोलो!\" कौआ बोला।",
+          "en": "\"Sparrow, sparrow, open the door!\" called the crow.",
+          "act": { "move": "shake", "sky": "rain", "with": "door", "fx": "rain" }
+        },
+        {
+          "word": "bird",
+          "hi": "\"ज़रा ठहरो, बच्चों को खाना खिला रही हूँ।\"",
+          "en": "\"Wait a moment, I’m feeding my babies.\"",
+          "act": { "move": "talk", "sky": "home" }
+        },
+        {
+          "word": "crow",
+          "hi": "\"चिड़िया रानी, दरवाज़ा खोलो! मैं भीग गया!\"",
+          "en": "\"Sparrow, sparrow, open the door! I’m soaking wet!\"",
+          "act": { "move": "shake", "sky": "rain", "fx": "rain", "mood": "sad" }
+        },
+        {
+          "word": "bird",
+          "hi": "चिड़िया ने दरवाज़ा खोला, \"आओ, आग के पास बैठो।\"",
+          "en": "The sparrow opened the door. \"Come in, sit by the fire.\"",
+          "act": { "move": "approach", "sky": "home", "with": "crow", "fx": "hearts", "mood": "happy" }
+        }
+      ],
+      "questions": [
+        { "hi": "कौए का घर किसका बना था?", "en": "What was the crow’s house made of?", "answer": "salt", "options": ["salt", "stone", "tree"] },
+        { "hi": "किसने दरवाज़ा खोला?", "en": "Who opened the door?", "answer": "bird", "options": ["bird", "crow", "fish"] }
+      ],
+      "level": "kg",
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"एक … थी और एक कौआ।\" (चिड़िया)",
+          "en": "Say this and let your child fill the gap: \"एक … थी और एक कौआ।\" (चिड़िया)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"एक चिड़िया थी और एक कौआ।\")",
+          "en": "Ask: what happened first in the story? (\"There was a sparrow and a crow.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर कौआ है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the crow and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "नमक का घर बारिश में क्यों घुल गया?", "en": "Why did the salt house melt in the rain?" },
+        { "type": "you", "hi": "जब कोई दोस्त भीगा या दुखी हो, तो उसकी मदद कैसे करें?", "en": "When a friend is wet or sad, how can we help them?" }
+      ]
+    },
+    {
+      "id": "k5-gadha-gaana",
+      "title": { "hi": "गाने वाला गधा", "en": "The singing donkey" },
+      "cover": "donkey",
+      "pages": [
+        {
+          "word": "donkey",
+          "hi": "एक गधा और एक सियार पक्के दोस्त थे।",
+          "en": "A donkey and a jackal were best friends.",
+          "act": { "move": "walk", "sky": "field", "with": "jackal" }
+        },
+        {
+          "word": "cucumber",
+          "hi": "रात को दोनों खीरे के खेत में गए। कुरकुर, कुरकुर!",
+          "en": "At night they both went to a cucumber field. Crunch, crunch!",
+          "act": { "move": "grow", "sky": "night", "fx": "stars" }
+        },
+        {
+          "word": "moon",
+          "hi": "चाँद निकला। गधा बोला, \"मेरा गाने का मन है!\"",
+          "en": "The moon came out. The donkey said, \"I feel like singing!\"",
+          "act": { "move": "float", "sky": "night", "fx": "stars" }
+        },
+        {
+          "word": "jackal",
+          "hi": "सियार बोला, \"चुप! किसान जाग जाएगा!\"",
+          "en": "The jackal said, \"Hush! The farmer will wake up!\"",
+          "act": { "move": "shake", "sky": "night", "with": "donkey", "mood": "scared" }
+        },
+        {
+          "word": "donkey",
+          "hi": "पर गधे ने ज़ोर से गाया, \"ढेंचू! ढेंचू!\"",
+          "en": "But the donkey sang loudly, \"Hee-haw! Hee-haw!\"",
+          "act": { "move": "talk", "sky": "night", "fx": "music" }
+        },
+        {
+          "word": "farmer",
+          "hi": "किसान डंडा लेकर दौड़ा आया!",
+          "en": "The farmer came running with a stick!",
+          "act": { "move": "run", "sky": "night", "fx": "dust" }
+        },
+        {
+          "word": "jackal",
+          "hi": "सियार पहले ही भाग गया। गधा पकड़ा गया!",
+          "en": "The jackal had already run away. The donkey was caught!",
+          "act": { "move": "run", "sky": "night", "with": "donkey", "fx": "dust", "mood": "surprised" }
+        }
+      ],
+      "questions": [
+        { "hi": "खेत में क्या उगा था?", "en": "What grew in the field?", "answer": "cucumber", "options": ["cucumber", "mango", "corn"] },
+        { "hi": "किसने गाना गाया?", "en": "Who sang?", "answer": "donkey", "options": ["donkey", "jackal", "cow"] }
+      ],
+      "moral": { "hi": "हर काम का सही समय होता है।", "en": "Everything has its right time." },
+      "level": "kg",
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"एक … और एक सियार पक्के दोस्त थे।\" (गधा)",
+          "en": "Say this and let your child fill the gap: \"एक … और एक सियार पक्के दोस्त थे।\" (गधा)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"एक गधा और एक सियार पक्के दोस्त थे।\")",
+          "en": "Ask: what happened first in the story? (\"A donkey and a jackal were best friends.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर सियार है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the jackal and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "सियार ने गधे को चुप रहने को क्यों कहा?", "en": "Why did the jackal tell the donkey to be quiet?" },
+        { "type": "you", "hi": "तुम्हें गाना गाना कब अच्छा लगता है?", "en": "When do you like to sing?" }
+      ]
+    },
+    {
+      "id": "g1b-chinti-tidda",
+      "title": { "hi": "चींटी और टिड्डा", "en": "The ant and the grasshopper" },
+      "cover": "grasshopper",
+      "pages": [
+        {
+          "word": "ant",
+          "hi": "गर्मी में चींटी दिन भर दाने जमा करती थी।",
+          "en": "All summer the ant gathered grain all day long.",
+          "act": { "move": "scurry", "sky": "field", "with": "grain" }
+        },
+        {
+          "word": "grasshopper",
+          "hi": "टिड्डा गाता और कूदता रहता, \"आओ, खेलो!\"",
+          "en": "The grasshopper sang and hopped about. \"Come and play!\"",
+          "act": { "move": "jump", "sky": "field", "fx": "music", "mood": "happy" }
+        },
+        {
+          "word": "ant",
+          "hi": "चींटी बोली, \"सर्दी आएगी। तुम भी दाने जमा कर लो।\"",
+          "en": "The ant said, \"Winter is coming. Gather some grain too.\"",
+          "act": { "move": "talk", "sky": "field", "with": "grasshopper" }
+        },
+        {
+          "word": "grasshopper",
+          "hi": "टिड्डा हँसा, \"अभी तो बहुत समय है!\"",
+          "en": "The grasshopper laughed. \"There’s plenty of time!\"",
+          "act": { "move": "dance", "sky": "field", "fx": "music" }
+        },
+        {
+          "word": "snowflake",
+          "hi": "सर्दी आई। चारों ओर ठंड और बर्फ़ थी।",
+          "en": "Winter came. It was cold and snowy everywhere.",
+          "act": { "move": "shake", "sky": "snow", "fx": "snow" }
+        },
+        {
+          "word": "grasshopper",
+          "hi": "टिड्डा भूखा और ठंडा था। उसने चींटी का दरवाज़ा खटखटाया।",
+          "en": "The grasshopper was hungry and cold. He knocked on the ant’s door.",
+          "act": { "move": "shake", "sky": "snow", "with": "door", "fx": "snow", "mood": "sad" }
+        },
+        {
+          "word": "ant",
+          "hi": "चींटी ने उसे दाने दिए, \"अगली गर्मी में साथ जमा करेंगे।\"",
+          "en": "The ant gave him some grain. \"Next summer we’ll gather together.\"",
+          "act": { "move": "approach", "sky": "home", "with": "grasshopper", "fx": "hearts", "mood": "happy" }
+        }
+      ],
+      "questions": [
+        { "hi": "दिन भर दाने कौन जमा करता था?", "en": "Who gathered grain all day?", "answer": "ant", "options": ["ant", "grasshopper", "butterfly"] },
+        { "hi": "सर्दी में भूखा कौन था?", "en": "Who was hungry in the winter?", "answer": "grasshopper", "options": ["grasshopper", "ant", "cow"] }
+      ],
+      "moral": { "hi": "आज थोड़ा काम करो, ताकि कल परेशानी न हो।", "en": "Do a little work today, so tomorrow is easy." },
+      "level": "grade1",
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"गर्मी में … दिन भर दाने जमा करती थी।\" (चींटी)",
+          "en": "Say this and let your child fill the gap: \"गर्मी में … दिन भर दाने जमा करती थी।\" (चींटी)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"गर्मी में चींटी दिन भर दाने जमा करती थी।\")",
+          "en": "Ask: what happened first in the story? (\"All summer the ant gathered grain all day long.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर टिड्डा है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the grasshopper and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "चींटी गर्मी में ही दाने क्यों जमा कर रही थी?", "en": "Why was the ant saving grain in the summer?" },
+        { "type": "you", "hi": "कल स्कूल के लिए आज रात क्या-क्या तैयार कर लें?", "en": "What could we get ready tonight for school tomorrow?" }
+      ]
+    },
+    {
+      "id": "g1b-teen-machhli",
+      "title": { "hi": "तीन मछलियाँ", "en": "The three fish" },
+      "cover": "fish",
+      "pages": [
+        {
+          "word": "fish",
+          "hi": "नदी के पास एक तालाब में तीन मछलियाँ रहती थीं।",
+          "en": "Three fish lived in a pond by a river.",
+          "act": { "move": "swim", "sky": "underwater", "fx": "bubbles" }
+        },
+        {
+          "word": "net",
+          "hi": "एक दिन मछुआरे बोले, \"कल यहाँ जाल डालेंगे!\"",
+          "en": "One day some fishermen said, \"Tomorrow we’ll throw our net here!\"",
+          "act": { "move": "talk", "sky": "river", "with": "boat" }
+        },
+        {
+          "word": "river",
+          "hi": "पहली मछली बोली, \"चलो, आज ही नदी में चले जाएँ।\"",
+          "en": "The first fish said, \"Let’s go to the river today.\"",
+          "act": { "move": "swim", "sky": "river" }
+        },
+        {
+          "word": "fish",
+          "hi": "दूसरी बोली, \"कुछ हुआ, तो मैं कोई तरकीब सोच लूँगी।\"",
+          "en": "The second said, \"If anything happens, I’ll think of a trick.\"",
+          "act": { "move": "swim", "sky": "underwater", "fx": "bubbles" }
+        },
+        {
+          "word": "fish",
+          "hi": "तीसरी बोली, \"मैं कहीं नहीं जाऊँगी। जो होगा, देखा जाएगा।\"",
+          "en": "The third said, \"I’m going nowhere. Whatever happens, happens.\"",
+          "act": { "move": "sleep", "sky": "underwater", "fx": "zzz" }
+        },
+        {
+          "word": "net",
+          "hi": "अगले दिन जाल आया। दूसरी मछली चुपचाप लेट गई, जैसे सो रही हो।",
+          "en": "Next day the net came. The second fish lay very still, as if asleep.",
+          "act": { "move": "shake", "sky": "river", "with": "fish", "fx": "splash" }
+        },
+        {
+          "word": "river",
+          "hi": "मछुआरे ने उसे पानी में फेंक दिया। वह तैरकर नदी में पहुँची!",
+          "en": "The fisherman tossed her back in the water. She swam off to the river!",
+          "act": { "move": "swim", "sky": "river", "fx": "splash", "mood": "happy" }
+        },
+        {
+          "word": "net",
+          "hi": "पर तीसरी मछली जाल में फँस गई।",
+          "en": "But the third fish was caught in the net.",
+          "act": { "move": "shake", "sky": "river", "with": "fish", "mood": "sad" }
+        }
+      ],
+      "questions": [
+        { "hi": "मछुआरे क्या डालने वाले थे?", "en": "What were the fishermen going to throw in?", "answer": "net", "options": ["net", "ball", "kite"] },
+        { "hi": "पहली मछली कहाँ चली गई?", "en": "Where did the first fish go?", "answer": "river", "options": ["river", "tree", "house"] }
+      ],
+      "moral": { "hi": "मुसीबत आने से पहले सोचो।", "en": "Think ahead, before trouble comes." },
+      "level": "grade1",
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"नदी के पास एक तालाब में तीन … रहती थीं।\" (मछलियाँ)",
+          "en": "Say this and let your child fill the gap: \"नदी के पास एक तालाब में तीन … रहती थीं।\" (मछलियाँ)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"नदी के पास एक तालाब में तीन मछलियाँ रहती थीं।\")",
+          "en": "Ask: what happened first in the story? (\"Three fish lived in a pond by a river.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर मछली है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the fish and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "पहली मछली उसी दिन क्यों चली गई?", "en": "Why did the first fish leave that very day?" },
+        { "type": "you", "hi": "बाहर जाने से पहले हम क्या-क्या सोचकर साथ रखते हैं?", "en": "What do we think of and take along before going out?" }
+      ]
+    },
+    {
+      "id": "g1b-bagula",
+      "title": { "hi": "बगुला भगत", "en": "The sly heron" },
+      "cover": "heron",
+      "pages": [
+        {
+          "word": "heron",
+          "hi": "एक बूढ़ा बगुला अब मछली नहीं पकड़ पाता था।",
+          "en": "An old heron could no longer catch fish.",
+          "act": { "move": "sway", "sky": "river", "mood": "sad" }
+        },
+        {
+          "word": "heron",
+          "hi": "उसने एक चाल सोची। वह एक टाँग पर उदास खड़ा हो गया।",
+          "en": "He thought of a trick. He stood sadly on one leg.",
+          "act": { "move": "sway", "sky": "river" }
+        },
+        {
+          "word": "fish",
+          "hi": "मछलियों ने पूछा, \"बगुला दादा, क्या हुआ?\"",
+          "en": "The fish asked, \"Grandpa heron, what’s wrong?\"",
+          "act": { "move": "swim", "sky": "river", "with": "heron" }
+        },
+        {
+          "word": "heron",
+          "hi": "बगुला बोला, \"तालाब सूखने वाला है! मैं तुम्हें बड़े तालाब ले चलूँगा।\"",
+          "en": "The heron said, \"The pond will dry up! I’ll take you to a big lake.\"",
+          "act": { "move": "talk", "sky": "river", "with": "fish" }
+        },
+        {
+          "word": "heron",
+          "hi": "बगुला रोज़ एक मछली ले जाता, और ख़ुद खा जाता।",
+          "en": "Every day the heron carried off a fish, and ate it himself.",
+          "act": { "move": "fly-across", "sky": "sky", "with": "fish", "fx": "wind" }
+        },
+        {
+          "word": "crab",
+          "hi": "एक दिन केकड़े की बारी आई। वह बगुले की गर्दन पर बैठ गया।",
+          "en": "One day it was the crab’s turn. He sat on the heron’s neck.",
+          "act": { "move": "lift", "sky": "sky", "with": "heron" }
+        },
+        {
+          "word": "bone",
+          "hi": "ऊपर से केकड़े ने हड्डियों का ढेर देखा। \"यह तो धोखा है!\"",
+          "en": "From up high the crab saw a pile of bones. \"This is a trick!\"",
+          "act": { "move": "shake", "sky": "sky", "with": "crab", "mood": "surprised" }
+        },
+        {
+          "word": "crab",
+          "hi": "केकड़े ने गर्दन कसकर पकड़ी, \"मुझे वापस ले चलो!\"",
+          "en": "The crab held the neck tight. \"Take me back!\"",
+          "act": { "move": "shake", "sky": "sky", "with": "heron" }
+        },
+        {
+          "word": "fish",
+          "hi": "केकड़ा लौटा और सबको सच बताया। बगुला फिर कभी नहीं आया!",
+          "en": "The crab came back and told everyone the truth. The heron never came again!",
+          "act": { "move": "dance", "sky": "river", "fx": "confetti", "mood": "happy" }
+        }
+      ],
+      "questions": [
+        { "hi": "मछलियों को किसने धोखा दिया?", "en": "Who tricked the fish?", "answer": "heron", "options": ["heron", "crab", "frog"] },
+        { "hi": "सच किसने पता किया?", "en": "Who found out the truth?", "answer": "crab", "options": ["crab", "fish", "heron"] }
+      ],
+      "moral": { "hi": "मीठी बातों पर आँख बंद करके भरोसा मत करो।", "en": "Don’t trust sweet words with your eyes closed." },
+      "level": "grade1",
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"एक बूढ़ा … अब मछली नहीं पकड़ पाता था।\" (बगुला)",
+          "en": "Say this and let your child fill the gap: \"एक बूढ़ा … अब मछली नहीं पकड़ पाता था।\" (बगुला)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"एक बूढ़ा बगुला अब मछली नहीं पकड़ पाता था।\")",
+          "en": "Ask: what happened first in the story? (\"An old heron could no longer catch fish.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर बगुला है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the heron and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "बगुला एक टाँग पर उदास बनकर क्यों खड़ा था?", "en": "Why did the heron stand on one leg looking sad?" },
+        {
+          "type": "you",
+          "hi": "अगर कोई अनजान तुम्हें कहीं ले जाने को कहे, तो क्या करना है?",
+          "en": "If a stranger asks to take you somewhere, what do we do?"
+        }
+      ]
+    },
+    {
+      "id": "g1b-chuha-sher",
+      "title": { "hi": "चूहा बना शेर", "en": "The mouse who became a lion" },
+      "cover": "sage",
+      "pages": [
+        {
+          "word": "sage",
+          "hi": "जंगल में एक साधु रहते थे। उनके पास एक नन्हा चूहा था।",
+          "en": "A sage lived in the forest. He had a tiny mouse.",
+          "act": { "move": "talk", "sky": "field", "with": "mouse" }
+        },
+        {
+          "word": "cat",
+          "hi": "चूहा बिल्ली से डरता था। साधु ने उसे बिल्ली बना दिया!",
+          "en": "The mouse was scared of cats. The sage turned him into a cat!",
+          "act": { "move": "grow", "sky": "field", "fx": "sparkles", "mood": "surprised" }
+        },
+        {
+          "word": "dog",
+          "hi": "बिल्ली कुत्ते से डरी। साधु ने उसे कुत्ता बना दिया!",
+          "en": "The cat was scared of dogs. The sage turned him into a dog!",
+          "act": { "move": "grow", "sky": "dawn", "fx": "sparkles" }
+        },
+        {
+          "word": "lion",
+          "hi": "कुत्ता शेर से डरा। साधु ने उसे शेर बना दिया!",
+          "en": "The dog was scared of lions. The sage turned him into a lion!",
+          "act": { "move": "grow", "sky": "day", "fx": "glow" }
+        },
+        {
+          "word": "lion",
+          "hi": "अब शेर घमंडी हो गया। वह साधु पर ही गुर्राया!",
+          "en": "Now the lion grew proud. He even growled at the sage!",
+          "act": { "move": "shake", "sky": "field", "with": "sage", "mood": "scared" }
+        },
+        {
+          "word": "sage",
+          "hi": "साधु बोले, \"तुम भूल गए कि तुम कौन हो?\"",
+          "en": "The sage said, \"Have you forgotten who you are?\"",
+          "act": { "move": "talk", "sky": "field", "with": "lion" }
+        },
+        {
+          "word": "mouse",
+          "hi": "साधु ने उसे फिर से चूहा बना दिया। चूँ-चूँ!",
+          "en": "The sage turned him back into a mouse. Squeak, squeak!",
+          "act": { "move": "shrink", "sky": "field", "fx": "sparkles", "sound": "pop" }
+        }
+      ],
+      "questions": [
+        { "hi": "साधु के पास पहले कौन था?", "en": "What did the sage have at first?", "answer": "mouse", "options": ["mouse", "lion", "elephant"] },
+        { "hi": "घमंडी कौन हो गया?", "en": "Who became proud?", "answer": "lion", "options": ["lion", "mouse", "cat"] }
+      ],
+      "moral": { "hi": "जिसने मदद की, उसे कभी मत भूलो।", "en": "Never forget the one who helped you." },
+      "level": "grade1",
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"जंगल में एक … रहते थे। उनके पास एक नन्हा चूहा था।\" (साधु)",
+          "en": "Say this and let your child fill the gap: \"जंगल में एक … रहते थे। उनके पास एक नन्हा चूहा था।\" (साधु)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"जंगल में एक साधु रहते थे। उनके पास एक नन्हा चूहा था।\")",
+          "en": "Ask: what happened first in the story? (\"A sage lived in the forest. He had a tiny mouse.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर शेर है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the lion and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "साधु ने शेर को फिर से चूहा क्यों बना दिया?", "en": "Why did the sage turn the lion back into a mouse?" },
+        {
+          "type": "you",
+          "hi": "किसने तुम्हारी सबसे ज़्यादा मदद की है? उन्हें धन्यवाद कैसे कहें?",
+          "en": "Who has helped you the most? How can we say thank you?"
+        }
+      ]
     }
   ],
   "levels": [
@@ -12926,6 +13563,42 @@
           ]
         },
         {
+          "id": "k-lok",
+          "title": { "hi": "मिलकर बोलो कहानियाँ", "en": "Join-in folk tales" },
+          "skill": "Listening · Stories",
+          "icon": "pot",
+          "lessons": [
+            {
+              "id": "k-lok-1",
+              "game": "story",
+              "icon": "pot",
+              "title": { "hi": "चल रे मटके, टम्मक टू!", "en": "Roll on, pot, tammak too!" },
+              "config": { "story": "k5-matka" }
+            },
+            {
+              "id": "k-lok-2",
+              "game": "story",
+              "icon": "bird",
+              "title": { "hi": "चिड़िया का दाना", "en": "The sparrow’s grain" },
+              "config": { "story": "k5-chidiya-dana" }
+            },
+            {
+              "id": "k-lok-3",
+              "game": "story",
+              "icon": "crow",
+              "title": { "hi": "चिड़िया और कौआ", "en": "The sparrow and the crow" },
+              "config": { "story": "k5-chidiya-kauwa" }
+            },
+            {
+              "id": "k-lok-4",
+              "game": "story",
+              "icon": "donkey",
+              "title": { "hi": "गाने वाला गधा", "en": "The singing donkey" },
+              "config": { "story": "k5-gadha-gaana" }
+            }
+          ]
+        },
+        {
           "id": "k-din",
           "title": { "hi": "सात दिन", "en": "Seven days" },
           "skill": "Vocabulary",
@@ -13753,6 +14426,36 @@
               "icon": "clock",
               "title": { "hi": "कितने बजे हैं?", "en": "What's the time?" },
               "config": { "rounds": 6, "modes": ["clock"] }
+            }
+          ]
+        },
+        {
+          "id": "g1-baarbaar",
+          "title": { "hi": "बार-बार वाली कहानियाँ", "en": "Tales that come round again" },
+          "skill": "Listening · Stories",
+          "icon": "heron",
+          "lessons": [
+            {
+              "id": "g1-baarbaar-1",
+              "game": "story",
+              "icon": "grasshopper",
+              "title": { "hi": "चींटी और टिड्डा", "en": "The ant and the grasshopper" },
+              "config": { "story": "g1b-chinti-tidda" }
+            },
+            {
+              "id": "g1-baarbaar-2",
+              "game": "story",
+              "icon": "fish",
+              "title": { "hi": "तीन मछलियाँ", "en": "The three fish" },
+              "config": { "story": "g1b-teen-machhli" }
+            },
+            { "id": "g1-baarbaar-3", "game": "story", "icon": "heron", "title": { "hi": "बगुला भगत", "en": "The sly heron" }, "config": { "story": "g1b-bagula" } },
+            {
+              "id": "g1-baarbaar-4",
+              "game": "story",
+              "icon": "sage",
+              "title": { "hi": "चूहा बना शेर", "en": "The mouse who became a lion" },
+              "config": { "story": "g1b-chuha-sher" }
             }
           ]
         }

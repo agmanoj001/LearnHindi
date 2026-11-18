@@ -102,6 +102,12 @@ export const PEOPLE = {
     ell(70, 40, 16, 20, '#F0B7A4') + ell(130, 40, 16, 20, '#F0B7A4') + ell(70, 40, 9, 13, '#F7D1C4') + ell(130, 40, 9, 13, '#F7D1C4') +
     circ(100, 40, 24, '#F0B7A4') + path('M90 50 L84 60 L94 55 Z M110 50 L116 60 L106 55 Z', '#FFFFFF') + path('M100 48 Q100 76 116 84 Q128 88 128 76', 'none', stroke('#DE9A84', 12)) + path('M100 48 Q100 76 116 84 Q128 88 128 76', 'none', stroke('#E9AC98', 7)) + eye(91, 36, 3.4) + eye(109, 36, 3.4) +
     path('M86 20 L84 8 L94 14 L100 4 L106 14 L116 8 L114 20 Z', '#FFC93C') + tilak(),
+  // a sage in saffron, with a staff and a water pot (roadmap 9.4: the mouse who became a lion)
+  sage: () =>
+    person({ style: 'grey', hair: '#E3E6ED', top: '#FF9F43', bottom: '#FF9F43', beard: '#EEF0F5', skin: SKIN[1], prop: line(150, 128, 146, 52, '#8A5A44', 5) }) +
+    path('M138 52 Q146 40 156 50', 'none', stroke('#8A5A44', 4)) +
+    path('M50 112 Q50 98 62 98 Q74 98 74 112 Q74 124 62 124 Q50 124 50 112 Z', '#B9774A') + rect(56, 92, 12, 8, '#8A5A44', 3) +
+    tilak(),
   tailor: () => person({ top: '#2EC27E', bottom: '#2B2D42', glasses: true, skin: SKIN[1], prop: path('M82 56 Q82 90 78 100 M118 56 Q118 90 122 100', 'none', stroke('#FFC93C', 4)) }) + line(134, 96, 150, 76, '#94A3B8', 4) + line(134, 96, 152, 88, '#94A3B8', 4) + circ(130, 100, 5, 'none', stroke('#94A3B8', 3)) + circ(136, 104, 5, 'none', stroke('#94A3B8', 3)),
 };
 
@@ -152,6 +158,27 @@ export const THINGS = {
   rangoli: () => `<polygon points="${starPoints(100, 70, 58, 30, 8)}" fill="#FF6B9A"/>` + `<polygon points="${starPoints(100, 70, 40, 20, 8)}" fill="#FFC93C"/>` + circ(100, 70, 16, '#3D7BFF') + circ(100, 70, 7, '#fff') + [0, 1, 2, 3, 4, 5, 6, 7].map((k) => circ((100 + 52 * Math.cos((k * Math.PI) / 4 + 0.39)).toFixed(1), (70 + 52 * Math.sin((k * Math.PI) / 4 + 0.39)).toFixed(1), 5, '#2EC27E')).join(''),
 
   // ---------- story animals and things ----------
+  // बगुला: a grey-white heron on one leg in the water (roadmap 9.4: बगुला भगत)
+  heron: () =>
+    path('M0 118 Q50 110 100 118 T200 118 V140 H0 Z', '#7DD3FC') +
+    line(104, 96, 102, 124, '#E8A51C', 4) + path('M102 108 L114 112', 'none', stroke('#E8A51C', 3)) +
+    path('M70 78 Q78 54 112 60 Q138 66 132 86 Q120 100 96 98 Q74 96 70 78 Z', '#F3F4F8') +
+    path('M76 74 Q92 66 118 74 Q100 86 76 74 Z', '#D9DEE7') +
+    path('M64 82 L40 92 L66 90 Z', '#C4C9D4') +
+    path('M126 70 Q140 48 128 32 Q120 20 132 14', 'none', stroke('#F3F4F8', 9)) +
+    circ(134, 14, 9, '#F3F4F8') +
+    path('M141 12 L172 18 L141 18 Z', '#FFC93C') +
+    path('M128 8 Q118 4 112 10', 'none', stroke('#5B6478', 2.4)) +
+    eye(136, 11, 2.4),
+  // टिड्डा: a green grasshopper with long back legs (roadmap 9.4: the ant and the grasshopper)
+  grasshopper: () =>
+    path('M60 96 Q66 76 104 78 Q140 80 148 92 Q140 104 104 104 Q70 104 60 96 Z', '#7BD389') +
+    path('M78 84 Q104 70 134 86', 'none', stroke('#4FAF63', 4)) +
+    path('M96 92 L116 56 L150 108', 'none', stroke('#4FAF63', 6)) +
+    path('M84 100 L76 120 M100 102 L98 122', 'none', stroke('#4FAF63', 4)) +
+    circ(152, 90, 13, '#7BD389') + eye(156, 86, 3) +
+    path('M158 80 Q170 54 186 48 M154 78 Q160 52 172 40', 'none', stroke('#4FAF63', 2.4)) +
+    path('M150 98 Q156 102 162 98', 'none', stroke(INK, 1.8)),
   swan: () =>
     path('M0 118 Q50 110 100 118 T200 118 V140 H0 Z', '#7DD3FC') +
     path('M44 100 Q50 70 100 74 Q150 76 156 100 Q130 116 90 114 Q56 114 44 100 Z', '#F3F4F8') +

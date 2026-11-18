@@ -113,6 +113,7 @@ const DONE = {
   'Read it aloud and hear yourself': () => /function readBack\(ctx, story, n, narration\)/.test(read('js/games/story.js')) && /readAloud: false/.test(read('js/logic.js')) && /function readAloudView/.test(read('js/parent.js')),
   'Content tooling': () => exists('tools/content-check.mjs') && exists('tools/style-rules.mjs') && /"check-content"/.test(read('package.json')),
   'Vehicle stories for Kindergarten': () => ['k4-firestation', 'k4-kooda', 'k4-raat-rail', 'k4-metro', 'k4-hawai-adda', 'k4-school-bus', 'k4-ambulance', 'k4-sadak'].every((id) => content.stories.some((s) => s.id === id && s.level === 'kg' && s.talk?.length === 5)) && lessons.filter((l) => l.config?.story?.startsWith('k4-')).length === 8,
+  'Cumulative and call-back folk tales for Kindergarten and Grade 1': () => ['k5-matka', 'k5-chidiya-dana', 'k5-chidiya-kauwa', 'k5-gadha-gaana', 'g1b-chinti-tidda', 'g1b-teen-machhli', 'g1b-bagula', 'g1b-chuha-sher'].every((id) => content.stories.some((s) => s.id === id && s.talk?.length === 5)) && ['heron', 'grasshopper', 'sage'].every((w) => content.words[w]),
   'More maths in Show time': () => ['km-count', 'km-compare', 'km-ten', 'km-shapes', 'km-measure'].every((u) => content.shows.some((s) => s.level === 'kg' && s.lang === 'en' && String(s.lesson).startsWith(u))),
 };
 
