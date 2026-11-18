@@ -117,6 +117,7 @@ const DONE = {
   'More decodable books for Grade 1': () => content.stories.filter((s) => s.decodable != null).length >= 28 && content.stories.some((s) => s.decodable === 5),
   'Ramayana and Krishna, continued': () => ['ram-shabari', 'ram-setu', 'ram-bharat', 'ram-ghar-aaye', 'k-sudama', 'k-kaliya', 'dhruv-tara', 'ganesh-chanda', 'arjun-aankh', 'eklavya'].every((id) => content.stories.some((s) => s.id === id && s.talk?.length === 5)) && ['ber', 'khadau', 'bharat', 'sudama', 'arjun', 'eklavya'].every((w) => content.words[w]),
   "Festival stories for everyone's calendar": () => ['fest-idgah', 'fest-sacha-sauda', 'fest-pahad-christmas', 'fest-lohri', 'fest-pongal', 'fest-mahabali', 'k3-gurpurab'].every((id) => content.stories.some((s) => s.id === id && s.talk?.length === 5)) && /export function festStory/.test(read('js/festivals.js')) && /id: 'gurpurab'/.test(read('js/festivals.js')),
+  'Tales from across India': () => ['punyakoti', 'sheikh-chilli', 'jataka-bater', 'gonu-jha', 'birbal-hara-ghoda', 'birbal-oont', 'tenali-laal-mor', 'tenali-baingan', 'jataka-hiran', 'tejimola', 'lalkamal-neelkamal'].every((id) => content.stories.some((s) => s.id === id && s.talk?.length === 5)) && ['tenali', 'redpeacock', 'brinjal'].every((w) => content.words[w]),
   'More maths in Show time': () => ['km-count', 'km-compare', 'km-ten', 'km-shapes', 'km-measure'].every((u) => content.shows.some((s) => s.level === 'kg' && s.lang === 'en' && String(s.lesson).startsWith(u))),
 };
 

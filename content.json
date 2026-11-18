@@ -479,7 +479,13 @@
     "sudama": { "hi": "सुदामा", "translit": "sudaama", "en": "Sudama", "picture": "sudama", "level": "grade1", "syllables": ["सु", "दा", "मा"] },
     "arjun": { "hi": "अर्जुन", "translit": "arjun", "en": "Arjun", "picture": "arjun", "level": "grade2", "syllables": ["अ", "र्जु", "न"] },
     "eklavya": { "hi": "एकलव्य", "translit": "eklavya", "en": "Eklavya", "picture": "eklavya", "level": "grade2", "syllables": ["ए", "क", "ल", "व्य"] },
-    "chimta": { "hi": "चिमटा", "translit": "chimta", "en": "tongs", "picture": "chimta", "level": "grade1", "syllables": ["चि", "म", "टा"] }
+    "chimta": { "hi": "चिमटा", "translit": "chimta", "en": "tongs", "picture": "chimta", "level": "grade1", "syllables": ["चि", "म", "टा"] },
+    "tenali": { "hi": "तेनालीराम", "translit": "tenaaliraam", "en": "Tenali Rama", "picture": "tenali", "level": "grade3", "syllables": ["ते", "ना", "ली", "रा", "म"] },
+    "redpeacock": { "hi": "लाल मोर", "translit": "laal mor", "en": "red peacock", "picture": "redpeacock", "level": "grade3" },
+    "brinjal": { "hi": "बैंगन", "translit": "baingan", "en": "brinjal", "picture": "brinjal", "level": "grade1", "syllables": ["बैं", "ग", "न"] },
+    "calf": { "hi": "बछड़ा", "translit": "bachhda", "en": "calf", "picture": "calf", "level": "grade1", "syllables": ["ब", "छ", "ड़ा"] },
+    "prince": { "hi": "राजकुमार", "translit": "raajkumaar", "en": "prince", "picture": "prince" },
+    "queen": { "hi": "रानी", "translit": "raani", "en": "queen", "picture": "queen", "level": "grade1", "syllables": ["रा", "नी"] }
   },
   "sentences": [
     { "id": "bus-here", "about": "bus", "hi": "बस आई!", "translit": "bas aai", "en": "The bus is here!", "level": "grade2" },
@@ -14309,6 +14315,950 @@
         { "type": "why", "hi": "लंगर में सब साथ-साथ ज़मीन पर क्यों बैठते हैं?", "en": "Why does everyone sit together on the floor at the langar?" },
         { "type": "you", "hi": "खाने के समय घर में मदद कैसे करें? बताओ!", "en": "How can we help at home at mealtimes? Tell me!" }
       ]
+    },
+    {
+      "id": "punyakoti",
+      "level": "grade2",
+      "title": { "hi": "सच्ची गाय पुण्यकोटि", "en": "Punyakoti, the truthful cow" },
+      "cover": "cow",
+      "pages": [
+        {
+          "word": "cow",
+          "hi": "कर्नाटक के एक गाँव में पुण्यकोटि नाम की एक गाय रहती थी।",
+          "en": "In a village in Karnataka lived a cow called Punyakoti.",
+          "act": { "move": "walk", "sky": "field" }
+        },
+        {
+          "word": "calf",
+          "hi": "उसका एक नन्हा बछड़ा था, जो घर पर उसकी राह देखता था।",
+          "en": "She had a little calf, who waited for her at home.",
+          "act": { "move": "jump", "sky": "home", "fx": "hearts", "mood": "happy" }
+        },
+        {
+          "word": "tiger",
+          "hi": "एक शाम, जंगल में एक भूखे बाघ ने उसे रोक लिया।",
+          "en": "One evening, a hungry tiger stopped her in the forest.",
+          "act": { "move": "enter-right", "sky": "dawn", "with": "cow", "mood": "scared" }
+        },
+        {
+          "word": "cow",
+          "hi": "पुण्यकोटि बोली, \"मुझे बछड़े को आख़िरी बार दूध पिला आने दो। फिर लौट आऊँगी।\"",
+          "en": "Punyakoti said, \"Let me feed my calf one last time. Then I will come back.\"",
+          "act": { "move": "talk", "sky": "dawn", "with": "tiger" }
+        },
+        {
+          "word": "calf",
+          "hi": "उसने बछड़े को दूध पिलाया, और सबसे कहा, \"मेरे बच्चे का ख़याल रखना।\"",
+          "en": "She fed her calf and told everyone, \"Take care of my little one.\"",
+          "act": { "move": "approach", "sky": "home", "with": "cow", "fx": "hearts", "mood": "sad" }
+        },
+        {
+          "word": "cow",
+          "hi": "वादे के मुताबिक़, पुण्यकोटि बाघ के पास लौट आई।",
+          "en": "As she had promised, Punyakoti went back to the tiger.",
+          "act": { "move": "walk", "sky": "night", "fx": "stars" }
+        },
+        {
+          "word": "tiger",
+          "hi": "बाघ की आँखें भर आईं, \"इतनी सच्ची गाय को मैं कैसे खाऊँ? जाओ, घर जाओ!\"",
+          "en": "The tiger’s eyes filled with tears. \"How can I eat such a truthful cow? Go home!\"",
+          "act": { "move": "shrink", "sky": "night", "mood": "sad" }
+        },
+        {
+          "word": "calf",
+          "hi": "पुण्यकोटि दौड़कर अपने बछड़े के पास पहुँची।",
+          "en": "Punyakoti ran back to her calf.",
+          "act": { "move": "dance", "sky": "dawn", "with": "cow", "fx": "hearts", "mood": "happy" }
+        }
+      ],
+      "questions": [
+        { "hi": "पुण्यकोटि कौन थी?", "en": "Who was Punyakoti?", "answer": "cow", "options": ["cow", "tiger", "deer"] },
+        { "hi": "घर पर कौन राह देखता था?", "en": "Who waited at home?", "answer": "calf", "options": ["calf", "tiger", "king"] }
+      ],
+      "moral": { "hi": "सच और वादा, दोनों बड़े हैं।", "en": "Truth and a promise kept are both great things." },
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"कर्नाटक के एक गाँव में पुण्यकोटि नाम की एक … रहती थी।\" (गाय)",
+          "en": "Say this and let your child fill the gap: \"कर्नाटक के एक गाँव में पुण्यकोटि नाम की एक … रहती थी।\" (गाय)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"कर्नाटक के एक गाँव में पुण्यकोटि नाम की एक गाय रहती थी।\")",
+          "en": "Ask: what happened first in the story? (\"In a village in Karnataka lived a cow called Punyakoti.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर बछड़ा है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the calf and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "पुण्यकोटि बाघ के पास क्यों लौटी?", "en": "Why did Punyakoti go back to the tiger?" },
+        { "type": "you", "hi": "तुमने किसी से कोई वादा किया और उसे निभाया? बताओ!", "en": "Tell me about a promise you made and kept!" }
+      ]
+    },
+    {
+      "id": "sheikh-chilli",
+      "level": "grade2",
+      "title": { "hi": "शेख़चिल्ली के सपने", "en": "Sheikh Chilli's dreams" },
+      "cover": "pot",
+      "pages": [
+        {
+          "word": "pot",
+          "hi": "शेख़चिल्ली को एक मटका घी शहर पहुँचाने का काम मिला। मज़दूरी: दो रुपये।",
+          "en": "Sheikh Chilli got a job carrying a pot of ghee to town. Pay: two rupees.",
+          "act": { "move": "walk", "sky": "field", "with": "pot" }
+        },
+        {
+          "word": "hen",
+          "hi": "चलते-चलते वह सोचने लगा, \"दो रुपये से एक मुर्ग़ी ख़रीदूँगा।\"",
+          "en": "As he walked, he thought, \"With two rupees I’ll buy a hen.\"",
+          "act": { "move": "talk", "sky": "field", "fx": "sparkles" }
+        },
+        {
+          "word": "goldenegg",
+          "hi": "\"मुर्ग़ी अंडे देगी, अंडों से चूज़े, चूज़ों से और मुर्ग़ियाँ!\"",
+          "en": "\"The hen will lay eggs, the eggs will hatch chicks, the chicks will grow into hens!\"",
+          "act": { "move": "grow", "sky": "field", "fx": "sparkles" }
+        },
+        {
+          "word": "goat",
+          "hi": "\"मुर्ग़ियाँ बेचकर बकरी, बकरी से गाय, गाय से भैंस!\"",
+          "en": "\"I’ll sell the hens for a goat, the goat for a cow, the cow for a buffalo!\"",
+          "act": { "move": "jump", "sky": "field" }
+        },
+        {
+          "word": "house",
+          "hi": "\"फिर बड़ा घर बनेगा। बच्चे कहेंगे, 'अब्बा, खाना खाओ!' मैं कहूँगा, 'ना!'\"",
+          "en": "\"Then I’ll build a big house. The children will say, ‘Dad, come and eat!’ I’ll say, ‘No!’\"",
+          "act": { "move": "grow", "sky": "day", "fx": "confetti", "mood": "happy" }
+        },
+        {
+          "word": "pot",
+          "hi": "और \"ना!\" कहते हुए शेख़चिल्ली ने ज़ोर से सिर हिलाया। धड़ाम!",
+          "en": "And saying \"No!\", Sheikh Chilli shook his head hard. Crash!",
+          "act": { "move": "fall", "sky": "field", "sound": "thud", "mood": "surprised" }
+        },
+        {
+          "word": "pot",
+          "hi": "मटका गिरकर टूट गया। सारा घी मिट्टी में! सपने भी बह गए।",
+          "en": "The pot fell and broke. All the ghee spilled into the dirt! The dreams spilled away too.",
+          "act": { "move": "shake", "sky": "field", "fx": "dust", "mood": "sad" }
+        }
+      ],
+      "questions": [
+        {
+          "hi": "शेख़चिल्ली सबसे पहले क्या ख़रीदना चाहता था?",
+          "en": "What did Sheikh Chilli want to buy first?",
+          "answer": "hen",
+          "options": ["hen", "horse", "car"]
+        },
+        { "hi": "आख़िर में क्या टूटा?", "en": "What broke in the end?", "answer": "pot", "options": ["pot", "house", "cup"] }
+      ],
+      "moral": { "hi": "सपने देखो, पर पहले हाथ का काम ध्यान से करो।", "en": "Dream, but first do the job in your hands with care." },
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"चलते-चलते वह सोचने लगा, \"दो रुपये से एक … ख़रीदूँगा।\"\" (मुर्ग़ी)",
+          "en": "Say this and let your child fill the gap: \"चलते-चलते वह सोचने लगा, \"दो रुपये से एक … ख़रीदूँगा।\"\" (मुर्ग़ी)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"शेख़चिल्ली को एक मटका घी शहर पहुँचाने का काम मिला। मज़दूरी: दो रुपये।\")",
+          "en": "Ask: what happened first in the story? (\"Sheikh Chilli got a job carrying a pot of ghee to town. Pay: two rupees.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर बकरी है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the goat and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "शेख़चिल्ली का मटका क्यों गिरा?", "en": "Why did Sheikh Chilli’s pot fall?" },
+        { "type": "you", "hi": "तुम्हें बड़े होकर क्या बनने के सपने आते हैं?", "en": "What do you dream of being when you grow up?" }
+      ]
+    },
+    {
+      "id": "jataka-bater",
+      "level": "grade2",
+      "title": { "hi": "समझदार बटेरें", "en": "The wise quails" },
+      "cover": "net",
+      "pages": [
+        {
+          "word": "bird",
+          "hi": "एक जंगल में हज़ारों बटेरें रहती थीं।",
+          "en": "Thousands of quails lived in a forest.",
+          "act": { "move": "fly-across", "sky": "field" }
+        },
+        {
+          "word": "net",
+          "hi": "एक शिकारी रोज़ जाल फेंककर कई बटेरें पकड़ ले जाता।",
+          "en": "Every day a hunter threw his net and caught many quails.",
+          "act": { "move": "fall", "sky": "field", "with": "bird", "mood": "scared" }
+        },
+        {
+          "word": "bird",
+          "hi": "बटेरों के राजा ने कहा, \"जाल गिरे, तो सब एक साथ उसे लेकर उड़ जाना!\"",
+          "en": "The quail king said, \"When the net falls, all fly up together, carrying it!\"",
+          "act": { "move": "talk", "sky": "field" }
+        },
+        {
+          "word": "net",
+          "hi": "अगले दिन जाल गिरा। सबने एक साथ पंख फड़फड़ाए, और जाल समेत उड़ गईं!",
+          "en": "Next day the net fell. They all flapped together and flew off with the net!",
+          "act": { "move": "fly-up", "sky": "sky", "with": "net", "fx": "wind", "mood": "happy" }
+        },
+        {
+          "word": "tree",
+          "hi": "उन्होंने जाल को एक झाड़ी पर गिराया, और नीचे से निकल गईं।",
+          "en": "They dropped the net on a bush and slipped out from under it.",
+          "act": { "move": "sway", "sky": "field", "fx": "leaves" }
+        },
+        {
+          "word": "bird",
+          "hi": "पर एक दिन दो बटेरें झगड़ पड़ीं, \"तुम उठाओ!\" \"नहीं, तुम!\"",
+          "en": "But one day two quails started quarrelling. \"You lift!\" \"No, you!\"",
+          "act": { "move": "shake", "sky": "field" }
+        },
+        {
+          "word": "net",
+          "hi": "झगड़े में कोई नहीं उड़ा, और शिकारी सबको पकड़ ले गया।",
+          "en": "In the quarrel, nobody flew, and the hunter caught them all.",
+          "act": { "move": "fall", "sky": "field", "fx": "dust", "mood": "sad" }
+        }
+      ],
+      "questions": [
+        { "hi": "शिकारी बटेरों को किससे पकड़ता था?", "en": "What did the hunter catch the quails with?", "answer": "net", "options": ["net", "kite", "ball"] },
+        {
+          "hi": "बटेरें जाल लेकर कैसे उड़ीं?",
+          "en": "How did the quails fly off with the net?",
+          "answer": "एक साथ",
+          "options": ["एक साथ", "अकेले-अकेले", "रात में"],
+          "text": true
+        }
+      ],
+      "moral": { "hi": "मिलकर रहो, तो बड़ी मुसीबत भी हार जाती है।", "en": "Together, even big trouble is beaten." },
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"एक शिकारी रोज़ … फेंककर कई बटेरें पकड़ ले जाता।\" (जाल)",
+          "en": "Say this and let your child fill the gap: \"एक शिकारी रोज़ … फेंककर कई बटेरें पकड़ ले जाता।\" (जाल)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"एक जंगल में हज़ारों बटेरें रहती थीं।\")",
+          "en": "Ask: what happened first in the story? (\"Thousands of quails lived in a forest.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर जाल है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the net and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "आख़िर में बटेरें क्यों पकड़ी गईं?", "en": "Why were the quails caught in the end?" },
+        {
+          "type": "you",
+          "hi": "कौन सा काम तुम दोस्तों के साथ मिलकर करते हो, तो आसान हो जाता है?",
+          "en": "What job gets easier when you do it together with friends?"
+        }
+      ]
+    },
+    {
+      "id": "gonu-jha",
+      "level": "grade3",
+      "title": { "hi": "गोनू झा और चोर", "en": "Gonu Jha and the thieves" },
+      "cover": "field",
+      "pages": [
+        {
+          "word": "farmer",
+          "hi": "मिथिला के एक गाँव में गोनू झा नाम के एक बहुत चतुर आदमी रहते थे।",
+          "en": "In a village in Mithila lived a very clever man called Gonu Jha."
+        },
+        { "word": "thief", "hi": "एक रात उन्होंने देखा कि दो चोर उनके घर के पीछे छिपे हैं।", "en": "One night he saw two thieves hiding behind his house." },
+        {
+          "word": "farmer",
+          "hi": "गोनू झा ने ज़ोर से पत्नी से कहा, \"सुनो, सारे गहने मैंने खेत में गाड़ दिए हैं!\"",
+          "en": "Gonu Jha said loudly to his wife, \"Listen, I’ve buried all the jewels in the field!\""
+        },
+        {
+          "word": "thief",
+          "hi": "चोरों ने सुना, और ख़ुशी-ख़ुशी कुदाल उठाकर खेत की ओर भागे।",
+          "en": "The thieves heard, and ran happily to the field with spades."
+        },
+        {
+          "word": "field",
+          "hi": "रात भर उन्होंने पूरा खेत खोद डाला, पर गहने कहीं नहीं मिले।",
+          "en": "All night they dug up the whole field, but found no jewels anywhere."
+        },
+        { "word": "sun", "hi": "सुबह हो गई। थके-हारे चोर ख़ाली हाथ भाग गए।", "en": "Morning came. The tired thieves ran away empty-handed." },
+        {
+          "word": "farmer",
+          "hi": "गोनू झा मुस्कुराए, \"खेत तैयार है। अब बस बीज बोने हैं!\"",
+          "en": "Gonu Jha smiled. \"The field is ready. Now we just sow the seeds!\""
+        }
+      ],
+      "questions": [
+        {
+          "hi": "गोनू झा ने गहने कहाँ गाड़ने की बात कही?",
+          "en": "Where did Gonu Jha say he had buried the jewels?",
+          "answer": "खेत में",
+          "options": ["खेत में", "कुएँ में", "छत पर"],
+          "text": true
+        },
+        {
+          "hi": "चोरों के खोदने से क्या हुआ?",
+          "en": "What did the thieves’ digging do?",
+          "answer": "खेत जुत गया",
+          "options": ["खेत जुत गया", "गहने मिल गए", "घर गिर गया"],
+          "text": true
+        },
+        { "hi": "गोनू झा कैसे आदमी थे?", "en": "What kind of man was Gonu Jha?", "answer": "चतुर", "options": ["चतुर", "डरपोक", "आलसी"], "text": true }
+      ],
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"एक रात उन्होंने देखा कि दो … उनके घर के पीछे छिपे हैं।\" (चोर)",
+          "en": "Say this and let your child fill the gap: \"एक रात उन्होंने देखा कि दो … उनके घर के पीछे छिपे हैं।\" (चोर)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"मिथिला के एक गाँव में गोनू झा नाम के एक बहुत चतुर आदमी रहते थे।\")",
+          "en": "Ask: what happened first in the story? (\"In a village in Mithila lived a very clever man called Gonu Jha.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर चोर है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the thief and ask: what is happening here?"
+        },
+        {
+          "type": "why",
+          "hi": "गोनू झा ने चोरों के सुनते हुए ही गहनों की बात क्यों की?",
+          "en": "Why did Gonu Jha talk about the jewels where the thieves could hear?"
+        },
+        { "type": "you", "hi": "तुमने कभी किसी मुश्किल को चतुराई से हल किया है? कैसे?", "en": "Have you ever solved a problem cleverly? How?" }
+      ]
+    },
+    {
+      "id": "birbal-hara-ghoda",
+      "level": "grade3",
+      "title": { "hi": "हरा घोड़ा", "en": "The green horse" },
+      "cover": "horse",
+      "pages": [
+        {
+          "word": "comic-akbar",
+          "hi": "एक दिन बादशाह अकबर बाग़ में घूम रहे थे। चारों ओर हरियाली थी।",
+          "en": "One day Emperor Akbar was walking in the garden. All around was green."
+        },
+        {
+          "word": "horse",
+          "hi": "अकबर बोले, \"बीरबल, मुझे एक हरा घोड़ा चाहिए। सात दिन में लाओ!\"",
+          "en": "Akbar said, \"Birbal, I want a green horse. Bring it in seven days!\""
+        },
+        {
+          "word": "comic-birbal",
+          "hi": "बीरबल जानते थे कि हरा घोड़ा होता ही नहीं। वे सात दिन घूमते रहे।",
+          "en": "Birbal knew there is no such thing as a green horse. He wandered for seven days."
+        },
+        {
+          "word": "comic-birbal",
+          "hi": "आठवें दिन बीरबल दरबार में आए, \"जहाँपनाह, हरा घोड़ा मिल गया!\"",
+          "en": "On the eighth day Birbal came to court. \"Your Majesty, I’ve found a green horse!\""
+        },
+        {
+          "word": "horse",
+          "hi": "\"पर उसके मालिक की दो शर्तें हैं। घोड़ा लेने आप ख़ुद जाएँ…\"",
+          "en": "\"But its owner has two conditions. You must go yourself to fetch it…\""
+        },
+        {
+          "word": "comic-birbal",
+          "hi": "\"…और ऐसे दिन जाएँ, जो सोमवार से रविवार, सात दिनों में से कोई न हो!\"",
+          "en": "\"…on a day that is not any of the seven days, Monday to Sunday!\""
+        },
+        {
+          "word": "comic-akbar",
+          "hi": "अकबर ज़ोर से हँस पड़े, \"बीरबल, तुमसे कोई नहीं जीत सकता!\"",
+          "en": "Akbar burst out laughing. \"Birbal, no one can beat you!\""
+        }
+      ],
+      "questions": [
+        {
+          "hi": "अकबर को किस रंग का घोड़ा चाहिए था?",
+          "en": "What colour of horse did Akbar want?",
+          "answer": "हरा",
+          "options": ["हरा", "सफ़ेद", "काला"],
+          "text": true
+        },
+        {
+          "hi": "घोड़ा लेने किस दिन जाना था?",
+          "en": "On which day was the horse to be fetched?",
+          "answer": "जो सात दिनों में से कोई न हो",
+          "options": ["जो सात दिनों में से कोई न हो", "सोमवार को", "रविवार को"],
+          "text": true
+        },
+        {
+          "hi": "अकबर क्यों हँसे?",
+          "en": "Why did Akbar laugh?",
+          "answer": "बीरबल की चतुराई पर",
+          "options": ["बीरबल की चतुराई पर", "घोड़े को देखकर", "चुटकुले पर"],
+          "text": true
+        }
+      ],
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"एक दिन … अकबर बाग़ में घूम रहे थे। चारों ओर हरियाली थी।\" (बादशाह)",
+          "en": "Say this and let your child fill the gap: \"एक दिन … अकबर बाग़ में घूम रहे थे। चारों ओर हरियाली थी।\" (बादशाह)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"एक दिन बादशाह अकबर बाग़ में घूम रहे थे। चारों ओर हरियाली थी।\")",
+          "en": "Ask: what happened first in the story? (\"One day Emperor Akbar was walking in the garden. All around was green.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर बीरबल है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the Birbal and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "बीरबल ने सीधे \"नहीं हो सकता\" क्यों नहीं कहा?", "en": "Why didn’t Birbal just say \"It can’t be done\"?" },
+        {
+          "type": "you",
+          "hi": "कोई असंभव-सी चीज़ माँगे, तो तुम्हें क्या जवाब देना अच्छा लगेगा?",
+          "en": "If someone asked for something impossible, how would you like to answer?"
+        }
+      ]
+    },
+    {
+      "id": "birbal-oont",
+      "level": "grade3",
+      "title": { "hi": "ऊँट की गर्दन", "en": "The camel's neck" },
+      "cover": "camel",
+      "pages": [
+        {
+          "word": "comic-akbar",
+          "hi": "बीरबल की किसी बात से ख़ुश होकर अकबर बोले, \"तुम्हें ज़मीन इनाम में दूँगा।\"",
+          "en": "Pleased with Birbal, Akbar said, \"I will give you land as a reward.\""
+        },
+        {
+          "word": "comic-birbal",
+          "hi": "दिन बीते, महीने बीते, पर इनाम की बात अकबर भूल गए।",
+          "en": "Days passed, months passed, but Akbar forgot all about the reward."
+        },
+        {
+          "word": "camel",
+          "hi": "एक दिन दोनों यमुना किनारे घूम रहे थे। वहाँ एक ऊँट दिखा।",
+          "en": "One day the two were walking by the Yamuna. They saw a camel there."
+        },
+        {
+          "word": "comic-akbar",
+          "hi": "अकबर बोले, \"बीरबल, ऊँट की गर्दन टेढ़ी क्यों होती है?\"",
+          "en": "Akbar asked, \"Birbal, why is a camel’s neck crooked?\""
+        },
+        {
+          "word": "comic-birbal",
+          "hi": "बीरबल बोले, \"जहाँपनाह, शायद इसने किसी को इनाम का वादा किया और भूल गया!\"",
+          "en": "Birbal said, \"Your Majesty, perhaps it promised someone a reward and forgot!\""
+        },
+        {
+          "word": "comic-birbal",
+          "hi": "\"कहते हैं, जो वादा भूलता है, उसकी गर्दन टेढ़ी हो जाती है।\"",
+          "en": "\"They say whoever forgets a promise gets a crooked neck.\""
+        },
+        {
+          "word": "comic-akbar",
+          "hi": "अकबर समझ गए, और हँसते हुए उसी दिन बीरबल को ज़मीन दे दी।",
+          "en": "Akbar understood, laughed, and gave Birbal the land that very day."
+        }
+      ],
+      "questions": [
+        {
+          "hi": "अकबर ने बीरबल को क्या इनाम देने का वादा किया था?",
+          "en": "What reward had Akbar promised Birbal?",
+          "answer": "ज़मीन",
+          "options": ["ज़मीन", "घोड़ा", "सोना"],
+          "text": true
+        },
+        {
+          "hi": "बीरबल ने किसकी गर्दन की बात की?",
+          "en": "Whose neck did Birbal talk about?",
+          "answer": "ऊँट की",
+          "options": ["ऊँट की", "घोड़े की", "हाथी की"],
+          "text": true
+        },
+        {
+          "hi": "अकबर को क्या याद आ गया?",
+          "en": "What did Akbar remember?",
+          "answer": "अपना वादा",
+          "options": ["अपना वादा", "अपना घोड़ा", "अपना बाग़"],
+          "text": true
+        }
+      ],
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"बीरबल की किसी बात से ख़ुश होकर … बोले, \"तुम्हें ज़मीन इनाम में दूँगा।\"\" (अकबर)",
+          "en": "Say this and let your child fill the gap: \"बीरबल की किसी बात से ख़ुश होकर … बोले, \"तुम्हें ज़मीन इनाम में दूँगा।\"\" (अकबर)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"बीरबल की किसी बात से ख़ुश होकर अकबर बोले, \"तुम्हें ज़मीन इनाम में दूँगा।\"\")",
+          "en": "Ask: what happened first in the story? (\"Pleased with Birbal, Akbar said, \"I will give you land as a reward.\"\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर बादशाह अकबर है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the Emperor Akbar and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "बीरबल ने सीधे इनाम क्यों नहीं माँगा?", "en": "Why didn’t Birbal just ask for his reward?" },
+        { "type": "you", "hi": "कोई वादा भूल जाए, तो उसे प्यार से याद कैसे दिलाएँ?", "en": "If someone forgets a promise, how can we remind them nicely?" }
+      ]
+    },
+    {
+      "id": "tenali-laal-mor",
+      "level": "grade3",
+      "title": { "hi": "लाल मोर", "en": "The red peacock" },
+      "cover": "redpeacock",
+      "pages": [
+        { "word": "king", "hi": "राजा कृष्णदेव राय को मोर बहुत पसंद थे।", "en": "King Krishnadevaraya loved peacocks." },
+        {
+          "word": "redpeacock",
+          "hi": "एक दरबारी एक लाल मोर लाया, \"महाराज, यह घने जंगल से आया दुर्लभ मोर है!\"",
+          "en": "A courtier brought a red peacock. \"Your Majesty, this is a rare peacock from the deep forest!\""
+        },
+        {
+          "word": "coins",
+          "hi": "राजा ने ख़ुश होकर उसे पच्चीस हज़ार सोने के सिक्के दे दिए।",
+          "en": "Delighted, the king gave him twenty-five thousand gold coins."
+        },
+        {
+          "word": "tenali",
+          "hi": "तेनालीराम को शक हुआ। उसने पता किया, तो एक रंगरेज़ मिला।",
+          "en": "Tenali Rama was suspicious. He searched, and found a dyer."
+        },
+        {
+          "word": "redpeacock",
+          "hi": "अगले दिन तेनालीराम चार लाल मोर लेकर दरबार पहुँचा!",
+          "en": "The next day Tenali Rama came to court with four red peacocks!"
+        },
+        {
+          "word": "tenali",
+          "hi": "\"महाराज, ये रंगरेज़ ने रंगे हैं। उसका इनाम अभी बाक़ी है!\"",
+          "en": "\"Your Majesty, a dyer painted these. His reward is still to be paid!\""
+        },
+        {
+          "word": "king",
+          "hi": "राजा सब समझ गए। दरबारी से सिक्के वापस लिए, और रंगरेज़ को इनाम दिया।",
+          "en": "The king understood. He took the coins back from the courtier and rewarded the dyer."
+        }
+      ],
+      "questions": [
+        {
+          "hi": "मोर लाल कैसे हुआ था?",
+          "en": "How had the peacock turned red?",
+          "answer": "रंग से रंगकर",
+          "options": ["रंग से रंगकर", "धूप में", "जंगल में"],
+          "text": true
+        },
+        {
+          "hi": "तेनालीराम कितने लाल मोर लाया?",
+          "en": "How many red peacocks did Tenali Rama bring?",
+          "answer": "चार",
+          "options": ["चार", "एक", "दस"],
+          "text": true
+        },
+        {
+          "hi": "असली इनाम किसे मिला?",
+          "en": "Who got the real reward?",
+          "answer": "रंगरेज़ को",
+          "options": ["रंगरेज़ को", "दरबारी को", "तेनालीराम को"],
+          "text": true
+        }
+      ],
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"… कृष्णदेव राय को मोर बहुत पसंद थे।\" (राजा)",
+          "en": "Say this and let your child fill the gap: \"… कृष्णदेव राय को मोर बहुत पसंद थे।\" (राजा)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"राजा कृष्णदेव राय को मोर बहुत पसंद थे।\")",
+          "en": "Ask: what happened first in the story? (\"King Krishnadevaraya loved peacocks.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर तेनालीराम है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the Tenali Rama and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "तेनालीराम को लाल मोर पर शक क्यों हुआ?", "en": "Why was Tenali Rama suspicious of the red peacock?" },
+        {
+          "type": "you",
+          "hi": "कोई बहुत अनोखी बात सुनाए, तो सच कैसे पता करें?",
+          "en": "If someone tells you something amazing, how can we check if it’s true?"
+        }
+      ]
+    },
+    {
+      "id": "tenali-baingan",
+      "level": "grade3",
+      "title": { "hi": "राजा के बैंगन", "en": "The king's brinjals" },
+      "cover": "brinjal",
+      "pages": [
+        {
+          "word": "brinjal",
+          "hi": "राजा के बाग़ में ख़ास बैंगन उगते थे। उन्हें तोड़ने की किसी को इजाज़त नहीं थी।",
+          "en": "Special brinjals grew in the king’s garden. No one was allowed to pick them."
+        },
+        {
+          "word": "king",
+          "hi": "एक दावत में तेनालीराम ने उन बैंगनों की सब्ज़ी खाई। वाह, क्या स्वाद!",
+          "en": "At a feast Tenali Rama tasted a curry of those brinjals. What a flavour!"
+        },
+        {
+          "word": "mother",
+          "hi": "घर जाकर उसने पत्नी को बताया। पत्नी बोली, \"मुझे भी चखना है!\"",
+          "en": "At home he told his wife. She said, \"I want to taste them too!\""
+        },
+        {
+          "word": "brinjal",
+          "hi": "रात को तेनालीराम चुपके से बाग़ से कुछ बैंगन तोड़ लाया।",
+          "en": "At night Tenali Rama quietly picked a few brinjals from the garden."
+        },
+        {
+          "word": "boy",
+          "hi": "उसे डर था कि बेटा किसी को बता देगा। उसने सोते बेटे पर पानी डाला, \"बारिश हो रही है!\"",
+          "en": "He worried his son would tell. He poured water on the sleeping boy. \"It’s raining!\""
+        },
+        {
+          "word": "king",
+          "hi": "बात फैली, तो राजा ने बेटे से पूछा। बेटा बोला, \"उस रात तो ज़ोर की बारिश हुई थी!\"",
+          "en": "When word spread, the king asked the son. The son said, \"That was the night it poured!\""
+        },
+        {
+          "word": "tenali",
+          "hi": "आसमान बिल्कुल साफ़ था, इसलिए राजा ने बेटे की बात मज़ाक़ समझी। तेनालीराम मुस्कुराया।",
+          "en": "The sky had been clear, so the king took the boy’s words for a joke. Tenali Rama smiled."
+        },
+        {
+          "word": "king",
+          "hi": "बाद में तेनालीराम ने सब सच बता दिया। राजा हँसे, और रानी के लिए बैंगन भिजवाए।",
+          "en": "Later Tenali Rama told the whole truth. The king laughed, and sent brinjals for his wife."
+        }
+      ],
+      "questions": [
+        {
+          "hi": "राजा के बाग़ में क्या ख़ास उगता था?",
+          "en": "What special thing grew in the king’s garden?",
+          "answer": "बैंगन",
+          "options": ["बैंगन", "आम", "गुलाब"],
+          "text": true
+        },
+        {
+          "hi": "तेनालीराम ने सोते बेटे पर क्या डाला?",
+          "en": "What did Tenali Rama pour on his sleeping son?",
+          "answer": "पानी",
+          "options": ["पानी", "दूध", "रंग"],
+          "text": true
+        },
+        {
+          "hi": "आख़िर में तेनालीराम ने क्या किया?",
+          "en": "What did Tenali Rama do in the end?",
+          "answer": "सच बता दिया",
+          "options": ["सच बता दिया", "भाग गया", "और बैंगन तोड़े"],
+          "text": true
+        }
+      ],
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"राजा के बाग़ में ख़ास … उगते थे। उन्हें तोड़ने की किसी को इजाज़त नहीं थी।\" (बैंगन)",
+          "en": "Say this and let your child fill the gap: \"राजा के बाग़ में ख़ास … उगते थे। उन्हें तोड़ने की किसी को इजाज़त नहीं थी।\" (बैंगन)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"राजा के बाग़ में ख़ास बैंगन उगते थे। उन्हें तोड़ने की किसी को इजाज़त नहीं थी।\")",
+          "en": "Ask: what happened first in the story? (\"Special brinjals grew in the king’s garden. No one was allowed to pick them.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर लड़का है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the boy and ask: what is happening here?"
+        },
+        {
+          "type": "why",
+          "hi": "क्या तेनालीराम का बैंगन तोड़ना ठीक था? उसने आख़िर में सच क्यों बताया?",
+          "en": "Was it right for Tenali Rama to pick the brinjals? Why did he tell the truth in the end?"
+        },
+        {
+          "type": "you",
+          "hi": "तुमसे कभी कोई ग़लती हुई और तुमने सच बताया? फिर क्या हुआ?",
+          "en": "Have you ever made a mistake and told the truth? What happened?"
+        }
+      ]
+    },
+    {
+      "id": "jataka-hiran",
+      "level": "grade3",
+      "title": { "hi": "बरगद हिरन", "en": "The banyan deer" },
+      "cover": "deer",
+      "pages": [
+        {
+          "word": "deer",
+          "hi": "एक जंगल में हिरनों के दो झुंड थे। एक का राजा था बरगद हिरन।",
+          "en": "A forest had two herds of deer. One was led by the Banyan Deer."
+        },
+        {
+          "word": "king",
+          "hi": "वहाँ का राजा रोज़ शिकार के लिए आता, और बहुत-से हिरन डरकर घायल हो जाते।",
+          "en": "The king of the land came hunting every day, and many deer were hurt in the panic."
+        },
+        {
+          "word": "deer",
+          "hi": "हिरनों ने तय किया: रोज़ सिर्फ़ एक हिरन बारी से राजा की रसोई में जाएगा।",
+          "en": "The deer agreed: each day, just one deer would go, in turn, to the king’s kitchen."
+        },
+        {
+          "word": "deer",
+          "hi": "एक दिन एक माँ हिरनी की बारी आई, जिसका बच्चा होने वाला था।",
+          "en": "One day it was the turn of a mother doe who was about to have a baby."
+        },
+        { "word": "deer", "hi": "बरगद हिरन बोला, \"उसकी जगह मैं जाऊँगा।\"", "en": "The Banyan Deer said, \"I will go in her place.\"" },
+        {
+          "word": "king",
+          "hi": "राजा ने हिरनों के राजा को देखा, तो हैरान रह गया। उसकी बात सुनकर उसका मन बदल गया।",
+          "en": "The king was amazed to see the deer king. Hearing him, his heart changed."
+        },
+        {
+          "word": "king",
+          "hi": "राजा बोला, \"आज से इस जंगल में कोई शिकार नहीं होगा।\"",
+          "en": "The king said, \"From today there will be no hunting in this forest.\""
+        }
+      ],
+      "questions": [
+        {
+          "hi": "माँ हिरनी की जगह कौन गया?",
+          "en": "Who went in the mother doe’s place?",
+          "answer": "बरगद हिरन",
+          "options": ["बरगद हिरन", "राजा", "शेर"],
+          "text": true
+        },
+        {
+          "hi": "राजा का मन क्यों बदल गया?",
+          "en": "Why did the king’s heart change?",
+          "answer": "हिरन की दया देखकर",
+          "options": ["हिरन की दया देखकर", "डरकर", "थककर"],
+          "text": true
+        },
+        {
+          "hi": "आख़िर में राजा ने क्या कहा?",
+          "en": "What did the king say in the end?",
+          "answer": "कोई शिकार नहीं होगा",
+          "options": ["कोई शिकार नहीं होगा", "और हिरन लाओ", "जंगल काट दो"],
+          "text": true
+        }
+      ],
+      "moral": { "hi": "दया दूसरों का मन भी बदल देती है।", "en": "Kindness can change other hearts too." },
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"एक जंगल में … के दो झुंड थे। एक का राजा था बरगद हिरन।\" (हिरनों)",
+          "en": "Say this and let your child fill the gap: \"एक जंगल में … के दो झुंड थे। एक का राजा था बरगद हिरन।\" (हिरनों)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"एक जंगल में हिरनों के दो झुंड थे। एक का राजा था बरगद हिरन।\")",
+          "en": "Ask: what happened first in the story? (\"A forest had two herds of deer. One was led by the Banyan Deer.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर हिरन है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the deer and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "बरगद हिरन ने अपनी जान ख़तरे में क्यों डाली?", "en": "Why did the Banyan Deer put himself in danger?" },
+        { "type": "you", "hi": "तुमने कभी किसी कमज़ोर की मदद की है?", "en": "Have you ever helped someone weaker than you?" }
+      ]
+    },
+    {
+      "id": "tejimola",
+      "level": "grade4",
+      "title": { "hi": "तेजीमोला", "en": "Tejimola" },
+      "cover": "lotus",
+      "pages": [
+        {
+          "word": "girl",
+          "hi": "असम के एक गाँव में तेजीमोला नाम की एक प्यारी लड़की रहती थी।",
+          "en": "In a village in Assam lived a sweet girl called Tejimola."
+        },
+        {
+          "word": "father",
+          "hi": "उसके पिता व्यापारी थे। वे दूर देश व्यापार करने गए, और तेजीमोला को सौतेली माँ के पास छोड़ गए।",
+          "en": "Her father was a trader. He went far away to trade, leaving Tejimola with her stepmother."
+        },
+        {
+          "word": "mother",
+          "hi": "सौतेली माँ उससे जलती थी। वह उसे दिन-रात काम में लगाए रखती, और डाँटती।",
+          "en": "Her stepmother was jealous of her. She made her work day and night, and scolded her."
+        },
+        {
+          "word": "field",
+          "hi": "एक दिन तेजीमोला खो गई। जहाँ वह आख़िरी बार दिखी थी, वहाँ एक लौकी की बेल उग आई।",
+          "en": "One day Tejimola disappeared. Where she was last seen, a gourd vine grew."
+        },
+        {
+          "word": "ber",
+          "hi": "बेल उखाड़ी गई, तो वहाँ बेर का पेड़ उग आया। बच्चे फल तोड़ने आए, तो पेड़ ने गीत गाया।",
+          "en": "When the vine was pulled up, a berry tree grew there. When children came for fruit, the tree sang a song."
+        },
+        {
+          "word": "lotus",
+          "hi": "आख़िर में नदी में एक सुंदर कमल खिला। उसी दिन पिता नाव से लौट रहे थे।",
+          "en": "At last a beautiful lotus bloomed in the river. That day her father was coming home by boat."
+        },
+        {
+          "word": "lotus",
+          "hi": "पिता ने कमल तोड़ना चाहा, तो कमल ने गाया, \"पिताजी, मैं आपकी तेजीमोला हूँ!\"",
+          "en": "When her father reached for the lotus, it sang, \"Father, I am your Tejimola!\""
+        },
+        {
+          "word": "girl",
+          "hi": "पिता के प्यार से कमल फिर तेजीमोला बन गई। पिता ने उसे गले से लगा लिया, और सच सबके सामने आ गया।",
+          "en": "With her father’s love, the lotus became Tejimola again. He hugged her, and the truth came out for all to see."
+        }
+      ],
+      "questions": [
+        {
+          "hi": "तेजीमोला किस राज्य की कहानी है?",
+          "en": "Which state is Tejimola’s story from?",
+          "answer": "असम",
+          "options": ["असम", "केरल", "पंजाब"],
+          "text": true
+        },
+        {
+          "hi": "आख़िर में तेजीमोला क्या बनकर खिली?",
+          "en": "What did Tejimola bloom as in the end?",
+          "answer": "कमल",
+          "options": ["कमल", "गुलाब", "सूरजमुखी"],
+          "text": true
+        },
+        {
+          "hi": "तेजीमोला फिर लड़की कैसे बनी?",
+          "en": "How did Tejimola become a girl again?",
+          "answer": "पिता के प्यार से",
+          "options": ["पिता के प्यार से", "जादू की छड़ी से", "बारिश से"],
+          "text": true
+        }
+      ],
+      "moral": { "hi": "सच और प्यार को कोई हमेशा के लिए छिपा नहीं सकता।", "en": "No one can hide truth and love for ever." },
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"असम के एक गाँव में तेजीमोला नाम की एक प्यारी … रहती थी।\" (लड़की)",
+          "en": "Say this and let your child fill the gap: \"असम के एक गाँव में तेजीमोला नाम की एक प्यारी … रहती थी।\" (लड़की)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"असम के एक गाँव में तेजीमोला नाम की एक प्यारी लड़की रहती थी।\")",
+          "en": "Ask: what happened first in the story? (\"In a village in Assam lived a sweet girl called Tejimola.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर बेर है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the berries and ask: what is happening here?"
+        },
+        {
+          "type": "why",
+          "hi": "तेजीमोला बार-बार पौधे, पेड़ और फूल बनकर क्यों लौटती रही?",
+          "en": "Why did Tejimola keep coming back as a vine, a tree and a flower?"
+        },
+        {
+          "type": "you",
+          "hi": "तुम्हारे आसपास किसकी कहानियों में पेड़-पौधे बोलते हैं? क्या तुम्हें कोई और ऐसी कहानी याद है?",
+          "en": "Do you know any other story where plants or trees speak?"
+        }
+      ]
+    },
+    {
+      "id": "lalkamal-neelkamal",
+      "level": "grade4",
+      "title": { "hi": "लालकमल और नीलकमल", "en": "Lalkamal and Neelkamal" },
+      "cover": "prince",
+      "pages": [
+        {
+          "word": "king",
+          "hi": "बंगाल की एक पुरानी कहानी में एक राजा के दो बेटे थे, लालकमल और नीलकमल।",
+          "en": "In an old tale from Bengal, a king had two sons, Lalkamal and Neelkamal."
+        },
+        { "word": "prince", "hi": "दोनों भाई एक-दूसरे के बिना एक पल भी नहीं रहते थे।", "en": "The two brothers could not stay apart for even a moment." },
+        {
+          "word": "queen",
+          "hi": "नीलकमल की माँ एक राक्षसी थी, जो रानी बनकर रह रही थी। पर नीलकमल का मन सच्चा था।",
+          "en": "Neelkamal’s mother was a demon disguised as a queen. But Neelkamal had a true heart."
+        },
+        {
+          "word": "cave",
+          "hi": "राक्षसी लालकमल को राक्षसों के देश ले जाना चाहती थी। नीलकमल ने भाई को बचाने की ठानी।",
+          "en": "The demon wanted to take Lalkamal to the land of demons. Neelkamal resolved to save his brother."
+        },
+        {
+          "word": "prince",
+          "hi": "दोनों भाई तलवार लेकर राक्षसों के देश पहुँचे। रास्ते में दो पक्षियों, बेंगमा और बेंगमी, ने उन्हें राक्षसों का भेद बताया।",
+          "en": "The brothers rode to the demons’ land with swords. On the way two birds, Bengoma and Bengomi, told them the demons’ secret."
+        },
+        {
+          "word": "bird",
+          "hi": "\"राक्षसों की जान एक डिबिया में बंद भौंरों में है,\" पक्षी बोले।",
+          "en": "\"The demons’ lives are kept in bumblebees shut in a little box,\" said the birds."
+        },
+        {
+          "word": "box",
+          "hi": "नीलकमल ने डिबिया ढूँढ निकाली, और भौंरे उड़ाकर छोड़ दिए। सारे राक्षस हवा हो गए!",
+          "en": "Neelkamal found the box and set the bees free. All the demons vanished into thin air!"
+        },
+        {
+          "word": "prince",
+          "hi": "दोनों भाई घर लौटे। राज्य में फिर से शांति हो गई, और उनकी दोस्ती की कहानी अमर हो गई।",
+          "en": "The brothers returned home. Peace came back to the kingdom, and their friendship became a story for ever."
+        }
+      ],
+      "questions": [
+        { "hi": "यह कहानी किस राज्य की है?", "en": "Which state is this story from?", "answer": "बंगाल", "options": ["बंगाल", "गुजरात", "असम"], "text": true },
+        {
+          "hi": "राक्षसों की जान किसमें बंद थी?",
+          "en": "What held the demons’ lives?",
+          "answer": "डिबिया के भौंरों में",
+          "options": ["डिबिया के भौंरों में", "पेड़ में", "नदी में"],
+          "text": true
+        },
+        {
+          "hi": "भाइयों को भेद किसने बताया?",
+          "en": "Who told the brothers the secret?",
+          "answer": "दो पक्षियों ने",
+          "options": ["दो पक्षियों ने", "राजा ने", "एक मछली ने"],
+          "text": true
+        }
+      ],
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"बंगाल की एक पुरानी कहानी में एक … के दो बेटे थे, लालकमल और नीलकमल।\" (राजा)",
+          "en": "Say this and let your child fill the gap: \"बंगाल की एक पुरानी कहानी में एक … के दो बेटे थे, लालकमल और नीलकमल।\" (राजा)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"बंगाल की एक पुरानी कहानी में एक राजा के दो बेटे थे, लालकमल और नीलकमल।\")",
+          "en": "Ask: what happened first in the story? (\"In an old tale from Bengal, a king had two sons, Lalkamal and Neelkamal.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर राजकुमार है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the prince and ask: what is happening here?"
+        },
+        {
+          "type": "why",
+          "hi": "नीलकमल ने अपनी माँ के ख़िलाफ़ जाकर भाई का साथ क्यों दिया?",
+          "en": "Why did Neelkamal stand by his brother, even against his own mother?"
+        },
+        {
+          "type": "you",
+          "hi": "तुम्हारा कौन सा भाई, बहन या दोस्त ऐसा है, जो हमेशा तुम्हारा साथ देता है?",
+          "en": "Which brother, sister or friend always stands by you?"
+        }
+      ]
     }
   ],
   "levels": [
@@ -17752,6 +18702,35 @@
               "config": { "story": "fest-mahabali" }
             }
           ]
+        },
+        {
+          "id": "g2-bharat-katha",
+          "title": { "hi": "भारत भर की कहानियाँ", "en": "Tales from across India" },
+          "skill": "Listening · Stories",
+          "icon": "cow",
+          "lessons": [
+            {
+              "id": "g2-bharat-katha-1",
+              "game": "story",
+              "icon": "cow",
+              "title": { "hi": "सच्ची गाय पुण्यकोटि", "en": "Punyakoti, the truthful cow" },
+              "config": { "story": "punyakoti" }
+            },
+            {
+              "id": "g2-bharat-katha-2",
+              "game": "story",
+              "icon": "pot",
+              "title": { "hi": "शेख़चिल्ली के सपने", "en": "Sheikh Chilli's dreams" },
+              "config": { "story": "sheikh-chilli" }
+            },
+            {
+              "id": "g2-bharat-katha-3",
+              "game": "story",
+              "icon": "net",
+              "title": { "hi": "समझदार बटेरें", "en": "The wise quails" },
+              "config": { "story": "jataka-bater" }
+            }
+          ]
         }
       ],
       "helpers": { "vendor": "squirrel" }
@@ -18278,6 +19257,56 @@
               "icon": "chimta",
               "title": { "hi": "हामिद का चिमटा", "en": "Hamid's tongs" },
               "config": { "story": "fest-idgah" }
+            }
+          ]
+        },
+        {
+          "id": "g3-bharat-katha",
+          "title": { "hi": "भारत भर की कहानियाँ", "en": "Tales from across India" },
+          "skill": "Listening · Stories",
+          "icon": "redpeacock",
+          "lessons": [
+            {
+              "id": "g3-bharat-katha-1",
+              "game": "story",
+              "icon": "field",
+              "title": { "hi": "गोनू झा और चोर", "en": "Gonu Jha and the thieves" },
+              "config": { "story": "gonu-jha" }
+            },
+            {
+              "id": "g3-bharat-katha-2",
+              "game": "story",
+              "icon": "horse",
+              "title": { "hi": "हरा घोड़ा", "en": "The green horse" },
+              "config": { "story": "birbal-hara-ghoda" }
+            },
+            {
+              "id": "g3-bharat-katha-3",
+              "game": "story",
+              "icon": "camel",
+              "title": { "hi": "ऊँट की गर्दन", "en": "The camel's neck" },
+              "config": { "story": "birbal-oont" }
+            },
+            {
+              "id": "g3-bharat-katha-4",
+              "game": "story",
+              "icon": "redpeacock",
+              "title": { "hi": "लाल मोर", "en": "The red peacock" },
+              "config": { "story": "tenali-laal-mor" }
+            },
+            {
+              "id": "g3-bharat-katha-5",
+              "game": "story",
+              "icon": "brinjal",
+              "title": { "hi": "राजा के बैंगन", "en": "The king's brinjals" },
+              "config": { "story": "tenali-baingan" }
+            },
+            {
+              "id": "g3-bharat-katha-6",
+              "game": "story",
+              "icon": "deer",
+              "title": { "hi": "बरगद हिरन", "en": "The banyan deer" },
+              "config": { "story": "jataka-hiran" }
             }
           ]
         }
@@ -18880,6 +19909,22 @@
               "icon": "letter:6–10",
               "title": { "hi": "छह से दस तक", "en": "Tables 6 to 10, mixed" },
               "config": { "tables": [6, 7, 8, 9, 10], "rounds": 10 }
+            }
+          ]
+        },
+        {
+          "id": "g4-bharat-katha",
+          "title": { "hi": "भारत भर की कहानियाँ", "en": "Tales from across India" },
+          "skill": "Listening · Stories",
+          "icon": "lotus",
+          "lessons": [
+            { "id": "g4-bharat-katha-1", "game": "story", "icon": "lotus", "title": { "hi": "तेजीमोला", "en": "Tejimola" }, "config": { "story": "tejimola" } },
+            {
+              "id": "g4-bharat-katha-2",
+              "game": "story",
+              "icon": "prince",
+              "title": { "hi": "लालकमल और नीलकमल", "en": "Lalkamal and Neelkamal" },
+              "config": { "story": "lalkamal-neelkamal" }
             }
           ]
         }

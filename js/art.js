@@ -517,6 +517,8 @@ const PLACES = {
 const ALL = { ...VEHICLES, ...ANIMALS, ...CONCEPTS, ...PLACES, ...WORD_ART, ...PLACE_ART, ...CREATURES, ...PEOPLE, ...THINGS, ...PHONICS_ART, ...COMIC_ART, ...FESTIVAL_ART };
 for (const [name, fn] of Object.entries(SHAPES)) ALL[`shape-${name}`] = fn;
 ALL['place-parking'] = () => PLACE_ART['place-parking']() + parkingCars(car);
+// the painted "red peacock" Tenali Rama exposes (roadmap 9.8): the peacock, its greens and blues made red
+ALL.redpeacock = () => WORD_ART.peacock().replace(/#1F9D63/g, '#B42318').replace(/#2EC27E/g, '#E2583E').replace(/#2F5BD3/g, '#B42318').replace(/#3D7BFF/g, '#F04438');
 
 export const KNOWN_PICTURES = Object.keys(ALL);
 

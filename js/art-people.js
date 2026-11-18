@@ -112,6 +112,10 @@ export const PEOPLE = {
   eklavya: () =>
     person({ kid: true, skin: SKIN[2], top: '#8A5A44', bottom: '#5B3A2E', prop: bow(66) }) +
     path('M106 6 Q118 -10 114 16', 'none', stroke('#2EC27E', 4)) + path('M100 16 Q100 10 112 12', 'none', stroke('#E2583E', 4)),
+  // roadmap 9.8: tales from across India
+  tenali: () => person({ skin: SKIN[2], top: '#2EC27E', bottom: '#F3F4F8', hat: 'turban', mustache: true }) + tilak() + path('M120 70 Q136 62 140 74', 'none', stroke('#FFC93C', 3)),
+  prince: () => person({ kid: true, skin: SKIN[1], top: '#3D7BFF', bottom: '#FFC93C', hat: 'crown' }),
+  queen: () => person({ style: 'long', skin: SKIN[0], top: '#9B5DE5', dress: true, bindi: true, hat: 'crown' }) + garland('#FFC93C'),
   // a sage in saffron, with a staff and a water pot (roadmap 9.4: the mouse who became a lion)
   sage: () =>
     person({ style: 'grey', hair: '#E3E6ED', top: '#FF9F43', bottom: '#FF9F43', beard: '#EEF0F5', skin: SKIN[1], prop: line(150, 128, 146, 52, '#8A5A44', 5) }) +
@@ -168,6 +172,15 @@ export const THINGS = {
   rangoli: () => `<polygon points="${starPoints(100, 70, 58, 30, 8)}" fill="#FF6B9A"/>` + `<polygon points="${starPoints(100, 70, 40, 20, 8)}" fill="#FFC93C"/>` + circ(100, 70, 16, '#3D7BFF') + circ(100, 70, 7, '#fff') + [0, 1, 2, 3, 4, 5, 6, 7].map((k) => circ((100 + 52 * Math.cos((k * Math.PI) / 4 + 0.39)).toFixed(1), (70 + 52 * Math.sin((k * Math.PI) / 4 + 0.39)).toFixed(1), 5, '#2EC27E')).join(''),
 
   // ---------- story animals and things ----------
+  // बैंगन: two purple brinjals (roadmap 9.8: Tenali Rama and the brinjal curry)
+  brinjal: () =>
+    [[76, 84, -18], [124, 80, 14]].map(([x, y, r]) => `<g transform="rotate(${r} ${x} ${y})">` + ell(x, y + 10, 24, 36, '#6B3FA0') + ell(x - 7, y + 2, 7, 16, '#8E63C7') + path(`M${x - 18} ${y - 22} Q${x} ${y - 34} ${x + 18} ${y - 22} Q${x} ${y - 12} ${x - 18} ${y - 22} Z`, '#2EC27E') + line(x, y - 30, x + 4, y - 44, '#1F9D63', 5) + '</g>').join(''),
+  // बछड़ा: a small calf
+  calf: () =>
+    ell(100, 84, 40, 22, '#F3E3D3') + ell(86, 80, 12, 9, '#A0703F') + ell(116, 90, 9, 7, '#A0703F') +
+    [74, 88, 112, 126].map((x) => rect(x - 4, 98, 8, 26, '#F3E3D3', 3)).join('') +
+    circ(140, 66, 16, '#F3E3D3') + ell(148, 74, 9, 7, '#F7C6C0') + ell(128, 54, 7, 4, '#A0703F') + ell(152, 54, 7, 4, '#A0703F') + eye(142, 62, 2.6) +
+    path('M60 80 Q48 84 50 100', 'none', stroke('#A0703F', 3)),
   // चिमटा: iron tongs with a ring at the top (roadmap 9.7: Hamid's tongs, after Premchand's ईदगाह)
   chimta: () =>
     circ(100, 22, 12, 'none').replace('fill="none"', 'fill="none" stroke="#5B6478" stroke-width="5"') +
