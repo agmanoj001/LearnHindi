@@ -334,3 +334,15 @@ test('6.3 more praise, mostly for effort: chosen by how the lesson went, never t
   assert.match(read('js/screens.js'), /const praise = lessonPraise\(session/);
   assert.match(read('js/screens.js'), /api\.sayLines\(praise\)/);
 });
+
+test('6.4 one narrator says everything: very short lines are said inside a carrier, none by another voice', () => {
+  const index = JSON.parse(read('voices/index.json'));
+  assert.ok(Array.isArray(index.carried) && index.carried.length > 0, 'the index lists the lines said inside a carrier');
+  assert.deepEqual(index.fellBack, [], 'no line is said by the standard voice any more');
+  for (const k of index.carried) assert.ok(index.files[k], `${k} is a recording`);
+  const tool = read('tools/make-voices.mjs');
+  assert.match(tool, /export function carrierText/);
+  assert.match(tool, /silencedetect/);
+  assert.match(tool, /flag\('--short'\)/);
+  assert.match(tool, /flag\('--fallbacks'\)/);
+});
