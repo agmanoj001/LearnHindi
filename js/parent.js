@@ -1,6 +1,6 @@
 // The grown-ups' area (behind a 3-second press): grade, language, voices and recordings,
 // sound, unlocking, the special photo, and a progress report. Nothing here leaves the device.
-import { el, ICONS } from './ui.js';
+import { el, ICONS, applyReadingComfort } from './ui.js';
 import { applyMotion, liteMotion, slowDevice } from './motion.js';
 import { normalizeProgress, clipKeysFor, clipKeyFromFileName, practiceReport, DAILY_LIMITS, showLines, storyVoiceLines } from './logic.js';
 import { skillName, SKILLS as MATH_SKILLS } from './mathgen.js';
@@ -254,6 +254,12 @@ export function showParent(api) {
         ]),
         el('p', { class: 'note', text: 'Lighter animations keep the backgrounds still and leave out the extra effects; the stories, the guide and the games move as usual. Automatic switches to lighter if this device measured slow.' }),
         slowDevice() ? el('p', { class: 'note', text: 'This device measured slow, so Automatic uses lighter animations.' }) : null,
+        toggle(
+          'Easier reading',
+          s.readingComfort,
+          (v) => ((s.readingComfort = v), persist(), applyReadingComfort(v)),
+          'More space between words and lines, on a soft cream page, in the stories, comics and reading games. Helps children who find reading hard, including dyslexic readers.',
+        ),
         toggle('Captions', s.captions, (v) => ((s.captions = v), persist()), 'Shows everything the app says as text. Helps children who are hard of hearing, and helps early readers match sounds to words.'),
         toggle(
           'Tell it back',

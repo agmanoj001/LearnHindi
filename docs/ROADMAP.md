@@ -43,7 +43,7 @@ Since then, the voice (recorded narration, a voice per comic character, voices f
 | ✅ | A long-standing bug: the "heart" picture (three Grade 1–2 stories) drew black; it is now red | |
 | ➡️ 1 | **Illustrated covers and one backdrop per story** for the best-loved 20 stories (commissioned SVG, still tiny) | Story-specific art is what makes the top apps feel premium |
 | ➡️ 2 | **A test on a low-end phone** (Android Go, 2 GB RAM) and an older iPad | Most Indian families' second phone is the child's phone |
-| ➡️ 3 | A reading-comfort option: wider letter and line spacing, a cream background | Helps struggling and dyslexic readers |
+| ✅ | A reading-comfort option: wider letter and line spacing, a cream background. Done: "Easier reading" in the grown-ups' area (Play time and reading support) gives more space between words and lines on a soft cream page in the stories, comics, grammar and reading games. Hindi gets word and line spacing only, since spacing out Devanagari letters breaks the line along the top of each word; English also gets letter spacing | Helps struggling and dyslexic readers |
 | ➡️ 4 | In the parent area: **comprehension by question type** (who/what vs why) and stories read on their own | Shows grown-ups what to talk about |
 
 ## 4. Layout and ease of use

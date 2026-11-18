@@ -30,7 +30,7 @@ import { cornerScreen, idiomScreen } from './corner.js';
 import { initAudio, setVoicePack, preload, play, stop, isSpeaking, wordSegs, letterSegs, numberSegs, soundSegs, sentenceSegs, phraseSegs, setVoicePrefs } from './audio.js';
 import { KEYS, load, save, normalizeProfiles, profileKey, keepStorage } from './storage.js';
 import { sfx, music, FEEDBACK } from './sfx.js';
-import { el, sleep, bounce, ICONS } from './ui.js';
+import { el, sleep, bounce, ICONS, applyReadingComfort } from './ui.js';
 import { createMascot, MASCOT_IDS, setOutfit } from './mascot.js';
 import * as screens from './screens.js';
 
@@ -211,6 +211,7 @@ function loadProfile() {
   sfx.enabled = state.settings.sfx;
   music.enabled = state.settings.music;
   applyMotion(liteMotion(state.settings.motion, slowDevice()));
+  applyReadingComfort(state.settings.readingComfort);
   applyStyle();
 }
 

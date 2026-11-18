@@ -13104,3 +13104,44 @@ body:has(.game-grammar) .caption-bar,
   width: 100%;
   height: auto;
 }
+
+/* ---- easier reading (roadmap 3.3): more space between words and lines, on a soft cream page.
+   Hindi gets word and line spacing only: spacing out the letters would break the line along the top
+   of each word (शिरोरेखा) and pull the matras away from their letters. English also gets a little
+   letter spacing. ---- */
+.reading-comfort {
+  --comfort-page: #fbf3dc;
+  --comfort-ink: #2b2418;
+}
+.reading-comfort .story-page {
+  background: var(--comfort-page);
+}
+.reading-comfort .story-line,
+.reading-comfort .comic-bubble,
+.reading-comfort .comic-cap,
+.reading-comfort .comic-blurb,
+.reading-comfort .gr-rule,
+.reading-comfort .gr-examples,
+.reading-comfort .gr-sentence-text,
+.reading-comfort .riddle-text,
+.reading-comfort .verse-line {
+  line-height: 1.95;
+  word-spacing: 0.3em;
+}
+.reading-comfort .story-line.hi {
+  color: var(--comfort-ink);
+}
+.reading-comfort .story-line.en,
+.reading-comfort :is(.comic-bubble, .comic-cap, .comic-blurb, .gr-rule, .gr-examples):lang(en) {
+  letter-spacing: 0.05em;
+  word-spacing: 0.18em;
+}
+.reading-comfort .story-word {
+  padding: 0 0.18em;
+}
+.reading-comfort .comic-bubble {
+  background: #fff8e4;
+}
+.reading-comfort .card.text:lang(en) .word-text {
+  letter-spacing: 0.05em;
+}

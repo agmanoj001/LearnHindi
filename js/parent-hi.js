@@ -80,6 +80,9 @@ const HI = {
   'Daily limit': 'रोज़ की सीमा',
   'No limit': 'कोई सीमा नहीं',
   Captions: 'लिखा हुआ भी दिखाएँ',
+  'Easier reading': 'आसान पढ़ाई',
+  'More space between words and lines, on a soft cream page, in the stories, comics and reading games. Helps children who find reading hard, including dyslexic readers.':
+    'कहानियों, कॉमिक्स और पढ़ने के खेलों में शब्दों और पंक्तियों के बीच ज़्यादा जगह, हल्के क्रीम रंग के पन्ने पर। जिन बच्चों को पढ़ना मुश्किल लगता है, डिस्लेक्सिया वाले बच्चों को भी, इससे मदद मिलती है।',
   'Shows everything the app says as text. Helps children who are hard of hearing, and helps early readers match sounds to words.': 'ऐप जो भी बोलता है, वह लिखा हुआ भी दिखता है। कम सुनने वाले बच्चों की मदद होती है, और नए पढ़ने वाले आवाज़ को शब्द से जोड़ना सीखते हैं।',
   'Tell it back': 'कहानी दोबारा सुनाओ',
   'After each story the child can record themselves retelling it, with the pictures as prompts. Retelling is one of the best checks of understanding. Recordings stay on this device; listen to them under Progress.':
