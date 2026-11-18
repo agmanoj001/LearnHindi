@@ -308,3 +308,29 @@ test('3.1 painted covers and a backdrop for the twenty best-loved stories', asyn
   assert.match(read('js/screens.js'), /coverSvg\(s\.id/);
   assert.match(read('sw.js'), /'js\/covers\.js'/);
 });
+
+test('6.3 more praise, mostly for effort: chosen by how the lesson went, never the same twice in a row, recorded', async () => {
+  const { PRAISE, ALL_PRAISE, lessonPraise } = await import('../js/praise.js');
+  assert.ok(ALL_PRAISE.length >= 10);
+  assert.ok(PRAISE.effort.length + PRAISE.focus.length > ALL_PRAISE.length / 2, 'mostly effort and strategy');
+  for (const p of ALL_PRAISE) {
+    assert.ok(DEVANAGARI.test(p.hi) && p.en && !DEVANAGARI.test(p.en), p.hi);
+    // suits a boy or a girl: no gendered verb for the child
+    assert.doesNotMatch(p.hi, /करोगे|करोगी|रहे,|रही,|गए|गई|थे|थी/, p.hi);
+  }
+  // mistakes along the way: an effort line; all first time: focus (or a classic)
+  for (let i = 0; i < 20; i++) assert.ok(PRAISE.effort.includes(lessonPraise({ answered: 6, firstTry: 4 })));
+  for (let i = 0; i < 20; i++) assert.ok([...PRAISE.focus, ...PRAISE.done].includes(lessonPraise({ answered: 6, firstTry: 6 })));
+  let last = null;
+  for (let i = 0; i < 30; i++) {
+    const p = lessonPraise({ answered: 5, firstTry: 3 });
+    assert.notEqual(p, last, 'never the same line twice in a row');
+    last = p;
+  }
+  // every line is a recording in both languages
+  const keys = new Set(L.lessonVoiceLines(content).map((l) => l.key));
+  for (const p of ALL_PRAISE) for (const lg of ['hi', 'en']) assert.ok(keys.has(L.textKey(lg, p[lg])), p[lg]);
+  // the results screen says it and shows it on the ribbon
+  assert.match(read('js/screens.js'), /const praise = lessonPraise\(session/);
+  assert.match(read('js/screens.js'), /api\.sayLines\(praise\)/);
+});

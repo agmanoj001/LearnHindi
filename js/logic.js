@@ -1,6 +1,7 @@
 // Pure game logic: no DOM, no storage. Everything here is unit-tested in tests/.
 import { samayLines } from './samay.js';
 import { pahadaLines } from './pahade.js';
+import { ALL_PRAISE } from './praise.js';
 
 export const LANG_MODES = ['hi', 'en', 'both'];
 
@@ -1063,6 +1064,8 @@ export function lessonVoiceLines(content) {
       }
   // the words a child can tap in a story, and the sentence tokens
   for (const st of content.stories || []) for (const p of st.pages) for (const lg of ['hi', 'en']) for (const t of String(p[lg] || '').split(/\s+/)) byText(bareToken(t), lg, st.level);
+  // praise at the end of a lesson (roadmap 6.3), in both languages, shared by every grade
+  for (const p of ALL_PRAISE) for (const lg of ['hi', 'en']) byText(p[lg], lg);
   // a story's glossary (roadmap 9.12): each word, and the word with its meaning
   for (const st of content.stories || []) for (const w of st.words || []) for (const t of [w.hi, glossLine(w)]) byText(t, 'hi', st.level);
   return [...lines.values()].map(({ level, ...l }) => (level ? { ...l, level } : l));

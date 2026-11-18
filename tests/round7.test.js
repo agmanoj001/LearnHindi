@@ -1,7 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { trailPath, PRAISE } from '../js/screens.js';
+import { trailPath } from '../js/screens.js';
+import { ALL_PRAISE as PRAISE } from '../js/praise.js';
 
 const content = JSON.parse(readFileSync(new URL('../content.json', import.meta.url), 'utf8'));
 const DEVANAGARI = /[ऀ-ॿ]/;
@@ -20,8 +21,8 @@ test('map trail: one smooth curve through every lesson stop, in order', () => {
   assert.ok(!/NaN/.test(d));
 });
 
-test('results praise: a ribbon for every star count, Hindi and English', () => {
-  assert.equal(PRAISE.length, 4);
+test('results praise: every line in Hindi and English', () => {
+  assert.ok(PRAISE.length >= 10);
   for (const p of PRAISE) {
     assert.ok(DEVANAGARI.test(p.hi), p.hi);
     assert.ok(p.en && !DEVANAGARI.test(p.en), p.en);

@@ -16,6 +16,7 @@ import { weekDays, trailSticker, dayFinished, weekFull, isoDay, stickyPlan } fro
 import { worldLessons, lessonRecord, isUnlocked, currentLesson, nextLesson, worldStars, hubWorlds, streak, nextCollectible, todayPlan, storyLang, worldStoryLang, storyNeeds, taughtMatras, decodability, nextDecodable, MATRA_SIGNS } from './curriculum.js';
 import { SHOW_ICONS } from './show-icons.js';
 import { coverSvg } from './covers.js';
+import { lessonPraise } from './praise.js';
 import { greeting, timeSlot, HELLO, milestoneLine, totalStars } from './guide.js';
 import { playersFrom, GROWN_UP } from './together.js';
 import { load, KEYS, profileKey, backupReminderDue } from './storage.js';
@@ -582,6 +583,8 @@ export async function results(api, { world, lesson, result, collection, session,
   );
   const next = nextLesson(world, lesson.id);
   const isStory = lesson.id.startsWith('story:');
+  // praise for the effort or the care it took, said by the guide and shown on the ribbon (roadmap 6.3)
+  const praise = lessonPraise(session || {});
   // free play after every two lessons (docs/ROADMAP.md 7.14); not for the oldest readers' comics and grammar
   const playTime = freeplayDue(world.level, api.state.sessionLessons || 0);
   const btns = el('div', { class: 'result-buttons' }, [
@@ -604,7 +607,7 @@ export async function results(api, { world, lesson, result, collection, session,
       el('div', { class: 'confetti' }, Array.from({ length: 36 }, (_, i) => el('i', { style: { left: `${(i * 37) % 100}%`, animationDelay: `${(i % 12) * 0.1}s`, background: ['#FF5A5F', '#FFC93C', '#2EC27E', '#3D7BFF', '#A66BFF', '#FF8FB1'][i % 6] } }))),
       el('div', { class: `result-card${result.stars === 3 ? ' perfect' : ''}` }, [
         el('div', { class: 'result-mascot' }, [mascot.node]),
-        praiseRibbon(world, result.stars),
+        praiseRibbon(world, praise),
         stars,
         session?.answered
           ? el('div', { class: 'result-stats' }, [
@@ -639,7 +642,7 @@ export async function results(api, { world, lesson, result, collection, session,
     api.sfx.sparkle();
     await sleep(500);
     await api.say(collection.id === 'vehicles' ? 'newVehicle' : 'newItem', item);
-  } else await api.say(result.stars === 3 ? 'great' : 'yay');
+  } else await api.sayLines(praise);
   if (result.unitComplete && token === api.state.token) await api.say('unitDone');
   if (playTime && token === api.state.token) await api.say('freeplayTime');
   if (milestone && token === api.state.token) {
@@ -917,15 +920,9 @@ export function showTalk(api, story) {
   sheet.querySelector('.round-btn')?.focus();
 }
 
-// A ribbon across the results card. Praise names the effort, not the child (Mueller & Dweck).
-export const PRAISE = [
-  { hi: 'अच्छी कोशिश!', en: 'Good try!' },
-  { hi: 'अच्छी कोशिश!', en: 'Good try!' },
-  { hi: 'शाबाश!', en: 'Well done!' },
-  { hi: 'शानदार!', en: 'Amazing!' },
-];
-function praiseRibbon(world, starCount) {
-  const p = PRAISE[Math.max(0, Math.min(3, starCount | 0))];
+// A ribbon across the results card, with the line the guide says. Praise names the effort, not the child
+// (Mueller & Dweck): chosen by how the lesson went (js/praise.js, roadmap 6.3).
+function praiseRibbon(world, p) {
   return el('div', { class: 'result-ribbon' }, english(world) ? [el('b', { text: p.en })] : [el('b', { lang: 'hi', text: p.hi }), el('span', { text: p.en })]);
 }
 
