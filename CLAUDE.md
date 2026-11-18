@@ -24,7 +24,15 @@ Every story in `content.json` has a `talk` list: five prompts a grown-up can ask
 - `why`: a "why" question about this story, written for it (not a template).
 - `you`: a "what about you" question that links the story to the child's own life, written for it.
 
-Each prompt has `hi` and `en`. Write the Hindi addressed to the child so it fits a boy or a girl ("तुम्हें…", a ने-construction or an imperative; not करोगे/करोगी). `validateContent` (js/validate.js) and `npm test` fail when a story is missing any of the five, so a story can't land without them. The prompts are read by the grown-up and not spoken, so they need no voice recordings.
+Each prompt has `hi` and `en`. Write the Hindi addressed to the child so it fits a boy or a girl ("तुम्हें…", a ने-construction or an imperative; not करोगे/करोगी). `validateContent` (js/validate.js) and `npm test` fail when a story is missing any of the five, so a story can't land without them. Like everything the app says, the prompts are spoken in the Google voice, so they need their recordings (see the next section). Until roadmap 6.8 adds that, they are only shown to the grown-up.
+
+## Everything the phone says is the Google voice
+
+Anything the app says aloud, in Hindi or English, is the recorded Google text-to-speech voice, never the phone's own voice. That covers every story page, talk-together prompt, question, hint, praise, guide comment and caption line, and every maths question, answer and "why" line. The recordings are made by `tools/make-voices.mjs` ahead of time and kept on the device, so they work offline. A family's own recordings, made on the device, still play first. The device voice is only a last resort, for a recording that failed to load.
+
+- When a change adds or changes anything the app can say, its recordings are part of the **same change**, never a follow-up. The line must be in a list the generator reads, usually `lessonVoiceLines` in `js/logic.js`. Then run `tools/make-voices.mjs`, and for story pages also `tools/align-words.mjs`.
+- A line made up as the child plays (new numbers, names or answers each time) must be recorded too. List every line its generator can make, or build the line from recorded pieces. Never leave it to the device voice.
+- Roadmap 6.8 tracks the lines that have no recording yet: most maths lines, and the talk-together prompts.
 
 ## Long work: push after each piece, and keep a restart check-in
 
