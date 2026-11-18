@@ -333,3 +333,33 @@ test('10.8: big numbers the international and the Indian way, and the new pictur
   ])
     assert.doesNotMatch(mathModel(m), /undefined|NaN|class="mm">/, m.kind);
 });
+
+// ---- 10.9 maths stories and puzzles ----
+test('10.9: maths stories for Grades 3–4 and maths comics for Grades 7–8, each reachable and complete', () => {
+  const stories = ['birbal-biggest', 'tenali-jars', 'chess-rice', 'seventeen-camels', 'aryabhata-zero'].map((id) => content.stories.find((s) => s.id === id));
+  for (const s of stories) {
+    assert.ok(s, 'story');
+    assert.ok(['grade3', 'grade4'].includes(s.level));
+    assert.ok(s.pages.length >= 6 && s.questions.length === 3 && s.moral?.hi);
+    assert.deepEqual(s.talk.map((x) => x.type).sort(), ['complete', 'open', 'recall', 'why', 'you']);
+    for (const p of s.pages) assert.ok(content.words[p.word], `${s.id}: ${p.word}`);
+    assert.ok(lessons.some((l) => l.game === 'story' && l.config.story === s.id), `${s.id} has a lesson`);
+  }
+  assert.ok(content.words.chessboard, 'a chessboard picture for the rice story');
+  // the arithmetic in the stories is right
+  assert.equal(2 ** 7, 128);
+  assert.ok(2 ** 20 > 1000000 && 2 ** 19 < 1000000, 'the 21st square is the first above a million');
+  assert.equal(18 / 2 + 18 / 3 + 18 / 9, 17);
+  assert.equal(3 + 0.5 + 0 * 3, 2 + 1.5 + 0);
+  const comics = ['mu-1729', 'r-shakuntala', 'b-crows', 'd-lock', 'd-coins'].map((id) => content.comics.find((c) => c.id === id));
+  for (const cm of comics) {
+    assert.ok(cm.guess && cm.guess.options.includes(cm.guess.answer), `${cm.id} stops for a guess`);
+    assert.ok(lessons.some((l) => l.game === 'comic' && l.config.comic === cm.id), `${cm.id} has a lesson`);
+  }
+  assert.equal(1 ** 3 + 12 ** 3, 1729);
+  assert.equal(9 ** 3 + 10 ** 3, 1729);
+  assert.equal(34 * 11, 374);
+  assert.equal(8000 * 12, 96000);
+  // the lock: the first digit twice the second, the third one more than the second, all three make 13
+  assert.ok(6 === 2 * 3 && 4 === 3 + 1 && 6 + 3 + 4 === 13);
+});

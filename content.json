@@ -467,7 +467,8 @@
     "xmastree": { "hi": "क्रिसमस का पेड़", "translit": "krismas ka ped", "en": "Christmas tree", "picture": "xmastree" },
     "bonfire": { "hi": "लोहड़ी की आग", "translit": "lohdee kee aag", "en": "Lohri fire", "picture": "bonfire" },
     "pongalpot": { "hi": "पोंगल की हांडी", "translit": "pongal kee haandee", "en": "Pongal pot", "picture": "pongalpot" },
-    "pookalam": { "hi": "पूकलम", "translit": "pookalam", "en": "flower carpet", "picture": "pookalam" }
+    "pookalam": { "hi": "पूकलम", "translit": "pookalam", "en": "flower carpet", "picture": "pookalam" },
+    "chessboard": { "hi": "शतरंज", "translit": "shatranj", "en": "chessboard", "picture": "chessboard" }
   },
   "sentences": [
     { "id": "bus-here", "about": "bus", "hi": "बस आई!", "translit": "bas aai", "en": "The bus is here!", "level": "grade2" },
@@ -10647,6 +10648,426 @@
         { "type": "why", "hi": "खीरा बोतल में कैसे पहुँचा?", "en": "How did the cucumber get into the bottle?" },
         { "type": "you", "hi": "कोई काम नामुमकिन लगे, तो कैसे सोचें?", "en": "When a job seems impossible, how can we think it through?" }
       ]
+    },
+    {
+      "id": "birbal-biggest",
+      "level": "grade3",
+      "title": { "hi": "सबसे बड़ी गिनती", "en": "The biggest number" },
+      "cover": "king",
+      "pages": [
+        {
+          "word": "king",
+          "hi": "एक दिन बादशाह अकबर ने दरबार में पूछा, \"दुनिया की सबसे बड़ी संख्या कौन-सी है?\"",
+          "en": "One day Emperor Akbar asked his court, \"What is the biggest number in the world?\""
+        },
+        {
+          "word": "minister",
+          "hi": "एक दरबारी बोला, \"हज़ार, जहाँपनाह!\" दूसरा बोला, \"नहीं, लाख!\" तीसरा बोला, \"करोड़!\"",
+          "en": "One courtier said, \"A thousand, Your Majesty!\" Another said, \"No, a lakh!\" A third said, \"A crore!\""
+        },
+        { "word": "king", "hi": "अकबर ने बीरबल की ओर देखा, \"तुम क्या कहते हो, बीरबल?\"", "en": "Akbar looked at Birbal. \"What do you say, Birbal?\"" },
+        {
+          "word": "star",
+          "hi": "बीरबल मुस्कुराए, \"जहाँपनाह, आप कोई भी संख्या बोलिए। मैं उसमें एक जोड़ दूँगा, और वह उससे बड़ी हो जाएगी।\"",
+          "en": "Birbal smiled. \"Your Majesty, say any number at all. I will add one to it, and it will be bigger.\""
+        },
+        {
+          "word": "king",
+          "hi": "अकबर बोले, \"एक करोड़!\" बीरबल तुरंत बोले, \"एक करोड़ एक!\"",
+          "en": "Akbar said, \"One crore!\" At once Birbal said, \"One crore and one!\""
+        },
+        {
+          "word": "star",
+          "hi": "बीरबल ने समझाया, \"गिनती कभी ख़त्म नहीं होती, आसमान के तारों की तरह। इसलिए कोई सबसे बड़ी संख्या नहीं है।\"",
+          "en": "Birbal explained, \"Counting never ends, like the stars in the sky. So there is no biggest number.\""
+        },
+        { "word": "king", "hi": "अकबर हँस पड़े, \"बीरबल, तुम्हारी बुद्धि भी अनगिनत है!\"", "en": "Akbar laughed. \"Birbal, your wisdom is countless too!\"" }
+      ],
+      "questions": [
+        {
+          "hi": "अकबर ने क्या पूछा?",
+          "en": "What did Akbar ask?",
+          "text": true,
+          "answer": "सबसे बड़ी संख्या कौन-सी है",
+          "options": ["सबसे बड़ी संख्या कौन-सी है", "सबसे लंबी नदी कौन-सी है", "सबसे ऊँचा पेड़ कौन-सा है"]
+        },
+        {
+          "hi": "बीरबल किसी भी संख्या को बड़ा कैसे बनाते?",
+          "en": "How would Birbal make any number bigger?",
+          "text": true,
+          "answer": "उसमें एक जोड़कर",
+          "options": ["उसमें एक जोड़कर", "उसे आधा करके", "उसे मिटाकर"]
+        },
+        {
+          "hi": "एक करोड़ में एक जोड़ें, तो क्या बनेगा?",
+          "en": "What is one crore plus one?",
+          "text": true,
+          "answer": "एक करोड़ एक",
+          "options": ["एक करोड़ एक", "दो करोड़", "एक लाख"]
+        }
+      ],
+      "moral": { "hi": "गिनती कभी ख़त्म नहीं होती: हर संख्या के बाद एक और संख्या आती है।", "en": "Counting never ends: after every number comes another one." },
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"बीरबल ने समझाया, \"गिनती कभी ख़त्म नहीं होती, आसमान के … की तरह। इसलिए कोई सबसे बड़ी संख्या नहीं है।\"\" (तारों)",
+          "en": "Say this and let your child fill the gap: \"बीरबल ने समझाया, \"गिनती कभी ख़त्म नहीं होती, आसमान के … की तरह। इसलिए कोई सबसे बड़ी संख्या नहीं है।\"\" (तारों)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"एक दिन बादशाह अकबर ने दरबार में पूछा, \"दुनिया की सबसे बड़ी संख्या कौन-सी है?\"\")",
+          "en": "Ask: what happened first in the story? (\"One day Emperor Akbar asked his court, \"What is the biggest number in the world?\"\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर तारा है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the star and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "कोई सबसे बड़ी संख्या क्यों नहीं होती?", "en": "Why is there no biggest number?" },
+        { "type": "you", "hi": "सबसे बड़ी संख्या बोलो जो तुम्हें आती हो, फिर उसमें एक जोड़ो!", "en": "Say the biggest number you know, then add one to it!" }
+      ]
+    },
+    {
+      "id": "tenali-jars",
+      "level": "grade3",
+      "title": { "hi": "इक्कीस घड़े", "en": "Twenty-one jars" },
+      "cover": "jar",
+      "pages": [
+        {
+          "word": "jar",
+          "hi": "एक व्यापारी अपने तीन बेटों के लिए इक्कीस घड़े घी छोड़ गया।",
+          "en": "A trader left twenty-one jars of ghee for his three sons."
+        },
+        {
+          "word": "jar",
+          "hi": "सात घड़े पूरे भरे थे, सात आधे भरे थे, और सात बिलकुल ख़ाली थे।",
+          "en": "Seven jars were full, seven were half full, and seven were empty."
+        },
+        {
+          "word": "boy",
+          "hi": "शर्त थी: हर बेटे को बराबर घड़े मिलें और बराबर घी, पर घी एक घड़े से दूसरे में डालना मना था।",
+          "en": "The rule: each son must get the same number of jars and the same amount of ghee, but no ghee may be poured from jar to jar."
+        },
+        {
+          "word": "king",
+          "hi": "भाई झगड़ने लगे, तो वे राजा कृष्णदेवराय के दरबार में पहुँचे। राजा ने तेनालीराम को बुलाया।",
+          "en": "The brothers began to quarrel, so they went to King Krishnadevaraya. The king called Tenali Raman."
+        },
+        {
+          "word": "pot",
+          "hi": "तेनालीराम ने गिना: सारा घी मिलाकर साढ़े दस घड़े भरेगा। तो हर भाई को सात घड़े और साढ़े तीन घड़े घी चाहिए।",
+          "en": "Tenali Raman counted: all the ghee together would fill ten and a half jars. So each brother needs seven jars and three and a half jars of ghee."
+        },
+        {
+          "word": "jar",
+          "hi": "पहले भाई को मिले तीन पूरे, एक आधा और तीन ख़ाली घड़े।",
+          "en": "The first brother got three full jars, one half-full jar and three empty jars."
+        },
+        {
+          "word": "jar",
+          "hi": "बाक़ी दोनों भाइयों में हर एक को मिले दो पूरे, तीन आधे और दो ख़ाली घड़े।",
+          "en": "The other two brothers each got two full jars, three half-full jars and two empty jars."
+        },
+        {
+          "word": "king",
+          "hi": "सबके पास सात घड़े और साढ़े तीन घड़े घी! राजा ने तेनालीराम को इनाम दिया।",
+          "en": "Everyone had seven jars and three and a half jars of ghee! The king rewarded Tenali Raman."
+        }
+      ],
+      "questions": [
+        { "hi": "कुल कितने घड़े थे?", "en": "How many jars were there in all?", "text": true, "answer": "इक्कीस", "options": ["इक्कीस", "सात", "दस"] },
+        { "hi": "हर भाई को कितने घड़े मिले?", "en": "How many jars did each brother get?", "text": true, "answer": "सात", "options": ["सात", "तीन", "दस"] },
+        {
+          "hi": "दो आधे भरे घड़े मिलकर कितने के बराबर हैं?",
+          "en": "Two half-full jars together are the same as what?",
+          "text": true,
+          "answer": "एक पूरा घड़ा",
+          "options": ["एक पूरा घड़ा", "दो पूरे घड़े", "एक ख़ाली घड़ा"]
+        }
+      ],
+      "moral": { "hi": "झगड़ने से पहले सोचो और गिनो: हर मुश्किल का हल निकलता है।", "en": "Think and count before you quarrel: every problem has an answer." },
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"भाई झगड़ने लगे, तो वे … कृष्णदेवराय के दरबार में पहुँचे। राजा ने तेनालीराम को बुलाया।\" (राजा)",
+          "en": "Say this and let your child fill the gap: \"भाई झगड़ने लगे, तो वे … कृष्णदेवराय के दरबार में पहुँचे। राजा ने तेनालीराम को बुलाया।\" (राजा)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"एक व्यापारी अपने तीन बेटों के लिए इक्कीस घड़े घी छोड़ गया।\")",
+          "en": "Ask: what happened first in the story? (\"A trader left twenty-one jars of ghee for his three sons.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर घड़ा है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the clay pot and ask: what is happening here?"
+        },
+        {
+          "type": "why",
+          "hi": "तेनालीराम ने घी को एक घड़े से दूसरे में क्यों नहीं डाला?",
+          "en": "Why didn’t Tenali Raman pour the ghee from one jar to another?"
+        },
+        { "type": "you", "hi": "चलो, घर की कोई चीज़ तीन लोगों में बराबर बाँटकर दिखाओ!", "en": "Let’s share something at home equally between three people!" }
+      ]
+    },
+    {
+      "id": "chess-rice",
+      "level": "grade4",
+      "title": { "hi": "शतरंज और चावल के दाने", "en": "Rice on the chessboard" },
+      "cover": "chessboard",
+      "pages": [
+        {
+          "word": "king",
+          "hi": "बहुत पहले, एक राजा को एक नया खेल भेंट में मिला: शतरंज। राजा को खेल बहुत पसंद आया।",
+          "en": "Long ago, a king was given a new game: chess. The king loved it."
+        },
+        {
+          "word": "chessboard",
+          "hi": "उसने खेल बनाने वाले विद्वान से कहा, \"जो चाहो माँग लो!\"",
+          "en": "He said to the scholar who had made it, \"Ask for whatever you want!\""
+        },
+        {
+          "word": "rice",
+          "hi": "विद्वान बोले, \"महाराज, पहले खाने पर चावल का एक दाना रखिए, दूसरे पर दो, तीसरे पर चार। हर खाने पर पिछले से दुगुने।\"",
+          "en": "The scholar said, \"Your Majesty, put one grain of rice on the first square, two on the second, four on the third: double on every square.\""
+        },
+        { "word": "king", "hi": "राजा हँसे, \"बस इतना-सा? कुछ मुट्ठी चावल!\"", "en": "The king laughed. \"Is that all? A few handfuls of rice!\"" },
+        {
+          "word": "grain",
+          "hi": "पर दाने तेज़ी से बढ़ते गए: आठवें खाने पर 128, और इक्कीसवें पर दस लाख से भी ज़्यादा!",
+          "en": "But the grains grew fast: 128 on the eighth square, and more than a million on the twenty-first!"
+        },
+        {
+          "word": "field",
+          "hi": "आख़िरी, चौंसठवें खाने तक पहुँचने के लिए इतना चावल चाहिए था जितना पूरी दुनिया के खेतों में सैकड़ों साल में उगता है।",
+          "en": "To reach the last, sixty-fourth square they would need more rice than all the fields of the world grow in hundreds of years."
+        },
+        {
+          "word": "king",
+          "hi": "राजा समझ गए कि बार-बार दुगुना होने से छोटी चीज़ भी बहुत बड़ी हो जाती है। उन्होंने विद्वान की बुद्धि को सलाम किया।",
+          "en": "The king understood that doubling again and again makes even a tiny thing enormous. He saluted the scholar’s wisdom."
+        }
+      ],
+      "questions": [
+        { "hi": "पहले खाने पर कितने दाने थे?", "en": "How many grains were on the first square?", "text": true, "answer": "एक", "options": ["एक", "दो", "चार"] },
+        { "hi": "चौथे खाने पर कितने दाने होंगे?", "en": "How many grains on the fourth square?", "text": true, "answer": "आठ", "options": ["आठ", "चार", "छह"] },
+        {
+          "hi": "शतरंज की बिसात पर कितने खाने होते हैं?",
+          "en": "How many squares does a chessboard have?",
+          "text": true,
+          "answer": "चौंसठ",
+          "options": ["चौंसठ", "सोलह", "सौ"]
+        }
+      ],
+      "moral": { "hi": "बार-बार दुगुना करने से छोटी चीज़ भी बहुत बड़ी हो जाती है।", "en": "Doubling again and again makes even something tiny huge." },
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"बहुत पहले, एक … को एक नया खेल भेंट में मिला: शतरंज। राजा को खेल बहुत पसंद आया।\" (राजा)",
+          "en": "Say this and let your child fill the gap: \"बहुत पहले, एक … को एक नया खेल भेंट में मिला: शतरंज। राजा को खेल बहुत पसंद आया।\" (राजा)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"बहुत पहले, एक राजा को एक नया खेल भेंट में मिला: शतरंज। राजा को खेल बहुत पसंद आया।\")",
+          "en": "Ask: what happened first in the story? (\"Long ago, a king was given a new game: chess. The king loved it.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर राजा है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the king and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "राजा पहले क्यों हँसे, और बाद में हैरान क्यों हुए?", "en": "Why did the king laugh at first, and why was he amazed later?" },
+        {
+          "type": "you",
+          "hi": "एक रुपये से शुरू करके रोज़ दुगुना करो: दस दिन में कितने हो जाएँगे? साथ में गिनो!",
+          "en": "Start with one rupee and double it every day: how much after ten days? Count it together!"
+        }
+      ]
+    },
+    {
+      "id": "seventeen-camels",
+      "level": "grade4",
+      "title": { "hi": "सत्रह ऊँट", "en": "Seventeen camels" },
+      "cover": "camel",
+      "pages": [
+        {
+          "word": "camel",
+          "hi": "रेगिस्तान के एक गाँव में एक बूढ़े व्यापारी के पास सत्रह ऊँट थे।",
+          "en": "In a desert village, an old trader had seventeen camels."
+        },
+        {
+          "word": "grandfather",
+          "hi": "उसने कहा था: बड़े बेटे को आधे ऊँट मिलें, मँझले को एक-तिहाई, और छोटे को नौवाँ हिस्सा।",
+          "en": "He had said: the eldest son gets half the camels, the middle son a third, and the youngest a ninth."
+        },
+        {
+          "word": "boy",
+          "hi": "पर सत्रह का आधा साढ़े आठ होता है! ऊँट को आधा कैसे करें? तीनों भाई परेशान हो गए।",
+          "en": "But half of seventeen is eight and a half! How can you halve a camel? The three brothers were stuck."
+        },
+        {
+          "word": "grandmother",
+          "hi": "तभी एक समझदार दादी अपने ऊँट पर वहाँ से गुज़रीं। उन्होंने कहा, \"मेरा ऊँट भी ले लो।\"",
+          "en": "Just then a wise grandmother rode by on her camel. She said, \"Take my camel too.\""
+        },
+        {
+          "word": "camel",
+          "hi": "अब अठारह ऊँट हो गए। बड़े को आधे: नौ। मँझले को तिहाई: छह। छोटे को नौवाँ हिस्सा: दो।",
+          "en": "Now there were eighteen camels. The eldest got half: nine. The middle son a third: six. The youngest a ninth: two."
+        },
+        {
+          "word": "camel",
+          "hi": "नौ, छह और दो मिलाकर सत्रह! एक ऊँट बच गया, और वह दादी का अपना ऊँट था।",
+          "en": "Nine, six and two make seventeen! One camel was left over, and it was the grandmother’s own."
+        },
+        {
+          "word": "grandmother",
+          "hi": "दादी मुस्कुराईं, अपने ऊँट पर बैठीं और चल दीं। भाइयों ने सीखा: बँटवारे से पहले ठंडे दिमाग़ से सोचो।",
+          "en": "The grandmother smiled, climbed onto her camel and rode away. The brothers learned to think calmly before sharing."
+        }
+      ],
+      "questions": [
+        {
+          "hi": "व्यापारी के पास कितने ऊँट थे?",
+          "en": "How many camels did the trader have?",
+          "text": true,
+          "answer": "सत्रह",
+          "options": ["सत्रह", "अठारह", "नौ"]
+        },
+        { "hi": "अठारह का आधा कितना है?", "en": "What is half of eighteen?", "text": true, "answer": "नौ", "options": ["नौ", "आठ", "छह"] },
+        {
+          "hi": "दादी ने अपना ऊँट क्यों दिया?",
+          "en": "Why did the grandmother lend her camel?",
+          "text": true,
+          "answer": "ताकि बँटवारा पूरा-पूरा हो सके",
+          "options": ["ताकि बँटवारा पूरा-पूरा हो सके", "क्योंकि वह थक गई थीं", "क्योंकि उन्हें ऊँट पसंद नहीं था"]
+        }
+      ],
+      "moral": { "hi": "ठंडे दिमाग़ से सोचने पर मुश्किल सवाल भी हल हो जाते हैं।", "en": "Think calmly and even hard problems get solved." },
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"रेगिस्तान के एक गाँव में एक बूढ़े व्यापारी के पास सत्रह … थे।\" (ऊँट)",
+          "en": "Say this and let your child fill the gap: \"रेगिस्तान के एक गाँव में एक बूढ़े व्यापारी के पास सत्रह … थे।\" (ऊँट)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"रेगिस्तान के एक गाँव में एक बूढ़े व्यापारी के पास सत्रह ऊँट थे।\")",
+          "en": "Ask: what happened first in the story? (\"In a desert village, an old trader had seventeen camels.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर दादी है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the grandmother and ask: what is happening here?"
+        },
+        {
+          "type": "why",
+          "hi": "आधा, तिहाई और नौवाँ हिस्सा जोड़ने पर पूरे सत्रह ऊँट क्यों नहीं बनते?",
+          "en": "Why don’t a half, a third and a ninth add up to all seventeen camels?"
+        },
+        {
+          "type": "you",
+          "hi": "तुमने कभी कोई चीज़ भाई-बहन या दोस्त के साथ बाँटी है? कैसे बाँटी?",
+          "en": "Have you ever shared something with a brother, sister or friend? How did you share it?"
+        }
+      ]
+    },
+    {
+      "id": "aryabhata-zero",
+      "level": "grade4",
+      "title": { "hi": "आर्यभट और शून्य", "en": "Aryabhata and zero" },
+      "cover": "satellite",
+      "pages": [
+        {
+          "word": "boy",
+          "hi": "लगभग डेढ़ हज़ार साल पहले, कुसुमपुर में, जो आज के पटना के पास था, आर्यभट नाम के एक गणितज्ञ रहते थे।",
+          "en": "About fifteen hundred years ago, a mathematician named Aryabhata lived in Kusumapura, near today’s Patna."
+        },
+        {
+          "word": "book",
+          "hi": "सिर्फ़ तेईस साल की उम्र में उन्होंने गणित और तारों पर एक पूरी किताब लिख दी: आर्यभटीय।",
+          "en": "When he was only twenty-three, he wrote a whole book on maths and the stars: the Aryabhatiya."
+        },
+        {
+          "word": "pen",
+          "hi": "भारत में अंक लिखने का एक ख़ास तरीक़ा था: अंक की जगह बदलते ही उसकी क़ीमत बदल जाती है। इकाई की जगह 5 पाँच है, दहाई की जगह पचास।",
+          "en": "India had a special way of writing numbers: move a digit to another place and its value changes. A 5 in the ones place is five; in the tens place it is fifty."
+        },
+        {
+          "word": "hand",
+          "hi": "पर अगर किसी जगह पर कुछ न हो, तो? वहाँ भी कुछ लिखना होगा! भारत के गणितज्ञों ने उस ख़ाली जगह के लिए एक निशान बनाया: शून्य।",
+          "en": "But what if a place is empty? Something must still be written there! India’s mathematicians made a mark for the empty place: zero."
+        },
+        {
+          "word": "ring",
+          "hi": "शून्य की वजह से 5, 50 और 500 अलग-अलग पढ़े जा सकते हैं। बाद में ब्रह्मगुप्त ने शून्य से जोड़ने और घटाने के नियम भी लिखे।",
+          "en": "Thanks to zero, 5, 50 and 500 can be told apart. Later, Brahmagupta even wrote down the rules for adding and subtracting with zero."
+        },
+        {
+          "word": "earth",
+          "hi": "आर्यभट ने यह भी बताया कि पृथ्वी अपनी धुरी पर घूमती है, इसीलिए दिन और रात होते हैं।",
+          "en": "Aryabhata also said that the Earth spins on its axis, and that is why we have day and night."
+        },
+        {
+          "word": "satellite",
+          "hi": "उनके सम्मान में भारत के पहले उपग्रह का नाम आर्यभट रखा गया। वह 1975 में अंतरिक्ष में गया।",
+          "en": "In his honour, India’s first satellite was named Aryabhata. It went into space in 1975."
+        }
+      ],
+      "questions": [
+        {
+          "hi": "आर्यभट ने अपनी किताब कितनी उम्र में लिखी?",
+          "en": "How old was Aryabhata when he wrote his book?",
+          "text": true,
+          "answer": "तेईस साल",
+          "options": ["तेईस साल", "दस साल", "साठ साल"]
+        },
+        {
+          "hi": "50 में 0 क्या बताता है?",
+          "en": "What does the 0 in 50 tell us?",
+          "text": true,
+          "answer": "इकाई की जगह ख़ाली है",
+          "options": ["इकाई की जगह ख़ाली है", "कुछ नहीं", "पचास का आधा"]
+        },
+        {
+          "hi": "भारत के पहले उपग्रह का नाम क्या था?",
+          "en": "What was the name of India’s first satellite?",
+          "text": true,
+          "answer": "आर्यभट",
+          "options": ["आर्यभट", "चंद्रयान", "मंगलयान"]
+        }
+      ],
+      "moral": {
+        "hi": "शून्य दिखता कुछ नहीं, पर उसके बिना बड़ी संख्याएँ लिखना मुश्किल है।",
+        "en": "Zero looks like nothing, but without it big numbers are hard to write."
+      },
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"सिर्फ़ तेईस साल की उम्र में उन्होंने गणित और तारों पर एक पूरी … लिख दी: आर्यभटीय।\" (किताब)",
+          "en": "Say this and let your child fill the gap: \"सिर्फ़ तेईस साल की उम्र में उन्होंने गणित और तारों पर एक पूरी … लिख दी: आर्यभटीय।\" (किताब)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"लगभग डेढ़ हज़ार साल पहले, कुसुमपुर में, जो आज के पटना के पास था, आर्यभट नाम के एक गणितज्ञ रहते थे।\")",
+          "en": "Ask: what happened first in the story? (\"About fifteen hundred years ago, a mathematician named Aryabhata lived in Kusumapura, near today’s Patna.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर हाथ है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the hand and ask: what is happening here?"
+        },
+        {
+          "type": "why",
+          "hi": "संख्या लिखते समय ख़ाली जगह के लिए निशान क्यों चाहिए?",
+          "en": "Why do we need a mark for an empty place when we write a number?"
+        },
+        {
+          "type": "you",
+          "hi": "घर में कहाँ-कहाँ शून्य दिखता है? घड़ी, फ़ोन नंबर, पैसे… ढूँढो!",
+          "en": "Where can you see a zero at home? On a clock, a phone number, money… find them!"
+        }
+      ]
     }
   ],
   "levels": [
@@ -10815,7 +11236,9 @@
         "peacock",
         "umbrella",
         "clock",
-        "lock"
+        "lock",
+        "coins",
+        "box"
       ]
     },
     "vyakaran7": {
@@ -10847,7 +11270,8 @@
         "lion",
         "rose",
         "drum",
-        "pot"
+        "pot",
+        "crow"
       ]
     },
     "chippu": {
@@ -10898,7 +11322,8 @@
         "lamp",
         "rain",
         "cloud",
-        "leaf"
+        "leaf",
+        "car"
       ]
     },
     "rimjhim": {
@@ -10924,7 +11349,8 @@
         "cloud",
         "star",
         "house",
-        "balloon"
+        "balloon",
+        "pen"
       ]
     },
     "bazaar": {
@@ -14279,6 +14705,22 @@
           ]
         },
         {
+          "id": "g3-ganit-katha",
+          "title": { "hi": "गणित की कहानियाँ", "en": "Maths stories" },
+          "skill": "Stories",
+          "icon": "king",
+          "lessons": [
+            {
+              "id": "g3-ganit-katha-1",
+              "game": "story",
+              "icon": "king",
+              "title": { "hi": "सबसे बड़ी गिनती", "en": "The biggest number" },
+              "config": { "story": "birbal-biggest" }
+            },
+            { "id": "g3-ganit-katha-2", "game": "story", "icon": "jar", "title": { "hi": "इक्कीस घड़े", "en": "Twenty-one jars" }, "config": { "story": "tenali-jars" } }
+          ]
+        },
+        {
           "id": "g3-pahade",
           "title": { "hi": "पहाड़े गाओ", "en": "Sing the times tables" },
           "skill": "Maths in Hindi",
@@ -14873,6 +15315,35 @@
           ]
         },
         {
+          "id": "g4-ganit-katha",
+          "title": { "hi": "गणित की कहानियाँ", "en": "Maths stories" },
+          "skill": "Stories",
+          "icon": "chessboard",
+          "lessons": [
+            {
+              "id": "g4-ganit-katha-1",
+              "game": "story",
+              "icon": "chessboard",
+              "title": { "hi": "शतरंज और चावल के दाने", "en": "Rice on the chessboard" },
+              "config": { "story": "chess-rice" }
+            },
+            {
+              "id": "g4-ganit-katha-2",
+              "game": "story",
+              "icon": "camel",
+              "title": { "hi": "सत्रह ऊँट", "en": "Seventeen camels" },
+              "config": { "story": "seventeen-camels" }
+            },
+            {
+              "id": "g4-ganit-katha-3",
+              "game": "story",
+              "icon": "satellite",
+              "title": { "hi": "आर्यभट और शून्य", "en": "Aryabhata and zero" },
+              "config": { "story": "aryabhata-zero" }
+            }
+          ]
+        },
+        {
           "id": "g4-pahade",
           "title": { "hi": "पहाड़ों की दौड़", "en": "Times tables race" },
           "skill": "Maths in Hindi",
@@ -15304,6 +15775,21 @@
           "skill": "Vocabulary",
           "icon": "comic-zoya",
           "lessons": [{ "id": "rj-idioms-1", "game": "quiz", "icon": "comic-zoya", "title": { "hi": "मुहावरे", "en": "Idioms" }, "config": { "bank": "rj-idioms", "rounds": 6 } }]
+        },
+        {
+          "id": "r-ganit",
+          "title": { "hi": "गणित का जादू", "en": "Maths magic" },
+          "skill": "Comics",
+          "icon": "comic-rimjhim",
+          "lessons": [
+            {
+              "id": "c-r-shakuntala",
+              "game": "comic",
+              "icon": "comic-rimjhim",
+              "title": { "hi": "दिमाग़ का कंप्यूटर", "en": "The human computer" },
+              "config": { "comic": "r-shakuntala" }
+            }
+          ]
         }
       ]
     },
@@ -15472,6 +15958,28 @@
               "icon": "comic-inspector",
               "title": { "hi": "मुहावरे", "en": "Idioms" },
               "config": { "bank": "g8-idioms", "rounds": 6 }
+            }
+          ]
+        },
+        {
+          "id": "g8-ganit",
+          "title": { "hi": "गणित से जासूसी", "en": "Detective maths" },
+          "skill": "Comics",
+          "icon": "comic-dadi",
+          "lessons": [
+            {
+              "id": "c-d-lock",
+              "game": "comic",
+              "icon": "comic-dadi",
+              "title": { "hi": "तीन अंकों का ताला", "en": "The three-digit lock" },
+              "config": { "comic": "d-lock" }
+            },
+            {
+              "id": "c-d-coins",
+              "game": "comic",
+              "icon": "comic-dadi",
+              "title": { "hi": "नौ सिक्के, एक नकली", "en": "Nine coins, one fake" },
+              "config": { "comic": "d-coins" }
             }
           ]
         }
@@ -15921,6 +16429,21 @@
           "skill": "Vocabulary",
           "icon": "peacock",
           "lessons": [{ "id": "b-idioms-1", "game": "quiz", "icon": "peacock", "title": { "hi": "मुहावरे", "en": "Idioms" }, "config": { "bank": "b-idioms", "rounds": 6 } }]
+        },
+        {
+          "id": "b-ganit",
+          "title": { "hi": "बीरबल का हिसाब", "en": "Birbal's sums" },
+          "skill": "Comics",
+          "icon": "comic-birbal",
+          "lessons": [
+            {
+              "id": "c-b-crows",
+              "game": "comic",
+              "icon": "comic-birbal",
+              "title": { "hi": "आगरा में कितने कौवे?", "en": "How many crows in Agra?" },
+              "config": { "comic": "b-crows" }
+            }
+          ]
         }
       ]
     },
@@ -16364,6 +16887,21 @@
           "skill": "Vocabulary",
           "icon": "telescope",
           "lessons": [{ "id": "mu-idioms-1", "game": "quiz", "icon": "telescope", "title": { "hi": "मुहावरे", "en": "Idioms" }, "config": { "bank": "mu-idioms", "rounds": 6 } }]
+        },
+        {
+          "id": "mu-ganit",
+          "title": { "hi": "संख्याओं के राज़", "en": "The secrets of numbers" },
+          "skill": "Comics",
+          "icon": "comic-murari",
+          "lessons": [
+            {
+              "id": "c-mu-1729",
+              "game": "comic",
+              "icon": "comic-murari",
+              "title": { "hi": "टैक्सी नंबर 1729", "en": "Taxi number 1729" },
+              "config": { "comic": "mu-1729" }
+            }
+          ]
         }
       ]
     }
@@ -39836,6 +40374,541 @@
           "options": ["आपसी शिकायतें मिट जाना", "दूर चले जाना", "शिकायत लिखना"],
           "answer": "आपसी शिकायतें मिट जाना"
         }
+      ]
+    },
+    {
+      "series": "murari",
+      "level": "grade8",
+      "id": "mu-1729",
+      "title": { "hi": "टैक्सी नंबर 1729", "en": "Taxi number 1729" },
+      "blurb": "गोलू को टैक्सी का नंबर 1729 बोरिंग लगा, पर मास्टर मुरारी ने सुनाई रामानुजन की वह कहानी जिसने इस नंबर को दुनिया भर में मशहूर कर दिया।",
+      "parts": { "hardy": { "look": "man-old", "name": "प्रोफ़ेसर हार्डी" }, "ramanujan": { "look": "man-b", "name": "श्रीनिवास रामानुजन" } },
+      "panels": [
+        {
+          "bg": "station",
+          "cast": [{ "who": "golu", "at": 30, "face": "grin", "arms": "point" }, { "who": "murari", "at": 70, "face": "smile" }],
+          "cap": "स्टेशन के बाहर मास्टर मुरारी और गोलू टैक्सी का इंतज़ार कर रहे थे।",
+          "say": [{ "who": "golu", "text": "मास्टरजी, देखिए, इस टैक्सी का नंबर 1729 है। कितना बोरिंग नंबर!" }]
+        },
+        {
+          "bg": "station",
+          "cast": [{ "who": "murari", "at": 50, "face": "think", "arms": "chin" }],
+          "say": [
+            {
+              "who": "murari",
+              "text": "बोरिंग? अरे गोलू, लगभग सौ साल पहले एक अंग्रेज़ गणितज्ञ ने भी यही कहा था, और उन्हें ऐसा जवाब मिला कि वे हैरान रह गए!"
+            }
+          ]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "hardy", "at": 30, "face": "smile" }, { "who": "ramanujan", "at": 70, "face": "smile" }],
+          "cap": "इंग्लैंड, सौ साल से भी पहले। भारत के महान गणितज्ञ श्रीनिवास रामानुजन बीमार थे। उनके दोस्त प्रोफ़ेसर हार्डी उनसे मिलने आए।",
+          "say": [{ "who": "hardy", "text": "मैं जिस टैक्सी से आया, उसका नंबर 1729 था। बड़ा फीका नंबर है।" }]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "ramanujan", "at": 50, "face": "grin" }],
+          "say": [
+            {
+              "who": "ramanujan",
+              "text": "नहीं, यह तो बहुत दिलचस्प नंबर है! यह सबसे छोटी संख्या है जिसे दो घनों के जोड़ के रूप में दो अलग-अलग तरीक़ों से लिखा जा सकता है।"
+            }
+          ]
+        },
+        {
+          "bg": "station",
+          "cast": [{ "who": "golu", "at": 30, "face": "think" }, { "who": "murari", "at": 70, "face": "smile", "arms": "point" }],
+          "say": [{ "who": "golu", "text": "घन? मतलब?" }, { "who": "murari", "text": "किसी संख्या को तीन बार गुणा करो। 2 का घन: 2 × 2 × 2 = 8। और 10 का घन: 1000।" }]
+        },
+        {
+          "bg": "station",
+          "cast": [{ "who": "murari", "at": 50, "face": "smile", "hold": "notebook" }],
+          "say": [{ "who": "murari", "text": "अब देखो: 12 का घन है 1728, और 1 का घन 1। जोड़ो: 1729!" }]
+        },
+        {
+          "bg": "station",
+          "cast": [{ "who": "golu", "at": 35, "face": "shock", "hold": "notebook" }, { "who": "murari", "at": 75, "face": "smile" }],
+          "say": [{ "who": "golu", "text": "और दूसरा तरीक़ा?" }, { "who": "murari", "text": "9 का घन 729, और 10 का घन 1000। जोड़ो: फिर 1729!" }]
+        },
+        {
+          "bg": "station",
+          "cast": [{ "who": "golu", "at": 50, "face": "laugh", "arms": "up" }],
+          "cap": "इसीलिए 1729 को आज “हार्डी-रामानुजन संख्या” कहते हैं।",
+          "say": [{ "who": "golu", "text": "वाह! एक नंबर, दो रास्ते!" }],
+          "sfx": "वाह!"
+        },
+        {
+          "bg": "station",
+          "cast": [{ "who": "murari", "at": 50, "face": "smile" }],
+          "say": [{ "who": "murari", "text": "रामानुजन तमिलनाडु के कुंभकोणम में पले-बढ़े। ज़्यादातर गणित उन्होंने ख़ुद सीखा, और हज़ारों नए सूत्र खोजे।" }]
+        },
+        {
+          "bg": "station",
+          "cast": [{ "who": "golu", "at": 35, "face": "grin" }, { "who": "murari", "at": 75, "face": "smile" }],
+          "say": [{ "who": "golu", "text": "इसीलिए 22 दिसंबर, उनके जन्मदिन पर, राष्ट्रीय गणित दिवस मनाते हैं न?" }, { "who": "murari", "text": "बिलकुल सही!" }]
+        },
+        {
+          "bg": "station",
+          "cast": [{ "who": "golu", "at": 50, "face": "grin", "arms": "point" }],
+          "say": [{ "who": "golu", "text": "मास्टरजी, आज तो मेरी आँखें खुल गईं! अब मैं हर गाड़ी के नंबर में कुछ ख़ास ढूँढूँगा!" }],
+          "sfx": "पीं-पीं!"
+        },
+        {
+          "bg": "station",
+          "cast": [{ "who": "murari", "at": 35, "face": "smile" }, { "who": "golu", "at": 70, "face": "grin" }],
+          "say": [{ "who": "murari", "text": "याद रखो: कोई संख्या बोरिंग नहीं होती, बस हमें उसकी कहानी पता नहीं होती।" }],
+          "wide": true
+        }
+      ],
+      "guess": {
+        "at": 5,
+        "q": "1729 को दो घनों के जोड़ के रूप में कैसे लिखें?",
+        "options": ["1 का घन + 12 का घन", "2 का घन + 7 का घन", "17 का घन + 29 का घन"],
+        "answer": "1 का घन + 12 का घन",
+        "hint": "12 × 12 × 12 = 1728। अब 1729 तक पहुँचने के लिए कितना और चाहिए?"
+      },
+      "words": [
+        { "hi": "आँखें खुल", "mean": "मुहावरा: सच्चाई समझ में आ जाना (आँखें खुलना)", "en": "to have one’s eyes opened" },
+        { "hi": "घन", "mean": "किसी संख्या को तीन बार गुणा करना (2 × 2 × 2 = 8)", "en": "cube" },
+        { "hi": "गणितज्ञ", "mean": "गणित का विद्वान", "en": "mathematician" },
+        { "hi": "दिलचस्प", "mean": "मज़ेदार, ध्यान खींचने वाला", "en": "interesting" },
+        { "hi": "सूत्र", "mean": "गणित का नियम या फ़ॉर्मूला", "en": "formula" },
+        { "hi": "फीका", "mean": "बिना मज़े का", "en": "dull" }
+      ],
+      "questions": [
+        {
+          "q": "1729 किन घनों का जोड़ है?",
+          "options": ["1 और 12 के घन, और 9 और 10 के घन", "2 और 7 के घन", "17 और 29 के घन"],
+          "answer": "1 और 12 के घन, और 9 और 10 के घन"
+        },
+        { "q": "रामानुजन कहाँ पले-बढ़े?", "options": ["कुंभकोणम, तमिलनाडु", "लंदन", "पटना"], "answer": "कुंभकोणम, तमिलनाडु" },
+        { "q": "राष्ट्रीय गणित दिवस कब मनाते हैं?", "options": ["22 दिसंबर", "15 अगस्त", "5 सितंबर"], "answer": "22 दिसंबर" }
+      ]
+    },
+    {
+      "series": "rimjhim",
+      "level": "grade7",
+      "id": "r-shakuntala",
+      "title": { "hi": "दिमाग़ का कंप्यूटर", "en": "The human computer" },
+      "blurb": "बबलू को अपने फ़ोन के कैलकुलेटर पर बड़ा घमंड था। तब अम्मा ने सुनाई शकुंतला देवी की कहानी, और रिमझिम ने सीखी 11 की जादुई तरकीब।",
+      "parts": { "shakuntala": { "look": "girl-a", "name": "नन्ही शकुंतला" }, "shakuntala2": { "look": "woman-b", "name": "शकुंतला देवी" } },
+      "panels": [
+        {
+          "bg": "colony",
+          "cast": [{ "who": "rimjhim", "at": 30, "face": "smile" }, { "who": "bablu", "at": 70, "face": "grin", "hold": "phone" }],
+          "cap": "गुलमोहर कॉलोनी में बबलू अपने नए फ़ोन के कैलकुलेटर पर इतरा रहा था।",
+          "say": [{ "who": "bablu", "text": "कोई भी सवाल दो, मेरा कैलकुलेटर पलक झपकते जवाब देगा!" }]
+        },
+        {
+          "bg": "colony",
+          "cast": [{ "who": "amma", "at": 50, "face": "smile" }],
+          "say": [{ "who": "amma", "text": "कैलकुलेटर? हमारे ज़माने में एक ऐसी महिला थीं जिनसे बड़े-बड़े कंप्यूटर भी हार जाते थे: शकुंतला देवी!" }]
+        },
+        {
+          "bg": "stage",
+          "cast": [{ "who": "shakuntala", "at": 50, "face": "grin" }],
+          "cap": "शकुंतला देवी 1929 में बेंगलुरु में पैदा हुईं। उनके पिता सर्कस में करतब दिखाते थे।",
+          "say": [{ "who": "shakuntala", "text": "पापा, ताश का यह खेल तो मैं गिनकर जीत जाऊँगी!" }]
+        },
+        {
+          "bg": "colony",
+          "cast": [{ "who": "amma", "at": 40, "face": "smile" }, { "who": "rimjhim", "at": 75, "face": "think" }],
+          "say": [
+            {
+              "who": "amma",
+              "text": "तीन साल की उम्र में ही वे ताश के खेल में संख्याएँ याद रखने लगीं। स्कूल ज़्यादा नहीं गईं, पर गणित में कमाल करती रहीं।"
+            }
+          ]
+        },
+        {
+          "bg": "stage",
+          "cast": [{ "who": "shakuntala2", "at": 50, "face": "smile" }],
+          "cap": "1980 में लंदन के एक कॉलेज में उन्हें तेरह-तेरह अंकों की दो संख्याएँ गुणा करने को दी गईं। उन्होंने सिर्फ़ 28 सेकंड में सही जवाब दे दिया!",
+          "say": [{ "who": "shakuntala2", "text": "जवाब है छब्बीस अंकों की यह संख्या!" }]
+        },
+        {
+          "bg": "colony",
+          "cast": [{ "who": "rimjhim", "at": 35, "face": "shock" }, { "who": "zoya", "at": 75, "face": "think" }],
+          "say": [
+            { "who": "rimjhim", "text": "अट्ठाईस सेकंड! क्या हम भी कोई जादू सीख सकते हैं, अम्मा?" },
+            { "who": "zoya", "text": "और उनका नाम गिनीज़ बुक में भी आया होगा!" }
+          ]
+        },
+        {
+          "bg": "colony",
+          "cast": [{ "who": "amma", "at": 40, "face": "smile", "arms": "point" }, { "who": "rimjhim", "at": 75, "face": "think" }],
+          "say": [
+            {
+              "who": "amma",
+              "text": "एक छोटी-सी तरकीब सिखाती हूँ: दो अंकों की संख्या को 11 से गुणा करना। 34 × 11: पहला अंक 3, आख़िरी 4, और बीच में 3 और 4 का जोड़, 7। जवाब: 374!"
+            }
+          ]
+        },
+        {
+          "bg": "colony",
+          "cast": [{ "who": "rimjhim", "at": 50, "face": "grin", "hold": "notebook" }],
+          "say": [{ "who": "rimjhim", "text": "वाह! तो 52 × 11: पहले 5, बीच में 5 और 2 का जोड़ 7, फिर 2। हुआ 572!" }]
+        },
+        {
+          "bg": "colony",
+          "cast": [{ "who": "zoya", "at": 30, "face": "smile" }, { "who": "bablu", "at": 70, "face": "worried", "hold": "phone" }],
+          "say": [{ "who": "zoya", "text": "चलो, मुक़ाबला! 45 × 11?" }, { "who": "bablu", "text": "रुको, फ़ोन का ताला खोल रहा हूँ..." }]
+        },
+        {
+          "bg": "colony",
+          "cast": [{ "who": "rimjhim", "at": 50, "face": "laugh", "arms": "up" }],
+          "say": [{ "who": "rimjhim", "text": "चार सौ पंचानवे: 495!" }],
+          "sfx": "टिंग!"
+        },
+        {
+          "bg": "colony",
+          "cast": [{ "who": "bablu", "at": 50, "face": "shock", "hold": "phone" }],
+          "say": [{ "who": "bablu", "text": "मेरे कैलकुलेटर ने भी 495 कहा... पर रिमझिम के बाद!" }]
+        },
+        {
+          "bg": "colony",
+          "cast": [{ "who": "amma", "at": 30, "face": "smile" }, { "who": "rimjhim", "at": 60, "face": "grin" }, { "who": "zoya", "at": 85, "face": "grin" }],
+          "say": [{ "who": "amma", "text": "याद रखो: गणित रटने की चीज़ नहीं, खेलने की चीज़ है।" }],
+          "wide": true
+        }
+      ],
+      "guess": {
+        "at": 9,
+        "q": "45 × 11 कितना होगा? अम्मा की तरकीब लगाओ!",
+        "options": ["495", "455", "4511"],
+        "answer": "495",
+        "hint": "पहला अंक 4, आख़िरी 5, और बीच में 4 और 5 का जोड़।"
+      },
+      "words": [
+        { "hi": "पलक झपकते", "mean": "मुहावरा: बहुत जल्दी, एक पल में (पलक झपकते)", "en": "in the blink of an eye" },
+        { "hi": "इतरा", "mean": "घमंड दिखाना (इतराना)", "en": "to show off" },
+        { "hi": "करतब", "mean": "कमाल का खेल या कारनामा", "en": "feat, trick" },
+        { "hi": "तरकीब", "mean": "काम करने का चतुर तरीक़ा", "en": "trick, method" },
+        { "hi": "मुक़ाबला", "mean": "दो लोगों की होड़", "en": "contest" },
+        { "hi": "गिनीज़ बुक", "mean": "दुनिया के रिकॉर्ड की किताब", "en": "Guinness Book of Records" }
+      ],
+      "questions": [
+        { "q": "शकुंतला देवी ने तेरह अंकों की दो संख्याओं का गुणा कितनी देर में किया?", "options": ["28 सेकंड", "28 मिनट", "2 घंटे"], "answer": "28 सेकंड" },
+        { "q": "34 × 11 कितना होता है?", "options": ["374", "344", "3411"], "answer": "374" },
+        { "q": "शकुंतला देवी कहाँ पैदा हुईं?", "options": ["बेंगलुरु", "लंदन", "पटना"], "answer": "बेंगलुरु" }
+      ]
+    },
+    {
+      "series": "birbal",
+      "level": "grade7",
+      "id": "b-crows",
+      "title": { "hi": "आगरा में कितने कौवे?", "en": "How many crows in Agra?" },
+      "blurb": "अकबर ने पूछा कि आगरा में कुल कितने कौवे हैं। चुगल को लगा बीरबल फँस गए, पर बीरबल ने गिनने का एक चतुर गणित निकाला।",
+      "panels": [
+        {
+          "bg": "bagh",
+          "cast": [{ "who": "akbar", "at": 35, "face": "think" }, { "who": "birbal", "at": 75, "face": "smile" }],
+          "cap": "एक सुबह बादशाह अकबर बाग़ में टहल रहे थे। चारों ओर कौवे काँव-काँव कर रहे थे।",
+          "say": [{ "who": "akbar", "text": "बीरबल, बताओ, आगरा शहर में कुल कितने कौवे हैं?" }],
+          "sfx": "काँव-काँव!"
+        },
+        {
+          "bg": "bagh",
+          "cast": [{ "who": "chugal", "at": 50, "face": "sly" }],
+          "say": [{ "who": "chugal", "text": "हुज़ूर, इसका जवाब कोई नहीं दे सकता। बीरबल भी नहीं!" }]
+        },
+        {
+          "bg": "bagh",
+          "cast": [{ "who": "birbal", "at": 50, "face": "think", "arms": "chin" }],
+          "say": [{ "who": "birbal", "text": "जहाँपनाह, ठीक-ठीक गिनने में तो सालों लगेंगे। पर अंदाज़ा लगाने का एक गणित है।" }]
+        },
+        {
+          "bg": "bagh",
+          "cast": [{ "who": "birbal", "at": 40, "face": "smile", "arms": "point" }, { "who": "akbar", "at": 75, "face": "think" }],
+          "say": [{ "who": "birbal", "text": "पहले देखें कि एक पेड़ पर औसतन कितने कौवे बैठते हैं। इस बाग़ के दस पेड़ों के कौवे गिनवाइए।" }]
+        },
+        {
+          "bg": "bagh",
+          "cast": [{ "who": "courtier", "at": 50, "face": "smile", "hold": "notebook" }],
+          "cap": "सिपाहियों ने दस पेड़ों के कौवे गिने।",
+          "say": [{ "who": "courtier", "text": "हुज़ूर, दस पेड़ों पर कुल 120 कौवे!" }]
+        },
+        {
+          "bg": "bagh",
+          "cast": [{ "who": "birbal", "at": 50, "face": "smile" }],
+          "say": [{ "who": "birbal", "text": "यानी एक पेड़ पर औसतन 12 कौवे। अब बताइए, आगरा में कितने पेड़ हैं?" }]
+        },
+        { "bg": "darbar", "cast": [{ "who": "akbar", "at": 50, "face": "think", "arms": "chin" }], "say": [{ "who": "akbar", "text": "माली बताते हैं, लगभग आठ हज़ार।" }] },
+        {
+          "bg": "darbar",
+          "cast": [{ "who": "birbal", "at": 40, "face": "grin", "hold": "notebook" }],
+          "say": [{ "who": "birbal", "text": "तो 8000 × 12 = 96,000। आगरा में लगभग छियानवे हज़ार कौवे हैं, जहाँपनाह!" }]
+        },
+        {
+          "bg": "darbar",
+          "cast": [{ "who": "chugal", "at": 35, "face": "sly" }, { "who": "birbal", "at": 75, "face": "smile" }],
+          "say": [{ "who": "chugal", "text": "और अगर गिनने पर कम निकले तो?" }, { "who": "birbal", "text": "तो समझिए कुछ कौवे रिश्तेदारों से मिलने दूसरे शहर गए हैं!" }]
+        },
+        {
+          "bg": "darbar",
+          "cast": [{ "who": "chugal", "at": 35, "face": "angry" }, { "who": "birbal", "at": 75, "face": "laugh" }],
+          "say": [{ "who": "chugal", "text": "और ज़्यादा निकले तो?" }, { "who": "birbal", "text": "तो दूसरे शहरों के कौवे मेहमान बनकर आए हैं!" }]
+        },
+        {
+          "bg": "darbar",
+          "cast": [{ "who": "akbar", "at": 50, "face": "laugh", "arms": "up" }],
+          "cap": "चुगल ने दाँतों तले उँगली दबा ली।",
+          "say": [{ "who": "akbar", "text": "हा हा! चतुर जवाब भी, और गिनने का सही तरीक़ा भी!" }],
+          "sfx": "हा हा!"
+        },
+        {
+          "bg": "darbar",
+          "cast": [{ "who": "birbal", "at": 35, "face": "smile" }, { "who": "akbar", "at": 70, "face": "smile" }],
+          "say": [{ "who": "birbal", "text": "हुज़ूर, जब सब कुछ न गिन सकें, तो थोड़ा-सा गिनकर पूरे का अंदाज़ा लगाते हैं। इसे “नमूना” लेना कहते हैं।" }],
+          "wide": true
+        }
+      ],
+      "guess": {
+        "at": 7,
+        "q": "एक पेड़ पर औसतन 12 कौवे, और आगरा में लगभग 8000 पेड़। कुल कितने कौवे?",
+        "options": ["लगभग 96,000", "लगभग 9,600", "लगभग 8,012"],
+        "answer": "लगभग 96,000",
+        "hint": "8 × 12 = 96। अब उसे हज़ार से गुणा करो।"
+      },
+      "words": [
+        { "hi": "दाँतों तले उँगली दबा", "mean": "मुहावरा: बहुत हैरान होना (दाँतों तले उँगली दबाना)", "en": "to be amazed" },
+        { "hi": "अंदाज़ा", "mean": "लगभग सही अनुमान", "en": "estimate" },
+        { "hi": "औसत", "mean": "सबको बराबर बाँटने पर एक के हिस्से में आने वाली संख्या", "en": "average" },
+        { "hi": "नमूना", "mean": "जाँचने के लिए पूरे में से थोड़ा-सा हिस्सा", "en": "sample" },
+        { "hi": "जहाँपनाह", "mean": "बादशाह को आदर से बुलाने का शब्द", "en": "Your Majesty" },
+        { "hi": "माली", "mean": "बाग़ की देखभाल करने वाला", "en": "gardener" }
+      ],
+      "questions": [
+        {
+          "q": "बीरबल ने कौवों का अंदाज़ा कैसे लगाया?",
+          "options": ["एक पेड़ के औसत कौवों को पेड़ों की गिनती से गुणा करके", "सारे कौवे एक-एक करके गिनकर", "कौवों से पूछकर"],
+          "answer": "एक पेड़ के औसत कौवों को पेड़ों की गिनती से गुणा करके"
+        },
+        { "q": "दस पेड़ों पर 120 कौवे हों, तो एक पेड़ पर औसतन कितने?", "options": ["12", "10", "120"], "answer": "12" },
+        { "q": "8000 × 12 कितना होता है?", "options": ["96,000", "9,600", "80,012"], "answer": "96,000" }
+      ]
+    },
+    {
+      "series": "dadi",
+      "level": "grade8",
+      "id": "d-lock",
+      "title": { "hi": "तीन अंकों का ताला", "en": "The three-digit lock" },
+      "blurb": "शर्मा अंकल के दादाजी के पुराने संदूक़ पर तीन अंकों का ताला था, और साथ में एक पहेली। तभी एक “ताले वाला” दो हज़ार रुपये माँगने आ पहुँचा...",
+      "parts": { "sharma": { "look": "man-a", "name": "शर्मा अंकल" } },
+      "panels": [
+        {
+          "bg": "room",
+          "cast": [{ "who": "dadi", "at": 30, "face": "smile" }, { "who": "roohi", "at": 70, "face": "think" }],
+          "cap": "पड़ोस के शर्मा अंकल को अपने दादाजी का पुराना संदूक़ मिला था, पर उस पर तीन अंकों का ताला लगा था।"
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "sharma", "at": 40, "face": "worried", "hold": "scroll" }, { "who": "dadi", "at": 78, "face": "think" }],
+          "say": [{ "who": "sharma", "text": "संदूक़ के साथ बस यह पर्ची मिली है। दादाजी पहेलियों के बड़े शौक़ीन थे।" }]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "roohi", "at": 50, "face": "think", "hold": "scroll" }],
+          "say": [{ "who": "roohi", "text": "पर्ची पर लिखा है: “पहला अंक, दूसरे का दुगुना। तीसरा अंक, दूसरे से एक ज़्यादा। तीनों का जोड़: तेरह।”" }]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "sharma", "at": 25, "face": "worried" }, { "who": "chhedilal", "at": 65, "face": "sly" }],
+          "cap": "तभी एक “ताले वाला” आ पहुँचा।",
+          "say": [{ "who": "chhedilal", "text": "साहब, पहेली-वहेली छोड़िए! दो हज़ार रुपये दीजिए, मैं ताला तोड़कर अंदर का सब निकाल दूँगा।" }]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "dadi", "at": 40, "face": "think", "arms": "chin" }, { "who": "chhedilal", "at": 78, "face": "grin" }],
+          "say": [{ "who": "dadi", "text": "तोड़ने की क्या ज़रूरत? यह ताला गणित से खुलेगा।" }]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "dadi", "at": 50, "face": "smile", "hold": "notebook" }],
+          "say": [{ "who": "dadi", "text": "दूसरे अंक को “द” मान लो। पहला 2 × द, तीसरा द + 1। सबका जोड़: 2द + द + द + 1 = 13।" }]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "roohi", "at": 50, "face": "think", "arms": "chin" }],
+          "say": [{ "who": "roohi", "text": "मतलब 4 बार द, और 1... रुको, मैं हल करती हूँ!" }]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "roohi", "at": 40, "face": "grin", "hold": "notebook" }, { "who": "dadi", "at": 78, "face": "smile" }],
+          "say": [{ "who": "roohi", "text": "4 × द = 12, यानी द = 3! पहला अंक 6, तीसरा 4। ताला है 634!" }]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "sharma", "at": 50, "face": "laugh", "arms": "up" }],
+          "cap": "ताला खुल गया!",
+          "say": [{ "who": "sharma", "text": "अंदर दादाजी की चिट्ठियाँ और पुराने सिक्के हैं!" }],
+          "sfx": "खट!"
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "chhedilal", "at": 50, "face": "worried" }],
+          "cap": "छेदीलाल चुपके से खिसकने लगा।",
+          "say": [{ "who": "chhedilal", "text": "अरे... मुझे दूसरी जगह ताला खोलने जाना है..." }]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "dadi", "at": 35, "face": "angry", "arms": "point" }, { "who": "chhedilal", "at": 75, "face": "shock" }],
+          "say": [{ "who": "dadi", "text": "रुको छेदीलाल! पिछले हफ़्ते मिश्रा जी का संदूक़ “खोलकर” उनका चाँदी का गिलास भी तुम्हीं ले गए थे न?" }]
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "chhedilal", "at": 30, "face": "shock" }, { "who": "inspector", "at": 65, "face": "angry" }],
+          "say": [{ "who": "inspector", "text": "चलो थाने! रंगे हाथों पकड़े गए हो। इस बार ताला हम लगाएँगे।" }],
+          "sfx": "पकड़ा गया!"
+        },
+        {
+          "bg": "room",
+          "cast": [{ "who": "roohi", "at": 30, "face": "grin" }, { "who": "dadi", "at": 60, "face": "smile" }, { "who": "sharma", "at": 85, "face": "smile" }],
+          "say": [
+            { "who": "roohi", "text": "दादी, गणित तो जासूसी का सबसे बड़ा हथियार निकला!" },
+            { "who": "dadi", "text": "सोचो, लिखो, जाँचो: हर ताले की चाबी यही है।" }
+          ],
+          "wide": true
+        }
+      ],
+      "guess": {
+        "at": 7,
+        "q": "ताले का नंबर क्या है?",
+        "options": ["634", "463", "364"],
+        "answer": "634",
+        "hint": "दूसरा अंक सोचो: पहला उसका दुगुना है, तीसरा उससे एक ज़्यादा, और जोड़ तेरह।"
+      },
+      "words": [
+        { "hi": "रंगे हाथों", "mean": "मुहावरा: ग़लत काम करते हुए पकड़ा जाना (रंगे हाथों पकड़ना)", "en": "red-handed" },
+        { "hi": "संदूक़", "mean": "सामान रखने का बड़ा बक्सा", "en": "trunk" },
+        { "hi": "पर्ची", "mean": "काग़ज़ का छोटा टुकड़ा", "en": "slip of paper" },
+        { "hi": "शौक़ीन", "mean": "किसी चीज़ को बहुत पसंद करने वाला", "en": "fond of" },
+        { "hi": "अंक", "mean": "संख्या लिखने का एक निशान (0 से 9)", "en": "digit" },
+        { "hi": "खिसकने", "mean": "चुपके से चले जाना (खिसकना)", "en": "to slip away" }
+      ],
+      "questions": [
+        { "q": "ताले का नंबर क्या था?", "options": ["634", "436", "643"], "answer": "634" },
+        { "q": "पहेली में तीनों अंकों का जोड़ कितना था?", "options": ["तेरह", "बारह", "दस"], "answer": "तेरह" },
+        {
+          "q": "छेदीलाल ताला क्यों तोड़ना चाहता था?",
+          "options": ["अंदर का सामान चुराने के लिए", "शर्मा अंकल की मदद के लिए", "पहेली हल करने के लिए"],
+          "answer": "अंदर का सामान चुराने के लिए"
+        }
+      ]
+    },
+    {
+      "series": "dadi",
+      "level": "grade8",
+      "id": "d-coins",
+      "title": { "hi": "नौ सिक्के, एक नकली", "en": "Nine coins, one fake" },
+      "blurb": "मंदिर के लिए बने नौ सोने के सिक्कों में एक नकली था, और तराज़ू बस दो बार तौल सकता था। दादी ने पकड़ा नकली सिक्का भी, और उसे बदलने वाला भी।",
+      "parts": { "gopal": { "look": "man-old", "name": "सुनार गोपाल जी" }, "kalu": { "look": "man-c", "name": "नौकर कालू" } },
+      "panels": [
+        {
+          "bg": "bazaar",
+          "cast": [{ "who": "dadi", "at": 30, "face": "smile" }, { "who": "roohi", "at": 70, "face": "grin" }],
+          "cap": "दादी और रूही सुनार गोपाल जी की दुकान पर पहुँचीं।"
+        },
+        {
+          "bg": "bazaar",
+          "cast": [{ "who": "gopal", "at": 50, "face": "worried", "hold": "coins" }],
+          "say": [{ "who": "gopal", "text": "दादी, मंदिर के लिए नौ सोने के सिक्के बनाए थे। पर ख़बर मिली है कि इनमें एक नकली है, थोड़ा हल्का।" }]
+        },
+        {
+          "bg": "bazaar",
+          "cast": [{ "who": "gopal", "at": 35, "face": "worried" }, { "who": "kalu", "at": 75, "face": "sly" }],
+          "say": [
+            { "who": "gopal", "text": "और मुश्किल यह कि मेरे पुराने तराज़ू का काँटा ढीला है। वह बस दो बार और तौल पाएगा।" },
+            { "who": "kalu", "text": "मालिक, सारे सिक्के एक-एक करके तौल लीजिए न!" }
+          ]
+        },
+        {
+          "bg": "bazaar",
+          "cast": [{ "who": "roohi", "at": 50, "face": "think", "arms": "chin" }],
+          "say": [{ "who": "roohi", "text": "एक-एक करके तो आठ बार तौलना पड़ेगा! दो बार में कैसे? और कालू की मुस्कान देखकर लगता है, दाल में कुछ काला है।" }]
+        },
+        {
+          "bg": "bazaar",
+          "cast": [{ "who": "dadi", "at": 50, "face": "smile", "arms": "chin" }],
+          "say": [{ "who": "dadi", "text": "सोचो, रूही। तराज़ू एक बार में तीन बातें बताता है: बायाँ भारी, दायाँ भारी, या दोनों बराबर।" }]
+        },
+        {
+          "bg": "bazaar",
+          "cast": [{ "who": "roohi", "at": 40, "face": "think" }, { "who": "dadi", "at": 78, "face": "smile" }],
+          "say": [{ "who": "roohi", "text": "तीन बातें... तो सिक्कों को भी तीन हिस्सों में बाँटें?" }]
+        },
+        {
+          "bg": "bazaar",
+          "cast": [{ "who": "dadi", "at": 45, "face": "smile", "arms": "point" }],
+          "say": [
+            {
+              "who": "dadi",
+              "text": "हाँ! तीन-तीन सिक्के दोनों पलड़ों पर, तीन बाहर। पलड़े बराबर रहे, तो नकली बाहर वाले तीन में है; नहीं तो हल्के पलड़े में।"
+            }
+          ]
+        },
+        {
+          "bg": "bazaar",
+          "cast": [{ "who": "gopal", "at": 50, "face": "shock" }],
+          "cap": "पहली तौल: बायाँ पलड़ा ऊपर उठ गया!",
+          "say": [{ "who": "gopal", "text": "बायाँ हल्का है! तो नकली इन तीन में है।" }],
+          "sfx": "ठक!"
+        },
+        {
+          "bg": "bazaar",
+          "cast": [{ "who": "roohi", "at": 50, "face": "grin", "hold": "coins" }],
+          "cap": "दूसरी तौल: दोनों पलड़े बराबर रहे।",
+          "say": [{ "who": "roohi", "text": "इन तीन में से एक-एक सिक्का दोनों पलड़ों पर, एक बाहर। पलड़े बराबर, तो बाहर वाला नकली!" }]
+        },
+        {
+          "bg": "bazaar",
+          "cast": [{ "who": "dadi", "at": 40, "face": "smile", "hold": "coins" }, { "who": "gopal", "at": 78, "face": "laugh" }],
+          "say": [{ "who": "dadi", "text": "यह रहा नकली सिक्का। और देखो, इस पर एक छोटा-सा निशान भी है: “क”।" }]
+        },
+        {
+          "bg": "bazaar",
+          "cast": [{ "who": "gopal", "at": 30, "face": "angry" }, { "who": "kalu", "at": 70, "face": "shock" }],
+          "say": [
+            { "who": "gopal", "text": "कालू! यह निशान तो तुम्हारे औज़ार का है!" },
+            { "who": "kalu", "text": "म... माफ़ कीजिए मालिक, असली सिक्का मैंने अपनी जेब में रख लिया था।" }
+          ]
+        },
+        {
+          "bg": "bazaar",
+          "cast": [{ "who": "gopal", "at": 30, "face": "angry" }, { "who": "kalu", "at": 70, "face": "sad", "hold": "coins" }],
+          "cap": "कालू ने जेब से असली सिक्का निकालकर लौटा दिया।",
+          "say": [{ "who": "gopal", "text": "ईमानदारी की तौल में तुम हल्के निकले, कालू।" }]
+        },
+        {
+          "bg": "bazaar",
+          "cast": [{ "who": "roohi", "at": 30, "face": "grin" }, { "who": "dadi", "at": 60, "face": "smile" }, { "who": "gopal", "at": 85, "face": "smile" }],
+          "say": [
+            { "who": "roohi", "text": "दादी, तीन हिस्सों वाली तरकीब तो कमाल की है!" },
+            { "who": "dadi", "text": "हाँ! तीन तौल में तो सत्ताईस सिक्कों में से भी नकली पकड़ सकते हैं।" }
+          ],
+          "wide": true
+        }
+      ],
+      "guess": {
+        "at": 6,
+        "q": "दो ही तौल हैं। पहली बार तराज़ू पर क्या रखें?",
+        "options": ["तीन-तीन सिक्के दोनों पलड़ों पर, तीन बाहर", "चार-चार सिक्के दोनों पलड़ों पर, एक बाहर", "एक-एक सिक्का दोनों पलड़ों पर"],
+        "answer": "तीन-तीन सिक्के दोनों पलड़ों पर, तीन बाहर",
+        "hint": "हर तौल के तीन नतीजे हो सकते हैं। सिक्कों के तीन बराबर हिस्से करो, तो दो तौल में 3 × 3 = 9 सिक्के जाँचे जा सकते हैं।"
+      },
+      "words": [
+        { "hi": "दाल में कुछ काला", "mean": "मुहावरा: कुछ गड़बड़ होने का शक (दाल में कुछ काला होना)", "en": "something fishy" },
+        { "hi": "सुनार", "mean": "सोने-चाँदी के गहने बनाने वाला", "en": "goldsmith" },
+        { "hi": "पलड़ा", "mean": "तराज़ू की थाली", "en": "scale pan" },
+        { "hi": "तौल", "mean": "वज़न नापना", "en": "weighing" },
+        { "hi": "नकली", "mean": "जो असली न हो", "en": "fake" },
+        { "hi": "ईमानदारी", "mean": "सच्चाई और सही बर्ताव", "en": "honesty" }
+      ],
+      "questions": [
+        { "q": "नौ सिक्कों में नकली ढूँढने के लिए कितनी तौल लगीं?", "options": ["दो", "आठ", "नौ"], "answer": "दो" },
+        { "q": "पहली तौल में दोनों पलड़ों पर कितने-कितने सिक्के रखे?", "options": ["तीन-तीन", "चार-चार", "एक-एक"], "answer": "तीन-तीन" },
+        { "q": "नकली सिक्का किसने बदला था?", "options": ["कालू ने", "गोपाल जी ने", "रूही ने"], "answer": "कालू ने" }
       ]
     }
   ],

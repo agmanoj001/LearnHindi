@@ -283,6 +283,21 @@ The Grade 4 quiz on days and months (दिन और महीने) stays.
 
 The multipliers are said the traditional way: एकम, दूनी, तिया, चौके, पंजे, छक्के, सत्ते, अट्ठे, नवें, दहाई.
 
+### Maths stories and puzzles (Grades 3–8)
+
+*Maths as something people did and enjoyed (docs/ROADMAP.md 10.9).*
+
+| Grade · world | Unit | Stories and comics |
+| --- | --- | --- |
+| Grade 3 · Palace | गणित की कहानियाँ | *सबसे बड़ी गिनती*: Akbar asks for the biggest number; हज़ार, लाख, करोड़… and Birbal adds one to any of them (counting never ends). *इक्कीस घड़े*: Tenali Raman shares 7 full, 7 half-full and 7 empty jars of ghee equally among three brothers without pouring (halves) |
+| Grade 4 · Mountain | गणित की कहानियाँ | *शतरंज और चावल के दाने* (doubling: 128 grains on the 8th square, more than a million on the 21st); *सत्रह ऊँट* (a half, a third and a ninth of 17 camels, solved by lending an 18th); *आर्यभट और शून्य* (place value, the empty place and zero, the Earth's spin, India's first satellite) |
+| Grade 7 · Rimjhim | गणित का जादू | *दिमाग़ का कंप्यूटर*: Shakuntala Devi, and the ×11 trick that beats a calculator |
+| Grade 7 · Birbal | बीरबल का हिसाब | *आगरा में कितने कौवे?*: an estimate from a sample (an average per tree × the number of trees) |
+| Grade 8 · Murari | संख्याओं के राज़ | *टैक्सी नंबर 1729*: Ramanujan, Hardy and the sum of two cubes in two ways; National Mathematics Day |
+| Grade 8 · Jasoos | गणित से जासूसी | *तीन अंकों का ताला* (a lock opened by solving 2द + द + द + 1 = 13) and *नौ सिक्के, एक नकली* (the fake coin found in two weighings by splitting into threes) |
+
+Every comic stops for the reader to guess before the reveal; every story has its five talk-together prompts.
+
 ## Math skills
 
 Besides the answer cards, each unit with a hands-on game (docs/ROADMAP.md 10.1) ends with one: fill a ten-frame (Let's make 10), frog hops on a number line (Let's add and take away), the pattern train (Let's count!), a shape builder (Let's find shapes) and measuring with cubes (Let's measure and sort) in Kindergarten; a balance for "equal" (Let's add and subtract to 20), a coin shop (Let's learn coins and graphs) and a clock with hands to turn (Let's measure and tell time) in Grade 1. They record the skill of the unit, so the grown-ups' area counts them with the rest. Number-bond bubbles (docs/ROADMAP.md 10.4) are a ninth: pop two bubbles that make 10 (Let's make 10) or 20 (Let's add and subtract to 20).
