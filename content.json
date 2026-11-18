@@ -471,7 +471,13 @@
     "chessboard": { "hi": "शतरंज", "translit": "shatranj", "en": "chessboard", "picture": "chessboard" },
     "heron": { "hi": "बगुला", "translit": "bagula", "en": "heron", "picture": "heron", "level": "grade1", "syllables": ["ब", "गु", "ला"] },
     "grasshopper": { "hi": "टिड्डा", "translit": "tidda", "en": "grasshopper", "picture": "grasshopper", "level": "grade2", "syllables": ["टि", "ड्डा"] },
-    "sage": { "hi": "साधु", "translit": "saadhu", "en": "sage", "picture": "sage", "level": "grade1", "syllables": ["सा", "धु"] }
+    "sage": { "hi": "साधु", "translit": "saadhu", "en": "sage", "picture": "sage", "level": "grade1", "syllables": ["सा", "धु"] },
+    "ber": { "hi": "बेर", "translit": "ber", "en": "berries", "picture": "ber", "level": "grade1", "syllables": ["बे", "र"] },
+    "khadau": { "hi": "खड़ाऊँ", "translit": "khadaaoon", "en": "wooden sandals", "picture": "khadau", "level": "grade1", "syllables": ["ख", "ड़ा", "ऊँ"] },
+    "bharat": { "hi": "भरत", "translit": "bharat", "en": "Bharat", "picture": "bharat" },
+    "sudama": { "hi": "सुदामा", "translit": "sudaama", "en": "Sudama", "picture": "sudama", "level": "grade1", "syllables": ["सु", "दा", "मा"] },
+    "arjun": { "hi": "अर्जुन", "translit": "arjun", "en": "Arjun", "picture": "arjun", "level": "grade2", "syllables": ["अ", "र्जु", "न"] },
+    "eklavya": { "hi": "एकलव्य", "translit": "eklavya", "en": "Eklavya", "picture": "eklavya", "level": "grade2", "syllables": ["ए", "क", "ल", "व्य"] }
   },
   "sentences": [
     { "id": "bus-here", "about": "bus", "hi": "बस आई!", "translit": "bas aai", "en": "The bus is here!", "level": "grade2" },
@@ -12990,6 +12996,783 @@
         { "type": "why", "hi": "पतंग ऊपर, और ऊपर कैसे गई?", "en": "How did the kite go up and up?" },
         { "type": "you", "hi": "तुमने कभी पतंग उड़ाई है? किसके साथ?", "en": "Have you ever flown a kite? With whom?" }
       ]
+    },
+    {
+      "id": "ram-shabari",
+      "title": { "hi": "शबरी के बेर", "en": "Shabari's berries" },
+      "cover": "ber",
+      "pages": [
+        {
+          "word": "grandmother",
+          "hi": "जंगल में शबरी नाम की एक बूढ़ी माँ रहती थीं।",
+          "en": "An old woman called Shabari lived in the forest.",
+          "act": { "move": "walk", "sky": "field", "fx": "leaves" }
+        },
+        {
+          "word": "grandmother",
+          "hi": "वे रोज़ रास्ता साफ़ करतीं, \"आज राम आएँगे!\"",
+          "en": "Every day she swept the path. \"Ram will come today!\"",
+          "act": { "move": "sway", "sky": "field", "fx": "leaves" }
+        },
+        {
+          "word": "ber",
+          "hi": "वे मीठे बेर चुनतीं, और हर बेर चखकर देखतीं।",
+          "en": "She picked sweet berries, and tasted each one first.",
+          "act": { "move": "talk", "sky": "field", "with": "grandmother" }
+        },
+        {
+          "word": "ram",
+          "hi": "एक दिन सच में राम और लक्ष्मण आ गए!",
+          "en": "One day Ram and Lakshman really came!",
+          "act": { "move": "enter", "sky": "dawn", "with": "lakshman", "fx": "glow", "mood": "surprised" }
+        },
+        {
+          "word": "ber",
+          "hi": "शबरी ने प्यार से चखे हुए बेर राम को दिए।",
+          "en": "With love, Shabari gave Ram the berries she had tasted.",
+          "act": { "move": "approach", "sky": "field", "with": "ram", "fx": "hearts" }
+        },
+        {
+          "word": "lakshman",
+          "hi": "लक्ष्मण चौंके, \"ये बेर तो चखे हुए हैं!\"",
+          "en": "Lakshman was startled. \"These berries have been tasted!\"",
+          "act": { "move": "shake", "sky": "field", "mood": "surprised" }
+        },
+        {
+          "word": "ram",
+          "hi": "राम ने हँसकर सब बेर खाए, \"इनमें प्यार भरा है।\"",
+          "en": "Ram smiled and ate them all. \"They are full of love.\"",
+          "act": { "move": "grow", "sky": "field", "with": "ber", "fx": "hearts", "mood": "happy" }
+        }
+      ],
+      "questions": [
+        { "hi": "शबरी ने राम को क्या दिया?", "en": "What did Shabari give Ram?", "answer": "ber", "options": ["ber", "mango", "roti"] },
+        { "hi": "शबरी के घर कौन आए?", "en": "Who came to Shabari's home?", "answer": "ram", "options": ["ram", "ravan", "king"] }
+      ],
+      "moral": { "hi": "प्यार से दिया छोटा-सा तोहफ़ा भी बड़ा होता है।", "en": "A small gift given with love is a big gift." },
+      "level": "grade1",
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"वे मीठे … चुनतीं, और हर बेर चखकर देखतीं।\" (बेर)",
+          "en": "Say this and let your child fill the gap: \"वे मीठे … चुनतीं, और हर बेर चखकर देखतीं।\" (बेर)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"जंगल में शबरी नाम की एक बूढ़ी माँ रहती थीं।\")",
+          "en": "Ask: what happened first in the story? (\"An old woman called Shabari lived in the forest.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर राम है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the Ram and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "शबरी हर बेर चखकर क्यों देखती थीं?", "en": "Why did Shabari taste each berry first?" },
+        { "type": "you", "hi": "तुमने किसके लिए प्यार से कुछ बनाया या चुना है?", "en": "Who have you made or chosen something for, with love?" }
+      ]
+    },
+    {
+      "id": "ram-setu",
+      "title": { "hi": "पत्थरों का पुल", "en": "The bridge of stones" },
+      "cover": "bridge",
+      "pages": [
+        {
+          "word": "sea",
+          "hi": "लंका जाने के रास्ते में एक बड़ा समुद्र था।",
+          "en": "On the way to Lanka lay a great sea.",
+          "act": { "move": "float", "sky": "sea", "fx": "wind" }
+        },
+        {
+          "word": "ram",
+          "hi": "राम सोच में पड़ गए, \"सेना पार कैसे जाएगी?\"",
+          "en": "Ram wondered, \"How will the army get across?\"",
+          "act": { "move": "talk", "sky": "sea" }
+        },
+        {
+          "word": "stone",
+          "hi": "नल और नील ने पत्थरों पर \"राम\" लिखा।",
+          "en": "Nal and Neel wrote \"Ram\" on the stones.",
+          "act": { "move": "grow", "sky": "field", "fx": "sparkles" }
+        },
+        {
+          "word": "stone",
+          "hi": "पत्थर पानी में डाले, और वे तैरने लगे!",
+          "en": "They put the stones in the water, and they floated!",
+          "act": { "move": "float", "sky": "sea", "fx": "splash", "mood": "surprised" }
+        },
+        {
+          "word": "monkey",
+          "hi": "सारे वानर दौड़-दौड़कर पत्थर लाए।",
+          "en": "All the monkeys ran back and forth carrying stones.",
+          "act": { "move": "run", "sky": "field", "fx": "dust" }
+        },
+        { "word": "squirrel", "hi": "नन्ही गिलहरी भी कंकड़ लाई।", "en": "The little squirrel brought pebbles too.", "act": { "move": "scurry", "sky": "field" } },
+        {
+          "word": "bridge",
+          "hi": "पाँच दिन में समुद्र पर पुल बन गया!",
+          "en": "In five days a bridge stretched across the sea!",
+          "act": { "move": "grow", "sky": "sea", "fx": "confetti", "mood": "happy" }
+        },
+        {
+          "word": "hanuman",
+          "hi": "सेना पुल पर चलकर लंका पहुँची। जय श्री राम!",
+          "en": "The army walked over the bridge to Lanka. Jai Shri Ram!",
+          "act": { "move": "walk", "sky": "sea", "with": "ram" }
+        }
+      ],
+      "questions": [
+        { "hi": "पुल किससे बना?", "en": "What was the bridge made of?", "answer": "stone", "options": ["stone", "cotton", "leaf"] },
+        { "hi": "किसने भी कंकड़ उठाए?", "en": "Who carried pebbles too?", "answer": "squirrel", "options": ["squirrel", "lion", "cow"] }
+      ],
+      "level": "grade1",
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"लंका जाने के रास्ते में एक बड़ा … था।\" (समुद्र)",
+          "en": "Say this and let your child fill the gap: \"लंका जाने के रास्ते में एक बड़ा … था।\" (समुद्र)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"लंका जाने के रास्ते में एक बड़ा समुद्र था।\")",
+          "en": "Ask: what happened first in the story? (\"On the way to Lanka lay a great sea.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर बंदर है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the monkey and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "नन्ही गिलहरी की मदद भी ज़रूरी क्यों थी?", "en": "Why did even the little squirrel's help matter?" },
+        { "type": "you", "hi": "घर के किस काम में तुम्हें मदद करना अच्छा लगता है?", "en": "Which job at home do you like helping with?" }
+      ]
+    },
+    {
+      "id": "ram-bharat",
+      "title": { "hi": "भरत और खड़ाऊँ", "en": "Bharat and the sandals" },
+      "cover": "khadau",
+      "pages": [
+        {
+          "word": "ram",
+          "hi": "राम चौदह साल के लिए वन चले गए।",
+          "en": "Ram went away to the forest for fourteen years.",
+          "act": { "move": "walk", "sky": "field" }
+        },
+        {
+          "word": "bharat",
+          "hi": "भरत घर लौटे, तो बहुत दुखी हुए।",
+          "en": "When Bharat came home, he was very sad.",
+          "act": { "move": "shake", "sky": "home", "mood": "sad" }
+        },
+        {
+          "word": "bharat",
+          "hi": "भरत वन में दौड़े आए, \"भैया, घर चलिए!\"",
+          "en": "Bharat ran to the forest. \"Brother, please come home!\"",
+          "act": { "move": "run", "sky": "field", "fx": "dust" }
+        },
+        {
+          "word": "ram",
+          "hi": "राम बोले, \"मैंने वचन दिया है। चौदह साल बाद आऊँगा।\"",
+          "en": "Ram said, \"I gave my word. I will come after fourteen years.\"",
+          "act": { "move": "talk", "sky": "field", "with": "bharat" }
+        },
+        {
+          "word": "khadau",
+          "hi": "भरत ने राम की खड़ाऊँ माँगीं।",
+          "en": "Bharat asked for Ram's wooden sandals.",
+          "act": { "move": "grow", "sky": "field", "fx": "glow" }
+        },
+        {
+          "word": "khadau",
+          "hi": "भरत खड़ाऊँ सिर पर रखकर अयोध्या लौटे।",
+          "en": "Bharat carried the sandals on his head back to Ayodhya.",
+          "act": { "move": "walk", "sky": "dawn", "with": "bharat" }
+        },
+        {
+          "word": "crown",
+          "hi": "उन्होंने खड़ाऊँ राज-गद्दी पर रखीं, \"असली राजा राम हैं।\"",
+          "en": "He placed the sandals on the throne. \"Ram is the true king.\"",
+          "act": { "move": "grow", "sky": "home", "with": "khadau", "fx": "sparkles" }
+        },
+        {
+          "word": "bharat",
+          "hi": "भरत चौदह साल राम की राह देखते रहे।",
+          "en": "For fourteen years Bharat waited for Ram.",
+          "act": { "move": "sleep", "sky": "night", "fx": "stars" }
+        }
+      ],
+      "questions": [
+        { "hi": "भरत अपने साथ क्या लाए?", "en": "What did Bharat take back with him?", "answer": "khadau", "options": ["khadau", "bow", "crown"] },
+        { "hi": "असली राजा कौन थे?", "en": "Who was the true king?", "answer": "ram", "options": ["ram", "bharat", "ravan"] }
+      ],
+      "level": "grade1",
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"… चौदह साल के लिए वन चले गए।\" (राम)",
+          "en": "Say this and let your child fill the gap: \"… चौदह साल के लिए वन चले गए।\" (राम)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"राम चौदह साल के लिए वन चले गए।\")",
+          "en": "Ask: what happened first in the story? (\"Ram went away to the forest for fourteen years.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर खड़ाऊँ है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the wooden sandals and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "भरत ने राम की खड़ाऊँ गद्दी पर क्यों रखीं?", "en": "Why did Bharat put Ram's sandals on the throne?" },
+        {
+          "type": "you",
+          "hi": "तुम्हें अपने भाई, बहन या दोस्त की कौन सी बात सबसे अच्छी लगती है?",
+          "en": "What do you love most about your brother, sister or friend?"
+        }
+      ]
+    },
+    {
+      "id": "ram-ghar-aaye",
+      "title": { "hi": "राम घर आए", "en": "Ram comes home" },
+      "cover": "lamp",
+      "pages": [
+        {
+          "word": "ram",
+          "hi": "रावण हार गया। राम, सीता और लक्ष्मण घर चले।",
+          "en": "Ravan was beaten. Ram, Sita and Lakshman set off for home.",
+          "act": { "move": "walk", "sky": "dawn", "with": "sita" }
+        },
+        {
+          "word": "sita",
+          "hi": "वे पुष्पक विमान में उड़कर आए।",
+          "en": "They flew home in the Pushpak, the flying chariot.",
+          "act": { "move": "fly-across", "sky": "sky", "with": "ram", "fx": "sparkles" }
+        },
+        { "word": "hanuman", "hi": "हनुमान भी साथ थे, सबसे आगे!", "en": "Hanuman came too, out in front!", "act": { "move": "fly-up", "sky": "sky", "fx": "wind" } },
+        {
+          "word": "lamp",
+          "hi": "अयोध्या में सबने घर-घर दीये जलाए।",
+          "en": "In Ayodhya everyone lit lamps at every house.",
+          "act": { "move": "grow", "sky": "night", "fx": "lamps" }
+        },
+        {
+          "word": "rangoli",
+          "hi": "आँगन में रंग-बिरंगी रंगोली बनी।",
+          "en": "Bright rangolis were drawn in the courtyards.",
+          "act": { "move": "grow", "sky": "night", "fx": "sparkles" }
+        },
+        {
+          "word": "bharat",
+          "hi": "भरत दौड़कर आए और राम से गले मिले।",
+          "en": "Bharat ran up and hugged Ram.",
+          "act": { "move": "approach", "sky": "night", "with": "ram", "fx": "hearts", "mood": "happy" }
+        },
+        {
+          "word": "lamp",
+          "hi": "उस रात से हम दिवाली मनाते हैं। जगमग!",
+          "en": "Ever since that night we celebrate Diwali. Glittering lights!",
+          "act": { "move": "dance", "sky": "night", "fx": ["lamps", "confetti"] }
+        }
+      ],
+      "questions": [
+        { "hi": "अयोध्या में सबने क्या जलाए?", "en": "What did everyone light in Ayodhya?", "answer": "lamp", "options": ["lamp", "kite", "ball"] },
+        { "hi": "राम से गले मिलने कौन दौड़ा?", "en": "Who ran to hug Ram?", "answer": "bharat", "options": ["bharat", "ravan", "king"] }
+      ],
+      "level": "grade1",
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"रावण हार गया। … सीता और लक्ष्मण घर चले।\" (राम)",
+          "en": "Say this and let your child fill the gap: \"रावण हार गया। … सीता और लक्ष्मण घर चले।\" (राम)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"रावण हार गया। राम, सीता और लक्ष्मण घर चले।\")",
+          "en": "Ask: what happened first in the story? (\"Ravan was beaten. Ram, Sita and Lakshman set off for home.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर दीया है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the lamp and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "अयोध्या वालों ने दीये क्यों जलाए?", "en": "Why did the people of Ayodhya light lamps?" },
+        {
+          "type": "you",
+          "hi": "जब कोई अपना बहुत दिनों बाद घर लौटता है, तो तुम्हें कैसा लगता है?",
+          "en": "How do you feel when someone you love comes home after a long time?"
+        }
+      ]
+    },
+    {
+      "id": "k-sudama",
+      "title": { "hi": "कृष्ण और सुदामा", "en": "Krishna and Sudama" },
+      "cover": "sudama",
+      "pages": [
+        {
+          "word": "sudama",
+          "hi": "सुदामा और कृष्ण बचपन के पक्के दोस्त थे।",
+          "en": "Sudama and Krishna were best friends as children.",
+          "act": { "move": "talk", "sky": "field", "with": "krishna", "mood": "happy" }
+        },
+        {
+          "word": "sudama",
+          "hi": "बड़े होकर कृष्ण राजा बने, पर सुदामा बहुत ग़रीब रहे।",
+          "en": "When they grew up, Krishna became a king, but Sudama stayed very poor.",
+          "act": { "move": "sway", "sky": "field", "mood": "sad" }
+        },
+        {
+          "word": "rice",
+          "hi": "सुदामा पोटली में थोड़े-से चावल लेकर कृष्ण से मिलने चले।",
+          "en": "Sudama set off to see Krishna with a little rice in a bundle.",
+          "act": { "move": "walk", "sky": "field", "with": "rice" }
+        },
+        {
+          "word": "sudama",
+          "hi": "फटे कपड़ों में महल पहुँचकर उन्हें शर्म आ रही थी।",
+          "en": "Arriving at the palace in torn clothes, he felt shy.",
+          "act": { "move": "shake", "sky": "dawn" }
+        },
+        {
+          "word": "krishna",
+          "hi": "कृष्ण नंगे पैर दौड़े आए, \"मेरे सुदामा!\"",
+          "en": "Krishna came running barefoot. \"My Sudama!\"",
+          "act": { "move": "run", "sky": "day", "fx": "hearts", "mood": "happy" }
+        },
+        {
+          "word": "rice",
+          "hi": "कृष्ण ने प्यार से चावल खाए, \"कितने मीठे हैं!\"",
+          "en": "Krishna ate the rice with love. \"How sweet it is!\"",
+          "act": { "move": "talk", "sky": "home", "with": "krishna", "fx": "hearts" }
+        },
+        {
+          "word": "house",
+          "hi": "सुदामा घर लौटे, तो उनकी कुटिया सुंदर घर बन चुकी थी!",
+          "en": "When Sudama got home, his hut had become a beautiful house!",
+          "act": { "move": "grow", "sky": "home", "fx": "sparkles", "mood": "surprised" }
+        }
+      ],
+      "questions": [
+        { "hi": "सुदामा कृष्ण के लिए क्या लाए?", "en": "What did Sudama bring for Krishna?", "answer": "rice", "options": ["rice", "coins", "crown"] },
+        {
+          "hi": "कृष्ण और सुदामा कैसे दोस्त थे?",
+          "en": "What kind of friends were Krishna and Sudama?",
+          "answer": "पक्के",
+          "options": ["पक्के", "नए", "नाराज़"],
+          "text": true
+        }
+      ],
+      "moral": { "hi": "सच्ची दोस्ती अमीर-ग़रीब नहीं देखती।", "en": "True friendship does not care about rich or poor." },
+      "level": "grade2",
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"… और कृष्ण बचपन के पक्के दोस्त थे।\" (सुदामा)",
+          "en": "Say this and let your child fill the gap: \"… और कृष्ण बचपन के पक्के दोस्त थे।\" (सुदामा)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"सुदामा और कृष्ण बचपन के पक्के दोस्त थे।\")",
+          "en": "Ask: what happened first in the story? (\"Sudama and Krishna were best friends as children.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर सुदामा है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the Sudama and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "सुदामा को महल में शर्म क्यों आ रही थी?", "en": "Why did Sudama feel shy at the palace?" },
+        {
+          "type": "you",
+          "hi": "तुम्हारा सबसे पक्का दोस्त कौन है? उसके साथ क्या करना अच्छा लगता है?",
+          "en": "Who is your best friend? What do you love doing together?"
+        }
+      ]
+    },
+    {
+      "id": "k-kaliya",
+      "title": { "hi": "कालिया नाग", "en": "Kaliya the serpent" },
+      "cover": "snake",
+      "pages": [
+        {
+          "word": "river",
+          "hi": "यमुना नदी में कालिया नाग रहता था। उसके ज़हर से पानी काला हो गया।",
+          "en": "Kaliya the serpent lived in the Yamuna. His poison turned the water black.",
+          "act": { "move": "shake", "sky": "river", "mood": "sad" }
+        },
+        {
+          "word": "cow",
+          "hi": "गायें प्यासी थीं, पर कोई पानी नहीं पी सकता था।",
+          "en": "The cows were thirsty, but no one could drink the water.",
+          "act": { "move": "sway", "sky": "field", "mood": "sad" }
+        },
+        {
+          "word": "ball",
+          "hi": "एक दिन खेलते हुए कृष्ण की गेंद नदी में गिर गई।",
+          "en": "One day, while playing, Krishna's ball fell into the river.",
+          "act": { "move": "fall", "sky": "river", "fx": "splash", "sound": "splash" }
+        },
+        {
+          "word": "krishna",
+          "hi": "कृष्ण छपाक से नदी में कूद गए!",
+          "en": "Splash! Krishna jumped into the river!",
+          "act": { "move": "jump", "sky": "river", "fx": "splash", "mood": "surprised" }
+        },
+        {
+          "word": "snake",
+          "hi": "कालिया फुफकारता हुआ ऊपर आया।",
+          "en": "Kaliya rose up, hissing.",
+          "act": { "move": "grow", "sky": "river", "fx": "bubbles", "mood": "scared" }
+        },
+        {
+          "word": "krishna",
+          "hi": "कृष्ण उछलकर उसके फन पर चढ़े और नाचने लगे। ता-थैया!",
+          "en": "Krishna leapt onto his hood and began to dance. Ta-thaiya!",
+          "act": { "move": "dance", "sky": "river", "fx": "music" }
+        },
+        {
+          "word": "snake",
+          "hi": "कालिया थक गया, \"मुझे माफ़ करो! मैं समुद्र में चला जाऊँगा।\"",
+          "en": "Kaliya grew tired. \"Forgive me! I will go away to the sea.\"",
+          "act": { "move": "shrink", "sky": "river" }
+        },
+        {
+          "word": "river",
+          "hi": "यमुना का पानी फिर से साफ़ और मीठा हो गया।",
+          "en": "The Yamuna's water was clean and sweet again.",
+          "act": { "move": "float", "sky": "river", "fx": "sparkles", "mood": "happy" }
+        }
+      ],
+      "questions": [
+        { "hi": "नदी में ज़हर किसने फैलाया?", "en": "Who poisoned the river?", "answer": "snake", "options": ["snake", "fish", "crocodile"] },
+        { "hi": "कृष्ण की क्या चीज़ नदी में गिरी?", "en": "What of Krishna's fell into the river?", "answer": "ball", "options": ["ball", "kite", "shoe"] }
+      ],
+      "level": "grade2",
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"यमुना … में कालिया नाग रहता था। उसके ज़हर से पानी काला हो गया।\" (नदी)",
+          "en": "Say this and let your child fill the gap: \"यमुना … में कालिया नाग रहता था। उसके ज़हर से पानी काला हो गया।\" (नदी)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"यमुना नदी में कालिया नाग रहता था। उसके ज़हर से पानी काला हो गया।\")",
+          "en": "Ask: what happened first in the story? (\"Kaliya the serpent lived in the Yamuna. His poison turned the water black.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर साँप है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the snake and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "कृष्ण ने कालिया को नदी से क्यों भगाया?", "en": "Why did Krishna make Kaliya leave the river?" },
+        { "type": "you", "hi": "हम अपनी नदियों और पानी को साफ़ कैसे रख सकते हैं?", "en": "How can we keep our rivers and water clean?" }
+      ]
+    },
+    {
+      "id": "dhruv-tara",
+      "title": { "hi": "ध्रुव तारा", "en": "Dhruv, the Pole Star" },
+      "cover": "star",
+      "pages": [
+        {
+          "word": "boy",
+          "hi": "राजकुमार ध्रुव अपने पिता की गोद में बैठना चाहता था।",
+          "en": "Prince Dhruv wanted to sit on his father’s lap.",
+          "act": { "move": "walk", "sky": "home", "with": "king" }
+        },
+        {
+          "word": "king",
+          "hi": "पर नई रानी ने उसे गोद से उतार दिया।",
+          "en": "But the new queen pulled him off the lap.",
+          "act": { "move": "shake", "sky": "home", "mood": "sad" }
+        },
+        {
+          "word": "mother",
+          "hi": "माँ ने कहा, \"बेटा, भगवान की गोद सबसे बड़ी है।\"",
+          "en": "His mother said, \"My son, God’s lap is the biggest of all.\"",
+          "act": { "move": "talk", "sky": "home", "with": "boy" }
+        },
+        {
+          "word": "boy",
+          "hi": "ध्रुव जंगल में जाकर ध्यान लगाकर बैठ गया।",
+          "en": "Dhruv went to the forest and sat down to pray.",
+          "act": { "move": "sleep", "sky": "field", "fx": "leaves" }
+        },
+        {
+          "word": "sage",
+          "hi": "नारद मुनि आए, \"बच्चे, घर लौट जाओ।\" पर ध्रुव नहीं हिला।",
+          "en": "The sage Narad came. \"Child, go home.\" But Dhruv did not move.",
+          "act": { "move": "talk", "sky": "field", "with": "boy" }
+        },
+        {
+          "word": "star",
+          "hi": "भगवान विष्णु ख़ुश हुए। उन्होंने ध्रुव को आसमान में सबसे ऊँची जगह दी।",
+          "en": "Lord Vishnu was pleased. He gave Dhruv the highest place in the sky.",
+          "act": { "move": "grow", "sky": "night", "fx": ["stars", "glow"], "mood": "happy" }
+        },
+        {
+          "word": "star",
+          "hi": "आज भी उत्तर में चमकता ध्रुव तारा अपनी जगह से नहीं हिलता।",
+          "en": "Even today the Pole Star shines in the north and never moves.",
+          "act": { "move": "float", "sky": "night", "fx": "stars" }
+        }
+      ],
+      "questions": [
+        { "hi": "ध्रुव आज क्या बनकर चमकता है?", "en": "What does Dhruv shine as today?", "answer": "star", "options": ["star", "moon", "sun"] },
+        { "hi": "ध्रुव किसकी गोद में बैठना चाहता था?", "en": "Whose lap did Dhruv want to sit on?", "answer": "king", "options": ["king", "sage", "lion"] }
+      ],
+      "level": "grade2",
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"आज भी उत्तर में चमकता ध्रुव … अपनी जगह से नहीं हिलता।\" (तारा)",
+          "en": "Say this and let your child fill the gap: \"आज भी उत्तर में चमकता ध्रुव … अपनी जगह से नहीं हिलता।\" (तारा)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"राजकुमार ध्रुव अपने पिता की गोद में बैठना चाहता था।\")",
+          "en": "Ask: what happened first in the story? (\"Prince Dhruv wanted to sit on his father’s lap.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर लड़का है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the boy and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "ध्रुव तारा अपनी जगह से क्यों नहीं हिलता?", "en": "Why does the Pole Star never move?" },
+        {
+          "type": "you",
+          "hi": "तुमने कभी कोई काम बिना हार माने पूरा किया है? कौन सा?",
+          "en": "Have you ever kept going until something was done? What was it?"
+        }
+      ]
+    },
+    {
+      "id": "ganesh-chanda",
+      "title": { "hi": "गणेश और चाँद", "en": "Ganesh and the moon" },
+      "cover": "ganesh",
+      "pages": [
+        {
+          "word": "ganesh",
+          "hi": "गणेश चतुर्थी पर गणेश जी ने ख़ूब लड्डू खाए।",
+          "en": "On Ganesh Chaturthi, Ganesh ate lots of laddoos.",
+          "act": { "move": "talk", "sky": "home", "with": "laddoo" }
+        },
+        {
+          "word": "mouse",
+          "hi": "रात को वे अपने चूहे पर बैठकर घूमने निकले।",
+          "en": "At night he went out for a ride on his mouse.",
+          "act": { "move": "run", "sky": "night", "with": "ganesh" }
+        },
+        {
+          "word": "snake",
+          "hi": "रास्ते में साँप देखकर चूहा डर गया और उछल पड़ा!",
+          "en": "On the way the mouse saw a snake, got scared and jumped!",
+          "act": { "move": "jump", "sky": "night", "fx": "dust", "mood": "scared" }
+        },
+        {
+          "word": "laddoo",
+          "hi": "गणेश जी गिर पड़े, और सारे लड्डू लुढ़क गए।",
+          "en": "Ganesh fell off, and all the laddoos rolled away.",
+          "act": { "move": "roll", "sky": "night" }
+        },
+        {
+          "word": "moon",
+          "hi": "ऊपर से चाँद ज़ोर-ज़ोर से हँसने लगा। \"हा हा हा!\"",
+          "en": "Up above, the moon laughed and laughed. \"Ha ha ha!\"",
+          "act": { "move": "shake", "sky": "night", "fx": "stars" }
+        },
+        {
+          "word": "ganesh",
+          "hi": "गणेश जी बोले, \"किसी के गिरने पर हँसना अच्छा नहीं!\"",
+          "en": "Ganesh said, \"It isn’t nice to laugh when someone falls!\"",
+          "act": { "move": "talk", "sky": "night", "with": "moon" }
+        },
+        {
+          "word": "moon",
+          "hi": "चाँद शर्मा गया, और छोटा होता चला गया।",
+          "en": "The moon felt ashamed, and grew smaller and smaller.",
+          "act": { "move": "shrink", "sky": "night", "fx": "stars", "mood": "sad" }
+        },
+        {
+          "word": "moon",
+          "hi": "चाँद ने माफ़ी माँगी। तब से वह घटता है, और फिर बढ़ता है।",
+          "en": "The moon said sorry. Ever since, it shrinks, and then grows again.",
+          "act": { "move": "grow", "sky": "night", "fx": "glow", "mood": "happy" }
+        }
+      ],
+      "questions": [
+        { "hi": "गणेश जी किस पर घूमने निकले?", "en": "What did Ganesh ride?", "answer": "mouse", "options": ["mouse", "horse", "elephant"] },
+        { "hi": "कौन हँसा?", "en": "Who laughed?", "answer": "moon", "options": ["moon", "sun", "mouse"] }
+      ],
+      "moral": { "hi": "किसी के गिरने पर हँसो मत, उसे उठाओ।", "en": "Don’t laugh when someone falls; help them up." },
+      "level": "grade2",
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"… चतुर्थी पर गणेश जी ने ख़ूब लड्डू खाए।\" (गणेश)",
+          "en": "Say this and let your child fill the gap: \"… चतुर्थी पर गणेश जी ने ख़ूब लड्डू खाए।\" (गणेश)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"गणेश चतुर्थी पर गणेश जी ने ख़ूब लड्डू खाए।\")",
+          "en": "Ask: what happened first in the story? (\"On Ganesh Chaturthi, Ganesh ate lots of laddoos.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर चाँद है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the moon and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "गणेश जी को चाँद का हँसना बुरा क्यों लगा?", "en": "Why didn’t Ganesh like the moon laughing?" },
+        { "type": "you", "hi": "जब कोई दोस्त गिर जाए, तो हमें क्या करना चाहिए?", "en": "When a friend falls over, what should we do?" }
+      ]
+    },
+    {
+      "id": "arjun-aankh",
+      "title": { "hi": "चिड़िया की आँख", "en": "The bird's eye" },
+      "cover": "arjun",
+      "pages": [
+        {
+          "word": "sage",
+          "hi": "गुरु द्रोण बच्चों को तीर-कमान चलाना सिखाते थे।",
+          "en": "Teacher Drona taught the children to shoot with a bow.",
+          "act": { "move": "talk", "sky": "field", "with": "bow" }
+        },
+        {
+          "word": "bird",
+          "hi": "उन्होंने पेड़ पर लकड़ी की एक चिड़िया रख दी।",
+          "en": "He put a wooden bird up in a tree.",
+          "act": { "move": "sway", "sky": "field", "with": "tree" }
+        },
+        {
+          "word": "sage",
+          "hi": "वे बोले, \"निशाना लगाओ। बताओ, तुम्हें क्या दिख रहा है?\"",
+          "en": "He said, \"Take aim. Tell me, what can you see?\"",
+          "act": { "move": "talk", "sky": "day", "with": "arjun" }
+        },
+        {
+          "word": "boy",
+          "hi": "एक बोला, \"पेड़, पत्ते, आसमान और चिड़िया!\"",
+          "en": "One said, \"The tree, the leaves, the sky and the bird!\"",
+          "act": { "move": "talk", "sky": "field", "with": "tree" }
+        },
+        { "word": "sage", "hi": "गुरु बोले, \"तुम तीर मत चलाओ।\"", "en": "The teacher said, \"Don’t shoot.\"", "act": { "move": "shake", "sky": "field" } },
+        {
+          "word": "arjun",
+          "hi": "अर्जुन बोला, \"मुझे सिर्फ़ चिड़िया की आँख दिख रही है।\"",
+          "en": "Arjun said, \"I can see only the bird’s eye.\"",
+          "act": { "move": "grow", "sky": "field", "with": "bird", "fx": "glow" }
+        },
+        {
+          "word": "arrow",
+          "hi": "गुरु बोले, \"चलाओ!\" तीर सीधा आँख पर लगा!",
+          "en": "The teacher said, \"Shoot!\" The arrow hit the eye exactly!",
+          "act": { "move": "fly-across", "sky": "sky", "with": "bird", "fx": "wind", "mood": "happy" }
+        }
+      ],
+      "questions": [
+        { "hi": "अर्जुन को क्या दिख रहा था?", "en": "What could Arjun see?", "answer": "eye", "options": ["eye", "tree", "sun"] },
+        { "hi": "बच्चे क्या चलाना सीख रहे थे?", "en": "What were the children learning to use?", "answer": "bow", "options": ["bow", "car", "pen"] }
+      ],
+      "moral": { "hi": "मन लगाकर एक ही चीज़ पर ध्यान दो।", "en": "Put your whole mind on one thing." },
+      "level": "grade2",
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"उन्होंने पेड़ पर लकड़ी की एक … रख दी।\" (चिड़िया)",
+          "en": "Say this and let your child fill the gap: \"उन्होंने पेड़ पर लकड़ी की एक … रख दी।\" (चिड़िया)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"गुरु द्रोण बच्चों को तीर-कमान चलाना सिखाते थे।\")",
+          "en": "Ask: what happened first in the story? (\"Teacher Drona taught the children to shoot with a bow.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर लड़का है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the boy and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "गुरु ने सिर्फ़ अर्जुन को तीर चलाने को क्यों कहा?", "en": "Why did the teacher let only Arjun shoot?" },
+        { "type": "you", "hi": "तुम्हें किस काम में सबसे ज़्यादा ध्यान लगाना पड़ता है?", "en": "What do you have to concentrate on most?" }
+      ]
+    },
+    {
+      "id": "eklavya",
+      "title": { "hi": "एकलव्य", "en": "Eklavya" },
+      "cover": "eklavya",
+      "pages": [
+        {
+          "word": "eklavya",
+          "hi": "जंगल में एकलव्य नाम का एक लड़का रहता था।",
+          "en": "A boy called Eklavya lived in the forest.",
+          "act": { "move": "walk", "sky": "field", "fx": "leaves" }
+        },
+        {
+          "word": "sage",
+          "hi": "वह गुरु द्रोण से तीर चलाना सीखना चाहता था। पर गुरु ने मना कर दिया।",
+          "en": "He wanted to learn archery from Teacher Drona. But the teacher said no.",
+          "act": { "move": "talk", "sky": "field", "with": "eklavya", "mood": "sad" }
+        },
+        {
+          "word": "eklavya",
+          "hi": "एकलव्य ने मिट्टी से गुरु की एक मूर्ति बनाई।",
+          "en": "Eklavya made a statue of the teacher out of clay.",
+          "act": { "move": "grow", "sky": "field", "fx": "sparkles" }
+        },
+        {
+          "word": "arrow",
+          "hi": "वह रोज़ मूर्ति के सामने सुबह से शाम तक तीर चलाता।",
+          "en": "Every day he practised before the statue, from morning till evening.",
+          "act": { "move": "fly-across", "sky": "field", "with": "eklavya" }
+        },
+        {
+          "word": "dog",
+          "hi": "एक दिन एक कुत्ता भौंका। एकलव्य के तीरों ने उसका मुँह बंद कर दिया, बिना चोट के!",
+          "en": "One day a dog barked. Eklavya’s arrows closed its mouth, without hurting it!",
+          "act": { "move": "shake", "sky": "field", "with": "arrow", "mood": "surprised" }
+        },
+        {
+          "word": "sage",
+          "hi": "गुरु द्रोण हैरान रह गए, \"यह तुमने किससे सीखा?\"",
+          "en": "Teacher Drona was amazed. \"Who taught you this?\"",
+          "act": { "move": "talk", "sky": "field", "with": "eklavya" }
+        },
+        {
+          "word": "eklavya",
+          "hi": "एकलव्य बोला, \"आपकी मूर्ति से, गुरु जी!\"",
+          "en": "Eklavya said, \"From your statue, teacher!\"",
+          "act": { "move": "approach", "sky": "field", "with": "sage", "fx": "hearts" }
+        },
+        {
+          "word": "hand",
+          "hi": "गुरु ने गुरु-दक्षिणा में उसका अँगूठा माँगा। एकलव्य ने बिना रुके दे दिया।",
+          "en": "As his fee, the teacher asked for his thumb. Eklavya gave it without a pause.",
+          "act": { "move": "shake", "sky": "field", "with": "sage", "mood": "sad" }
+        },
+        {
+          "word": "eklavya",
+          "hi": "एकलव्य की लगन की कहानी आज भी सुनाई जाती है।",
+          "en": "The story of Eklavya’s dedication is still told today.",
+          "act": { "move": "grow", "sky": "dawn", "fx": "glow" }
+        }
+      ],
+      "questions": [
+        { "hi": "एकलव्य ने किसकी मूर्ति बनाई?", "en": "Whose statue did Eklavya make?", "answer": "sage", "options": ["sage", "king", "lion"] },
+        { "hi": "एकलव्य रोज़ क्या चलाता था?", "en": "What did Eklavya practise every day?", "answer": "arrow", "options": ["arrow", "car", "kite"] }
+      ],
+      "level": "grade2",
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"जंगल में … नाम का एक लड़का रहता था।\" (एकलव्य)",
+          "en": "Say this and let your child fill the gap: \"जंगल में … नाम का एक लड़का रहता था।\" (एकलव्य)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"जंगल में एकलव्य नाम का एक लड़का रहता था।\")",
+          "en": "Ask: what happened first in the story? (\"A boy called Eklavya lived in the forest.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर कुत्ता है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the dog and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "क्या गुरु का अँगूठा माँगना ठीक था? क्यों?", "en": "Was it fair of the teacher to ask for his thumb? Why?" },
+        { "type": "you", "hi": "रोज़ थोड़ा-थोड़ा करके तुम्हें क्या सीखना अच्छा लगता है?", "en": "What do you like learning a little every day?" }
+      ]
     }
   ],
   "levels": [
@@ -15074,6 +15857,30 @@
           ]
         },
         {
+          "id": "g1-ramayan2",
+          "title": { "hi": "रामायण: आगे की कहानी", "en": "The Ramayana, continued" },
+          "skill": "Listening · Stories",
+          "icon": "ber",
+          "lessons": [
+            { "id": "g1-ramayan2-1", "game": "story", "icon": "ber", "title": { "hi": "शबरी के बेर", "en": "Shabari's berries" }, "config": { "story": "ram-shabari" } },
+            {
+              "id": "g1-ramayan2-2",
+              "game": "story",
+              "icon": "bridge",
+              "title": { "hi": "पत्थरों का पुल", "en": "The bridge of stones" },
+              "config": { "story": "ram-setu" }
+            },
+            {
+              "id": "g1-ramayan2-3",
+              "game": "story",
+              "icon": "khadau",
+              "title": { "hi": "भरत और खड़ाऊँ", "en": "Bharat and the sandals" },
+              "config": { "story": "ram-bharat" }
+            },
+            { "id": "g1-ramayan2-4", "game": "story", "icon": "lamp", "title": { "hi": "राम घर आए", "en": "Ram comes home" }, "config": { "story": "ram-ghar-aaye" } }
+          ]
+        },
+        {
           "id": "g1-lok",
           "title": { "hi": "दादी-नानी की कहानियाँ", "en": "Folk tales" },
           "skill": "Reading · Stories",
@@ -16324,6 +17131,32 @@
               "title": { "hi": "पाँच का पहाड़ा", "en": "The 5 times table" },
               "config": { "table": 5, "rounds": 6 }
             }
+          ]
+        },
+        {
+          "id": "g2-katha",
+          "title": { "hi": "कृष्ण, गणेश और महाभारत", "en": "Krishna, Ganesh and the Mahabharata" },
+          "skill": "Listening · Stories",
+          "icon": "sudama",
+          "lessons": [
+            {
+              "id": "g2-katha-1",
+              "game": "story",
+              "icon": "sudama",
+              "title": { "hi": "कृष्ण और सुदामा", "en": "Krishna and Sudama" },
+              "config": { "story": "k-sudama" }
+            },
+            { "id": "g2-katha-2", "game": "story", "icon": "snake", "title": { "hi": "कालिया नाग", "en": "Kaliya the serpent" }, "config": { "story": "k-kaliya" } },
+            { "id": "g2-katha-3", "game": "story", "icon": "star", "title": { "hi": "ध्रुव तारा", "en": "Dhruv, the Pole Star" }, "config": { "story": "dhruv-tara" } },
+            {
+              "id": "g2-katha-4",
+              "game": "story",
+              "icon": "ganesh",
+              "title": { "hi": "गणेश और चाँद", "en": "Ganesh and the moon" },
+              "config": { "story": "ganesh-chanda" }
+            },
+            { "id": "g2-katha-5", "game": "story", "icon": "arjun", "title": { "hi": "चिड़िया की आँख", "en": "The bird's eye" }, "config": { "story": "arjun-aankh" } },
+            { "id": "g2-katha-6", "game": "story", "icon": "eklavya", "title": { "hi": "एकलव्य", "en": "Eklavya" }, "config": { "story": "eklavya" } }
           ]
         }
       ],

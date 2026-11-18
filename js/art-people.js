@@ -102,6 +102,16 @@ export const PEOPLE = {
     ell(70, 40, 16, 20, '#F0B7A4') + ell(130, 40, 16, 20, '#F0B7A4') + ell(70, 40, 9, 13, '#F7D1C4') + ell(130, 40, 9, 13, '#F7D1C4') +
     circ(100, 40, 24, '#F0B7A4') + path('M90 50 L84 60 L94 55 Z M110 50 L116 60 L106 55 Z', '#FFFFFF') + path('M100 48 Q100 76 116 84 Q128 88 128 76', 'none', stroke('#DE9A84', 12)) + path('M100 48 Q100 76 116 84 Q128 88 128 76', 'none', stroke('#E9AC98', 7)) + eye(91, 36, 3.4) + eye(109, 36, 3.4) +
     path('M86 20 L84 8 L94 14 L100 4 L106 14 L116 8 L114 20 Z', '#FFC93C') + tilak(),
+  // roadmap 9.6: Ram's brother Bharat, Krishna's friend Sudama, Arjun and Eklavya
+  bharat: () => person({ skin: SKIN[0], top: '#FF9F43', bottom: '#FFC93C', hat: 'crown', mustache: false }) + tilak() + garland('#FFE08A'),
+  sudama: () =>
+    person({ style: 'grey', hair: '#D9DEE7', top: '#F3F4F8', bottom: '#F3F4F8', skin: SKIN[2], beard: '#D9DEE7' }) +
+    path('M136 104 Q132 86 146 84 Q160 86 156 104 Q150 112 142 112 Q136 110 136 104 Z', '#C9A26B') + path('M140 86 Q146 76 152 86', 'none', stroke('#8A5A44', 3)) +
+    tilak(),
+  arjun: () => person({ skin: SKIN[1], top: '#3D7BFF', bottom: '#F3F4F8', hat: 'crown', mustache: true, prop: bow(66) }) + tilak(),
+  eklavya: () =>
+    person({ kid: true, skin: SKIN[2], top: '#8A5A44', bottom: '#5B3A2E', prop: bow(66) }) +
+    path('M106 6 Q118 -10 114 16', 'none', stroke('#2EC27E', 4)) + path('M100 16 Q100 10 112 12', 'none', stroke('#E2583E', 4)),
   // a sage in saffron, with a staff and a water pot (roadmap 9.4: the mouse who became a lion)
   sage: () =>
     person({ style: 'grey', hair: '#E3E6ED', top: '#FF9F43', bottom: '#FF9F43', beard: '#EEF0F5', skin: SKIN[1], prop: line(150, 128, 146, 52, '#8A5A44', 5) }) +
@@ -158,6 +168,14 @@ export const THINGS = {
   rangoli: () => `<polygon points="${starPoints(100, 70, 58, 30, 8)}" fill="#FF6B9A"/>` + `<polygon points="${starPoints(100, 70, 40, 20, 8)}" fill="#FFC93C"/>` + circ(100, 70, 16, '#3D7BFF') + circ(100, 70, 7, '#fff') + [0, 1, 2, 3, 4, 5, 6, 7].map((k) => circ((100 + 52 * Math.cos((k * Math.PI) / 4 + 0.39)).toFixed(1), (70 + 52 * Math.sin((k * Math.PI) / 4 + 0.39)).toFixed(1), 5, '#2EC27E')).join(''),
 
   // ---------- story animals and things ----------
+  // बेर: a handful of berries with two leaves (roadmap 9.6: Shabari's berries)
+  ber: () =>
+    path('M70 70 Q84 40 110 46 Q92 58 70 70 Z', '#4FAF63') + path('M110 46 Q132 34 150 52 Q128 58 110 46 Z', '#2EC27E') +
+    [[72, 96, '#E2583E'], [98, 100, '#F28C28'], [124, 96, '#E2583E'], [86, 78, '#F28C28'], [112, 78, '#E2583E'], [140, 82, '#F28C28'], [110, 118, '#E2583E']]
+      .map(([x, y, c]) => circ(x, y, 15, c) + circ(x - 5, y - 5, 4, '#FFFFFF')).join(''),
+  // खड़ाऊँ: a pair of wooden sandals, each with its toe knob (roadmap 9.6: Bharat and the sandals)
+  khadau: () =>
+    [62, 118].map((x) => path(`M${x} 30 Q${x + 22} 24 ${x + 22} 46 L${x + 20} 118 Q${x + 10} 130 ${x} 118 L${x - 2} 46 Q${x} 26 ${x} 30 Z`, '#B9774A') + path(`M${x + 2} 40 Q${x + 11} 34 ${x + 18} 42 L${x + 16} 112 Q${x + 10} 120 ${x + 4} 112 Z`, '#D9A066') + circ(x + 10, 52, 6, '#8A5A44') + circ(x + 10, 50, 2.5, '#E8B07A')).join(''),
   // बगुला: a grey-white heron on one leg in the water (roadmap 9.4: बगुला भगत)
   heron: () =>
     path('M0 118 Q50 110 100 118 T200 118 V140 H0 Z', '#7DD3FC') +
