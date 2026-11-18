@@ -346,3 +346,16 @@ test('6.4 one narrator says everything: very short lines are said inside a carri
   assert.match(tool, /flag\('--short'\)/);
   assert.match(tool, /flag\('--fallbacks'\)/);
 });
+
+test('6.5 the review sheets for a Hindi teacher cover every story line, prompt and the words to listen to', async () => {
+  const { storyRows, promptRows, listenRows } = await import('../tools/review-sheet.mjs');
+  const stories = storyRows(content);
+  const pages = content.stories.filter((s) => s.lang !== 'en').reduce((n, s) => n + s.pages.length, 0);
+  assert.ok(stories.length > pages, 'every page is on the sheet');
+  assert.ok(stories.every((r) => r.length === 6));
+  assert.ok(promptRows(content).length > 100);
+  const listen = listenRows(content);
+  assert.ok(listen.some((r) => r[1] === 'nasal sound') && listen.some((r) => String(r[1]).startsWith('name')));
+  assert.match(read('.gitignore'), /^review\/$/m);
+  assert.match(read('docs/TEACHER-REVIEW.md'), /tools\/review-sheet\.mjs/);
+});
