@@ -11068,6 +11068,559 @@
           "en": "Where can you see a zero at home? On a clock, a phone number, money… find them!"
         }
       ]
+    },
+    {
+      "id": "k4-firestation",
+      "title": { "hi": "दमकल केंद्र का एक दिन", "en": "A day at the fire station" },
+      "cover": "place-fire",
+      "pages": [
+        {
+          "word": "place-fire",
+          "hi": "सुबह दमकल केंद्र में सब जाग गए।",
+          "en": "In the morning, everyone at the fire station woke up.",
+          "act": { "move": "peek", "sky": "dawn", "fx": "glow" }
+        },
+        {
+          "word": "firetruck",
+          "hi": "सबने लाल दमकल को धोया। चम-चम!",
+          "en": "They all washed the red fire engine. Shiny!",
+          "act": { "move": "shake", "sky": "day", "fx": "bubbles" }
+        },
+        {
+          "word": "bell",
+          "hi": "अचानक घंटी बजी! टन-टन-टन!",
+          "en": "Suddenly the bell rang! Ding-ding-ding!",
+          "act": { "move": "shake", "sky": "day", "sound": "jingle", "mood": "surprised" }
+        },
+        {
+          "word": "firetruck",
+          "hi": "दमकल दौड़ी, नी-नॉ, नी-नॉ!",
+          "en": "The fire engine raced off, nee-naw, nee-naw!",
+          "act": { "move": "drive", "sky": "field", "fx": "dust", "sound": "siren" }
+        },
+        {
+          "word": "tree",
+          "hi": "एक बिल्ली पेड़ पर फँसी थी। म्याऊँ!",
+          "en": "A cat was stuck up a tree. Miaow!",
+          "act": { "move": "sway", "sky": "field", "with": "cat", "fx": "leaves" }
+        },
+        {
+          "word": "cat",
+          "hi": "दमकल वालों ने सीढ़ी लगाई और बिल्ली उतारी।",
+          "en": "The firefighters put up a ladder and brought the cat down.",
+          "act": { "move": "approach", "sky": "field", "with": "firetruck", "fx": "hearts", "mood": "happy" }
+        },
+        {
+          "word": "place-fire",
+          "hi": "रात को सब केंद्र लौटे। आज का काम पूरा!",
+          "en": "At night they all came back. Today's work was done!",
+          "act": { "move": "float", "sky": "night", "fx": "stars" }
+        }
+      ],
+      "questions": [
+        { "hi": "घंटी बजी तो कौन दौड़ा?", "en": "When the bell rang, what raced off?", "answer": "firetruck", "options": ["firetruck", "bicycle", "boat"] },
+        { "hi": "पेड़ पर कौन फँसा था?", "en": "Who was stuck up the tree?", "answer": "cat", "options": ["cat", "dog", "cow"] }
+      ],
+      "moral": { "hi": "दमकल वाले हर समय मदद के लिए तैयार रहते हैं।", "en": "Firefighters are always ready to help." },
+      "level": "kg",
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"सुबह … केंद्र में सब जाग गए।\" (दमकल)",
+          "en": "Say this and let your child fill the gap: \"सुबह … केंद्र में सब जाग गए।\" (दमकल)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"सुबह दमकल केंद्र में सब जाग गए।\")",
+          "en": "Ask: what happened first in the story? (\"In the morning, everyone at the fire station woke up.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर दमकल है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the fire engine and ask: what is happening here?"
+        },
+        {
+          "type": "why",
+          "hi": "दमकल वालों ने गाड़ी पहले से क्यों धोई और तैयार रखी?",
+          "en": "Why did the firefighters get the engine ready before anyone called?"
+        },
+        { "type": "you", "hi": "तुम्हें कौन सी गाड़ी सबसे अच्छी लगती है, और क्यों?", "en": "Which vehicle do you like best, and why?" }
+      ]
+    },
+    {
+      "id": "k4-kooda",
+      "title": { "hi": "कूड़ा गाड़ी की सुबह", "en": "The garbage truck's morning" },
+      "cover": "garbagetruck",
+      "pages": [
+        {
+          "word": "garbagetruck",
+          "hi": "सुबह-सुबह कूड़ा गाड़ी निकली। पीं-पीं!",
+          "en": "Early in the morning the garbage truck set off. Beep-beep!",
+          "act": { "move": "drive", "sky": "dawn", "fx": "dust", "sound": "toot" }
+        },
+        {
+          "word": "house",
+          "hi": "हर घर के बाहर कूड़े का डिब्बा रखा था।",
+          "en": "Outside every house there was a rubbish bin.",
+          "act": { "move": "float", "sky": "day" }
+        },
+        {
+          "word": "garbagetruck",
+          "hi": "कूड़ा गाड़ी रुकी। डिब्बा उठा, कूड़ा अंदर!",
+          "en": "The truck stopped. Up went the bin, in went the rubbish!",
+          "act": { "move": "lift", "sky": "day", "sound": "thud" }
+        },
+        {
+          "word": "bottle",
+          "hi": "गीला कूड़ा एक तरफ़, बोतलें दूसरी तरफ़।",
+          "en": "Wet rubbish on one side, bottles on the other.",
+          "act": { "move": "roll", "sky": "day", "with": "box" }
+        },
+        {
+          "word": "place-recycling",
+          "hi": "बोतलें कबाड़ घर गईं। वहाँ वे फिर नई बनेंगी!",
+          "en": "The bottles went to the recycling yard. There they will be made new!",
+          "act": { "move": "grow", "sky": "field", "fx": "sparkles" }
+        },
+        {
+          "word": "girl",
+          "hi": "मीनू बोली, \"शुक्रिया, कूड़ा गाड़ी! गली साफ़ हो गई!\"",
+          "en": "Meenu said, \"Thank you, garbage truck! The street is clean!\"",
+          "act": { "move": "jump", "sky": "day", "with": "garbagetruck", "fx": "hearts", "mood": "happy" }
+        }
+      ],
+      "questions": [
+        { "hi": "गली किसने साफ़ की?", "en": "What cleaned the street?", "answer": "garbagetruck", "options": ["garbagetruck", "icecreamvan", "plane"] },
+        { "hi": "बोतलें कहाँ गईं?", "en": "Where did the bottles go?", "answer": "place-recycling", "options": ["place-recycling", "place-fire", "school"] }
+      ],
+      "moral": { "hi": "कूड़ा डिब्बे में डालो, गली साफ़ रखो।", "en": "Put rubbish in the bin and keep the street clean." },
+      "level": "kg",
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"सुबह-सुबह … गाड़ी निकली। पीं-पीं!\" (कूड़ा)",
+          "en": "Say this and let your child fill the gap: \"सुबह-सुबह … गाड़ी निकली। पीं-पीं!\" (कूड़ा)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"सुबह-सुबह कूड़ा गाड़ी निकली। पीं-पीं!\")",
+          "en": "Ask: what happened first in the story? (\"Early in the morning the garbage truck set off. Beep-beep!\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर बोतल है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the bottle and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "बोतलें गीले कूड़े से अलग क्यों रखीं?", "en": "Why were the bottles kept apart from the wet rubbish?" },
+        { "type": "you", "hi": "तुम्हारे घर में कूड़ा कहाँ डालते हैं? मुझे दिखाओ।", "en": "Where does the rubbish go in your home? Show me." }
+      ]
+    },
+    {
+      "id": "k4-raat-rail",
+      "title": { "hi": "रात की रेलगाड़ी", "en": "The night train" },
+      "cover": "train",
+      "pages": [
+        {
+          "word": "place-railway",
+          "hi": "रात को स्टेशन पर रेलगाड़ी खड़ी थी।",
+          "en": "At night a train was waiting at the station.",
+          "act": { "move": "float", "sky": "night", "fx": "stars" }
+        },
+        {
+          "word": "train",
+          "hi": "सीटी बजी, और रेलगाड़ी चल पड़ी। छुक-छुक!",
+          "en": "The whistle blew and the train set off. Chug-chug!",
+          "act": { "move": "drive", "sky": "night", "sound": "toot" }
+        },
+        {
+          "word": "roti",
+          "hi": "माँ ने डिब्बे से रोटी और आलू निकाले।",
+          "en": "Mum took rotis and potatoes out of the tiffin.",
+          "act": { "move": "talk", "sky": "night", "with": "mother" }
+        },
+        {
+          "word": "bed",
+          "hi": "ऊपर की बर्थ पर चिंटू का बिस्तर लगा।",
+          "en": "Chintu's bed was made on the top berth.",
+          "act": { "move": "climb", "sky": "night", "with": "bed" }
+        },
+        {
+          "word": "moon",
+          "hi": "खिड़की से चाँद भी साथ-साथ चल रहा था।",
+          "en": "Through the window, the moon travelled along with us.",
+          "act": { "move": "float", "sky": "night", "fx": "stars" }
+        },
+        {
+          "word": "train",
+          "hi": "छुक-छुक की लोरी में सब सो गए।",
+          "en": "Everyone fell asleep to the chug-chug lullaby.",
+          "act": { "move": "sleep", "sky": "night", "fx": "zzz" }
+        },
+        {
+          "word": "sun",
+          "hi": "सुबह आँख खुली, तो नानी का शहर आ गया!",
+          "en": "When they woke up, they had reached Nani's town!",
+          "act": { "move": "peek", "sky": "dawn", "fx": "glow", "mood": "happy" }
+        }
+      ],
+      "questions": [
+        { "hi": "रात में साथ-साथ कौन चल रहा था?", "en": "What travelled along with them at night?", "answer": "moon", "options": ["moon", "sun", "kite"] },
+        { "hi": "चिंटू कहाँ सोया?", "en": "Where did Chintu sleep?", "answer": "bed", "options": ["bed", "chair", "boat"] }
+      ],
+      "level": "kg",
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"रात को … पर रेलगाड़ी खड़ी थी।\" (स्टेशन)",
+          "en": "Say this and let your child fill the gap: \"रात को … पर रेलगाड़ी खड़ी थी।\" (स्टेशन)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"रात को स्टेशन पर रेलगाड़ी खड़ी थी।\")",
+          "en": "Ask: what happened first in the story? (\"At night a train was waiting at the station.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर बिस्तर है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the bed and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "रात की रेलगाड़ी में सोने की जगह क्यों होती है?", "en": "Why does a night train have places to sleep?" },
+        {
+          "type": "you",
+          "hi": "तुम्हें ऊपर वाली बर्थ पर सोना अच्छा लगेगा या नीचे वाली पर?",
+          "en": "Would you like to sleep on the top berth or the bottom one?"
+        }
+      ]
+    },
+    {
+      "id": "k4-metro",
+      "title": { "hi": "मेट्रो की सैर", "en": "A ride on the metro" },
+      "cover": "metro",
+      "pages": [
+        {
+          "word": "place-metro",
+          "hi": "हम मेट्रो स्टेशन पहुँचे। सीढ़ियाँ अपने-आप चल रही थीं!",
+          "en": "We reached the metro station. The stairs were moving by themselves!",
+          "act": { "move": "walk", "sky": "day", "fx": "sparkles", "mood": "surprised" }
+        },
+        {
+          "word": "metro",
+          "hi": "मेट्रो आई। दरवाज़े अपने-आप खुले। सर्र!",
+          "en": "The metro came. The doors opened by themselves. Whoosh!",
+          "act": { "move": "drive", "sky": "day", "sound": "whoosh" }
+        },
+        {
+          "word": "door",
+          "hi": "आवाज़ आई, \"दरवाज़े से दूर खड़े रहिए।\"",
+          "en": "A voice said, \"Please stand away from the doors.\"",
+          "act": { "move": "talk", "sky": "day", "with": "girl" }
+        },
+        {
+          "word": "metro",
+          "hi": "मेट्रो ज़मीन के नीचे सुरंग में दौड़ी।",
+          "en": "The metro raced through a tunnel under the ground.",
+          "act": { "move": "drive", "sky": "night", "fx": "wind" }
+        },
+        {
+          "word": "car",
+          "hi": "फिर ऊपर आई। नीचे कारें छोटी-छोटी दिखीं!",
+          "en": "Then it came up high. The cars below looked tiny!",
+          "act": { "move": "drive", "sky": "sky", "with": "metro" }
+        },
+        {
+          "word": "girl",
+          "hi": "\"अगला स्टेशन: चिड़ियाघर।\" हम उतर गए!",
+          "en": "\"Next station: the zoo.\" We got off!",
+          "act": { "move": "jump", "sky": "day", "with": "metro", "fx": "confetti", "mood": "happy" }
+        }
+      ],
+      "questions": [
+        { "hi": "हम किसमें बैठे?", "en": "What did we ride in?", "answer": "metro", "options": ["metro", "boat", "bicycle"] },
+        { "hi": "ऊपर से नीचे क्या छोटा-छोटा दिखा?", "en": "What looked tiny down below?", "answer": "car", "options": ["car", "moon", "tree"] }
+      ],
+      "level": "kg",
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"हम … स्टेशन पहुँचे। सीढ़ियाँ अपने-आप चल रही थीं!\" (मेट्रो)",
+          "en": "Say this and let your child fill the gap: \"हम … स्टेशन पहुँचे। सीढ़ियाँ अपने-आप चल रही थीं!\" (मेट्रो)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"हम मेट्रो स्टेशन पहुँचे। सीढ़ियाँ अपने-आप चल रही थीं!\")",
+          "en": "Ask: what happened first in the story? (\"We reached the metro station. The stairs were moving by themselves!\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर मेट्रो है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the metro and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "मेट्रो में दरवाज़े से दूर क्यों खड़े रहते हैं?", "en": "Why do we stand away from the doors on the metro?" },
+        { "type": "you", "hi": "तुम्हें मेट्रो में बैठकर कहाँ जाना अच्छा लगेगा?", "en": "Where would you like to go on the metro?" }
+      ]
+    },
+    {
+      "id": "k4-hawai-adda",
+      "title": { "hi": "हवाई अड्डे पर", "en": "At the airport" },
+      "cover": "plane",
+      "pages": [
+        {
+          "word": "place-airport",
+          "hi": "हम हवाई अड्डे पहुँचे। कितना बड़ा!",
+          "en": "We reached the airport. It was so big!",
+          "act": { "move": "walk", "sky": "day", "fx": "glow", "mood": "surprised" }
+        },
+        { "word": "bag", "hi": "हमारे थैले चलती पट्टी पर चले गए।", "en": "Our bags went off on a moving belt.", "act": { "move": "roll", "sky": "day" } },
+        {
+          "word": "plane",
+          "hi": "काँच के पीछे बड़े-बड़े हवाई जहाज़ दिखे।",
+          "en": "Behind the glass we saw big aeroplanes.",
+          "act": { "move": "float", "sky": "day", "fx": "sparkles" }
+        },
+        {
+          "word": "plane",
+          "hi": "एक हवाई जहाज़ दौड़ा और ऊपर उड़ गया! वूश!",
+          "en": "One plane raced along and flew up! Whoosh!",
+          "act": { "move": "fly-up", "sky": "sky", "fx": "wind" }
+        },
+        {
+          "word": "father",
+          "hi": "पापा बोले, \"हमारा जहाज़ आ गया!\"",
+          "en": "Papa said, \"Our plane is here!\"",
+          "act": { "move": "talk", "sky": "day", "with": "plane" }
+        },
+        {
+          "word": "plane",
+          "hi": "हम बैठे, पेटी बाँधी, और उड़ चले!",
+          "en": "We sat down, buckled our belts and off we flew!",
+          "act": { "move": "fly-across", "sky": "sky", "fx": ["wind", "sparkles"], "mood": "happy" }
+        }
+      ],
+      "questions": [
+        { "hi": "ऊपर कौन उड़ा?", "en": "What flew up?", "answer": "plane", "options": ["plane", "car", "bus"] },
+        { "hi": "थैले किस पर गए?", "en": "What did the bags go on?", "answer": "bag", "options": ["bag", "bed", "boat"] }
+      ],
+      "level": "kg",
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"हम … अड्डे पहुँचे। कितना बड़ा!\" (हवाई)",
+          "en": "Say this and let your child fill the gap: \"हम … अड्डे पहुँचे। कितना बड़ा!\" (हवाई)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"हम हवाई अड्डे पहुँचे। कितना बड़ा!\")",
+          "en": "Ask: what happened first in the story? (\"We reached the airport. It was so big!\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर हवाई जहाज़ है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the plane and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "हवाई जहाज़ में पेटी क्यों बाँधते हैं?", "en": "Why do we buckle our belts on a plane?" },
+        { "type": "you", "hi": "तुम्हें हवाई जहाज़ से कहाँ जाना अच्छा लगेगा?", "en": "Where would you like to fly to?" }
+      ]
+    },
+    {
+      "id": "k4-school-bus",
+      "title": { "hi": "पीली स्कूल बस", "en": "The yellow school bus" },
+      "cover": "bus",
+      "pages": [
+        { "word": "clock", "hi": "सात बजे! स्कूल बस आने वाली है।", "en": "Seven o'clock! The school bus is coming.", "act": { "move": "spin", "sky": "dawn" } },
+        { "word": "bus", "hi": "पीली बस आई। पीं-पीं!", "en": "The yellow bus came. Beep-beep!", "act": { "move": "drive", "sky": "dawn", "sound": "toot" } },
+        {
+          "word": "boy",
+          "hi": "ड्राइवर अंकल ने कहा, \"नमस्ते, बच्चो!\"",
+          "en": "The driver said, \"Hello, children!\"",
+          "act": { "move": "talk", "sky": "day", "with": "bus", "mood": "happy" }
+        },
+        {
+          "word": "bus",
+          "hi": "बस हर गली से एक दोस्त को लेती गई।",
+          "en": "The bus picked up a friend from every lane.",
+          "act": { "move": "drive", "sky": "field", "fx": "dust" }
+        },
+        {
+          "word": "cow",
+          "hi": "खिड़की से हमने गाय और तोता देखे।",
+          "en": "From the window we saw a cow and a parrot.",
+          "act": { "move": "talk", "sky": "field", "with": "parrot" }
+        },
+        {
+          "word": "school",
+          "hi": "स्कूल आ गया! सबने अपने बस्ते उठाए।",
+          "en": "School! Everyone picked up their school bags.",
+          "act": { "move": "jump", "sky": "day", "with": "bag", "fx": "confetti", "mood": "happy" }
+        }
+      ],
+      "questions": [
+        { "hi": "बस किस रंग की थी?", "en": "What colour was the bus?", "answer": "yellow", "options": ["yellow", "blue", "red"] },
+        {
+          "hi": "आख़िर में बस कहाँ रुकी?",
+          "en": "Where did the bus stop at the end?",
+          "answer": "school",
+          "options": ["school", "place-hospital", "place-airport"]
+        }
+      ],
+      "level": "kg",
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"पीली … आई। पीं-पीं!\" (बस)",
+          "en": "Say this and let your child fill the gap: \"पीली … आई। पीं-पीं!\" (बस)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"सात बजे! स्कूल बस आने वाली है।\")",
+          "en": "Ask: what happened first in the story? (\"Seven o'clock! The school bus is coming.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर बस है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the bus and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "बस हर गली में क्यों रुकी?", "en": "Why did the bus stop in every lane?" },
+        {
+          "type": "you",
+          "hi": "तुम्हें स्कूल कौन ले जाता है, और रास्ते में क्या-क्या दिखता है?",
+          "en": "Who takes you to school, and what do you see on the way?"
+        }
+      ]
+    },
+    {
+      "id": "k4-ambulance",
+      "title": { "hi": "एम्बुलेंस आई, मदद लाई", "en": "The ambulance helps" },
+      "cover": "ambulance",
+      "pages": [
+        {
+          "word": "grandfather",
+          "hi": "पार्क में दादा जी फिसलकर गिर गए। आह!",
+          "en": "Grandpa slipped and fell in the park. Ouch!",
+          "act": { "move": "shake", "sky": "field", "mood": "sad" }
+        },
+        {
+          "word": "girl",
+          "hi": "रिया ने मम्मी को बताया। मम्मी ने एम्बुलेंस बुलाई।",
+          "en": "Riya told Mummy. Mummy called the ambulance.",
+          "act": { "move": "talk", "sky": "field", "with": "mother" }
+        },
+        {
+          "word": "ambulance",
+          "hi": "टी-टू, टी-टू! एम्बुलेंस आई!",
+          "en": "Tee-too, tee-too! The ambulance came!",
+          "act": { "move": "drive", "sky": "field", "fx": "dust", "sound": "siren" }
+        },
+        {
+          "word": "car",
+          "hi": "सबने रास्ता दिया। कारें किनारे हो गईं।",
+          "en": "Everyone made way. The cars moved to the side.",
+          "act": { "move": "drive", "sky": "day", "with": "ambulance" }
+        },
+        {
+          "word": "place-hospital",
+          "hi": "अस्पताल में डॉक्टर दीदी ने पट्टी बाँधी।",
+          "en": "At the hospital, the doctor put on a bandage.",
+          "act": { "move": "float", "sky": "day", "fx": "sparkles" }
+        },
+        {
+          "word": "grandfather",
+          "hi": "दादा जी मुस्कुराए, \"अब मैं ठीक हूँ!\"",
+          "en": "Grandpa smiled. \"I am all right now!\"",
+          "act": { "move": "grow", "sky": "day", "with": "girl", "fx": "hearts", "mood": "happy" }
+        }
+      ],
+      "questions": [
+        { "hi": "टी-टू करके कौन आया?", "en": "What came tee-too?", "answer": "ambulance", "options": ["ambulance", "tractor", "scooter"] },
+        {
+          "hi": "दादा जी की पट्टी कहाँ बँधी?",
+          "en": "Where did Grandpa get his bandage?",
+          "answer": "place-hospital",
+          "options": ["place-hospital", "place-fire", "fair"]
+        }
+      ],
+      "moral": { "hi": "एम्बुलेंस आए, तो उसे रास्ता दो।", "en": "When an ambulance comes, make way for it." },
+      "level": "kg",
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"पार्क में … जी फिसलकर गिर गए। आह!\" (दादा)",
+          "en": "Say this and let your child fill the gap: \"पार्क में … जी फिसलकर गिर गए। आह!\" (दादा)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"पार्क में दादा जी फिसलकर गिर गए। आह!\")",
+          "en": "Ask: what happened first in the story? (\"Grandpa slipped and fell in the park. Ouch!\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर कार है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the car and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "सब कारें किनारे क्यों हो गईं?", "en": "Why did all the cars move to the side?" },
+        { "type": "you", "hi": "जब तुम्हें चोट लगती है, तो कौन मदद करता है?", "en": "When you get hurt, who helps you?" }
+      ]
+    },
+    {
+      "id": "k4-sadak",
+      "title": { "hi": "खुदाई मशीन ने सड़क बनाई", "en": "The digger builds a road" },
+      "cover": "digger",
+      "pages": [
+        {
+          "word": "field",
+          "hi": "गाँव तक कोई सड़क नहीं थी। बस मिट्टी।",
+          "en": "There was no road to the village. Just mud.",
+          "act": { "move": "sway", "sky": "field", "fx": "dust", "mood": "sad" }
+        },
+        {
+          "word": "digger",
+          "hi": "खुदाई मशीन आई और गड्ढे खोदे। घर्र-घर्र!",
+          "en": "The digger came and dug holes. Grrr-grrr!",
+          "act": { "move": "drive", "sky": "field", "fx": "dust", "sound": "vroom" }
+        },
+        {
+          "word": "dumptruck",
+          "hi": "डंपर ने कंकड़ डाले। धड़ाम!",
+          "en": "The dump truck tipped in pebbles. Crash!",
+          "act": { "move": "fall", "sky": "field", "with": "stones", "sound": "thud" }
+        },
+        { "word": "bulldozer", "hi": "बुलडोज़र ने सब बराबर किया।", "en": "The bulldozer made it all flat.", "act": { "move": "drive", "sky": "field", "fx": "dust" } },
+        {
+          "word": "mixer",
+          "hi": "सीमेंट मिक्सर घूमा, घूम-घूम! पक्की सड़क बनी।",
+          "en": "The cement mixer turned round and round! A strong road was made.",
+          "act": { "move": "spin", "sky": "field" }
+        },
+        {
+          "word": "bus",
+          "hi": "अब गाँव तक बस आती है! पीं-पीं!",
+          "en": "Now a bus comes all the way to the village! Beep-beep!",
+          "act": { "move": "drive", "sky": "field", "with": "house", "fx": "confetti", "sound": "toot", "mood": "happy" }
+        }
+      ],
+      "questions": [
+        { "hi": "गड्ढे किसने खोदे?", "en": "What dug the holes?", "answer": "digger", "options": ["digger", "ambulance", "plane"] },
+        { "hi": "अब गाँव तक क्या आती है?", "en": "What comes to the village now?", "answer": "bus", "options": ["bus", "ship", "rocket"] }
+      ],
+      "level": "kg",
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"… मशीन आई और गड्ढे खोदे। घर्र-घर्र!\" (खुदाई)",
+          "en": "Say this and let your child fill the gap: \"… मशीन आई और गड्ढे खोदे। घर्र-घर्र!\" (खुदाई)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"गाँव तक कोई सड़क नहीं थी। बस मिट्टी।\")",
+          "en": "Ask: what happened first in the story? (\"There was no road to the village. Just mud.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर बुलडोज़र है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the bulldozer and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "गाँव वालों को सड़क क्यों चाहिए थी?", "en": "Why did the village need a road?" },
+        { "type": "you", "hi": "तुमने अपने घर के पास कौन सी मशीन काम करते देखी है?", "en": "Which machine have you seen working near your home?" }
+      ]
     }
   ],
   "levels": [
@@ -12166,6 +12719,70 @@
               "icon": "icecreamvan",
               "title": { "hi": "आइसक्रीम गाड़ी", "en": "The ice-cream van" },
               "config": { "story": "k2-icecream" }
+            }
+          ]
+        },
+        {
+          "id": "k-gaadi-kahani",
+          "title": { "hi": "गाड़ियों की कहानियाँ", "en": "Vehicle stories" },
+          "skill": "Listening · Stories",
+          "icon": "firetruck",
+          "lessons": [
+            {
+              "id": "k-gaadi-kahani-1",
+              "game": "story",
+              "icon": "place-fire",
+              "title": { "hi": "दमकल केंद्र का एक दिन", "en": "A day at the fire station" },
+              "config": { "story": "k4-firestation" }
+            },
+            {
+              "id": "k-gaadi-kahani-2",
+              "game": "story",
+              "icon": "garbagetruck",
+              "title": { "hi": "कूड़ा गाड़ी की सुबह", "en": "The garbage truck's morning" },
+              "config": { "story": "k4-kooda" }
+            },
+            {
+              "id": "k-gaadi-kahani-3",
+              "game": "story",
+              "icon": "train",
+              "title": { "hi": "रात की रेलगाड़ी", "en": "The night train" },
+              "config": { "story": "k4-raat-rail" }
+            },
+            {
+              "id": "k-gaadi-kahani-4",
+              "game": "story",
+              "icon": "metro",
+              "title": { "hi": "मेट्रो की सैर", "en": "A ride on the metro" },
+              "config": { "story": "k4-metro" }
+            },
+            {
+              "id": "k-gaadi-kahani-5",
+              "game": "story",
+              "icon": "plane",
+              "title": { "hi": "हवाई अड्डे पर", "en": "At the airport" },
+              "config": { "story": "k4-hawai-adda" }
+            },
+            {
+              "id": "k-gaadi-kahani-6",
+              "game": "story",
+              "icon": "bus",
+              "title": { "hi": "पीली स्कूल बस", "en": "The yellow school bus" },
+              "config": { "story": "k4-school-bus" }
+            },
+            {
+              "id": "k-gaadi-kahani-7",
+              "game": "story",
+              "icon": "ambulance",
+              "title": { "hi": "एम्बुलेंस आई, मदद लाई", "en": "The ambulance helps" },
+              "config": { "story": "k4-ambulance" }
+            },
+            {
+              "id": "k-gaadi-kahani-8",
+              "game": "story",
+              "icon": "digger",
+              "title": { "hi": "खुदाई मशीन ने सड़क बनाई", "en": "The digger builds a road" },
+              "config": { "story": "k4-sadak" }
             }
           ]
         },

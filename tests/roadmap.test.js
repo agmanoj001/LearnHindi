@@ -112,6 +112,7 @@ const DONE = {
   'Local, private usage insight for grown-ups': () => /export function usageInsight/.test(read('js/curriculum.js')) && /function insightView/.test(read('js/parent.js')),
   'Read it aloud and hear yourself': () => /function readBack\(ctx, story, n, narration\)/.test(read('js/games/story.js')) && /readAloud: false/.test(read('js/logic.js')) && /function readAloudView/.test(read('js/parent.js')),
   'Content tooling': () => exists('tools/content-check.mjs') && exists('tools/style-rules.mjs') && /"check-content"/.test(read('package.json')),
+  'Vehicle stories for Kindergarten': () => ['k4-firestation', 'k4-kooda', 'k4-raat-rail', 'k4-metro', 'k4-hawai-adda', 'k4-school-bus', 'k4-ambulance', 'k4-sadak'].every((id) => content.stories.some((s) => s.id === id && s.level === 'kg' && s.talk?.length === 5)) && lessons.filter((l) => l.config?.story?.startsWith('k4-')).length === 8,
   'More maths in Show time': () => ['km-count', 'km-compare', 'km-ten', 'km-shapes', 'km-measure'].every((u) => content.shows.some((s) => s.level === 'kg' && s.lang === 'en' && String(s.lesson).startsWith(u))),
 };
 
