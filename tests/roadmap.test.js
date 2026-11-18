@@ -114,12 +114,12 @@ const DONE = {
   'Content tooling': () => exists('tools/content-check.mjs') && exists('tools/style-rules.mjs') && /"check-content"/.test(read('package.json')),
   'Vehicle stories for Kindergarten': () => ['k4-firestation', 'k4-kooda', 'k4-raat-rail', 'k4-metro', 'k4-hawai-adda', 'k4-school-bus', 'k4-ambulance', 'k4-sadak'].every((id) => content.stories.some((s) => s.id === id && s.level === 'kg' && s.talk?.length === 5)) && lessons.filter((l) => l.config?.story?.startsWith('k4-')).length === 8,
   'Cumulative and call-back folk tales for Kindergarten and Grade 1': () => ['k5-matka', 'k5-chidiya-dana', 'k5-chidiya-kauwa', 'k5-gadha-gaana', 'g1b-chinti-tidda', 'g1b-teen-machhli', 'g1b-bagula', 'g1b-chuha-sher'].every((id) => content.stories.some((s) => s.id === id && s.talk?.length === 5)) && ['heron', 'grasshopper', 'sage'].every((w) => content.words[w]),
+  'More decodable books for Grade 1': () => content.stories.filter((s) => s.decodable != null).length >= 28 && content.stories.some((s) => s.decodable === 5),
   'More maths in Show time': () => ['km-count', 'km-compare', 'km-ten', 'km-shapes', 'km-measure'].every((u) => content.shows.some((s) => s.level === 'kg' && s.lang === 'en' && String(s.lesson).startsWith(u))),
 };
 
 // title of an open row -> a sign in the code that it has been built (then its row must be ✅)
 const WATCH = {
-  'More decodable books for Grade 1': () => content.stories.filter((s) => s.decodable != null).length >= 25,
   // the maths lines go into the voice pack (today only the fixed lessons' lines do)
   'Google voice for every word the app says': () => /mathgen/.test(read('js/logic.js') + read('tools/make-voices.mjs')),
 };

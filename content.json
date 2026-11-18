@@ -12258,6 +12258,738 @@
           "en": "Who has helped you the most? How can we say thank you?"
         }
       ]
+    },
+    {
+      "id": "dec0-bas",
+      "title": { "hi": "बस, चल!", "en": "Bus, go!" },
+      "cover": "bus",
+      "pages": [
+        { "word": "bus", "hi": "बस, चल!", "en": "Bus, go!", "act": { "move": "drive", "sky": "field", "sound": "toot" } },
+        { "word": "bus", "hi": "बस, सड़क पर चल।", "en": "Bus, go along the road.", "act": { "move": "drive", "sky": "field", "fx": "dust" } },
+        { "word": "house", "hi": "बस, घर पर ठहर।", "en": "Bus, stop at the house.", "act": { "move": "float", "sky": "day", "with": "bus" } },
+        { "word": "boy", "hi": "अमन, बस पर चढ़!", "en": "Aman, get on the bus!", "act": { "move": "jump", "sky": "day", "with": "bus" } },
+        { "word": "bus", "hi": "बस, सरपट चल!", "en": "Bus, go fast!", "act": { "move": "drive", "sky": "sky", "fx": "wind", "sound": "whoosh" } }
+      ],
+      "questions": [
+        { "hi": "बस कहाँ ठहरी?", "en": "Where did the bus stop?", "answer": "house", "options": ["house", "tree", "river"] },
+        { "hi": "बस पर कौन चढ़ा?", "en": "Who got on the bus?", "answer": "boy", "options": ["boy", "cow", "lion"] }
+      ],
+      "level": "grade1",
+      "decodable": 0,
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"… सड़क पर चल।\" (बस)",
+          "en": "Say this and let your child fill the gap: \"… सड़क पर चल।\" (बस)"
+        },
+        { "type": "recall", "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"बस, चल!\")", "en": "Ask: what happened first in the story? (\"Bus, go!\")" },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर घर है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the house and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "बस घर पर क्यों ठहरी?", "en": "Why did the bus stop at the house?" },
+        { "type": "you", "hi": "तुम्हें बस में खिड़की वाली सीट अच्छी लगती है? क्यों?", "en": "Do you like the window seat on a bus? Why?" }
+      ]
+    },
+    {
+      "id": "dec0-batakh",
+      "title": { "hi": "बतख, चल", "en": "Duck, go" },
+      "cover": "duck",
+      "pages": [
+        { "word": "duck", "hi": "बतख, नहर पर चल।", "en": "Duck, go to the canal.", "act": { "move": "walk", "sky": "river" } },
+        { "word": "duck", "hi": "बतख, छपक-छपक कर।", "en": "Duck, splash splash.", "act": { "move": "jump", "sky": "river", "fx": "splash" } },
+        { "word": "duck", "hi": "बतख, जल पर बह।", "en": "Duck, float on the water.", "act": { "move": "float", "sky": "river", "fx": "bubbles" } },
+        { "word": "rain", "hi": "अब बरस, बरस, बरस!", "en": "Now pour, pour, pour!", "act": { "move": "shake", "sky": "rain", "fx": "rain" } },
+        { "word": "duck", "hi": "बतख, अब घर चल।", "en": "Duck, now go home.", "act": { "move": "walk", "sky": "home" } }
+      ],
+      "questions": [
+        { "hi": "बतख कहाँ गई?", "en": "Where did the duck go?", "answer": "river", "options": ["river", "school", "tree"] },
+        { "hi": "छपक-छपक किसने की?", "en": "Who went splash splash?", "answer": "duck", "options": ["duck", "cat", "bus"] }
+      ],
+      "level": "grade1",
+      "decodable": 0,
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा पूरा करे: \"बतख, नहर पर …\" (चल)",
+          "en": "Say this and let your child finish it: \"बतख, नहर पर …\" (चल)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"बतख, नहर पर चल।\")",
+          "en": "Ask: what happened first in the story? (\"Duck, go to the canal.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर बत्तख है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the duck and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "बारिश आई तो बतख घर क्यों चली?", "en": "Why did the duck go home when the rain came?" },
+        { "type": "you", "hi": "तुम्हें पानी में छप-छप करना अच्छा लगता है?", "en": "Do you like splashing in water?" }
+      ]
+    },
+    {
+      "id": "dec0-phal",
+      "title": { "hi": "फल चख", "en": "Taste the fruit" },
+      "cover": "fruit",
+      "pages": [
+        { "word": "fruit", "hi": "फल, फल, फल!", "en": "Fruit, fruit, fruit!", "act": { "move": "grow", "sky": "field", "fx": "sparkles" } },
+        { "word": "fruit", "hi": "अमन, यह फल चख।", "en": "Aman, taste this fruit.", "act": { "move": "talk", "sky": "field", "with": "boy" } },
+        { "word": "banana", "hi": "कमल, यह फल चख।", "en": "Kamal, taste this fruit.", "act": { "move": "talk", "sky": "field", "with": "girl" } },
+        { "word": "grapes", "hi": "सब, यह फल चख।", "en": "Everyone, taste this fruit.", "act": { "move": "dance", "sky": "field", "fx": "hearts" } },
+        { "word": "house", "hi": "अब सब घर चल।", "en": "Now everyone, go home.", "act": { "move": "walk", "sky": "home" } }
+      ],
+      "questions": [
+        { "hi": "अमन ने क्या चखा?", "en": "What did Aman taste?", "answer": "fruit", "options": ["fruit", "stone", "shoe"] },
+        { "hi": "कमल ने कौन सा फल चखा?", "en": "Which fruit did Kamal taste?", "answer": "banana", "options": ["banana", "mango", "grapes"] }
+      ],
+      "level": "grade1",
+      "decodable": 0,
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"… फल, फल!\" (फल)",
+          "en": "Say this and let your child fill the gap: \"… फल, फल!\" (फल)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"फल, फल, फल!\")",
+          "en": "Ask: what happened first in the story? (\"Fruit, fruit, fruit!\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर केला है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the banana and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "सबने मिलकर फल क्यों चखा?", "en": "Why did everyone taste the fruit together?" },
+        { "type": "you", "hi": "तुम्हें कौन सा फल सबसे अच्छा लगता है?", "en": "Which fruit do you like best?" }
+      ]
+    },
+    {
+      "id": "dec1-gaadi",
+      "title": { "hi": "मीना की गाड़ी", "en": "Meena's car" },
+      "cover": "car",
+      "pages": [
+        { "word": "car", "hi": "मीना की लाल गाड़ी।", "en": "Meena's red car.", "act": { "move": "enter", "sky": "field" } },
+        { "word": "car", "hi": "गाड़ी चली, नदी तक।", "en": "The car went, up to the river.", "act": { "move": "drive", "sky": "river", "fx": "dust" } },
+        { "word": "car", "hi": "गाड़ी चली, बाग तक।", "en": "The car went, up to the garden.", "act": { "move": "drive", "sky": "field", "fx": "leaves" } },
+        { "word": "car", "hi": "गाड़ी चली, दादी तक।", "en": "The car went, up to Grandma.", "act": { "move": "drive", "sky": "home", "with": "grandmother" } },
+        { "word": "grandmother", "hi": "दादी ताली बजा कर नाची।", "en": "Grandma clapped and danced.", "act": { "move": "dance", "sky": "home", "fx": "hearts" } }
+      ],
+      "questions": [
+        { "hi": "गाड़ी किसकी थी?", "en": "Whose car was it?", "answer": "girl", "options": ["girl", "king", "cat"] },
+        {
+          "hi": "आख़िर में गाड़ी किसके पास पहुँची?",
+          "en": "Who did the car reach at the end?",
+          "answer": "grandmother",
+          "options": ["grandmother", "lion", "farmer"]
+        }
+      ],
+      "level": "grade1",
+      "decodable": 1,
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"… ताली बजा कर नाची।\" (दादी)",
+          "en": "Say this and let your child fill the gap: \"… ताली बजा कर नाची।\" (दादी)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"मीना की लाल गाड़ी।\")",
+          "en": "Ask: what happened first in the story? (\"Meena's red car.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर कार है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the car and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "मीना को देखकर दादी ने ताली क्यों बजाई?", "en": "Why did Grandma clap when she saw Meena?" },
+        { "type": "you", "hi": "तुम्हें गाड़ी से किसके घर जाना अच्छा लगेगा?", "en": "Whose house would you like to drive to?" }
+      ]
+    },
+    {
+      "id": "dec1-chidiya",
+      "title": { "hi": "चिड़िया आई", "en": "The sparrow came" },
+      "cover": "bird",
+      "pages": [
+        { "word": "bird", "hi": "एक चिड़िया आई।", "en": "A sparrow came.", "act": { "move": "fly-across", "sky": "sky" } },
+        { "word": "grain", "hi": "चिड़िया आई, दाना लाई।", "en": "The sparrow came and brought a grain.", "act": { "move": "jump", "sky": "field", "with": "grain" } },
+        {
+          "word": "grass",
+          "hi": "चिड़िया आई, घास लाई।",
+          "en": "The sparrow came and brought some grass.",
+          "act": { "move": "fly-up", "sky": "day", "with": "grass" }
+        },
+        {
+          "word": "sticks",
+          "hi": "चिड़िया आई, तिनका लाई।",
+          "en": "The sparrow came and brought a straw.",
+          "act": { "move": "fly-across", "sky": "sky", "with": "sticks" }
+        },
+        {
+          "word": "tree",
+          "hi": "पीपल पर चिड़िया का नया घर!",
+          "en": "A new home for the sparrow in the peepal tree!",
+          "act": { "move": "grow", "sky": "field", "fx": "sparkles" }
+        }
+      ],
+      "questions": [
+        { "hi": "चिड़िया पहले क्या लाई?", "en": "What did the sparrow bring first?", "answer": "grain", "options": ["grain", "stone", "shoe"] },
+        { "hi": "चिड़िया का घर कहाँ बना?", "en": "Where was the sparrow’s home?", "answer": "tree", "options": ["tree", "bus", "well"] }
+      ],
+      "level": "grade1",
+      "decodable": 1,
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"एक … आई।\" (चिड़िया)",
+          "en": "Say this and let your child fill the gap: \"एक … आई।\" (चिड़िया)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"एक चिड़िया आई।\")",
+          "en": "Ask: what happened first in the story? (\"A sparrow came.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर घास है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the grass and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "चिड़िया तिनके क्यों ला रही थी?", "en": "Why was the sparrow bringing straws?" },
+        {
+          "type": "you",
+          "hi": "अपना छोटा-सा घर हो, तो उसमें क्या-क्या रखना है? बताओ!",
+          "en": "If you built your own little home, what would you put in it?"
+        }
+      ]
+    },
+    {
+      "id": "dec1-mitha",
+      "title": { "hi": "मीठा, मीठा!", "en": "Sweet, sweet!" },
+      "cover": "kheer",
+      "pages": [
+        { "word": "mango", "hi": "आम मीठा!", "en": "The mango is sweet!", "act": { "move": "grow", "sky": "field", "fx": "sparkles" } },
+        { "word": "carrot", "hi": "गाजर मीठी!", "en": "The carrot is sweet!", "act": { "move": "grow", "sky": "day" } },
+        { "word": "kheer", "hi": "खीर मीठी!", "en": "The kheer is sweet!", "act": { "move": "float", "sky": "home", "fx": "steam" } },
+        { "word": "tea", "hi": "चाय मीठी!", "en": "The tea is sweet!", "act": { "move": "float", "sky": "day", "fx": "steam" } },
+        { "word": "girl", "hi": "मीना हाथ हिला कर नाची!", "en": "Meena waved her hands and danced!", "act": { "move": "dance", "sky": "home", "fx": "hearts" } }
+      ],
+      "questions": [
+        { "hi": "सबसे पहले क्या मीठा था?", "en": "What was sweet first?", "answer": "mango", "options": ["mango", "salt", "stone"] },
+        { "hi": "खीर कैसी थी?", "en": "What was the kheer like?", "answer": "मीठी", "options": ["मीठी", "खट्टी", "कड़वी"], "text": true }
+      ],
+      "level": "grade1",
+      "decodable": 1,
+      "talk": [
+        { "type": "complete", "hi": "यह बोलिए, बच्चा पूरा करे: \"आम …\" (मीठा)", "en": "Say this and let your child finish it: \"आम …\" (मीठा)" },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"आम मीठा!\")",
+          "en": "Ask: what happened first in the story? (\"The mango is sweet!\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर खीर है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the kheer and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "मीना ख़ुश होकर क्यों नाची?", "en": "Why did Meena dance with joy?" },
+        { "type": "you", "hi": "तुम्हें कौन सी मीठी चीज़ सबसे अच्छी लगती है?", "en": "Which sweet thing do you like best?" }
+      ]
+    },
+    {
+      "id": "dec2-bulbul",
+      "title": { "hi": "बुलबुल उड़ी", "en": "The bulbul flew" },
+      "cover": "bird",
+      "pages": [
+        { "word": "bird", "hi": "एक बुलबुल थी।", "en": "There was a bulbul.", "act": { "move": "enter", "sky": "field" } },
+        { "word": "tree", "hi": "बुलबुल उड़ी, नीम पर।", "en": "The bulbul flew to the neem tree.", "act": { "move": "fly-up", "sky": "sky", "with": "tree" } },
+        { "word": "house", "hi": "बुलबुल उड़ी, छत पर।", "en": "The bulbul flew to the roof.", "act": { "move": "fly-across", "sky": "day", "with": "house" } },
+        { "word": "river", "hi": "बुलबुल उड़ी, नदी पर।", "en": "The bulbul flew over the river.", "act": { "move": "fly-across", "sky": "river" } },
+        {
+          "word": "bird",
+          "hi": "रात हुई। बुलबुल फिर नीम पर।",
+          "en": "Night came. The bulbul was back in the neem tree.",
+          "act": { "move": "sleep", "sky": "night", "fx": "stars" }
+        }
+      ],
+      "questions": [
+        { "hi": "बुलबुल सबसे पहले कहाँ उड़ी?", "en": "Where did the bulbul fly first?", "answer": "tree", "options": ["tree", "bus", "school"] },
+        { "hi": "कौन उड़ी?", "en": "Who flew?", "answer": "bird", "options": ["bird", "cat", "car"] }
+      ],
+      "level": "grade1",
+      "decodable": 2,
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"बुलबुल उड़ी, … पर।\" (नदी)",
+          "en": "Say this and let your child fill the gap: \"बुलबुल उड़ी, … पर।\" (नदी)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"एक बुलबुल थी।\")",
+          "en": "Ask: what happened first in the story? (\"There was a bulbul.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर घर है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the house and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "रात को बुलबुल नीम पर क्यों लौटी?", "en": "Why did the bulbul go back to the neem tree at night?" },
+        { "type": "you", "hi": "तुम्हारे घर के पास कौन सी चिड़िया आती है?", "en": "Which bird comes near your home?" }
+      ]
+    },
+    {
+      "id": "dec2-aalu",
+      "title": { "hi": "आलू, आलू!", "en": "Potato, potato!" },
+      "cover": "potato",
+      "pages": [
+        { "word": "potato", "hi": "दादी लाई आलू।", "en": "Grandma brought potatoes.", "act": { "move": "enter", "sky": "home", "with": "grandmother" } },
+        { "word": "potato", "hi": "आलू का सूप।", "en": "Potato soup.", "act": { "move": "float", "sky": "home", "fx": "steam" } },
+        { "word": "roti", "hi": "आलू की पूरी।", "en": "Potato puris.", "act": { "move": "grow", "sky": "home" } },
+        { "word": "potato", "hi": "आलू की चाट।", "en": "Potato chaat.", "act": { "move": "grow", "sky": "day", "fx": "sparkles" } },
+        { "word": "boy", "hi": "राजू सब चख कर ख़ुश!", "en": "Raju tasted it all and was happy!", "act": { "move": "dance", "sky": "home", "fx": "hearts" } }
+      ],
+      "questions": [
+        { "hi": "दादी क्या लाई?", "en": "What did Grandma bring?", "answer": "potato", "options": ["potato", "book", "ball"] },
+        { "hi": "राजू कैसा था?", "en": "How was Raju?", "answer": "ख़ुश", "options": ["ख़ुश", "दुखी", "थका"], "text": true }
+      ],
+      "level": "grade1",
+      "decodable": 2,
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"दादी लाई …\" (आलू)",
+          "en": "Say this and let your child fill the gap: \"दादी लाई …\" (आलू)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"दादी लाई आलू।\")",
+          "en": "Ask: what happened first in the story? (\"Grandma brought potatoes.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर रोटी है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the roti and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "आलू इतनी चीज़ों में क्यों डाला?", "en": "Why did the potato go into so many dishes?" },
+        { "type": "you", "hi": "तुम्हें आलू से बनी कौन सी चीज़ सबसे अच्छी लगती है?", "en": "What do you like best that is made with potato?" }
+      ]
+    },
+    {
+      "id": "dec2-suraj",
+      "title": { "hi": "सूरज उगा", "en": "The sun came up" },
+      "cover": "sun",
+      "pages": [
+        { "word": "sun", "hi": "सूरज उगा।", "en": "The sun came up.", "act": { "move": "peek", "sky": "dawn", "fx": "glow" } },
+        { "word": "rooster", "hi": "कुकड़ू कू! सूरज उगा।", "en": "Cock-a-doodle-doo! The sun is up.", "act": { "move": "jump", "sky": "dawn" } },
+        { "word": "cow", "hi": "सूरज उगा, गाय जागी।", "en": "The sun came up, the cow woke.", "act": { "move": "peek", "sky": "field", "with": "cow" } },
+        { "word": "bird", "hi": "सूरज उगा, बुलबुल जागी।", "en": "The sun came up, the bulbul woke.", "act": { "move": "fly-up", "sky": "sky" } },
+        { "word": "boy", "hi": "सूरज उगा, राजू जागा।", "en": "The sun came up, Raju woke.", "act": { "move": "peek", "sky": "home", "fx": "glow" } }
+      ],
+      "questions": [
+        { "hi": "सबसे पहले क्या उगा?", "en": "What came up first?", "answer": "sun", "options": ["sun", "moon", "tree"] },
+        { "hi": "कौन जागी?", "en": "Who woke up?", "answer": "cow", "options": ["cow", "bus", "pen"] }
+      ],
+      "level": "grade1",
+      "decodable": 2,
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"सूरज उगा, … जागी।\" (गाय)",
+          "en": "Say this and let your child fill the gap: \"सूरज उगा, … जागी।\" (गाय)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"सूरज उगा।\")",
+          "en": "Ask: what happened first in the story? (\"The sun came up.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर गाय है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the cow and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "सूरज उगते ही सब क्यों जाग गए?", "en": "Why did everyone wake when the sun came up?" },
+        { "type": "you", "hi": "सुबह उठकर तुम्हें सबसे पहले क्या करना अच्छा लगता है?", "en": "What do you like to do first in the morning?" }
+      ]
+    },
+    {
+      "id": "dec3-rel",
+      "title": { "hi": "रेल चली", "en": "The train went" },
+      "cover": "train",
+      "pages": [
+        { "word": "train", "hi": "रेल चली, छुक-छुक!", "en": "The train went chug-chug!", "act": { "move": "drive", "sky": "field", "sound": "toot" } },
+        { "word": "river", "hi": "रेल चली, शहर से नदी तक।", "en": "The train went from the town to the river.", "act": { "move": "drive", "sky": "river" } },
+        {
+          "word": "mountain",
+          "hi": "रेल चली, नदी से पहाड़ तक।",
+          "en": "The train went from the river to the mountain.",
+          "act": { "move": "climb", "sky": "field", "with": "mountain" }
+        },
+        {
+          "word": "fair",
+          "hi": "रेल चली, पहाड़ से मेले तक।",
+          "en": "The train went from the mountain to the fair.",
+          "act": { "move": "drive", "sky": "day", "with": "fair" }
+        },
+        {
+          "word": "girl",
+          "hi": "मेले पर रेल रुकी। सब नीचे उतरे।",
+          "en": "At the fair the train stopped. Everyone got off.",
+          "act": { "move": "jump", "sky": "day", "fx": "confetti" }
+        }
+      ],
+      "questions": [
+        { "hi": "पहाड़ के बाद रेल कहाँ गई?", "en": "Where did the train go after the mountain?", "answer": "fair", "options": ["fair", "school", "river"] },
+        { "hi": "रेल कैसे चली?", "en": "How did the train go?", "answer": "छुक-छुक", "options": ["छुक-छुक", "टन-टन", "चूँ-चूँ"], "text": true }
+      ],
+      "level": "grade1",
+      "decodable": 3,
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"रेल चली, शहर से … तक।\" (नदी)",
+          "en": "Say this and let your child fill the gap: \"रेल चली, शहर से … तक।\" (नदी)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"रेल चली, छुक-छुक!\")",
+          "en": "Ask: what happened first in the story? (\"The train went chug-chug!\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर पहाड़ है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the mountain and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "रेल मेले में क्यों रुकी?", "en": "Why did the train stop at the fair?" },
+        { "type": "you", "hi": "तुम्हें रेल से कहाँ तक जाना अच्छा लगेगा? बताओ!", "en": "If you got on a train, where would you go? Tell me!" }
+      ]
+    },
+    {
+      "id": "dec3-kele",
+      "title": { "hi": "पीले केले", "en": "Yellow bananas" },
+      "cover": "bananas",
+      "pages": [
+        { "word": "bananas", "hi": "ठेले पर केले।", "en": "Bananas on a cart.", "act": { "move": "drive", "sky": "day" } },
+        { "word": "bananas", "hi": "केले, केले, पीले केले!", "en": "Bananas, bananas, yellow bananas!", "act": { "move": "dance", "sky": "day", "fx": "music" } },
+        { "word": "bear", "hi": "एक भालू आया। केले देखे।", "en": "A bear came. He saw the bananas.", "act": { "move": "enter", "sky": "day", "with": "bananas" } },
+        { "word": "bear", "hi": "भालू ने एक केला लिया।", "en": "The bear took one banana.", "act": { "move": "talk", "sky": "day", "with": "bananas" } },
+        { "word": "bear", "hi": "भालू ने पैसे दिए!", "en": "The bear paid for it!", "act": { "move": "jump", "sky": "day", "fx": "sparkles" } }
+      ],
+      "questions": [
+        { "hi": "ठेले पर क्या था?", "en": "What was on the cart?", "answer": "bananas", "options": ["bananas", "books", "shoes"] },
+        { "hi": "केला किसने लिया?", "en": "Who took a banana?", "answer": "bear", "options": ["bear", "cow", "duck"] }
+      ],
+      "level": "grade1",
+      "decodable": 3,
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"ठेले पर …\" (केले)",
+          "en": "Say this and let your child fill the gap: \"ठेले पर …\" (केले)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"ठेले पर केले।\")",
+          "en": "Ask: what happened first in the story? (\"Bananas on a cart.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर भालू है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the bear and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "भालू ने केले के पैसे क्यों दिए?", "en": "Why did the bear pay for the banana?" },
+        { "type": "you", "hi": "तुमने कभी दुकान से कुछ ख़रीदा है? क्या?", "en": "Have you ever bought something from a shop? What?" }
+      ]
+    },
+    {
+      "id": "dec3-badal",
+      "title": { "hi": "बादल बरसे", "en": "The clouds poured" },
+      "cover": "cloud",
+      "pages": [
+        { "word": "cloud", "hi": "काले बादल आए।", "en": "Dark clouds came.", "act": { "move": "float", "sky": "sky" } },
+        { "word": "cloud", "hi": "बादल गरजे, गड़-गड़!", "en": "The clouds rumbled!", "act": { "move": "shake", "sky": "rain", "fx": "rain" } },
+        {
+          "word": "rain",
+          "hi": "बादल बरसे, छम-छम!",
+          "en": "The clouds poured, pitter-patter!",
+          "act": { "move": "shake", "sky": "rain", "fx": "rain", "sound": "rain" }
+        },
+        { "word": "boy", "hi": "सब कूदे, छप-छप!", "en": "Everyone jumped, splish-splash!", "act": { "move": "jump", "sky": "rain", "fx": ["rain", "splash"] } },
+        { "word": "boat", "hi": "मीना ने काग़ज़ की नाव तैराई।", "en": "Meena floated a paper boat.", "act": { "move": "float", "sky": "river", "fx": "rain" } }
+      ],
+      "questions": [
+        { "hi": "छम-छम कौन बरसे?", "en": "What poured pitter-patter?", "answer": "cloud", "options": ["cloud", "sun", "moon"] },
+        { "hi": "मीना की नाव किससे बनी थी?", "en": "What was Meena’s boat made of?", "answer": "काग़ज़", "options": ["काग़ज़", "लकड़ी", "पत्थर"], "text": true }
+      ],
+      "level": "grade1",
+      "decodable": 3,
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"काले … आए।\" (बादल)",
+          "en": "Say this and let your child fill the gap: \"काले … आए।\" (बादल)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"काले बादल आए।\")",
+          "en": "Ask: what happened first in the story? (\"Dark clouds came.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर बारिश है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the rain and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "बादल गरजे तो बारिश क्यों आई?", "en": "Why did the rain come after the clouds rumbled?" },
+        { "type": "you", "hi": "बारिश में तुम्हें क्या करना सबसे अच्छा लगता है?", "en": "What do you like doing best in the rain?" }
+      ]
+    },
+    {
+      "id": "dec4-bola",
+      "title": { "hi": "कौन बोला?", "en": "Who said that?" },
+      "cover": "peacock",
+      "pages": [
+        { "word": "peacock", "hi": "मोर बोला, पीहू-पीहू!", "en": "The peacock said, pee-hoo!", "act": { "move": "dance", "sky": "field", "fx": "music" } },
+        { "word": "parrot", "hi": "तोता बोला, मीठू-मीठू!", "en": "The parrot said, mithu-mithu!", "act": { "move": "talk", "sky": "field" } },
+        { "word": "dog", "hi": "मोती बोला, भौ-भौ!", "en": "Moti the dog said, woof-woof!", "act": { "move": "jump", "sky": "home" } },
+        { "word": "goat", "hi": "बकरी बोली, मे-मे!", "en": "The goat said, meh-meh!", "act": { "move": "talk", "sky": "field" } },
+        { "word": "boy", "hi": "सोनू बोला, सब को राम-राम!", "en": "Sonu said hello to everyone!", "act": { "move": "dance", "sky": "field", "fx": "hearts" } }
+      ],
+      "questions": [
+        { "hi": "पीहू-पीहू कौन बोला?", "en": "Who said pee-hoo?", "answer": "peacock", "options": ["peacock", "dog", "goat"] },
+        { "hi": "भौ-भौ कौन बोला?", "en": "Who said woof-woof?", "answer": "dog", "options": ["dog", "parrot", "goat"] }
+      ],
+      "level": "grade1",
+      "decodable": 4,
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"… बोला, पीहू-पीहू!\" (मोर)",
+          "en": "Say this and let your child fill the gap: \"… बोला, पीहू-पीहू!\" (मोर)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"मोर बोला, पीहू-पीहू!\")",
+          "en": "Ask: what happened first in the story? (\"The peacock said, pee-hoo!\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर कुत्ता है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the dog and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "सोनू ने सबको राम-राम क्यों कहा?", "en": "Why did Sonu say hello to everyone?" },
+        { "type": "you", "hi": "किसी जानवर की आवाज़ निकालकर सुनाओ!", "en": "Which animal sound can you make? Let me hear it!" }
+      ]
+    },
+    {
+      "id": "dec4-gol",
+      "title": { "hi": "रोटी गोल", "en": "The roti is round" },
+      "cover": "roti",
+      "pages": [
+        { "word": "roti", "hi": "रोटी गोल।", "en": "The roti is round.", "act": { "move": "spin", "sky": "home" } },
+        { "word": "wheel", "hi": "रोटी गोल, पहिया गोल।", "en": "The roti is round, the wheel is round.", "act": { "move": "roll", "sky": "field" } },
+        { "word": "sun", "hi": "रोटी गोल, सूरज गोल।", "en": "The roti is round, the sun is round.", "act": { "move": "peek", "sky": "dawn", "fx": "glow" } },
+        { "word": "clock", "hi": "रोटी गोल, घड़ी गोल।", "en": "The roti is round, the clock is round.", "act": { "move": "spin", "sky": "day" } },
+        { "word": "boy", "hi": "सोनू बोला, \"मेरी रोटी दो!\"", "en": "Sonu said, \"Give me my roti!\"", "act": { "move": "talk", "sky": "home", "with": "roti" } }
+      ],
+      "questions": [
+        { "hi": "इनमें से कौन गोल था?", "en": "Which of these was round?", "answer": "wheel", "options": ["wheel", "book", "door"] },
+        { "hi": "सोनू ने क्या माँगा?", "en": "What did Sonu ask for?", "answer": "roti", "options": ["roti", "milk", "tea"] }
+      ],
+      "level": "grade1",
+      "decodable": 4,
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"रोटी गोल, … गोल।\" (पहिया)",
+          "en": "Say this and let your child fill the gap: \"रोटी गोल, … गोल।\" (पहिया)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"रोटी गोल।\")",
+          "en": "Ask: what happened first in the story? (\"The roti is round.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर सूरज है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the sun and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "सोनू को आख़िर में रोटी क्यों चाहिए थी?", "en": "Why did Sonu want the roti at the end?" },
+        { "type": "you", "hi": "तुम्हारे कमरे में कौन-कौन सी चीज़ें गोल हैं? ढूँढो!", "en": "What round things are in your room? Find them!" }
+      ]
+    },
+    {
+      "id": "dec4-naav",
+      "title": { "hi": "छोटी नाव", "en": "The little boat" },
+      "cover": "boat",
+      "pages": [
+        { "word": "boat", "hi": "एक छोटी नाव।", "en": "A little boat.", "act": { "move": "float", "sky": "river" } },
+        { "word": "boat", "hi": "नाव चली, पूरब की ओर।", "en": "The boat went to the east.", "act": { "move": "float", "sky": "river", "fx": "wind" } },
+        { "word": "fish", "hi": "नाव के नीचे मछली। छपाक!", "en": "Under the boat, a fish. Splash!", "act": { "move": "swim", "sky": "underwater", "fx": "bubbles" } },
+        { "word": "boat", "hi": "नाव चली, किनारे की ओर।", "en": "The boat went to the shore.", "act": { "move": "float", "sky": "day" } },
+        {
+          "word": "boy",
+          "hi": "किनारे पर सोनू और मोहन। हाथ हिलाओ!",
+          "en": "Sonu and Mohan on the shore. Wave!",
+          "act": { "move": "dance", "sky": "field", "fx": "hearts" }
+        }
+      ],
+      "questions": [
+        { "hi": "नाव के नीचे क्या था?", "en": "What was under the boat?", "answer": "fish", "options": ["fish", "car", "cat"] },
+        { "hi": "किनारे पर कौन थे?", "en": "Who was on the shore?", "answer": "boy", "options": ["boy", "lion", "king"] }
+      ],
+      "level": "grade1",
+      "decodable": 4,
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"एक छोटी …\" (नाव)",
+          "en": "Say this and let your child fill the gap: \"एक छोटी …\" (नाव)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"एक छोटी नाव।\")",
+          "en": "Ask: what happened first in the story? (\"A little boat.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर मछली है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the fish and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "सोनू और मोहन हाथ क्यों हिला रहे थे?", "en": "Why were Sonu and Mohan waving?" },
+        { "type": "you", "hi": "तुम्हें किनारे से किसे हाथ हिलाकर बुलाना अच्छा लगता है?", "en": "Who do you like to wave to from far away?" }
+      ]
+    },
+    {
+      "id": "dec5-chaand",
+      "title": { "hi": "चाँद आया", "en": "The moon came out" },
+      "cover": "moon",
+      "pages": [
+        { "word": "moon", "hi": "रात हुई। चाँद आया।", "en": "Night came. The moon came out.", "act": { "move": "peek", "sky": "night", "fx": "stars" } },
+        { "word": "moon", "hi": "चाँद चमका, तारे चमके।", "en": "The moon shone, the stars shone.", "act": { "move": "float", "sky": "night", "fx": "stars" } },
+        { "word": "frog", "hi": "चाँद जागा, मेंढक जागा।", "en": "The moon was awake, the frog was awake.", "act": { "move": "jump", "sky": "night" } },
+        {
+          "word": "boy",
+          "hi": "चाँद बोला, \"सो जाओ, सोनू!\"",
+          "en": "The moon said, \"Go to sleep, Sonu!\"",
+          "act": { "move": "sleep", "sky": "night", "fx": "zzz" }
+        },
+        { "word": "moon", "hi": "चाँद हँसा। सब सो गए।", "en": "The moon smiled. Everyone fell asleep.", "act": { "move": "float", "sky": "night", "fx": "zzz" } }
+      ],
+      "questions": [
+        { "hi": "रात को कौन आया?", "en": "Who came out at night?", "answer": "moon", "options": ["moon", "sun", "rain"] },
+        { "hi": "चाँद के साथ कौन जागा?", "en": "Who was awake with the moon?", "answer": "frog", "options": ["frog", "cow", "bus"] }
+      ],
+      "level": "grade1",
+      "decodable": 5,
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"रात हुई। … आया।\" (चाँद)",
+          "en": "Say this and let your child fill the gap: \"रात हुई। … आया।\" (चाँद)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"रात हुई। चाँद आया।\")",
+          "en": "Ask: what happened first in the story? (\"Night came. The moon came out.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर मेंढक है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the frog and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "चाँद ने सोनू को सोने को क्यों कहा?", "en": "Why did the moon tell Sonu to sleep?" },
+        { "type": "you", "hi": "रात को खिड़की से तुम्हें क्या-क्या दिखता है?", "en": "What can you see from your window at night?" }
+      ]
+    },
+    {
+      "id": "dec5-bandar",
+      "title": { "hi": "बंदर ने खाया", "en": "The monkey ate" },
+      "cover": "monkey",
+      "pages": [
+        { "word": "monkey", "hi": "एक बंदर था।", "en": "There was a monkey.", "act": { "move": "enter", "sky": "field" } },
+        { "word": "banana", "hi": "बंदर ने केला खाया। हम-हम!", "en": "The monkey ate a banana. Yum!", "act": { "move": "talk", "sky": "field", "with": "banana" } },
+        { "word": "mango", "hi": "बंदर ने आम खाया।", "en": "The monkey ate a mango.", "act": { "move": "talk", "sky": "day", "with": "mango" } },
+        { "word": "grapes", "hi": "बंदर ने अंगूर खाए।", "en": "The monkey ate some grapes.", "act": { "move": "talk", "sky": "field", "with": "grapes" } },
+        {
+          "word": "monkey",
+          "hi": "बंदर का पेट भर गया। वह सो गया!",
+          "en": "The monkey’s tummy was full. He fell asleep!",
+          "act": { "move": "sleep", "sky": "field", "fx": "zzz" }
+        }
+      ],
+      "questions": [
+        { "hi": "बंदर ने सबसे पहले क्या खाया?", "en": "What did the monkey eat first?", "answer": "banana", "options": ["banana", "mango", "grapes"] },
+        { "hi": "किसने केला खाया?", "en": "Who ate a banana?", "answer": "monkey", "options": ["monkey", "cow", "fish"] }
+      ],
+      "level": "grade1",
+      "decodable": 5,
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"एक … था।\" (बंदर)",
+          "en": "Say this and let your child fill the gap: \"एक … था।\" (बंदर)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"एक बंदर था।\")",
+          "en": "Ask: what happened first in the story? (\"There was a monkey.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर आम है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the mango and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "बंदर को नींद क्यों आ गई?", "en": "Why did the monkey fall asleep?" },
+        { "type": "you", "hi": "तुम्हें पेट भरकर खाने के बाद कैसा लगता है?", "en": "How do you feel after a big meal?" }
+      ]
+    },
+    {
+      "id": "dec5-patang",
+      "title": { "hi": "पतंग उड़ी", "en": "The kite flew" },
+      "cover": "kite",
+      "pages": [
+        { "word": "kite", "hi": "मंगल की लाल पतंग।", "en": "Mangal's red kite.", "act": { "move": "enter", "sky": "field" } },
+        { "word": "kite", "hi": "पतंग उड़ी, पेड़ तक!", "en": "The kite flew up to the tree!", "act": { "move": "fly-up", "sky": "sky", "with": "tree" } },
+        { "word": "cloud", "hi": "पतंग उड़ी, बादल तक!", "en": "The kite flew up to the clouds!", "act": { "move": "fly-up", "sky": "sky", "with": "kite" } },
+        {
+          "word": "moon",
+          "hi": "पतंग उड़ी, चाँद तक!",
+          "en": "The kite flew up to the moon!",
+          "act": { "move": "fly-up", "sky": "night", "with": "kite", "fx": "stars" }
+        },
+        {
+          "word": "boy",
+          "hi": "मंगल हँसा, \"मेरी पतंग सबसे ऊँची!\"",
+          "en": "Mangal laughed. \"My kite is the highest!\"",
+          "act": { "move": "dance", "sky": "field", "fx": "confetti" }
+        }
+      ],
+      "questions": [
+        { "hi": "पतंग किस रंग की थी?", "en": "What colour was the kite?", "answer": "red", "options": ["red", "blue", "green"] },
+        { "hi": "आख़िर में पतंग कहाँ तक उड़ी?", "en": "How high did the kite fly at the end?", "answer": "moon", "options": ["moon", "tree", "house"] }
+      ],
+      "level": "grade1",
+      "decodable": 5,
+      "talk": [
+        {
+          "type": "complete",
+          "hi": "यह बोलिए, बच्चा ख़ाली जगह भरे: \"मंगल की लाल …\" (पतंग)",
+          "en": "Say this and let your child fill the gap: \"मंगल की लाल …\" (पतंग)"
+        },
+        {
+          "type": "recall",
+          "hi": "पूछिए: कहानी में सबसे पहले क्या हुआ था? (\"मंगल की लाल पतंग।\")",
+          "en": "Ask: what happened first in the story? (\"Mangal's red kite.\")"
+        },
+        {
+          "type": "open",
+          "hi": "जिस पन्ने पर बादल है, उसे खोलिए और पूछिए: यहाँ क्या हो रहा है?",
+          "en": "Go back to the page with the cloud and ask: what is happening here?"
+        },
+        { "type": "why", "hi": "पतंग ऊपर, और ऊपर कैसे गई?", "en": "How did the kite go up and up?" },
+        { "type": "you", "hi": "तुमने कभी पतंग उड़ाई है? किसके साथ?", "en": "Have you ever flown a kite? With whom?" }
+      ]
     }
   ],
   "levels": [
@@ -14074,7 +14806,9 @@
               "icon": "mango",
               "title": { "hi": "ख़ुद पढ़ो!", "en": "Read it yourself!" },
               "config": { "story": "dec-raja-aam" }
-            }
+            },
+            { "id": "g1-m1-dec0-bas", "game": "story", "icon": "bus", "title": { "hi": "ख़ुद पढ़ो!", "en": "Read it yourself!" }, "config": { "story": "dec0-bas" } },
+            { "id": "g1-m1-dec1-gaadi", "game": "story", "icon": "car", "title": { "hi": "ख़ुद पढ़ो!", "en": "Read it yourself!" }, "config": { "story": "dec1-gaadi" } }
           ]
         },
         {
@@ -14097,7 +14831,14 @@
               "title": { "hi": "शब्द पढ़ो", "en": "Read words" },
               "config": { "words": ["@grade1"], "focus": ["u", "uu"], "allow": ["aa", "i", "ii"], "modes": ["find", "match"] }
             },
-            { "id": "g1-m2-dec-chuha", "game": "story", "icon": "mouse", "title": { "hi": "ख़ुद पढ़ो!", "en": "Read it yourself!" }, "config": { "story": "dec-chuha" } }
+            { "id": "g1-m2-dec-chuha", "game": "story", "icon": "mouse", "title": { "hi": "ख़ुद पढ़ो!", "en": "Read it yourself!" }, "config": { "story": "dec-chuha" } },
+            {
+              "id": "g1-m2-dec2-bulbul",
+              "game": "story",
+              "icon": "bird",
+              "title": { "hi": "ख़ुद पढ़ो!", "en": "Read it yourself!" },
+              "config": { "story": "dec2-bulbul" }
+            }
           ]
         },
         {
@@ -14120,7 +14861,8 @@
               "title": { "hi": "शब्द पढ़ो", "en": "Read words" },
               "config": { "words": ["@grade1"], "focus": ["e", "ai"], "allow": ["aa", "i", "ii", "u", "uu"], "modes": ["find", "match"] }
             },
-            { "id": "g1-m3-dec-sher", "game": "story", "icon": "lion", "title": { "hi": "ख़ुद पढ़ो!", "en": "Read it yourself!" }, "config": { "story": "dec-sher" } }
+            { "id": "g1-m3-dec-sher", "game": "story", "icon": "lion", "title": { "hi": "ख़ुद पढ़ो!", "en": "Read it yourself!" }, "config": { "story": "dec-sher" } },
+            { "id": "g1-m3-dec3-rel", "game": "story", "icon": "train", "title": { "hi": "ख़ुद पढ़ो!", "en": "Read it yourself!" }, "config": { "story": "dec3-rel" } }
           ]
         },
         {
@@ -14143,7 +14885,14 @@
               "title": { "hi": "शब्द पढ़ो", "en": "Read words" },
               "config": { "words": ["@grade1"], "focus": ["o", "au"], "allow": ["aa", "i", "ii", "u", "uu", "e", "ai"], "modes": ["find", "match"] }
             },
-            { "id": "g1-m4-dec-mor", "game": "story", "icon": "peacock", "title": { "hi": "ख़ुद पढ़ो!", "en": "Read it yourself!" }, "config": { "story": "dec-mor" } }
+            { "id": "g1-m4-dec-mor", "game": "story", "icon": "peacock", "title": { "hi": "ख़ुद पढ़ो!", "en": "Read it yourself!" }, "config": { "story": "dec-mor" } },
+            {
+              "id": "g1-m4-dec4-bola",
+              "game": "story",
+              "icon": "peacock",
+              "title": { "hi": "ख़ुद पढ़ो!", "en": "Read it yourself!" },
+              "config": { "story": "dec4-bola" }
+            }
           ]
         },
         {
@@ -14165,6 +14914,13 @@
               "icon": "find:tiger",
               "title": { "hi": "पढ़ो और बचाओ", "en": "Read and rescue" },
               "config": { "words": ["@grade1"], "cards": "text", "vehicle": "firetruck", "letters": false }
+            },
+            {
+              "id": "g1-m5-dec5-chaand",
+              "game": "story",
+              "icon": "moon",
+              "title": { "hi": "ख़ुद पढ़ो!", "en": "Read it yourself!" },
+              "config": { "story": "dec5-chaand" }
             }
           ]
         },

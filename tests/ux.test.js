@@ -622,11 +622,14 @@ test('every story page in the voice pack has word timings that fit its words and
 });
 
 test('decodable stories: each uses only the matras taught by its stage, with no joined letters', () => {
-  const STAGES = [[], ['aa', 'i', 'ii'], ['u', 'uu'], ['e', 'ai'], ['o', 'au']];
+  // stage 5 (roadmap 9.5) adds ं and ँ, taught in unit g1-m5
+  const STAGES = [[], ['aa', 'i', 'ii'], ['u', 'uu'], ['e', 'ai'], ['o', 'au'], ['am', 'an']];
   const allowed = (stage) => new Set(STAGES.slice(0, stage + 1).flat());
   const dec = content.stories.filter((s) => s.decodable != null);
-  assert.equal(dec.length, 10);
-  for (let stage = 0; stage < 5; stage++) assert.equal(dec.filter((s) => s.decodable === stage).length, 2, `two stories at stage ${stage}`);
+  assert.equal(dec.length, 28);
+  // five books at each of the first five stages (two from round 22, three from 9.5), three at stage 5
+  for (let stage = 0; stage < 5; stage++) assert.equal(dec.filter((s) => s.decodable === stage).length, 5, `five stories at stage ${stage}`);
+  assert.equal(dec.filter((s) => s.decodable === 5).length, 3, 'three stories at stage 5');
   for (const s of dec) {
     const n = storyNeeds(s);
     assert.deepEqual(decodability(n, allowed(s.decodable)).missing, [], `${s.id} needs only stage ${s.decodable} matras`);
@@ -635,7 +638,7 @@ test('decodable stories: each uses only the matras taught by its stage, with no 
   }
   // one of each stage is a lesson at the end of its matra unit
   const jungle = content.worlds.find((w) => w.id === 'jungle');
-  for (const [unit, stage] of [['g1-m1', 0], ['g1-m1', 1], ['g1-m2', 2], ['g1-m3', 3], ['g1-m4', 4]]) {
+  for (const [unit, stage] of [['g1-m1', 0], ['g1-m1', 1], ['g1-m2', 2], ['g1-m3', 3], ['g1-m4', 4], ['g1-m5', 5]]) {
     const ids = jungle.units.find((u) => u.id === unit).lessons.map((l) => l.config?.story);
     assert.ok(dec.some((s) => s.decodable === stage && ids.includes(s.id)), `${unit} has a stage ${stage} story`);
   }
